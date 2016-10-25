@@ -11,7 +11,7 @@ namespace Seed.Extensions.Plugin.Builder
     /// <summary>
     /// 解析当前 plugin 是否被安装
     /// </summary>
-    public class InstalledBuilder : BaseDescriptorAssembleBuilder, IDescriptorBuilder
+    public class InstalledBuilder : BaseAssembleBuilder, IDescriptorBuilder
     {
         string[] _installedPlugins;
 

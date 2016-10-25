@@ -10,7 +10,7 @@ namespace Seed.Extensions.Plugin
     /// </summary>
     public interface IPluginFinder
     {
-        PluginDescriptor GetPluginDescriptorById(string pluginId);
+        //PluginDescriptor GetPluginDescriptorById(string pluginId);
 
         IEnumerable<PluginDescriptor> GetDescriptors();
     }

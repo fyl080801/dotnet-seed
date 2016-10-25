@@ -11,11 +11,11 @@ namespace Seed.Extensions.Plugin.Builder
     /// <remarks>
     /// 负责处理除了 plugin 定义文件中定义的以外的 plugin 属性定义初始化
     /// </remarks>
-    public abstract class BaseDescriptorAssembleBuilder : IDescriptorBuilder
+    public abstract class BaseAssembleBuilder : IDescriptorBuilder
     {
         IDescriptorBuilder _builder;
 
-        public BaseDescriptorAssembleBuilder(IDescriptorBuilder builder)
+        public BaseAssembleBuilder(IDescriptorBuilder builder)
         {
             _builder = builder;
         }

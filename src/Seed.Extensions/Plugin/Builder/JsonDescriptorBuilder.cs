@@ -9,7 +9,7 @@ namespace Seed.Extensions.Plugin.Builder
     /// <summary>
     /// 解析 json 风格的 plugin 定义
     /// </summary>
-    public class JsonDescriptorBuilder : BaseDescriptorContentBuilder, IDescriptorBuilder
+    public class JsonDescriptorBuilder : BaseDescriptorBuilder, IDescriptorBuilder
     {
         readonly JObject _pluginJson;
 

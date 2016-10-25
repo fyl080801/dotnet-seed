@@ -21,7 +21,7 @@ namespace Seed.Extensions.Plugin
     {
         readonly IPluginDescriptorStore _descriptorStore;
         readonly IHostingEnvironment _hostingEnvironment;
-        readonly IEnumerable<string> _installedIds;
+        readonly IEnumerable<string> _installed;
 
         public DefaultPluginFinder(
             IPluginDescriptorStore descriptorStore,
@@ -29,16 +29,16 @@ namespace Seed.Extensions.Plugin
         {
             _descriptorStore = descriptorStore;
             _hostingEnvironment = hostingEnvironment;
-            _installedIds = GetInstalled();
+            _installed = GetInstalled();
         }
 
         public IEnumerable<PluginDescriptor> GetDescriptors()
         {
             return _descriptorStore.LoadContexts()
-                .Select(context => new InstancesBuilder(            //获取实例
+                .Select(context => new PartsBuilder(            //获取实例
                     new InstalledBuilder(                           //判断是否已安装
                         new JsonDescriptorBuilder(context.Content),
-                        _installedIds.ToArray()),
+                        _installed.ToArray()),
                     context.Path).Build())                          //使用json格式解析
                 .ToList();
         }
@@ -59,9 +59,9 @@ namespace Seed.Extensions.Plugin
             return installed;
         }
 
-        public PluginDescriptor GetPluginDescriptorById(string pluginId)
-        {
-            return this.GetDescriptors().Single(e => e.Id == pluginId);
-        }
+        //public PluginDescriptor GetPluginDescriptorById(string pluginId)
+        //{
+        //    return this.GetDescriptors().Single(e => e.Id == pluginId);
+        //}
     }
 }

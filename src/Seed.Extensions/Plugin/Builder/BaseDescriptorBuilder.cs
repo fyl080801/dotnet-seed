@@ -9,7 +9,7 @@ namespace Seed.Extensions.Plugin.Builder
     /// <summary>
     /// 解析 plugin 定义的基类
     /// </summary>
-    public abstract class BaseDescriptorContentBuilder :
+    public abstract class BaseDescriptorBuilder :
         IDescriptorBuilder
     {
         public abstract PluginDescriptor Build();

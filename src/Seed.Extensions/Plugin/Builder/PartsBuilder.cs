@@ -14,11 +14,11 @@ namespace Seed.Extensions.Plugin.Builder
     /// <summary>
     /// 解析一个 plugin 中所有包含的 IPlugin 接口实例
     /// </summary>
-    public class InstancesBuilder : BaseDescriptorAssembleBuilder, IDescriptorBuilder
+    public class PartsBuilder : BaseAssembleBuilder, IDescriptorBuilder
     {
         string _pluginPath;
 
-        public InstancesBuilder(IDescriptorBuilder builder, string pluginPath) : base(builder)
+        public PartsBuilder(IDescriptorBuilder builder, string pluginPath) : base(builder)
         {
             _pluginPath = pluginPath.Replace("plugin.json", "");
         }
