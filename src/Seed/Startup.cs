@@ -31,8 +31,9 @@ namespace Seed
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOptions();
-            services.AddPlugins(Configuration);
+            services
+                .AddOptions()
+                .AddPlugins(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
