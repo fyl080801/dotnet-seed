@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 namespace Seed.Extensions.Plugin
 {
     /// <summary>
-    /// 查找 Plugin
+    /// 识别 plugin 的方法
     /// </summary>
-    public interface IPluginFinder
+    public interface IPluginDescriptorStore
     {
-        PluginDescriptor GetPluginDescriptorById(string pluginId);
-
-        IEnumerable<PluginDescriptor> GetDescriptors();
+        IEnumerable<PluginLoadContext> LoadContexts();
     }
 }

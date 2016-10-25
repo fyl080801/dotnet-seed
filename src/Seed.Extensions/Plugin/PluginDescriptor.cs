@@ -15,14 +15,16 @@ namespace Seed.Extensions.Plugin
 
         public string Description { get; set; }
 
-        public string[] Tags { get; set; } = new string[0];
-
         public Version Version { get; set; }
 
-        public string[] IncludePaths { get; set; } = new string[0];
+        public bool Installed { get; set; }
 
-        public IEnumerable<Dependency> Dependencies { get; set; } = Enumerable.Empty<Dependency>();
+        public ICollection<string> Tags { get; set; } = new HashSet<string>();
 
-        public IPlugin Instance { get; set; }
+        public ICollection<string> IncludePaths { get; set; } = new HashSet<string>();
+
+        public ICollection<Dependency> Dependencies { get; set; } = new HashSet<Dependency>();
+
+        public ICollection<IPlugin> Instances { get; set; } = new HashSet<IPlugin>();
     }
 }

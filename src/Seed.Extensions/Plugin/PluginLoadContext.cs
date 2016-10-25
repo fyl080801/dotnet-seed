@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Seed.Extensions.Plugin
 {
-    public class PluginSettings
+    public class PluginLoadContext
     {
         public string Path { get; set; }
 
-        //public string[] Installed { get; set; } = new string[0];
+        public string Content { get; set; }
     }
 }

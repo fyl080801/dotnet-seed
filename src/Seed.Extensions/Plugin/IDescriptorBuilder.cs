@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 
 namespace Seed.Extensions.Plugin
 {
-    public class PluginSettings
+    public interface IDescriptorBuilder
     {
-        public string Path { get; set; }
-
-        //public string[] Installed { get; set; } = new string[0];
+        PluginDescriptor Build();
     }
 }

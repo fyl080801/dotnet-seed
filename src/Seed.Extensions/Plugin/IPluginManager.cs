@@ -7,11 +7,11 @@ namespace Seed.Extensions.Plugin
 {
     public interface IPluginManager
     {
-        IEnumerable<PluginDescriptor> GetDescriptors();
+        IEnumerable<PluginDescriptor> GetPluginDescriptors();
 
-        void MakeInstall(string pluginId);
+        void Install(string pluginId);
 
-        void MakeUninstall(string pluginId);
+        void Uninstall(string pluginId);
 
         void UninstallAll();
     }
