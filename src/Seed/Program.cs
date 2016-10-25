@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Seed.Extensions.Plugin;
+using Seed.Hosting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 using System.Threading;
-using Seed.Extensions.Plugin;
-using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace Seed
 {
@@ -25,17 +26,31 @@ namespace Seed
             {
                 using (var cts = new CancellationTokenSource())
                 {
-                    try
-                    {
-                        var tf = host.Services.GetService<IPluginFinder>();
-                        var dess = tf.GetDescriptors().ToList();
+                    //try
+                    //{
+                    // 要放到host里
+                    //    var tf = host.Services.GetService<IPluginFinder>();
+                    //    var dess = tf.GetDescriptors().ToList();
 
-                        host.Run(cts.Token);
-                    }
-                    catch (Exception ex)
+                    //    host.Run(cts.Token);
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    throw ex;
+                    //}
+
+                    host.Run((services) =>
                     {
-                        throw ex;
-                    }
+                        var hostAgent = new HostAgent(
+                            services,
+                            Console.In,
+                            Console.Out);
+                        hostAgent
+                            .RunAsync()
+                            .Wait();
+
+                        cts.Cancel();
+                    }, cts.Token, "application started, press 'Ctrl + c' to exit.");
                 }
             }
         }
