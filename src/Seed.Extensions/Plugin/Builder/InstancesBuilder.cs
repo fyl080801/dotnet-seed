@@ -36,12 +36,10 @@ namespace Seed.Extensions.Plugin.Builder
                     .Shared();
                 var assemblies = Directory
                     .GetFiles(_pluginPath, "*.dll", SearchOption.AllDirectories)
-                    .Select(AssemblyLoadContext.GetAssemblyName)
-                    .Select(AssemblyLoadContext.Default.LoadFromAssemblyName)
+                    .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)
                     .ToList();
-                var containerConfig = new ContainerConfiguration();
-                containerConfig.WithAssemblies(assemblies, conventions);
-                using (var container = containerConfig.CreateContainer())
+
+                using (var container = new ContainerConfiguration().WithAssemblies(assemblies, conventions).CreateContainer())
                 {
                     descriptor.Instances = container.GetExports<IPlugin>().ToList();
                 }
