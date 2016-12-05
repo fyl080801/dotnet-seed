@@ -42,7 +42,7 @@ namespace Seed.Hosting
         }
 
         private async Task<CommandReturnCodes> InvokeRunAsync()
-        { 
+        {
             while (true)
             {
                 var commandText = await ReadCommandAsync();

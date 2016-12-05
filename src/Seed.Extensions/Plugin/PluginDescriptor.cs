@@ -25,6 +25,8 @@ namespace Seed.Extensions.Plugin
 
         public ICollection<Dependency> Dependencies { get; set; } = new HashSet<Dependency>();
 
-        public ICollection<IPlugin> Instances { get; set; } = new HashSet<IPlugin>();
+        public PluginRunningContext Context { get; internal set; }
+
+        //public ICollection<IPlugin> Instances { get; set; } = new HashSet<IPlugin>();
     }
 }

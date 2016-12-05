@@ -32,6 +32,7 @@ namespace Seed.Extensions.Plugin.Builder
             {
                 var conventions = new ConventionBuilder();
                 conventions.ForTypesDerivedFrom<IPlugin>()
+                    .Export<IStartup>()
                     .Export<IPlugin>()
                     .Shared();
                 var assemblies = Directory
@@ -41,7 +42,11 @@ namespace Seed.Extensions.Plugin.Builder
 
                 using (var container = new ContainerConfiguration().WithAssemblies(assemblies, conventions).CreateContainer())
                 {
-                    descriptor.Instances = container.GetExports<IPlugin>().ToList();
+                    var context = new PluginRunningContext(
+                        container.GetExports<IPlugin>().ToList(),
+                        container.GetExports<IStartup>().ToList());
+                    descriptor.Context = context;
+                    //descriptor.Instances = container.GetExports<IPlugin>().ToList();
                 }
             }
             return descriptor;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,5 +20,22 @@ namespace Seed.Extensions
             services.AddSingleton<IPluginManager, DefaultPluginManager>();
             services.Configure<PluginSettings>(config.GetSection("pluginSettings"));
         }
+
+        // 使用plugin中间件处理plugin中的中间件行为
+        //public static void UsePlugins(this IApplicationBuilder app)
+        //{
+        //    app.ApplicationServices
+        //        .GetService<IPluginManager>()
+        //        .GetPluginDescriptors()
+        //        .ToList()
+        //        .ForEach(plugin => plugin.Context
+        //            .GetStartups()
+        //            .ToList()
+        //            .ForEach(start =>
+        //            {
+
+        //            })
+        //        );
+        //}
     }
 }

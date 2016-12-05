@@ -26,30 +26,30 @@ namespace Seed
             {
                 using (var cts = new CancellationTokenSource())
                 {
-                    try
-                    {
-                        var tf = host.Services.GetService<IPluginFinder>();
-                        var dess = tf.GetDescriptors().ToList();
-
-                        host.Run(cts.Token);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-
-                    //host.Run((services) =>
+                    //try
                     //{
-                    //    var hostAgent = new HostAgent(
-                    //        services,
-                    //        Console.In,
-                    //        Console.Out);
-                    //    hostAgent
-                    //        .RunAsync()
-                    //        .Wait();
+                    //    var tf = host.Services.GetService<IPluginFinder>();
+                    //    var dess = tf.GetDescriptors().ToList();
 
-                    //    cts.Cancel();
-                    //}, cts.Token, "application started, press 'Ctrl + c' to exit.");
+                    //    host.Run(cts.Token);
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    throw ex;
+                    //}
+
+                    host.Run((services) =>
+                    {
+                        var hostAgent = new HostAgent(
+                            services,
+                            Console.In,
+                            Console.Out);
+                        hostAgent
+                            .RunAsync()
+                            .Wait();
+
+                        cts.Cancel();
+                    }, cts.Token, "application started, press 'Ctrl + c' to exit.");
                 }
             }
         }

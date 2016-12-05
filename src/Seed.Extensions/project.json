@@ -2,18 +2,18 @@
   "version": "1.0.0-*",
 
   "dependencies": {
-    "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
-    "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
-    "Microsoft.Composition": "1.0.27",
-    "Microsoft.Extensions.Configuration.Json": "1.0.0",
-    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
-    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0",
+    "Microsoft.AspNetCore.Http.Abstractions": "1.1.0",
+    "Microsoft.Composition": "1.0.30",
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
+    "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
     "Newtonsoft.Json": "9.0.1",
-    "System.Runtime.Loader": "4.0.0"
+    "System.Runtime.Loader": "4.3.0"
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
+    "netcoreapp1.1": {
       "imports": [
         "dotnet5.6",
         "portable-net45+win8"
