@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Builder.Extensions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Seed.Environment.Plugin;
-using Seed.Hosting;
+using Seed.Environment.Plugin.Extensions;
+using Seed.Hosting.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,13 +37,15 @@ namespace Seed.Mvc.Extensions
             });
             services.AddPluginLocation("\\Plugins");
 
-            services.AddMvcCore(options =>
-            {
-                //options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
-                //options.ModelBinderProviders.Insert(0, new CheckMarkModelBinderProvider());
+            services
+                .AddMvcCore(options =>
+                {
+                    //options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
+                    //options.ModelBinderProviders.Insert(0, new CheckMarkModelBinderProvider());
 
-                mvcSetupAction?.Invoke(options);
-            }).AddJsonFormatters();
+                    mvcSetupAction?.Invoke(options);
+                })
+                .AddJsonFormatters();
 
             if (configuration != null)
             {

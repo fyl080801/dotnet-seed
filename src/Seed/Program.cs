@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Seed.Hosting;
+using Seed.Hosting.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;

@@ -36,7 +36,8 @@ namespace Seed.Environment.Plugin
 
         private IEnumerable<PluginDescriptor> OrderPlugins(IEnumerable<PluginDescriptor> plugins)
         {
-            throw new NotImplementedException("根据依赖排序 plugin 方法暂未实现");
+            //throw new NotImplementedException("根据依赖排序 plugin 方法暂未实现");
+            return plugins;
         }
     }
 }

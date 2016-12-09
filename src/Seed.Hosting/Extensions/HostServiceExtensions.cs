@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Hosting
+namespace Seed.Hosting.Extensions
 {
     public static class HostServiceExtensions
     {

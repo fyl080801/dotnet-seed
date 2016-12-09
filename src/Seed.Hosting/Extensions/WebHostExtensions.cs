@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Seed.Hosting
+namespace Seed.Hosting.Extensions
 {
     public static class WebHostExtensions
     {

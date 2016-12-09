@@ -32,7 +32,7 @@ namespace Seed.Environment.Plugin
         public IEnumerable<PluginDescriptor> GetDescriptors()
         {
             IList<PluginDescriptor> descriptors = new List<PluginDescriptor>();
-            Parallel.ForEach(_descriptorStore.LoadContexts(), new ParallelOptions { MaxDegreeOfParallelism = 4 }, context =>
+            Parallel.ForEach(_descriptorStore.LoadContexts(), context =>
             {
                 descriptors.Add(new PartsBuilder(            //获取实例
                         new InstalledBuilder(                           //判断是否已安装
@@ -41,13 +41,6 @@ namespace Seed.Environment.Plugin
                         context.Path).Build());
             });
             return descriptors.AsEnumerable();
-            //return _descriptorStore.LoadContexts()
-            //    .Select(context => new PartsBuilder(            //获取实例
-            //        new InstalledBuilder(                           //判断是否已安装
-            //            new JsonDescriptorBuilder(context.Content),
-            //            _installed.ToArray()),
-            //        context.Path).Build())                          //使用json格式解析
-            //    .ToList();
         }
 
         public IEnumerable<string> GetInstalled()

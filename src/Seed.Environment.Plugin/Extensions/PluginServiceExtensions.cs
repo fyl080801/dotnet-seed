@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Environment.Plugin
+namespace Seed.Environment.Plugin.Extensions
 {
     public static class PluginServiceExtensions
     {
