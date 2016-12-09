@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions.Plugin.Builder
+namespace Seed.Environment.Plugin.Builder
 {
     /// <summary>
     /// 组装完整的 plugin 描述定义

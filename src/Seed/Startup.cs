@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Seed.Extensions;
 using Seed.Hosting;
+using Seed.Mvc.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,24 +32,14 @@ namespace Seed
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOptions();
-            services.AddHostServices(Configuration);
+            services.AddExtensionsServices(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Index");
-            });
-            //app.ApplicationServices.GetService<IPluginManager>
+            app.UseExtensions();
         }
     }
 }

@@ -1,24 +1,28 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using Microsoft.Extensions.DependencyInjection;
-using Seed.Extensions.Plugin;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Plugin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions
+namespace Seed.Environment.Plugin
 {
-    public static class PluginExtensions
+    public static class PluginServiceExtensions
     {
-        public static void AddPlugins(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddPlugins(this IServiceCollection services)
         {
             services.AddSingleton<IPluginDescriptorStore, FolderPluginDescriptorStore>();
             services.AddSingleton<IPluginFinder, DefaultPluginFinder>();
             services.AddSingleton<IPluginManager, DefaultPluginManager>();
-            services.Configure<PluginSettings>(config.GetSection("pluginSettings"));
+            return services;
+        }
+
+        public static IServiceCollection AddPluginLocation(this IServiceCollection services, string path)
+        {
+            return services.Configure<PluginSettings>(setting =>
+            {
+                setting.Path = path;
+            });
         }
 
         // 使用plugin中间件处理plugin中的中间件行为

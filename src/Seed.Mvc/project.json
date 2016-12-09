@@ -2,9 +2,19 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "Microsoft.AspNetCore.Diagnostics": "1.1.0",
+    "Microsoft.AspNetCore.Http": "1.1.0",
+    "Microsoft.AspNetCore.Mvc.Core": "1.1.0",
+    "Microsoft.AspNetCore.Mvc.Formatters.Json": "1.1.0",
     "Microsoft.AspNetCore.Routing": "1.1.0",
+    "Microsoft.AspNetCore.StaticFiles": "1.1.0",
+    "Microsoft.Extensions.Localization": "1.1.0",
+    "Microsoft.Extensions.Logging": "1.1.0",
     "NETStandard.Library": "1.6.1",
-    "Seed.Extensions": "1.0.0-*"
+    "Seed.Environment": "1.0.0-*",
+    "Seed.Environment.Plugin": "1.0.0-*",
+    "Seed.Hosting": "1.0.0-*",
+    "System.Threading.Tasks.Parallel": "4.3.0"
   },
 
   "frameworks": {

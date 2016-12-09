@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions.Plugin
+namespace Seed.Environment.Plugin
 {
     /// <summary>
     /// 处理 plugin 在部署时或移除时执行的逻辑

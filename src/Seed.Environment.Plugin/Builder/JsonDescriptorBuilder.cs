@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions.Plugin.Builder
+namespace Seed.Environment.Plugin.Builder
 {
     /// <summary>
     /// 解析 json 风格的 plugin 定义

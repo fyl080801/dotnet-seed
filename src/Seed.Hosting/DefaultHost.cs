@@ -1,5 +1,5 @@
 using Microsoft.Extensions.Logging;
-using Seed.Extensions.Plugin;
+using Seed.Environment.Plugin;
 using System;
 
 namespace Seed.Hosting

@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions.Plugin.Builder
+namespace Seed.Environment.Plugin.Builder
 {
     /// <summary>
     /// 解析当前 plugin 是否被安装

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions.Plugin
+namespace Seed.Environment.Plugin
 {
     public class PluginDescriptor
     {
@@ -22,6 +23,8 @@ namespace Seed.Extensions.Plugin
         public ICollection<string> Tags { get; set; } = new HashSet<string>();
 
         public ICollection<string> IncludePaths { get; set; } = new HashSet<string>();
+
+        public ICollection<Assembly> AvailableAssemblies { get; set; } = new HashSet<Assembly>();
 
         public ICollection<Dependency> Dependencies { get; set; } = new HashSet<Dependency>();
 

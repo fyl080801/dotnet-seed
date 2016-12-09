@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Composition.Convention;
 using System.Composition.Hosting;
@@ -9,7 +8,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Runtime.Loader;
 
-namespace Seed.Extensions.Plugin.Builder
+namespace Seed.Environment.Plugin.Builder
 {
     /// <summary>
     /// 解析一个 plugin 中所有包含的 IPlugin 接口实例
@@ -32,19 +31,20 @@ namespace Seed.Extensions.Plugin.Builder
             {
                 var conventions = new ConventionBuilder();
                 conventions.ForTypesDerivedFrom<IPlugin>()
-                    .Export<IStartup>()
+                    //.Export<IStartup>()
                     .Export<IPlugin>()
                     .Shared();
-                var assemblies = Directory
+                descriptor.AvailableAssemblies = Directory
                     .GetFiles(_pluginPath, "*.dll", SearchOption.AllDirectories)
                     .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)
                     .ToList();
 
-                using (var container = new ContainerConfiguration().WithAssemblies(assemblies, conventions).CreateContainer())
+                using (var container = new ContainerConfiguration().WithAssemblies(descriptor.AvailableAssemblies, conventions).CreateContainer())
                 {
                     var context = new PluginRunningContext(
-                        container.GetExports<IPlugin>().ToList(),
-                        container.GetExports<IStartup>().ToList());
+                        container.GetExports<IPlugin>().ToList()//,
+                        //container.GetExports<IStartup>().ToList()
+                        );
                     descriptor.Context = context;
                     //descriptor.Instances = container.GetExports<IPlugin>().ToList();
                 }

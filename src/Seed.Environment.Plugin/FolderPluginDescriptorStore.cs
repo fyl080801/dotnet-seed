@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions.Plugin
+namespace Seed.Environment.Plugin
 {
     /// <summary>
     /// 通过文件夹中定义的 plugin.json 文件识别 plugin

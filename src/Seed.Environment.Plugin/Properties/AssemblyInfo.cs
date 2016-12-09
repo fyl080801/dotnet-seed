@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Seed.Extensions")]
+[assembly: AssemblyProduct("Seed.Environment.Plugin")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1fccaf45-2ea1-4519-90af-4bb477146974")]
+[assembly: Guid("72a7d2bb-b2d2-4fc1-90a4-92a75e119d18")]

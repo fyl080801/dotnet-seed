@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
-using Seed.Extensions.Plugin.Builder;
+using Seed.Environment.Plugin.Builder;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Extensions.Plugin
+namespace Seed.Environment.Plugin
 {
     /// <summary>
     /// 
@@ -34,13 +31,23 @@ namespace Seed.Extensions.Plugin
 
         public IEnumerable<PluginDescriptor> GetDescriptors()
         {
-            return _descriptorStore.LoadContexts()
-                .Select(context => new PartsBuilder(            //获取实例
-                    new InstalledBuilder(                           //判断是否已安装
-                        new JsonDescriptorBuilder(context.Content),
-                        _installed.ToArray()),
-                    context.Path).Build())                          //使用json格式解析
-                .ToList();
+            IList<PluginDescriptor> descriptors = new List<PluginDescriptor>();
+            Parallel.ForEach(_descriptorStore.LoadContexts(), new ParallelOptions { MaxDegreeOfParallelism = 4 }, context =>
+            {
+                descriptors.Add(new PartsBuilder(            //获取实例
+                        new InstalledBuilder(                           //判断是否已安装
+                            new JsonDescriptorBuilder(context.Content),
+                            _installed.ToArray()),
+                        context.Path).Build());
+            });
+            return descriptors.AsEnumerable();
+            //return _descriptorStore.LoadContexts()
+            //    .Select(context => new PartsBuilder(            //获取实例
+            //        new InstalledBuilder(                           //判断是否已安装
+            //            new JsonDescriptorBuilder(context.Content),
+            //            _installed.ToArray()),
+            //        context.Path).Build())                          //使用json格式解析
+            //    .ToList();
         }
 
         public IEnumerable<string> GetInstalled()

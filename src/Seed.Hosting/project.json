@@ -4,7 +4,7 @@
   "dependencies": {
     "NETStandard.Library": "1.6.1",
     "Seed.Environment": "1.0.0-*",
-    "Seed.Extensions": "1.0.0-*"
+    "Seed.Environment.Plugin": "1.0.0-*"
   },
 
   "frameworks": {
