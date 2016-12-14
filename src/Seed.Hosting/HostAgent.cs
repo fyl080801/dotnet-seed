@@ -10,11 +10,8 @@ namespace Seed.Hosting
     public class HostAgent
     {
         IServiceProvider _serviceProvider;
-
         TextReader _input;
-
         TextWriter _output;
-
         ILogger<HostAgent> _logger;
 
         public HostAgent(

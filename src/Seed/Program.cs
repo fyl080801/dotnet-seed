@@ -21,36 +21,38 @@ namespace Seed
                 .UseStartup<Startup>()
                 .Build();
 
-            using (host)
-            {
-                using (var cts = new CancellationTokenSource())
-                {
-                    //try
-                    //{
-                    //    var tf = host.Services.GetService<IPluginFinder>();
-                    //    var dess = tf.GetDescriptors().ToList();
+            host.Run();
 
-                    //    host.Run(cts.Token);
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    throw ex;
-                    //}
+            //using (host)
+            //{
+            //    using (var cts = new CancellationTokenSource())
+            //    {
+            //        //try
+            //        //{
+            //        //    var tf = host.Services.GetService<IPluginFinder>();
+            //        //    var dess = tf.GetDescriptors().ToList();
 
-                    host.Run((services) =>
-                    {
-                        var hostAgent = new HostAgent(
-                            services,
-                            Console.In,
-                            Console.Out);
-                        hostAgent
-                            .RunAsync()
-                            .Wait();
+            //        //    host.Run(cts.Token);
+            //        //}
+            //        //catch (Exception ex)
+            //        //{
+            //        //    throw ex;
+            //        //}
 
-                        cts.Cancel();
-                    }, cts.Token, "application started, press 'Ctrl + c' to exit.");
-                }
-            }
+            //        host.Run((services) =>
+            //        {
+            //            var hostAgent = new HostAgent(
+            //                services,
+            //                Console.In,
+            //                Console.Out);
+            //            hostAgent
+            //                .RunAsync()
+            //                .Wait();
+
+            //            cts.Cancel();
+            //        }, cts.Token, "application started, press 'Ctrl + c' to exit.");
+            //    }
+            //}
         }
     }
 }

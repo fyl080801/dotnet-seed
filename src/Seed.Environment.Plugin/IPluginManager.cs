@@ -9,10 +9,10 @@ namespace Seed.Environment.Plugin
     {
         IEnumerable<PluginDescriptor> GetPluginDescriptors();
 
-        void Install(string pluginId);
+        //void Install(string pluginId);
 
-        void Uninstall(string pluginId);
+        //void Uninstall(string pluginId);
 
-        void UninstallAll();
+        //void UninstallAll();
     }
 }

@@ -32,7 +32,8 @@ namespace Seed
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddExtensionsServices(Configuration);
+            services.AddExtensionsServices(Configuration)
+                .WithAllPlugins();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -40,6 +41,11 @@ namespace Seed
             loggerFactory.AddConsole();
 
             app.UseExtensions();
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }

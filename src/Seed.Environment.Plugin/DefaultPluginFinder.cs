@@ -18,7 +18,7 @@ namespace Seed.Environment.Plugin
     {
         readonly IPluginDescriptorStore _descriptorStore;
         readonly IHostingEnvironment _hostingEnvironment;
-        readonly IEnumerable<string> _installed;
+        //readonly IEnumerable<string> _installed;
 
         public DefaultPluginFinder(
             IPluginDescriptorStore descriptorStore,
@@ -26,7 +26,7 @@ namespace Seed.Environment.Plugin
         {
             _descriptorStore = descriptorStore;
             _hostingEnvironment = hostingEnvironment;
-            _installed = GetInstalled();
+            //_installed = GetInstalled();
         }
 
         public IEnumerable<PluginDescriptor> GetDescriptors()
@@ -34,30 +34,31 @@ namespace Seed.Environment.Plugin
             IList<PluginDescriptor> descriptors = new List<PluginDescriptor>();
             Parallel.ForEach(_descriptorStore.LoadContexts(), context =>
             {
-                descriptors.Add(new PartsBuilder(            //获取实例
-                        new InstalledBuilder(                           //判断是否已安装
-                            new JsonDescriptorBuilder(context.Content),
-                            _installed.ToArray()),
-                        context.Path).Build());
+                //descriptors.Add(new PartsBuilder(            //获取实例
+                //        new InstalledBuilder(                           //判断是否已安装
+                //            new JsonDescriptorBuilder(context.Content),
+                //            _installed.ToArray()),
+                //        context.Path).Build());
+                descriptors.Add(new PartsBuilder(new JsonDescriptorBuilder(context.Content), context.Path).Build());
             });
             return descriptors.AsEnumerable();
         }
 
-        public IEnumerable<string> GetInstalled()
-        {
-            var path = _hostingEnvironment.ContentRootPath + "/plugins.txt";
-            if (!File.Exists(path))
-                File.Create(path);
-            var installed = new List<string>();
-            using (var reader = File.OpenText(path))
-            {
-                while (!reader.EndOfStream)
-                {
-                    installed.Add(reader.ReadLine());
-                }
-            }
-            return installed;
-        }
+        //public IEnumerable<string> GetInstalled()
+        //{
+        //    var path = _hostingEnvironment.ContentRootPath + "/plugins.txt";
+        //    if (!File.Exists(path))
+        //        File.Create(path);
+        //    var installed = new List<string>();
+        //    using (var reader = File.OpenText(path))
+        //    {
+        //        while (!reader.EndOfStream)
+        //        {
+        //            installed.Add(reader.ReadLine());
+        //        }
+        //    }
+        //    return installed;
+        //}
 
         //public PluginDescriptor GetPluginDescriptorById(string pluginId)
         //{

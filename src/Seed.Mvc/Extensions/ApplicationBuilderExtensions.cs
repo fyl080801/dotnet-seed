@@ -28,32 +28,40 @@ namespace Seed.Mvc.Extensions
             builder.UseStaticFiles();
 
             var availablePlugins = pluginManager.GetPluginDescriptors();
-            foreach (var plugin in availablePlugins)
-            {
+            //foreach (var plugin in availablePlugins)
+            //{
+            //    //var contentPath = Path.Combine(extension.ExtensionFileInfo.PhysicalPath, "Content");
+            //    //if (Directory.Exists(contentPath))
+            //    //{
+            //    //    builder.UseStaticFiles(new StaticFileOptions
+            //    //    {
+            //    //        RequestPath = "/" + extension.Id,
+            //    //        FileProvider = new PhysicalFileProvider(contentPath)
+            //    //    });
+            //    //}
+            //}
 
-                //var contentPath = Path.Combine(extension.ExtensionFileInfo.PhysicalPath, "Content");
-                //if (Directory.Exists(contentPath))
-                //{
-                //    builder.UseStaticFiles(new StaticFileOptions
-                //    {
-                //        RequestPath = "/" + extension.Id,
-                //        FileProvider = new PhysicalFileProvider(contentPath)
-                //    });
-                //}
-            }
-            ///////////////////
+            builder.UseMiddleware<SeedContainerMiddleware>();
+
+            builder.UseMiddleware<SeedRouterMiddleware>();
 
             var applicationPartManager = builder.ApplicationServices.GetRequiredService<ApplicationPartManager>();
             using (logger.BeginScope("Loading plugins"))
             {
-                Parallel.ForEach(availablePlugins, new ParallelOptions { MaxDegreeOfParallelism = 4 }, descriptor =>
+                Parallel.ForEach(availablePlugins, descriptor =>
                 {
                     try
                     {
                         descriptor.AvailableAssemblies
                             .Select(e => new AssemblyPart(e))
                             .ToList()
-                            .ForEach(part => applicationPartManager.ApplicationParts.Add(part));
+                            .ForEach(part =>
+                            {
+                                if (!applicationPartManager.ApplicationParts.Contains(part))
+                                {
+                                    applicationPartManager.ApplicationParts.Add(part);
+                                }
+                            });
                     }
                     catch (Exception ex)
                     {

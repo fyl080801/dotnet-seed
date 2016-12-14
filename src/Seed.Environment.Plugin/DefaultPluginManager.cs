@@ -19,20 +19,20 @@ namespace Seed.Environment.Plugin
             return OrderPlugins(Plugins);
         }
 
-        public void Install(string pluginId)
-        {
-            Plugins.FirstOrDefault(e => e.Id == pluginId)?.Context.GetPlugins().ToList().ForEach(part => part.Install());
-        }
+        //public void Install(string pluginId)
+        //{
+        //    Plugins.FirstOrDefault(e => e.Id == pluginId)?.Context.GetPlugins().ToList().ForEach(part => part.Install());
+        //}
 
-        public void Uninstall(string pluginId)
-        {
-            Plugins.FirstOrDefault(e => e.Id == pluginId)?.Context.GetPlugins().ToList().ForEach(part => part.Uninstall());
-        }
+        //public void Uninstall(string pluginId)
+        //{
+        //    Plugins.FirstOrDefault(e => e.Id == pluginId)?.Context.GetPlugins().ToList().ForEach(part => part.Uninstall());
+        //}
 
-        public void UninstallAll()
-        {
-            Plugins.ToList().ForEach(plugin => plugin.Context.GetPlugins().ToList().ForEach(part => part.Uninstall()));
-        }
+        //public void UninstallAll()
+        //{
+        //    Plugins.ToList().ForEach(plugin => plugin.Context.GetPlugins().ToList().ForEach(part => part.Uninstall()));
+        //}
 
         private IEnumerable<PluginDescriptor> OrderPlugins(IEnumerable<PluginDescriptor> plugins)
         {

@@ -26,7 +26,7 @@ namespace Seed.Environment.Plugin.Builder
         {
             var descriptor = base.Build();
 
-            descriptor.Installed = _installedPlugins.Count(e => e == descriptor.Id) > 0;
+            //descriptor.Installed = _installedPlugins.Count(e => e == descriptor.Id) > 0;
 
             return descriptor;
         }

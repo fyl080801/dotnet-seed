@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Engine.Extensions;
 using Seed.Environment.Plugin.Extensions;
 using Seed.Hosting.Extensions;
 using System;
@@ -25,16 +26,7 @@ namespace Seed.Mvc.Extensions
 
         public static IServiceCollection AddExtensionsServices(this IServiceCollection services, IConfiguration configuration, Action<MvcOptions> mvcSetupAction)
         {
-            services.AddHost(internalServices =>
-            {
-                internalServices.AddLogging();
-                internalServices.AddOptions();
-                internalServices.AddLocalization();
-                internalServices.AddHostCore();
-                internalServices.AddPlugins();
-                //internalServices.AddCommands();
-                internalServices.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            });
+            services.AddWebHost();
             services.AddPluginLocation("\\Plugins");
 
             services
@@ -45,6 +37,9 @@ namespace Seed.Mvc.Extensions
 
                     mvcSetupAction?.Invoke(options);
                 })
+                .AddViews()
+                .AddViewLocalization()
+                .AddRazorViewEngine()
                 .AddJsonFormatters();
 
             if (configuration != null)
@@ -55,6 +50,25 @@ namespace Seed.Mvc.Extensions
             services.AddSingleton(_ => services);
 
             return services;
+        }
+
+        public static IServiceCollection WithAllPlugins(this IServiceCollection services)
+        {
+            return services.AddAllPluginDescriptor();
+        }
+
+        public static IServiceCollection AddWebHost(this IServiceCollection services)
+        {
+            return services.AddHost(internalServices =>
+            {
+                internalServices.AddLogging();
+                internalServices.AddOptions();
+                internalServices.AddLocalization();
+                internalServices.AddHostCore();
+                internalServices.AddPlugins();
+                //internalServices.AddCommands();
+                internalServices.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            });
         }
     }
 }

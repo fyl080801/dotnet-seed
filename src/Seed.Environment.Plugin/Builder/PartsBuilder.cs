@@ -27,24 +27,31 @@ namespace Seed.Environment.Plugin.Builder
             var descriptor = base.Build();
             if (!descriptor.IncludePaths.Contains(_pluginPath))
                 descriptor.IncludePaths.Add(_pluginPath);
-            if (descriptor.Installed)
-            {
-                var conventions = new ConventionBuilder();
-                conventions.ForTypesDerivedFrom<IPlugin>()
-                    .Export<IPlugin>()
-                    .Shared();
-                descriptor.AvailableAssemblies = Directory
-                    .GetFiles(_pluginPath, "*.dll", SearchOption.AllDirectories)
-                    .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)
-                    .ToList();
+            //if (descriptor.Installed)
+            //{
+            //var conventions = new ConventionBuilder();
+            //conventions.ForTypesDerivedFrom<IPlugin>()
+            //    .Export<IPlugin>()
+            //    .Shared();
+            descriptor.AvailableAssemblies = Directory
+                .GetFiles(_pluginPath, "*.dll", SearchOption.AllDirectories)
+                .Select(AssemblyLoadContext.Default.LoadFromAssemblyPath)
+                .ToList();
 
-                using (var container = new ContainerConfiguration().WithAssemblies(descriptor.AvailableAssemblies, conventions).CreateContainer())
-                {
-                    var context = new PluginRunningContext(
-                        container.GetExports<IPlugin>().ToList());
-                    descriptor.Context = context;
-                }
-            }
+            var context = new PluginRunningContext();
+            Parallel.ForEach(descriptor.AvailableAssemblies.ToList(), assembly =>
+            {
+                context.Types = context.Types.Concat(assembly.DefinedTypes.Select(e => e.AsType()).ToList());
+            });
+            context.Types.Distinct();
+            descriptor.Context = context;
+            //using (var container = new ContainerConfiguration().WithAssemblies(descriptor.AvailableAssemblies, conventions).CreateContainer())
+            //{
+            //    var context = new PluginRunningContext(
+            //        container.GetExports<IPlugin>().ToList());
+            //    descriptor.Context = context;
+            //}
+            //}
             return descriptor;
         }
     }

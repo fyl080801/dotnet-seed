@@ -18,7 +18,7 @@ namespace Seed.Environment.Plugin
 
         public Version Version { get; set; }
 
-        public bool Installed { get; set; }
+        //public bool Installed { get; set; }
 
         public ICollection<string> Tags { get; set; } = new HashSet<string>();
 
@@ -29,7 +29,5 @@ namespace Seed.Environment.Plugin
         public ICollection<Dependency> Dependencies { get; set; } = new HashSet<Dependency>();
 
         public PluginRunningContext Context { get; internal set; }
-
-        //public ICollection<IPlugin> Instances { get; set; } = new HashSet<IPlugin>();
     }
 }

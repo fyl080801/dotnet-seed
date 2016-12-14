@@ -3,6 +3,7 @@
 
   "dependencies": {
     "Microsoft.AspNetCore.Hosting.Abstractions": "1.1.0",
+    "Microsoft.AspNetCore.Routing": "1.1.0",
     "Microsoft.Composition": "1.0.30",
     "Microsoft.Extensions.Options": "1.1.0",
     "NETStandard.Library": "1.6.1",

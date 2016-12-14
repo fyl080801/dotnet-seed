@@ -7,26 +7,19 @@ namespace Seed.Environment.Plugin
 {
     public class PluginRunningContext
     {
-        IEnumerable<IPlugin> _plugins;
-        //IEnumerable<IStartup> _startups;
+        public IEnumerable<Type> Types { get; set; } = new HashSet<Type>();
 
-        public PluginRunningContext(
-            IEnumerable<IPlugin> plugins//,
-            //IEnumerable<IStartup> startups
-            )
-        {
-            _plugins = plugins;
-            //_startups = startups;
-        }
+        //IEnumerable<IPlugin> _plugins;
 
-        public IEnumerable<IPlugin> GetPlugins()
-        {
-            return _plugins;
-        }
-
-        //public IEnumerable<IStartup> GetStartups()
+        //public PluginRunningContext(
+        //    IEnumerable<IPlugin> plugins)
         //{
-        //    return _startups;
+        //    _plugins = plugins;
+        //}
+
+        //public IEnumerable<IPlugin> GetPlugins()
+        //{
+        //    return _plugins;
         //}
     }
 }
