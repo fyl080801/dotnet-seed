@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace Seed.Plugin.Demo.Controllers
 {
@@ -10,7 +11,7 @@ namespace Seed.Plugin.Demo.Controllers
     {
         public IActionResult Index()
         {
-            return Content("Hello");
+            return View((object)"ssssss");
         }
     }
 }

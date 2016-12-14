@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine.Extensions;
 using Seed.Environment.Plugin.Extensions;
 using Seed.Hosting.Extensions;
+using Seed.Mvc.Razor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +29,7 @@ namespace Seed.Mvc.Extensions
         public static IServiceCollection AddExtensionsServices(this IServiceCollection services, IConfiguration configuration, Action<MvcOptions> mvcSetupAction)
         {
             services.AddWebHost();
-            services.AddPluginLocation("\\Plugins");
+            services.AddPluginLocation("/Plugins");
 
             services
                 .AddMvcCore(options =>
@@ -41,6 +43,15 @@ namespace Seed.Mvc.Extensions
                 .AddViewLocalization()
                 .AddRazorViewEngine()
                 .AddJsonFormatters();
+
+            services.Configure<RazorViewEngineOptions>(configureOptions: options =>
+            {
+                var expander = new PluginViewLocationExpander("/Plugins");
+                options.ViewLocationExpanders.Add(expander);
+
+                //var extensionLibraryService = services.BuildServiceProvider().GetService<IExtensionLibraryService>();
+                //((List<MetadataReference>)options.AdditionalCompilationReferences).AddRange(extensionLibraryService.MetadataReferences());
+            });
 
             if (configuration != null)
             {
