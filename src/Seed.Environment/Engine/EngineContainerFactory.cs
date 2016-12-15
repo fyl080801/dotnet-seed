@@ -23,11 +23,11 @@ namespace Seed.Environment.Engine
             _applicationServices = applicationServices;
         }
 
-        public IServiceProvider CreateContainer(EngineVariables variables, EngineDescriptor descriptor)
+        public IServiceProvider CreateContainer(EngineEnvironment environment, EngineDescriptor descriptor)
         {
             IServiceCollection childServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
 
-            childServiceCollection.AddSingleton(variables);
+            childServiceCollection.AddSingleton(environment);
             childServiceCollection.AddSingleton(descriptor);
 
             //AddCoreServices(tenantServiceCollection);
@@ -52,7 +52,7 @@ namespace Seed.Environment.Engine
             moduleServiceCollection.TryAddSingleton(configuration);
             childServiceCollection.TryAddSingleton(configuration);
 
-            moduleServiceCollection.AddSingleton(variables);
+            moduleServiceCollection.AddSingleton(environment);
 
             var moduleServiceProvider = moduleServiceCollection.BuildServiceProvider();
 

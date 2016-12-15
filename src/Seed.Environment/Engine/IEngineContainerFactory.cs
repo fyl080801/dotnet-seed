@@ -7,6 +7,6 @@ namespace Seed.Environment.Engine
 {
     public interface IEngineContainerFactory
     {
-        IServiceProvider CreateContainer(EngineVariables variables, EngineDescriptor descriptor);
+        IServiceProvider CreateContainer(EngineEnvironment environment, EngineDescriptor descriptor);
     }
 }

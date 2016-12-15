@@ -7,17 +7,18 @@ namespace Seed.Environment.Engine
 {
     public class SingleEngineManager : IEngineManager
     {
-        public IEnumerable<EngineVariables> LoadVariables()
+        public IEnumerable<EngineEnvironment> LoadEnvironment()
         {
-            yield return new EngineVariables
+            yield return new EngineEnvironment
             {
                 Name = "Default",
                 State = EngineStates.Running
             };
         }
 
-        public void SaveVariables(EngineVariables variables)
+        public void SaveEnvironment(EngineEnvironment environment)
         {
+
         }
     }
 }

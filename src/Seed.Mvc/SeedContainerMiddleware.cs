@@ -31,7 +31,7 @@ namespace Seed.Mvc
 
             var settings = _engineRunningTable.Match(httpContext);
 
-            httpContext.Features[typeof(EngineVariables)] = settings;
+            httpContext.Features[typeof(EngineEnvironment)] = settings;
 
             if (settings != null)
             {

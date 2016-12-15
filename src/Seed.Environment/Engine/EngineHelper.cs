@@ -9,7 +9,7 @@ namespace Seed.Environment.Engine
     {
         public const string DefaultShellName = "Default";
 
-        public static EngineVariables BuildDefaultUninitializedShell = new EngineVariables
+        public static EngineEnvironment BuildDefaultUninitializedShell = new EngineEnvironment
         {
             Name = DefaultShellName,
             State = EngineStates.Uninitialized

@@ -7,8 +7,8 @@ namespace Seed.Environment.Engine
 {
     public interface IEngineContextFactory
     {
-        EngineContext CreateEngineContext(EngineVariables variables);
+        EngineContext CreateEngineContext(EngineEnvironment environment);
         
-        EngineContext CreateSetupContext(EngineVariables variables);
+        EngineContext CreateSetupContext(EngineEnvironment environment);
     }
 }

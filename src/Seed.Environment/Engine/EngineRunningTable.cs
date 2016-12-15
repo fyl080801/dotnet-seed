@@ -8,13 +8,13 @@ namespace Seed.Environment.Engine
 {
     public class EngineRunningTable : IEngineRunningTable
     {
-        private readonly Dictionary<string, EngineVariables> _enginesByHostAndPrefix = new Dictionary<string, EngineVariables>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, EngineEnvironment> _enginesByHostAndPrefix = new Dictionary<string, EngineEnvironment>(StringComparer.OrdinalIgnoreCase);
         private readonly ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
 
-        private EngineVariables _single;
-        private EngineVariables _default;
+        private EngineEnvironment _single;
+        private EngineEnvironment _default;
 
-        public void Add(EngineVariables variables)
+        public void Add(EngineEnvironment environment)
         {
             _lock.EnterWriteLock();
             try
@@ -27,17 +27,17 @@ namespace Seed.Environment.Engine
                 {
                     if (_enginesByHostAndPrefix.Count == 0)
                     {
-                        _single = variables;
+                        _single = environment;
                     }
                 }
 
-                if (EngineHelper.DefaultShellName == variables.Name)
+                if (EngineHelper.DefaultShellName == environment.Name)
                 {
-                    _default = variables;
+                    _default = environment;
                 }
 
-                var hostAndPrefix = GetHostAndPrefix(variables);
-                _enginesByHostAndPrefix[hostAndPrefix] = variables;
+                var hostAndPrefix = GetHostAndPrefix(environment);
+                _enginesByHostAndPrefix[hostAndPrefix] = environment;
             }
             finally
             {
@@ -45,20 +45,20 @@ namespace Seed.Environment.Engine
             }
         }
 
-        public void Remove(EngineVariables variables)
+        public void Remove(EngineEnvironment environment)
         {
             _lock.EnterWriteLock();
             try
             {
-                var hostAndPrefix = GetHostAndPrefix(variables);
+                var hostAndPrefix = GetHostAndPrefix(environment);
                 _enginesByHostAndPrefix.Remove(hostAndPrefix);
 
-                if (_default == variables)
+                if (_default == environment)
                 {
                     _default = null;
                 }
 
-                if (_single == variables)
+                if (_single == environment)
                 {
                     _single = null;
                 }
@@ -69,7 +69,7 @@ namespace Seed.Environment.Engine
             }
         }
 
-        public EngineVariables Match(string host, string appRelativePath)
+        public EngineEnvironment Match(string host, string appRelativePath)
         {
             if (_single != null)
             {
@@ -81,7 +81,7 @@ namespace Seed.Environment.Engine
             {
                 string hostAndPrefix = GetHostAndPrefix(host, appRelativePath);
 
-                EngineVariables result;
+                EngineEnvironment result;
                 if (!_enginesByHostAndPrefix.TryGetValue(hostAndPrefix, out result))
                 {
                     var noHostAndPrefix = GetHostAndPrefix("", appRelativePath);
@@ -120,9 +120,9 @@ namespace Seed.Environment.Engine
 
         }
 
-        private string GetHostAndPrefix(EngineVariables variables)
+        private string GetHostAndPrefix(EngineEnvironment environment)
         {
-            return variables.RequestUrlHost + "/" + variables.RequestUrlPrefix;
+            return environment.RequestUrlHost + "/" + environment.RequestUrlPrefix;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Seed.Environment.Engine
     {
         private bool _disposed = false;
 
-        public EngineVariables Variables { get; set; }
+        public EngineEnvironment Environment { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
         public bool Activated { get; set; }
 
@@ -32,7 +32,7 @@ namespace Seed.Environment.Engine
                     (ServiceProvider as IDisposable)?.Dispose();
                     ServiceProvider = null;
                 }
-                Variables = null;
+                Environment = null;
                 Activated = false;
                 _disposed = true;
             }

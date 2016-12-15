@@ -45,50 +45,50 @@ namespace Seed.Hosting
             }
         }
 
-        public EngineContext GetOrCreateEngineContext(EngineVariables variables)
+        public EngineContext GetOrCreateEngineContext(EngineEnvironment environment)
         {
-            return _engineContexts.GetOrAdd(variables.Name, consumerEngine =>
+            return _engineContexts.GetOrAdd(environment.Name, consumerEngine =>
             {
-                var context = CreateEngineContext(variables);
+                var context = CreateEngineContext(environment);
                 RegisterEngine(context);
                 return context;
             });
         }
 
-        public void UpdateEngineSettings(EngineVariables variables)
+        public void UpdateEngineSettings(EngineEnvironment environment)
         {
-            _engineManager.SaveVariables(variables);
-            ReloadEngineContext(variables);
+            _engineManager.SaveEnvironment(environment);
+            ReloadEngineContext(environment);
         }
 
-        public void ReloadEngineContext(EngineVariables variables)
+        public void ReloadEngineContext(EngineEnvironment environment)
         {
             EngineContext context;
-            if (_engineContexts.TryRemove(variables.Name, out context))
+            if (_engineContexts.TryRemove(environment.Name, out context))
             {
-                _engineRunningTable.Remove(variables);
+                _engineRunningTable.Remove(environment);
                 context.Dispose();
             }
-            GetOrCreateEngineContext(variables);
+            GetOrCreateEngineContext(environment);
         }
 
-        public EngineContext CreateEngineContext(EngineVariables variables)
+        public EngineContext CreateEngineContext(EngineEnvironment environment)
         {
-            if (variables.State == EngineStates.Uninitialized)
+            if (environment.State == EngineStates.Uninitialized)
             {
-                return _engineContextFactory.CreateSetupContext(variables);
+                return _engineContextFactory.CreateSetupContext(environment);
             }
-            else if (variables.State == EngineStates.Disabled)
+            else if (environment.State == EngineStates.Disabled)
             {
-                return new EngineContext { Variables = variables };
+                return new EngineContext { Environment = environment };
             }
-            else if (variables.State == EngineStates.Running || variables.State == EngineStates.Initializing)
+            else if (environment.State == EngineStates.Running || environment.State == EngineStates.Initializing)
             {
-                return _engineContextFactory.CreateEngineContext(variables);
+                return _engineContextFactory.CreateEngineContext(environment);
             }
             else
             {
-                throw new InvalidOperationException("" + variables.Name);
+                throw new InvalidOperationException("" + environment.Name);
             }
         }
 
@@ -99,19 +99,19 @@ namespace Seed.Hosting
 
         private void CreateAndRegisterEngines()
         {
-            var allvariables = _engineManager.LoadVariables().Where(CanCreateEngine).ToArray();
+            var allenvironment = _engineManager.LoadEnvironment().Where(CanCreateEngine).ToArray();
 
-            if (allvariables.Any())
+            if (allenvironment.Any())
             {
-                Parallel.ForEach(allvariables, variables =>
+                Parallel.ForEach(allenvironment, environment =>
                 {
                     try
                     {
-                        GetOrCreateEngineContext(variables);
+                        GetOrCreateEngineContext(environment);
                     }
                     catch (Exception ex)
                     {
-                        _logger.LogError(string.Format("{0}", variables.Name), ex);
+                        _logger.LogError(string.Format("{0}", environment.Name), ex);
                     }
                 });
             }
@@ -131,30 +131,30 @@ namespace Seed.Hosting
 
         private void RegisterEngine(EngineContext context)
         {
-            if (!CanRegisterEngine(context.Variables))
+            if (!CanRegisterEngine(context.Environment))
             {
                 return;
             }
 
-            if (_engineContexts.TryAdd(context.Variables.Name, context))
+            if (_engineContexts.TryAdd(context.Environment.Name, context))
             {
-                _engineRunningTable.Add(context.Variables);
+                _engineRunningTable.Add(context.Environment);
             }
         }
 
-        private bool CanCreateEngine(EngineVariables variables)
+        private bool CanCreateEngine(EngineEnvironment environment)
         {
-            return variables.State == EngineStates.Running ||
-                variables.State == EngineStates.Uninitialized ||
-                variables.State == EngineStates.Initializing ||
-                variables.State == EngineStates.Disabled;
+            return environment.State == EngineStates.Running ||
+                environment.State == EngineStates.Uninitialized ||
+                environment.State == EngineStates.Initializing ||
+                environment.State == EngineStates.Disabled;
         }
 
-        private bool CanRegisterEngine(EngineVariables variables)
+        private bool CanRegisterEngine(EngineEnvironment environment)
         {
-            return variables.State == EngineStates.Running ||
-                variables.State == EngineStates.Uninitialized ||
-                variables.State == EngineStates.Initializing;
+            return environment.State == EngineStates.Running ||
+                environment.State == EngineStates.Uninitialized ||
+                environment.State == EngineStates.Initializing;
         }
     }
 }

@@ -8,7 +8,6 @@ using Seed.Environment.Engine;
 using Seed.Mvc.Routes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Seed.Mvc
@@ -26,7 +25,7 @@ namespace Seed.Mvc
 
         public async Task Invoke(HttpContext httpContext)
         {
-            var variables = (EngineVariables)httpContext.Features[typeof(EngineVariables)];
+            var variables = (EngineEnvironment)httpContext.Features[typeof(EngineEnvironment)];
 
             var rebuildPipeline = httpContext.Items["BuildPipeline"] != null;
             if (rebuildPipeline && _pipelines.ContainsKey(variables.Name))
@@ -54,8 +53,8 @@ namespace Seed.Mvc
 
             await pipeline.Invoke(httpContext);
         }
-        
-        public RequestDelegate BuildPipeline(EngineVariables variables, IServiceProvider serviceProvider)
+
+        public RequestDelegate BuildPipeline(EngineEnvironment variables, IServiceProvider serviceProvider)
         {
             var startups = serviceProvider.GetServices<Environment.Plugin.Modules.IStartup>();
             var inlineConstraintResolver = serviceProvider.GetService<IInlineConstraintResolver>();
@@ -74,12 +73,12 @@ namespace Seed.Mvc
             };
 
             var prefixedRouteBuilder = new PrefixedRouteBuilder(routePrefix, routeBuilder, inlineConstraintResolver);
-            
+
             foreach (var startup in startups)
             {
                 startup.Configure(appBuilder, prefixedRouteBuilder, serviceProvider);
             }
-            
+
             prefixedRouteBuilder.Routes.Add(new Route(
                 prefixedRouteBuilder.DefaultHandler,
                 "Default",
@@ -99,13 +98,9 @@ namespace Seed.Mvc
             //    routeBuilder.Routes.Add(new HomePageRoute(shellSettings.RequestUrlPrefix, siteService, routeBuilder, inlineConstraintResolver));
             //}
 
-            var router = prefixedRouteBuilder.Build();
-
-            appBuilder.UseRouter(router);
-
-            var pipeline = appBuilder.Build();
-
-            return pipeline;
+            return appBuilder
+                .UseRouter(prefixedRouteBuilder.Build())
+                .Build();
         }
     }
 }

@@ -9,14 +9,14 @@ namespace Seed.Hosting
     {
         void Initialize();
 
-        EngineContext GetOrCreateEngineContext(EngineVariables variables);
+        EngineContext GetOrCreateEngineContext(EngineEnvironment environment);
         
-        EngineContext CreateEngineContext(EngineVariables variables);
+        EngineContext CreateEngineContext(EngineEnvironment environment);
 
         IEnumerable<EngineContext> GetEngineContexts();
 
-        void UpdateEngineSettings(EngineVariables variables);
+        void UpdateEngineSettings(EngineEnvironment environment);
 
-        void ReloadEngineContext(EngineVariables variables);
+        void ReloadEngineContext(EngineEnvironment environment);
     }
 }

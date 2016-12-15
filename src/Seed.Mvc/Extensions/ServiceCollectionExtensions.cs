@@ -21,33 +21,27 @@ namespace Seed.Mvc.Extensions
             return AddExtensionsServices(services, null);
         }
 
-        public static IServiceCollection AddExtensionsServices(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddExtensionsServices(this IServiceCollection services,
+            IConfiguration configuration)
         {
             return AddExtensionsServices(services, configuration, null);
         }
 
-        public static IServiceCollection AddExtensionsServices(this IServiceCollection services, IConfiguration configuration, Action<MvcOptions> mvcSetupAction)
+        public static IServiceCollection AddExtensionsServices(this IServiceCollection services,
+            IConfiguration configuration, Action<MvcOptions> mvcSetupAction)
         {
             services.AddWebHost();
-            services.AddPluginLocation("/Plugins");
+            services.AddPluginLocation(configuration);
 
-            services
-                .AddMvcCore(options =>
-                {
-                    //options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
-                    //options.ModelBinderProviders.Insert(0, new CheckMarkModelBinderProvider());
-
-                    mvcSetupAction?.Invoke(options);
-                })
+            services.AddMvc(mvcSetupAction)
                 .AddViews()
                 .AddViewLocalization()
                 .AddRazorViewEngine()
                 .AddJsonFormatters();
 
-            services.Configure<RazorViewEngineOptions>(configureOptions: options =>
+            services.Configure<RazorViewEngineOptions>(options =>
             {
-                var expander = new PluginViewLocationExpander("/Plugins");
-                options.ViewLocationExpanders.Add(expander);
+                options.ViewLocationExpanders.Add(new PluginViewLocationExpander());
 
                 //var extensionLibraryService = services.BuildServiceProvider().GetService<IExtensionLibraryService>();
                 //((List<MetadataReference>)options.AdditionalCompilationReferences).AddRange(extensionLibraryService.MetadataReferences());
@@ -66,6 +60,17 @@ namespace Seed.Mvc.Extensions
         public static IServiceCollection WithAllPlugins(this IServiceCollection services)
         {
             return services.AddAllPluginDescriptor();
+        }
+
+        public static IMvcCoreBuilder AddMvc(this IServiceCollection services,
+            Action<MvcOptions> mvcSetupAction)
+        {
+            return services.AddMvcCore(options =>
+            {
+                //options.Filters.Add();
+                //options.ModelBinderProviders.Add()/Insert()
+                mvcSetupAction?.Invoke(options);
+            });
         }
 
         public static IServiceCollection AddWebHost(this IServiceCollection services)

@@ -7,8 +7,8 @@ namespace Seed.Environment.Engine
 {
     public interface IEngineManager
     {
-        IEnumerable<EngineVariables> LoadVariables();
+        IEnumerable<EngineEnvironment> LoadEnvironment();
 
-        void SaveVariables(EngineVariables setting);
+        void SaveEnvironment(EngineEnvironment setting);
     }
 }

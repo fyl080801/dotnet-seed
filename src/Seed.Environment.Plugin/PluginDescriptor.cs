@@ -18,8 +18,6 @@ namespace Seed.Environment.Plugin
 
         public Version Version { get; set; }
 
-        //public bool Installed { get; set; }
-
         public ICollection<string> Tags { get; set; } = new HashSet<string>();
 
         public ICollection<string> IncludePaths { get; set; } = new HashSet<string>();

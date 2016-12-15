@@ -8,15 +8,13 @@
       "version": "1.1.0"
     },
     "Microsoft.AspNetCore.Diagnostics": "1.1.0",
-    "Seed.Mvc": "1.0.0-*",
     "Microsoft.Extensions.Configuration.FileExtensions": "1.1.0",
-    "Microsoft.Extensions.Configuration.Json": "1.1.0"
+    "Microsoft.Extensions.Configuration.Json": "1.1.0",
+    "Seed.Mvc": "1.0.0"
   },
-
   "tools": {
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": "1.0.0-preview2-final"
   },
-
   "frameworks": {
     "netcoreapp1.1": {
       "imports": [
@@ -25,26 +23,25 @@
       ]
     }
   },
-
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "debugType": "portable"
   },
-
   "runtimeOptions": {
     "configProperties": {
       "System.GC.Server": true
     }
   },
-
   "publishOptions": {
     "include": [
       "wwwroot",
       "web.config"
     ]
   },
-
   "scripts": {
-    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+    "postpublish": [
+      "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%"
+    ]
   }
 }

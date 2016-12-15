@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Seed.Hosting;
 using Seed.Mvc.Extensions;
 using System;
 using System.Collections.Generic;
@@ -41,11 +40,6 @@ namespace Seed
             loggerFactory.AddConsole();
 
             app.UseExtensions();
-
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
     }
 }

@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}\\src\\Seed\\bin\\Debug\\netcoreapp1.0\\Seed.dll",
+            "program": "${workspaceRoot}\\src\\Seed\\bin\\Debug\\netcoreapp1.1\\Seed.dll",
             "args": [],
             "cwd": "${workspaceRoot}",
             "stopAtEntry": false,

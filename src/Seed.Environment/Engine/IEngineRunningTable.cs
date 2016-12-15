@@ -7,10 +7,10 @@ namespace Seed.Environment.Engine
 {
     public interface IEngineRunningTable
     {
-        void Add(EngineVariables variables);
+        void Add(EngineEnvironment environment);
+        
+        void Remove(EngineEnvironment environment);
 
-        void Remove(EngineVariables variables);
-
-        EngineVariables Match(string host, string appRelativeCurrentExecutionFilePath);
+        EngineEnvironment Match(string host, string appRelativeCurrentExecutionFilePath);
     }
 }

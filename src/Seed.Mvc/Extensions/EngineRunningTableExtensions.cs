@@ -9,7 +9,8 @@ namespace Seed.Mvc.Extensions
 {
     public static class EngineRunningTableExtensions
     {
-        public static EngineVariables Match(this IEngineRunningTable engineRunningTable, HttpContext httpContext)
+        public static EngineEnvironment Match(this IEngineRunningTable engineRunningTable,
+            HttpContext httpContext)
         {
             try
             {

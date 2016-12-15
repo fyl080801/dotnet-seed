@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace Seed.Environment.Engine
 {
-    public class EngineVariables
+    public class EngineEnvironment
     {
         readonly IDictionary<string, string> _values;
         EngineStates _state;
 
-        public EngineVariables()
+        public EngineEnvironment()
         {
             _values = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         }

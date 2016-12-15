@@ -11,7 +11,8 @@ namespace Seed.Hosting.Extensions
 {
     public static class HostServiceExtensions
     {
-        public static IServiceCollection AddHost(this IServiceCollection services, Action<IServiceCollection> additionalDependencies)
+        public static IServiceCollection AddHost(this IServiceCollection services,
+            Action<IServiceCollection> additionalDependencies)
         {
             additionalDependencies(services);
             return services;

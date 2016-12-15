@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Seed.Environment.Plugin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Seed.Environment.Plugin.Extensions
 {
@@ -21,25 +17,13 @@ namespace Seed.Environment.Plugin.Extensions
         {
             return services.Configure<PluginSettings>(setting =>
             {
-                setting.Path = path;
+                setting.Path = path.Replace('/', '\\');
             });
         }
 
-        // 使用plugin中间件处理plugin中的中间件行为
-        //public static void UsePlugins(this IApplicationBuilder app)
-        //{
-        //    app.ApplicationServices
-        //        .GetService<IPluginManager>()
-        //        .GetPluginDescriptors()
-        //        .ToList()
-        //        .ForEach(plugin => plugin.Context
-        //            .GetStartups()
-        //            .ToList()
-        //            .ForEach(start =>
-        //            {
-
-        //            })
-        //        );
-        //}
+        public static IServiceCollection AddPluginLocation(this IServiceCollection services, IConfiguration configuration)
+        {
+            return services.Configure<PluginSettings>(configuration.GetSection("pluginSettings"));
+        }
     }
 }

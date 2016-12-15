@@ -20,9 +20,9 @@ namespace Seed.Environment.Engine
             _engineDescriptorManager = engineDescriptorManager;
         }
 
-        public EngineContext CreateEngineContext(EngineVariables variables)
+        public EngineContext CreateEngineContext(EngineEnvironment environment)
         {
-            var describedContext = CreateDescribedContext(variables, DefaultEngineDescriptor());
+            var describedContext = CreateDescribedContext(environment, DefaultEngineDescriptor());
 
             EngineDescriptor currentDescriptor;
             using (var scope = describedContext.CreateServiceScope())
@@ -32,28 +32,28 @@ namespace Seed.Environment.Engine
 
             if (currentDescriptor != null)
             {
-                return CreateDescribedContext(variables, currentDescriptor);
+                return CreateDescribedContext(environment, currentDescriptor);
             }
 
             return describedContext;
         }
 
-        public EngineContext CreateSetupContext(EngineVariables variables)
+        public EngineContext CreateSetupContext(EngineEnvironment environment)
         {
             var descriptor = new EngineDescriptor()
             {
                 SerialCode = "-1"
             };
 
-            return CreateDescribedContext(variables, descriptor);
+            return CreateDescribedContext(environment, descriptor);
         }
 
-        private EngineContext CreateDescribedContext(EngineVariables variables, EngineDescriptor descriptor)
+        private EngineContext CreateDescribedContext(EngineEnvironment environment, EngineDescriptor descriptor)
         {
-            var provider = _engineContainerFactory.CreateContainer(variables, descriptor);
+            var provider = _engineContainerFactory.CreateContainer(environment, descriptor);
             return new EngineContext()
             {
-                Variables = variables,
+                Environment = environment,
                 ServiceProvider = provider
             };
         }
