@@ -1,160 +1,47 @@
-using Microsoft.Extensions.Logging;
-using Seed.Environment.Engine;
-using Seed.Environment.Plugin;
+﻿using Seed.Environment.Commands;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Seed.Hosting
 {
-    public class SeedHost : IHost
+    public class SeedHost
     {
-        readonly IEngineManager _engineManager;
-        readonly IEngineContextFactory _engineContextFactory;
-        readonly IEngineRunningTable _engineRunningTable;
-        readonly ILogger _logger;
+        readonly IServiceProvider _serviceProvider;
+        readonly TextReader _input;
+        readonly TextWriter _output;
 
-        ConcurrentDictionary<string, EngineContext> _engineContexts;
-
-        public SeedHost(
-            IEngineManager engineManager,
-            IEngineContextFactory engineContextFactory,
-            IEngineRunningTable engineRunningTable,
-            ILogger<SeedHost> logger)
+        public SeedHost(IServiceProvider serviceProvider, TextReader input, TextWriter output, string[] args)
         {
-            _engineManager = engineManager;
-            _engineContextFactory = engineContextFactory;
-            _engineRunningTable = engineRunningTable;
-            _logger = logger;
+            _serviceProvider = serviceProvider;
+            _input = input;
+            _output = output;
         }
 
-        public void Initialize()
+        public Task<CommandReturnCodes> RunAsync()
         {
-            if (_engineContexts == null)
+            try
             {
-                lock (this)
+                return DoRunAsync();
+            }
+            catch (Exception ex)
+            {
+                for (; ex != null; ex = ex.InnerException)
                 {
-                    if (_engineContexts == null)
-                    {
-                        _engineContexts = new ConcurrentDictionary<string, EngineContext>();
-                        CreateAndRegisterEngines();
-                    }
+
                 }
+                return Task.FromResult(CommandReturnCodes.Fail);
             }
         }
 
-        public EngineContext GetOrCreateEngineContext(EngineEnvironment environment)
+        private async Task<CommandReturnCodes> DoRunAsync()
         {
-            return _engineContexts.GetOrAdd(environment.Name, consumerEngine =>
-            {
-                var context = CreateEngineContext(environment);
-                RegisterEngine(context);
-                return context;
-            });
-        }
+            CommandReturnCodes result = CommandReturnCodes.Ok;
 
-        public void UpdateEngineSettings(EngineEnvironment environment)
-        {
-            _engineManager.SaveEnvironment(environment);
-            ReloadEngineContext(environment);
-        }
+            //
+            await _input.ReadLineAsync();
 
-        public void ReloadEngineContext(EngineEnvironment environment)
-        {
-            EngineContext context;
-            if (_engineContexts.TryRemove(environment.Name, out context))
-            {
-                _engineRunningTable.Remove(environment);
-                context.Dispose();
-            }
-            GetOrCreateEngineContext(environment);
-        }
-
-        public EngineContext CreateEngineContext(EngineEnvironment environment)
-        {
-            if (environment.State == EngineStates.Uninitialized)
-            {
-                return _engineContextFactory.CreateSetupContext(environment);
-            }
-            else if (environment.State == EngineStates.Disabled)
-            {
-                return new EngineContext { Environment = environment };
-            }
-            else if (environment.State == EngineStates.Running || environment.State == EngineStates.Initializing)
-            {
-                return _engineContextFactory.CreateEngineContext(environment);
-            }
-            else
-            {
-                throw new InvalidOperationException("" + environment.Name);
-            }
-        }
-
-        public IEnumerable<EngineContext> GetEngineContexts()
-        {
-            return _engineContexts.Values;
-        }
-
-        private void CreateAndRegisterEngines()
-        {
-            var allenvironment = _engineManager.LoadEnvironment().Where(CanCreateEngine).ToArray();
-
-            if (allenvironment.Any())
-            {
-                Parallel.ForEach(allenvironment, environment =>
-                {
-                    try
-                    {
-                        GetOrCreateEngineContext(environment);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(string.Format("{0}", environment.Name), ex);
-                    }
-                });
-            }
-
-            else
-            {
-                var setupContext = CreateSetupContext();
-                RegisterEngine(setupContext);
-            }
-        }
-
-        private EngineContext CreateSetupContext()
-        {
-            return _engineContextFactory.CreateSetupContext(EngineHelper.BuildDefaultUninitializedShell);
-        }
-
-
-        private void RegisterEngine(EngineContext context)
-        {
-            if (!CanRegisterEngine(context.Environment))
-            {
-                return;
-            }
-
-            if (_engineContexts.TryAdd(context.Environment.Name, context))
-            {
-                _engineRunningTable.Add(context.Environment);
-            }
-        }
-
-        private bool CanCreateEngine(EngineEnvironment environment)
-        {
-            return environment.State == EngineStates.Running ||
-                environment.State == EngineStates.Uninitialized ||
-                environment.State == EngineStates.Initializing ||
-                environment.State == EngineStates.Disabled;
-        }
-
-        private bool CanRegisterEngine(EngineEnvironment environment)
-        {
-            return environment.State == EngineStates.Running ||
-                environment.State == EngineStates.Uninitialized ||
-                environment.State == EngineStates.Initializing;
+            return result;
         }
     }
 }

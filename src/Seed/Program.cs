@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Seed.Hosting;
-using Seed.Hosting.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using System.Threading;
+using Seed.Hosting.Extensions;
+using Seed.Hosting;
 
 namespace Seed
 {
@@ -14,45 +17,24 @@ namespace Seed
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();
-
-            //using (host)
-            //{
-            //    using (var cts = new CancellationTokenSource())
-            //    {
-            //        //try
-            //        //{
-            //        //    var tf = host.Services.GetService<IPluginFinder>();
-            //        //    var dess = tf.GetDescriptors().ToList();
-
-            //        //    host.Run(cts.Token);
-            //        //}
-            //        //catch (Exception ex)
-            //        //{
-            //        //    throw ex;
-            //        //}
-
-            //        host.Run((services) =>
-            //        {
-            //            var hostAgent = new HostAgent(
-            //                services,
-            //                Console.In,
-            //                Console.Out);
-            //            hostAgent
-            //                .RunAsync()
-            //                .Wait();
-
-            //            cts.Cancel();
-            //        }, cts.Token, "application started, press 'Ctrl + c' to exit.");
-            //    }
-            //}
+            using (var host = BuildWebHost(args))
+            {
+                using (var ctx = new CancellationTokenSource())
+                {
+                    host.Run(service =>
+                    {
+                        new SeedHost(service, Console.In, Console.Out, args).RunAsync().Wait();
+                        ctx.Cancel();
+                    }, ctx.Token, "Application started. Press Ctrl+C to shut down.");
+                }
+            }
         }
+
+        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
+            .UseIISIntegration()
+            .UseKestrel()
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            .UseStartup<Startup>()
+            .Build();
     }
 }

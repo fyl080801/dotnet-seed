@@ -1,8 +1,10 @@
-using System;
-using System.Threading;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
 
 namespace Seed.Hosting.Extensions
 {
@@ -14,21 +16,19 @@ namespace Seed.Hosting.Extensions
             {
                 host.Start();
 
-                var hostingEnvironment = host.Services.GetRequiredService<IHostingEnvironment>();
-                var applicationLifetime = host.Services.GetRequiredService<IApplicationLifetime>();
-                var serverAddresses = host.ServerFeatures.Get<IServerAddressesFeature>().Addresses;
+                var hostingEnvironment = host.Services.GetService<IHostingEnvironment>();
+                var applicationLifetime = host.Services.GetService<IApplicationLifetime>();
+                var serverAddresses = host.ServerFeatures.Get<IServerAddressesFeature>()?.Addresses;
 
-                Console.WriteLine(hostingEnvironment.EnvironmentName);
-                Console.WriteLine(hostingEnvironment.ContentRootPath);
-                
-                if(serverAddresses!=null)
+                Console.WriteLine($"Hosting environment: {hostingEnvironment.EnvironmentName}");
+                Console.WriteLine($"Content root path: {hostingEnvironment.ContentRootPath}");
+                if (serverAddresses != null)
                 {
-                    foreach(var address in serverAddresses)
+                    foreach (var address in serverAddresses)
                     {
-                        Console.WriteLine($"listening on: {address}");
+                        Console.WriteLine($"Now listening on: {address}");
                     }
                 }
-
                 if (!string.IsNullOrEmpty(message))
                 {
                     Console.WriteLine(message);
