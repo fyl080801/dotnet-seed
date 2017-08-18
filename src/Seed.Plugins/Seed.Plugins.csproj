@@ -4,8 +4,4 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
-  </ItemGroup>
-
 </Project>
