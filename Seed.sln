@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{16EF6B53-F19D-42C8-B927-F625AEB6691C}"
 EndProject
@@ -9,22 +9,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		global.json = global.json
 	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Seed", "src\Seed\Seed.xproj", "{BAE50545-672A-4BA9-9198-B20887E46597}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Seed.Hosting", "src\Seed.Hosting\Seed.Hosting.xproj", "{C885A4C5-253B-491D-8F59-ADBF34B17822}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Seed.Environment", "src\Seed.Environment\Seed.Environment.xproj", "{55E5280D-ABBE-4C6A-B60E-B1E8D1E8B706}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Seed.Mvc", "src\Seed.Mvc\Seed.Mvc.xproj", "{B188F829-9D00-4B57-8C9B-B8D863A11692}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "plugins", "plugins", "{692C6179-F25E-4278-9B1E-3F418328F652}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Seed.Plugin.Demo", "src\plugins\Seed.Plugin.Demo\Seed.Plugin.Demo.xproj", "{81B45CB7-DB2F-4F6E-9E31-184FB50D3906}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed", "src\Seed\Seed.csproj", "{BAE50545-672A-4BA9-9198-B20887E46597}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Seed.Environment.Plugin", "src\Seed.Environment.Plugin\Seed.Environment.Plugin.xproj", "{72A7D2BB-B2D2-4FC1-90A4-92A75E119D18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Hosting", "src\Seed.Hosting\Seed.Hosting.csproj", "{C885A4C5-253B-491D-8F59-ADBF34B17822}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Environment", "src\Seed.Environment\Seed.Environment.csproj", "{55E5280D-ABBE-4C6A-B60E-B1E8D1E8B706}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Mvc", "src\Seed.Mvc\Seed.Mvc.csproj", "{B188F829-9D00-4B57-8C9B-B8D863A11692}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Plugin.Demo", "src\plugins\Seed.Plugin.Demo\Seed.Plugin.Demo.csproj", "{81B45CB7-DB2F-4F6E-9E31-184FB50D3906}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Environment.Plugin", "src\Seed.Environment.Plugin\Seed.Environment.Plugin.csproj", "{72A7D2BB-B2D2-4FC1-90A4-92A75E119D18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,12 +60,15 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{692C6179-F25E-4278-9B1E-3F418328F652} = {16EF6B53-F19D-42C8-B927-F625AEB6691C}
 		{BAE50545-672A-4BA9-9198-B20887E46597} = {16EF6B53-F19D-42C8-B927-F625AEB6691C}
 		{C885A4C5-253B-491D-8F59-ADBF34B17822} = {16EF6B53-F19D-42C8-B927-F625AEB6691C}
 		{55E5280D-ABBE-4C6A-B60E-B1E8D1E8B706} = {16EF6B53-F19D-42C8-B927-F625AEB6691C}
 		{B188F829-9D00-4B57-8C9B-B8D863A11692} = {16EF6B53-F19D-42C8-B927-F625AEB6691C}
-		{692C6179-F25E-4278-9B1E-3F418328F652} = {16EF6B53-F19D-42C8-B927-F625AEB6691C}
 		{81B45CB7-DB2F-4F6E-9E31-184FB50D3906} = {692C6179-F25E-4278-9B1E-3F418328F652}
 		{72A7D2BB-B2D2-4FC1-90A4-92A75E119D18} = {16EF6B53-F19D-42C8-B927-F625AEB6691C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {103E5205-1588-47A7-8F86-693367C858B2}
 	EndGlobalSection
 EndGlobal
