@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Seed.Modules.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,6 +28,7 @@ namespace Seed
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddModules();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -41,10 +43,7 @@ namespace Seed
 
             app.UseStaticFiles();
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
+            app.UseModules();
         }
     }
 }
