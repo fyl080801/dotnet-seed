@@ -28,7 +28,7 @@ namespace Seed
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddModules();
+            services.AddModules(configure => configure.WithConfiguration(Configuration));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Engine;
 using Seed.Modules.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Text;
 
 namespace Seed.Modules.Extensions
 {
-    public static class ServiceCollectionExtensions
+    public static class ModuleServiceCollectionExtensions
     {
         public static IServiceCollection AddModules(this IServiceCollection services, Action<ModuleServiceCollection> configure = null)
         {
@@ -33,6 +35,10 @@ namespace Seed.Modules.Extensions
             services.AddLogging();
             services.AddOptions();
             services.AddLocalization();
+            services.AddHostingEngineServices();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IModuleLauncherRouteBuilder, ModuleLauncherRouteBuilder>();
             return services;
         }
     }
