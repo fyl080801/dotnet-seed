@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Environment.Abstractions.Engine
+namespace Seed.Environment.Abstractions.Engine.Descriptors
 {
     public class EngineParameter
     {

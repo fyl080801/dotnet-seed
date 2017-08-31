@@ -15,10 +15,11 @@ namespace Seed.Environment.Engine.Extensions
             services.AddSingleton<IEngineHost>(e => e.GetRequiredService<EngineHost>());
 
             //
-            services.TryAddSingleton<IEngineSettingsManager, EngineSettingsManager>();
+            services.TryAddSingleton<IEngineSettingsManager, SingleEngineSettingsManager>();
 
             //
             services.AddSingleton<IEngineContextFactory, EngineContextFactory>();
+            services.AddSingleton<ICompositionStrategy, CompositionStrategy>();
             services.AddSingleton<IEngineContainerFactory, EngineContainerFactory>();
             services.AddSingleton<IRunningEngineTable, RunningEngineTable>();
 

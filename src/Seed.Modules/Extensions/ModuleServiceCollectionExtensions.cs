@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Abstractions.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Abstractions;
+using Seed.Plugin.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Seed.Modules.Extensions
@@ -16,6 +19,11 @@ namespace Seed.Modules.Extensions
             services.AddWebHost();
 
             var moduleServices = new ModuleServiceCollection(services);
+
+            moduleServices.Configure(internalServices =>
+               internalServices.AddAllFeaturesDescriptor()
+           );
+
             configure?.Invoke(moduleServices);
             services.AddSingleton(_ => services);
             return services;
@@ -30,12 +38,44 @@ namespace Seed.Modules.Extensions
             return modules;
         }
 
+        public static ModuleServiceCollection WithDefaultFeatures(this ModuleServiceCollection modules, params string[] featureIds)
+        {
+            modules.Configure(services =>
+            {
+                foreach (var featureId in featureIds)
+                {
+                    services.AddTransient(sp => new EngineFeature(featureId));
+                };
+            });
+
+            return modules;
+        }
+
+        public static ModuleServiceCollection WithFeatures(this ModuleServiceCollection modules,
+            params string[] featureIds)
+        {
+            var featuresList = featureIds.Select(featureId => new EngineFeature(featureId)).ToList();
+
+            modules.Configure(services =>
+            {
+                foreach (var feature in featuresList)
+                {
+                    services.AddTransient(sp => feature);
+                };
+
+                services.AddSetFeaturesDescriptor(featuresList);
+            });
+
+            return modules;
+        }
+
         public static IServiceCollection AddWebHost(this IServiceCollection services)
         {
             services.AddLogging();
             services.AddOptions();
             services.AddLocalization();
             services.AddHostingEngineServices();
+            services.AddPluginServices();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IModuleLauncherRouteBuilder, ModuleLauncherRouteBuilder>();
