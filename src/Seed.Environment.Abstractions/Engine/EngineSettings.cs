@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Seed.Environment.Abstractions.Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EngineSettings
     {
         LauncherStates _states;
@@ -24,6 +27,11 @@ namespace Seed.Environment.Abstractions.Engine
             }
         }
 
+        /// <summary>
+        /// 获取设置项值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string this[string key]
         {
             get
@@ -39,42 +47,68 @@ namespace Seed.Environment.Abstractions.Engine
             get { return _values; }
         }
 
+        public IEnumerable<string> Keys
+        {
+            get { return _values.Keys; }
+        }
+
+        /// <summary>
+        /// 名称
+        /// </summary>
         public string Name
         {
             get { return this["Name"] ?? ""; }
             set { this["Name"] = value; }
         }
 
+        /// <summary>
+        /// 接收请求的 URL
+        /// </summary>
         public string RequestUrlHost
         {
             get { return this["RequestUrlHost"]; }
             set { this["RequestUrlHost"] = value; }
         }
 
+        /// <summary>
+        /// URL 前缀
+        /// </summary>
         public string RequestUrlPrefix
         {
             get { return this["RequestUrlPrefix"]; }
             set { _values["RequestUrlPrefix"] = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string DatabaseProvider
         {
             get { return this["DatabaseProvider"]; }
             set { _values["DatabaseProvider"] = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string TablePrefix
         {
             get { return this["TablePrefix"]; }
             set { _values["TablePrefix"] = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string ConnectionString
         {
             get { return this["ConnectionString"]; }
             set { _values["ConnectionString"] = value; }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public LauncherStates State
         {
             get { return _states; }

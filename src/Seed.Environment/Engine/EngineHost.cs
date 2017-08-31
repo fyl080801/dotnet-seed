@@ -11,38 +11,37 @@ namespace Seed.Environment.Engine
 {
     public class EngineHost : IEngineHost
     {
-        readonly static object _locker = new object();
+        //readonly static object _locker = new object();
 
         readonly IEngineSettingsManager _engineSettingsManager;
         readonly IEngineContextFactory _engineContextFactory;
         readonly IRunningEngineTable _runningEngineTable;
-
-        readonly ILogger _logger;
 
         private ConcurrentDictionary<string, EngineContext> _contexts;
 
         public EngineHost(
             IEngineSettingsManager engineSettingsManager,
             IEngineContextFactory engineContextFactory,
-            IRunningEngineTable runningEngineTable,
-            ILogger<EngineHost> logger)
+            IRunningEngineTable runningEngineTable)
         {
             _engineSettingsManager = engineSettingsManager;
             _engineContextFactory = engineContextFactory;
             _runningEngineTable = runningEngineTable;
-            _logger = logger;
         }
 
         public Task<EngineContext> CreateContextAsync(EngineSettings settings)
         {
+            // Launcher 会话未初始化创建安装 Context
             if (settings.State == LauncherStates.Uninitialized)
             {
                 return _engineContextFactory.CreateSetupContextAsync(settings);
             }
+            // Launcher 已禁用创建默认 Context
             else if (settings.State == LauncherStates.Disabled)
             {
                 return Task.FromResult(new EngineContext { Settings = settings });
             }
+            // Launcher 正在运行
             else if (settings.State == LauncherStates.Running || settings.State == LauncherStates.Initializing)
             {
                 return _engineContextFactory.CreateContextAsync(settings);
@@ -145,6 +144,7 @@ namespace Seed.Environment.Engine
 
         private bool CanCreateEngine(EngineSettings settings)
         {
+            // 不能直接判断 Invalid
             return
                 settings.State == LauncherStates.Running ||
                 settings.State == LauncherStates.Uninitialized ||

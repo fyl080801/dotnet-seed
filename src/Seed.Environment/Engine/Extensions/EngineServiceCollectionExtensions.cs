@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Environment.Engine
+namespace Seed.Environment.Engine.Extensions
 {
     public static class EngineServiceCollectionExtensions
     {
@@ -13,10 +13,15 @@ namespace Seed.Environment.Engine
         {
             services.AddSingleton<EngineHost>();
             services.AddSingleton<IEngineHost>(e => e.GetRequiredService<EngineHost>());
+
+            //
             services.TryAddSingleton<IEngineSettingsManager, EngineSettingsManager>();
+
+            //
             services.AddSingleton<IEngineContextFactory, EngineContextFactory>();
             services.AddSingleton<IEngineContainerFactory, EngineContainerFactory>();
             services.AddSingleton<IRunningEngineTable, RunningEngineTable>();
+
             return services;
         }
     }

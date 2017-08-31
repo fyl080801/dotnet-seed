@@ -6,6 +6,9 @@ using System.Threading;
 
 namespace Seed.Environment.Abstractions.Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class EngineContext : IDisposable
     {
         bool _disposed = false;
@@ -18,18 +21,34 @@ namespace Seed.Environment.Abstractions.Engine
 
         public IServiceProvider ServiceProvider { get; set; }
 
+        /// <summary>
+        /// 是否活动
+        /// </summary>
         public bool IsActivated { get; set; }
 
+        /// <summary>
+        /// 是否释放
+        /// </summary>
         public bool Released
         {
             get { return _released; }
         }
 
+        /// <summary>
+        /// 活动请求数
+        /// </summary>
         public int ActiveRequests
         {
             get { return _refCount; }
         }
 
+        /// <summary>
+        /// 创建 Engine 请求的作用域
+        /// </summary>
+        /// <returns></returns>
+        /// <remarks>
+        /// 已释放或已清理的不可创建作用域
+        /// </remarks>
         public IServiceScope CreateServiceScope()
         {
             if (_disposed) throw new InvalidOperationException("context disposed");
@@ -39,11 +58,17 @@ namespace Seed.Environment.Abstractions.Engine
             return ServiceProvider.CreateScope();
         }
 
+        /// <summary>
+        /// 接收到请求后执行
+        /// </summary>
         public void RequestStarted()
         {
             Interlocked.Increment(ref _refCount);
         }
 
+        /// <summary>
+        /// 请求结束后执行
+        /// </summary>
         public void RequestEnded()
         {
             var refCount = Interlocked.Decrement(ref _refCount);
@@ -54,6 +79,9 @@ namespace Seed.Environment.Abstractions.Engine
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Release()
         {
             _released = true;

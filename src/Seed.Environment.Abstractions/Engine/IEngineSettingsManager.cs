@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Seed.Environment.Abstractions.Engine
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public interface IEngineSettingsManager
     {
         /// <summary>
