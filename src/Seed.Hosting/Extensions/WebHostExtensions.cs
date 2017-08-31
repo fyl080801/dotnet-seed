@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 
-namespace Seed.Modules.Extensions
+namespace Seed.Hosting.Extensions
 {
     public static class WebHostExtensions
     {
