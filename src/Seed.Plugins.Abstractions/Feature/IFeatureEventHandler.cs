@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Environment.Abstractions.Engine
+namespace Seed.Plugins.Abstractions.Feature
 {
     public interface IFeatureEventHandler : IEventHandler
     {
