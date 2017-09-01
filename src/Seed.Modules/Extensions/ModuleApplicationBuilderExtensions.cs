@@ -20,7 +20,7 @@ namespace Seed.Modules.Extensions
             //});
 
             app.UseMiddleware<ModuleLauncherContainerMiddleware>();
-            //app.UseMiddleware<ModuleLauncherRouterMiddleware>();
+            app.UseMiddleware<ModuleLauncherRouterMiddleware>();
 
             return app;
         }
