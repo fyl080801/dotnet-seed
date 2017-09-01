@@ -1,6 +1,6 @@
 ﻿using Seed.Environment.Abstractions.Engine;
 using Seed.Environment.Abstractions.Engine.Descriptors;
-using Seed.Plugin.Abstractions;
+using Seed.Plugins.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

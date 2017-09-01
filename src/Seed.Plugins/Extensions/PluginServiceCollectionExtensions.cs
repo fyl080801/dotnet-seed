@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Seed.Plugin.Abstractions;
-using Seed.Plugin.Abstractions.Feature;
-using Seed.Plugin.Feature;
+using Seed.Plugins.Abstractions;
+using Seed.Plugins.Abstractions.Feature;
+using Seed.Plugins.Feature;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Plugin.Extensions
+namespace Seed.Plugins.Extensions
 {
     public static class PluginServiceCollectionExtensions
     {

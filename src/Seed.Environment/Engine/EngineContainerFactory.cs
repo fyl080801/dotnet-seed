@@ -1,15 +1,15 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Seed.Environment.Abstractions;
 using Seed.Environment.Abstractions.Engine;
 using Seed.Environment.Engine.Extensions;
+using Seed.Events;
+using Seed.Events.Abstractions;
 using Seed.Modules.Abstractions;
-using Seed.Plugin.Abstractions.Feature;
+using Seed.Plugins.Abstractions.Feature;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 
 namespace Seed.Environment.Engine
 {
@@ -34,8 +34,8 @@ namespace Seed.Environment.Engine
 
             AddCoreServices(launcherServiceCollection);
 
-            //launcherServiceCollection.AddScoped<IEventBus, >();
-            //launcherServiceCollection.AddSingleton<IEventBusState, EventBusState>();
+            launcherServiceCollection.AddScoped<IEventBus, DefaultEventBus>();
+            launcherServiceCollection.AddSingleton<IEventBusState, EventBusState>();
 
             IServiceCollection moduleServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
 
@@ -53,101 +53,92 @@ namespace Seed.Environment.Engine
 
             var moduleServiceProvider = moduleServiceCollection.BuildServiceProvider();
 
-            //var featureAwareServiceCollection = new FeatureAwareServiceCollection(tenantServiceCollection);
+            var featureAwareServiceCollection = new FeatureAwareServiceCollection(launcherServiceCollection);
 
             var startups = moduleServiceProvider.GetServices<IStartup>().OrderBy(e => e.Order);
             foreach (var startup in startups)
             {
                 var feature = schema.Dependencies.FirstOrDefault(x => x.Key == startup.GetType()).Value.FeatureInfo;
-                //featureAwareServiceCollection.SetCurrentFeature(feature);
+                featureAwareServiceCollection.SetCurrentFeature(feature);
 
-                //startup.ConfigureServices(featureAwareServiceCollection);
+                startup.ConfigureServices(featureAwareServiceCollection);
             }
 
             (moduleServiceProvider as IDisposable).Dispose();
 
             var applicationServiceDescriptors = _applicationServices.Where(x => x.Lifetime == ServiceLifetime.Singleton);
 
-            //var eventHandlers = launcherServiceCollection
-            //    .Union(applicationServiceDescriptors)
-            //    .Select(x => x.ImplementationType)
-            //    .Distinct()
-            //    .Where(t => t != null && typeof(IEventHandler).IsAssignableFrom(t) && t.GetTypeInfo().IsClass)
-            //    .ToArray();
+            var eventHandlers = launcherServiceCollection
+                .Union(applicationServiceDescriptors)
+                .Select(x => x.ImplementationType)
+                .Distinct()
+                .Where(t => t != null && typeof(IEventHandler).IsAssignableFrom(t) && t.GetTypeInfo().IsClass)
+                .ToArray();
 
-            //foreach (var handlerClass in eventHandlers)
-            //{
-            //    // Register dynamic proxies to intercept direct calls if an IEventHandler is resolved, dispatching the call to
-            //    // the event bus.
-
-            //    foreach (var i in handlerClass.GetInterfaces().Where(t => t != typeof(IEventHandler) && typeof(IEventHandler).IsAssignableFrom(t)))
-            //    {
-            //        tenantServiceCollection.AddScoped(i, serviceProvider =>
-            //        {
-            //            var proxy = DefaultOrchardEventBus.CreateProxy(i);
-            //            proxy.EventBus = serviceProvider.GetService<IEventBus>();
-            //            return proxy;
-            //        });
-            //    }
-            //}
+            foreach (var handlerClass in eventHandlers)
+            {
+                // 使用动态代理响应事件
+                foreach (var i in handlerClass.GetInterfaces().Where(t => t != typeof(IEventHandler) && typeof(IEventHandler).IsAssignableFrom(t)))
+                {
+                    launcherServiceCollection.AddScoped(i, serviceProvider =>
+                    {
+                        var proxy = DefaultEventBus.CreateProxy(i);
+                        proxy.EventBus = serviceProvider.GetService<IEventBus>();
+                        return proxy;
+                    });
+                }
+            }
 
             var engineServiceProvider = launcherServiceCollection.BuildServiceProvider();
 
             using (var scope = engineServiceProvider.CreateScope())
             {
-                //var eventBusState = scope.ServiceProvider.GetService<IEventBusState>();
+                var eventBusState = scope.ServiceProvider.GetService<IEventBusState>();
 
-                //foreach (var handlerClass in eventHandlers)
-                //{
-                //    foreach (var handlerInterface in handlerClass.GetInterfaces().Where(x => typeof(IEventHandler).IsAssignableFrom(x) && typeof(IEventHandler) != x))
-                //    {
-                //        foreach (var interfaceMethod in handlerInterface.GetMethods())
-                //        {
-                //            if (_logger.IsEnabled(LogLevel.Debug))
-                //            {
-                //                _logger.LogDebug($"{handlerClass.Name}/{handlerInterface.Name}.{interfaceMethod.Name}");
-                //            }
-
-                //            //var classMethod = handlerClass.GetMethods().Where(x => x.Name == interfaceMethod.Name && x.GetParameters().Length == interfaceMethod.GetParameters().Length).FirstOrDefault();
-                //            Func<IServiceProvider, IDictionary<string, object>, Task> d = (sp, parameters) => DefaultOrchardEventBus.Invoke(sp, parameters, interfaceMethod, handlerClass);
-                //            var messageName = $"{handlerInterface.Name}.{interfaceMethod.Name}";
-                //            var className = handlerClass.FullName;
-                //            eventBusState.Add(messageName, d);
-                //        }
-                //    }
-                //}
+                foreach (var handlerClass in eventHandlers)
+                {
+                    foreach (var handlerInterface in handlerClass.GetInterfaces().Where(x => typeof(IEventHandler).IsAssignableFrom(x) && typeof(IEventHandler) != x))
+                    {
+                        foreach (var interfaceMethod in handlerInterface.GetMethods())
+                        {
+                            eventBusState.Add(
+                                $"{handlerInterface.Name}.{interfaceMethod.Name}",
+                                (sp, parameters) => DefaultEventBus.Invoke(sp, parameters, interfaceMethod, handlerClass));
+                        }
+                    }
+                }
             }
 
             var typeFeatureProvider = engineServiceProvider.GetRequiredService<ITypeFeatureProvider>();
 
-            //foreach (var featureServiceCollection in featureAwareServiceCollection.FeatureCollections)
-            //{
-            //    foreach (var serviceDescriptor in featureServiceCollection.Value)
-            //    {
-            //        if (serviceDescriptor.ImplementationType != null)
-            //        {
-            //            typeFeatureProvider.TryAdd(serviceDescriptor.ImplementationType, featureServiceCollection.Key);
-            //        }
-            //        else if (serviceDescriptor.ImplementationInstance != null)
-            //        {
-            //            typeFeatureProvider.TryAdd(serviceDescriptor.ImplementationInstance.GetType(), featureServiceCollection.Key);
-            //        }
-            //        else
-            //        {
-            //            // Factory, we can't know which type will be returned
-            //        }
-            //    }
-            //}
+            foreach (var featureServiceCollection in featureAwareServiceCollection.FeatureCollections)
+            {
+                foreach (var serviceDescriptor in featureServiceCollection.Value)
+                {
+                    if (serviceDescriptor.ImplementationType != null)
+                    {
+                        typeFeatureProvider.TryAdd(serviceDescriptor.ImplementationType, featureServiceCollection.Key);
+                    }
+                    else if (serviceDescriptor.ImplementationInstance != null)
+                    {
+                        typeFeatureProvider.TryAdd(serviceDescriptor.ImplementationInstance.GetType(), featureServiceCollection.Key);
+                    }
+                    else
+                    {
+                        // ?
+                    }
+                }
+            }
 
             return engineServiceProvider;
         }
 
         private void AddCoreServices(IServiceCollection services)
         {
-            //services.TryAddScoped<IShellStateUpdater, ShellStateUpdater>();
-            //services.TryAddScoped<IShellStateManager, NullShellStateManager>();
-            //services.AddScoped<ShellStateCoordinator>();
-            //services.AddScoped<IShellDescriptorManagerEventHandler>(sp => sp.GetRequiredService<ShellStateCoordinator>());
+            services.TryAddScoped<IEngineStateUpdater, EngineStateUpdater>();
+            services.TryAddScoped<IEngineStateManager, NullEngineStateManager>();
+            services.AddScoped<EngineStateCoordinator>();
+            services.AddScoped<IEngineDescriptorManagerEventHandler>(sp => sp.GetRequiredService<EngineStateCoordinator>());
         }
     }
 }

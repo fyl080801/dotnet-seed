@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Seed.Plugin.Abstractions.Feature;
+using Seed.Plugins.Abstractions.Feature;
 using System.Collections.Concurrent;
-using Seed.Plugin.Abstractions;
 
-namespace Seed.Plugin.Feature
+namespace Seed.Plugins.Feature
 {
     public class TypeFeatureProvider : ITypeFeatureProvider
     {

@@ -1,11 +1,11 @@
-﻿using Seed.Plugin.Abstractions;
-using Seed.Plugin.Abstractions.Feature;
+﻿using Seed.Plugins.Abstractions;
+using Seed.Plugins.Abstractions.Feature;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Plugin
+namespace Seed.Plugins
 {
     public class PluginManager : IPluginManager
     {

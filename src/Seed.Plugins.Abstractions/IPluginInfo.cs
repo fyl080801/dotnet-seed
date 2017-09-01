@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Plugin.Abstractions
+namespace Seed.Plugins.Abstractions
 {
     public interface IPluginInfo
     {

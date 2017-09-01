@@ -7,10 +7,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Seed.Plugin.Abstractions\Seed.Plugin.Abstractions.csproj" />
+    <ProjectReference Include="..\Seed.Events\Seed.Events.csproj" />
+    <ProjectReference Include="..\Seed.Plugins.Abstractions\Seed.Plugins.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

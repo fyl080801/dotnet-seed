@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Abstractions.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Abstractions;
-using Seed.Plugin.Extensions;
+using Seed.Plugins.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +20,7 @@ namespace Seed.Modules.Extensions
 
             var moduleServices = new ModuleServiceCollection(services);
 
-            moduleServices.Configure(internalServices =>
-               internalServices.AddAllFeaturesDescriptor()
-           );
+            moduleServices.Configure(internalServices => internalServices.AddAllFeaturesDescriptor());
 
             configure?.Invoke(moduleServices);
             services.AddSingleton(_ => services);

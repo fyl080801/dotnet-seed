@@ -1,16 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
 using Seed.Environment.Abstractions.Engine;
-using Seed.Plugin.Abstractions;
+using Seed.Plugins.Abstractions;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Seed.Environment.Abstractions.Engine.Descriptors;
 
 namespace Seed.Environment.Engine
 {
-    public class EngineHost : IEngineHost
+    public class EngineHost : IEngineHost, IEngineDescriptorManagerEventHandler
     {
         //readonly static object _locker = new object();
 
@@ -165,6 +166,21 @@ namespace Seed.Environment.Engine
                 settings.State == LauncherStates.Running ||
                 settings.State == LauncherStates.Uninitialized ||
                 settings.State == LauncherStates.Initializing;
+        }
+
+        public Task Changed(EngineDescriptor descriptor, string launcher)
+        {
+            if (_contexts == null)
+            {
+                return Task.CompletedTask;
+            }
+
+            if (_contexts.TryRemove(launcher, out var context))
+            {
+                context.Release();
+            }
+
+            return Task.CompletedTask;
         }
     }
 }

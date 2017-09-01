@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Plugin.Abstractions.Feature
+namespace Seed.Plugins.Abstractions.Feature
 {
     public abstract class FeatureEntry
     {

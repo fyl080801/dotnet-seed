@@ -1,5 +1,5 @@
 ﻿using Seed.Environment.Abstractions.Engine.Descriptors;
-using Seed.Plugin.Abstractions.Feature;
+using Seed.Plugins.Abstractions.Feature;
 using System;
 using System.Collections.Generic;
 using System.Text;

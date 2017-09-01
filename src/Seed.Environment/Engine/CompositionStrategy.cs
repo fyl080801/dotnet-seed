@@ -2,8 +2,8 @@
 using Seed.Environment.Abstractions.Engine;
 using Seed.Environment.Abstractions.Engine.Descriptors;
 using Seed.Modules.Abstractions;
-using Seed.Plugin.Abstractions;
-using Seed.Plugin.Abstractions.Feature;
+using Seed.Plugins.Abstractions;
+using Seed.Plugins.Abstractions.Feature;
 using System;
 using System.Collections.Generic;
 using System.Linq;
