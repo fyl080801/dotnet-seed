@@ -35,7 +35,7 @@ namespace Seed.Environment.Engine
 
         public async Task ApplyChanges()
         {
-            var loadedFeatures = await _pluginManager.LoadFeaturesAsync();
+            var loadedFeatures = await _pluginManager.GetFeaturesAsync();
 
             var engineState = await _stateManager.GetEngineStateAsync();
 

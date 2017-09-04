@@ -25,7 +25,7 @@ namespace Seed.Environment.Engine.Descriptors
             {
                 _shellDescriptor = new EngineDescriptor
                 {
-                    Features = _pluginManager.GetFeatures().Select(x => new EngineFeature { Id = x.Id }).ToList()
+                    Features = _pluginManager.GetFeatures().Select(x => new EngineFeature { Name = x.Id }).ToList()
                 };
             }
 

@@ -114,7 +114,7 @@ namespace Seed.Environment.Engine
 
         private async Task CreateAndRegisterEnginesAsync()
         {
-            var features = _pluginManager.LoadFeaturesAsync();
+            var features = _pluginManager.GetFeaturesAsync();
             var allSettings = _engineSettingsManager.LoadSettings().Where(CanCreateEngine).ToArray();
 
             features.Wait();
