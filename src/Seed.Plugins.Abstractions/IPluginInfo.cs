@@ -10,13 +10,13 @@ namespace Seed.Plugins.Abstractions
     {
         string Id { get; }
 
-        IFileInfo PluginFileInfo { get; }
-
         string SubPath { get; }
 
         bool Exists { get; }
 
-        //IManifestInfo Manifest { get; }
+        IFileInfo PluginFileInfo { get; }
+
+        IDescriptorInfo Descriptor { get; }
 
         IEnumerable<IFeatureInfo> Features { get; }
     }

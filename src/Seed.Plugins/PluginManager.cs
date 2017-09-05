@@ -1,5 +1,7 @@
-﻿using Seed.Plugins.Abstractions;
+﻿using Microsoft.AspNetCore.Hosting;
+using Seed.Plugins.Abstractions;
 using Seed.Plugins.Abstractions.Feature;
+using Seed.Plugins.Abstractions.Loader;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,6 +11,30 @@ namespace Seed.Plugins
 {
     public class PluginManager : IPluginManager
     {
+        static object _locker = new object();
+
+        bool _initialized = false;
+
+        readonly IHostingEnvironment _hostingEnvironment;
+        readonly IPluginProvider _pluginProvider;
+        readonly IPluginLoader _pluginLoader;
+        readonly ITypeFeatureProvider _typeFeatureProvider;//ok
+        readonly IEnumerable<IPluginDependencyStrategy> _pluginDependencyStrategies;
+
+        public PluginManager(
+            IHostingEnvironment hostingEnvironment,
+            IPluginProvider pluginProvider,
+            IPluginLoader pluginLoader,
+            ITypeFeatureProvider typeFeatureProvider,
+            IEnumerable<IPluginDependencyStrategy> pluginDependencyStrategies)
+        {
+            _hostingEnvironment = hostingEnvironment;
+            _pluginProvider = pluginProvider;
+            _pluginLoader = pluginLoader;
+            _typeFeatureProvider = typeFeatureProvider;
+            _pluginDependencyStrategies = pluginDependencyStrategies;
+        }
+
         public IEnumerable<IFeatureInfo> GetFeatures()
         {
             return new IFeatureInfo[0];

@@ -6,6 +6,9 @@ using System.Collections.Concurrent;
 
 namespace Seed.Plugins.Feature
 {
+    /// <summary>
+    /// 根据类型映射特性信息
+    /// </summary>
     public class TypeFeatureProvider : ITypeFeatureProvider
     {
         private readonly ConcurrentDictionary<Type, IFeatureInfo> _features = new ConcurrentDictionary<Type, IFeatureInfo>();
