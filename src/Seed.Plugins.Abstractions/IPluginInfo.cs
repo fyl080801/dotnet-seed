@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.FileProviders;
+using Seed.Plugins.Abstractions.Descriptors;
 using Seed.Plugins.Abstractions.Feature;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Seed.Plugins.Abstractions
     {
         string Id { get; }
 
-        string SubPath { get; }
+        string Path { get; }
 
         bool Exists { get; }
 

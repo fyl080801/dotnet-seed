@@ -3,15 +3,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Plugins.Abstractions
+namespace Seed.Plugins.Abstractions.Descriptors
 {
     public interface IDescriptorInfo
     {
+        bool Exists { get; }
+
         string Name { get; }
 
         string Description { get; }
 
-        string Category { get; }
+        string TypeName { get; }
 
         string Author { get; }
 
