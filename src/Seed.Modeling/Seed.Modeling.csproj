@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E17CCEC7-2E8D-47D8-95F8-8CDBB5471882}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Seed</RootNamespace>
+    <AssemblyName>Seed.Modeling</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Environment\Engine\Diagram.cd" />
+    <None Include="Events\Diagram.cd" />
+    <None Include="Modules\Diagram.cd" />
+    <None Include="packages.config" />
+    <None Include="Plugins\Diagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Environment\Commands\CommandReturnCodes.cs" />
+    <Compile Include="Environment\Engine\CompositionStrategy.cs" />
+    <Compile Include="Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
+    <Compile Include="Environment\Engine\Descriptors\EngineDescriptor.cs" />
+    <Compile Include="Environment\Engine\Descriptors\EngineFeature.cs" />
+    <Compile Include="Environment\Engine\Descriptors\EngineParameter.cs" />
+    <Compile Include="Environment\Engine\Descriptors\FileEngineDescriptorManager.cs" />
+    <Compile Include="Environment\Engine\Descriptors\IEngineDescriptorManager.cs" />
+    <Compile Include="Environment\Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs" />
+    <Compile Include="Environment\Engine\EngineContainerFactory.cs" />
+    <Compile Include="Environment\Engine\EngineContext.cs" />
+    <Compile Include="Environment\Engine\EngineContextFactory.cs" />
+    <Compile Include="Environment\Engine\EngineFeatureState.cs" />
+    <Compile Include="Environment\Engine\EngineHelper.cs" />
+    <Compile Include="Environment\Engine\EngineHost.cs" />
+    <Compile Include="Environment\Engine\EngineSchema.cs" />
+    <Compile Include="Environment\Engine\EngineSettings.cs" />
+    <Compile Include="Environment\Engine\EngineSettingsManager.cs" />
+    <Compile Include="Environment\Engine\EngineState.cs" />
+    <Compile Include="Environment\Engine\EngineStateCoordinator.cs" />
+    <Compile Include="Environment\Engine\EngineStateUpdater.cs" />
+    <Compile Include="Environment\Engine\Extensions\ServiceProviderExtensions.cs" />
+    <Compile Include="Environment\Engine\FeatureAwareServiceCollection.cs" />
+    <Compile Include="Environment\Engine\ICompositionStrategy.cs" />
+    <Compile Include="Environment\Engine\IEngineContainerFactory.cs" />
+    <Compile Include="Environment\Engine\IEngineContextFactory.cs" />
+    <Compile Include="Environment\Engine\IEngineDescriptorManagerEventHandler.cs" />
+    <Compile Include="Environment\Engine\IEngineHost.cs" />
+    <Compile Include="Environment\Engine\IEngineSettingsConfigurationProvider.cs" />
+    <Compile Include="Environment\Engine\IEngineSettingsManager.cs" />
+    <Compile Include="Environment\Engine\IEngineStateManager.cs" />
+    <Compile Include="Environment\Engine\IEngineStateUpdater.cs" />
+    <Compile Include="Environment\Engine\IRunningEngineTable.cs" />
+    <Compile Include="Environment\Engine\LauncherStates.cs" />
+    <Compile Include="Environment\Engine\NullEngineStateManager.cs" />
+    <Compile Include="Environment\Engine\RunningEngineTable.cs" />
+    <Compile Include="Environment\Engine\SingleEngineSettingsManager.cs" />
+    <Compile Include="Events\DefaultEventBus.cs" />
+    <Compile Include="Events\EventBusState.cs" />
+    <Compile Include="Events\Extensions\EventBusExtensions.cs" />
+    <Compile Include="Events\IEventBus.cs" />
+    <Compile Include="Events\IEventBusState.cs" />
+    <Compile Include="Events\IEventHandler.cs" />
+    <Compile Include="Events\INotifyProxy.cs" />
+    <Compile Include="Modules\Extensions\RunningEngineTableExtensions.cs" />
+    <Compile Include="Modules\IModuleLauncherRouteBuilder.cs" />
+    <Compile Include="Modules\IStartup.cs" />
+    <Compile Include="Modules\ModuleApplicationBuilder.cs" />
+    <Compile Include="Modules\ModuleLauncherContainerMiddleware.cs" />
+    <Compile Include="Modules\ModuleLauncherRouteBuilder.cs" />
+    <Compile Include="Modules\ModuleLauncherRouterMiddleware.cs" />
+    <Compile Include="Modules\ModuleServiceCollection.cs" />
+    <Compile Include="Modules\RequireFeaturesAttribute.cs" />
+    <Compile Include="Modules\StartupBase.cs" />
+    <Compile Include="Plugins\DependencyUtility.cs" />
+    <Compile Include="Plugins\Descriptors\DescriptorInfo.cs" />
+    <Compile Include="Plugins\Descriptors\DescriptorOption.cs" />
+    <Compile Include="Plugins\Descriptors\DescriptorOptions.cs" />
+    <Compile Include="Plugins\Descriptors\IDescriptorProvider.cs" />
+    <Compile Include="Plugins\Descriptors\NullDescriptorInfo.cs" />
+    <Compile Include="Plugins\Feature\CompiledFeatureEntry.cs" />
+    <Compile Include="Plugins\Feature\FeatureAttribute.cs" />
+    <Compile Include="Plugins\Feature\FeatureEntry.cs" />
+    <Compile Include="Plugins\Feature\IFeatureEventHandler.cs" />
+    <Compile Include="Plugins\Feature\IFeatureInfo.cs" />
+    <Compile Include="Events\NotifyProxy.cs" />
+    <Compile Include="Plugins\Feature\InternalFeatureInfo.cs" />
+    <Compile Include="Plugins\Feature\ITypeFeatureProvider.cs" />
+    <Compile Include="Plugins\Feature\NonCompiledFeatureEntry.cs" />
+    <Compile Include="Plugins\Feature\TypeFeatureProvider.cs" />
+    <Compile Include="Plugins\InternalPluginInfo.cs" />
+    <Compile Include="Plugins\IPluginDependencyStrategy.cs" />
+    <Compile Include="Plugins\IPluginPriorityStrategy.cs" />
+    <Compile Include="Plugins\Loader\PluginEntry.cs" />
+    <Compile Include="Plugins\Loader\IPluginLoader.cs" />
+    <Compile Include="Plugins\IPluginProvider.cs" />
+    <Compile Include="Plugins\NullPluginInfo.cs" />
+    <Compile Include="Plugins\PluginExpanderOption.cs" />
+    <Compile Include="Plugins\PluginExpanderOptions.cs" />
+    <Compile Include="Plugins\PluginInfo.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\IPluginManager.cs" />
+    <Compile Include="Plugins\Descriptors\IDescriptorInfo.cs" />
+    <Compile Include="Plugins\IPluginInfo.cs" />
+    <Compile Include="Plugins\PluginStartupBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Hosting.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Hosting.Server.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Hosting.Server.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Hosting.Server.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Extensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Extensions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Http.Features.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Routing.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Routing.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.Routing.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.Routing.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.WebUtilities, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNetCore.WebUtilities.2.0.0\lib\netstandard2.0\Microsoft.AspNetCore.WebUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Hosting.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.ObjectPool, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.ObjectPool.2.0.0\lib\netstandard2.0\Microsoft.Extensions.ObjectPool.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Options.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Primitives.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Headers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.Headers.2.0.0\lib\netstandard2.0\Microsoft.Net.Http.Headers.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.DispatchProxy, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Reflection.DispatchProxy.4.4.0\lib\net461\System.Reflection.DispatchProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.4.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Encodings.Web.4.4.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
+</Project>

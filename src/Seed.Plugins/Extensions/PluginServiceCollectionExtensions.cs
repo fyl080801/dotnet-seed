@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Seed.Plugins.Abstractions;
-using Seed.Plugins.Abstractions.Feature;
 using Seed.Plugins.Feature;
 using System;
 using System.Collections.Generic;

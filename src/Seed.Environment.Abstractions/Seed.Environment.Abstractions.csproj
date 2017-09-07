@@ -2,7 +2,31 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Seed.Environment</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineDescriptor.cs" Link="Engine\Descriptors\EngineDescriptor.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineFeature.cs" Link="Engine\Descriptors\EngineFeature.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineParameter.cs" Link="Engine\Descriptors\EngineParameter.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\IEngineDescriptorManager.cs" Link="Engine\Descriptors\IEngineDescriptorManager.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineContext.cs" Link="Engine\EngineContext.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineFeatureState.cs" Link="Engine\EngineFeatureState.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineSchema.cs" Link="Engine\EngineSchema.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineSettings.cs" Link="Engine\EngineSettings.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineState.cs" Link="Engine\EngineState.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\ICompositionStrategy.cs" Link="Engine\ICompositionStrategy.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineContainerFactory.cs" Link="Engine\IEngineContainerFactory.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineContextFactory.cs" Link="Engine\IEngineContextFactory.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineDescriptorManagerEventHandler.cs" Link="Engine\IEngineDescriptorManagerEventHandler.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineHost.cs" Link="Engine\IEngineHost.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineSettingsConfigurationProvider.cs" Link="Engine\IEngineSettingsConfigurationProvider.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineSettingsManager.cs" Link="Engine\IEngineSettingsManager.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineStateManager.cs" Link="Engine\IEngineStateManager.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineStateUpdater.cs" Link="Engine\IEngineStateUpdater.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IRunningEngineTable.cs" Link="Engine\IRunningEngineTable.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\LauncherStates.cs" Link="Engine\LauncherStates.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Seed.Events.NotifyProxy&lt;T&gt;">
+    <Position X="1.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\NotifyProxy.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="EventBus" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Seed.Events.DefaultEventBus" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAACAAAIAAAAAAAACAAAAAACAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Events\DefaultEventBus.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Seed.Events.EventBusState" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Events\EventBusState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Seed.Events.Extensions.EventBusExtensions" Collapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAIAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\Extensions\EventBusExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Seed.Events.IEventBus">
+    <Position X="1.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\IEventBus.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Seed.Events.IEventBusState" Collapsed="true">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Events\IEventBusState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Seed.Events.IEventHandler" Collapsed="true">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\IEventHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Seed.Events.INotifyProxy">
+    <Position X="1.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Events\INotifyProxy.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="EventBus" />
+    </ShowAsAssociation>
+  </Interface>
+  <Font Name="Microsoft YaHei UI" Size="9" />
+</ClassDiagram>

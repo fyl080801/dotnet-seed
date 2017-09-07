@@ -5,11 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Events\DefaultEventBus.cs" Link="DefaultEventBus.cs" />
+    <Compile Include="..\Seed.Modeling\Events\EventBusState.cs" Link="EventBusState.cs" />
+    <Compile Include="..\Seed.Modeling\Events\Extensions\EventBusExtensions.cs" Link="Extensions\EventBusExtensions.cs" />
+    <Compile Include="..\Seed.Modeling\Events\NotifyProxy.cs" Link="NotifyProxy.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Reflection.DispatchProxy" Version="4.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Seed.Events.Abstractions\Seed.Events.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

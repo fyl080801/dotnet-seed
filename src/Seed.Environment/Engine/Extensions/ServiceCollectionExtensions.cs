@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Seed.Environment.Abstractions.Engine.Descriptors;
 using Seed.Environment.Engine.Descriptors;
 using System;
 using System.Collections.Generic;

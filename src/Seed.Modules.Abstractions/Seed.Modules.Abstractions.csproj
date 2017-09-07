@@ -2,7 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Seed.Modules</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Modules\IModuleLauncherRouteBuilder.cs" Link="IModuleLauncherRouteBuilder.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\IStartup.cs" Link="IStartup.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\ModuleServiceCollection.cs" Link="ModuleServiceCollection.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\RequireFeaturesAttribute.cs" Link="RequireFeaturesAttribute.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\StartupBase.cs" Link="StartupBase.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.0.0" />

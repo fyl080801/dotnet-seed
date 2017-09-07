@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Modules\Extensions\RunningEngineTableExtensions.cs" Link="Extensions\RunningEngineTableExtensions.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\ModuleApplicationBuilder.cs" Link="ModuleApplicationBuilder.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\ModuleLauncherContainerMiddleware.cs" Link="ModuleLauncherContainerMiddleware.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\ModuleLauncherRouteBuilder.cs" Link="ModuleLauncherRouteBuilder.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\ModuleLauncherRouterMiddleware.cs" Link="ModuleLauncherRouterMiddleware.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="2.0.0" />
