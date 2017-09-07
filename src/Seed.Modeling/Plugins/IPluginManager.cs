@@ -1,4 +1,5 @@
 ﻿using Seed.Plugins.Feature;
+using Seed.Plugins.Loader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace Seed.Plugins
 
         IEnumerable<IFeatureInfo> GetFeaturesDependencies(string featureId);
 
-        Task<IEnumerable<IPluginInfo>> GetPluginsAsync();
+        Task<PluginEntry> GetPluginEntryAsync(IPluginInfo plugin);
 
         Task<IEnumerable<FeatureEntry>> GetFeaturesAsync();
 

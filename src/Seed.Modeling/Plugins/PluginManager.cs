@@ -30,6 +30,12 @@ namespace Seed.Plugins
         readonly IEnumerable<IPluginDependencyStrategy> _pluginDependencyStrategies;
         readonly IEnumerable<IPluginPriorityStrategy> _pluginPriorityStrategies;
 
+        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _featureDependencies
+            = new ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>>();
+
+        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _dependentFeatures
+            = new ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>>();
+
         private IDictionary<string, PluginEntry> _plugins;
         private IDictionary<string, FeatureEntry> _features;
         private IFeatureInfo[] _orderedFeatures;
@@ -58,35 +64,82 @@ namespace Seed.Plugins
 
         public IEnumerable<IFeatureInfo> GetFeatures()
         {
-            return new IFeatureInfo[0];
+            ExecuteInitialized();
+
+            return _orderedFeatures;
         }
 
         public IEnumerable<IFeatureInfo> GetFeatures(string[] featureIdsToLoad)
         {
-            return new IFeatureInfo[0];
+            ExecuteInitialized();
+
+            var featuresWithDependencies = featureIdsToLoad
+                .SelectMany(id => GetFeaturesDependencies(id))
+                .Distinct();
+
+            return _orderedFeatures.Where(e => featuresWithDependencies.Any(f => f.Id == e.Id));
         }
 
         public Task<IEnumerable<FeatureEntry>> GetFeaturesAsync()
         {
-            return Task.FromResult<IEnumerable<FeatureEntry>>(new FeatureEntry[0]);
+            var featuresIds = GetFeatures().Select(f => f.Id).ToList();
+
+            var loadedFeatures = _features.Values
+                .OrderBy(f => featuresIds.IndexOf(f.FeatureInfo.Id));
+
+            return Task.FromResult<IEnumerable<FeatureEntry>>(loadedFeatures);
         }
 
         public Task<IEnumerable<FeatureEntry>> GetFeaturesAsync(string[] featureIdsToLoad)
         {
-            return Task.FromResult<IEnumerable<FeatureEntry>>(new FeatureEntry[0]);
+            ExecuteInitialized();
+
+            var featuresIds = GetFeatures(featureIdsToLoad).Select(f => f.Id).ToList();
+
+            var loadedFeatures = _features.Values
+                .Where(f => featuresIds.Contains(f.FeatureInfo.Id))
+                .OrderBy(f => featuresIds.IndexOf(f.FeatureInfo.Id));
+
+            return Task.FromResult<IEnumerable<FeatureEntry>>(loadedFeatures);
         }
 
         public IEnumerable<IFeatureInfo> GetFeaturesDependencies(string featureId)
         {
-            throw new NotImplementedException();
+            ExecuteInitialized();
+
+            return _featureDependencies.GetOrAdd(featureId, (key) => new Lazy<IEnumerable<IFeatureInfo>>(() =>
+            {
+                if (!_features.ContainsKey(key))
+                {
+                    return Enumerable.Empty<IFeatureInfo>();
+                }
+
+                var feature = _features[key].FeatureInfo;
+
+                var dependencies = new HashSet<IFeatureInfo>() { feature };
+                var stack = new Stack<IFeatureInfo[]>();
+
+                stack.Push(GetFeatureDependenciesFunc(feature, _orderedFeatures));
+
+                while (stack.Count > 0)
+                {
+                    var next = stack.Pop();
+                    foreach (var dependency in next.Where(dependency => !dependencies.Contains(dependency)))
+                    {
+                        dependencies.Add(dependency);
+                        stack.Push(GetFeatureDependenciesFunc(dependency, _orderedFeatures));
+                    }
+                }
+
+                return dependencies.Reverse();
+            })).Value;
         }
 
         public IPluginInfo GetPlugin(string id)
         {
             ExecuteInitialized();
 
-            PluginEntry plugin;
-            if (_plugins.TryGetValue(id, out plugin))
+            if (_plugins.TryGetValue(id, out PluginEntry plugin))
             {
                 return plugin.PluginInfo;
             }
@@ -96,12 +149,20 @@ namespace Seed.Plugins
 
         public IEnumerable<IPluginInfo> GetPlugins()
         {
-            throw new NotImplementedException();
+            ExecuteInitialized();
+
+            return _plugins.Values.Select(p => p.PluginInfo);
         }
 
-        public Task<IEnumerable<IPluginInfo>> GetPluginsAsync()
+        public Task<PluginEntry> GetPluginEntryAsync(IPluginInfo plugin)
         {
-            throw new NotImplementedException();
+            ExecuteInitialized();
+
+            if (_plugins.TryGetValue(plugin.Id, out PluginEntry entry))
+            {
+                return Task.FromResult(entry);
+            }
+            return Task.FromResult<PluginEntry>(null);
         }
 
         /// <summary>
@@ -224,5 +285,15 @@ namespace Seed.Plugins
         {
             return _pluginPriorityStrategies.Sum(s => s.GetPriority(feature));
         }
+
+        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetDependantFeaturesFunc =
+            new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
+                (currentFeature, fs) => fs
+                    .Where(f => f.Dependencies.Any(dep => dep == currentFeature.Id)).OrderBy(x => x.Id).ToArray());
+
+        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetFeatureDependenciesFunc =
+            new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
+                (currentFeature, fs) => fs
+                    .Where(f => currentFeature.Dependencies.Any(dep => dep == f.Id)).OrderByDescending(x => x.Id).ToArray());
     }
 }

@@ -44,8 +44,25 @@
     <None Include="Modules\Diagram.cd" />
     <None Include="packages.config" />
     <None Include="Plugins\Diagram.cd" />
+    <None Include="Yaml\Diagram.cd" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Plugins\Feature\FeatureHash.cs" />
+    <Compile Include="Plugins\PluginPriorityStrategy.cs" />
+    <Compile Include="Plugins\PluginDependencyStrategy.cs" />
+    <Compile Include="Plugins\Feature\IFeatureHash.cs" />
+    <Compile Include="Plugins\PluginExpanderOptionsSetup.cs" />
+    <Compile Include="Plugins\Feature\FeatureBuilderEvents.cs" />
+    <Compile Include="Plugins\Feature\FeatureInfo.cs" />
+    <Compile Include="Plugins\Feature\FeatureBuildingContext.cs" />
+    <Compile Include="Plugins\Feature\IFeatureBuilderEvents.cs" />
+    <Compile Include="Plugins\Descriptors\DescriptorOptionsSetup.cs" />
+    <Compile Include="Plugins\Feature\FeaturesProvider.cs" />
+    <Compile Include="Plugins\Feature\CompositeFeaturesProvider.cs" />
+    <Compile Include="Plugins\Feature\IFeaturesProvider.cs" />
+    <Compile Include="Plugins\PluginProvider.cs" />
+    <Compile Include="Plugins\Loader\DefaultPluginLoader.cs" />
+    <Compile Include="Plugins\Descriptors\DescriptorProvider.cs" />
     <Compile Include="Environment\Commands\CommandReturnCodes.cs" />
     <Compile Include="Environment\Engine\CompositionStrategy.cs" />
     <Compile Include="Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
@@ -131,6 +148,10 @@
     <Compile Include="Plugins\Descriptors\IDescriptorInfo.cs" />
     <Compile Include="Plugins\IPluginInfo.cs" />
     <Compile Include="Plugins\PluginStartupBase.cs" />
+    <Compile Include="Yaml\Extensions\YamlConfigurationExtensions.cs" />
+    <Compile Include="Yaml\YamlConfigurationSource.cs" />
+    <Compile Include="Yaml\YamlConfigurationProvider.cs" />
+    <Compile Include="Yaml\YamlConfigurationFileParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Hosting.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
@@ -166,6 +187,9 @@
     <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.Configuration.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Configuration.FileExtensions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
     </Reference>
@@ -174,6 +198,12 @@
     </Reference>
     <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.FileProviders.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.FileProviders.Physical.2.0.0\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.FileSystemGlobbing.2.0.0\lib\netstandard2.0\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Extensions.Hosting.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
@@ -208,6 +238,9 @@
     </Reference>
     <Reference Include="System.Text.Encodings.Web, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Text.Encodings.Web.4.4.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\YamlDotNet.4.2.1\lib\net35\YamlDotNet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup />

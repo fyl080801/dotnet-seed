@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Yaml\Extensions\YamlConfigurationExtensions.cs" Link="Extensions\YamlConfigurationExtensions.cs" />
+    <Compile Include="..\Seed.Modeling\Yaml\YamlConfigurationFileParser.cs" Link="YamlConfigurationFileParser.cs" />
+    <Compile Include="..\Seed.Modeling\Yaml\YamlConfigurationProvider.cs" Link="YamlConfigurationProvider.cs" />
+    <Compile Include="..\Seed.Modeling\Yaml\YamlConfigurationSource.cs" Link="YamlConfigurationSource.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.0.0" />
+    <PackageReference Include="YamlDotNet" Version="4.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
+</Project>
