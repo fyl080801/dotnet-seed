@@ -14,11 +14,6 @@ namespace Seed.Modules.Extensions
     {
         public static IApplicationBuilder UseModules(this IApplicationBuilder app)
         {
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
-
             app.UseMiddleware<ModuleLauncherContainerMiddleware>();
             app.UseMiddleware<ModuleLauncherRouterMiddleware>();
 

@@ -14,6 +14,8 @@ namespace Seed.Modules.Extensions
         public static IServiceCollection AddModules(this IServiceCollection services, Action<ModuleServiceCollection> configure = null)
         {
             services.AddWebHost();
+            services.AddDescriptorDefinition("Plugin.txt", "plugin");
+            services.AddPluginLocation("Plugins");
 
             var moduleServices = new ModuleServiceCollection(services);
 

@@ -29,7 +29,7 @@ namespace Seed.Environment.Engine
             var engineState = await _stateManager.GetEngineStateAsync();
             foreach (var feature in descriptor.Features)
             {
-                var featureId = feature.Name;
+                var featureId = feature.Id;
                 var featureState = engineState.Features.SingleOrDefault(f => f.Id == featureId);
                 if (featureState == null)
                 {
@@ -50,7 +50,7 @@ namespace Seed.Environment.Engine
             foreach (var featureState in engineState.Features)
             {
                 var featureId = featureState.Id;
-                if (descriptor.Features.Any(f => f.Name == featureId))
+                if (descriptor.Features.Any(f => f.Id == featureId))
                 {
                     continue;
                 }

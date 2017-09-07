@@ -23,10 +23,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Plugins.Abstractions\Seed.Plugins.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Yaml\Seed.Yaml.csproj" />
   </ItemGroup>

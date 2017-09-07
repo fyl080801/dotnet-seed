@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Environment\Cache\ISignal.cs" Link="Cache\ISignal.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineDescriptor.cs" Link="Engine\Descriptors\EngineDescriptor.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineFeature.cs" Link="Engine\Descriptors\EngineFeature.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineParameter.cs" Link="Engine\Descriptors\EngineParameter.cs" />
@@ -18,7 +19,9 @@
     <Compile Include="..\Seed.Modeling\Environment\Engine\ICompositionStrategy.cs" Link="Engine\ICompositionStrategy.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineContainerFactory.cs" Link="Engine\IEngineContainerFactory.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineContextFactory.cs" Link="Engine\IEngineContextFactory.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineDescriptorFeaturesManager.cs" Link="Engine\IEngineDescriptorFeaturesManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineDescriptorManagerEventHandler.cs" Link="Engine\IEngineDescriptorManagerEventHandler.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineFeaturesManager.cs" Link="Engine\IEngineFeaturesManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineHost.cs" Link="Engine\IEngineHost.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineSettingsConfigurationProvider.cs" Link="Engine\IEngineSettingsConfigurationProvider.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineSettingsManager.cs" Link="Engine\IEngineSettingsManager.cs" />
@@ -37,6 +40,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Seed.Events\Seed.Events.csproj" />
     <ProjectReference Include="..\Seed.Plugins.Abstractions\Seed.Plugins.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cache\" />
   </ItemGroup>
 
 </Project>

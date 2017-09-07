@@ -11,11 +11,11 @@ namespace Seed.Environment.Engine.Descriptors
 
         }
 
-        public EngineFeature(string name)
+        public EngineFeature(string id)
         {
-            Name = name;
+            Id = id;
         }
 
-        public string Name { get; set; }
+        public string Id { get; set; }
     }
 }

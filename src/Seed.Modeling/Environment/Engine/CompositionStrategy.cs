@@ -24,7 +24,7 @@ namespace Seed.Environment.Engine
 
         public async Task<EngineSchema> ComposeAsync(EngineSettings settings, EngineDescriptor descriptor)
         {
-            var featureNames = descriptor.Features.Select(x => x.Name).ToArray();
+            var featureNames = descriptor.Features.Select(x => x.Id).ToArray();
 
             var features = await _pluginManager.GetFeaturesAsync(featureNames);
 

@@ -49,5 +49,19 @@ namespace Seed.Plugins.Extensions
                 options.Options.Add(new PluginExpanderOption { Path = path });
             });
         }
+
+        public static IServiceCollection AddDescriptorDefinition(this IServiceCollection services, string definitionName, string moduleType)
+        {
+            return services.Configure<DescriptorOptions>(configureOptions: options =>
+            {
+                var option = new DescriptorOption
+                {
+                    DescriptorFileName = definitionName,
+                    TypeName = moduleType
+                };
+
+                options.Options.Add(option);
+            });
+        }
     }
 }
