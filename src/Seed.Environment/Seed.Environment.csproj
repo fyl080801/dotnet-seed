@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Environment\Commands\CommandReturnCodes.cs" Link="Commands\CommandReturnCodes.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\CompositionStrategy.cs" Link="Engine\CompositionStrategy.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" Link="Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\FileEngineDescriptorManager.cs" Link="Engine\Descriptors\FileEngineDescriptorManager.cs" />
@@ -33,10 +32,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Commands\" />
   </ItemGroup>
 
 </Project>

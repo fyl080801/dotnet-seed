@@ -15,7 +15,7 @@ namespace Seed.Modules.Extensions
         public static IApplicationBuilder UseModules(this IApplicationBuilder app)
         {
             app.UseMiddleware<ModuleLauncherContainerMiddleware>();
-            app.UseMiddleware<ModuleLauncherRouterMiddleware>();
+            //app.UseMiddleware<ModuleLauncherRouterMiddleware>();
 
             return app;
         }

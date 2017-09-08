@@ -36,11 +36,11 @@ namespace Seed.Plugins.Loader
                     Exports = assembly.ExportedTypes
                 };
             }
-            catch
+            catch (Exception ex)
             {
                 if (_logger.IsEnabled(LogLevel.Information))
                 {
-                    _logger.LogInformation("An plugin found but was not loaded: '{0}'", pluginInfo.Id);
+                    _logger.LogInformation("An plugin found but was not loaded: '{0}', {1}", pluginInfo.Id, ex.Message);
                 }
 
                 return null;

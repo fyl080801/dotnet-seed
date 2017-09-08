@@ -67,7 +67,6 @@
     <Compile Include="Plugins\PluginProvider.cs" />
     <Compile Include="Plugins\Loader\DefaultPluginLoader.cs" />
     <Compile Include="Plugins\Descriptors\DescriptorProvider.cs" />
-    <Compile Include="Environment\Commands\CommandReturnCodes.cs" />
     <Compile Include="Environment\Engine\CompositionStrategy.cs" />
     <Compile Include="Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
     <Compile Include="Environment\Engine\Descriptors\EngineDescriptor.cs" />

@@ -78,9 +78,7 @@ namespace Seed.Environment.Engine
 
         public void ReloadContext(EngineSettings settings)
         {
-            EngineContext context;
-
-            if (_contexts.TryRemove(settings.Name, out context))
+            if (_contexts.TryRemove(settings.Name, out EngineContext context))
             {
                 _runningEngineTable.Remove(settings);
                 context.Release();
@@ -113,10 +111,10 @@ namespace Seed.Environment.Engine
 
         private async Task CreateAndRegisterEnginesAsync()
         {
-            var features = _pluginManager.GetFeaturesAsync();
+            //var features = _pluginManager.GetFeaturesAsync();
             var allSettings = _engineSettingsManager.LoadSettings().Where(CanCreateEngine).ToArray();
 
-            features.Wait();
+            //features.Wait();
 
             if (allSettings.Length <= 0)
             {
