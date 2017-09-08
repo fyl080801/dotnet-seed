@@ -3,7 +3,7 @@ using Seed.Plugins.Feature;
 using System;
 using System.Collections.Generic;
 
-namespace Seed.Environment.Engine
+namespace Seed.Environment.Engine.Builder
 {
     public class EngineSchema
     {

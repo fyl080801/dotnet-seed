@@ -7,13 +7,13 @@ namespace Seed.Environment.Engine.Descriptors
 {
     public class AllFeaturesEngineDescriptorManager : IEngineDescriptorManager
     {
-        private readonly IPluginManager _pluginManager;
+        //private readonly IPluginManager _pluginManager;
         private EngineDescriptor _engineDescriptor;
 
-        public AllFeaturesEngineDescriptorManager(IPluginManager pluginManager)
-        {
-            _pluginManager = pluginManager;
-        }
+        //public AllFeaturesEngineDescriptorManager(IPluginManager pluginManager)
+        //{
+        //    _pluginManager = pluginManager;
+        //}
 
         public Task<EngineDescriptor> GetEngineDescriptorAsync()
         {

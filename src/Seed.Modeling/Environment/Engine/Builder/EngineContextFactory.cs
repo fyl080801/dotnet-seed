@@ -3,7 +3,7 @@ using Seed.Environment.Engine.Descriptors;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Seed.Environment.Engine
+namespace Seed.Environment.Engine.Builder
 {
     public class EngineContextFactory : IEngineContextFactory
     {

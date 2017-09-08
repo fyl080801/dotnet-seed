@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Environment.Engine
+namespace Seed.Environment.Engine.Builder
 {
     /// <summary>
     /// 

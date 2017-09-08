@@ -7,18 +7,18 @@
 
   <ItemGroup>
     <Compile Include="..\Seed.Modeling\Environment\Cache\ISignal.cs" Link="Cache\ISignal.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\EngineSchema.cs" Link="Engine\Builder\EngineSchema.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\ICompositionStrategy.cs" Link="Engine\Builder\ICompositionStrategy.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\IEngineContainerFactory.cs" Link="Engine\Builder\IEngineContainerFactory.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\IEngineContextFactory.cs" Link="Engine\Builder\IEngineContextFactory.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineDescriptor.cs" Link="Engine\Descriptors\EngineDescriptor.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineFeature.cs" Link="Engine\Descriptors\EngineFeature.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\EngineParameter.cs" Link="Engine\Descriptors\EngineParameter.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\IEngineDescriptorManager.cs" Link="Engine\Descriptors\IEngineDescriptorManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineContext.cs" Link="Engine\EngineContext.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineFeatureState.cs" Link="Engine\EngineFeatureState.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineSchema.cs" Link="Engine\EngineSchema.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineSettings.cs" Link="Engine\EngineSettings.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineState.cs" Link="Engine\EngineState.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\ICompositionStrategy.cs" Link="Engine\ICompositionStrategy.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineContainerFactory.cs" Link="Engine\IEngineContainerFactory.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineContextFactory.cs" Link="Engine\IEngineContextFactory.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineDescriptorFeaturesManager.cs" Link="Engine\IEngineDescriptorFeaturesManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineDescriptorManagerEventHandler.cs" Link="Engine\IEngineDescriptorManagerEventHandler.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineFeaturesManager.cs" Link="Engine\IEngineFeaturesManager.cs" />
@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <Folder Include="Cache\" />
+    <Folder Include="Engine\Builder\" />
   </ItemGroup>
 
 </Project>

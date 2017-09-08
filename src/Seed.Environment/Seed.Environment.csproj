@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Environment\Engine\CompositionStrategy.cs" Link="Engine\CompositionStrategy.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\CompositionStrategy.cs" Link="Engine\Builder\CompositionStrategy.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\EngineContainerFactory.cs" Link="Engine\Builder\EngineContainerFactory.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\EngineContextFactory.cs" Link="Engine\Builder\EngineContextFactory.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" Link="Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\FileEngineDescriptorManager.cs" Link="Engine\Descriptors\FileEngineDescriptorManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs" Link="Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineContainerFactory.cs" Link="Engine\EngineContainerFactory.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineContextFactory.cs" Link="Engine\EngineContextFactory.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineFeaturesManager.cs" Link="Engine\EngineFeaturesManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineHelper.cs" Link="Engine\EngineHelper.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineHost.cs" Link="Engine\EngineHost.cs" />
@@ -32,6 +32,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Engine\Builder\" />
   </ItemGroup>
 
 </Project>

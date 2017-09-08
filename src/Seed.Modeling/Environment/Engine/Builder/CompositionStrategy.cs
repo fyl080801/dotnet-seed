@@ -7,18 +7,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Seed.Environment.Engine
+namespace Seed.Environment.Engine.Builder
 {
     public class CompositionStrategy : ICompositionStrategy
     {
-        readonly IPluginManager _pluginManager;
+        //readonly IPluginManager _pluginManager;
         readonly ITypeFeatureProvider _typeFeatureProvider;
 
         public CompositionStrategy(
-            IPluginManager pluginManager,
+            //IPluginManager pluginManager,
             ITypeFeatureProvider typeFeatureProvider)
         {
-            _pluginManager = pluginManager;
+            //_pluginManager = pluginManager;
             _typeFeatureProvider = typeFeatureProvider;
         }
 

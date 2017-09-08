@@ -1,11 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Seed.Environment.Engine.Builder;
 using Seed.Environment.Engine.Descriptors;
-using Seed.Plugins;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Seed.Environment.Engine
@@ -16,21 +14,21 @@ namespace Seed.Environment.Engine
 
         readonly IEngineSettingsManager _engineSettingsManager;
         readonly IEngineContextFactory _engineContextFactory;
+        //readonly IPluginManager _pluginManager;
         readonly IRunningEngineTable _runningEngineTable;
-        readonly IPluginManager _pluginManager;
 
         private ConcurrentDictionary<string, EngineContext> _contexts;
 
         public EngineHost(
             IEngineSettingsManager engineSettingsManager,
             IEngineContextFactory engineContextFactory,
-            IRunningEngineTable runningEngineTable,
-            IPluginManager pluginManager)
+            //IPluginManager pluginManager,
+            IRunningEngineTable runningEngineTable)
         {
             _engineSettingsManager = engineSettingsManager;
             _engineContextFactory = engineContextFactory;
+            //_pluginManager = pluginManager;
             _runningEngineTable = runningEngineTable;
-            _pluginManager = pluginManager;
         }
 
         public Task<EngineContext> CreateContextAsync(EngineSettings settings)

@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Seed.Environment.Engine
+namespace Seed.Environment.Engine.Builder
 {
     public class EngineContainerFactory : IEngineContainerFactory
     {

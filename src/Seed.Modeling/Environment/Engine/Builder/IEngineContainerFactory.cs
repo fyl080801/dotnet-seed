@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Environment.Engine
+namespace Seed.Environment.Engine.Builder
 {
     public interface IEngineContainerFactory
     {
