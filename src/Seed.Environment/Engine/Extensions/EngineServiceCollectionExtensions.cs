@@ -9,7 +9,7 @@ namespace Seed.Environment.Engine.Extensions
 {
     public static class EngineServiceCollectionExtensions
     {
-        public static IServiceCollection AddHostingEngineServices(this IServiceCollection services)
+        public static IServiceCollection AddEngineServices(this IServiceCollection services)
         {
             services.AddSingleton<EngineHost>();
             services.AddSingleton<IEngineHost>(e => e.GetRequiredService<EngineHost>());

@@ -48,30 +48,29 @@ namespace Seed.Modules.Extensions
             return modules;
         }
 
-        public static ModuleServiceCollection WithFeatures(this ModuleServiceCollection modules,
-            params string[] featureIds)
-        {
-            var featuresList = featureIds.Select(featureId => new EngineFeature(featureId)).ToList();
+        //public static ModuleServiceCollection WithFeatures(this ModuleServiceCollection modules, params string[] featureIds)
+        //{
+        //    var featuresList = featureIds.Select(featureId => new EngineFeature(featureId)).ToList();
 
-            modules.Configure(services =>
-            {
-                foreach (var feature in featuresList)
-                {
-                    services.AddTransient(sp => feature);
-                };
+        //    modules.Configure(services =>
+        //    {
+        //        foreach (var feature in featuresList)
+        //        {
+        //            services.AddTransient(sp => feature);
+        //        };
 
-                services.AddSetFeaturesDescriptor(featuresList);
-            });
+        //        services.AddSetFeaturesDescriptor(featuresList);
+        //    });
 
-            return modules;
-        }
+        //    return modules;
+        //}
 
         public static IServiceCollection AddWebHost(this IServiceCollection services)
         {
             services.AddLogging();
             services.AddOptions();
             services.AddLocalization();
-            services.AddHostingEngineServices();
+            services.AddEngineServices();
             services.AddPluginServices();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

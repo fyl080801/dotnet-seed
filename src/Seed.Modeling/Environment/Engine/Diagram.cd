@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Seed.Environment.Engine.EngineContext" BaseTypeListCollapsed="true">
-    <Position X="7" Y="3" Width="2" />
+    <Position X="6" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAggAAAAACAEAACBAAAAABAECAAAAAUAgQAAABAAAAA=</HashCode>
       <FileName>Environment\Engine\EngineContext.cs</FileName>
@@ -13,7 +13,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Environment.Engine.EngineSettings">
-    <Position X="10.25" Y="7" Width="2.25" />
+    <Position X="10.25" Y="5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAAAAAAAAKAAACAQAAAAAAABAgCAABAAAACA=</HashCode>
       <FileName>Environment\Engine\EngineSettings.cs</FileName>
@@ -23,7 +23,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Seed.Environment.Engine.Descriptors.EngineDescriptor">
-    <Position X="7" Y="10.25" Width="1.75" />
+    <Position X="4" Y="6" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAABAAAAAAEAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Descriptors\EngineDescriptor.cs</FileName>
@@ -34,21 +34,21 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Seed.Environment.Engine.Descriptors.EngineFeature">
-    <Position X="9.25" Y="14.5" Width="2.25" />
+    <Position X="3.75" Y="0.5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Descriptors\EngineFeature.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Environment.Engine.Descriptors.EngineParameter">
-    <Position X="4" Y="7" Width="1.5" />
+    <Position X="3" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABgAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Descriptors\EngineParameter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Environment.Engine.EngineFeatureState">
-    <Position X="21.75" Y="5.75" Width="1.75" />
+    <Position X="21.75" Y="3.75" Width="1.75" />
     <NestedTypes>
       <Enum Name="Seed.Environment.Engine.EngineFeatureState.State" Collapsed="true">
         <TypeIdentifier>
@@ -62,7 +62,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Environment.Engine.EngineState">
-    <Position X="19" Y="6.25" Width="1.5" />
+    <Position X="19" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\EngineState.cs</FileName>
@@ -79,15 +79,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Environment.Engine.EngineHost">
-    <Position X="2.75" Y="2" Width="2.75" />
+    <Position X="1.75" Y="12" Width="2.75" />
     <TypeIdentifier>
       <HashCode>BBAAQgAAAAAABSAIBAAAQAAAACAAABAAgEQEAIAAAAA=</HashCode>
       <FileName>Environment\Engine\EngineHost.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_engineSettingsManager" />
-      <Field Name="_runningEngineTable" />
       <Field Name="_engineContextFactory" />
+      <Field Name="_runningEngineTable" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Field Name="_contexts" />
@@ -95,7 +95,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Environment.Engine.EngineSettingsManager">
-    <Position X="17.75" Y="9.75" Width="2" />
+    <Position X="15.75" Y="11.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\EngineSettingsManager.cs</FileName>
@@ -106,7 +106,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Environment.Engine.EngineStateCoordinator">
-    <Position X="12.75" Y="3.75" Width="4" />
+    <Position X="8.75" Y="9.75" Width="4" />
     <TypeIdentifier>
       <HashCode>AAAwAAAAAAAgAAAAgAAAAAAAAAAAAAAAAAQAAIAAAAA=</HashCode>
       <FileName>Environment\Engine\EngineStateCoordinator.cs</FileName>
@@ -118,7 +118,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Environment.Engine.EngineStateUpdater">
-    <Position X="9.75" Y="11.75" Width="2" />
+    <Position X="9.75" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAEIAAIAA=</HashCode>
       <FileName>Environment\Engine\EngineStateUpdater.cs</FileName>
@@ -146,7 +146,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Environment.Engine.RunningEngineTable">
-    <Position X="13.75" Y="7.25" Width="2.25" />
+    <Position X="13.75" Y="5.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>ABIAAggAAAAAAAAgAAAgFEAAAAAAAgBAAAAAAAIAAAA=</HashCode>
       <FileName>Environment\Engine\RunningEngineTable.cs</FileName>
@@ -165,7 +165,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Environment.Engine.Descriptors.AllFeaturesEngineDescriptorManager">
-    <Position X="3.5" Y="10.25" Width="2.5" />
+    <Position X="0.5" Y="6" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAA=</HashCode>
       <FileName>Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs</FileName>
@@ -184,7 +184,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Environment.Engine.Descriptors.SetFeaturesEngineDescriptorManager">
-    <Position X="5.25" Y="13" Width="3" />
+    <Position X="3.25" Y="3" Width="3" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAQAgAA=</HashCode>
       <FileName>Environment\Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs</FileName>
@@ -213,14 +213,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Environment.Engine.Builder.EngineSchema">
-    <Position X="6.75" Y="8.25" Width="2" />
+    <Position X="6.75" Y="6.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Builder\EngineSchema.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Descriptor" />
       <Property Name="Settings" />
+      <Property Name="Descriptor" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Seed.Environment.Engine.Builder.EngineContextFactory" Collapsed="true" BaseTypeListCollapsed="true">
@@ -269,21 +269,21 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.IEngineSettingsConfigurationProvider" Collapsed="true">
-    <Position X="17.25" Y="12.25" Width="3" />
+    <Position X="15.25" Y="10.25" Width="3" />
     <TypeIdentifier>
       <HashCode>AAEAAEAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineSettingsConfigurationProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.IEngineSettingsManager" Collapsed="true">
-    <Position X="5.5" Y="0.5" Width="2" />
+    <Position X="4.5" Y="16.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineSettingsManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.IEngineStateManager" Collapsed="true">
-    <Position X="12.75" Y="11.5" Width="2" />
+    <Position X="12.75" Y="3.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AgAAAAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineStateManager.cs</FileName>
@@ -297,7 +297,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.IRunningEngineTable" Collapsed="true">
-    <Position X="0.5" Y="6.5" Width="2" />
+    <Position X="1.5" Y="16.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAIAAgAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IRunningEngineTable.cs</FileName>
@@ -318,7 +318,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.Builder.IEngineContextFactory" Collapsed="true">
-    <Position X="2.75" Y="0.5" Width="1.5" />
+    <Position X="0.75" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAIEAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Builder\IEngineContextFactory.cs</FileName>
@@ -339,7 +339,7 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="Seed.Environment.Engine.LauncherStates" Collapsed="true">
-    <Position X="10" Y="5.5" Width="1.5" />
+    <Position X="7" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACUAAAAAAAAACAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\LauncherStates.cs</FileName>

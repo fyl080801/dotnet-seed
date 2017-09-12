@@ -31,8 +31,7 @@ namespace Seed.Modules.Extensions
 
         public static IApplicationBuilder ConfigureModules(this IApplicationBuilder app, Action<ModuleApplicationBuilder> modules)
         {
-            var modularApplicationBuilder = new ModuleApplicationBuilder(app);
-            modules(modularApplicationBuilder);
+            modules(new ModuleApplicationBuilder(app));
 
             return app;
         }
