@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
 using Seed.Modules.Extensions;
 using System;
@@ -47,21 +48,20 @@ namespace Seed.Modules
                         {
                             if (!engineContext.IsActivated)
                             {
-                                //var tenantEvents = scope.ServiceProvider
-                                //    .GetServices<IModularTenantEvents>();
+                                var launcherEvents = scope.ServiceProvider.GetServices<IModuleLauncherEvents>();
 
-                                //foreach (var tenantEvent in tenantEvents)
-                                //{
-                                //    tenantEvent.ActivatingAsync().Wait();
-                                //}
+                                foreach (var launcherEvent in launcherEvents)
+                                {
+                                    launcherEvent.ActivatingAsync().Wait();
+                                }
 
                                 httpContext.Items["BuildPipeline"] = true;
                                 engineContext.IsActivated = true;
 
-                                //foreach (var tenantEvent in tenantEvents)
-                                //{
-                                //    tenantEvent.ActivatedAsync().Wait();
-                                //}
+                                foreach (var launcherEvent in launcherEvents)
+                                {
+                                    launcherEvent.ActivatedAsync().Wait();
+                                }
                             }
                         }
                     }

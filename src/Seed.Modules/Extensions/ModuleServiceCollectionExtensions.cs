@@ -71,7 +71,7 @@ namespace Seed.Modules.Extensions
             services.AddLogging();
             services.AddOptions();
             services.AddLocalization();
-            services.AddHostingEngineServices();
+            services.AddEngineHostServices();
             services.AddPluginServices();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

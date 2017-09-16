@@ -1,5 +1,6 @@
 ﻿using Seed.Environment.Engine.Builder;
 using Seed.Environment.Engine.Descriptors;
+using Seed.Plugins;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Seed.Environment.Engine
 
         readonly IEngineSettingsManager _engineSettingsManager;
         readonly IEngineContextFactory _engineContextFactory;
-        //readonly IPluginManager _pluginManager;
+        readonly IPluginManager _pluginManager;
         readonly IRunningEngineTable _runningEngineTable;
 
         private ConcurrentDictionary<string, EngineContext> _contexts;
@@ -22,12 +23,12 @@ namespace Seed.Environment.Engine
         public EngineHost(
             IEngineSettingsManager engineSettingsManager,
             IEngineContextFactory engineContextFactory,
-            //IPluginManager pluginManager,
+            IPluginManager pluginManager,
             IRunningEngineTable runningEngineTable)
         {
             _engineSettingsManager = engineSettingsManager;
             _engineContextFactory = engineContextFactory;
-            //_pluginManager = pluginManager;
+            _pluginManager = pluginManager;
             _runningEngineTable = runningEngineTable;
         }
 
@@ -109,10 +110,10 @@ namespace Seed.Environment.Engine
 
         private async Task CreateAndRegisterEnginesAsync()
         {
-            //var features = _pluginManager.GetFeaturesAsync();
+            var features = _pluginManager.GetFeaturesAsync();
             var allSettings = _engineSettingsManager.LoadSettings().Where(CanCreateEngine).ToArray();
 
-            //features.Wait();
+            features.Wait();
 
             if (allSettings.Length <= 0)
             {

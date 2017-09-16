@@ -51,6 +51,7 @@
     <Compile Include="Environment\Engine\EngineFeaturesManager.cs" />
     <Compile Include="Environment\Engine\IEngineFeaturesManager.cs" />
     <Compile Include="Environment\Engine\IEngineDescriptorFeaturesManager.cs" />
+    <Compile Include="Modules\IModuleLauncherEvents.cs" />
     <Compile Include="Plugins\Feature\FeatureHash.cs" />
     <Compile Include="Plugins\PluginPriorityStrategy.cs" />
     <Compile Include="Plugins\PluginDependencyStrategy.cs" />
