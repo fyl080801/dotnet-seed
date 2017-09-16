@@ -7,6 +7,10 @@ using System.Text;
 
 namespace Seed.Environment.Engine
 {
+    /// <summary>
+    /// 常规的 EngineSettingsManager，可通过多个 IEngineSettingsConfigurationProvider 存取配置
+    /// 将配置放到 ConfigurationBuilder 中
+    /// </summary>
     public class EngineSettingsManager : IEngineSettingsManager
     {
         readonly IEnumerable<IEngineSettingsConfigurationProvider> _configurationProviders;
