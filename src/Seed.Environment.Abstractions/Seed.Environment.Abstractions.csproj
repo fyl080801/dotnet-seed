@@ -17,6 +17,7 @@
     <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\IEngineDescriptorManager.cs" Link="Engine\Descriptors\IEngineDescriptorManager.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineContext.cs" Link="Engine\EngineContext.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineFeatureState.cs" Link="Engine\EngineFeatureState.cs" />
+    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineOptions.cs" Link="Engine\EngineOptions.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineSettings.cs" Link="Engine\EngineSettings.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\EngineState.cs" Link="Engine\EngineState.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\IEngineDescriptorFeaturesManager.cs" Link="Engine\IEngineDescriptorFeaturesManager.cs" />

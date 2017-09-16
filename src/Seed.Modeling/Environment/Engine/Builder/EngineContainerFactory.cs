@@ -53,6 +53,7 @@ namespace Seed.Environment.Engine.Builder
 
             var featureAwareServiceCollection = new FeatureAwareServiceCollection(launcherServiceCollection);
 
+            // 加载所有 IStartup 接口
             var startups = moduleServiceProvider.GetServices<IStartup>().OrderBy(e => e.Order);
             foreach (var startup in startups)
             {

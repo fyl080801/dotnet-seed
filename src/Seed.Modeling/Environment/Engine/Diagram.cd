@@ -72,16 +72,16 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Seed.Environment.Engine.EngineHelper" Collapsed="true">
-    <Position X="24.5" Y="1.5" Width="1.5" />
+    <Position X="28" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAABAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\EngineHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Environment.Engine.EngineHost">
-    <Position X="1.75" Y="12" Width="2.75" />
+    <Position X="1.75" Y="11.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>BBAAQgAAAAAABSAIBAAAQAAAACAAABAAgEQEAIAAAAA=</HashCode>
+      <HashCode>BBAARgAAAAAABSAIBAAAQAAAACAAABAAgEQEAIAAAAA=</HashCode>
       <FileName>Environment\Engine\EngineHost.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -130,7 +130,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Environment.Engine.FeatureAwareServiceCollection" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="26.25" Y="1.5" Width="1.5" />
+    <Position X="28" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAEAAIAAAABAQCAAABAQABAAAAAAECAEAAAjQIAA=</HashCode>
       <FileName>Environment\Engine\FeatureAwareServiceCollection.cs</FileName>
@@ -138,7 +138,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Environment.Engine.NullEngineStateManager" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="29.75" Y="1.5" Width="1.5" />
+    <Position X="24.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgAAAAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\NullEngineStateManager.cs</FileName>
@@ -157,7 +157,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Environment.Engine.SingleEngineSettingsManager" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="26.25" Y="2.5" Width="1.5" />
+    <Position X="28" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\SingleEngineSettingsManager.cs</FileName>
@@ -176,7 +176,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Environment.Engine.Descriptors.FileEngineDescriptorManager" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="28" Y="1.5" Width="1.5" />
+    <Position X="29.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Environment\Engine\Descriptors\FileEngineDescriptorManager.cs</FileName>
@@ -198,14 +198,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Environment.Engine.Extensions.ServiceProviderExtensions" Collapsed="true">
-    <Position X="24.5" Y="2.5" Width="1.5" />
+    <Position X="26.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Environment\Engine\Extensions\ServiceProviderExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Environment.Engine.EngineFeaturesManager" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="29.75" Y="0.5" Width="1.5" />
+    <Position X="26.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAACAAAABAAAAAQABAAAAAAAAAAAAAAAAAAEgAA=</HashCode>
       <FileName>Environment\Engine\EngineFeaturesManager.cs</FileName>
@@ -234,7 +234,7 @@
   <Class Name="Seed.Environment.Engine.Builder.CompositionStrategy" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="24.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAABAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Builder\CompositionStrategy.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -247,22 +247,61 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
+  <Class Name="Seed.Environment.Engine.EngineOptions" Collapsed="true">
+    <Position X="29.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\Engine\EngineOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Seed.Environment.Engine.Data.EngineDescriptorManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Environment\Engine\Data\EngineDescriptorManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Seed.Environment.Engine.Data.EngineStateManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\Engine\Data\EngineStateManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Seed.Environment.Engine.EngineDescriptorFeaturesManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="29.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Environment\Engine\EngineDescriptorFeaturesManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Seed.Environment.Engine.EngineSettingsConfigurationProvider" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="24.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAEAAEAAAAAEAABAAAAAAAAAAAAAEAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Environment\Engine\EngineSettingsConfigurationProvider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
   <Interface Name="Seed.Environment.Engine.IEngineHost" Collapsed="true">
-    <Position X="28" Y="4.5" Width="1.5" />
+    <Position X="28" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAgAAAAAAASAIAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineHost.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.Descriptors.IEngineDescriptorManager" Collapsed="true">
-    <Position X="29.75" Y="3.75" Width="1.5" />
+    <Position X="29.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Environment\Engine\Descriptors\IEngineDescriptorManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.IEngineDescriptorManagerEventHandler" Collapsed="true">
-    <Position X="24.5" Y="4.5" Width="1.5" />
+    <Position X="24.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineDescriptorManagerEventHandler.cs</FileName>
@@ -290,7 +329,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.IEngineStateUpdater" Collapsed="true">
-    <Position X="29.75" Y="4.5" Width="1.5" />
+    <Position X="29.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineStateUpdater.cs</FileName>
@@ -304,14 +343,14 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.IEngineFeaturesManager" Collapsed="true">
-    <Position X="26.25" Y="4.5" Width="1.5" />
+    <Position X="26.25" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAABAAAAAQABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineFeaturesManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.IEngineDescriptorFeaturesManager" Collapsed="true">
-    <Position X="28" Y="3.75" Width="1.5" />
+    <Position X="28" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAQABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\IEngineDescriptorFeaturesManager.cs</FileName>
@@ -325,14 +364,14 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.Builder.IEngineContainerFactory" Collapsed="true">
-    <Position X="26.25" Y="3.75" Width="1.5" />
+    <Position X="26.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Builder\IEngineContainerFactory.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Environment.Engine.Builder.ICompositionStrategy" Collapsed="true">
-    <Position X="24.5" Y="3.75" Width="1.5" />
+    <Position X="24.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Environment\Engine\Builder\ICompositionStrategy.cs</FileName>

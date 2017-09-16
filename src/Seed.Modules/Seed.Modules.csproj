@@ -10,11 +10,14 @@
     <Compile Include="..\Seed.Modeling\Modules\ModuleLauncherContainerMiddleware.cs" Link="ModuleLauncherContainerMiddleware.cs" />
     <Compile Include="..\Seed.Modeling\Modules\ModuleLauncherRouteBuilder.cs" Link="ModuleLauncherRouteBuilder.cs" />
     <Compile Include="..\Seed.Modeling\Modules\ModuleLauncherRouterMiddleware.cs" Link="ModuleLauncherRouterMiddleware.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\ModuleProjectContentFileProvider.cs" Link="ModuleProjectContentFileProvider.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Composite" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="2.0.0" />
   </ItemGroup>
 
