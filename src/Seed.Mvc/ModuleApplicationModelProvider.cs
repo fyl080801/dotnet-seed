@@ -21,8 +21,7 @@ namespace Seed.Mvc
         {
             foreach (var controller in context.Result.Controllers)
             {
-                var controllerType = controller.ControllerType.AsType();
-                var schema = _provider.GetFeatureForDependency(controllerType);
+                var schema = _provider.GetFeatureForDependency(controller.ControllerType.AsType());
                 if (schema != null)
                 {
                     controller.RouteValues.Add("area", schema.Plugin.Id);

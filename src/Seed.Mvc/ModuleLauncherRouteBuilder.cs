@@ -33,18 +33,13 @@ namespace Seed.Mvc
 
         public void Configure(IRouteBuilder builder)
         {
-            var inlineConstraintResolver = _serviceProvider.GetService<IInlineConstraintResolver>();
-
             builder.Routes.Add(new Route(
                 builder.DefaultHandler,
-                "Default",
-                "{area:exists}/{controller}/{action}/{id?}",
+                "Default", "{area:exists}/{controller}/{action}/{id?}",
                 null,
                 null,
                 null,
-                inlineConstraintResolver)
-            );
-
+                _serviceProvider.GetService<IInlineConstraintResolver>()));
             builder.Routes.Insert(0, AttributeRouting.CreateAttributeMegaRoute(_serviceProvider));
         }
     }
