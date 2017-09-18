@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <None Update="Plugin.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
