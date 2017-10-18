@@ -1,12 +1,12 @@
-﻿using Seed.Modules;
-using System;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using Seed.Mvc.Extensions;
+using Microsoft.Extensions.DependencyInjection;
+using Seed.Modules;
 using Seed.Modules.Extensions;
+using Seed.Mvc.Extensions;
+using System;
 
-namespace SeedPlugins.Mvc
+namespace SeedModules.Mvc
 {
     public class Startup : StartupBase
     {

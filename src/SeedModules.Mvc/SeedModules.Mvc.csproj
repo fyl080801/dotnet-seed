@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Seed.Modules.Targets\Seed.Modules.Targets.csproj" />
+    <ProjectReference Include="..\Seed.Modules\Seed.Modules.csproj" />
+    <ProjectReference Include="..\Seed.Mvc\Seed.Mvc.csproj" />
+  </ItemGroup>
+
+</Project>

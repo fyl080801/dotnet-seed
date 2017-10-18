@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine.Data;
 using Seed.Modules.Extensions;
 
-namespace Seed.Application
+namespace Seed.Application.Sample.Targets
 {
     public static class ServiceExtensions
     {
@@ -17,9 +17,12 @@ namespace Seed.Application
             //services.AddThemingHost();
             //services.AddManifestDefinition("Theme.txt", "theme");
             //services.AddExtensionLocation("Themes");
+
             services.AddSitesFolder("App_Data", "Sites");
+
             //services.AddCommands();
-            services.AddAuthentication();
+
+            services.AddAuthenticationCore();
             services.AddModules(modules =>
             {
                 if (configuration != null)
@@ -27,7 +30,7 @@ namespace Seed.Application
                     modules.WithConfiguration(configuration);
                 }
 
-                modules.WithDefaultFeatures("SeedPlugins.Mvc", "SeedPlugins.Sample");
+                modules.WithDefaultFeatures("SeedModules.Mvc", "SeedModules.Sample");
             });
 
             return services;

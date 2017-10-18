@@ -40,7 +40,7 @@ namespace Seed.Plugins.Loader
             {
                 if (_logger.IsEnabled(LogLevel.Information))
                 {
-                    _logger.LogInformation("An plugin found but was not loaded: '{0}', {1}", pluginInfo.Id, ex.Message);
+                    _logger.LogInformation("找到 Plugin 但无法读取: '{0}', {1}", pluginInfo.Id, ex.Message);
                 }
 
                 return null;

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SeedPlugins.Sample.Controllers
+namespace SeedModules.Sample.Controllers
 {
     public class HomeController : Controller
     {

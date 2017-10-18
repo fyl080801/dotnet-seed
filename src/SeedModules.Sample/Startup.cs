@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Routing;
 using Seed.Modules;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace SeedPlugins.Sample
+namespace SeedModules.Sample
 {
     public class Startup : StartupBase
     {
