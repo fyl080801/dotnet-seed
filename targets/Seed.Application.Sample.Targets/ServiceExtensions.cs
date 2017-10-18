@@ -22,7 +22,7 @@ namespace Seed.Application.Sample.Targets
 
             //services.AddCommands();
 
-            services.AddAuthenticationCore();
+            services.AddAuthentication();
             services.AddModules(modules =>
             {
                 if (configuration != null)

@@ -2,7 +2,7 @@
 
   <!-- 
     This file is packaged with "OrchardCore.AsModule.nupkg" in "./build" such that any Module that references
-    it will get its static assets copied to "$(ApplicationDirectory)\Packages".
+    it will get its static assets copied to "$(ApplicationDirectory)\Modules".
   -->
 
   <PropertyGroup>
@@ -27,7 +27,7 @@
 
   <Target Name="CopyPackageAssetFiles" Condition="'$(ApplicationDirectory)' != '' And Exists('$(ApplicationDirectory)')">
     <ItemGroup>
-      <ApplicationAssetFiles Include="$(ApplicationDirectory)\Packages\$(MSBuildProjectName)\**\*" />
+      <ApplicationAssetFiles Include="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)\**\*" />
     </ItemGroup>
     <Delete
       Files="@(ApplicationAssetFiles)"
@@ -36,17 +36,17 @@
     <Message Text="Packaging asset files: $(MSBuildProjectName)" Importance="high" />
     <Copy
       SourceFiles="@(PackageAssetFiles)"
-      DestinationFolder="$(ApplicationDirectory)\Packages\$(MSBuildProjectName)\%(RecursiveDir)" />
+      DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)\%(RecursiveDir)" />
     <Copy
       SourceFiles="obj\$(ModuleType).txt"
-      DestinationFolder="$(ApplicationDirectory)\Packages\$(MSBuildProjectName)"
+      DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)"
       Condition="!Exists('$(ModuleType).txt')" />
   </Target>
 
   <!-- Adds a custom .props file to the generated module package -->
 
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Package.Build.props" Pack="true">
+    <None Include="$(MSBuildThisFileDirectory)Module.Build.props" Pack="true">
       <PackagePath>build\$(TargetFramework)\$(PackageId).props</PackagePath>
     </None>
     <None Include="**\*" Exclude="$(ExcludedFiles)" Pack="true">
