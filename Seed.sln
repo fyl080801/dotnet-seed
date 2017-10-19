@@ -9,13 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed", "src\Seed\Seed.cspro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Environment", "src\Seed.Environment\Seed.Environment.csproj", "{898A51AD-EE4E-4C7F-970D-B1B4F7674E1B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FE733C24-8C13-4A1A-9584-A4E1C48E9358}"
-	ProjectSection(SolutionItems) = preProject
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		README.md = README.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Environment.Abstractions", "src\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj", "{D6113CC3-3201-43CC-B618-A728A78A3B6C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Modules", "src\Seed.Modules\Seed.Modules.csproj", "{498FE358-0575-4A0D-AC87-1EC0028A37F3}"
@@ -52,6 +45,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Mvc", "modules\SeedModules.Mvc\SeedModules.Mvc.csproj", "{2E949B6A-7D36-4E18-B82B-057B9A2D6C54}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Sample", "modules\SeedModules.Sample\SeedModules.Sample.csproj", "{CB8006DE-20D1-409A-8F40-C9F4020D20C4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFF6BEF4-8719-4817-BEFB-05AE448D5073}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
