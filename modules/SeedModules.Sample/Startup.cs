@@ -11,7 +11,7 @@ namespace SeedModules.Sample
     {
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            routes.MapAreaRoute(name: "Home", areaName: "SeedPlugins.Sample", template: "", defaults: new { controller = "Home", action = "Index" });
+            routes.MapAreaRoute(name: "Home", areaName: "SeedModules.Sample", template: "", defaults: new { controller = "Home", action = "Index" });
         }
     }
 }

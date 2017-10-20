@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -35,6 +36,10 @@ namespace Seed.Plugins.Loader
                     Assembly = assembly,
                     Exports = assembly.ExportedTypes
                 };
+            }
+            catch (FileNotFoundException)
+            {
+                return null;
             }
             catch (Exception ex)
             {

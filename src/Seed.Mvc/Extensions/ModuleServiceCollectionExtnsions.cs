@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Seed.Modules;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Seed.Mvc.Extensions
 {
@@ -53,14 +50,12 @@ namespace Seed.Mvc.Extensions
 
         internal static void AddMvcModuleCoreServices(IServiceCollection services)
         {
-            services.Replace(
-                ServiceDescriptor.Scoped<IModuleLauncherRouteBuilder, ModuleLauncherRouteBuilder>());
+            services.Replace(ServiceDescriptor.Scoped<IModuleLauncherRouteBuilder, ModuleLauncherRouteBuilder>());
 
             //services.AddScoped<IViewLocationExpanderProvider, DefaultViewLocationExpanderProvider>();
             //services.AddScoped<IViewLocationExpanderProvider, ModularViewLocationExpanderProvider>();
 
-            services.TryAddEnumerable(
-                ServiceDescriptor.Transient<IApplicationModelProvider, ModuleApplicationModelProvider>());
+            services.TryAddEnumerable(ServiceDescriptor.Transient<IApplicationModelProvider, ModuleApplicationModelProvider>());
         }
     }
 }

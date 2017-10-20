@@ -59,6 +59,7 @@
     <Compile Include="Modules\IModuleLauncherEvents.cs" />
     <Compile Include="Modules\ModuleProjectContentFileProvider.cs" />
     <Compile Include="Plugins\Feature\FeatureHash.cs" />
+    <Compile Include="Plugins\Loader\PathPluginLoader.cs" />
     <Compile Include="Plugins\PluginPriorityStrategy.cs" />
     <Compile Include="Plugins\PluginDependencyStrategy.cs" />
     <Compile Include="Plugins\Feature\IFeatureHash.cs" />

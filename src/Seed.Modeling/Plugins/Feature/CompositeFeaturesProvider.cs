@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Seed.Plugins.Descriptors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Seed.Plugins.Descriptors;
 
 namespace Seed.Plugins.Feature
 {
@@ -26,8 +25,7 @@ namespace Seed.Plugins.Feature
 
         public IEnumerable<IFeatureInfo> GetFeatures(IPluginInfo pluginInfo, IDescriptorInfo descriptorInfo)
         {
-            List<IFeatureInfo> featureInfos =
-                new List<IFeatureInfo>();
+            List<IFeatureInfo> featureInfos = new List<IFeatureInfo>();
 
             foreach (var provider in _featuresProviders)
             {

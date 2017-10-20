@@ -13,6 +13,7 @@
     <Compile Include="..\Seed.Modeling\Plugins\Feature\FeaturesProvider.cs" Link="Feature\FeaturesProvider.cs" />
     <Compile Include="..\Seed.Modeling\Plugins\Feature\TypeFeatureProvider.cs" Link="Feature\TypeFeatureProvider.cs" />
     <Compile Include="..\Seed.Modeling\Plugins\Loader\DefaultPluginLoader.cs" Link="Loader\DefaultPluginLoader.cs" />
+    <Compile Include="..\Seed.Modeling\Plugins\Loader\PathPluginLoader.cs" Link="Loader\PathPluginLoader.cs" />
     <Compile Include="..\Seed.Modeling\Plugins\PluginDependencyStrategy.cs" Link="PluginDependencyStrategy.cs" />
     <Compile Include="..\Seed.Modeling\Plugins\PluginExpanderOptionsSetup.cs" Link="PluginExpanderOptionsSetup.cs" />
     <Compile Include="..\Seed.Modeling\Plugins\PluginInfo.cs" Link="PluginInfo.cs" />
@@ -25,6 +26,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
+    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

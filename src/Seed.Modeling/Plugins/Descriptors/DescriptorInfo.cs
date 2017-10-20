@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.Configuration;
 using System.Linq;
 
 namespace Seed.Plugins.Descriptors

@@ -8,10 +8,10 @@ namespace Seed.Plugins
 {
     public class NullPluginInfo : IPluginInfo
     {
-        private readonly IEnumerable<IFeatureInfo> _featureInfos;
-        private readonly string _pluginId;
-        private readonly IFileInfo _fileInfo;
-        private readonly IDescriptorInfo _descriptorInfo;
+        readonly IEnumerable<IFeatureInfo> _featureInfos;
+        readonly string _pluginId;
+        readonly IFileInfo _fileInfo;
+        readonly IDescriptorInfo _descriptorInfo;
 
         public NullPluginInfo(string extensionId)
         {

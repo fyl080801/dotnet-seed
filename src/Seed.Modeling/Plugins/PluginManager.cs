@@ -25,7 +25,7 @@ namespace Seed.Plugins
         readonly IHostingEnvironment _hostingEnvironment;
         readonly IPluginProvider _pluginProvider;
         readonly IDescriptorProvider _descriptorProvider;
-        readonly IPluginLoader _pluginLoader;
+        readonly IEnumerable<IPluginLoader> _pluginLoaders;
         readonly ITypeFeatureProvider _typeFeatureProvider;//ok
         readonly IEnumerable<IPluginDependencyStrategy> _pluginDependencyStrategies;
         readonly IEnumerable<IPluginPriorityStrategy> _pluginPriorityStrategies;
@@ -45,8 +45,8 @@ namespace Seed.Plugins
             IOptions<DescriptorOptions> descriptorOptionsAccessor,
             IHostingEnvironment hostingEnvironment,
             IPluginProvider pluginProvider,
+            IEnumerable<IPluginLoader> pluginLoaders,
             IDescriptorProvider descriptorProvider,
-            IPluginLoader pluginLoader,
             ITypeFeatureProvider typeFeatureProvider,
             IEnumerable<IPluginDependencyStrategy> pluginDependencyStrategies,
             IEnumerable<IPluginPriorityStrategy> pluginPriorityStrategies)
@@ -56,7 +56,7 @@ namespace Seed.Plugins
             _hostingEnvironment = hostingEnvironment;
             _pluginProvider = pluginProvider;
             _descriptorProvider = descriptorProvider;
-            _pluginLoader = pluginLoader;
+            _pluginLoaders = pluginLoaders;
             _typeFeatureProvider = typeFeatureProvider;
             _pluginDependencyStrategies = pluginDependencyStrategies;
             _pluginPriorityStrategies = pluginPriorityStrategies;
@@ -181,7 +181,25 @@ namespace Seed.Plugins
                 {
                     if (!plugin.Exists) return;
 
-                    var entry = _pluginLoader.Load(plugin);
+                    var entry = new PluginEntry();
+
+                    foreach (var pluginLoader in _pluginLoaders)
+                    {
+                        var currentLoadResult = pluginLoader.Load(plugin);
+
+                        if (currentLoadResult == null) continue;
+
+                        if (entry.PluginInfo == null)
+                        {
+                            entry = currentLoadResult;
+                        }
+                        else
+                        {
+                            entry.Exports = entry.Exports.Concat(currentLoadResult.Exports).Distinct();
+                        }
+
+                        entry.HasError = currentLoadResult.HasError;
+                    }
 
                     loadedPlugins.TryAdd(plugin.Id, entry);
                 });

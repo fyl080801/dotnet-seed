@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Seed.Plugins.PluginManager">
-    <Position X="4" Y="7" Width="2.25" />
+    <Position X="3.75" Y="5.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AEAAABEAoaJAQgAAEAIBAAAAoAAAGAAkAwEQIAICAAE=</HashCode>
+      <HashCode>AEAAABEAoaJAQgAAEAIBAAIAoAAAGAAkAwEAIAICAAE=</HashCode>
       <FileName>Plugins\PluginManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -11,7 +11,6 @@
       <Field Name="_descriptorOptions" />
       <Field Name="_pluginProvider" />
       <Field Name="_descriptorProvider" />
-      <Field Name="_pluginLoader" />
       <Field Name="_typeFeatureProvider" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
@@ -24,7 +23,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.Loader.PluginEntry">
-    <Position X="3.75" Y="4.75" Width="1.5" />
+    <Position X="0.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAAAAAAAQAAAAAAAAAAAAIAIAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Loader\PluginEntry.cs</FileName>
@@ -34,7 +33,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Seed.Plugins.Feature.FeatureEntry">
-    <Position X="7.25" Y="12" Width="1.5" />
+    <Position X="7.25" Y="10.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\FeatureEntry.cs</FileName>
@@ -44,14 +43,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Seed.Plugins.Feature.FeatureAttribute" Collapsed="true">
-    <Position X="21.5" Y="1.5" Width="1.5" />
+    <Position X="23" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\FeatureAttribute.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.Feature.InternalFeatureInfo">
-    <Position X="7" Y="0.5" Width="1.75" />
+    <Position X="12.75" Y="0.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AQACIAAAAAAgBACEAABEAAQAAABgAAAAAAAAAAAACAA=</HashCode>
       <FileName>Plugins\Feature\InternalFeatureInfo.cs</FileName>
@@ -62,28 +61,28 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.Feature.CompiledFeatureEntry">
-    <Position X="8.5" Y="13.75" Width="2" />
+    <Position X="8.5" Y="12.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\CompiledFeatureEntry.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.Feature.NonCompiledFeatureEntry">
-    <Position X="5.5" Y="13.75" Width="2.25" />
+    <Position X="5.5" Y="12.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\NonCompiledFeatureEntry.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.Descriptors.DescriptorOption">
-    <Position X="0.75" Y="2.75" Width="1.75" />
+    <Position X="0.5" Y="1.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Descriptors\DescriptorOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.Descriptors.DescriptorOptions">
-    <Position X="0.75" Y="5" Width="1.5" />
+    <Position X="0.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Plugins\Descriptors\DescriptorOptions.cs</FileName>
@@ -93,7 +92,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Seed.Plugins.Descriptors.NullDescriptorInfo" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19.75" Y="2.5" Width="1.5" />
+    <Position X="21.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAEAgAAAAgABAAAQAAAAAAVAAAAAAAAEAAAA=</HashCode>
       <FileName>Plugins\Descriptors\NullDescriptorInfo.cs</FileName>
@@ -101,7 +100,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.InternalPluginInfo" BaseTypeListCollapsed="true">
-    <Position X="10.25" Y="8.5" Width="1.75" />
+    <Position X="13" Y="6.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACAAIAAEACAAIAAAABAAAAAEAAAQAAAAAAIAEAAAA=</HashCode>
       <FileName>Plugins\InternalPluginInfo.cs</FileName>
@@ -115,7 +114,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.NullPluginInfo">
-    <Position X="13.25" Y="4.5" Width="1.5" />
+    <Position X="11.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAIAAEAAAAIBAAABAAAAAEAAAQAAAAAAAAEBAAA=</HashCode>
       <FileName>Plugins\NullPluginInfo.cs</FileName>
@@ -129,14 +128,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.PluginExpanderOption">
-    <Position X="3.75" Y="1" Width="1.5" />
+    <Position X="7.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\PluginExpanderOption.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.PluginExpanderOptions">
-    <Position X="3.75" Y="3" Width="1.5" />
+    <Position X="7.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Plugins\PluginExpanderOptions.cs</FileName>
@@ -146,7 +145,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Seed.Plugins.PluginStartupBase" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="21.5" Y="3.5" Width="1.5" />
+    <Position X="24.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Plugins\PluginStartupBase.cs</FileName>
@@ -154,14 +153,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.DependencyUtility" Collapsed="true">
-    <Position X="21.5" Y="0.5" Width="1.5" />
+    <Position X="23" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAAAA=</HashCode>
       <FileName>Plugins\DependencyUtility.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.PluginInfo">
-    <Position X="13.25" Y="8.25" Width="1.5" />
+    <Position X="10.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAIAAEACAAIAAABBAAAAAEAAAQAAAAAAIAEAAAA=</HashCode>
       <FileName>Plugins\PluginInfo.cs</FileName>
@@ -175,7 +174,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.Feature.TypeFeatureProvider">
-    <Position X="12" Y="12.25" Width="2.25" />
+    <Position X="11.75" Y="10" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAIAAAAAA=</HashCode>
       <FileName>Plugins\Feature\TypeFeatureProvider.cs</FileName>
@@ -186,7 +185,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.Descriptors.DescriptorInfo" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="23.25" Y="0.5" Width="1.5" />
+    <Position X="24.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAgoAABgABAAAQABACAAFAAIAAAAAEAAAA=</HashCode>
       <FileName>Plugins\Descriptors\DescriptorInfo.cs</FileName>
@@ -194,7 +193,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.Descriptors.DescriptorProvider" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19.75" Y="1.5" Width="1.5" />
+    <Position X="21.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Descriptors\DescriptorProvider.cs</FileName>
@@ -202,7 +201,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.Loader.DefaultPluginLoader" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19.75" Y="0.5" Width="1.5" />
+    <Position X="21.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAgAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Loader\DefaultPluginLoader.cs</FileName>
@@ -210,7 +209,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.PluginProvider" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="19.75" Y="3.5" Width="1.5" />
+    <Position X="23" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAEAAAAAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\PluginProvider.cs</FileName>
@@ -218,7 +217,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.Feature.CompositeFeaturesProvider">
-    <Position X="11.5" Y="15" Width="1.5" />
+    <Position X="10.5" Y="19.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAIAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\CompositeFeaturesProvider.cs</FileName>
@@ -229,14 +228,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.Descriptors.DescriptorOptionsSetup" Collapsed="true">
-    <Position X="25" Y="0.5" Width="1.5" />
+    <Position X="26.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Descriptors\DescriptorOptionsSetup.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.Feature.FeatureBuildingContext">
-    <Position X="16.75" Y="3" Width="2" />
+    <Position X="18.25" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAEQAAAAEQAAAAAASACAAAAAAABCAA=</HashCode>
       <FileName>Plugins\Feature\FeatureBuildingContext.cs</FileName>
@@ -247,7 +246,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Seed.Plugins.Feature.FeatureInfo">
-    <Position X="10" Y="0.5" Width="1.5" />
+    <Position X="16" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQACIAAAAAAgBACEAABEAAQAAABgAAAAAAAAAAAACAA=</HashCode>
       <FileName>Plugins\Feature\FeatureInfo.cs</FileName>
@@ -258,7 +257,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.Feature.FeatureBuilderEvents" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="23.25" Y="1.5" Width="1.5" />
+    <Position X="24.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\FeatureBuilderEvents.cs</FileName>
@@ -266,7 +265,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.Feature.FeaturesProvider">
-    <Position X="6.75" Y="17.5" Width="2.25" />
+    <Position X="3" Y="14.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAgAAABBAAAAAAEAAAIAQAKCAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\FeaturesProvider.cs</FileName>
@@ -277,14 +276,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Seed.Plugins.PluginExpanderOptionsSetup" Collapsed="true">
-    <Position X="23.25" Y="2.5" Width="1.5" />
+    <Position X="26.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\PluginExpanderOptionsSetup.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Plugins.PluginDependencyStrategy" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="21.5" Y="2.5" Width="1.5" />
+    <Position X="24.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\PluginDependencyStrategy.cs</FileName>
@@ -292,7 +291,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.PluginPriorityStrategy" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="25" Y="2.5" Width="1.5" />
+    <Position X="21.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\PluginPriorityStrategy.cs</FileName>
@@ -300,15 +299,23 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Seed.Plugins.Feature.FeatureHash" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="25" Y="1.5" Width="1.5" />
+    <Position X="26.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAgAAAAAAAAAAAIAAAgAAAAAAAABAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\FeatureHash.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
+  <Class Name="Seed.Plugins.Loader.PathPluginLoader" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="23" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Plugins\Loader\PathPluginLoader.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
   <Interface Name="Seed.Plugins.IPluginInfo">
-    <Position X="10" Y="5.75" Width="1.5" />
+    <Position X="10" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAEAAAAIAAAABAAAAAEAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>Plugins\IPluginInfo.cs</FileName>
@@ -321,21 +328,21 @@
     </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="Seed.Plugins.Descriptors.IDescriptorInfo">
-    <Position X="15.5" Y="7" Width="1.75" />
+    <Position X="15" Y="10.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAgAAAAgABAAAQAAAAAAFAAAAAAAAEAAAA=</HashCode>
       <FileName>Plugins\Descriptors\IDescriptorInfo.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.IPluginManager" Collapsed="true">
-    <Position X="23.25" Y="4.75" Width="1.5" />
+    <Position X="26.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAAIAAAAAEAAAAAAAAAAAAAAAAgEAAAACAAA=</HashCode>
       <FileName>Plugins\IPluginManager.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.Feature.IFeatureInfo">
-    <Position X="7.25" Y="9" Width="1.5" />
+    <Position X="7.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAgAACEAAAEAAQAAAAAAAAAAAAAAAAACAA=</HashCode>
       <FileName>Plugins\Feature\IFeatureInfo.cs</FileName>
@@ -345,70 +352,70 @@
     </ShowAsAssociation>
   </Interface>
   <Interface Name="Seed.Plugins.IPluginProvider">
-    <Position X="7.75" Y="6.75" Width="1.5" />
+    <Position X="2.75" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\IPluginProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.Descriptors.IDescriptorProvider">
-    <Position X="0.5" Y="10.75" Width="2" />
+    <Position X="3.5" Y="2.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Descriptors\IDescriptorProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Seed.Plugins.Loader.IPluginLoader">
-    <Position X="0.75" Y="6.75" Width="1.5" />
+  <Interface Name="Seed.Plugins.Loader.IPluginLoader" Collapsed="true">
+    <Position X="24.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAEAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Loader\IPluginLoader.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.Feature.IFeatureEventHandler" Collapsed="true">
-    <Position X="19.75" Y="4.75" Width="1.5" />
+    <Position X="21.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAAAAAAIAAAADAAQAAAAAAAACAAAAAQAAAAAA=</HashCode>
       <FileName>Plugins\Feature\IFeatureEventHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.Feature.ITypeFeatureProvider" Collapsed="true">
-    <Position X="0.75" Y="9.25" Width="1.5" />
+    <Position X="7.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\ITypeFeatureProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.IPluginPriorityStrategy" Collapsed="true">
-    <Position X="2.75" Y="13.25" Width="1.5" />
+    <Position X="0.75" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\IPluginPriorityStrategy.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.IPluginDependencyStrategy" Collapsed="true">
-    <Position X="6.75" Y="5.25" Width="1.5" />
+    <Position X="0.75" Y="10" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\IPluginDependencyStrategy.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.Feature.IFeaturesProvider">
-    <Position X="11.5" Y="17.25" Width="1.5" />
+    <Position X="10.5" Y="17.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\IFeaturesProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.Feature.IFeatureBuilderEvents" Collapsed="true">
-    <Position X="6.75" Y="16.25" Width="1.5" />
+    <Position X="6.5" Y="15.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\IFeatureBuilderEvents.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Plugins.Feature.IFeatureHash" Collapsed="true">
-    <Position X="21.5" Y="4.75" Width="1.5" />
+    <Position X="23" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Plugins\Feature\IFeatureHash.cs</FileName>

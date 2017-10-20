@@ -8,8 +8,7 @@ namespace Seed.Plugins.Descriptors
 {
     public class DescriptorOptionsSetup : ConfigureOptions<DescriptorOptions>
     {
-        public DescriptorOptionsSetup()
-            : base(options => { })
+        public DescriptorOptionsSetup() : base(options => { })
         {
         }
     }

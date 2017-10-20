@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Seed.Plugins
 {
+    /// <summary>
+    /// 依赖项工具
+    /// </summary>
     public static class DependencyUtility
     {
         class Node<T>

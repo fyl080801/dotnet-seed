@@ -30,11 +30,11 @@ namespace Seed.Plugins
             var path = Path.GetDirectoryName(pluginPath);
             var name = Path.GetFileName(pluginPath);
 
-            var extension = _fileProvider
+            var plugin = _fileProvider
                 .GetDirectoryContents(path)
                 .First(content => content.Name == name);
 
-            return new PluginInfo(extension.Name, extension, pluginPath, descriptorInfo, (mi, ei) =>
+            return new PluginInfo(plugin.Name, plugin, pluginPath, descriptorInfo, (mi, ei) =>
             {
                 return _featuresProvider.GetFeatures(ei, mi);
             });

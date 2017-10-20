@@ -21,14 +21,10 @@ namespace Seed.Mvc
 
         public IRouteBuilder Build()
         {
-            IApplicationBuilder appBuilder = new ApplicationBuilder(_serviceProvider);
-
-            var routeBuilder = new RouteBuilder(appBuilder)
+            return new RouteBuilder(new ApplicationBuilder(_serviceProvider))
             {
                 DefaultHandler = _serviceProvider.GetRequiredService<MvcRouteHandler>()
             };
-
-            return routeBuilder;
         }
 
         public void Configure(IRouteBuilder builder)
