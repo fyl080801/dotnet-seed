@@ -34,12 +34,11 @@ namespace Seed.Mvc.Extensions
                 })
                 .AddAuthorization()
                 .AddViews()
+                .AddViewLocalization()
                 .AddJsonFormatters();
 
             AddModuleFrameworkParts(applicationServices, builder.PartManager);
-
-            AddModuleViewEngine(builder, applicationServices);
-
+            AddModuleRazorViewEngine(builder, applicationServices);
             AddMvcModuleCoreServices(services);
 
             return services;
@@ -50,7 +49,7 @@ namespace Seed.Mvc.Extensions
             manager.ApplicationParts.Add(new EngineFeatureApplicationPart(services.GetRequiredService<IHttpContextAccessor>()));
         }
 
-        internal static IMvcCoreBuilder AddModuleViewEngine(this IMvcCoreBuilder builder, IServiceProvider services)
+        internal static IMvcCoreBuilder AddModuleRazorViewEngine(this IMvcCoreBuilder builder, IServiceProvider services)
         {
             return builder.AddRazorViewEngine(options =>
             {

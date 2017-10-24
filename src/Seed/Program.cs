@@ -14,9 +14,9 @@ namespace Seed
         }
 
         public static IWebHost Build(string[] args) => WebHost.CreateDefaultBuilder(args)
+            .UseIISIntegration()
             .UseKestrel()
             .UseContentRoot(Directory.GetCurrentDirectory())
-            .UseIISIntegration()
             .UseStartup<Startup>()
             .Build();
     }

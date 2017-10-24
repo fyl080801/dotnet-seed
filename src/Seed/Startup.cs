@@ -29,16 +29,14 @@ namespace Seed
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration);
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                loggerFactory.AddConsole(Configuration);
                 loggerFactory.AddDebug();
             }
 
             app.UseStaticFiles();
-
             app.UseModules();
         }
     }
