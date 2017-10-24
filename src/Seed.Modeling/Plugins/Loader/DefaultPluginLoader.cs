@@ -23,6 +23,11 @@ namespace Seed.Plugins.Loader
         {
             try
             {
+                if (!File.Exists(AppContext.BaseDirectory + pluginInfo.Id + ".dll"))
+                {
+                    return null;
+                }
+
                 var assembly = Assembly.Load(new AssemblyName(pluginInfo.Id));
 
                 if (assembly == null)
@@ -36,10 +41,6 @@ namespace Seed.Plugins.Loader
                     Assembly = assembly,
                     Exports = assembly.ExportedTypes
                 };
-            }
-            catch (FileNotFoundException)
-            {
-                return null;
             }
             catch (Exception ex)
             {

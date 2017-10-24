@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\modules\SeedModules.Mvc\SeedModules.Mvc.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Sample\SeedModules.Sample.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" />
   </ItemGroup>
 
