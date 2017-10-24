@@ -52,8 +52,7 @@ namespace Seed.Environment.Engine.Builder
 
         public async Task<EngineContext> CreateSetupContextAsync(EngineSettings settings)
         {
-            var descriptor = MinimumEngineDescriptor();
-            return await CreateDescribedContextAsync(settings, descriptor);
+            return await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
         }
 
         private EngineDescriptor MinimumEngineDescriptor()

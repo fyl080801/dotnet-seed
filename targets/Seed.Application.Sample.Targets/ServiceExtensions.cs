@@ -30,7 +30,7 @@ namespace Seed.Application.Sample.Targets
                     modules.WithConfiguration(configuration);
                 }
 
-                modules.WithDefaultFeatures("SeedModules.Mvc", "SeedModules.Setup");
+                modules.WithDefaultFeatures("SeedModules.Mvc", "SeedModules.Setup", "SeedModules.Settings");
             });
 
             return services;

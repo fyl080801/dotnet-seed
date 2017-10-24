@@ -17,14 +17,14 @@
         Condition="Exists('%(RootDir)%(Directory)Module.txt') Or Exists('%(RootDir)%(Directory)obj\Module.txt')" />
     </ItemGroup>
 
-    <!--<MSBuild
+    <MSBuild
       Targets="CopyPackageAssetFiles"
       BuildInParallel="$(BuildInParallel)"
       Properties="ApplicationDirectory=$(MSBuildProjectDirectory)"
       Projects="@(ModuleProjectReferences)"
       Condition="'@(ModuleProjectReferences)' != ''"
       ContinueOnError="true">
-    </MSBuild>-->
+    </MSBuild>
 
     <ItemGroup>
       <ModuleProjectRazorFiles Include="%(ModuleProjectReferences.RootDir)%(Directory)**\*.cshtml">
