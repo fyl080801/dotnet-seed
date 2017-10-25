@@ -1,10 +1,4 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
-  <!-- 
-    This file is packaged with "OrchardCore.AsModule.nupkg" in "./build" such that any Module that references
-    it will get its static assets copied to "$(ApplicationDirectory)\Packages".
-  -->
-
   <PropertyGroup>
     <ModuleManifest>Name: $(MSBuildProjectName)</ModuleManifest>
     <ExcludedFiles>**\*.cs;*.csproj*;obj\**;bin\**;Assets.json;Assets\**;Properties\**;*.props;*.targets;.vs\**</ExcludedFiles>
@@ -16,7 +10,7 @@
   </ItemGroup>
 
   <Target Name="CheckManifestFile" AfterTargets="Build" Condition="!Exists('$(ModuleType).txt')">
-    <Message Text="Generating manifest file: $(MSBuildProjectName)" Importance="high" />
+    <Message Text="生成模块定义文件: $(MSBuildProjectName)" Importance="high" />
     <WriteLinesToFile
       File="obj\$(ModuleType).txt"
       Lines="$(ModuleManifest)"
@@ -29,21 +23,13 @@
     <ItemGroup>
       <ApplicationAssetFiles Include="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)\**\*" />
     </ItemGroup>
-    <Delete
-      Files="@(ApplicationAssetFiles)"
-      Condition="!Exists('%(RecursiveDir)%(Filename)%(Extension)')"
-      ContinueOnError="true"/>
-    <Message Text="Packaging asset files: $(MSBuildProjectName)" Importance="high" />
-    <Copy
-      SourceFiles="@(PackageAssetFiles)"
-      DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)\%(RecursiveDir)" />
-    <Copy
-      SourceFiles="obj\$(ModuleType).txt"
-      DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)"
-      Condition="!Exists('$(ModuleType).txt')" />
+    <Delete Files="@(ApplicationAssetFiles)" Condition="!Exists('%(RecursiveDir)%(Filename)%(Extension)')" ContinueOnError="true"/>
+    <Message Text="打包项目文件: $(MSBuildProjectName)" Importance="high" />
+    <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)\%(RecursiveDir)" />
+    <Copy SourceFiles="obj\$(ModuleType).txt" DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)" Condition="!Exists('$(ModuleType).txt')" />
   </Target>
 
-  <!-- Adds a custom .props file to the generated module package -->
+  <!-- 自定义的 .props -->
 
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Module.Build.props" Pack="true">
@@ -56,5 +42,4 @@
       <PackagePath>assets\$(PackageId)\$(ModuleType).txt</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

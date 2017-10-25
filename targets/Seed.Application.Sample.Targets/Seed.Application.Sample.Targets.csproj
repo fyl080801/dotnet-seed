@@ -5,6 +5,8 @@
     <IgnorePackageAssets>true</IgnorePackageAssets>
   </PropertyGroup>
 
+  <Target Name="CopyPackageAssetFiles" />
+
   <ItemGroup>
     <ProjectReference Include="..\..\modules\SeedModules.Mvc\SeedModules.Mvc.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Sample\SeedModules.Sample.csproj" />

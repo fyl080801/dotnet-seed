@@ -5,11 +5,8 @@
   -->
 
   <Target Name="CopyPackageAssets" AfterTargets="Build" Condition="'$(IgnorePackageAssets)' != 'true'">
-    <Message Text="Copying package assets" Importance="high" />
-    <Copy
-      SourceFiles="@(PackageAssetFiles)"
-      DestinationFolder="Modules\%(RecursiveDir)"
-      ContinueOnError="true" />
+    <Message Text="复制项目文件" Importance="high" />
+    <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="Modules\%(RecursiveDir)" ContinueOnError="true" />
 
     <ItemGroup>
       <ModuleProjectReferences
@@ -35,8 +32,7 @@
       </ModuleProjectRazorFilesMapping>
     </ItemGroup>
 
-    <Message Text="Generating module project razor files mapping file"
-      Condition="'@(ModuleProjectRazorFilesMapping)' != ''" Importance="high" />
+    <Message Text="生成模块视图文件映射" Condition="'@(ModuleProjectRazorFilesMapping)' != ''" Importance="high" />
 
     <WriteLinesToFile
       File="obj\ModuleProjectRazorFiles.map"
@@ -55,8 +51,7 @@
       </ModuleProjectContentFilesMapping>
     </ItemGroup>
 
-    <Message Text="Generating module project content files mapping file"
-      Condition="'@(ModuleProjectContentFilesMapping)' != ''" Importance="high" />
+    <Message Text="生成模块内容文件映射" Condition="'@(ModuleProjectContentFilesMapping)' != ''" Importance="high" />
 
     <WriteLinesToFile
       File="obj\ModuleProjectContentFiles.map"
@@ -74,17 +69,12 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="CleanPackageAssets" AfterTargets="Clean"
-          Condition="'$(IgnorePackageAssets)' != 'true' And Exists('Modules')">
+  <Target Name="CleanPackageAssets" AfterTargets="Clean" Condition="'$(IgnorePackageAssets)' != 'true' And Exists('Modules')">
     <ItemGroup>
       <AllPackageAssetFiles Include="Modules\**" />
     </ItemGroup>
-    <Delete
-      Files="@(AllPackageAssetFiles)"
-      ContinueOnError="true" />
-    <RemoveDir
-      Directories="Modules\%(AllPackageAssetFiles.RecursiveDir)"
-      ContinueOnError="true" />
+    <Delete Files="@(AllPackageAssetFiles)" ContinueOnError="true" />
+    <RemoveDir Directories="Modules\%(AllPackageAssetFiles.RecursiveDir)" ContinueOnError="true" />
   </Target>
 
   <!--
