@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Seed.Plugins;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace Seed.Modules.Extensions
 {
@@ -44,8 +42,8 @@ namespace Seed.Modules.Extensions
                 var pluginManager = app.ApplicationServices.GetRequiredService<IPluginManager>();
                 var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
 
-                var availablePlugins = pluginManager.GetPlugins();
-                foreach (var plugin in availablePlugins)
+                // 为了实现 "/<模块名>/<文件>" 到实际文件路径的映射
+                pluginManager.GetPlugins().ToList().ForEach(plugin =>
                 {
                     var contentPath = Path.Combine(plugin.PluginFileInfo.PhysicalPath, "Content");
                     var contentSubPath = Path.Combine(plugin.Path, "Content");
@@ -55,22 +53,25 @@ namespace Seed.Modules.Extensions
                         IFileProvider fileProvider;
                         if (env.IsDevelopment())
                         {
+                            // 在开发环境中生成的文件在入口项目中
                             fileProvider = new CompositeFileProvider(
                                 new ModuleProjectContentFileProvider(env.ContentRootPath, contentSubPath),
-                                new PhysicalFileProvider(contentPath));
+                                new PhysicalFileProvider(contentPath)
+                            );
                         }
                         else
                         {
                             fileProvider = new PhysicalFileProvider(contentPath);
                         }
 
+                        // 当请求是以 "/模块Id" 开头时映射到真实文件路径
                         app.UseStaticFiles(new StaticFileOptions
                         {
                             RequestPath = "/" + plugin.Id,
                             FileProvider = fileProvider
                         });
                     }
-                }
+                });
             });
 
             return modularApp;

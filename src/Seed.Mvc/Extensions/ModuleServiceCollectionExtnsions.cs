@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using Seed.Modules;
 using Seed.Mvc.LocationExpanders;
+using Seed.Plugins;
 using System;
+using System.Linq;
 
 namespace Seed.Mvc.Extensions
 {
@@ -55,12 +60,20 @@ namespace Seed.Mvc.Extensions
             {
                 options.ViewLocationExpanders.Add(new CompositeViewLocationExpanderProvider());
 
-                //var env = services.GetRequiredService<IHostingEnvironment>();
+                var env = services.GetRequiredService<IHostingEnvironment>();
 
-                //if (env.IsDevelopment())
-                //{
-                //    options.FileProviders.Insert(0, new ModuleProjectRazorFileProvider(env.ContentRootPath));
-                //}
+                var pluginExpanderOptions = services.GetService<IOptions<PluginExpanderOptions>>();
+                var pluginHosts = pluginExpanderOptions.Value.Options.Select(e => e.Path).ToArray();
+                IFileProvider moduleFileProvider;
+                if (env.IsDevelopment())
+                {
+                    moduleFileProvider = new ModuleProjectRazorFileProvider(env.ContentRootPath, pluginHosts);
+                }
+                else
+                {
+                    moduleFileProvider = new ModuleRazorFileProvider(env.ContentRootPath, pluginHosts);
+                }
+                options.FileProviders.Insert(0, moduleFileProvider);
             });
         }
 
