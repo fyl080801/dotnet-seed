@@ -3,7 +3,7 @@
 
     var requires = ['app/application'],
         config = {
-            urlArgs: options.app.getAttribute('data-args'),
+            urlArgs: 'v=' + options.version,
             paths: {
                 'patch': 'patch',
                 'rcss': 'app',
@@ -70,7 +70,7 @@
         }
     }
 })({
-    app: document.getElementById('app'),
+    version: '',
     references: {
 
     },
