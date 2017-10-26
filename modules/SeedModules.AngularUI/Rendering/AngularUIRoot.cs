@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace SeedModules.AngularUI.Rendering
 {
@@ -29,6 +30,19 @@ namespace SeedModules.AngularUI.Rendering
         {
             Attributes.Add("id", "seed-ui");
             Attributes.Add("data-options", "{ version: '1.0', requires: [], references: {}, noDebugs: [] }");
+        }
+
+        public void SetOptions(object options)
+        {
+            var optionsString = JsonConvert.SerializeObject(options);
+            if (Attributes.ContainsKey("data-options"))
+            {
+                Attributes["data-options"] = optionsString;
+            }
+            else
+            {
+                Attributes.Add("data-options", optionsString);
+            }
         }
     }
 }

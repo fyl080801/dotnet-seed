@@ -1,6 +1,22 @@
 ﻿@{
     Layout = "/SeedModules.AngularUI/Views/_Layout.cshtml";
     ViewBag.Title = "安装系统";
+    ViewBag.UIOptions = new
+    {
+        version = "1.0",
+        references = new Dictionary<string, object>()
+        {
+            {
+                "seedmodules/setup",
+                new
+                {
+                    path = "/SeedModules.Setup/js/setup"
+                }
+            }
+        },
+        requires = new string[] { "seedmodules/setup" },
+        noDebugs = new string[] { "seedmodules/setup" }
+    };
 }
 <div class="container" ng-controller="seedmodules.setup">
     <div class="jumbotron">
@@ -19,7 +35,7 @@
             <fieldset class="form-group col-md-6">
                 <label>名称：</label>
                 <div>
-                    <input class="form-control" placeholder="输入名称" />
+                    <input class="form-control" placeholder="输入名称" ng-model="Name" />
                 </div>
             </fieldset>
         </div>
@@ -74,6 +90,6 @@
     </form>
     <div class="text-right">
         <button class="btn btn-default">重置</button>
-        <button class="btn btn-primary">开始安装</button>
+        <button class="btn btn-primary" ng-click="install()">开始安装</button>
     </div>
 </div>

@@ -10,5 +10,7 @@ namespace SeedModules.AngularUI.Rendering
         string Src { get; set; }
 
         string DataMain { get; set; }
+
+        void SetOptions(object options);
     }
 }

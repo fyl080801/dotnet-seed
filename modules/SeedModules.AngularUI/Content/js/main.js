@@ -56,7 +56,7 @@
             },
             shim: {
                 'app/application': {
-                    deps: ['app']
+                    deps: ['app', 'angular']
                 }
             }
         };

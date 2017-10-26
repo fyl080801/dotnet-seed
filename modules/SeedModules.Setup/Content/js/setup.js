@@ -1,15 +1,20 @@
-﻿define('seedmodule/setup', [
+﻿define('seedmodules/setup', [
     'app/application'
 ], function (application) {
     'use strict';
 
-    application.requires.push('seedmodule.setup');
+    application.requires.push('seedmodules.setup');
 
-    application.module('seedmodule.setup', [])
-        .controller('seedmodule.setup', [
+    return angular
+        .module('seedmodules.setup', [])
+        .controller('seedmodules.setup', [
             '$scope',
-            function ($scope) {
-
+            'app.services.popupService',
+            function ($scope, popupService) {
+                $scope.Name = 'aaa';
+                $scope.install = function () {
+                    popupService.information('哈哈哈');
+                };
             }
         ]);
 });

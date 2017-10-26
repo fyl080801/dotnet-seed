@@ -27,5 +27,12 @@ namespace SeedModules.AngularUI.Extensions
                 DataMain = main
             };
         }
+
+        public static IUIRoot Options(this IUIRoot ui, object options)
+        {
+            if (options != null)
+                ui.SetOptions(options);
+            return ui;
+        }
     }
 }
