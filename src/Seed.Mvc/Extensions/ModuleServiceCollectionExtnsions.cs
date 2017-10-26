@@ -34,7 +34,7 @@ namespace Seed.Mvc.Extensions
             var builder = services
                 .AddMvcCore(options =>
                 {
-                    options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
+                    //options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
                     //    options.ModelBinderProviders.Insert(0, new CheckMarkModelBinderProvider());
                 })
                 .AddAuthorization()

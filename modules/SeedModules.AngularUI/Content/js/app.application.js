@@ -326,21 +326,6 @@ define('app/services/httpService', ['app/services'], function (services) {
                 });
                 return defer.promise;
             };
-            this.formpost = function (url, params) {
-                var defer = $q.defer();
-                $http({
-                    method: 'post',
-                    data: params,
-                    url: me.resolveUrl(url),
-                    withCredentials: false,
-                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
-                }).then(function (response) {
-                    httpDataHandler.doResponse(response, defer);
-                }, function (response) {
-                    httpDataHandler.doError(response, defer);
-                });
-                return defer.promise;
-            };
             this.jsonp = function (url, params) {
                 var defer = $q.defer();
                 $http({

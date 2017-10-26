@@ -26,20 +26,19 @@
         })
         .controller('seedmodules.setup', [
             '$scope',
-            '$http',
             'app.services.popupService',
             'app.services.httpService',
-            function ($scope, $http, popupService, httpService) {
+            function ($scope, popupService, httpService) {
                 this.purposes = [{
                     Id: '1',
                     Name: '管理系统'
                 }];
                 this.databaseProviders = ['MSSqlServer'];
                 $scope.install = function () {
-                    $http
+                    httpService
                         .post('/api/setup', $scope.data)
                         .then(function (result) {
-                            console.log(result);
+                            popupService.information(result);
                         });
                 };
             }
