@@ -32,10 +32,10 @@
                     <select class="form-control"></select>
                 </div>
             </fieldset>
-            <fieldset class="form-group col-md-6">
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Name.$invalid }">
                 <label>名称：</label>
                 <div>
-                    <input class="form-control" placeholder="输入名称" ng-model="Name" />
+                    <input class="form-control" placeholder="输入名称" ng-model="Name" required />
                 </div>
             </fieldset>
         </div>
@@ -65,13 +65,13 @@
             <fieldset class="form-group col-md-6">
                 <label>用户名：</label>
                 <div>
-                    <input class="form-control" placeholder="输入用户名" />
+                    <input class="form-control" placeholder="输入用户名" required />
                 </div>
             </fieldset>
             <fieldset class="form-group col-md-6">
                 <label>邮箱：</label>
                 <div>
-                    <input class="form-control" placeholder="输入邮箱" />
+                    <input class="form-control" placeholder="输入邮箱" type="email" required />
                 </div>
             </fieldset>
             <fieldset class="form-group col-md-6">
@@ -87,9 +87,9 @@
                 </div>
             </fieldset>
         </div>
+        <div class="text-right">
+            <button type="reset" class="btn btn-default">重置</button>
+            <button type="button" class="btn btn-primary" ng-click="install()" ng-disabled="form.$invalid">开始安装</button>
+        </div>
     </form>
-    <div class="text-right">
-        <button class="btn btn-default">重置</button>
-        <button class="btn btn-primary" ng-click="install()">开始安装</button>
-    </div>
 </div>
