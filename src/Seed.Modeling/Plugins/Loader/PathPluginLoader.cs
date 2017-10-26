@@ -1,15 +1,17 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
-using System.IO;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Concurrent;
 
 namespace Seed.Plugins.Loader
 {
+    /// <summary>
+    /// 读模块路径下的dll
+    /// </summary>
     public class PathPluginLoader : IPluginLoader
     {
         readonly ILogger<PathPluginLoader> _logger;

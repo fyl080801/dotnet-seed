@@ -40,7 +40,7 @@ namespace Seed.Plugins.Extensions
 
         public static IServiceCollection AddPluginLocation(this IServiceCollection services, string path)
         {
-            return services.Configure<PluginExpanderOptions>(configureOptions: options =>
+            return services.Configure<PluginExpanderOptions>(options =>
             {
                 options.Options.Add(new PluginExpanderOption { Path = path });
             });
@@ -48,7 +48,7 @@ namespace Seed.Plugins.Extensions
 
         public static IServiceCollection AddDescriptorDefinition(this IServiceCollection services, string definitionName, string moduleType)
         {
-            return services.Configure<DescriptorOptions>(configureOptions: options =>
+            return services.Configure<DescriptorOptions>(options =>
             {
                 var option = new DescriptorOption
                 {

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Seed.Plugins.Feature;
 using System.Linq;
-using System.Text;
-using Seed.Plugins.Feature;
 
 namespace Seed.Plugins
 {

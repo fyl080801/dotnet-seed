@@ -1,7 +1,8 @@
 ﻿@{
     Layout = "/SeedModules.AngularUI/Views/_Layout.cshtml";
+    ViewBag.Title = "安装系统";
 }
-<div class="container">
+<div class="container" ng-controller="seedmodules.setup">
     <div class="jumbotron">
         <h1>安装系统</h1>
         <p>就是需要先安装一下</p>
@@ -10,15 +11,15 @@
         <h6><i class="glyphicon glyphicon-chevron-right"></i> 基本信息</h6>
         <div class="row">
             <fieldset class="form-group col-md-6">
-                <label>名称：</label>
-                <div>
-                    <input class="form-control" placeholder="输入名称" />
-                </div>
-            </fieldset>
-            <fieldset class="form-group col-md-6">
                 <label>功能：</label>
                 <div>
                     <select class="form-control"></select>
+                </div>
+            </fieldset>
+            <fieldset class="form-group col-md-6">
+                <label>名称：</label>
+                <div>
+                    <input class="form-control" placeholder="输入名称" />
                 </div>
             </fieldset>
         </div>

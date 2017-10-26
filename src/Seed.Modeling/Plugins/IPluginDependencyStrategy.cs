@@ -6,7 +6,7 @@ using System.Text;
 namespace Seed.Plugins
 {
     /// <summary>
-    /// 
+    /// 模块依赖策略
     /// </summary>
     public interface IPluginDependencyStrategy
     {

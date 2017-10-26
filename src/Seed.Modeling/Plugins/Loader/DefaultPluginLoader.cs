@@ -1,13 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Seed.Plugins.Loader
 {
+    /// <summary>
+    /// 默认读模块
+    /// </summary>
+    /// <remarks>
+    /// 从已加载的程序集中读
+    /// </remarks>
     public class DefaultPluginLoader : IPluginLoader
     {
         readonly ILogger<DefaultPluginLoader> _logger;

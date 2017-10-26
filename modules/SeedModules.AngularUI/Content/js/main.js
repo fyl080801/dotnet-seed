@@ -29,8 +29,7 @@
             angular.element(document).ready(function () {
                 angular.element(document).find('html')
                     .attr('id', 'ng-app')
-                    .attr('ng-app', 'app.application')
-                    .attr('data-index', app.getAttribute('data-index'));
+                    .attr('ng-app', 'app.application');
                 angular.bootstrap(document, ['app.application']);
             });
         });
@@ -69,13 +68,14 @@
             };
         }
     }
-})({
-    version: '',
-    references: {
+})((new Function('return ' + document.getElementById('seed-ui').getAttribute('data-options')))());
+//    ({
+//    version: '',
+//    references: {
 
-    },
-    requires: [
+//    },
+//    requires: [
 
-    ],
-    noDebugs: []
-});
+//    ],
+//    noDebugs: []
+//});
