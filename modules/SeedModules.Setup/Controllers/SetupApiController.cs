@@ -10,7 +10,13 @@ namespace SeedModules.Setup.Controllers
     public class SetupApiController : Controller
     {
         [HttpPost]
-        public bool DoSetup(SetupModel model)
+        public bool DoSetup([FromBody]SetupModel model)
+        {
+            return true;
+        }
+
+        [HttpGet]
+        public bool GetInformation()
         {
             return true;
         }

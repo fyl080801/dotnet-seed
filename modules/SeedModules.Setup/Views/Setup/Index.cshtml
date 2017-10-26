@@ -18,7 +18,7 @@
         noDebugs = new string[] { "seedmodules/setup" }
     };
 }
-<div class="container" ng-controller="seedmodules.setup">
+<div class="container" ng-controller="seedmodules.setup as me">
     <div class="jumbotron">
         <h1>安装系统</h1>
         <p>就是需要先安装一下</p>
@@ -26,64 +26,90 @@
     <form name="form" role="form">
         <h6><i class="glyphicon glyphicon-chevron-right"></i> 基本信息</h6>
         <div class="row">
-            <fieldset class="form-group col-md-6">
-                <label>功能：</label>
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Purpose.$invalid }">
                 <div>
-                    <select class="form-control"></select>
+                    <label>功能：</label>
+                    <span class="text-danger pull-right" ng-show="form.Purpose.$invalid">*必须选择功能</span>
+                </div>
+                <div>
+                    <select class="form-control" name="Purpose" ng-model="data.Purpose" required ng-options="item.Id as item.Name for item in me.purposes"></select>
                 </div>
             </fieldset>
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Name.$invalid }">
-                <label>名称：</label>
                 <div>
-                    <input class="form-control" placeholder="输入名称" ng-model="Name" required />
+                    <label>名称：</label>
+                    <span class="text-danger pull-right" ng-show="form.Name.$invalid">*名称是必填的</span>
+                </div>
+                <div>
+                    <input class="form-control" placeholder="输入名称" name="Name" ng-model="data.Name" required />
                 </div>
             </fieldset>
         </div>
         <h6><i class="glyphicon glyphicon-chevron-right"></i> 数据库信息</h6>
         <div class="row">
-            <fieldset class="form-group col-md-6">
-                <label>数据库类型：</label>
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.DatabaseProvider.$invalid }">
                 <div>
-                    <select class="form-control"></select>
+                    <label>数据库类型：</label>
+                    <span class="text-danger pull-right" ng-show="form.DatabaseProvider.$invalid">*必须选择数据库类型</span>
+                </div>
+                <div>
+                    <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" required ng-options="val as val for val in me.databaseProviders"></select>
                 </div>
             </fieldset>
-            <fieldset class="form-group col-md-6">
-                <label>表前缀：</label>
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.TablePrefix.$invalid }">
                 <div>
-                    <input class="form-control" placeholder="输入表前缀" />
+                    <label>表前缀：</label>
+                </div>
+                <div>
+                    <input class="form-control" placeholder="输入表前缀" name="TablePrefix" ng-model="data.TablePrefix" />
                 </div>
             </fieldset>
-            <fieldset class="form-group col-md-12">
-                <label>连接字符串：</label>
+            <fieldset class="form-group col-md-12" ng-class="{ 'has-error': form.ConnectionString.$invalid }">
                 <div>
-                    <input class="form-control" placeholder="输入连接字符串" />
+                    <label>连接字符串：</label>
+                    <span class="text-danger pull-right" ng-show="form.ConnectionString.$invalid">*必须输入连接字符串</span>
+                </div>
+                <div>
+                    <input class="form-control" placeholder="输入连接字符串" name="ConnectionString" ng-model="data.ConnectionString" required />
                 </div>
             </fieldset>
         </div>
         <h6><i class="glyphicon glyphicon-chevron-right"></i> 用户信息</h6>
         <div class="row">
-            <fieldset class="form-group col-md-6">
-                <label>用户名：</label>
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.UserName.$invalid }">
                 <div>
-                    <input class="form-control" placeholder="输入用户名" required />
+                    <label>用户名：</label>
+                    <span class="text-danger pull-right" ng-show="form.UserName.$invalid">*必须输入用户名</span>
+                </div>
+                <div>
+                    <input class="form-control" placeholder="输入用户名" name="UserName" ng-model="data.UserName" required />
                 </div>
             </fieldset>
-            <fieldset class="form-group col-md-6">
-                <label>邮箱：</label>
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Email.$invalid }">
                 <div>
-                    <input class="form-control" placeholder="输入邮箱" type="email" required />
+                    <label>邮箱：</label>
+                    <span class="text-danger pull-right" ng-show="form.Email.$invalid">*必须输入用户名</span>
+                </div>
+                <div>
+                    <input class="form-control" placeholder="输入邮箱" type="email" name="Email" ng-model="data.Email" required />
                 </div>
             </fieldset>
-            <fieldset class="form-group col-md-6">
-                <label>密码：</label>
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Password.$invalid }">
                 <div>
-                    <input type="password" class="form-control" placeholder="输入密码" />
+                    <label>密码：</label>
+                    <span class="text-danger pull-right" ng-show="form.Password.$invalid">*必须输入密码</span>
+                </div>
+                <div>
+                    <input type="password" class="form-control" placeholder="输入密码" name="Password" ng-model="data.Password" required />
                 </div>
             </fieldset>
-            <fieldset class="form-group col-md-6">
-                <label>确认密码：</label>
+            <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.PasswordConfirmation.$invalid }">
                 <div>
-                    <input type="password" class="form-control" placeholder="输入密码" />
+                    <label>确认密码：</label>
+                    <span class="text-danger pull-right" ng-show="form.PasswordConfirmation.$invalid">*确认密码有误</span>
+                </div>
+                <div>
+                    <input type="password" class="form-control" placeholder="输入密码" name="PasswordConfirmation" ng-model="data.PasswordConfirmation" equals="data.Password" />
                 </div>
             </fieldset>
         </div>

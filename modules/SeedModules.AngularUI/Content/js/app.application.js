@@ -232,6 +232,56 @@ define('app/services/ajaxService', ['app/services'], function (services) {
         '$appConfig',
         'app.factories.httpDataHandler',
         function ($q, $modal, $appConfig, httpDataHandler) {
+            var me = this;
+            this.resolveUrl = function (url) {
+                return url.indexOf('http://') === 0 || url.indexOf('https://') === 0 ? url : $appConfig.serverUrl + url;
+            };
+            this.get = function (url) {
+                var defer = $q.defer();
+                $.ajax({
+                    type: 'GET',
+                    url: me.resolveUrl(url),
+                    success: function (response) {
+                        httpDataHandler.doResponse({ data: response }, defer);
+                    },
+                    error: function (response) {
+                        httpDataHandler.doError({ data: response }, defer);
+                    }
+                });
+                return defer.promise;
+            };
+            this.post = function (url, params) {
+                var defer = $q.defer();
+                $.ajax({
+                    type: 'POST',
+                    data: params,
+                    url: me.resolveUrl(url),
+                    success: function (response) {
+                        httpDataHandler.doResponse({ data: response }, defer);
+                    },
+                    error: function (response) {
+                        httpDataHandler.doError({ data: response }, defer);
+                    }
+                });
+                return defer.promise;
+            };
+            this.json = function (url, params) {
+                var defer = $q.defer();
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: params,
+                    url: me.resolveUrl(url),
+                    success: function (response) {
+                        httpDataHandler.doResponse({ data: response }, defer);
+                    },
+                    error: function (response) {
+                        httpDataHandler.doError({ data: response }, defer);
+                    }
+                });
+                return defer.promise;
+            };
         }
     ]);
 });
@@ -269,6 +319,21 @@ define('app/services/httpService', ['app/services'], function (services) {
                     url: me.resolveUrl(url),
                     withCredentials: false,
                     headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+                }).then(function (response) {
+                    httpDataHandler.doResponse(response, defer);
+                }, function (response) {
+                    httpDataHandler.doError(response, defer);
+                });
+                return defer.promise;
+            };
+            this.formpost = function (url, params) {
+                var defer = $q.defer();
+                $http({
+                    method: 'post',
+                    data: params,
+                    url: me.resolveUrl(url),
+                    withCredentials: false,
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }
                 }).then(function (response) {
                     httpDataHandler.doResponse(response, defer);
                 }, function (response) {
@@ -341,7 +406,7 @@ define('app/services/popupService', ['app/services'], function (services) {
                 var _data = {};
                 if (text === null || text === undefined) {
                     _data.text = '发生错误';
-                } else if (Object.prototype.toString.call(text) == '[object Array]') {
+                } else if (Object.prototype.toString.call(text) === '[object Array]') {
                     _data.contents = text;
                 } else {
                     _data.text = text;
