@@ -1,13 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Text.Encodings.Web;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public class UIRoot : TagBuilder, IUIRoot
+    public class AngularUIRoot : TagBuilder, IUIRoot
     {
         public string Src
         {
@@ -29,10 +24,11 @@ namespace SeedModules.AngularUI.Rendering
             }
         }
 
-        public UIRoot()
+        public AngularUIRoot()
             : base("script")
         {
             Attributes.Add("id", "seed-ui");
+            Attributes.Add("data-options", "{ version: '1.0', requires: [], references: {}, noDebugs: [] }");
         }
     }
 }
