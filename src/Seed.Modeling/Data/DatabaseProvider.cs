@@ -11,7 +11,5 @@ namespace Seed.Data
         public string Name { get; set; }
 
         public string Provider { get; set; }
-
-        public bool HasConnection { get; set; }
     }
 }
