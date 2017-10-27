@@ -14,11 +14,5 @@ namespace SeedModules.Setup.Controllers
         {
             return true;
         }
-
-        [HttpGet]
-        public bool GetInformation()
-        {
-            return true;
-        }
     }
 }

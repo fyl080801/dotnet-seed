@@ -53,7 +53,7 @@
                     <span class="text-danger pull-right" ng-show="form.DatabaseProvider.$invalid">*必须选择数据库类型</span>
                 </div>
                 <div>
-                    <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" required ng-options="val as val for val in me.databaseProviders"></select>
+                    <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" required ng-options="item.Id as item.Name for item in me.databaseProviders"></select>
                 </div>
             </fieldset>
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.TablePrefix.$invalid }">

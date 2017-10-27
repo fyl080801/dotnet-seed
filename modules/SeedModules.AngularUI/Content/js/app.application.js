@@ -459,6 +459,27 @@ define('app/directives/theme', ['app/directives'], function (module) {
             };
         }]);
 });
+define('app/directives/equals', ['app/directives'], function (directives) {
+    'use strict';
+    directives.directive('equals', [function () {
+            function _link($scope, $element, $attrs, $ctrl) {
+                function validator(inputValue) {
+                    var valid = inputValue === $scope.$eval($attrs.equals);
+                    $ctrl.$setValidity('equal', valid);
+                    return valid ? inputValue : null;
+                }
+                $ctrl.$parsers.push(validator);
+                $ctrl.$formatters.push(validator);
+                $scope.$watch($attrs.equals, function () {
+                    $ctrl.$setViewValue($ctrl.$viewValue);
+                });
+            }
+            return {
+                require: 'ngModel',
+                link: _link
+            };
+        }]);
+});
 define('app/routes', ['angular-ui-router'], function () {
     'use strict';
     return angular.module('app.routes', ['ui.router']).config([
@@ -508,6 +529,7 @@ define('app/application', [
     'app/services/popupService',
     'app/directives/title',
     'app/directives/theme',
+    'app/directives/equals',
     'app/routes/run'
 ], function () {
     'use strict';

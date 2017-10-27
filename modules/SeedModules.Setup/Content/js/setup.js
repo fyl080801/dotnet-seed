@@ -7,23 +7,6 @@
 
     return angular
         .module('seedmodules.setup', [])
-        .directive('equals', function () {
-            return {
-                require: 'ngModel',
-                link: function (scope, elm, attrs, ngModelCtrl) {
-                    function validateEqual(myValue) {
-                        var valid = myValue === scope.$eval(attrs.equals);
-                        ngModelCtrl.$setValidity('equal', valid);
-                        return valid ? myValue : null;
-                    }
-                    ngModelCtrl.$parsers.push(validateEqual);
-                    ngModelCtrl.$formatters.push(validateEqual);
-                    scope.$watch(attrs.equals, function () {
-                        ngModelCtrl.$setViewValue(ngModelCtrl.$viewValue);
-                    });
-                }
-            };
-        })
         .controller('seedmodules.setup', [
             '$scope',
             'app.services.popupService',
@@ -33,7 +16,10 @@
                     Id: '1',
                     Name: '管理系统'
                 }];
-                this.databaseProviders = ['MSSqlServer'];
+                this.databaseProviders = [{
+                    Id: '1',
+                    Name: 'MSSqlServer'
+                }];
                 $scope.install = function () {
                     httpService
                         .post('/api/setup', $scope.data)
