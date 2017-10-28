@@ -21,12 +21,12 @@
 
   <Target Name="CopyPackageAssetFiles" Condition="'$(ApplicationDirectory)' != '' And Exists('$(ApplicationDirectory)')">
     <ItemGroup>
-      <ApplicationAssetFiles Include="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)\**\*" />
+      <ApplicationAssetFiles Include="$(ApplicationDirectory)\modules\$(MSBuildProjectName)\**\*" />
     </ItemGroup>
     <Delete Files="@(ApplicationAssetFiles)" Condition="!Exists('%(RecursiveDir)%(Filename)%(Extension)')" ContinueOnError="true"/>
     <Message Text="打包项目文件: $(MSBuildProjectName)" Importance="high" />
-    <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)\%(RecursiveDir)" />
-    <Copy SourceFiles="obj\$(ModuleType).txt" DestinationFolder="$(ApplicationDirectory)\Modules\$(MSBuildProjectName)" Condition="!Exists('$(ModuleType).txt')" />
+    <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="$(ApplicationDirectory)\modules\$(MSBuildProjectName)\%(RecursiveDir)" />
+    <Copy SourceFiles="obj\$(ModuleType).txt" DestinationFolder="$(ApplicationDirectory)\modules\$(MSBuildProjectName)" Condition="!Exists('$(ModuleType).txt')" />
   </Target>
 
   <!-- 自定义的 .props -->

@@ -6,10 +6,19 @@
 
   <ItemGroup>
     <Compile Include="..\Seed.Modeling\Data\DataMigrationManager.cs" Link="DataMigrationManager.cs" />
+    <Compile Include="..\Seed.Modeling\Data\ModuleDbContext.cs" Link="ModuleDbContext.cs" />
+    <Compile Include="..\Seed.Modeling\Data\Store.cs" Link="Store.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="6.10.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Seed.Data.Abstractions\Seed.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

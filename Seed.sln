@@ -59,9 +59,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Settings", "mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.AngularUI", "modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj", "{D7C1B1D3-58DA-4D28-B485-DD7AAE26DAD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Data.Abstractions", "src\Seed.Data.Abstractions\Seed.Data.Abstractions.csproj", "{E811FE77-CD31-494D-A0A4-8AF76219FA3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Data.Abstractions", "src\Seed.Data.Abstractions\Seed.Data.Abstractions.csproj", "{E811FE77-CD31-494D-A0A4-8AF76219FA3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Data", "src\Seed.Data\Seed.Data.csproj", "{BC57B530-046A-4A0C-A833-830E93873DB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Data", "src\Seed.Data\Seed.Data.csproj", "{BC57B530-046A-4A0C-A833-830E93873DB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Common", "modules\SeedModules.Common\SeedModules.Common.csproj", "{7F41A5F6-5D48-4148-9CF8-D450B1FCDFB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -157,6 +159,10 @@ Global
 		{BC57B530-046A-4A0C-A833-830E93873DB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC57B530-046A-4A0C-A833-830E93873DB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC57B530-046A-4A0C-A833-830E93873DB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F41A5F6-5D48-4148-9CF8-D450B1FCDFB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F41A5F6-5D48-4148-9CF8-D450B1FCDFB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F41A5F6-5D48-4148-9CF8-D450B1FCDFB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F41A5F6-5D48-4148-9CF8-D450B1FCDFB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -184,6 +190,7 @@ Global
 		{D7C1B1D3-58DA-4D28-B485-DD7AAE26DAD7} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
 		{E811FE77-CD31-494D-A0A4-8AF76219FA3C} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
 		{BC57B530-046A-4A0C-A833-830E93873DB9} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
+		{7F41A5F6-5D48-4148-9CF8-D450B1FCDFB8} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F7D4F15-47E3-4EF6-BA01-22986DA3D67D}

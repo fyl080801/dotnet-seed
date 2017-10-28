@@ -15,7 +15,7 @@ namespace Seed.Modules.Extensions
         {
             services.AddWebHost();
             services.AddDescriptorDefinition("Module.txt", "module");
-            services.AddPluginLocation("Modules");
+            services.AddPluginLocation("modules");
 
             var moduleServices = new ModuleServiceCollection(services);
 

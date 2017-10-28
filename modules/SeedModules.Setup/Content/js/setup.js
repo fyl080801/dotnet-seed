@@ -17,9 +17,15 @@
                     Name: '管理系统'
                 }];
                 this.databaseProviders = [{
-                    Id: '1',
-                    Name: 'MSSqlServer'
+                    Provider: 'SqlConnection',
+                    Name: 'Microsoft SQLServer'
+                }, {
+                    Provider: 'MySql',
+                    Name: 'MySql Database'
                 }];
+                $scope.data = {
+                    DatabaseProvider: null
+                };
                 $scope.install = function () {
                     httpService
                         .post('/api/setup', $scope.data)

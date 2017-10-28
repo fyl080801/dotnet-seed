@@ -26,8 +26,7 @@ namespace Seed.Plugins.Feature
 
         public async Task<int> GetFeatureHashAsync()
         {
-            int serial;
-            if (_memoryCache.TryGetValue(FeatureHashCacheKey, out serial))
+            if (_memoryCache.TryGetValue(FeatureHashCacheKey, out int serial))
             {
                 return serial;
             }

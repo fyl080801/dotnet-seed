@@ -1,12 +1,12 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <!--
-    Defines msbuild tasks on a Bundle package to copy all modules assets (projects and packages) to the "Modules" folder.
+    Defines msbuild tasks on a Bundle package to copy all modules assets (projects and packages) to the "modules" folder.
   -->
 
   <Target Name="CopyPackageAssets" AfterTargets="Build" Condition="'$(IgnorePackageAssets)' != 'true'">
     <Message Text="复制项目文件" Importance="high" />
-    <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="Modules\%(RecursiveDir)" ContinueOnError="true" />
+    <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="modules\%(RecursiveDir)" ContinueOnError="true" />
 
     <ItemGroup>
       <ModuleProjectReferences
@@ -28,7 +28,7 @@
         <ProjectName>%(Filename)</ProjectName>
       </ModuleProjectRazorFiles>
       <ModuleProjectRazorFilesMapping
-        Include="%(ModuleProjectRazorFiles.FullPath)|\Modules\%(ModuleProjectRazorFiles.ProjectName)\%(RecursiveDir)%(Filename)%(Extension)">
+        Include="%(ModuleProjectRazorFiles.FullPath)|\modules\%(ModuleProjectRazorFiles.ProjectName)\%(RecursiveDir)%(Filename)%(Extension)">
       </ModuleProjectRazorFilesMapping>
     </ItemGroup>
 
@@ -47,7 +47,7 @@
         <ProjectName>%(Filename)</ProjectName>
       </ModuleProjectContentFiles>
       <ModuleProjectContentFilesMapping
-        Include="%(ModuleProjectContentFiles.FullPath)|\Modules\%(ModuleProjectContentFiles.ProjectName)\Content\%(RecursiveDir)%(Filename)%(Extension)">
+        Include="%(ModuleProjectContentFiles.FullPath)|\modules\%(ModuleProjectContentFiles.ProjectName)\Content\%(RecursiveDir)%(Filename)%(Extension)">
       </ModuleProjectContentFilesMapping>
     </ItemGroup>
 
@@ -65,16 +65,16 @@
       <Output TaskParameter="Include" ItemName="MvcContentRazorFiles"/>
     </CreateItem>
     <ItemGroup Condition="'@(MvcRazorFilesToCompile)' == ''">
-      <MvcRazorFilesToCompile Include="@(MvcContentRazorFiles);Modules\**\*.cshtml" />
+      <MvcRazorFilesToCompile Include="@(MvcContentRazorFiles);modules\**\*.cshtml" />
     </ItemGroup>
   </Target>
 
-  <Target Name="CleanPackageAssets" AfterTargets="Clean" Condition="'$(IgnorePackageAssets)' != 'true' And Exists('Modules')">
+  <Target Name="CleanPackageAssets" AfterTargets="Clean" Condition="'$(IgnorePackageAssets)' != 'true' And Exists('modules')">
     <ItemGroup>
-      <AllPackageAssetFiles Include="Modules\**" />
+      <AllPackageAssetFiles Include="modules\**" />
     </ItemGroup>
     <Delete Files="@(AllPackageAssetFiles)" ContinueOnError="true" />
-    <RemoveDir Directories="Modules\%(AllPackageAssetFiles.RecursiveDir)" ContinueOnError="true" />
+    <RemoveDir Directories="modules\%(AllPackageAssetFiles.RecursiveDir)" ContinueOnError="true" />
   </Target>
 
   <!--
@@ -86,15 +86,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Modules\**" />
-    <Content Remove="Modules\**" />
-    <EmbeddedResource Remove="Modules\**" />
-    <None Remove="Modules\**" />
+    <Compile Remove="modules\**" />
+    <Content Remove="modules\**" />
+    <EmbeddedResource Remove="modules\**" />
+    <None Remove="modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <ResolvedFileToPublish Include="Modules\**">
-      <RelativePath>Modules\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+    <ResolvedFileToPublish Include="modules\**">
+      <RelativePath>modules\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
     </ResolvedFileToPublish>
   </ItemGroup>
 

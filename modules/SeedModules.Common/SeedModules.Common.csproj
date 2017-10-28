@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Seed.Data\Seed.Data.csproj" />
+    <ProjectReference Include="..\..\src\Seed.Plugins\Seed.Plugins.csproj" />
+    <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Module.txt">
+      <PackagePath>assets\$(PackageId)\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

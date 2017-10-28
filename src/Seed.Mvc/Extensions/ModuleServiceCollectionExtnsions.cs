@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
@@ -35,7 +34,7 @@ namespace Seed.Mvc.Extensions
                 .AddMvcCore(options =>
                 {
                     //options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));
-                    //    options.ModelBinderProviders.Insert(0, new CheckMarkModelBinderProvider());
+                    //options.ModelBinderProviders.Insert(0, new CheckMarkModelBinderProvider());
                 })
                 .AddAuthorization()
                 .AddViews()
@@ -62,8 +61,7 @@ namespace Seed.Mvc.Extensions
 
                 var env = services.GetRequiredService<IHostingEnvironment>();
 
-                var pluginExpanderOptions = services.GetService<IOptions<PluginExpanderOptions>>();
-                var pluginHosts = pluginExpanderOptions.Value.Options.Select(e => e.Path).ToArray();
+                var pluginHosts = services.GetService<IOptions<PluginExpanderOptions>>().Value.Options.Select(e => e.Path).ToArray();
                 IFileProvider moduleFileProvider;
                 if (env.IsDevelopment())
                 {

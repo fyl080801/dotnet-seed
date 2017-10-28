@@ -2,12 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Seed.Data</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Include="..\Seed.Modeling\Data\DatabaseProvider.cs" Link="DatabaseProvider.cs" />
     <Compile Include="..\Seed.Modeling\Data\IDataMigrationManager.cs" Link="IDataMigrationManager.cs" />
     <Compile Include="..\Seed.Modeling\Data\IStore.cs" Link="IStore.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
   </ItemGroup>
 
 </Project>

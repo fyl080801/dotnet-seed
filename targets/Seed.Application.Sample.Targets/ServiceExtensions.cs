@@ -30,7 +30,7 @@ namespace Seed.Application.Sample.Targets
                     modules.WithConfiguration(configuration);
                 }
 
-                modules.WithDefaultFeatures("SeedModules.Mvc", "SeedModules.AngularUI", "SeedModules.Setup", "SeedModules.Settings");
+                modules.WithDefaultFeatures("SeedModules.Common", "SeedModules.Mvc", "SeedModules.AngularUI", "SeedModules.Setup", "SeedModules.Settings");
             });
 
             return services;

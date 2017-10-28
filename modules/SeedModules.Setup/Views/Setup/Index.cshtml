@@ -32,7 +32,7 @@
                     <span class="text-danger pull-right" ng-show="form.Purpose.$invalid">*必须选择功能</span>
                 </div>
                 <div>
-                    <select class="form-control" name="Purpose" ng-model="data.Purpose" required ng-options="item.Id as item.Name for item in me.purposes"></select>
+                    <select class="form-control" name="Purpose" ng-model="data.Purpose" ng-options="item.Id as item.Name for item in me.purposes" required></select>
                 </div>
             </fieldset>
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Name.$invalid }">
@@ -53,7 +53,7 @@
                     <span class="text-danger pull-right" ng-show="form.DatabaseProvider.$invalid">*必须选择数据库类型</span>
                 </div>
                 <div>
-                    <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" required ng-options="item.Id as item.Name for item in me.databaseProviders"></select>
+                    <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" ng-options="item.Provider as item.Name for item in me.databaseProviders" required></select>
                 </div>
             </fieldset>
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.TablePrefix.$invalid }">
@@ -109,7 +109,7 @@
                     <span class="text-danger pull-right" ng-show="form.PasswordConfirmation.$invalid">*确认密码有误</span>
                 </div>
                 <div>
-                    <input type="password" class="form-control" placeholder="输入密码" name="PasswordConfirmation" ng-model="data.PasswordConfirmation" equals="data.Password" />
+                    <input type="password" class="form-control" placeholder="输入密码" name="PasswordConfirmation" ng-model="data.PasswordConfirmation" equals="data.Password" required />
                 </div>
             </fieldset>
         </div>
