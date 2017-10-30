@@ -62,6 +62,7 @@
     <Compile Include="Environment\Engine\IEngineFeaturesManager.cs" />
     <Compile Include="Environment\Engine\IEngineDescriptorFeaturesManager.cs" />
     <Compile Include="Environment\Engine\EngineOptions.cs" />
+    <Compile Include="Modules\Setup\Events\ISetupEventHandler.cs" />
     <Compile Include="Modules\IModuleLauncherEvents.cs" />
     <Compile Include="Modules\ModuleProjectContentFileProvider.cs" />
     <Compile Include="Plugins\Feature\FeatureHash.cs" />

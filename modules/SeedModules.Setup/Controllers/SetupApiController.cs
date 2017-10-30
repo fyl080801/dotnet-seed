@@ -4,7 +4,8 @@ using SeedModules.Setup.Services;
 using SeedModules.Setup.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SeedModules.Setup.Controllers
 {
@@ -21,9 +22,28 @@ namespace SeedModules.Setup.Controllers
         }
 
         [HttpPost]
-        public bool DoSetup([FromBody]SetupModel model)
+        public async Task DoSetup([FromBody]SetupModel model)
         {
-            return true;
+            var setupContext = new SetupContext
+            {
+                Name = model.Name,
+                EnabledFeatures = null,// 回头加上默认的
+                AdminUsername = model.UserName,
+                AdminEmail = model.Email,
+                AdminPassword = model.Password,
+                Errors = new Dictionary<string, string>()
+            };
+
+            await _setupService.SetupAsync(setupContext);
+
+            if (setupContext.Errors.Any())
+            {
+                foreach (var error in setupContext.Errors)
+                {
+                    //ModelState.AddModelError(error.Key, error.Value);
+                }
+                throw new Exception();
+            }
         }
     }
 }
