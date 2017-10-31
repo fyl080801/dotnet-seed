@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Seed.Data;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Builder;
 using Seed.Environment.Engine.Descriptors;
+using Seed.Modules.DeferredTasks;
 using Seed.Modules.Extensions;
 using Seed.Modules.Setup.Events;
 using System;
@@ -70,11 +72,22 @@ namespace SeedModules.Setup.Services
 
             using (var engineContext = await _engineContextFactory.CreateDescribedContextAsync(engineSettings, engineDescriptor))
             {
-                using (var scope = engineContext.CreateServiceScope())
+                using (var scope = engineContext.EntryServiceScope())
                 {
-                    // initdatabase
+                    // 初始化数据库
+                    IStore store;
+                    try
+                    {
+                        store = scope.ServiceProvider.GetRequiredService<IStore>();
+                        await store.InitializeAsync();
+                    }
+                    catch (Exception e)
+                    {
+                        context.Errors.Add("DatabaseProvider", string.Format("初始化数据库访问时发生异常: {0}", e.Message));
+                        return null;
+                    }
 
-                    // 
+                    // 刷新 EngineDescriptor
                     await scope.ServiceProvider
                         .GetService<IEngineDescriptorManager>()
                         .UpdateEngineDescriptorAsync(
@@ -82,21 +95,26 @@ namespace SeedModules.Setup.Services
                             engineContext.Schema.Descriptor.Features,
                             engineContext.Schema.Descriptor.Parameters
                         );
+
+                    // 后台延迟进程服务
+                    var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
+                    if (deferredTaskEngine != null && deferredTaskEngine.HasPendingTasks)
+                    {
+                        await deferredTaskEngine.ExecuteTasksAsync(new DeferredTaskContext(scope.ServiceProvider));
+                    }
                 }
 
                 executionId = Guid.NewGuid().ToString("n");
             }
 
+            // 安装事件
             using (var shellContext = await _engineHost.CreateContextAsync(engineSettings))
             {
-                using (var scope = shellContext.CreateServiceScope())
+                using (var scope = shellContext.EntryServiceScope())
                 {
                     var hasErrors = false;
 
-                    var setupEventHandlers = scope.ServiceProvider.GetServices<ISetupEventHandler>();
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<SetupService>>();
-
-                    await setupEventHandlers.InvokeAsync(x => x.Setup(
+                    await scope.ServiceProvider.GetServices<ISetupEventHandler>().InvokeAsync(x => x.Setup(
                         context.Name,
                         context.AdminUsername,
                         context.AdminEmail,
@@ -109,7 +127,7 @@ namespace SeedModules.Setup.Services
                             hasErrors = true;
                             context.Errors[key] = message;
                         }
-                    ), logger);
+                    ), scope.ServiceProvider.GetRequiredService<ILogger<SetupService>>());
 
                     if (hasErrors)
                     {

@@ -20,5 +20,10 @@ namespace Seed.Data
         {
             return new ModuleDbContext(_dbContextOptionsBuilder.Options);
         }
+
+        public Task InitializeAsync()
+        {
+            return new ModuleDbContext(_dbContextOptionsBuilder.Options).Database.MigrateAsync();
+        }
     }
 }

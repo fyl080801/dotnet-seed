@@ -36,7 +36,7 @@ namespace Seed.Modules
                 var engineContext = _engineHost.GetOrCreateContext(engineSetting);
 
                 var existingRequestServices = httpContext.RequestServices;
-                var scope = engineContext.CreateServiceScope();
+                var scope = engineContext.EntryServiceScope();
 
                 try
                 {

@@ -5,7 +5,7 @@ using System.Text;
 namespace Seed.Plugins.Feature
 {
     /// <summary>
-    /// 
+    /// 类型查找(TypeFinder)
     /// </summary>
     public interface ITypeFeatureProvider
     {

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Seed.Plugins;
+using Seed.Plugins.Feature;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +11,20 @@ namespace Seed.Data
 {
     public class DataMigrationManager : IDataMigrationManager
     {
+        readonly DbContext _dbContext;
+        readonly IPluginManager _pluginManager;
+        readonly ITypeFeatureProvider _typeFeatureProvider;
+
+        public DataMigrationManager(
+            DbContext dbContext,
+            IPluginManager pluginManager,
+            ITypeFeatureProvider typeFeatureProvider)
+        {
+            _dbContext = dbContext;
+            _pluginManager = pluginManager;
+            _typeFeatureProvider = typeFeatureProvider;
+        }
+
         public Task<IEnumerable<string>> GetUpdateFeaturesAsync()
         {
             throw new NotImplementedException();

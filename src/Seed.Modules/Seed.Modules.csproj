@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\DeferredTaskEngine.cs" Link="DeferredTasks\DeferredTaskEngine.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\HttpContextTaskState.cs" Link="DeferredTasks\HttpContextTaskState.cs" />
     <Compile Include="..\Seed.Modeling\Modules\Extensions\RunningEngineTableExtensions.cs" Link="Extensions\RunningEngineTableExtensions.cs" />
     <Compile Include="..\Seed.Modeling\Modules\ModuleApplicationBuilder.cs" Link="ModuleApplicationBuilder.cs" />
     <Compile Include="..\Seed.Modeling\Modules\ModuleLauncherContainerMiddleware.cs" Link="ModuleLauncherContainerMiddleware.cs" />

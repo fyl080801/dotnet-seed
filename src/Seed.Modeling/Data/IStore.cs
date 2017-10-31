@@ -10,5 +10,7 @@ namespace Seed.Data
     public interface IStore
     {
         DbContext CreateDbContext();
+
+        Task InitializeAsync();
     }
 }

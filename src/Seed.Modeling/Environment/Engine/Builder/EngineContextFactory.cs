@@ -26,7 +26,7 @@ namespace Seed.Environment.Engine.Builder
             var describedContext = await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
 
             EngineDescriptor currentDescriptor;
-            using (var scope = describedContext.CreateServiceScope())
+            using (var scope = describedContext.EntryServiceScope())
             {
                 var descriptorManager = scope.ServiceProvider.GetService<IEngineDescriptorManager>();
                 currentDescriptor = await descriptorManager.GetEngineDescriptorAsync();

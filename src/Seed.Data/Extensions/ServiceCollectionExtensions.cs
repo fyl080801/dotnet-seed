@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
+using Seed.Modules;
 using System;
 
 namespace Seed.Data.Extensions
@@ -12,7 +13,7 @@ namespace Seed.Data.Extensions
         public static IServiceCollection AddDataAccess(this IServiceCollection services)
         {
             services.AddScoped<IDataMigrationManager, DataMigrationManager>();
-            //services.AddScoped<IModularTenantEvents, AutomaticDataMigrations>();
+            services.AddScoped<IModuleLauncherEvents, AutoDataMigration>();
 
             services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");
             services.TryAddDataProvider(name: "MySql Database", provider: "MySql");

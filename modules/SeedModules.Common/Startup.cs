@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Data.Extensions;
 using Seed.Modules;
+using Seed.Modules.Extensions;
 using Seed.Plugins.Extensions;
 
 namespace SeedModules.Common
@@ -9,6 +10,7 @@ namespace SeedModules.Common
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddDeferredTasks();
             services.AddDataAccess();
             services.AddPluginManager();
         }

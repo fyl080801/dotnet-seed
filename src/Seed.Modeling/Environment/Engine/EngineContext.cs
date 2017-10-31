@@ -50,7 +50,7 @@ namespace Seed.Environment.Engine
         /// <remarks>
         /// 已释放或已清理的不可创建作用域
         /// </remarks>
-        public IServiceScope CreateServiceScope()
+        public IServiceScope EntryServiceScope()
         {
             if (_disposed) throw new InvalidOperationException("context disposed");
 

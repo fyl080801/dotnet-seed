@@ -48,7 +48,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\DatabaseProvider.cs" />
+    <Compile Include="Data\AutoDataMigration.cs" />
+    <Compile Include="Data\DataMigrationBase.cs" />
     <Compile Include="Data\DataMigrationManager.cs" />
+    <Compile Include="Data\IDataMigration.cs" />
     <Compile Include="Data\IDataMigrationManager.cs" />
     <Compile Include="Data\IStore.cs" />
     <Compile Include="Data\ModuleDbContext.cs" />
@@ -62,6 +65,11 @@
     <Compile Include="Environment\Engine\IEngineFeaturesManager.cs" />
     <Compile Include="Environment\Engine\IEngineDescriptorFeaturesManager.cs" />
     <Compile Include="Environment\Engine\EngineOptions.cs" />
+    <Compile Include="Modules\DeferredTasks\DeferredTaskContext.cs" />
+    <Compile Include="Modules\DeferredTasks\DeferredTaskEngine.cs" />
+    <Compile Include="Modules\DeferredTasks\HttpContextTaskState.cs" />
+    <Compile Include="Modules\DeferredTasks\IDeferredTaskEngine.cs" />
+    <Compile Include="Modules\DeferredTasks\IDeferredTaskState.cs" />
     <Compile Include="Modules\Setup\Events\ISetupEventHandler.cs" />
     <Compile Include="Modules\IModuleLauncherEvents.cs" />
     <Compile Include="Modules\ModuleProjectContentFileProvider.cs" />

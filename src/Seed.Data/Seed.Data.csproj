@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Data\AutoDataMigration.cs" Link="AutoDataMigration.cs" />
     <Compile Include="..\Seed.Modeling\Data\DataMigrationManager.cs" Link="DataMigrationManager.cs" />
     <Compile Include="..\Seed.Modeling\Data\ModuleDbContext.cs" Link="ModuleDbContext.cs" />
     <Compile Include="..\Seed.Modeling\Data\Store.cs" Link="Store.cs" />

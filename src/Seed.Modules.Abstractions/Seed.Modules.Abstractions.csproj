@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\DeferredTaskContext.cs" Link="DeferredTasks\DeferredTaskContext.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\IDeferredTaskEngine.cs" Link="DeferredTasks\IDeferredTaskEngine.cs" />
+    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\IDeferredTaskState.cs" Link="DeferredTasks\IDeferredTaskState.cs" />
     <Compile Include="..\Seed.Modeling\Modules\IModuleLauncherEvents.cs" Link="IModuleLauncherEvents.cs" />
     <Compile Include="..\Seed.Modeling\Modules\IModuleLauncherRouteBuilder.cs" Link="IModuleLauncherRouteBuilder.cs" />
     <Compile Include="..\Seed.Modeling\Modules\IStartup.cs" Link="IStartup.cs" />
@@ -23,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Setup\Events\" />
+    <Folder Include="DeferredTasks\" />
   </ItemGroup>
 
 </Project>
