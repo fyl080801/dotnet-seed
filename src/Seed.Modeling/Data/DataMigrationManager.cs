@@ -1,10 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design.Internal;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations.Design;
+using Microsoft.EntityFrameworkCore.Migrations.Internal;
+using Microsoft.Extensions.DependencyInjection;
 using Seed.Plugins;
 using Seed.Plugins.Feature;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Seed.Data
@@ -14,6 +24,7 @@ namespace Seed.Data
         readonly DbContext _dbContext;
         readonly IPluginManager _pluginManager;
         readonly ITypeFeatureProvider _typeFeatureProvider;
+        readonly IServiceProvider _serviceProvider;
 
         public DataMigrationManager(
             DbContext dbContext,
@@ -23,31 +34,38 @@ namespace Seed.Data
             _dbContext = dbContext;
             _pluginManager = pluginManager;
             _typeFeatureProvider = typeFeatureProvider;
-        }
-
-        public Task<IEnumerable<string>> GetUpdateFeaturesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Uninstall(string feature)
-        {
-            throw new NotImplementedException();
+            _serviceProvider = ((IInfrastructure<IServiceProvider>)_dbContext).Instance;
         }
 
         public Task UpdateAllFeaturesAsync()
         {
-            throw new NotImplementedException();
-        }
+            var path = Path.Combine(AppContext.BaseDirectory, "Migrations/").Replace("/", "\\");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            else
+            {
+                Directory.GetFiles(path).ToList().ForEach(File.Delete);
+            }
 
-        public Task UpdateAsync(string feature)
-        {
-            throw new NotImplementedException();
-        }
+            using (_dbContext)
+            {
+                var migrationsGenerator = _serviceProvider.GetService<CSharpMigrationsGenerator>();
+                var scaffolderDependencies = _serviceProvider.GetService<MigrationsScaffolderDependencies>()
+                   .With(migrationsGenerator);
 
-        public Task UpdateAsync(IEnumerable<string> features)
-        {
-            throw new NotImplementedException();
+                var scaffolder = new MigrationsScaffolder(scaffolderDependencies);
+
+                var projectDir = Path.Combine(path, "..\\");
+
+                var readonlyDic = new ReadOnlyDictionary<string, TypeInfo>(new Dictionary<string, TypeInfo>());
+                var migration = scaffolder.ScaffoldMigration("Seed.Migrations", "Seed");
+
+                scaffolder.Save(projectDir, migration, path);
+
+                return Task.CompletedTask;
+            }
         }
     }
 }

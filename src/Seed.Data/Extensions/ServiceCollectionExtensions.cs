@@ -52,7 +52,7 @@ namespace Seed.Data.Extensions
 
             services.AddScoped(sp =>
             {
-                return sp.GetService<IStore>()?.CreateDbContext();
+                return sp.GetService<IStore>()?.CreateDbContext(sp);
             });
 
             return services;

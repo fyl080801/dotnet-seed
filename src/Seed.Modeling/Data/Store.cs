@@ -16,14 +16,14 @@ namespace Seed.Data
             _dbContextOptionsBuilder = dbContextOptionsBuilder;
         }
 
-        public DbContext CreateDbContext()
+        public DbContext CreateDbContext(IServiceProvider serviceProvider)
         {
-            return new ModuleDbContext(_dbContextOptionsBuilder.Options);
+            return new ModuleDbContext(_dbContextOptionsBuilder.Options, serviceProvider);
         }
 
-        public Task InitializeAsync()
+        public Task InitializeAsync(IServiceProvider serviceProvider)
         {
-            return new ModuleDbContext(_dbContextOptionsBuilder.Options).Database.MigrateAsync();
+            return new ModuleDbContext(_dbContextOptionsBuilder.Options, serviceProvider).Database.MigrateAsync();
         }
     }
 }

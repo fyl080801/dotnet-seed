@@ -9,8 +9,8 @@ namespace Seed.Data
 {
     public interface IStore
     {
-        DbContext CreateDbContext();
+        DbContext CreateDbContext(IServiceProvider serviceProvider);
 
-        Task InitializeAsync();
+        Task InitializeAsync(IServiceProvider serviceProvider);
     }
 }

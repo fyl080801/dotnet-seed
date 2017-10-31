@@ -79,7 +79,7 @@ namespace SeedModules.Setup.Services
                     try
                     {
                         store = scope.ServiceProvider.GetRequiredService<IStore>();
-                        await store.InitializeAsync();
+                        await store.InitializeAsync(engineContext.ServiceProvider);
                     }
                     catch (Exception e)
                     {
