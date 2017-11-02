@@ -18,8 +18,6 @@ namespace Seed.Data.Extensions
             services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");
             services.TryAddDataProvider(name: "MySql Database", provider: "MySql");
 
-            //services.AddSingleton(typeof(IEntityTypeConfiguration<>));
-
             services.AddSingleton<IStore>(sp =>
             {
                 var engineSettings = sp.GetService<EngineSettings>();
@@ -30,7 +28,7 @@ namespace Seed.Data.Extensions
                     return null;
                 }
 
-                var optionBuilder = new DbContextOptionsBuilder();
+                var optionBuilder = new DbContextOptionsBuilder().UseApplicationServiceProvider(sp);
 
                 switch (engineSettings.DatabaseProvider)
                 {
@@ -47,12 +45,12 @@ namespace Seed.Data.Extensions
                         throw new ArgumentException("未知数据访问提供程序: " + engineSettings.DatabaseProvider);
                 }
 
-                return new Store(optionBuilder);
+                return new Store(optionBuilder, sp);
             });
 
             services.AddScoped(sp =>
             {
-                return sp.GetService<IStore>()?.CreateDbContext(sp);
+                return sp.GetService<IStore>()?.CreateDbContext();
             });
 
             return services;

@@ -41,5 +41,15 @@ namespace Seed.Plugins
         public IEnumerable<IFeatureInfo> Features => _features;
 
         public bool Exists => _fileInfo.Exists && _descriptorInfo.Exists;
+
+        public override bool Equals(object obj)
+        {
+            return ((IPluginInfo)obj).Id == this.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
     }
 }

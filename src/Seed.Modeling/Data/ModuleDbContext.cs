@@ -1,22 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Seed.Plugins;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Seed.Data
 {
     public class ModuleDbContext : DbContext
     {
-        IServiceProvider _serviceProvider;
+        readonly IEnumerable<object> _entityConfigurations;
 
-        public ModuleDbContext(DbContextOptions options, IServiceProvider serviceProvider) : base(options)
+        public ModuleDbContext(DbContextOptions options, params object[] entityConfigurations)
+            : base(options)
         {
-            _serviceProvider = serviceProvider;
+            _entityConfigurations = entityConfigurations;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -26,11 +20,10 @@ namespace Seed.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var source = new List<TypeInfo>();
-            foreach (var typeInfo in source.Distinct())
+            foreach (var configuration in _entityConfigurations)
             {
-                var typeInstance = ActivatorUtilities.CreateInstance(_serviceProvider, typeInfo);
-                modelBuilder.ApplyConfiguration((dynamic)typeInstance);
+                //var typeInstance = ActivatorUtilities.CreateInstance(((IInfrastructure<IServiceProvider>)this).Instance, typeInfo);
+                modelBuilder.ApplyConfiguration((dynamic)configuration);
             }
 
             base.OnModelCreating(modelBuilder);

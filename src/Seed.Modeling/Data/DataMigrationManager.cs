@@ -37,35 +37,48 @@ namespace Seed.Data
             _serviceProvider = ((IInfrastructure<IServiceProvider>)_dbContext).Instance;
         }
 
+        public Task Uninstall(string feature)
+        {
+            return Task.CompletedTask;
+        }
+
         public Task UpdateAllFeaturesAsync()
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "Migrations/").Replace("/", "\\");
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "Migrations/").Replace("/", "\\");
+
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
-            else
+
+            return Task.Run(() =>
             {
-                Directory.GetFiles(path).ToList().ForEach(File.Delete);
-            }
+                using (_dbContext)
+                {
+                    var assembly = Assembly.GetEntryAssembly();
+                    var designTimeServicesBuilder = new DesignTimeServicesBuilder(assembly, new OperationReporter(null));
+                    var efServices = designTimeServicesBuilder.Build(_dbContext);
+                    var scaffolder = _dbContext.GetService<MigrationsScaffolder>();
 
-            using (_dbContext)
-            {
-                var migrationsGenerator = _serviceProvider.GetService<CSharpMigrationsGenerator>();
-                var scaffolderDependencies = _serviceProvider.GetService<MigrationsScaffolderDependencies>()
-                   .With(migrationsGenerator);
+                    scaffolder.Save(
+                        Path.Combine(path, "..\\"),
+                        scaffolder.ScaffoldMigration(assembly.FullName + ".EntityConfigurations.Migrations", assembly.FullName + ".EntityConfigurations"),
+                        path
+                    );
 
-                var scaffolder = new MigrationsScaffolder(scaffolderDependencies);
 
-                var projectDir = Path.Combine(path, "..\\");
+                }
+            });
+        }
 
-                var readonlyDic = new ReadOnlyDictionary<string, TypeInfo>(new Dictionary<string, TypeInfo>());
-                var migration = scaffolder.ScaffoldMigration("Seed.Migrations", "Seed");
+        public Task UpdateAsync(string feature)
+        {
+            return Task.CompletedTask;
+        }
 
-                scaffolder.Save(projectDir, migration, path);
-
-                return Task.CompletedTask;
-            }
+        public Task UpdateAsync(IEnumerable<string> features)
+        {
+            return Task.CompletedTask;
         }
     }
 }
