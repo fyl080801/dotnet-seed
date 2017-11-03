@@ -48,7 +48,8 @@ namespace SeedModules.Setup.Services
             string[] defaultEnables =
             {
                 "SeedModules.Common",
-                "SeedModules.AngularUI"
+                "SeedModules.AngularUI",
+                "SeedModules.Settings"
             };
 
             context.EnabledFeatures = defaultEnables.Union(context.EnabledFeatures ?? Enumerable.Empty<string>()).Distinct().ToList();
@@ -79,7 +80,7 @@ namespace SeedModules.Setup.Services
                     try
                     {
                         store = scope.ServiceProvider.GetRequiredService<IStore>();
-                        await store.InitializeAsync();
+                        await store.InitializeAsync(scope.ServiceProvider);
                     }
                     catch (Exception e)
                     {
@@ -114,7 +115,7 @@ namespace SeedModules.Setup.Services
                 {
                     var hasErrors = false;
 
-                    await scope.ServiceProvider.GetServices<ISetupEventHandler>().InvokeAsync(x => x.Setup(
+                    await scope.ServiceProvider.GetServices<ISetupEventHandler>().InvokeAsync(x => x.SetupAsync(
                         context.Name,
                         context.AdminUsername,
                         context.AdminEmail,

@@ -11,6 +11,6 @@ namespace Seed.Data
     {
         DbContext CreateDbContext();
 
-        Task InitializeAsync();
+        Task InitializeAsync(IServiceProvider service);
     }
 }

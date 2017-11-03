@@ -12,7 +12,7 @@ namespace Seed.Plugins.Feature
         /// <summary>
         /// 获得特定类型依赖项的特性
         /// </summary>
-        /// <param name="dependency"></param>
+        /// <param name="dependency">依赖项类型</param>
         /// <returns></returns>
         IFeatureInfo GetFeatureForDependency(Type dependency);
 

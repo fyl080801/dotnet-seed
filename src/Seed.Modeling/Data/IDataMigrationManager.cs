@@ -5,7 +5,7 @@ namespace Seed.Data
 {
     public interface IDataMigrationManager
     {
-        //Task<IEnumerable<string>> GetUpdateFeaturesAsync();
+        Task<IEnumerable<string>> GetFeaturesByUpdateAsync();
 
         Task UpdateAllFeaturesAsync();
 

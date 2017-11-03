@@ -31,7 +31,10 @@ namespace SeedModules.Setup.Controllers
                 AdminUsername = model.UserName,
                 AdminEmail = model.Email,
                 AdminPassword = model.Password,
-                Errors = new Dictionary<string, string>()
+                Errors = new Dictionary<string, string>(),
+                DatabaseConnectionString = model.ConnectionString,
+                DatabaseProvider = model.DatabaseProvider,
+                DatabaseTablePrefix = model.TablePrefix
             };
 
             await _setupService.SetupAsync(setupContext);

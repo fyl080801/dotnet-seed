@@ -1,20 +1,19 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
-using System;
+using Seed.Modules.Account.Permissions;
+using Seed.Modules.Setup.Events;
+using Seed.Modules.Site;
+using SeedModules.Settings.Services;
 
 namespace SeedModules.Settings
 {
     public class Startup : StartupBase
     {
-        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
+        public override void ConfigureServices(IServiceCollection services)
         {
-            routes.MapAreaRoute(
-                name: "AdminSettings",
-                areaName: "SeedModules.Settings",
-                template: "Admin/Settings/{groupId}",
-                defaults: new { controller = "Admin", action = "Index" }
-            );
+            services.AddScoped<ISetupEventHandler, SetupEventHandler>();
+            services.AddScoped<IPermissionProvider, PermissionProvider>();
+            services.AddSingleton<ISiteService, SiteService>();
         }
     }
 }

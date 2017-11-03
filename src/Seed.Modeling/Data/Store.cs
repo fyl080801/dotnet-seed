@@ -1,20 +1,17 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Engine.Descriptors;
+using Seed.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Seed.Plugins;
-using Microsoft.Extensions.DependencyInjection;
-using Seed.Environment.Engine;
 
 namespace Seed.Data
 {
     public class Store : IStore
     {
         readonly DbContextOptionsBuilder _dbContextOptionsBuilder;
-        readonly IEngineFeaturesManager _engineFeaturesManager;
         readonly IPluginManager _pluginManager;
 
         IEnumerable<object> _entityConfigurations = Enumerable.Empty<object>();
@@ -22,10 +19,12 @@ namespace Seed.Data
         public Store(DbContextOptionsBuilder dbContextOptionsBuilder, IServiceProvider serviceProvider)
         {
             _dbContextOptionsBuilder = dbContextOptionsBuilder;
-            _engineFeaturesManager = serviceProvider.GetService<IEngineFeaturesManager>();
             _pluginManager = serviceProvider.GetService<IPluginManager>();
 
-            _engineFeaturesManager.GetEnabledFeaturesAsync().Result
+            var engineDescriptor = serviceProvider.GetService<EngineDescriptor>();
+            var configurationType = typeof(IEntityTypeConfiguration<>);
+
+            _pluginManager.GetFeatures(engineDescriptor.Features.Select(e => e.Id).ToArray())
                 .ToDictionary(
                     x => x.Id,
                     y => y.Plugin
@@ -33,17 +32,28 @@ namespace Seed.Data
                 .Values.Distinct()
                 .ToDictionary(
                     x => x.Id,
-                    y => _pluginManager.GetPluginEntryAsync(y).Result.Exports
-                       .Where(e => e.IsGenericType && e.GetGenericTypeDefinition() == typeof(IEntityTypeConfiguration<>))
-                       .Select(e => ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, e))
-                       .ToList()
+                    y =>
+                    {
+                        var exports = _pluginManager.GetPluginEntryAsync(y).Result.Exports;
+                        return exports.Where(e =>
+                        {
+                            var typeInterfaces = e.GetInterfaces();
+                            foreach (var inter in typeInterfaces)
+                            {
+                                if (inter.IsGenericType && inter.GetGenericTypeDefinition() == configurationType)
+                                    return true;
+                            }
+                            return false;
+                        })
+                            .Select(e => ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, e))
+                            .ToList();
+                    }
                 )
                 .Values.ToList()
                 .ForEach(list =>
                 {
                     _entityConfigurations = _entityConfigurations.Concat(list);
                 });
-
         }
 
         public DbContext CreateDbContext()
@@ -51,9 +61,9 @@ namespace Seed.Data
             return new ModuleDbContext(_dbContextOptionsBuilder.Options, _entityConfigurations.ToArray());
         }
 
-        public Task InitializeAsync()
+        public Task InitializeAsync(IServiceProvider service)
         {
-            return new ModuleDbContext(_dbContextOptionsBuilder.Options, _entityConfigurations.ToArray()).Database.MigrateAsync();
+            return service.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
         }
     }
 }

@@ -7,13 +7,13 @@ namespace Seed.Environment.Engine.Descriptors
 {
     public class AllFeaturesEngineDescriptorManager : IEngineDescriptorManager
     {
-        //private readonly IPluginManager _pluginManager;
-        private EngineDescriptor _engineDescriptor;
+        readonly IPluginManager _pluginManager;
+        EngineDescriptor _engineDescriptor;
 
-        //public AllFeaturesEngineDescriptorManager(IPluginManager pluginManager)
-        //{
-        //    _pluginManager = pluginManager;
-        //}
+        public AllFeaturesEngineDescriptorManager(IPluginManager pluginManager)
+        {
+            _pluginManager = pluginManager;
+        }
 
         public Task<EngineDescriptor> GetEngineDescriptorAsync()
         {
@@ -21,7 +21,7 @@ namespace Seed.Environment.Engine.Descriptors
             {
                 _engineDescriptor = new EngineDescriptor
                 {
-                    //Features = _pluginManager.GetFeatures().Select(x => new EngineFeature { Id = x.Id }).ToList()
+                    Features = _pluginManager.GetFeatures().Select(x => new EngineFeature { Id = x.Id }).ToList()
                 };
             }
 

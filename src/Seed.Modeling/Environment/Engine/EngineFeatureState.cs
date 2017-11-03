@@ -1,13 +1,16 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Seed.Environment.Engine
 {
+    [Table("EngineFeatureState")]
     public class EngineFeatureState
     {
+        [Key]
         public string Id { get; set; }
 
         public State InstallState { get; set; }
@@ -15,18 +18,21 @@ namespace Seed.Environment.Engine
         public State EnableState { get; set; }
 
         [JsonIgnore]
+        [NotMapped]
         public bool IsInstalled
         {
             get { return InstallState == State.Up; }
         }
 
         [JsonIgnore]
+        [NotMapped]
         public bool IsEnabled
         {
             get { return EnableState == State.Up; }
         }
 
         [JsonIgnore]
+        [NotMapped]
         public bool IsDisabled
         {
             get { return EnableState == State.Down || EnableState == State.Undefined; }
@@ -40,6 +46,14 @@ namespace Seed.Environment.Engine
             Up,
             Falling,
             Down,
+        }
+    }
+
+    public class EngineFeatureStateEntityConfiguration : IEntityTypeConfiguration<EngineFeatureState>
+    {
+        public void Configure(EntityTypeBuilder<EngineFeatureState> builder)
+        {
+
         }
     }
 }

@@ -12,17 +12,11 @@ namespace Seed.Data
         {
             _entityConfigurations = entityConfigurations;
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-        }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             foreach (var configuration in _entityConfigurations)
             {
-                //var typeInstance = ActivatorUtilities.CreateInstance(((IInfrastructure<IServiceProvider>)this).Instance, typeInfo);
                 modelBuilder.ApplyConfiguration((dynamic)configuration);
             }
 

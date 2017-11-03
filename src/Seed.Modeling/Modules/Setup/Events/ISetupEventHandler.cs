@@ -23,7 +23,7 @@ namespace Seed.Modules.Setup.Events
         /// <param name="dbTablePrefix"></param>
         /// <param name="errors"></param>
         /// <returns></returns>
-        Task Setup(
+        Task SetupAsync(
             string siteName,
             string userName,
             string email,

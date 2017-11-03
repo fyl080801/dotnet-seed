@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Data\DatabaseProvider.cs" />
     <Compile Include="Data\AutoDataMigration.cs" />
-    <Compile Include="Data\DataMigrationBase.cs" />
+    <Compile Include="Data\DataMigration.cs" />
     <Compile Include="Data\DataMigrationManager.cs" />
     <Compile Include="Data\IDataMigration.cs" />
     <Compile Include="Data\IDataMigrationManager.cs" />
@@ -57,6 +57,7 @@
     <Compile Include="Data\ModuleDbContext.cs" />
     <Compile Include="Data\Store.cs" />
     <Compile Include="Environment\Cache\ISignal.cs" />
+    <Compile Include="Environment\Cache\Signal.cs" />
     <Compile Include="Environment\Engine\Data\EngineDescriptorManager.cs" />
     <Compile Include="Environment\Engine\Data\EngineStateManager.cs" />
     <Compile Include="Environment\Engine\EngineDescriptorFeaturesManager.cs" />
@@ -65,6 +66,9 @@
     <Compile Include="Environment\Engine\IEngineFeaturesManager.cs" />
     <Compile Include="Environment\Engine\IEngineDescriptorFeaturesManager.cs" />
     <Compile Include="Environment\Engine\EngineOptions.cs" />
+    <Compile Include="Modules\Account\Permissions\IPermissionProvider.cs" />
+    <Compile Include="Modules\Account\Permissions\Permission.cs" />
+    <Compile Include="Modules\Account\Permissions\PermissionStereotype.cs" />
     <Compile Include="Modules\DeferredTasks\DeferredTaskContext.cs" />
     <Compile Include="Modules\DeferredTasks\DeferredTaskEngine.cs" />
     <Compile Include="Modules\DeferredTasks\HttpContextTaskState.cs" />
@@ -73,6 +77,8 @@
     <Compile Include="Modules\Setup\Events\ISetupEventHandler.cs" />
     <Compile Include="Modules\IModuleLauncherEvents.cs" />
     <Compile Include="Modules\ModuleProjectContentFileProvider.cs" />
+    <Compile Include="Modules\Site\ISiteInfo.cs" />
+    <Compile Include="Modules\Site\ISiteService.cs" />
     <Compile Include="Plugins\Feature\FeatureHash.cs" />
     <Compile Include="Plugins\Loader\PathPluginLoader.cs" />
     <Compile Include="Plugins\PluginPriorityStrategy.cs" />
@@ -362,6 +368,7 @@
     <Content Include="docs\MySqlParameterCollection.xml" />
     <Content Include="docs\MySqlTransaction.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

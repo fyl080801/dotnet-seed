@@ -21,14 +21,13 @@ namespace Seed.Data.Extensions
             services.AddSingleton<IStore>(sp =>
             {
                 var engineSettings = sp.GetService<EngineSettings>();
-                var hostingEnvironment = sp.GetService<IHostingEnvironment>();
 
                 if (engineSettings.DatabaseProvider == null)
                 {
                     return null;
                 }
 
-                var optionBuilder = new DbContextOptionsBuilder().UseApplicationServiceProvider(sp);
+                var optionBuilder = new DbContextOptionsBuilder();//.UseApplicationServiceProvider(sp);
 
                 switch (engineSettings.DatabaseProvider)
                 {

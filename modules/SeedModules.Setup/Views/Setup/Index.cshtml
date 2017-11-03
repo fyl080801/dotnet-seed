@@ -54,7 +54,7 @@
                 </div>
                 <div>
                     <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" ng-options="item.Provider as item.Name for item in me.databaseProviders" required></select>
-                </div>
+                </div>                
             </fieldset>
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.TablePrefix.$invalid }">
                 <div>
@@ -72,6 +72,7 @@
                 <div>
                     <input class="form-control" placeholder="输入连接字符串" name="ConnectionString" ng-model="data.ConnectionString" required />
                 </div>
+                <div class="text-muted">Data Source=.;Initial Catalog=eftest;User Id=sa;Password=qazwsxedc;</div>
             </fieldset>
         </div>
         <h6><i class="glyphicon glyphicon-chevron-right"></i> 用户信息</h6>

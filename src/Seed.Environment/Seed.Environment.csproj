@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\Seed.Modeling\Environment\Cache\Signal.cs" Link="Cache\Signal.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\CompositionStrategy.cs" Link="Engine\Builder\CompositionStrategy.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\EngineContainerFactory.cs" Link="Engine\Builder\EngineContainerFactory.cs" />
     <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\EngineContextFactory.cs" Link="Engine\Builder\EngineContextFactory.cs" />
@@ -30,6 +31,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.0.0" />
   </ItemGroup>

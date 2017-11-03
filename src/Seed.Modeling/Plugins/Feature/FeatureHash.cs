@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Seed.Environment.Cache;
 using Seed.Environment.Engine;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Seed.Plugins.Feature
