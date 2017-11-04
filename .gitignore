@@ -241,6 +241,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
-
+/App_Data
 */Seed/Plugins/
 */Seed/Modules/
