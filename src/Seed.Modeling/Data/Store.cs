@@ -56,7 +56,7 @@ namespace Seed.Data
                 });
         }
 
-        public DbContext CreateDbContext()
+        public IDbContext CreateDbContext()
         {
             return new ModuleDbContext(_dbContextOptionsBuilder.Options, _entityConfigurations.ToArray());
         }

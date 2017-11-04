@@ -27,7 +27,7 @@ namespace Seed.Data.Extensions
                     return null;
                 }
 
-                var optionBuilder = new DbContextOptionsBuilder();//.UseApplicationServiceProvider(sp);
+                var optionBuilder = new DbContextOptionsBuilder();
 
                 switch (engineSettings.DatabaseProvider)
                 {

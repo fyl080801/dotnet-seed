@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
+using Seed.Data;
 using Seed.Environment.Cache;
 using Seed.Modules.Site;
 using SeedModules.Settings.Domain;
@@ -79,9 +80,9 @@ namespace SeedModules.Settings.Services
             return;
         }
 
-        private DbContext GetDbContext()
+        private IDbContext GetDbContext()
         {
-            return _serviceProvider.GetService<IHttpContextAccessor>().HttpContext.RequestServices.GetService<DbContext>();
+            return _serviceProvider.GetService<IHttpContextAccessor>().HttpContext.RequestServices.GetService<IDbContext>();
         }
     }
 }

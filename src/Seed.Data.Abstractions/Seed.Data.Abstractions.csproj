@@ -8,8 +8,10 @@
   <ItemGroup>
     <Compile Include="..\Seed.Modeling\Data\DatabaseProvider.cs" Link="DatabaseProvider.cs" />
     <Compile Include="..\Seed.Modeling\Data\DataMigration.cs" Link="DataMigration.cs" />
+    <Compile Include="..\Seed.Modeling\Data\Document.cs" Link="Document.cs" />
     <Compile Include="..\Seed.Modeling\Data\IDataMigration.cs" Link="IDataMigration.cs" />
     <Compile Include="..\Seed.Modeling\Data\IDataMigrationManager.cs" Link="IDataMigrationManager.cs" />
+    <Compile Include="..\Seed.Modeling\Data\IDbContext.cs" Link="IDbContext.cs" />
     <Compile Include="..\Seed.Modeling\Data\IStore.cs" Link="IStore.cs" />
   </ItemGroup>
 
