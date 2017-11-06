@@ -66,6 +66,17 @@ namespace Seed.Data
                     var assemblyName = assembly.GetName().Name + ".EntityConfigurations." + _engineSettings.Name;
                     var scaffoldMigration = scaffolder.ScaffoldMigration(assemblyName, assemblyName);
 
+                    // 数据迁移
+                    //var serviceProvider = (IInfrastructure<IServiceProvider>)dbContext;
+
+                    //var generator = serviceProvider.Instance.GetRequiredService<IMigrationsSqlGenerator>();
+                    //var executor = serviceProvider.Instance.GetRequiredService<IMigrationCommandExecutor>();
+                    //var connection = serviceProvider.Instance.GetRequiredService<IRelationalConnection>();
+
+                    //var commandList = generator.Generate(dataMigration.MigrationBuilder.Operations);
+
+                    //executor.ExecuteNonQueryAsync(commandList, connection).Wait();
+
                     //scaffolder.Save(
                     //    Path.Combine(path, "..\\"),
                     //    scaffoldMigration,
