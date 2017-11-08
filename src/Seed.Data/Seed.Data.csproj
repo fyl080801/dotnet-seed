@@ -5,14 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Data\AutoDataMigration.cs" Link="AutoDataMigration.cs" />
-    <Compile Include="..\Seed.Modeling\Data\DataMigrationManager.cs" Link="DataMigrationManager.cs" />
-    <Compile Include="..\Seed.Modeling\Data\DocumentDbSet.cs" Link="DocumentDbSet.cs" />
-    <Compile Include="..\Seed.Modeling\Data\ModuleDbContext.cs" Link="ModuleDbContext.cs" />
-    <Compile Include="..\Seed.Modeling\Data\Store.cs" Link="Store.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.0" />

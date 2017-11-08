@@ -6,17 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Data\DatabaseProvider.cs" Link="DatabaseProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Data\DataMigration.cs" Link="DataMigration.cs" />
-    <Compile Include="..\Seed.Modeling\Data\Document.cs" Link="Document.cs" />
-    <Compile Include="..\Seed.Modeling\Data\IDataMigration.cs" Link="IDataMigration.cs" />
-    <Compile Include="..\Seed.Modeling\Data\IDataMigrationManager.cs" Link="IDataMigrationManager.cs" />
-    <Compile Include="..\Seed.Modeling\Data\IDbContext.cs" Link="IDbContext.cs" />
-    <Compile Include="..\Seed.Modeling\Data\IStore.cs" Link="IStore.cs" />
-    <Compile Include="..\Seed.Modeling\Data\MigrationRecord.cs" Link="MigrationRecord.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />

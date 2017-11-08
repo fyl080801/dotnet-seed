@@ -47,19 +47,45 @@
     <None Include="Yaml\Diagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\DatabaseProvider.cs" />
-    <Compile Include="Data\AutoDataMigration.cs" />
-    <Compile Include="Data\DataMigration.cs" />
-    <Compile Include="Data\DataMigrationManager.cs" />
-    <Compile Include="Data\Document.cs" />
-    <Compile Include="Data\DocumentDbSet.cs" />
-    <Compile Include="Data\IDataMigration.cs" />
-    <Compile Include="Data\IDataMigrationManager.cs" />
-    <Compile Include="Data\IDbContext.cs" />
-    <Compile Include="Data\IStore.cs" />
-    <Compile Include="Data\MigrationRecord.cs" />
-    <Compile Include="Data\ModuleDbContext.cs" />
-    <Compile Include="Data\Store.cs" />
+    <Compile Include="..\Seed.Data.Abstractions\DatabaseProvider.cs">
+      <Link>Data\DatabaseProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\DataMigration.cs">
+      <Link>Data\DataMigration.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\Document.cs">
+      <Link>Data\Document.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\IDataMigration.cs">
+      <Link>Data\IDataMigration.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\IDataMigrationManager.cs">
+      <Link>Data\IDataMigrationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\IDbContext.cs">
+      <Link>Data\IDbContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\IStore.cs">
+      <Link>Data\IStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\MigrationRecord.cs">
+      <Link>Data\MigrationRecord.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data\AutoDataMigration.cs">
+      <Link>Data\AutoDataMigration.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data\DataMigrationManager.cs">
+      <Link>Data\DataMigrationManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data\DocumentDbSet.cs">
+      <Link>Data\DocumentDbSet.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data\ModuleDbContext.cs">
+      <Link>Data\ModuleDbContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data\Store.cs">
+      <Link>Data\Store.cs</Link>
+    </Compile>
     <Compile Include="Environment\Cache\ISignal.cs" />
     <Compile Include="Environment\Cache\Signal.cs" />
     <Compile Include="Environment\Engine\Data\EngineDescriptorManager.cs" />
