@@ -27,7 +27,6 @@ namespace Seed.Data
         EntityEntry Attach(object entity);
         void AttachRange(IEnumerable<object> entities);
         void AttachRange(params object[] entities);
-        void Dispose();
         EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
         EntityEntry Entry(object entity);
         object Find(Type entityType, params object[] keyValues);
