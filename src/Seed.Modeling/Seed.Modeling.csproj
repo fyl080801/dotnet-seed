@@ -86,6 +86,144 @@
     <Compile Include="..\Seed.Data\Store.cs">
       <Link>Data\Store.cs</Link>
     </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Cache\ISignal.cs">
+      <Link>Environment\Cache\ISignal.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Builder\EngineSchema.cs">
+      <Link>Environment\Engine\Builder\EngineSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Builder\ICompositionStrategy.cs">
+      <Link>Environment\Engine\Builder\ICompositionStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Builder\IEngineContainerFactory.cs">
+      <Link>Environment\Engine\Builder\IEngineContainerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Builder\IEngineContextFactory.cs">
+      <Link>Environment\Engine\Builder\IEngineContextFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Descriptors\EngineDescriptor.cs">
+      <Link>Environment\Engine\Descriptors\EngineDescriptor.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Descriptors\EngineFeature.cs">
+      <Link>Environment\Engine\Descriptors\EngineFeature.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Descriptors\EngineParameter.cs">
+      <Link>Environment\Engine\Descriptors\EngineParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\Descriptors\IEngineDescriptorManager.cs">
+      <Link>Environment\Engine\Descriptors\IEngineDescriptorManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\EngineContext.cs">
+      <Link>Environment\Engine\EngineContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\EngineFeatureState.cs">
+      <Link>Environment\Engine\EngineFeatureState.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\EngineOptions.cs">
+      <Link>Environment\Engine\EngineOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\EngineSettings.cs">
+      <Link>Environment\Engine\EngineSettings.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\EngineState.cs">
+      <Link>Environment\Engine\EngineState.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineDescriptorFeaturesManager.cs">
+      <Link>Environment\Engine\IEngineDescriptorFeaturesManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineDescriptorManagerEventHandler.cs">
+      <Link>Environment\Engine\IEngineDescriptorManagerEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineFeaturesManager.cs">
+      <Link>Environment\Engine\IEngineFeaturesManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineHost.cs">
+      <Link>Environment\Engine\IEngineHost.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineSettingsConfigurationProvider.cs">
+      <Link>Environment\Engine\IEngineSettingsConfigurationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineSettingsManager.cs">
+      <Link>Environment\Engine\IEngineSettingsManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineStateManager.cs">
+      <Link>Environment\Engine\IEngineStateManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IEngineStateUpdater.cs">
+      <Link>Environment\Engine\IEngineStateUpdater.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\IRunningEngineTable.cs">
+      <Link>Environment\Engine\IRunningEngineTable.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\LauncherStates.cs">
+      <Link>Environment\Engine\LauncherStates.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Cache\Signal.cs">
+      <Link>Environment\Cache\Signal.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Builder\CompositionStrategy.cs">
+      <Link>Environment\Engine\Builder\CompositionStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Builder\EngineContainerFactory.cs">
+      <Link>Environment\Engine\Builder\EngineContainerFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Builder\EngineContextFactory.cs">
+      <Link>Environment\Engine\Builder\EngineContextFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Data\EngineDescriptorManager.cs">
+      <Link>Environment\Engine\Data\EngineDescriptorManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Data\EngineStateManager.cs">
+      <Link>Environment\Engine\Data\EngineStateManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs">
+      <Link>Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Descriptors\FileEngineDescriptorManager.cs">
+      <Link>Environment\Engine\Descriptors\FileEngineDescriptorManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs">
+      <Link>Environment\Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineDescriptorFeaturesManager.cs">
+      <Link>Environment\Engine\EngineDescriptorFeaturesManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineFeaturesManager.cs">
+      <Link>Environment\Engine\EngineFeaturesManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineHelper.cs">
+      <Link>Environment\Engine\EngineHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineHost.cs">
+      <Link>Environment\Engine\EngineHost.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineSettingsConfigurationProvider.cs">
+      <Link>Environment\Engine\EngineSettingsConfigurationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineSettingsManager.cs">
+      <Link>Environment\Engine\EngineSettingsManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineStateCoordinator.cs">
+      <Link>Environment\Engine\EngineStateCoordinator.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\EngineStateUpdater.cs">
+      <Link>Environment\Engine\EngineStateUpdater.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\Extensions\ServiceProviderExtensions.cs">
+      <Link>Environment\Engine\Extensions\ServiceProviderExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\FeatureAwareServiceCollection.cs">
+      <Link>Environment\Engine\FeatureAwareServiceCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\NullEngineStateManager.cs">
+      <Link>Environment\Engine\NullEngineStateManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\RunningEngineTable.cs">
+      <Link>Environment\Engine\RunningEngineTable.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Environment\Engine\SingleEngineSettingsManager.cs">
+      <Link>Environment\Engine\SingleEngineSettingsManager.cs</Link>
+    </Compile>
     <Compile Include="..\Seed.Events.Abstractions\IEventBus.cs">
       <Link>Events\IEventBus.cs</Link>
     </Compile>
@@ -335,52 +473,6 @@
     <Compile Include="..\Seed.Yaml\YamlConfigurationSource.cs">
       <Link>Yaml\YamlConfigurationSource.cs</Link>
     </Compile>
-    <Compile Include="Environment\Cache\ISignal.cs" />
-    <Compile Include="Environment\Cache\Signal.cs" />
-    <Compile Include="Environment\Engine\Data\EngineDescriptorManager.cs" />
-    <Compile Include="Environment\Engine\Data\EngineStateManager.cs" />
-    <Compile Include="Environment\Engine\EngineDescriptorFeaturesManager.cs" />
-    <Compile Include="Environment\Engine\EngineFeaturesManager.cs" />
-    <Compile Include="Environment\Engine\EngineSettingsConfigurationProvider.cs" />
-    <Compile Include="Environment\Engine\IEngineFeaturesManager.cs" />
-    <Compile Include="Environment\Engine\IEngineDescriptorFeaturesManager.cs" />
-    <Compile Include="Environment\Engine\EngineOptions.cs" />
-    <Compile Include="Environment\Engine\Builder\CompositionStrategy.cs" />
-    <Compile Include="Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
-    <Compile Include="Environment\Engine\Descriptors\EngineDescriptor.cs" />
-    <Compile Include="Environment\Engine\Descriptors\EngineFeature.cs" />
-    <Compile Include="Environment\Engine\Descriptors\EngineParameter.cs" />
-    <Compile Include="Environment\Engine\Descriptors\FileEngineDescriptorManager.cs" />
-    <Compile Include="Environment\Engine\Descriptors\IEngineDescriptorManager.cs" />
-    <Compile Include="Environment\Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs" />
-    <Compile Include="Environment\Engine\Builder\EngineContainerFactory.cs" />
-    <Compile Include="Environment\Engine\EngineContext.cs" />
-    <Compile Include="Environment\Engine\Builder\EngineContextFactory.cs" />
-    <Compile Include="Environment\Engine\EngineFeatureState.cs" />
-    <Compile Include="Environment\Engine\EngineHelper.cs" />
-    <Compile Include="Environment\Engine\EngineHost.cs" />
-    <Compile Include="Environment\Engine\Builder\EngineSchema.cs" />
-    <Compile Include="Environment\Engine\EngineSettings.cs" />
-    <Compile Include="Environment\Engine\EngineSettingsManager.cs" />
-    <Compile Include="Environment\Engine\EngineState.cs" />
-    <Compile Include="Environment\Engine\EngineStateCoordinator.cs" />
-    <Compile Include="Environment\Engine\EngineStateUpdater.cs" />
-    <Compile Include="Environment\Engine\Extensions\ServiceProviderExtensions.cs" />
-    <Compile Include="Environment\Engine\FeatureAwareServiceCollection.cs" />
-    <Compile Include="Environment\Engine\Builder\ICompositionStrategy.cs" />
-    <Compile Include="Environment\Engine\Builder\IEngineContainerFactory.cs" />
-    <Compile Include="Environment\Engine\Builder\IEngineContextFactory.cs" />
-    <Compile Include="Environment\Engine\IEngineDescriptorManagerEventHandler.cs" />
-    <Compile Include="Environment\Engine\IEngineHost.cs" />
-    <Compile Include="Environment\Engine\IEngineSettingsConfigurationProvider.cs" />
-    <Compile Include="Environment\Engine\IEngineSettingsManager.cs" />
-    <Compile Include="Environment\Engine\IEngineStateManager.cs" />
-    <Compile Include="Environment\Engine\IEngineStateUpdater.cs" />
-    <Compile Include="Environment\Engine\IRunningEngineTable.cs" />
-    <Compile Include="Environment\Engine\LauncherStates.cs" />
-    <Compile Include="Environment\Engine\NullEngineStateManager.cs" />
-    <Compile Include="Environment\Engine\RunningEngineTable.cs" />
-    <Compile Include="Environment\Engine\SingleEngineSettingsManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Hosting, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">

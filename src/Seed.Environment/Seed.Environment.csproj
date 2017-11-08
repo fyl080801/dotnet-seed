@@ -5,31 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Environment\Cache\Signal.cs" Link="Cache\Signal.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\CompositionStrategy.cs" Link="Engine\Builder\CompositionStrategy.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\EngineContainerFactory.cs" Link="Engine\Builder\EngineContainerFactory.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Builder\EngineContextFactory.cs" Link="Engine\Builder\EngineContextFactory.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Data\EngineDescriptorManager.cs" Link="Engine\Data\EngineDescriptorManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Data\EngineStateManager.cs" Link="Engine\Data\EngineStateManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" Link="Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\FileEngineDescriptorManager.cs" Link="Engine\Descriptors\FileEngineDescriptorManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs" Link="Engine\Descriptors\SetFeaturesEngineDescriptorManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineDescriptorFeaturesManager.cs" Link="Engine\EngineDescriptorFeaturesManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineFeaturesManager.cs" Link="Engine\EngineFeaturesManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineHelper.cs" Link="Engine\EngineHelper.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineHost.cs" Link="Engine\EngineHost.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineSettingsConfigurationProvider.cs" Link="Engine\EngineSettingsConfigurationProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineSettingsManager.cs" Link="Engine\EngineSettingsManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineStateCoordinator.cs" Link="Engine\EngineStateCoordinator.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\EngineStateUpdater.cs" Link="Engine\EngineStateUpdater.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\Extensions\ServiceProviderExtensions.cs" Link="Engine\Extensions\ServiceProviderExtensions.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\FeatureAwareServiceCollection.cs" Link="Engine\FeatureAwareServiceCollection.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\NullEngineStateManager.cs" Link="Engine\NullEngineStateManager.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\RunningEngineTable.cs" Link="Engine\RunningEngineTable.cs" />
-    <Compile Include="..\Seed.Modeling\Environment\Engine\SingleEngineSettingsManager.cs" Link="Engine\SingleEngineSettingsManager.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
@@ -40,10 +15,6 @@
     <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Yaml\Seed.Yaml.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Engine\Builder\" />
   </ItemGroup>
 
 </Project>
