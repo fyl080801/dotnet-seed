@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,7 +18,20 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
-            return base.Add(entity);
+            var document = _dbContext.Document.FirstOrDefaultAsync(e => e.Type == nameof(entity)).Result;
+            if (document == null)
+            {
+                _dbContext.Document.Add(new Document()
+                {
+                    Type = nameof(TEntity),
+                    Content = JsonConvert.SerializeObject(entity)
+                });
+            }
+            else
+            {
+                document.Content = JsonConvert.SerializeObject(entity);
+            }
+            return Attach(entity);
         }
 
         public override Task<EntityEntry<TEntity>> AddAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
@@ -45,20 +59,20 @@ namespace Seed.Data
             return base.AddRangeAsync(entities);
         }
 
-        public override EntityEntry<TEntity> Attach(TEntity entity)
-        {
-            return base.Attach(entity);
-        }
+        //public override EntityEntry<TEntity> Attach(TEntity entity)
+        //{
+        //    return base.Attach(entity);
+        //}
 
-        public override void AttachRange(IEnumerable<TEntity> entities)
-        {
-            base.AttachRange(entities);
-        }
+        //public override void AttachRange(IEnumerable<TEntity> entities)
+        //{
+        //    base.AttachRange(entities);
+        //}
 
-        public override void AttachRange(params TEntity[] entities)
-        {
-            base.AttachRange(entities);
-        }
+        //public override void AttachRange(params TEntity[] entities)
+        //{
+        //    base.AttachRange(entities);
+        //}
 
         public override TEntity Find(params object[] keyValues)
         {

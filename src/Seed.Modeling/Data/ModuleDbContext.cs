@@ -9,6 +9,8 @@ namespace Seed.Data
 
         public DbSet<Document> Document { get; set; }
 
+        public DbSet<MigrationRecord> Migrations { get; set; }
+
         public ModuleDbContext(DbContextOptions options, params object[] entityConfigurations)
             : base(options)
         {

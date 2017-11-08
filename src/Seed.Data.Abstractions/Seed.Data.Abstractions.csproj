@@ -13,6 +13,7 @@
     <Compile Include="..\Seed.Modeling\Data\IDataMigrationManager.cs" Link="IDataMigrationManager.cs" />
     <Compile Include="..\Seed.Modeling\Data\IDbContext.cs" Link="IDbContext.cs" />
     <Compile Include="..\Seed.Modeling\Data\IStore.cs" Link="IStore.cs" />
+    <Compile Include="..\Seed.Modeling\Data\MigrationRecord.cs" Link="MigrationRecord.cs" />
   </ItemGroup>
 
   <ItemGroup>

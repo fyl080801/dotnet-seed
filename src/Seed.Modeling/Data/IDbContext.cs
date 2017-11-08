@@ -11,6 +11,7 @@ namespace Seed.Data
     public interface IDbContext : IDisposable
     {
         DbSet<Document> Document { get; set; }
+        DbSet<MigrationRecord> Migrations { get; set; }
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         DatabaseFacade Database { get; }
         ChangeTracker ChangeTracker { get; }

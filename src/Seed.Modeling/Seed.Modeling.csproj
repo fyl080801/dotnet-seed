@@ -57,6 +57,7 @@
     <Compile Include="Data\IDataMigrationManager.cs" />
     <Compile Include="Data\IDbContext.cs" />
     <Compile Include="Data\IStore.cs" />
+    <Compile Include="Data\MigrationRecord.cs" />
     <Compile Include="Data\ModuleDbContext.cs" />
     <Compile Include="Data\Store.cs" />
     <Compile Include="Environment\Cache\ISignal.cs" />

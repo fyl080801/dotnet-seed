@@ -48,62 +48,66 @@ namespace Seed.Data
 
         public Task UpdateAllFeaturesAsync()
         {
-            var path = Path.Combine(AppContext.BaseDirectory, "Migrations/" + _engineSettings.Name).Replace("/", "\\");
 
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            return Task.CompletedTask;
+            #region nouse
+            //var path = Path.Combine(AppContext.BaseDirectory, "Migrations/" + _engineSettings.Name).Replace("/", "\\");
 
-            return Task.Run(() =>
-            {
-                using (_dbContext)
-                {
-                    var assembly = Assembly.GetEntryAssembly();
-                    var designTimeServicesBuilder = new DesignTimeServicesBuilder(assembly, new OperationReporter(null));
-                    var efServices = designTimeServicesBuilder.Build((DbContext)_dbContext);
-                    var scaffolder = efServices.GetService<MigrationsScaffolder>();
-                    var assemblyName = assembly.GetName().Name + ".EntityConfigurations." + _engineSettings.Name;
-                    var scaffoldMigration = scaffolder.ScaffoldMigration(assemblyName, assemblyName);
+            //if (!Directory.Exists(path))
+            //{
+            //    Directory.CreateDirectory(path);
+            //}
 
-                    // 数据迁移
-                    //var serviceProvider = (IInfrastructure<IServiceProvider>)dbContext;
+            //return Task.Run(() =>
+            //{
+            //    using (_dbContext)
+            //    {
+            //        //var assembly = Assembly.GetEntryAssembly();
+            //        //var designTimeServicesBuilder = new DesignTimeServicesBuilder(assembly, new OperationReporter(null));
+            //        //var efServices = designTimeServicesBuilder.Build((DbContext)_dbContext);
+            //        //var scaffolder = efServices.GetService<MigrationsScaffolder>();
+            //        //var assemblyName = assembly.GetName().Name + ".EntityConfigurations." + _engineSettings.Name;
+            //        //var scaffoldMigration = scaffolder.ScaffoldMigration(assemblyName, assemblyName);
 
-                    //var generator = serviceProvider.Instance.GetRequiredService<IMigrationsSqlGenerator>();
-                    //var executor = serviceProvider.Instance.GetRequiredService<IMigrationCommandExecutor>();
-                    //var connection = serviceProvider.Instance.GetRequiredService<IRelationalConnection>();
+            //        // 数据迁移
+            //        //var serviceProvider = (IInfrastructure<IServiceProvider>)dbContext;
 
-                    //var commandList = generator.Generate(dataMigration.MigrationBuilder.Operations);
+            //        //var generator = serviceProvider.Instance.GetRequiredService<IMigrationsSqlGenerator>();
+            //        //var executor = serviceProvider.Instance.GetRequiredService<IMigrationCommandExecutor>();
+            //        //var connection = serviceProvider.Instance.GetRequiredService<IRelationalConnection>();
 
-                    //executor.ExecuteNonQueryAsync(commandList, connection).Wait();
+            //        //var commandList = generator.Generate(dataMigration.MigrationBuilder.Operations);
 
-                    //scaffolder.Save(
-                    //    Path.Combine(path, "..\\"),
-                    //    scaffoldMigration,
-                    //    path
-                    //);
+            //        //executor.ExecuteNonQueryAsync(commandList, connection).Wait();
 
-                    //CodeDomProvider compiler = new CSharpCodeProvider();
-                    //CompilerParameters comPara = new CompilerParameters
-                    //{
-                    //    GenerateExecutable = false,
-                    //    GenerateInMemory = true,
-                    //    OutputAssembly = assemblyName
-                    //};
-                    //comPara.ReferencedAssemblies.Add("Microsoft.EntityFrameworkCore");
-                    //comPara.ReferencedAssemblies.Add("Seed.Data");
-                    //comPara.ReferencedAssemblies.Add("System");
+            //        //scaffolder.Save(
+            //        //    Path.Combine(path, "..\\"),
+            //        //    scaffoldMigration,
+            //        //    path
+            //        //);
 
-                    //var result = compiler.CompileAssemblyFromSource(comPara, new[]
-                    //{
-                    //    scaffoldMigration.MetadataCode,
-                    //    scaffoldMigration.MigrationCode,
-                    //    scaffoldMigration.SnapshotCode
-                    //});
+            //        //CodeDomProvider compiler = new CSharpCodeProvider();
+            //        //CompilerParameters comPara = new CompilerParameters
+            //        //{
+            //        //    GenerateExecutable = false,
+            //        //    GenerateInMemory = true,
+            //        //    OutputAssembly = assemblyName
+            //        //};
+            //        //comPara.ReferencedAssemblies.Add("Microsoft.EntityFrameworkCore");
+            //        //comPara.ReferencedAssemblies.Add("Seed.Data");
+            //        //comPara.ReferencedAssemblies.Add("System");
 
-                    _dbContext.Database.MigrateAsync();
-                }
-            });
+            //        //var result = compiler.CompileAssemblyFromSource(comPara, new[]
+            //        //{
+            //        //    scaffoldMigration.MetadataCode,
+            //        //    scaffoldMigration.MigrationCode,
+            //        //    scaffoldMigration.SnapshotCode
+            //        //});
+
+            //        _dbContext.Database.MigrateAsync();
+            //    }
+            //});
+            #endregion
         }
 
         public Task UpdateAsync(string feature)

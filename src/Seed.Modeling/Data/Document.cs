@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Seed.Data
 {
-    [Table("Document")]
+    [Table("_Document")]
     public class Document
     {
         [Key]
@@ -21,7 +21,7 @@ namespace Seed.Data
     {
         public void Configure(EntityTypeBuilder<Document> builder)
         {
-
+            
         }
     }
 }
