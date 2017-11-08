@@ -6,45 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="IPluginInfo.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Plugins\DependencyUtility.cs" Link="DependencyUtility.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\DescriptorOption.cs" Link="Descriptors\DescriptorOption.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\DescriptorOptions.cs" Link="Descriptors\DescriptorOptions.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\DescriptorOptionsSetup.cs" Link="Descriptors\DescriptorOptionsSetup.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\IDescriptorInfo.cs" Link="Descriptors\IDescriptorInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\IDescriptorProvider.cs" Link="Descriptors\IDescriptorProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\NullDescriptorInfo.cs" Link="Descriptors\NullDescriptorInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\CompiledFeatureEntry.cs" Link="Feature\CompiledFeatureEntry.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\FeatureAttribute.cs" Link="Feature\FeatureAttribute.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\FeatureBuilderEvents.cs" Link="Feature\FeatureBuilderEvents.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\FeatureBuildingContext.cs" Link="Feature\FeatureBuildingContext.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\FeatureEntry.cs" Link="Feature\FeatureEntry.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\IFeatureBuilderEvents.cs" Link="Feature\IFeatureBuilderEvents.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\IFeatureEventHandler.cs" Link="Feature\IFeatureEventHandler.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\IFeatureHash.cs" Link="Feature\IFeatureHash.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\IFeatureInfo.cs" Link="Feature\IFeatureInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\IFeaturesProvider.cs" Link="Feature\IFeaturesProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\InternalFeatureInfo.cs" Link="Feature\InternalFeatureInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\ITypeFeatureProvider.cs" Link="Feature\ITypeFeatureProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\NonCompiledFeatureEntry.cs" Link="Feature\NonCompiledFeatureEntry.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\InternalPluginInfo.cs" Link="InternalPluginInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\IPluginDependencyStrategy.cs" Link="IPluginDependencyStrategy.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\IPluginInfo.cs" Link="IPluginInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\IPluginManager.cs" Link="IPluginManager.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\IPluginPriorityStrategy.cs" Link="IPluginPriorityStrategy.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\IPluginProvider.cs" Link="IPluginProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Loader\IPluginLoader.cs" Link="Loader\IPluginLoader.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Loader\PluginEntry.cs" Link="Loader\PluginEntry.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\NullPluginInfo.cs" Link="NullPluginInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginExpanderOption.cs" Link="PluginExpanderOption.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginExpanderOptions.cs" Link="PluginExpanderOptions.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginStartupBase.cs" Link="PluginStartupBase.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.0" />
   </ItemGroup>
 

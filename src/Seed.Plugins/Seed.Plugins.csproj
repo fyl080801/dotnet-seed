@@ -5,24 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\DescriptorInfo.cs" Link="Descriptors\DescriptorInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Descriptors\DescriptorProvider.cs" Link="Descriptors\DescriptorProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\CompositeFeaturesProvider.cs" Link="Feature\CompositeFeaturesProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\FeatureHash.cs" Link="Feature\FeatureHash.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\FeatureInfo.cs" Link="Feature\FeatureInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\FeaturesProvider.cs" Link="Feature\FeaturesProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Feature\TypeFeatureProvider.cs" Link="Feature\TypeFeatureProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Loader\DefaultPluginLoader.cs" Link="Loader\DefaultPluginLoader.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\Loader\PathPluginLoader.cs" Link="Loader\PathPluginLoader.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginDependencyStrategy.cs" Link="PluginDependencyStrategy.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginExpanderOptionsSetup.cs" Link="PluginExpanderOptionsSetup.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginInfo.cs" Link="PluginInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginManager.cs" Link="PluginManager.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginPriorityStrategy.cs" Link="PluginPriorityStrategy.cs" />
-    <Compile Include="..\Seed.Modeling\Plugins\PluginProvider.cs" Link="PluginProvider.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.0.0" />
@@ -33,12 +15,6 @@
     <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Plugins.Abstractions\Seed.Plugins.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Yaml\Seed.Yaml.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Descriptors\" />
-    <Folder Include="Feature\" />
-    <Folder Include="Loader\" />
   </ItemGroup>
 
 </Project>

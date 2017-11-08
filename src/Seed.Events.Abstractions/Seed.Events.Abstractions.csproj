@@ -5,11 +5,4 @@
     <RootNamespace>Seed.Events</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Events\IEventBus.cs" Link="IEventBus.cs" />
-    <Compile Include="..\Seed.Modeling\Events\IEventBusState.cs" Link="IEventBusState.cs" />
-    <Compile Include="..\Seed.Modeling\Events\IEventHandler.cs" Link="IEventHandler.cs" />
-    <Compile Include="..\Seed.Modeling\Events\INotifyProxy.cs" Link="INotifyProxy.cs" />
-  </ItemGroup>
-
 </Project>

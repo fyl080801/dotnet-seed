@@ -6,34 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Seed.Modeling\Modules\Account\Permissions\IPermissionProvider.cs" Link="Account\Permissions\IPermissionProvider.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\Account\Permissions\Permission.cs" Link="Account\Permissions\Permission.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\Account\Permissions\PermissionStereotype.cs" Link="Account\Permissions\PermissionStereotype.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\DeferredTaskContext.cs" Link="DeferredTasks\DeferredTaskContext.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\IDeferredTaskEngine.cs" Link="DeferredTasks\IDeferredTaskEngine.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\DeferredTasks\IDeferredTaskState.cs" Link="DeferredTasks\IDeferredTaskState.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\IModuleLauncherEvents.cs" Link="IModuleLauncherEvents.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\IModuleLauncherRouteBuilder.cs" Link="IModuleLauncherRouteBuilder.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\IStartup.cs" Link="IStartup.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\ModuleServiceCollection.cs" Link="ModuleServiceCollection.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\RequireFeaturesAttribute.cs" Link="RequireFeaturesAttribute.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\Setup\Events\ISetupEventHandler.cs" Link="Setup\Events\ISetupEventHandler.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\Site\ISiteInfo.cs" Link="Site\ISiteInfo.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\Site\ISiteService.cs" Link="Site\ISiteService.cs" />
-    <Compile Include="..\Seed.Modeling\Modules\StartupBase.cs" Link="StartupBase.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Routing.Abstractions" Version="2.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Account\Permissions\" />
-    <Folder Include="Setup\Events\" />
-    <Folder Include="DeferredTasks\" />
-    <Folder Include="Site\" />
   </ItemGroup>
 
 </Project>

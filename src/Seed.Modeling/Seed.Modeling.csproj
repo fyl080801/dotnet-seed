@@ -86,6 +86,255 @@
     <Compile Include="..\Seed.Data\Store.cs">
       <Link>Data\Store.cs</Link>
     </Compile>
+    <Compile Include="..\Seed.Events.Abstractions\IEventBus.cs">
+      <Link>Events\IEventBus.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Events.Abstractions\IEventBusState.cs">
+      <Link>Events\IEventBusState.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Events.Abstractions\IEventHandler.cs">
+      <Link>Events\IEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Events.Abstractions\INotifyProxy.cs">
+      <Link>Events\INotifyProxy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Events\DefaultEventBus.cs">
+      <Link>Events\DefaultEventBus.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Events\EventBusState.cs">
+      <Link>Events\EventBusState.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Events\Extensions\EventBusExtensions.cs">
+      <Link>Events\Extensions\EventBusExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Events\NotifyProxy.cs">
+      <Link>Events\NotifyProxy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\Account\Permissions\IPermissionProvider.cs">
+      <Link>Modules\Account\Permissions\IPermissionProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\Account\Permissions\Permission.cs">
+      <Link>Modules\Account\Permissions\Permission.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\Account\Permissions\PermissionStereotype.cs">
+      <Link>Modules\Account\Permissions\PermissionStereotype.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\DeferredTasks\DeferredTaskContext.cs">
+      <Link>Modules\DeferredTasks\DeferredTaskContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\DeferredTasks\IDeferredTaskEngine.cs">
+      <Link>Modules\DeferredTasks\IDeferredTaskEngine.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\DeferredTasks\IDeferredTaskState.cs">
+      <Link>Modules\DeferredTasks\IDeferredTaskState.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\IModuleLauncherEvents.cs">
+      <Link>Modules\IModuleLauncherEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\IModuleLauncherRouteBuilder.cs">
+      <Link>Modules\IModuleLauncherRouteBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\IStartup.cs">
+      <Link>Modules\IStartup.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\ModuleServiceCollection.cs">
+      <Link>Modules\ModuleServiceCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\RequireFeaturesAttribute.cs">
+      <Link>Modules\RequireFeaturesAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\Setup\Events\ISetupEventHandler.cs">
+      <Link>Modules\Setup\Events\ISetupEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\Site\ISiteInfo.cs">
+      <Link>Modules\Site\ISiteInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\Site\ISiteService.cs">
+      <Link>Modules\Site\ISiteService.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules.Abstractions\StartupBase.cs">
+      <Link>Modules\StartupBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\DeferredTasks\DeferredTaskEngine.cs">
+      <Link>Modules\DeferredTasks\DeferredTaskEngine.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\DeferredTasks\DeferredTaskMiddleware.cs">
+      <Link>Modules\DeferredTasks\DeferredTaskMiddleware.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\DeferredTasks\HttpContextTaskState.cs">
+      <Link>Modules\DeferredTasks\HttpContextTaskState.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\Extensions\RunningEngineTableExtensions.cs">
+      <Link>Modules\Extensions\RunningEngineTableExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\ModuleApplicationBuilder.cs">
+      <Link>Modules\ModuleApplicationBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\ModuleLauncherContainerMiddleware.cs">
+      <Link>Modules\ModuleLauncherContainerMiddleware.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\ModuleLauncherRouteBuilder.cs">
+      <Link>Modules\ModuleLauncherRouteBuilder.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\ModuleLauncherRouterMiddleware.cs">
+      <Link>Modules\ModuleLauncherRouterMiddleware.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Modules\ModuleProjectContentFileProvider.cs">
+      <Link>Modules\ModuleProjectContentFileProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\DependencyUtility.cs">
+      <Link>Plugins\DependencyUtility.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Descriptors\DescriptorOption.cs">
+      <Link>Plugins\Descriptors\DescriptorOption.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Descriptors\DescriptorOptions.cs">
+      <Link>Plugins\Descriptors\DescriptorOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Descriptors\DescriptorOptionsSetup.cs">
+      <Link>Plugins\Descriptors\DescriptorOptionsSetup.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Descriptors\IDescriptorInfo.cs">
+      <Link>Plugins\Descriptors\IDescriptorInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Descriptors\IDescriptorProvider.cs">
+      <Link>Plugins\Descriptors\IDescriptorProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Descriptors\NullDescriptorInfo.cs">
+      <Link>Plugins\Descriptors\NullDescriptorInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\CompiledFeatureEntry.cs">
+      <Link>Plugins\Feature\CompiledFeatureEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\FeatureAttribute.cs">
+      <Link>Plugins\Feature\FeatureAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\FeatureBuilderEvents.cs">
+      <Link>Plugins\Feature\FeatureBuilderEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\FeatureBuildingContext.cs">
+      <Link>Plugins\Feature\FeatureBuildingContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\FeatureEntry.cs">
+      <Link>Plugins\Feature\FeatureEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\IFeatureBuilderEvents.cs">
+      <Link>Plugins\Feature\IFeatureBuilderEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\IFeatureEventHandler.cs">
+      <Link>Plugins\Feature\IFeatureEventHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\IFeatureHash.cs">
+      <Link>Plugins\Feature\IFeatureHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\IFeatureInfo.cs">
+      <Link>Plugins\Feature\IFeatureInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\IFeaturesProvider.cs">
+      <Link>Plugins\Feature\IFeaturesProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\InternalFeatureInfo.cs">
+      <Link>Plugins\Feature\InternalFeatureInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\ITypeFeatureProvider.cs">
+      <Link>Plugins\Feature\ITypeFeatureProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Feature\NonCompiledFeatureEntry.cs">
+      <Link>Plugins\Feature\NonCompiledFeatureEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\InternalPluginInfo.cs">
+      <Link>Plugins\InternalPluginInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\IPluginDependencyStrategy.cs">
+      <Link>Plugins\IPluginDependencyStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\IPluginInfo.cs">
+      <Link>Plugins\IPluginInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\IPluginManager.cs">
+      <Link>Plugins\IPluginManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\IPluginPriorityStrategy.cs">
+      <Link>Plugins\IPluginPriorityStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\IPluginProvider.cs">
+      <Link>Plugins\IPluginProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Loader\IPluginLoader.cs">
+      <Link>Plugins\Loader\IPluginLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\Loader\PluginEntry.cs">
+      <Link>Plugins\Loader\PluginEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\NullPluginInfo.cs">
+      <Link>Plugins\NullPluginInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\PluginExpanderOption.cs">
+      <Link>Plugins\PluginExpanderOption.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\PluginExpanderOptions.cs">
+      <Link>Plugins\PluginExpanderOptions.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins.Abstractions\PluginStartupBase.cs">
+      <Link>Plugins\PluginStartupBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Descriptors\DescriptorInfo.cs">
+      <Link>Plugins\Descriptors\DescriptorInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Descriptors\DescriptorProvider.cs">
+      <Link>Plugins\Descriptors\DescriptorProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Feature\CompositeFeaturesProvider.cs">
+      <Link>Plugins\Feature\CompositeFeaturesProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Feature\FeatureHash.cs">
+      <Link>Plugins\Feature\FeatureHash.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Feature\FeatureInfo.cs">
+      <Link>Plugins\Feature\FeatureInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Feature\FeaturesProvider.cs">
+      <Link>Plugins\Feature\FeaturesProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Feature\TypeFeatureProvider.cs">
+      <Link>Plugins\Feature\TypeFeatureProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Loader\DefaultPluginLoader.cs">
+      <Link>Plugins\Loader\DefaultPluginLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\Loader\PathPluginLoader.cs">
+      <Link>Plugins\Loader\PathPluginLoader.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\PluginDependencyStrategy.cs">
+      <Link>Plugins\PluginDependencyStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\PluginExpanderOptionsSetup.cs">
+      <Link>Plugins\PluginExpanderOptionsSetup.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\PluginInfo.cs">
+      <Link>Plugins\PluginInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\PluginManager.cs">
+      <Link>Plugins\PluginManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\PluginPriorityStrategy.cs">
+      <Link>Plugins\PluginPriorityStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Plugins\PluginProvider.cs">
+      <Link>Plugins\PluginProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Yaml\Extensions\YamlConfigurationExtensions.cs">
+      <Link>Yaml\Extensions\YamlConfigurationExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Yaml\YamlConfigurationFileParser.cs">
+      <Link>Yaml\YamlConfigurationFileParser.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Yaml\YamlConfigurationProvider.cs">
+      <Link>Yaml\YamlConfigurationProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Yaml\YamlConfigurationSource.cs">
+      <Link>Yaml\YamlConfigurationSource.cs</Link>
+    </Compile>
     <Compile Include="Environment\Cache\ISignal.cs" />
     <Compile Include="Environment\Cache\Signal.cs" />
     <Compile Include="Environment\Engine\Data\EngineDescriptorManager.cs" />
@@ -96,36 +345,6 @@
     <Compile Include="Environment\Engine\IEngineFeaturesManager.cs" />
     <Compile Include="Environment\Engine\IEngineDescriptorFeaturesManager.cs" />
     <Compile Include="Environment\Engine\EngineOptions.cs" />
-    <Compile Include="Modules\Account\Permissions\IPermissionProvider.cs" />
-    <Compile Include="Modules\Account\Permissions\Permission.cs" />
-    <Compile Include="Modules\Account\Permissions\PermissionStereotype.cs" />
-    <Compile Include="Modules\DeferredTasks\DeferredTaskContext.cs" />
-    <Compile Include="Modules\DeferredTasks\DeferredTaskEngine.cs" />
-    <Compile Include="Modules\DeferredTasks\HttpContextTaskState.cs" />
-    <Compile Include="Modules\DeferredTasks\IDeferredTaskEngine.cs" />
-    <Compile Include="Modules\DeferredTasks\IDeferredTaskState.cs" />
-    <Compile Include="Modules\Setup\Events\ISetupEventHandler.cs" />
-    <Compile Include="Modules\IModuleLauncherEvents.cs" />
-    <Compile Include="Modules\ModuleProjectContentFileProvider.cs" />
-    <Compile Include="Modules\Site\ISiteInfo.cs" />
-    <Compile Include="Modules\Site\ISiteService.cs" />
-    <Compile Include="Plugins\Feature\FeatureHash.cs" />
-    <Compile Include="Plugins\Loader\PathPluginLoader.cs" />
-    <Compile Include="Plugins\PluginPriorityStrategy.cs" />
-    <Compile Include="Plugins\PluginDependencyStrategy.cs" />
-    <Compile Include="Plugins\Feature\IFeatureHash.cs" />
-    <Compile Include="Plugins\PluginExpanderOptionsSetup.cs" />
-    <Compile Include="Plugins\Feature\FeatureBuilderEvents.cs" />
-    <Compile Include="Plugins\Feature\FeatureInfo.cs" />
-    <Compile Include="Plugins\Feature\FeatureBuildingContext.cs" />
-    <Compile Include="Plugins\Feature\IFeatureBuilderEvents.cs" />
-    <Compile Include="Plugins\Descriptors\DescriptorOptionsSetup.cs" />
-    <Compile Include="Plugins\Feature\FeaturesProvider.cs" />
-    <Compile Include="Plugins\Feature\CompositeFeaturesProvider.cs" />
-    <Compile Include="Plugins\Feature\IFeaturesProvider.cs" />
-    <Compile Include="Plugins\PluginProvider.cs" />
-    <Compile Include="Plugins\Loader\DefaultPluginLoader.cs" />
-    <Compile Include="Plugins\Descriptors\DescriptorProvider.cs" />
     <Compile Include="Environment\Engine\Builder\CompositionStrategy.cs" />
     <Compile Include="Environment\Engine\Descriptors\AllFeaturesEngineDescriptorManager.cs" />
     <Compile Include="Environment\Engine\Descriptors\EngineDescriptor.cs" />
@@ -162,58 +381,6 @@
     <Compile Include="Environment\Engine\NullEngineStateManager.cs" />
     <Compile Include="Environment\Engine\RunningEngineTable.cs" />
     <Compile Include="Environment\Engine\SingleEngineSettingsManager.cs" />
-    <Compile Include="Events\DefaultEventBus.cs" />
-    <Compile Include="Events\EventBusState.cs" />
-    <Compile Include="Events\Extensions\EventBusExtensions.cs" />
-    <Compile Include="Events\IEventBus.cs" />
-    <Compile Include="Events\IEventBusState.cs" />
-    <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="Events\INotifyProxy.cs" />
-    <Compile Include="Modules\Extensions\RunningEngineTableExtensions.cs" />
-    <Compile Include="Modules\IModuleLauncherRouteBuilder.cs" />
-    <Compile Include="Modules\IStartup.cs" />
-    <Compile Include="Modules\ModuleApplicationBuilder.cs" />
-    <Compile Include="Modules\ModuleLauncherContainerMiddleware.cs" />
-    <Compile Include="Modules\ModuleLauncherRouteBuilder.cs" />
-    <Compile Include="Modules\ModuleLauncherRouterMiddleware.cs" />
-    <Compile Include="Modules\ModuleServiceCollection.cs" />
-    <Compile Include="Modules\RequireFeaturesAttribute.cs" />
-    <Compile Include="Modules\StartupBase.cs" />
-    <Compile Include="Plugins\DependencyUtility.cs" />
-    <Compile Include="Plugins\Descriptors\DescriptorInfo.cs" />
-    <Compile Include="Plugins\Descriptors\DescriptorOption.cs" />
-    <Compile Include="Plugins\Descriptors\DescriptorOptions.cs" />
-    <Compile Include="Plugins\Descriptors\IDescriptorProvider.cs" />
-    <Compile Include="Plugins\Descriptors\NullDescriptorInfo.cs" />
-    <Compile Include="Plugins\Feature\CompiledFeatureEntry.cs" />
-    <Compile Include="Plugins\Feature\FeatureAttribute.cs" />
-    <Compile Include="Plugins\Feature\FeatureEntry.cs" />
-    <Compile Include="Plugins\Feature\IFeatureEventHandler.cs" />
-    <Compile Include="Plugins\Feature\IFeatureInfo.cs" />
-    <Compile Include="Events\NotifyProxy.cs" />
-    <Compile Include="Plugins\Feature\InternalFeatureInfo.cs" />
-    <Compile Include="Plugins\Feature\ITypeFeatureProvider.cs" />
-    <Compile Include="Plugins\Feature\NonCompiledFeatureEntry.cs" />
-    <Compile Include="Plugins\Feature\TypeFeatureProvider.cs" />
-    <Compile Include="Plugins\InternalPluginInfo.cs" />
-    <Compile Include="Plugins\IPluginDependencyStrategy.cs" />
-    <Compile Include="Plugins\IPluginPriorityStrategy.cs" />
-    <Compile Include="Plugins\Loader\PluginEntry.cs" />
-    <Compile Include="Plugins\Loader\IPluginLoader.cs" />
-    <Compile Include="Plugins\IPluginProvider.cs" />
-    <Compile Include="Plugins\NullPluginInfo.cs" />
-    <Compile Include="Plugins\PluginExpanderOption.cs" />
-    <Compile Include="Plugins\PluginExpanderOptions.cs" />
-    <Compile Include="Plugins\PluginInfo.cs" />
-    <Compile Include="Plugins\PluginManager.cs" />
-    <Compile Include="Plugins\IPluginManager.cs" />
-    <Compile Include="Plugins\Descriptors\IDescriptorInfo.cs" />
-    <Compile Include="Plugins\IPluginInfo.cs" />
-    <Compile Include="Plugins\PluginStartupBase.cs" />
-    <Compile Include="Yaml\Extensions\YamlConfigurationExtensions.cs" />
-    <Compile Include="Yaml\YamlConfigurationSource.cs" />
-    <Compile Include="Yaml\YamlConfigurationProvider.cs" />
-    <Compile Include="Yaml\YamlConfigurationFileParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.AspNetCore.Hosting, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
