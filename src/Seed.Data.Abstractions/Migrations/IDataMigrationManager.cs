@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Seed.Data
+namespace Seed.Data.Migrations
 {
     public interface IDataMigrationManager
     {
@@ -9,10 +9,10 @@ namespace Seed.Data
 
         Task UpdateAllFeaturesAsync();
 
-        Task UpdateAsync(string feature);
-
+        Task UpdateAsync(string featureId);
+        
         Task UpdateAsync(IEnumerable<string> features);
 
-        Task Uninstall(string feature);
+        Task Uninstall(string featureId);
     }
 }

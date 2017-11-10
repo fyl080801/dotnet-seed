@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Data
+namespace Seed.Data.Migrations
 {
     [Table("_MigrationRecord")]
     public class MigrationRecord
@@ -16,7 +16,7 @@ namespace Seed.Data
 
         public string FeatureId { get; set; }
 
-        public string MigrationClass { get; set; }
+        public string MigrationName { get; set; }
 
         public int? Version { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Seed.Data
+namespace Seed.Data.Migrations
 {
     public abstract class DataMigration : IDataMigration
     {

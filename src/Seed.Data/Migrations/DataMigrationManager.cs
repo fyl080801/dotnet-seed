@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Design;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
@@ -15,7 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Seed.Data
+namespace Seed.Data.Migrations
 {
     public class DataMigrationManager : IDataMigrationManager
     {
@@ -24,16 +25,22 @@ namespace Seed.Data
         readonly IPluginManager _pluginManager;
         readonly ITypeFeatureProvider _typeFeatureProvider;
 
+        readonly IEnumerable<IDataMigration> _dataMigrations;
+        readonly List<string> _processedFeatures;
+
         public DataMigrationManager(
             IDbContext dbContext,
             EngineSettings engineDescriptor,
             IPluginManager pluginManager,
-            ITypeFeatureProvider typeFeatureProvider)
+            ITypeFeatureProvider typeFeatureProvider,
+            IEnumerable<IDataMigration> dataMigrations)
         {
             _dbContext = dbContext;
             _engineSettings = engineDescriptor;
             _pluginManager = pluginManager;
             _typeFeatureProvider = typeFeatureProvider;
+            _dataMigrations = dataMigrations;
+            _processedFeatures = new List<string>();
         }
 
         public Task<IEnumerable<string>> GetFeaturesByUpdateAsync()
@@ -110,14 +117,73 @@ namespace Seed.Data
             #endregion
         }
 
-        public Task UpdateAsync(string feature)
+        public async Task UpdateAsync(string featureId)
         {
-            return Task.CompletedTask;
+            if (_processedFeatures.Contains(featureId))
+            {
+                return;
+            }
+
+            _processedFeatures.Add(featureId);
+
+            var dependencies = _pluginManager.GetFeaturesDependencies(featureId)
+                 .Where(e => e.Id != featureId)
+                 .Select(e => e.Id);
+
+            await UpdateAsync(dependencies);
+
+            var migrations = GetMigrations(featureId);
+            var migrationBuilder = new MigrationBuilder(_dbContext.Database.ProviderName);
+
+            foreach (var migration in migrations)
+            {
+                migration.MigrationBuilder = migrationBuilder;
+
+                var migrationTemp = migration;
+                var migrationDefine = migration.GetType().GetCustomAttribute(typeof(MigrationDefineAttribute)) as MigrationDefineAttribute;
+                var migrationRecord = GetCurrentMigrationRecordAsync(migrationDefine.Name).Result;
+
+                if (migrationRecord != null)
+                {
+
+                }
+                else
+                {
+                    migrationRecord = new MigrationRecord()
+                    {
+                        FeatureId = featureId,
+
+                    };
+                }
+            }
         }
 
-        public Task UpdateAsync(IEnumerable<string> features)
+        public async Task UpdateAsync(IEnumerable<string> features)
         {
-            return Task.CompletedTask;
+            foreach (var featureId in features)
+            {
+                if (!_processedFeatures.Contains(featureId))
+                {
+                    await UpdateAsync(featureId);
+                }
+            }
+        }
+
+        private IEnumerable<IDataMigration> GetMigrations(string featureId)
+        {
+            return _dataMigrations
+                    .Where(e => _typeFeatureProvider.GetFeatureForDependency(e.GetType()).Id == featureId)
+                    .ToList();
+        }
+
+        private async Task<MigrationRecord> GetCurrentMigrationRecordAsync(string migrationName)
+        {
+            //var migrationType = migration.GetType();
+            //var migrationDefine = migrationType.GetCustomAttribute(typeof(MigrationDefineAttribute)) as MigrationDefineAttribute;
+            //if (migrationDefine == null)
+            //    return await Task.FromResult<MigrationRecord>(null);
+
+            return await _dbContext.Migrations.Where(e => e.MigrationName == migrationName).OrderByDescending(e => e.Version).FirstOrDefaultAsync();
         }
     }
 }

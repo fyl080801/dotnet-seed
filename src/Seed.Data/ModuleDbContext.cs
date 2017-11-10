@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Seed.Data
 {
@@ -10,6 +12,8 @@ namespace Seed.Data
         public DbSet<Document> Document { get; set; }
 
         public DbSet<MigrationRecord> Migrations { get; set; }
+
+        public IServiceProvider ServiceProvider => ((IInfrastructure<IServiceProvider>)this).Instance;
 
         public ModuleDbContext(DbContextOptions options, params object[] entityConfigurations)
             : base(options)
@@ -35,10 +39,7 @@ namespace Seed.Data
             }
             else
             {
-                if (typeof(TEntity).IsAssignableFrom(typeof(IEntity)))
-                    return new DocumentDbSet<TEntity>(this);
-                else
-                    throw new System.Exception();
+                return new DocumentDbSet<TEntity>(this);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Seed.Data.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -10,6 +11,7 @@ namespace Seed.Data
 {
     public interface IDbContext : IDisposable
     {
+        IServiceProvider ServiceProvider { get; }
         DbSet<Document> Document { get; set; }
         DbSet<MigrationRecord> Migrations { get; set; }
         DbSet<TEntity> Set<TEntity>() where TEntity : class;

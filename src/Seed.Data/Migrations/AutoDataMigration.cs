@@ -4,7 +4,7 @@ using Seed.Modules;
 using System;
 using System.Threading.Tasks;
 
-namespace Seed.Data
+namespace Seed.Data.Migrations
 {
     public class AutoDataMigration : IModuleLauncherEvents
     {
