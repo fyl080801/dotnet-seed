@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Seed.Data.Extensions;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,17 +14,20 @@ namespace Seed.Data
     {
         public Document() { }
 
-        public Document(EntityBase entity)
+        public Document(object entity)
         {
-            Id = entity.Id;
             Type = entity.GetType().FullName;
-            Content = JObject.FromObject(entity).ToString();
+            Content = entity is IEntity ? ((IEntity)entity).Properties.ToString() : JsonConvert.SerializeObject(entity);
         }
 
-        public TEntity ToEntity<TEntity>() where TEntity : EntityBase
+        public TEntity ToEntity<TEntity>() where TEntity : class
         {
-            var entity = JObject.Parse(Content).ToObject<TEntity>();
-            entity.Id = Id;
+            var entity = JsonConvert.DeserializeObject<TEntity>(Content);
+            var idProperty = typeof(TEntity).GetProperty("Id");
+            if (idProperty != null && idProperty.CanWrite)
+            {
+                idProperty.SetValue(entity, Id);
+            }
             return entity;
         }
 

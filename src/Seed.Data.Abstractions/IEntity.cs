@@ -7,8 +7,6 @@ namespace Seed.Data
 {
     public interface IEntity
     {
-        int Id { get; set; }
-
         JObject Properties { get; }
     }
 }

@@ -56,6 +56,12 @@
     <Compile Include="..\Seed.Data.Abstractions\Document.cs">
       <Link>Data\Document.cs</Link>
     </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\EntityBase.cs">
+      <Link>Data\EntityBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\Extensions\TypeExtensions.cs">
+      <Link>Data\Extensions\TypeExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\Seed.Data.Abstractions\IDataMigration.cs">
       <Link>Data\IDataMigration.cs</Link>
     </Compile>
@@ -64,6 +70,9 @@
     </Compile>
     <Compile Include="..\Seed.Data.Abstractions\IDbContext.cs">
       <Link>Data\IDbContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Seed.Data.Abstractions\IEntity.cs">
+      <Link>Data\IEntity.cs</Link>
     </Compile>
     <Compile Include="..\Seed.Data.Abstractions\IStore.cs">
       <Link>Data\IStore.cs</Link>

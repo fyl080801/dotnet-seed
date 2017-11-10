@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Newtonsoft.Json;
+using Seed.Data.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -7,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Seed.Data
 {
-    public class DocumentDbSet<TEntity> : DbSet<TEntity> where TEntity : EntityBase
+    public class DocumentDbSet<TEntity> : DbSet<TEntity> where TEntity : class
     {
         readonly IDbContext _dbContext;
 
@@ -18,7 +21,15 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
-            _dbContext.Document.Add(new Document(entity));
+            if (typeof(TEntity).HasIdProperty())
+            {
+                _dbContext.Document.Add(new Document(entity));
+            }
+            else
+            {
+                var document = _dbContext.Document.FirstOrDefault(e => e.Type == nameof(TEntity));
+                document.Content = new Document(entity).Content;
+            }
             return Attach(entity);
         }
 
@@ -29,34 +40,54 @@ namespace Seed.Data
 
         public override void AddRange(IEnumerable<TEntity> entities)
         {
+            if (!typeof(TEntity).HasIdProperty())
+            {
+                throw new NotSupportedException("没有 Id 属性不能添加多条记录");
+            }
             _dbContext.Document.AddRange(entities.Select(e => new Document(e)));
         }
 
         public override void AddRange(params TEntity[] entities)
         {
-            _dbContext.Document.AddRange(entities.Select(e => new Document(e)).ToArray());
+            if (entities != null)
+                AddRange(entities);
         }
 
         public override Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (!typeof(TEntity).HasIdProperty())
+            {
+                throw new NotSupportedException("没有 Id 属性不能添加多条记录");
+            }
             return _dbContext.Document.AddRangeAsync(entities.Select(e => new Document(e)), cancellationToken);
         }
 
         public override Task AddRangeAsync(params TEntity[] entities)
         {
+            if (!typeof(TEntity).HasIdProperty())
+            {
+                throw new NotSupportedException("没有 Id 属性不能添加多条记录");
+            }
             return _dbContext.Document.AddRangeAsync(entities.Select(e => new Document(e)).ToArray());
         }
 
         public override TEntity Find(params object[] keyValues)
         {
-            return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
+            if (!typeof(TEntity).HasIdProperty())
+            {
+                return _dbContext.Document.FirstOrDefault(e => e.Type == nameof(TEntity)).ToEntity<TEntity>();
+            }
+            else
+            {
+                return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
+            }
         }
 
         public override Task<TEntity> FindAsync(object[] keyValues, CancellationToken cancellationToken)
         {
             return Task.Run(() =>
             {
-                return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
+                return Find(keyValues);
             }, cancellationToken);
         }
 
@@ -64,20 +95,28 @@ namespace Seed.Data
         {
             return Task.Run(() =>
             {
-                return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
+                return Find(keyValues);
             });
         }
 
         public override EntityEntry<TEntity> Remove(TEntity entity)
         {
-            var document = _dbContext.Document.Find(entity.Id);
+            var document = !typeof(TEntity).HasIdProperty()
+                ? _dbContext.Document.FirstOrDefault(e => e.Type == nameof(entity))
+                : _dbContext.Document.Find(typeof(TEntity).GetProperty("Id").GetValue(entity));
             _dbContext.Document.Remove(document);
             return Attach(entity);
         }
 
         public override void RemoveRange(IEnumerable<TEntity> entities)
         {
-            var ids = entities.Select(e => e.Id).ToArray();
+            var entityType = typeof(TEntity);
+            if (!entityType.HasIdProperty())
+            {
+                throw new NotSupportedException("没有 Id 属性不能移除多条记录");
+            }
+            var idProperty = entityType.GetProperty("Id");
+            var ids = entities.Select(e => (int)idProperty.GetValue(e)).ToArray();
             var documents = _dbContext.Document.Where(e => ids.Contains(e.Id)).ToArray();
             _dbContext.Document.RemoveRange(documents);
         }
@@ -90,22 +129,19 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Update(TEntity entity)
         {
-            var document = _dbContext.Document.Find(entity.Id);
-            document.Content = entity.Properties.ToString();
+            var entityType = typeof(TEntity);
+            var document = !typeof(TEntity).HasIdProperty()
+                ? _dbContext.Document.FirstOrDefault(e => e.Type == nameof(TEntity))
+                : _dbContext.Document.Find(entityType.GetIdValue(entity));
+            document.Content = new Document(entity).Content;
             _dbContext.Document.Update(document);
             return Attach(entity);
         }
 
         public override void UpdateRange(IEnumerable<TEntity> entities)
         {
-            var ids = entities.ToDictionary(k => k.Id, v => v);
-            var documents = _dbContext.Document.Where(e => ids.Keys.Contains(e.Id)).ToDictionary(k => k.Id, v => v);
-            foreach (var id in ids.Keys)
-            {
-                if (documents.ContainsKey(id))
-                    documents[id].Content = ids[id].Properties.ToString();
-            }
-            _dbContext.Document.UpdateRange(documents.Values);
+
+            throw new NotImplementedException();
         }
 
         public override void UpdateRange(params TEntity[] entities)

@@ -35,7 +35,10 @@ namespace Seed.Data
             }
             else
             {
-                return new DocumentDbSet<TEntity>(this);
+                if (typeof(TEntity).IsAssignableFrom(typeof(IEntity)))
+                    return new DocumentDbSet<TEntity>(this);
+                else
+                    throw new System.Exception();
             }
         }
     }
