@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Seed.Data
 {
-    public class DocumentDbSet<TEntity> : DbSet<TEntity> where TEntity : class
+    public class DocumentDbSet<TEntity> : DbSet<TEntity> where TEntity : EntityBase
     {
         readonly IDbContext _dbContext;
 
@@ -18,105 +18,100 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
-            var document = _dbContext.Document.FirstOrDefaultAsync(e => e.Type == nameof(entity)).Result;
-            if (document == null)
-            {
-                _dbContext.Document.Add(new Document()
-                {
-                    Type = nameof(TEntity),
-                    Content = JsonConvert.SerializeObject(entity)
-                });
-            }
-            else
-            {
-                document.Content = JsonConvert.SerializeObject(entity);
-            }
+            _dbContext.Document.Add(new Document(entity));
             return Attach(entity);
         }
 
         public override Task<EntityEntry<TEntity>> AddAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return base.AddAsync(entity, cancellationToken);
+            return Task.Run(() => Add(entity), cancellationToken);
         }
 
         public override void AddRange(IEnumerable<TEntity> entities)
         {
-            base.AddRange(entities);
+            _dbContext.Document.AddRange(entities.Select(e => new Document(e)));
         }
 
         public override void AddRange(params TEntity[] entities)
         {
-            base.AddRange(entities);
+            _dbContext.Document.AddRange(entities.Select(e => new Document(e)).ToArray());
         }
 
         public override Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return base.AddRangeAsync(entities, cancellationToken);
+            return _dbContext.Document.AddRangeAsync(entities.Select(e => new Document(e)), cancellationToken);
         }
 
         public override Task AddRangeAsync(params TEntity[] entities)
         {
-            return base.AddRangeAsync(entities);
+            return _dbContext.Document.AddRangeAsync(entities.Select(e => new Document(e)).ToArray());
         }
-
-        //public override EntityEntry<TEntity> Attach(TEntity entity)
-        //{
-        //    return base.Attach(entity);
-        //}
-
-        //public override void AttachRange(IEnumerable<TEntity> entities)
-        //{
-        //    base.AttachRange(entities);
-        //}
-
-        //public override void AttachRange(params TEntity[] entities)
-        //{
-        //    base.AttachRange(entities);
-        //}
 
         public override TEntity Find(params object[] keyValues)
         {
-            return base.Find(keyValues);
+            return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
         }
 
         public override Task<TEntity> FindAsync(object[] keyValues, CancellationToken cancellationToken)
         {
-            return base.FindAsync(keyValues, cancellationToken);
+            return Task.Run(() =>
+            {
+                return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
+            }, cancellationToken);
         }
 
         public override Task<TEntity> FindAsync(params object[] keyValues)
         {
-            return base.FindAsync(keyValues);
+            return Task.Run(() =>
+            {
+                return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
+            });
         }
 
         public override EntityEntry<TEntity> Remove(TEntity entity)
         {
-            return base.Remove(entity);
+            var document = _dbContext.Document.Find(entity.Id);
+            _dbContext.Document.Remove(document);
+            return Attach(entity);
         }
 
         public override void RemoveRange(IEnumerable<TEntity> entities)
         {
-            base.RemoveRange(entities);
+            var ids = entities.Select(e => e.Id).ToArray();
+            var documents = _dbContext.Document.Where(e => ids.Contains(e.Id)).ToArray();
+            _dbContext.Document.RemoveRange(documents);
         }
 
         public override void RemoveRange(params TEntity[] entities)
         {
-            base.RemoveRange(entities);
+            if (entities == null) return;
+            RemoveRange(entities);
         }
 
         public override EntityEntry<TEntity> Update(TEntity entity)
         {
-            return base.Update(entity);
+            var document = _dbContext.Document.Find(entity.Id);
+            document.Content = entity.Properties.ToString();
+            _dbContext.Document.Update(document);
+            return Attach(entity);
         }
 
         public override void UpdateRange(IEnumerable<TEntity> entities)
         {
-            base.UpdateRange(entities);
+            var ids = entities.ToDictionary(k => k.Id, v => v);
+            var documents = _dbContext.Document.Where(e => ids.Keys.Contains(e.Id)).ToDictionary(k => k.Id, v => v);
+            foreach (var id in ids.Keys)
+            {
+                if (documents.ContainsKey(id))
+                    documents[id].Content = ids[id].Properties.ToString();
+            }
+            _dbContext.Document.UpdateRange(documents.Values);
         }
 
         public override void UpdateRange(params TEntity[] entities)
         {
-            base.UpdateRange(entities);
+            if (entities != null)
+                UpdateRange(entities);
         }
     }
 }

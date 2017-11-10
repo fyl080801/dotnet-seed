@@ -1,11 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <Target Name="CopyPackageAssetFiles" />
-  
   <ItemGroup>
     <None Include="Seed.Module.Targets.props" Pack="true">
       <PackagePath>build\$(TargetFramework)\Seed.Module.Targets.props</PackagePath>
@@ -14,9 +11,7 @@
       <PackagePath>build\$(TargetFramework)\Module.Build.props</PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
   </ItemGroup>
-
 </Project>
