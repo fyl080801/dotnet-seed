@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Seed.Data.Migrations;
 using Seed.Environment.Engine.Descriptors;
 using Seed.Plugins;
 using System;

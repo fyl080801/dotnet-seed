@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Seed.Data.Migrations;
+using System;
+using System.Collections.Generic;
 
 namespace Seed.Data
 {
