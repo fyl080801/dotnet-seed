@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Seed.Data.Migrations
@@ -126,34 +127,84 @@ namespace Seed.Data.Migrations
 
             _processedFeatures.Add(featureId);
 
+            // 获取数据迁移内容的依赖项
             var dependencies = _pluginManager.GetFeaturesDependencies(featureId)
                  .Where(e => e.Id != featureId)
                  .Select(e => e.Id);
 
+            // 更新依赖项
             await UpdateAsync(dependencies);
 
+            // 获得内容的迁移集合
             var migrations = GetMigrations(featureId);
             var migrationBuilder = new MigrationBuilder(_dbContext.Database.ProviderName);
 
+            // 执行迁移
             foreach (var migration in migrations)
             {
                 migration.MigrationBuilder = migrationBuilder;
 
-                var migrationTemp = migration;
-                var migrationDefine = migration.GetType().GetCustomAttribute(typeof(MigrationDefineAttribute)) as MigrationDefineAttribute;
-                var migrationRecord = GetCurrentMigrationRecordAsync(migrationDefine.Name).Result;
+                var migrationTemp = migration;// 前一个迁移存起来
+                var migrationDefine = migration.GetType().GetCustomAttribute(typeof(MigrationDefineAttribute)) as MigrationDefineAttribute;// 从特性里获得迁移特征
+                var migrationRecord = GetCurrentMigrationRecordAsync(migrationDefine.Name).Result;// 获得当前迁移最后一次迁移的记录
 
-                if (migrationRecord != null)
+                var currentVersion = 0;
+                if (migrationRecord != null)// 不存在迁移记录(新安装)
                 {
-
+                    currentVersion = migrationDefine.Version;
                 }
                 else
                 {
                     migrationRecord = new MigrationRecord()
                     {
                         FeatureId = featureId,
-
+                        Version = migrationDefine.Version,
+                        MigrationName = migrationDefine.Name,
+                        MigrationTime = DateTime.Now
                     };
+                }
+
+                try
+                {
+                    // 考虑是否迁移全写一个类里面
+                    //if (currentVersion == 0)// 当前表不存在迁移记录需要先创建表
+                    //{
+                    //    var createMethod = GetCreateMethod(migration);
+                    //    if (createMethod != null)
+                    //    {
+                    //        currentVersion = (int)createMethod.Invoke(migration, new object[0]);
+                    //    }
+                    //}
+
+                    //var lookupTable = CreateUpgradeLookupTable(migration);
+
+                    //while (lookupTable.ContainsKey(currentVersion))
+                    //{
+                    //    try
+                    //    {
+                    //        currentVersion = (int)lookupTable[currentVersion].Invoke(migration, new object[0]);
+                    //    }
+                    //    catch (Exception ex)
+                    //    {
+                    //        throw ex;
+                    //    }
+                    //}
+
+                    //// if current is 0, it means no upgrade/create method was found or succeeded
+                    //if (currentVersion == 0)
+                    //{
+                    //    return;
+                    //}
+
+                    //migrationRecord.Version = currentVersion;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    await _dbContext.SaveChangesAsync();
                 }
             }
         }
@@ -183,7 +234,46 @@ namespace Seed.Data.Migrations
             //if (migrationDefine == null)
             //    return await Task.FromResult<MigrationRecord>(null);
 
-            return await _dbContext.Migrations.Where(e => e.MigrationName == migrationName).OrderByDescending(e => e.Version).FirstOrDefaultAsync();
+            return await _dbContext.Migrations.Where(e => e.MigrationName == migrationName)
+                //.OrderByDescending(e => e.Version)
+                .FirstOrDefaultAsync();
+        }
+
+        private static MethodInfo GetCreateMethod(IDataMigration dataMigration)
+        {
+            var methodInfo = dataMigration.GetType().GetMethod("Create", BindingFlags.Public | BindingFlags.Instance);
+            if (methodInfo != null && methodInfo.ReturnType == typeof(int))
+            {
+                return methodInfo;
+            }
+
+            return null;
+        }
+
+        private static Dictionary<int, MethodInfo> CreateUpgradeLookupTable(IDataMigration dataMigration)
+        {
+            return dataMigration
+                .GetType()
+                .GetMethods(BindingFlags.Public | BindingFlags.Instance)
+                .Select(GetUpdateMethod)
+                .Where(tuple => tuple != null)
+                .ToDictionary(tuple => tuple.Item1, tuple => tuple.Item2);
+        }
+
+        private static Tuple<int, MethodInfo> GetUpdateMethod(MethodInfo mi)
+        {
+            const string updatefromPrefix = "Upgrade";
+
+            if (mi.Name.StartsWith(updatefromPrefix))
+            {
+                var version = mi.Name.Substring(updatefromPrefix.Length);
+                if (int.TryParse(version, out int versionValue))
+                {
+                    return new Tuple<int, MethodInfo>(versionValue, mi);
+                }
+            }
+
+            return null;
         }
     }
 }
