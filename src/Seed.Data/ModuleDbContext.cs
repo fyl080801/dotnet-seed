@@ -12,7 +12,7 @@ namespace Seed.Data
 
         public DbSet<Document> Document { get; set; }
 
-        public DbSet<MigrationRecord> Migrations { get; set; }
+        //public DbSet<MigrationRecord> Migrations { get; set; }
 
         public IServiceProvider ServiceProvider => ((IInfrastructure<IServiceProvider>)this).Instance;
 
@@ -34,6 +34,7 @@ namespace Seed.Data
 
         public override DbSet<TEntity> Set<TEntity>()
         {
+            // 是否定义了实体类型的映射
             if (Model.HasEntityTypeWithDefiningNavigation(nameof(TEntity)))
             {
                 return base.Set<TEntity>();

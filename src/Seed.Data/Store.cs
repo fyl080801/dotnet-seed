@@ -25,27 +25,26 @@ namespace Seed.Data
             var engineDescriptor = serviceProvider.GetService<EngineDescriptor>();
             var configurationType = typeof(IEntityTypeConfiguration<>);
 
+            // 获取当前加载的模块特性，找到所有数据访问映射
             _pluginManager.GetFeatures(engineDescriptor.Features.Select(e => e.Id).ToArray())
-                .ToDictionary(
-                    x => x.Id,
-                    y => y.Plugin
-                )
+                .ToDictionary(x => x.Id, y => y.Plugin)
                 .Values.Distinct()
                 .ToDictionary(
                     x => x.Id,
                     y =>
                     {
                         var exports = _pluginManager.GetPluginEntryAsync(y).Result.Exports;
-                        return exports.Where(e =>
-                        {
-                            var typeInterfaces = e.GetInterfaces();
-                            foreach (var inter in typeInterfaces)
+                        return exports
+                            .Where(e =>
                             {
-                                if (inter.IsGenericType && inter.GetGenericTypeDefinition() == configurationType)
-                                    return true;
-                            }
-                            return false;
-                        })
+                                var typeInterfaces = e.GetInterfaces();
+                                foreach (var inter in typeInterfaces)
+                                {
+                                    if (inter.IsGenericType && inter.GetGenericTypeDefinition() == configurationType)
+                                        return true;
+                                }
+                                return false;
+                            })
                             .Select(e => ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, e))
                             .ToList();
                     }

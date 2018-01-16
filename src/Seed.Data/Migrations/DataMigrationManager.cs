@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Design.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Design;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
 using Seed.Plugins;
@@ -56,7 +57,7 @@ namespace Seed.Data.Migrations
 
         public Task UpdateAllFeaturesAsync()
         {
-
+            //return _dbContext.Database.MigrateAsync();
             return Task.CompletedTask;
             #region nouse
             //var path = Path.Combine(AppContext.BaseDirectory, "Migrations/" + _engineSettings.Name).Replace("/", "\\");
@@ -70,23 +71,23 @@ namespace Seed.Data.Migrations
             //{
             //    using (_dbContext)
             //    {
-            //        //var assembly = Assembly.GetEntryAssembly();
-            //        //var designTimeServicesBuilder = new DesignTimeServicesBuilder(assembly, new OperationReporter(null));
-            //        //var efServices = designTimeServicesBuilder.Build((DbContext)_dbContext);
-            //        //var scaffolder = efServices.GetService<MigrationsScaffolder>();
-            //        //var assemblyName = assembly.GetName().Name + ".EntityConfigurations." + _engineSettings.Name;
-            //        //var scaffoldMigration = scaffolder.ScaffoldMigration(assemblyName, assemblyName);
+            //        var assembly = Assembly.GetEntryAssembly();
+            //        var designTimeServicesBuilder = new DesignTimeServicesBuilder(assembly, new OperationReporter(null));
+            //        var efServices = designTimeServicesBuilder.Build((DbContext)_dbContext);
+            //        var scaffolder = efServices.GetService<MigrationsScaffolder>();
+            //        var assemblyName = assembly.GetName().Name + ".EntityConfigurations." + _engineSettings.Name;
+            //        var scaffoldMigration = scaffolder.ScaffoldMigration(assemblyName, assemblyName);
 
             //        // 数据迁移
-            //        //var serviceProvider = (IInfrastructure<IServiceProvider>)dbContext;
+            //        var serviceProvider = (IInfrastructure<IServiceProvider>)_dbContext;
 
-            //        //var generator = serviceProvider.Instance.GetRequiredService<IMigrationsSqlGenerator>();
-            //        //var executor = serviceProvider.Instance.GetRequiredService<IMigrationCommandExecutor>();
-            //        //var connection = serviceProvider.Instance.GetRequiredService<IRelationalConnection>();
+            //        var generator = serviceProvider.Instance.GetRequiredService<IMigrationsSqlGenerator>();
+            //        var executor = serviceProvider.Instance.GetRequiredService<IMigrationCommandExecutor>();
+            //        var connection = serviceProvider.Instance.GetRequiredService<IRelationalConnection>();
 
-            //        //var commandList = generator.Generate(dataMigration.MigrationBuilder.Operations);
+            //        var commandList = generator.Generate(dataMigration.MigrationBuilder.Operations);
 
-            //        //executor.ExecuteNonQueryAsync(commandList, connection).Wait();
+            //        executor.ExecuteNonQueryAsync(commandList, connection).Wait();
 
             //        //scaffolder.Save(
             //        //    Path.Combine(path, "..\\"),
@@ -146,23 +147,23 @@ namespace Seed.Data.Migrations
 
                 var migrationTemp = migration;// 前一个迁移存起来
                 var migrationDefine = migration.GetType().GetCustomAttribute(typeof(MigrationDefineAttribute)) as MigrationDefineAttribute;// 从特性里获得迁移特征
-                var migrationRecord = GetCurrentMigrationRecordAsync(migrationDefine.Name).Result;// 获得当前迁移最后一次迁移的记录
+                //var migrationRecord = GetCurrentMigrationRecordAsync(migrationDefine.Name).Result;// 获得当前迁移最后一次迁移的记录
 
-                var currentVersion = 0;
-                if (migrationRecord != null)// 不存在迁移记录(新安装)
-                {
-                    currentVersion = migrationDefine.Version;
-                }
-                else
-                {
-                    migrationRecord = new MigrationRecord()
-                    {
-                        FeatureId = featureId,
-                        Version = migrationDefine.Version,
-                        MigrationName = migrationDefine.Name,
-                        MigrationTime = DateTime.Now
-                    };
-                }
+                //var currentVersion = 0;
+                //if (migrationRecord != null)// 不存在迁移记录(新安装)
+                //{
+                //    currentVersion = migrationDefine.Version;
+                //}
+                //else
+                //{
+                //    migrationRecord = new MigrationRecord()
+                //    {
+                //        FeatureId = featureId,
+                //        Version = migrationDefine.Version,
+                //        MigrationName = migrationDefine.Name,
+                //        MigrationTime = DateTime.Now
+                //    };
+                //}
 
                 try
                 {
@@ -227,17 +228,17 @@ namespace Seed.Data.Migrations
                     .ToList();
         }
 
-        private async Task<MigrationRecord> GetCurrentMigrationRecordAsync(string migrationName)
-        {
-            //var migrationType = migration.GetType();
-            //var migrationDefine = migrationType.GetCustomAttribute(typeof(MigrationDefineAttribute)) as MigrationDefineAttribute;
-            //if (migrationDefine == null)
-            //    return await Task.FromResult<MigrationRecord>(null);
+        //private async Task<MigrationRecord> GetCurrentMigrationRecordAsync(string migrationName)
+        //{
+        //    //var migrationType = migration.GetType();
+        //    //var migrationDefine = migrationType.GetCustomAttribute(typeof(MigrationDefineAttribute)) as MigrationDefineAttribute;
+        //    //if (migrationDefine == null)
+        //    //    return await Task.FromResult<MigrationRecord>(null);
 
-            return await _dbContext.Migrations.Where(e => e.MigrationName == migrationName)
-                //.OrderByDescending(e => e.Version)
-                .FirstOrDefaultAsync();
-        }
+        //    return await _dbContext.Migrations.Where(e => e.MigrationName == migrationName)
+        //        //.OrderByDescending(e => e.Version)
+        //        .FirstOrDefaultAsync();
+        //}
 
         private static MethodInfo GetCreateMethod(IDataMigration dataMigration)
         {

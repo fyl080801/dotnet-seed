@@ -9,6 +9,7 @@
     <StartupObject />
     <RuntimeIdentifiers>win7-x64;win10-x64;ubuntu.16.10-x64</RuntimeIdentifiers>
     <TypeScriptToolsVersion>2.3</TypeScriptToolsVersion>
+    <UserSecretsId>d7214910-ced6-475a-b53e-74837ff87ddf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
