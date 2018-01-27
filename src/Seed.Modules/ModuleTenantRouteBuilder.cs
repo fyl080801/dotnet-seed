@@ -4,11 +4,11 @@ using System;
 
 namespace Seed.Modules
 {
-    public class ModuleLauncherRouteBuilder : IModuleLauncherRouteBuilder
+    public class ModuleTenantRouteBuilder : IModuleTenantRouteBuilder
     {
         IServiceProvider _serviceProvider;
 
-        public ModuleLauncherRouteBuilder(IServiceProvider serviceProvider)
+        public ModuleTenantRouteBuilder(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
         }

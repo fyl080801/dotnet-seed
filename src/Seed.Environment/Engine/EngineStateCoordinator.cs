@@ -24,7 +24,7 @@ namespace Seed.Environment.Engine
             _stateManager = stateManager;
         }
 
-        async Task IEngineDescriptorManagerEventHandler.Changed(EngineDescriptor descriptor, string launcher)
+        async Task IEngineDescriptorManagerEventHandler.Changed(EngineDescriptor descriptor, string tenant)
         {
             var engineState = await _stateManager.GetEngineStateAsync();
             foreach (var feature in descriptor.Features)

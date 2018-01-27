@@ -11,7 +11,7 @@ namespace Seed.Environment.Engine
         public static EngineSettings BuildDefaultUninitializedEngine = new EngineSettings
         {
             Name = DefaultEngineName,
-            State = LauncherStates.Uninitialized
+            State = TenantStates.Uninitialized
         };
     }
 }

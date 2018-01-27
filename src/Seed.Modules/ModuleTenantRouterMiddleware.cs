@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Seed.Modules
 {
-    public class ModuleLauncherRouterMiddleware
+    public class ModuleTenantRouterMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly Dictionary<string, RequestDelegate> _pipelines = new Dictionary<string, RequestDelegate>();
 
-        public ModuleLauncherRouterMiddleware(RequestDelegate next)
+        public ModuleTenantRouterMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -42,9 +42,9 @@ namespace Seed.Modules
                 {
                     if (!_pipelines.TryGetValue(engineSettings.Name, out pipeline))
                     {
-                        pipeline = BuildLauncherPipeline(engineSettings, httpContext.RequestServices);
+                        pipeline = BuildTenantPipeline(engineSettings, httpContext.RequestServices);
 
-                        if (engineSettings.State == LauncherStates.Running)
+                        if (engineSettings.State == TenantStates.Running)
                         {
                             _pipelines.Add(engineSettings.Name, pipeline);
                         }
@@ -55,23 +55,23 @@ namespace Seed.Modules
             await pipeline.Invoke(httpContext);
         }
 
-        public RequestDelegate BuildLauncherPipeline(EngineSettings settings, IServiceProvider serviceProvider)
+        public RequestDelegate BuildTenantPipeline(EngineSettings settings, IServiceProvider serviceProvider)
         {
             var startups = serviceProvider.GetServices<IStartup>();
 
             startups = startups.OrderBy(s => s.Order);
 
-            var launcherRouteBuilder = serviceProvider.GetService<IModuleLauncherRouteBuilder>();
+            var tenantRouteBuilder = serviceProvider.GetService<IModuleTenantRouteBuilder>();
 
             var appBuilder = new ApplicationBuilder(serviceProvider);
-            var routeBuilder = launcherRouteBuilder.Build();
+            var routeBuilder = tenantRouteBuilder.Build();
 
             foreach (var startup in startups)
             {
                 startup.Configure(appBuilder, routeBuilder, serviceProvider);
             }
 
-            launcherRouteBuilder.Configure(routeBuilder);
+            tenantRouteBuilder.Configure(routeBuilder);
 
             var router = routeBuilder.Build();
 

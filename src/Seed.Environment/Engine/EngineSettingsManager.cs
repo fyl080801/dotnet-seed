@@ -28,15 +28,15 @@ namespace Seed.Environment.Engine
                 provider.AddSource(configurationBuilder);
             }
             var configurationRoot = configurationBuilder.Build();
-            foreach (var launcher in configurationRoot.GetChildren())
+            foreach (var tenant in configurationRoot.GetChildren())
             {
-                var dic = launcher
+                var dic = tenant
                     .AsEnumerable()
                     .ToDictionary(k => k.Key.Replace(k.Key + ":", string.Empty), v => v.Value);
 
-                dic.Remove(launcher.Key);
+                dic.Remove(tenant.Key);
 
-                dic.Add("Name", launcher.Key);
+                dic.Add("Name", tenant.Key);
 
                 yield return new EngineSettings(dic);
             }

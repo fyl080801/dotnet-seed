@@ -77,7 +77,7 @@ namespace Seed.Mvc.Extensions
 
         internal static void AddMvcModuleCoreServices(IServiceCollection services)
         {
-            services.Replace(ServiceDescriptor.Scoped<IModuleLauncherRouteBuilder, ModuleLauncherRouteBuilder>());
+            services.Replace(ServiceDescriptor.Scoped<IModuleTenantRouteBuilder, ModuleTenantRouteBuilder>());
 
             services.AddScoped<IViewLocationExpanderProvider, DefaultViewLocationExpanderProvider>();
             services.AddScoped<IViewLocationExpanderProvider, ModuleViewLocationExpanderProvider>();

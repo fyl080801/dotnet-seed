@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Seed.Data.Migrations
 {
-    public class AutoDataMigration : IModuleLauncherEvents
+    public class AutoDataMigration : IModuleTenantEvents
     {
         readonly EngineSettings _engineSettings;
         readonly IServiceProvider _serviceProvider;
@@ -19,7 +19,7 @@ namespace Seed.Data.Migrations
 
         public Task ActivatedAsync()
         {
-            if (_engineSettings.State != LauncherStates.Uninitialized)
+            if (_engineSettings.State != TenantStates.Uninitialized)
             {
                 return _serviceProvider.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
             }

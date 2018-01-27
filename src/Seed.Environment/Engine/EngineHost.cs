@@ -34,18 +34,18 @@ namespace Seed.Environment.Engine
 
         public Task<EngineContext> CreateContextAsync(EngineSettings settings)
         {
-            // Launcher 会话未初始化创建安装 Context
-            if (settings.State == LauncherStates.Uninitialized)
+            // Tenant 会话未初始化创建安装 Context
+            if (settings.State == TenantStates.Uninitialized)
             {
                 return _engineContextFactory.CreateSetupContextAsync(settings);
             }
-            // Launcher 已禁用创建默认 Context
-            else if (settings.State == LauncherStates.Disabled)
+            // Tenant 已禁用创建默认 Context
+            else if (settings.State == TenantStates.Disabled)
             {
                 return Task.FromResult(new EngineContext { Settings = settings });
             }
-            // Launcher 正在运行
-            else if (settings.State == LauncherStates.Running || settings.State == LauncherStates.Initializing)
+            // Tenant 正在运行
+            else if (settings.State == TenantStates.Running || settings.State == TenantStates.Initializing)
             {
                 return _engineContextFactory.CreateContextAsync(settings);
             }
@@ -150,28 +150,28 @@ namespace Seed.Environment.Engine
         {
             // 不能直接判断 Invalid
             return
-                settings.State == LauncherStates.Running ||
-                settings.State == LauncherStates.Uninitialized ||
-                settings.State == LauncherStates.Initializing ||
-                settings.State == LauncherStates.Disabled;
+                settings.State == TenantStates.Running ||
+                settings.State == TenantStates.Uninitialized ||
+                settings.State == TenantStates.Initializing ||
+                settings.State == TenantStates.Disabled;
         }
 
         private bool CanRegisterEngine(EngineSettings settings)
         {
             return
-                settings.State == LauncherStates.Running ||
-                settings.State == LauncherStates.Uninitialized ||
-                settings.State == LauncherStates.Initializing;
+                settings.State == TenantStates.Running ||
+                settings.State == TenantStates.Uninitialized ||
+                settings.State == TenantStates.Initializing;
         }
 
-        public Task Changed(EngineDescriptor descriptor, string launcher)
+        public Task Changed(EngineDescriptor descriptor, string tenant)
         {
             if (_contexts == null)
             {
                 return Task.CompletedTask;
             }
 
-            if (_contexts.TryRemove(launcher, out var context))
+            if (_contexts.TryRemove(tenant, out var context))
             {
                 context.Release();
             }

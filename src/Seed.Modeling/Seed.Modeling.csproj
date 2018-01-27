@@ -116,8 +116,8 @@
     <Compile Include="..\Seed.Environment.Abstractions\Engine\IRunningEngineTable.cs">
       <Link>Environment\Engine\IRunningEngineTable.cs</Link>
     </Compile>
-    <Compile Include="..\Seed.Environment.Abstractions\Engine\LauncherStates.cs">
-      <Link>Environment\Engine\LauncherStates.cs</Link>
+    <Compile Include="..\Seed.Environment.Abstractions\Engine\TenantStates.cs">
+      <Link>Environment\Engine\TenantStates.cs</Link>
     </Compile>
     <Compile Include="..\Seed.Environment\Cache\Signal.cs">
       <Link>Environment\Cache\Signal.cs</Link>
@@ -227,11 +227,11 @@
     <Compile Include="..\Seed.Modules.Abstractions\DeferredTasks\IDeferredTaskState.cs">
       <Link>Modules\DeferredTasks\IDeferredTaskState.cs</Link>
     </Compile>
-    <Compile Include="..\Seed.Modules.Abstractions\IModuleLauncherEvents.cs">
-      <Link>Modules\IModuleLauncherEvents.cs</Link>
+    <Compile Include="..\Seed.Modules.Abstractions\IModuleTenantEvents.cs">
+      <Link>Modules\IModuleTenantEvents.cs</Link>
     </Compile>
-    <Compile Include="..\Seed.Modules.Abstractions\IModuleLauncherRouteBuilder.cs">
-      <Link>Modules\IModuleLauncherRouteBuilder.cs</Link>
+    <Compile Include="..\Seed.Modules.Abstractions\IModuleTenantRouteBuilder.cs">
+      <Link>Modules\IModuleTenantRouteBuilder.cs</Link>
     </Compile>
     <Compile Include="..\Seed.Modules.Abstractions\IStartup.cs">
       <Link>Modules\IStartup.cs</Link>
@@ -269,14 +269,14 @@
     <Compile Include="..\Seed.Modules\ModuleApplicationBuilder.cs">
       <Link>Modules\ModuleApplicationBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\Seed.Modules\ModuleLauncherContainerMiddleware.cs">
-      <Link>Modules\ModuleLauncherContainerMiddleware.cs</Link>
+    <Compile Include="..\Seed.Modules\ModuleTenantContainerMiddleware.cs">
+      <Link>Modules\ModuleTenantContainerMiddleware.cs</Link>
     </Compile>
-    <Compile Include="..\Seed.Modules\ModuleLauncherRouteBuilder.cs">
-      <Link>Modules\ModuleLauncherRouteBuilder.cs</Link>
+    <Compile Include="..\Seed.Modules\ModuleTenantRouteBuilder.cs">
+      <Link>Modules\ModuleTenantRouteBuilder.cs</Link>
     </Compile>
-    <Compile Include="..\Seed.Modules\ModuleLauncherRouterMiddleware.cs">
-      <Link>Modules\ModuleLauncherRouterMiddleware.cs</Link>
+    <Compile Include="..\Seed.Modules\ModuleTenantRouterMiddleware.cs">
+      <Link>Modules\ModuleTenantRouterMiddleware.cs</Link>
     </Compile>
     <Compile Include="..\Seed.Modules\ModuleProjectContentFileProvider.cs">
       <Link>Modules\ModuleProjectContentFileProvider.cs</Link>

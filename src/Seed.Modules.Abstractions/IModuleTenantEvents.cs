@@ -9,7 +9,7 @@ namespace Seed.Modules
     /// <summary>
     /// 激活 Launher 会话前后触发的事件
     /// </summary>
-    public interface IModuleLauncherEvents
+    public interface IModuleTenantEvents
     {
         Task ActivatingAsync();
 

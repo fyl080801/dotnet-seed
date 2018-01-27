@@ -77,7 +77,7 @@ namespace Seed.Modules.Extensions
             services.AddPluginServices();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IModuleLauncherRouteBuilder, ModuleLauncherRouteBuilder>();
+            services.AddScoped<IModuleTenantRouteBuilder, ModuleTenantRouteBuilder>();
             return services;
         }
 

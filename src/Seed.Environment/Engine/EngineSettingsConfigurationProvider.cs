@@ -25,11 +25,11 @@ namespace Seed.Environment.Engine
 
         public void AddSource(IConfigurationBuilder builder)
         {
-            foreach (var launcher in _hostingEnvironment.ContentRootFileProvider
+            foreach (var tenant in _hostingEnvironment.ContentRootFileProvider
                 .GetDirectoryContents(Path.Combine(_optionsAccessor.Value.RootContainerName, _optionsAccessor.Value.ContainerName)))
             {
                 builder
-                    .AddYamlFile(ObtainSettingsPath(launcher.PhysicalPath));
+                    .AddYamlFile(ObtainSettingsPath(tenant.PhysicalPath));
             }
         }
 
@@ -60,6 +60,6 @@ namespace Seed.Environment.Engine
             return (value ?? "~");
         }
 
-        private string ObtainSettingsPath(string launcherPath) => Path.Combine(launcherPath, "Settings.txt");
+        private string ObtainSettingsPath(string tenantPath) => Path.Combine(tenantPath, "Settings.txt");
     }
 }

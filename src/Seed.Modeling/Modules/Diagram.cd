@@ -7,26 +7,26 @@
       <FileName>Modules\ModuleApplicationBuilder.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Seed.Modules.ModuleLauncherContainerMiddleware" Collapsed="true">
+  <Class Name="Seed.Modules.ModuleTenantContainerMiddleware" Collapsed="true">
     <Position X="2.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>Modules\ModuleLauncherContainerMiddleware.cs</FileName>
+      <FileName>Modules\ModuleTenantContainerMiddleware.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Seed.Modules.ModuleLauncherRouteBuilder" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="Seed.Modules.ModuleTenantRouteBuilder" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="4" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAgAAAAAAAAAABAAA=</HashCode>
-      <FileName>Modules\ModuleLauncherRouteBuilder.cs</FileName>
+      <FileName>Modules\ModuleTenantRouteBuilder.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="Seed.Modules.ModuleLauncherRouterMiddleware" Collapsed="true">
+  <Class Name="Seed.Modules.ModuleTenantRouterMiddleware" Collapsed="true">
     <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAIAAAAEAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
-      <FileName>Modules\ModuleLauncherRouterMiddleware.cs</FileName>
+      <FileName>Modules\ModuleTenantRouterMiddleware.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Seed.Modules.ModuleServiceCollection" Collapsed="true">
@@ -65,11 +65,11 @@
       <FileName>Modules\ModuleProjectContentFileProvider.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Seed.Modules.IModuleLauncherRouteBuilder" Collapsed="true">
+  <Interface Name="Seed.Modules.IModuleTenantRouteBuilder" Collapsed="true">
     <Position X="2.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Modules\IModuleLauncherRouteBuilder.cs</FileName>
+      <FileName>Modules\IModuleTenantRouteBuilder.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Seed.Modules.IStartup" Collapsed="true">
@@ -79,11 +79,11 @@
       <FileName>Modules\IStartup.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Seed.Modules.IModuleLauncherEvents" Collapsed="true">
+  <Interface Name="Seed.Modules.IModuleTenantEvents" Collapsed="true">
     <Position X="0.5" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAAAAEAAAAAAiAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Modules\IModuleLauncherEvents.cs</FileName>
+      <FileName>Modules\IModuleTenantEvents.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Microsoft YaHei UI" Size="9" />

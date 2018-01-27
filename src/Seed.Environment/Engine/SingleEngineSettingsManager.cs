@@ -12,7 +12,7 @@ namespace Seed.Environment.Engine
             yield return new EngineSettings
             {
                 Name = "Default",
-                State = LauncherStates.Running
+                State = TenantStates.Running
             };
         }
 

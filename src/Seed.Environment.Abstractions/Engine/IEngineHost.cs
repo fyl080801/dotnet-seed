@@ -10,7 +10,7 @@ namespace Seed.Environment.Engine
     /// </summary>
     /// <remarks>
     /// 管理所有 EngineContext
-    /// Launcher 会话会初始化一个 EngineContext
+    /// Tenant 会话会初始化一个 EngineContext
     /// </remarks>
     public interface IEngineHost
     {

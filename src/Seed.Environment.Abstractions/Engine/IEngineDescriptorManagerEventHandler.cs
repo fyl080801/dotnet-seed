@@ -9,6 +9,6 @@ namespace Seed.Environment.Engine
 {
     public interface IEngineDescriptorManagerEventHandler : IEventHandler
     {
-        Task Changed(EngineDescriptor descriptor, string launcher);
+        Task Changed(EngineDescriptor descriptor, string tenant);
     }
 }

@@ -53,7 +53,7 @@ namespace SeedModules.Setup.Services
             };
 
             context.EnabledFeatures = defaultEnables.Union(context.EnabledFeatures ?? Enumerable.Empty<string>()).Distinct().ToList();
-            _engineSettings.State = LauncherStates.Initializing;
+            _engineSettings.State = TenantStates.Initializing;
 
             var engineSettings = new EngineSettings(_engineSettings.Configuration);
 
@@ -137,7 +137,7 @@ namespace SeedModules.Setup.Services
                 }
             }
 
-            engineSettings.State = LauncherStates.Running;
+            engineSettings.State = TenantStates.Running;
             _engineHost.UpdateSettings(engineSettings);
 
             return executionId;

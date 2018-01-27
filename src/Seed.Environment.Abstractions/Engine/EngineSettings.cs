@@ -9,7 +9,7 @@ namespace Seed.Environment.Engine
     /// </summary>
     public class EngineSettings
     {
-        LauncherStates _states;
+        TenantStates _states;
 
         readonly IDictionary<string, string> _values;
 
@@ -23,7 +23,7 @@ namespace Seed.Environment.Engine
 
             if (!_values.ContainsKey("State") || !Enum.TryParse(_values["State"], true, out _states))
             {
-                _states = LauncherStates.Invalid;
+                _states = TenantStates.Invalid;
             }
         }
 
@@ -109,7 +109,7 @@ namespace Seed.Environment.Engine
         /// <summary>
         /// 
         /// </summary>
-        public LauncherStates State
+        public TenantStates State
         {
             get { return _states; }
             set

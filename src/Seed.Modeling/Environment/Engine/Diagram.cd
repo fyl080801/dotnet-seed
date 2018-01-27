@@ -377,11 +377,11 @@
       <FileName>Environment\Engine\Builder\ICompositionStrategy.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Enum Name="Seed.Environment.Engine.LauncherStates" Collapsed="true">
+  <Enum Name="Seed.Environment.Engine.TenantStates" Collapsed="true">
     <Position X="7" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAACUAAAAAAAAACAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
-      <FileName>Environment\Engine\LauncherStates.cs</FileName>
+      <FileName>Environment\Engine\TenantStates.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Microsoft YaHei UI" Size="9" />

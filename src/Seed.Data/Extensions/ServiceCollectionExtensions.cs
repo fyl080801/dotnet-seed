@@ -13,7 +13,7 @@ namespace Seed.Data.Extensions
         public static IServiceCollection AddDataAccess(this IServiceCollection services)
         {
             services.AddScoped<IDataMigrationManager, DataMigrationManager>();
-            services.AddScoped<IModuleLauncherEvents, AutoDataMigration>();
+            services.AddScoped<IModuleTenantEvents, AutoDataMigration>();
 
             services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");
             services.TryAddDataProvider(name: "MySql Database", provider: "MySql");

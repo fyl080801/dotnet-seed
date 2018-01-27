@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Seed.Modules
 {
-    public class ModuleLauncherContainerMiddleware
+    public class ModuleTenantContainerMiddleware
     {
         readonly RequestDelegate _next;
         readonly IEngineHost _engineHost;
         readonly IRunningEngineTable _runningEngineTable;
 
-        public ModuleLauncherContainerMiddleware(
+        public ModuleTenantContainerMiddleware(
            RequestDelegate next,
            IEngineHost engineHost,
            IRunningEngineTable runningEngineTable)
@@ -48,19 +48,19 @@ namespace Seed.Modules
                         {
                             if (!engineContext.IsActivated)
                             {
-                                var launcherEvents = scope.ServiceProvider.GetServices<IModuleLauncherEvents>();
+                                var tenantEvents = scope.ServiceProvider.GetServices<IModuleTenantEvents>();
 
-                                foreach (var launcherEvent in launcherEvents)
+                                foreach (var tenantEvent in tenantEvents)
                                 {
-                                    launcherEvent.ActivatingAsync().Wait();
+                                    tenantEvent.ActivatingAsync().Wait();
                                 }
 
                                 httpContext.Items["BuildPipeline"] = true;
                                 engineContext.IsActivated = true;
 
-                                foreach (var launcherEvent in launcherEvents)
+                                foreach (var tenantEvent in tenantEvents)
                                 {
-                                    launcherEvent.ActivatedAsync().Wait();
+                                    tenantEvent.ActivatedAsync().Wait();
                                 }
                             }
                         }

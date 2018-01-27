@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Seed.Environment.Engine
 {
-    public enum LauncherStates
+    public enum TenantStates
     {
         Uninitialized = 0,
         Initializing,

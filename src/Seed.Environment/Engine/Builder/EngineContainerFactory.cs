@@ -24,34 +24,34 @@ namespace Seed.Environment.Engine.Builder
 
         public IServiceProvider CreateContainer(EngineSettings settings, EngineSchema schema)
         {
-            IServiceCollection launcherServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
+            IServiceCollection tenantServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
 
-            launcherServiceCollection.AddSingleton(settings);
-            launcherServiceCollection.AddSingleton(schema.Descriptor);
-            launcherServiceCollection.AddSingleton(schema);
+            tenantServiceCollection.AddSingleton(settings);
+            tenantServiceCollection.AddSingleton(schema.Descriptor);
+            tenantServiceCollection.AddSingleton(schema);
 
-            AddCoreServices(launcherServiceCollection);
+            AddCoreServices(tenantServiceCollection);
 
-            launcherServiceCollection.AddScoped<IEventBus, DefaultEventBus>();
-            launcherServiceCollection.AddSingleton<IEventBusState, EventBusState>();
+            tenantServiceCollection.AddScoped<IEventBus, DefaultEventBus>();
+            tenantServiceCollection.AddSingleton<IEventBusState, EventBusState>();
 
             IServiceCollection moduleServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
 
             foreach (var dependency in schema.Dependencies.Where(t => typeof(IStartup).IsAssignableFrom(t.Key)))
             {
                 moduleServiceCollection.AddSingleton(typeof(IStartup), dependency.Key);
-                launcherServiceCollection.AddSingleton(typeof(IStartup), dependency.Key);
+                tenantServiceCollection.AddSingleton(typeof(IStartup), dependency.Key);
             }
 
             var configuration = new ConfigurationBuilder().AddInMemoryCollection().Build();
             moduleServiceCollection.TryAddSingleton(configuration);
-            launcherServiceCollection.TryAddSingleton(configuration);
+            tenantServiceCollection.TryAddSingleton(configuration);
 
             moduleServiceCollection.AddSingleton(settings);
 
             var moduleServiceProvider = moduleServiceCollection.BuildServiceProvider();
 
-            var featureAwareServiceCollection = new FeatureAwareServiceCollection(launcherServiceCollection);
+            var featureAwareServiceCollection = new FeatureAwareServiceCollection(tenantServiceCollection);
 
             // 加载所有 IStartup 接口
             var startups = moduleServiceProvider.GetServices<IStartup>().OrderBy(e => e.Order);
@@ -67,7 +67,7 @@ namespace Seed.Environment.Engine.Builder
 
             var applicationServiceDescriptors = _applicationServices.Where(x => x.Lifetime == ServiceLifetime.Singleton);
 
-            var eventHandlers = launcherServiceCollection
+            var eventHandlers = tenantServiceCollection
                 .Union(applicationServiceDescriptors)
                 .Select(x => x.ImplementationType)
                 .Distinct()
@@ -79,7 +79,7 @@ namespace Seed.Environment.Engine.Builder
                 // 使用动态代理响应事件
                 foreach (var i in handlerClass.GetInterfaces().Where(t => t != typeof(IEventHandler) && typeof(IEventHandler).IsAssignableFrom(t)))
                 {
-                    launcherServiceCollection.AddScoped(i, serviceProvider =>
+                    tenantServiceCollection.AddScoped(i, serviceProvider =>
                     {
                         var proxy = DefaultEventBus.CreateProxy(i);
                         proxy.EventBus = serviceProvider.GetService<IEventBus>();
@@ -88,7 +88,7 @@ namespace Seed.Environment.Engine.Builder
                 }
             }
 
-            var engineServiceProvider = launcherServiceCollection.BuildServiceProvider();
+            var engineServiceProvider = tenantServiceCollection.BuildServiceProvider();
 
             using (var scope = engineServiceProvider.CreateScope())
             {

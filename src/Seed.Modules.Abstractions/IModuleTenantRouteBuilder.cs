@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Seed.Modules
 {
-    public interface IModuleLauncherRouteBuilder
+    public interface IModuleTenantRouteBuilder
     {
         IRouteBuilder Build();
 
