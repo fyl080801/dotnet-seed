@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Seed.Modules
 {
     /// <summary>
-    /// 激活 Launher 会话前后触发的事件
+    /// 激活 Tenant 会话前后触发的事件
     /// </summary>
     public interface IModuleTenantEvents
     {

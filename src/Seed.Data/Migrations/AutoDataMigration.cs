@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Seed.Data.Migrations
 {
+    /// <summary>
+    /// Tenant 事件中自动执行数据库迁移
+    /// </summary>
     public class AutoDataMigration : IModuleTenantEvents
     {
         readonly EngineSettings _engineSettings;
