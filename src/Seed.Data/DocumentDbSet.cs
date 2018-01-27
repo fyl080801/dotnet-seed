@@ -50,7 +50,7 @@ namespace Seed.Data
         public override void AddRange(params TEntity[] entities)
         {
             if (entities != null)
-                AddRange(entities);
+                AddRange(entities.ToList());
         }
 
         public override Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken))
@@ -124,7 +124,7 @@ namespace Seed.Data
         public override void RemoveRange(params TEntity[] entities)
         {
             if (entities == null) return;
-            RemoveRange(entities);
+            RemoveRange(entities.ToList());
         }
 
         public override EntityEntry<TEntity> Update(TEntity entity)
@@ -140,14 +140,25 @@ namespace Seed.Data
 
         public override void UpdateRange(IEnumerable<TEntity> entities)
         {
-
-            throw new NotImplementedException();
+            var entityType = typeof(TEntity);
+            if (!entityType.HasIdProperty())
+            {
+                throw new NotSupportedException("没有 Id 属性不能更新多条记录");
+            }
+            var idProperty = entityType.GetProperty("Id");
+            var ids = entities.Select(e => (int)idProperty.GetValue(e)).ToArray();
+            var documents = _dbContext.Document.Where(e => ids.Contains(e.Id)).ToDictionary(x => x.Id, y => y);
+            foreach (var entity in entities)
+            {
+                documents[(int)idProperty.GetValue(entity)].Content = JsonConvert.SerializeObject(entity);
+            }
+            _dbContext.Document.UpdateRange(documents.Values);
         }
 
         public override void UpdateRange(params TEntity[] entities)
         {
             if (entities != null)
-                UpdateRange(entities);
+                UpdateRange(entities.ToList());
         }
     }
 }
