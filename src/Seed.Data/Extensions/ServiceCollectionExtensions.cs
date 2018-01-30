@@ -12,7 +12,7 @@ namespace Seed.Data.Extensions
     {
         public static IServiceCollection AddDataAccess(this IServiceCollection services)
         {
-            services.AddScoped<IDataMigrationManager, DefaultDataMigrationManager>();
+            services.AddScoped<IDataMigrationManager, DataMigrationManager>();
             services.AddScoped<IModuleTenantEvents, AutoDataMigration>();
 
             services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");

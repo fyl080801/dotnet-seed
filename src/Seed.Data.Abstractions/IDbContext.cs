@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Seed.Data
 {
@@ -16,6 +17,7 @@ namespace Seed.Data
         //DbSet<MigrationRecord> Migrations { get; set; }
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         DatabaseFacade Database { get; }
+        IModel Model { get; }
         ChangeTracker ChangeTracker { get; }
         EntityEntry Add(object entity);
         EntityEntry<TEntity> Add<TEntity>(TEntity entity) where TEntity : class;
