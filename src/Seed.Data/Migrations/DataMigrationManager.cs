@@ -1,4 +1,6 @@
-﻿using Microsoft.CSharp;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CSharp;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -22,6 +24,9 @@ namespace Seed.Data.Migrations
 {
     public class DataMigrationManager : IDataMigrationManager
     {
+        const string ContextAssembly = "Seed.Data.Migration";
+        const string SnapshotName = "ModuleDbSnapshot";
+
         readonly IDbContext _dbContext;
         // readonly EngineSettings _engineSettings;
         // readonly IPluginManager _pluginManager;
@@ -132,18 +137,52 @@ namespace Seed.Data.Migrations
         {
             return Task.Run(() =>
             {
+                // 生成快照，需要存到数据库中供更新版本用
+                var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, null)
+                    .Build((DbContext)_dbContext)
+                    .GetService<IMigrationsCodeGenerator>()
+                    .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Model);
+
+                var references = typeof(ModuleDbContext).Assembly
+                    .GetReferencedAssemblies()
+                    .Select(e => MetadataReference.CreateFromFile(Assembly.Load(e).Location))
+                    .Union(new MetadataReference[]
+                    {
+                        MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location),
+                        MetadataReference.CreateFromFile(typeof(Object).Assembly.Location),
+                        MetadataReference.CreateFromFile(typeof(ModuleDbContext).Assembly.Location)
+                    });
+
+                var compilation = CSharpCompilation.Create(ContextAssembly)
+                    .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
+                    .AddReferences(references)
+                    .AddSyntaxTrees(SyntaxFactory.ParseSyntaxTree(snapshotCode));
+
+                var compiledAssembly = Task.Run<Assembly>(() =>
+                {
+                    using (var stream = new MemoryStream())
+                    {
+                        var compileResult = compilation.Emit(stream);
+                        return Assembly.Load(stream.GetBuffer());
+                    }
+                }).Result;
+
+                var oldModel = compiledAssembly.CreateInstance(ContextAssembly + "." + SnapshotName) as ModelSnapshot;
+
+                // 需要从历史版本库中取出快照定义，反序列化成类型 GetDifferences(快照模型, context.Model);
                 var upOperations = _dbContext.ServiceProvider
-                                    .GetService<IMigrationsModelDiffer>()
-                                    .GetDifferences(null, _dbContext.Model);
+                    .GetService<IMigrationsModelDiffer>()
+                    .GetDifferences(null, _dbContext.Model);// 实际情况下要传入历史快照
 
                 _dbContext.ServiceProvider
-                   .GetRequiredService<IMigrationsSqlGenerator>()
-                   .Generate(upOperations, _dbContext.Model)
-                   .ToList()
-                   .ForEach(cmd => _dbContext.Database.ExecuteSqlCommand(cmd.CommandText));
+                    .GetRequiredService<IMigrationsSqlGenerator>()
+                    .Generate(upOperations, _dbContext.Model)
+                    .ToList()
+                    .ForEach(cmd => _dbContext.Database.ExecuteSqlCommand(cmd.CommandText));
             });
         }
 
+        #region nouse
         // public async Task UpdateAsync(string featureId)
         // {
         //     if (_processedFeatures.Contains(featureId))
@@ -301,5 +340,6 @@ namespace Seed.Data.Migrations
 
         //     return null;
         // }
+        #endregion
     }
 }
