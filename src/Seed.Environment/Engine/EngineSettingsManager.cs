@@ -32,7 +32,7 @@ namespace Seed.Environment.Engine
             {
                 var dic = tenant
                     .AsEnumerable()
-                    .ToDictionary(k => k.Key.Replace(k.Key + ":", string.Empty), v => v.Value);
+                    .ToDictionary(k => k.Key.Replace((tenant.Key + ":"), string.Empty), v => v.Value);
 
                 dic.Remove(tenant.Key);
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Data.Migrations;
+using Seed.Environment.Engine;
 using Seed.Environment.Engine.Descriptors;
 using Seed.Plugins;
 using System;
@@ -14,6 +15,7 @@ namespace Seed.Data
     {
         readonly DbContextOptionsBuilder _dbContextOptionsBuilder;
         readonly IPluginManager _pluginManager;
+        readonly EngineSettings _settings;
 
         IEnumerable<object> _entityConfigurations = Enumerable.Empty<object>();
 
@@ -21,6 +23,7 @@ namespace Seed.Data
         {
             _dbContextOptionsBuilder = dbContextOptionsBuilder;
             _pluginManager = serviceProvider.GetService<IPluginManager>();
+            _settings = serviceProvider.GetService<EngineSettings>();
 
             var engineDescriptor = serviceProvider.GetService<EngineDescriptor>();
             var configurationType = typeof(IEntityTypeConfiguration<>);
@@ -58,7 +61,7 @@ namespace Seed.Data
 
         public IDbContext CreateDbContext()
         {
-            return new ModuleDbContext(_dbContextOptionsBuilder.Options, _entityConfigurations.ToArray());
+            return new ModuleDbContext(_dbContextOptionsBuilder.Options, _settings, _entityConfigurations.ToArray());
         }
 
         public Task InitializeAsync(IServiceProvider service)

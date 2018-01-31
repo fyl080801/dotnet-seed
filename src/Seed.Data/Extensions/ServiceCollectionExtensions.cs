@@ -32,13 +32,13 @@ namespace Seed.Data.Extensions
                 switch (engineSettings.DatabaseProvider)
                 {
                     case "SqlConnection":
-                        optionBuilder = optionBuilder.UseSqlServer(engineSettings.ConnectionString, builder =>
+                        optionBuilder.UseSqlServer(engineSettings.ConnectionString, builder =>
                         {
                             builder.UseRowNumberForPaging(true);
                         });
                         break;
                     case "MySql":
-                        optionBuilder = optionBuilder.UseMySQL(engineSettings.ConnectionString);
+                        optionBuilder.UseMySQL(engineSettings.ConnectionString);
                         break;
                     default:
                         throw new ArgumentException("未知数据访问提供程序: " + engineSettings.DatabaseProvider);

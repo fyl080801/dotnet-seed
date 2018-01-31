@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Seed.Data.Migrations;
+using Seed.Environment.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,17 @@ namespace Seed.Data
     public class ModuleDbContext : DbContext, IDbContext
     {
         readonly IEnumerable<object> _entityConfigurations;
+        readonly EngineSettings _settings;
 
         public DbSet<Document> Document { get; set; }
 
         public DbContext Context => this;
 
-        public ModuleDbContext(DbContextOptions options, params object[] entityConfigurations)
+        public ModuleDbContext(DbContextOptions options, EngineSettings settings, params object[] entityConfigurations)
             : base(options)
         {
             _entityConfigurations = entityConfigurations;
+            _settings = settings;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,7 +38,7 @@ namespace Seed.Data
                 .ToList()
                 .ForEach(e =>
                 {
-                    modelBuilder.Entity(e.Name).ToTable("_" + e.Relational().TableName);
+                    modelBuilder.Entity(e.Name).ToTable(e.Relational().TableName, _settings.TablePrefix);
                 });
 
             base.OnModelCreating(modelBuilder);
