@@ -36,10 +36,7 @@ namespace Seed.Data
             modelBuilder.Model
                 .GetEntityTypes()
                 .ToList()
-                .ForEach(e =>
-                {
-                    modelBuilder.Entity(e.Name).ToTable(e.Relational().TableName, _settings.TablePrefix);
-                });
+                .ForEach(e => modelBuilder.Entity(e.Name).ToTable(e.Relational().TableName, _settings.TablePrefix));
 
             base.OnModelCreating(modelBuilder);
         }

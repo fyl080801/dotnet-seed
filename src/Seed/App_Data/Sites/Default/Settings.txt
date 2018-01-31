@@ -1,0 +1,8 @@
+Default:
+  RequestUrlHost: &1949303093 ~
+  RequestUrlPrefix: ~
+  DatabaseProvider: SqlConnection
+  TablePrefix: aaa
+  ConnectionString: Data Source=.;Initial Catalog=seeddb;Integrated Security=False;User ID=sa;Password=qazwsxedc;
+  State: Running
+...

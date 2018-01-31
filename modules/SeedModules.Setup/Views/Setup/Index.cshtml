@@ -59,9 +59,10 @@ path = "/SeedModules.Setup/js/setup"
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.TablePrefix.$invalid }">
                 <div>
                     <label>表前缀：</label>
+                    <span class="text-danger pull-right" ng-show="form.TablePrefix.$invalid">*表前缀是必填的</span>
                 </div>
                 <div>
-                    <input class="form-control" placeholder="输入表前缀" name="TablePrefix" ng-model="data.TablePrefix" />
+                    <input class="form-control" placeholder="输入表前缀" name="TablePrefix" ng-model="data.TablePrefix" required />
                 </div>
             </fieldset>
 
