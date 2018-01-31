@@ -12,22 +12,22 @@ namespace Seed.Data
 {
     public class DocumentDbSet<TEntity> : DbSet<TEntity> where TEntity : class
     {
-        readonly IDbContext _dbContext;
+        readonly DbSet<Document> _set;
 
         public DocumentDbSet(IDbContext dbContext)
         {
-            _dbContext = dbContext;
+            _set = dbContext.Document;
         }
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
             if (typeof(TEntity).HasIdProperty())
             {
-                _dbContext.Document.Add(new Document(entity));
+                _set.Add(new Document(entity));
             }
             else
             {
-                var document = _dbContext.Document.FirstOrDefault(e => e.Type == nameof(TEntity));
+                var document = _set.FirstOrDefault(e => e.Type == nameof(TEntity));
                 document.Content = new Document(entity).Content;
             }
             return Attach(entity);
@@ -44,7 +44,7 @@ namespace Seed.Data
             {
                 throw new NotSupportedException("没有 Id 属性不能添加多条记录");
             }
-            _dbContext.Document.AddRange(entities.Select(e => new Document(e)));
+            _set.AddRange(entities.Select(e => new Document(e)));
         }
 
         public override void AddRange(params TEntity[] entities)
@@ -59,7 +59,7 @@ namespace Seed.Data
             {
                 throw new NotSupportedException("没有 Id 属性不能添加多条记录");
             }
-            return _dbContext.Document.AddRangeAsync(entities.Select(e => new Document(e)), cancellationToken);
+            return _set.AddRangeAsync(entities.Select(e => new Document(e)), cancellationToken);
         }
 
         public override Task AddRangeAsync(params TEntity[] entities)
@@ -68,18 +68,18 @@ namespace Seed.Data
             {
                 throw new NotSupportedException("没有 Id 属性不能添加多条记录");
             }
-            return _dbContext.Document.AddRangeAsync(entities.Select(e => new Document(e)).ToArray());
+            return _set.AddRangeAsync(entities.Select(e => new Document(e)).ToArray());
         }
 
         public override TEntity Find(params object[] keyValues)
         {
             if (!typeof(TEntity).HasIdProperty())
             {
-                return _dbContext.Document.FirstOrDefault(e => e.Type == nameof(TEntity)).ToEntity<TEntity>();
+                return _set.FirstOrDefault(e => e.Type == nameof(TEntity)).ToEntity<TEntity>();
             }
             else
             {
-                return _dbContext.Document.Find(keyValues).ToEntity<TEntity>();
+                return _set.Find(keyValues).ToEntity<TEntity>();
             }
         }
 
@@ -102,9 +102,9 @@ namespace Seed.Data
         public override EntityEntry<TEntity> Remove(TEntity entity)
         {
             var document = !typeof(TEntity).HasIdProperty()
-                ? _dbContext.Document.FirstOrDefault(e => e.Type == nameof(entity))
-                : _dbContext.Document.Find(typeof(TEntity).GetProperty("Id").GetValue(entity));
-            _dbContext.Document.Remove(document);
+                ? _set.FirstOrDefault(e => e.Type == nameof(entity))
+                : _set.Find(typeof(TEntity).GetProperty("Id").GetValue(entity));
+            _set.Remove(document);
             return Attach(entity);
         }
 
@@ -117,8 +117,8 @@ namespace Seed.Data
             }
             var idProperty = entityType.GetProperty("Id");
             var ids = entities.Select(e => (int)idProperty.GetValue(e)).ToArray();
-            var documents = _dbContext.Document.Where(e => ids.Contains(e.Id)).ToArray();
-            _dbContext.Document.RemoveRange(documents);
+            var documents = _set.Where(e => ids.Contains(e.Id)).ToArray();
+            _set.RemoveRange(documents);
         }
 
         public override void RemoveRange(params TEntity[] entities)
@@ -131,10 +131,10 @@ namespace Seed.Data
         {
             var entityType = typeof(TEntity);
             var document = !typeof(TEntity).HasIdProperty()
-                ? _dbContext.Document.FirstOrDefault(e => e.Type == nameof(TEntity))
-                : _dbContext.Document.Find(entityType.GetIdValue(entity));
+                ? _set.FirstOrDefault(e => e.Type == nameof(TEntity))
+                : _set.Find(entityType.GetIdValue(entity));
             document.Content = new Document(entity).Content;
-            _dbContext.Document.Update(document);
+            _set.Update(document);
             return Attach(entity);
         }
 
@@ -147,12 +147,12 @@ namespace Seed.Data
             }
             var idProperty = entityType.GetProperty("Id");
             var ids = entities.Select(e => (int)idProperty.GetValue(e)).ToArray();
-            var documents = _dbContext.Document.Where(e => ids.Contains(e.Id)).ToDictionary(x => x.Id, y => y);
+            var documents = _set.Where(e => ids.Contains(e.Id)).ToDictionary(x => x.Id, y => y);
             foreach (var entity in entities)
             {
                 documents[(int)idProperty.GetValue(entity)].Content = JsonConvert.SerializeObject(entity);
             }
-            _dbContext.Document.UpdateRange(documents.Values);
+            _set.UpdateRange(documents.Values);
         }
 
         public override void UpdateRange(params TEntity[] entities)

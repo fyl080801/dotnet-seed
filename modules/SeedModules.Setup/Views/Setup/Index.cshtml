@@ -5,15 +5,15 @@
     {
         version = "1.0",
         references = new Dictionary<string, object>()
-        {
-            {
-                "seedmodules/setup",
-                new
-                {
-                    path = "/SeedModules.Setup/js/setup"
-                }
-            }
-        },
+{
+{
+"seedmodules/setup",
+new
+{
+path = "/SeedModules.Setup/js/setup"
+}
+}
+},
         requires = new string[] { "seedmodules/setup" },
         noDebugs = new string[] { "seedmodules/setup" }
     };
@@ -54,7 +54,7 @@
                 </div>
                 <div>
                     <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" ng-init="data.DatabaseProvider='SqlConnection'" ng-options="item.Provider as item.Name for item in me.databaseProviders" required></select>
-                </div>                
+                </div>
             </fieldset>
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.TablePrefix.$invalid }">
                 <div>
@@ -64,53 +64,62 @@
                     <input class="form-control" placeholder="输入表前缀" name="TablePrefix" ng-model="data.TablePrefix" />
                 </div>
             </fieldset>
-            <!--Sql Server-->
-            <div ng-show="data.DatabaseProvider==='SqlConnection'" ng-init="initMsSql()">
-                <fieldset class="form-group col-md-6">
-                    <div>
-                        <label>服务地址：</label>
+
+            @*<div ng-show="data.DatabaseProvider==='SqlConnection'" ng-init="initMsSql()">
+                        <fieldset class="form-group col-md-6">
+                            <div>
+                                <label>服务地址：</label>
+                            </div>
+                            <div>
+                                <input class="form-control" placeholder="输入服务地址" ng-model="mssql.Server" />
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group col-md-6">
+                            <div>
+                                <label>数据库名称：</label>
+                            </div>
+                            <div>
+                                <input class="form-control" placeholder="输入数据库名称" ng-model="mssql.Database" />
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group col-md-6">
+                            <div>
+                                <label>数据库账号：</label>
+                            </div>
+                            <div>
+                                <input class="form-control" placeholder="输入账号" ng-model="mssql.Username" />
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group col-md-6">
+                            <div>
+                                <label>数据库密码：</label>
+                            </div>
+                            <div>
+                                <input type="password" class="form-control" placeholder="输入密码" ng-model="mssql.Password" />
+                            </div>
+                        </fieldset>
                     </div>
-                    <div>
-                        <input class="form-control" placeholder="输入服务地址" ng-model="mssql.Server" />
+
+                    <div ng-show="data.DatabaseProvider==='MySql'">
+                        <fieldset class="form-group col-md-12">
+                            <div>
+                                <label>连接字符串：</label>
+                            </div>
+                            <div>
+                                <input class="form-control" placeholder="输入连接字符串" ng-model="mysql.ConnectionString" />
+                            </div>
+                        </fieldset>
                     </div>
-                </fieldset>
-                <fieldset class="form-group col-md-6">
-                    <div>
-                        <label>数据库名称：</label>
-                    </div>
-                    <div>
-                        <input class="form-control" placeholder="输入数据库名称" ng-model="mssql.Database" />
-                    </div>
-                </fieldset>
-                <fieldset class="form-group col-md-6">
-                    <div>
-                        <label>数据库账号：</label>
-                    </div>
-                    <div>
-                        <input class="form-control" placeholder="输入账号" ng-model="mssql.Username" />
-                    </div>
-                </fieldset>
-                <fieldset class="form-group col-md-6">
-                    <div>
-                        <label>数据库密码：</label>
-                    </div>
-                    <div>
-                        <input type="password" class="form-control" placeholder="输入密码" ng-model="mssql.Password" />
-                    </div>
-                </fieldset>
-            </div>
-            <!--Sql Server-->
-            <div ng-show="data.DatabaseProvider==='MySql'">
-                <fieldset class="form-group col-md-12">
-                    <div>
-                        <label>连接字符串：</label>
-                    </div>
-                    <div>
-                        <input class="form-control" placeholder="输入连接字符串" ng-model="mysql.ConnectionString" />
-                    </div>
-                </fieldset>
-            </div>
-            <input type="hidden" name="ConnectionString" ng-model="data.ConnectionString" />
+                <input type="hidden" name="ConnectionString" ng-model="data.ConnectionString" />*@
+            <fieldset class="form-group col-md-12">
+                <div>
+                    <label>连接字符串：</label>
+                </div>
+                <div>
+                    <input class="form-control" placeholder="输入连接字符串" ng-model="data.ConnectionString" />
+                </div>
+                <span>Data Source=.;Initial Catalog=seeddb;Integrated Security=False;User ID=sa;Password=qazwsxedc;</span>
+            </fieldset>
         </div>
         <h6><i class="glyphicon glyphicon-chevron-right"></i> 用户信息</h6>
         <div class="row">

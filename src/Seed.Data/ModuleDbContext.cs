@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Seed.Data.Migrations;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Seed.Data
 {
@@ -12,9 +13,7 @@ namespace Seed.Data
 
         public DbSet<Document> Document { get; set; }
 
-        //public DbSet<MigrationRecord> Migrations { get; set; }
-
-        public IServiceProvider ServiceProvider => ((IInfrastructure<IServiceProvider>)this).Instance;
+        public DbContext Context => this;
 
         public ModuleDbContext(DbContextOptions options, params object[] entityConfigurations)
             : base(options)
@@ -24,25 +23,29 @@ namespace Seed.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Model.AddEntityType(typeof(MigrationRecord));
+
             foreach (var configuration in _entityConfigurations)
             {
                 modelBuilder.ApplyConfiguration((dynamic)configuration);
             }
+
+            modelBuilder.Model
+                .GetEntityTypes()
+                .ToList()
+                .ForEach(e =>
+                {
+                    modelBuilder.Entity(e.Name).ToTable("_" + e.Relational().TableName);
+                });
 
             base.OnModelCreating(modelBuilder);
         }
 
         public override DbSet<TEntity> Set<TEntity>()
         {
-            // 是否定义了实体类型的映射
-            if (Model.HasEntityTypeWithDefiningNavigation(nameof(TEntity)))
-            {
-                return base.Set<TEntity>();
-            }
-            else
-            {
-                return new DocumentDbSet<TEntity>(this);
-            }
+            return Model.FindEntityType(typeof(TEntity)) != null
+                ? base.Set<TEntity>()
+                : new DocumentDbSet<TEntity>(this);
         }
     }
 }

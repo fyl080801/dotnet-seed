@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Seed.Data
 {
-    [Table("_Document")]
+    [Table("Document")]
     public class Document
     {
         public Document() { }
@@ -38,13 +38,5 @@ namespace Seed.Data
         public string Type { get; set; }
 
         public string Content { get; set; }
-    }
-
-    public class DocumentMapping : IEntityTypeConfiguration<Document>
-    {
-        public void Configure(EntityTypeBuilder<Document> builder)
-        {
-
-        }
     }
 }

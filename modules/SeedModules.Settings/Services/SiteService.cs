@@ -34,14 +34,14 @@ namespace SeedModules.Settings.Services
             if (!_memoryCache.TryGetValue(SiteCacheKey, out ISiteInfo site))
             {
                 var dbContext = GetDbContext();
-                site = await dbContext.Set<SiteSettings>().FirstOrDefaultAsync();
+                site = await dbContext.Context.Set<SiteSettings>().FirstOrDefaultAsync();
                 if (site == null)
                 {
                     lock (_memoryCache)
                     {
                         if (!_memoryCache.TryGetValue(SiteCacheKey, out site))
                         {
-                            dbContext.Add(new SiteSettings
+                            dbContext.Context.Add(new SiteSettings
                             {
                                 SiteName = "Seed Application"
                             });
@@ -66,7 +66,7 @@ namespace SeedModules.Settings.Services
         {
             var dbContext = GetDbContext();
 
-            var existing = await dbContext.Set<SiteSettings>().FirstOrDefaultAsync();
+            var existing = await dbContext.Context.Set<SiteSettings>().FirstOrDefaultAsync();
 
             existing.BaseUrl = site.BaseUrl;
             existing.SiteName = site.SiteName;

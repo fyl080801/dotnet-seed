@@ -63,6 +63,7 @@ namespace Seed.Data
 
         public Task InitializeAsync(IServiceProvider service)
         {
+            CreateDbContext().Context.Database.Migrate();
             return service.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
         }
     }
