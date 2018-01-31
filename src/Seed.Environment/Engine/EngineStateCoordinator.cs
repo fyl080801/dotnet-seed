@@ -1,25 +1,23 @@
-﻿using Seed.Environment.Engine;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine.Descriptors;
-using System.Threading.Tasks;
+using Seed.Modules.DeferredTasks;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Seed.Environment.Engine
 {
     public class EngineStateCoordinator : IEngineDescriptorManagerEventHandler
     {
-        private readonly EngineSettings _settings;
-        private readonly IEngineStateManager _stateManager;
-        //private readonly IDeferredTaskEngine _deferredTaskEngine;
+        readonly EngineSettings _settings;
+        readonly IEngineStateManager _stateManager;
+        readonly IDeferredTaskEngine _deferredTaskEngine;
 
         public EngineStateCoordinator(
             EngineSettings settings,
-            //IDeferredTaskEngine deferredTaskEngine,
+            IDeferredTaskEngine deferredTaskEngine,
             IEngineStateManager stateManager)
         {
-            //_deferredTaskEngine = deferredTaskEngine;
+            _deferredTaskEngine = deferredTaskEngine;
             _settings = settings;
             _stateManager = stateManager;
         }
@@ -65,25 +63,25 @@ namespace Seed.Environment.Engine
 
         private void FireApplyChangesIfNeeded()
         {
-            //_deferredTaskEngine.AddTask(async context =>
-            //{
-            //    var stateManager = context.ServiceProvider.GetRequiredService<IEngineStateManager>();
-            //    var engineStateUpdater = context.ServiceProvider.GetRequiredService<IEngineStateUpdater>();
-            //    var engineState = await stateManager.GetEngineStateAsync();
+            _deferredTaskEngine.AddTask(async context =>
+            {
+                var stateManager = context.ServiceProvider.GetRequiredService<IEngineStateManager>();
+                var engineStateUpdater = context.ServiceProvider.GetRequiredService<IEngineStateUpdater>();
+                var engineState = await stateManager.GetEngineStateAsync();
 
-            //    while (engineState.Features.Any(FeatureIsChanging))
-            //    {
-            //        var descriptor = new ShellDescriptor
-            //        {
-            //            Features = engineState.Features
-            //                .Where(FeatureShouldBeLoadedForStateChangeNotifications)
-            //                .Select(x => new ShellFeature { Id = x.Id })
-            //                .ToArray()
-            //        };
+                while (engineState.Features.Any(FeatureIsChanging))
+                {
+                    var descriptor = new EngineDescriptor()
+                    {
+                        Features = engineState.Features
+                            .Where(FeatureShouldBeLoadedForStateChangeNotifications)
+                            .Select(x => new EngineFeature { Id = x.Id })
+                            .ToArray()
+                    };
 
-            //        await engineStateUpdater.ApplyChanges();
-            //    }
-            //});
+                    await engineStateUpdater.ApplyChanges();
+                }
+            });
         }
 
         private static bool FeatureIsChanging(EngineFeatureState shellFeatureState)

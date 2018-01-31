@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-namespace Seed.Modules.Extensions
+namespace Seed.Environment.Engine.Extensions
 {
     public static class ExceptionExtensions
     {

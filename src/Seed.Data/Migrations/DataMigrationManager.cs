@@ -65,7 +65,7 @@ namespace Seed.Data.Migrations
                     var lastMigration = migrationRecordSet.OrderByDescending(e => e.MigrationTime).FirstOrDefault();
                     lastModel = lastMigration == null ? null : (CreateModelSnapshot(lastMigration.SnapshotDefine).Result?.Model);
                 }
-                catch (SqlException ex) { }
+                catch (SqlException) { }
 
                 // 需要从历史版本库中取出快照定义，反序列化成类型 GetDifferences(快照模型, context.Model);
                 // 实际情况下要传入历史快照

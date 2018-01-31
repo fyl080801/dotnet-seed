@@ -28,7 +28,7 @@ namespace Seed.Environment.Engine.Descriptors
             return Task.FromResult(_engineDescriptor);
         }
 
-        public Task UpdateEngineDescriptorAsync(int priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters)
+        public Task UpdateEngineDescriptorAsync(string priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters)
         {
             return Task.CompletedTask;
         }

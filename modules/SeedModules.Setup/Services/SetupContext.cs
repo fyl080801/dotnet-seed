@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Seed.Project.Abstractions.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,6 +20,8 @@ namespace SeedModules.Setup.Services
         public string DatabaseConnectionString { get; set; }
 
         public string DatabaseTablePrefix { get; set; }
+
+        public ProjectDescriptor Project { get; set; }
 
         public IEnumerable<string> EnabledFeatures { get; set; }
 

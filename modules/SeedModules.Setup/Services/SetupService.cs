@@ -4,9 +4,10 @@ using Seed.Data;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Builder;
 using Seed.Environment.Engine.Descriptors;
+using Seed.Environment.Engine.Extensions;
 using Seed.Modules.DeferredTasks;
-using Seed.Modules.Extensions;
 using Seed.Modules.Setup.Events;
+using Seed.Project.Abstractions;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -92,7 +93,7 @@ namespace SeedModules.Setup.Services
                     await scope.ServiceProvider
                         .GetService<IEngineDescriptorManager>()
                         .UpdateEngineDescriptorAsync(
-                            0,
+                            "0",
                             engineContext.Schema.Descriptor.Features,
                             engineContext.Schema.Descriptor.Parameters
                         );
@@ -105,7 +106,25 @@ namespace SeedModules.Setup.Services
                     }
                 }
 
+                // 用于前台检测执行状态
                 executionId = Guid.NewGuid().ToString("n");
+
+                using (var scope = engineContext.EntryServiceScope())
+                {
+                    var recipeExecutor = scope.ServiceProvider.GetService<IProjectExecutor>();
+
+                    await recipeExecutor.ExecuteAsync(executionId, context.Project, new
+                    {
+                        context.Name,
+                        context.AdminUsername,
+                        context.AdminEmail,
+                        context.AdminPassword,
+                        context.DatabaseProvider,
+                        context.DatabaseConnectionString,
+                        context.DatabaseTablePrefix
+                    });
+                }
+
             }
 
             // 安装事件

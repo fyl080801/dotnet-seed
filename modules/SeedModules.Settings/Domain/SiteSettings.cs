@@ -17,7 +17,6 @@ namespace SeedModules.Settings.Domain
 
         public string BaseUrl { get; set; }
 
-        [Required]
         public string SuperUser { get; set; }
     }
 
