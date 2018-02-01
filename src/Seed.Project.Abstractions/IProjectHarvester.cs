@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Seed.Project
 {
-    public interface IProjectExecutor
+    public interface IProjectHarvester
     {
-        Task<string> ExecuteAsync(string executionId, ProjectDescriptor projectDescriptor, object environment);
+        Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync();
     }
 }

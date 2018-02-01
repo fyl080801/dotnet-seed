@@ -7,7 +7,7 @@ using Seed.Environment.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.DeferredTasks;
 using Seed.Modules.Setup.Events;
-using Seed.Project.Abstractions;
+using Seed.Project;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,8 +49,7 @@ namespace SeedModules.Setup.Services
             string[] defaultEnables =
             {
                 "SeedModules.Common",
-                "SeedModules.AngularUI",
-                "SeedModules.Settings"
+                "SeedModules.AngularUI"
             };
 
             context.EnabledFeatures = defaultEnables.Union(context.EnabledFeatures ?? Enumerable.Empty<string>()).Distinct().ToList();
@@ -124,7 +123,6 @@ namespace SeedModules.Setup.Services
                         context.DatabaseTablePrefix
                     });
                 }
-
             }
 
             // 安装事件

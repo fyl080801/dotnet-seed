@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Seed.Project
 {
-    public interface IProjectExecutor
+    public interface IProjectStepHandler
     {
-        Task<string> ExecuteAsync(string executionId, ProjectDescriptor projectDescriptor, object environment);
+        Task ExecuteAsync(ProjectExecutionContext context);
     }
 }

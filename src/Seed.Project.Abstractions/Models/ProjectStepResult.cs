@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Project.Abstractions.Models
+namespace Seed.Project.Models
 {
     public class ProjectStepResult
     {

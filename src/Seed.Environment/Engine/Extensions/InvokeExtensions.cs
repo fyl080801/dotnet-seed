@@ -23,6 +23,25 @@ namespace Seed.Environment.Engine.Extensions
             }
         }
 
+        public static async Task<IEnumerable<TResult>> InvokeAsync<TEvents, TResult>(this IEnumerable<TEvents> events, Func<TEvents, Task<IEnumerable<TResult>>> dispatch, ILogger logger)
+        {
+            var results = new List<TResult>();
+
+            foreach (var sink in events)
+            {
+                try
+                {
+                    results.AddRange(await dispatch(sink));
+                }
+                catch (Exception ex)
+                {
+                    HandleException(ex, logger, typeof(TEvents).Name, sink.GetType().FullName);
+                }
+            }
+
+            return results;
+        }
+
         public static void HandleException(Exception ex, ILogger logger, string sourceType, string method)
         {
             if (IsLogged(ex))

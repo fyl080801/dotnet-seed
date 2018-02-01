@@ -1,10 +1,10 @@
-﻿using Seed.Project.Abstractions.Models;
+﻿using Seed.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Project.Abstractions
+namespace Seed.Project
 {
     public interface IProjectStore
     {

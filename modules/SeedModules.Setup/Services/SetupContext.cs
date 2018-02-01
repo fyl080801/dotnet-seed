@@ -1,4 +1,4 @@
-﻿using Seed.Project.Abstractions.Models;
+﻿using Seed.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;

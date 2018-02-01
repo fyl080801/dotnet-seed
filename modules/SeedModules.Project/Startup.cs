@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
-using Seed.Project.Abstractions;
+using Seed.Project;
 using Seed.Project.Extensions;
+using SeedModules.Project.Projects;
 using SeedModules.Project.Services;
 
 namespace SeedModules.Project
@@ -12,6 +13,8 @@ namespace SeedModules.Project
         {
             services.AddProject();
             services.AddScoped<IProjectStore, ProjectStore>();
+
+            services.AddProjectExecutionStep<ProjectStep>();
         }
     }
 }
