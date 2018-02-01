@@ -49,6 +49,7 @@ namespace SeedModules.Setup.Services
             string[] defaultEnables =
             {
                 "SeedModules.Common",
+                "SeedModules.Settings",
                 "SeedModules.AngularUI"
             };
 
@@ -126,9 +127,9 @@ namespace SeedModules.Setup.Services
             }
 
             // 安装事件
-            using (var shellContext = await _engineHost.CreateContextAsync(engineSettings))
+            using (var engineContext = await _engineHost.CreateContextAsync(engineSettings))
             {
-                using (var scope = shellContext.EntryServiceScope())
+                using (var scope = engineContext.EntryServiceScope())
                 {
                     var hasErrors = false;
 

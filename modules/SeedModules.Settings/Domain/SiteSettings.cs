@@ -1,4 +1,6 @@
-﻿using Seed.Modules.Site;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Seed.Modules.Site;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,5 +18,13 @@ namespace SeedModules.Settings.Domain
         public string BaseUrl { get; set; }
 
         public string SuperUser { get; set; }
+    }
+
+    public class SiteSettingsConfiguration : IEntityTypeConfiguration<SiteSettings>
+    {
+        public void Configure(EntityTypeBuilder<SiteSettings> builder)
+        {
+
+        }
     }
 }

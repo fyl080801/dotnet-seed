@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Seed.Data.Migrations;
 using Seed.Environment.Engine;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,11 +10,12 @@ namespace Seed.Data
         readonly IEnumerable<object> _entityConfigurations;
         readonly EngineSettings _settings;
 
-        public DbSet<Document> Document { get; set; }
-
         public DbContext Context => this;
 
-        public ModuleDbContext(DbContextOptions options, EngineSettings settings, params object[] entityConfigurations)
+        public ModuleDbContext(
+            DbContextOptions options,
+            EngineSettings settings,
+            params object[] entityConfigurations)
             : base(options)
         {
             _entityConfigurations = entityConfigurations;
@@ -26,6 +24,7 @@ namespace Seed.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Model.AddEntityType(typeof(Document));
             modelBuilder.Model.AddEntityType(typeof(MigrationRecord));
 
             foreach (var configuration in _entityConfigurations)

@@ -1,36 +1,64 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using Newtonsoft.Json;
-using Seed.Data.Extensions;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Seed.Data
 {
-    public class DocumentDbSet<TEntity> : DbSet<TEntity> where TEntity : class
+    public class DocumentDbSet<TEntity> : DbSet<TEntity>, IQueryable<TEntity>, IAsyncEnumerableAccessor<TEntity>, IInfrastructure<IServiceProvider>
+        where TEntity : class
     {
-        readonly DbSet<Document> _set;
+        readonly IDbContext _dbContext;
+        readonly DbSet<Document> _document;
+        readonly Type _entityType;
+        readonly IEnumerable<PropertyInfo> _keyCollection;
+
+        LocalView<TEntity> _local;
 
         public DocumentDbSet(IDbContext dbContext)
         {
-            _set = dbContext.Document;
+            _dbContext = dbContext;
+            _document = dbContext.Set<Document>();
+            _entityType = typeof(TEntity);
+            _keyCollection = _entityType.GetProperties()
+                .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0)
+                .AsEnumerable();
+        }
+
+        public override LocalView<TEntity> Local
+            => _local ?? (_local = new LocalView<TEntity>(this));
+
+        public override EntityEntry<TEntity> Attach(TEntity entity)
+        {
+            throw new NotSupportedException($"未映射的实体类型 {_entityType.FullName} 不能 Attach");
+        }
+
+        public override void AttachRange(IEnumerable<TEntity> entities)
+        {
+            throw new NotSupportedException($"未映射的实体类型 {_entityType.FullName} 不能 Attach");
+        }
+
+        public override void AttachRange(params TEntity[] entities)
+        {
+            throw new NotSupportedException($"未映射的实体类型 {_entityType.FullName} 不能 Attach");
         }
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
-            if (typeof(TEntity).HasIdProperty())
-            {
-                _set.Add(new Document(entity));
-            }
-            else
-            {
-                var document = _set.FirstOrDefault(e => e.Type == nameof(TEntity));
-                document.Content = new Document(entity).Content;
-            }
-            return Attach(entity);
+            var documents = GetQueryableEntities().ToList();
+            documents.Add(entity);
+            UpdateDocument(documents);
+            return null;
         }
 
         public override Task<EntityEntry<TEntity>> AddAsync(TEntity entity, CancellationToken cancellationToken = default(CancellationToken))
@@ -40,125 +68,145 @@ namespace Seed.Data
 
         public override void AddRange(IEnumerable<TEntity> entities)
         {
-            if (!typeof(TEntity).HasIdProperty())
-            {
-                throw new NotSupportedException("没有 Id 属性不能添加多条记录");
-            }
-            _set.AddRange(entities.Select(e => new Document(e)));
+            var documents = GetQueryableEntities().ToList();
+            documents.AddRange(entities);
+            UpdateDocument(documents);
         }
 
         public override void AddRange(params TEntity[] entities)
         {
-            if (entities != null)
-                AddRange(entities.ToList());
+            AddRange((entities ?? new TEntity[0]).AsEnumerable());
         }
 
         public override Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (!typeof(TEntity).HasIdProperty())
-            {
-                throw new NotSupportedException("没有 Id 属性不能添加多条记录");
-            }
-            return _set.AddRangeAsync(entities.Select(e => new Document(e)), cancellationToken);
+            return Task.Run(() => AddRange(entities), cancellationToken);
         }
 
         public override Task AddRangeAsync(params TEntity[] entities)
         {
-            if (!typeof(TEntity).HasIdProperty())
-            {
-                throw new NotSupportedException("没有 Id 属性不能添加多条记录");
-            }
-            return _set.AddRangeAsync(entities.Select(e => new Document(e)).ToArray());
+            return AddRangeAsync((entities ?? new TEntity[0]).AsEnumerable());
         }
 
         public override TEntity Find(params object[] keyValues)
         {
-            if (!typeof(TEntity).HasIdProperty())
+            var documents = GetQueryableEntities().ToList();
+            return documents.Find(e =>
             {
-                return _set.FirstOrDefault(e => e.Type == nameof(TEntity)).ToEntity<TEntity>();
-            }
-            else
-            {
-                return _set.Find(keyValues).ToEntity<TEntity>();
-            }
+                bool isContain = false;
+                foreach (var key in _keyCollection)
+                {
+                    foreach (var val in keyValues)
+                    {
+                        isContain = key.GetValue(e) == val;
+                        if (isContain)
+                        {
+                            return isContain;
+                        }
+                    }
+                }
+                return isContain;
+            });
         }
 
         public override Task<TEntity> FindAsync(object[] keyValues, CancellationToken cancellationToken)
         {
-            return Task.Run(() =>
-            {
-                return Find(keyValues);
-            }, cancellationToken);
+            return Task.Run(() => Find(keyValues), cancellationToken);
         }
 
         public override Task<TEntity> FindAsync(params object[] keyValues)
         {
-            return Task.Run(() =>
-            {
-                return Find(keyValues);
-            });
+            return FindAsync(keyValues ?? new object[0], default(CancellationToken));
         }
 
         public override EntityEntry<TEntity> Remove(TEntity entity)
         {
-            var document = !typeof(TEntity).HasIdProperty()
-                ? _set.FirstOrDefault(e => e.Type == nameof(entity))
-                : _set.Find(typeof(TEntity).GetProperty("Id").GetValue(entity));
-            _set.Remove(document);
-            return Attach(entity);
+            return base.Remove(entity);
         }
 
         public override void RemoveRange(IEnumerable<TEntity> entities)
         {
-            var entityType = typeof(TEntity);
-            if (!entityType.HasIdProperty())
-            {
-                throw new NotSupportedException("没有 Id 属性不能移除多条记录");
-            }
-            var idProperty = entityType.GetProperty("Id");
-            var ids = entities.Select(e => (int)idProperty.GetValue(e)).ToArray();
-            var documents = _set.Where(e => ids.Contains(e.Id)).ToArray();
-            _set.RemoveRange(documents);
+            base.RemoveRange(entities);
         }
 
         public override void RemoveRange(params TEntity[] entities)
         {
-            if (entities == null) return;
-            RemoveRange(entities.ToList());
+            base.RemoveRange(entities);
         }
 
         public override EntityEntry<TEntity> Update(TEntity entity)
         {
-            var entityType = typeof(TEntity);
-            var document = !typeof(TEntity).HasIdProperty()
-                ? _set.FirstOrDefault(e => e.Type == nameof(TEntity))
-                : _set.Find(entityType.GetIdValue(entity));
-            document.Content = new Document(entity).Content;
-            _set.Update(document);
-            return Attach(entity);
+            return base.Update(entity);
         }
 
         public override void UpdateRange(IEnumerable<TEntity> entities)
         {
-            var entityType = typeof(TEntity);
-            if (!entityType.HasIdProperty())
-            {
-                throw new NotSupportedException("没有 Id 属性不能更新多条记录");
-            }
-            var idProperty = entityType.GetProperty("Id");
-            var ids = entities.Select(e => (int)idProperty.GetValue(e)).ToArray();
-            var documents = _set.Where(e => ids.Contains(e.Id)).ToDictionary(x => x.Id, y => y);
-            foreach (var entity in entities)
-            {
-                documents[(int)idProperty.GetValue(entity)].Content = JsonConvert.SerializeObject(entity);
-            }
-            _set.UpdateRange(documents.Values);
+            base.UpdateRange(entities);
         }
 
         public override void UpdateRange(params TEntity[] entities)
         {
-            if (entities != null)
-                UpdateRange(entities.ToList());
+            base.UpdateRange(entities);
+        }
+
+        private Document GetDocument()
+        {
+            var typeName = typeof(TEntity).FullName;
+            return _document.Where(e => e.Type == typeName).FirstOrDefault() ?? new Document()
+            {
+                Content = "[]",
+                Type = typeName
+            };
+        }
+
+        private IQueryable<TEntity> GetQueryableEntities()
+        {
+            return JsonConvert.DeserializeObject<TEntity[]>(GetDocument().Content).AsQueryable();
+        }
+
+        private void UpdateDocument(IEnumerable<TEntity> entities)
+        {
+            var typeName = typeof(TEntity).FullName;
+            var content = JsonConvert.SerializeObject(entities.ToArray());
+            var document = _document.Where(e => e.Type == typeName).FirstOrDefault();
+            if (document == null)
+            {
+                document = new Document()
+                {
+                    Content = content,
+                    Type = typeName
+                };
+                _document.Add(document);
+            }
+            else
+            {
+                document.Content = content;
+            }
+        }
+
+        IAsyncEnumerable<TEntity> IAsyncEnumerableAccessor<TEntity>.AsyncEnumerable
+            => GetQueryableEntities().ToAsyncEnumerable();
+
+        Type IQueryable.ElementType
+            => typeof(TEntity);
+
+        Expression IQueryable.Expression
+            => GetQueryableEntities().Expression;
+
+        IQueryProvider IQueryable.Provider
+            => new DocumentQueryProvider<TEntity>(GetQueryableEntities());
+
+        IServiceProvider IInfrastructure<IServiceProvider>.Instance
+            => _dbContext.Context.GetInfrastructure();
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetQueryableEntities().GetEnumerator();
+        }
+
+        IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator()
+        {
+            return GetQueryableEntities().GetEnumerator();
         }
     }
 }

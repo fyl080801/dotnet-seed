@@ -45,7 +45,7 @@ namespace Seed.Environment.Engine.Data
         public async Task UpdateEngineDescriptorAsync(string priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters)
         {
             var engineDescriptorRecord = await GetEngineDescriptorAsync();
-            var serialNumber = engineDescriptorRecord == null ? DateTime.MinValue.ToString("yyyyMMddHHmmss") : engineDescriptorRecord.SerialNumber;
+            var serialNumber = engineDescriptorRecord == null ? "0" : engineDescriptorRecord.SerialNumber;
             if (priorSerialNumber != serialNumber)
             {
                 throw new InvalidOperationException("错误的序列号");

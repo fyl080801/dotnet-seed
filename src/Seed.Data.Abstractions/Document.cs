@@ -12,24 +12,24 @@ namespace Seed.Data
     [Table("Document")]
     public class Document
     {
-        public Document() { }
+        //public Document() { }
 
-        public Document(object entity)
-        {
-            Type = entity.GetType().FullName;
-            Content = entity is IEntity ? ((IEntity)entity).Properties.ToString() : JsonConvert.SerializeObject(entity);
-        }
+        //public Document(object entity)
+        //{
+        //    Type = entity.GetType().FullName;
+        //    Content = entity is IEntity ? ((IEntity)entity).Properties.ToString() : JsonConvert.SerializeObject(entity);
+        //}
 
-        public TEntity ToEntity<TEntity>() where TEntity : class
-        {
-            var entity = JsonConvert.DeserializeObject<TEntity>(Content);
-            var idProperty = typeof(TEntity).GetProperty("Id");
-            if (idProperty != null && idProperty.CanWrite)
-            {
-                idProperty.SetValue(entity, Id);
-            }
-            return entity;
-        }
+        //public TEntity ToEntity<TEntity>() where TEntity : class
+        //{
+        //    var entity = JsonConvert.DeserializeObject<TEntity>(Content);
+        //    var idProperty = typeof(TEntity).GetProperty("Id");
+        //    if (idProperty != null && idProperty.CanWrite)
+        //    {
+        //        idProperty.SetValue(entity, Id);
+        //    }
+        //    return entity;
+        //}
 
         [Key]
         public int Id { get; set; }
