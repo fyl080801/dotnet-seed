@@ -49,6 +49,7 @@ namespace SeedModules.Setup.Services
             string[] defaultEnables =
             {
                 "SeedModules.Common",
+                "SeedModules.Project",
                 "SeedModules.Settings",
                 "SeedModules.AngularUI"
             };

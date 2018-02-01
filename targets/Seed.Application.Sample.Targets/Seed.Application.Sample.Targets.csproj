@@ -5,9 +5,11 @@
   </PropertyGroup>
   <Target Name="CopyPackageAssetFiles" />
   <ItemGroup>
+    <ProjectReference Include="..\..\modules\SeedModules.Admin\SeedModules.Admin.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Common\SeedModules.Common.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Mvc\SeedModules.Mvc.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Settings\SeedModules.Settings.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" />

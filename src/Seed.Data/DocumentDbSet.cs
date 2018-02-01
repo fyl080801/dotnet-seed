@@ -121,17 +121,27 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Remove(TEntity entity)
         {
-            return base.Remove(entity);
+            var documents = GetQueryableEntities().ToList();
+            var oldItem = documents.Find(e => e.Equals(entity));
+            documents.Remove(oldItem);
+            UpdateDocument(documents);
+            return null;
         }
 
         public override void RemoveRange(IEnumerable<TEntity> entities)
         {
-            base.RemoveRange(entities);
+            var documents = GetQueryableEntities().ToList();
+            var removes = documents.Where(e => entities.Contains(e));
+            foreach (var entity in removes)
+            {
+                documents.Remove(entity);
+            }
+            UpdateDocument(documents);
         }
 
         public override void RemoveRange(params TEntity[] entities)
         {
-            base.RemoveRange(entities);
+            RemoveRange((entities ?? new TEntity[0]).AsEnumerable());
         }
 
         public override EntityEntry<TEntity> Update(TEntity entity)

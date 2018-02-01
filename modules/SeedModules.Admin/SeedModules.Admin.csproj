@@ -5,13 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageAssetFiles Remove="Module.txt" />
-    <PackageAssetFiles Remove="Views\Admin\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
+    <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
   </ItemGroup>
 
 </Project>

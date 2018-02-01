@@ -1,4 +1,4 @@
 ﻿Name: 安装
 Version: 1.0
 Category: 基础模块
-Dependencies: SeedModules.Mvc, SeedModules.AngularUI
+Dependencies: SeedModules.Mvc, SeedModules.AngularUI, SeedModules.Project
