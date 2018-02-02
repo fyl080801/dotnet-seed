@@ -15,12 +15,7 @@ namespace SeedModules.Admin
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            // routes.MapAreaRoute(
-            //     name: "Admin",
-            //     areaName: "SeedModules.Admin",
-            //     template: "",
-            //     defaults: new { controller = "Admin", action = "Index" }
-            // );
+
         }
     }
 }
