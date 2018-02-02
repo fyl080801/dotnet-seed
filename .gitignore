@@ -241,6 +241,13 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 
+# reference
+lib
+bower_components
+node_modules
+publish
+
+# seed build
 */Seed/App_Data/
 */Seed/Plugins/
 */Seed/Modules/

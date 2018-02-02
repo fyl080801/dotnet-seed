@@ -103,9 +103,10 @@ define('app/configs/dependencyLoader', [
         function ($stateProvider) {
             var stateFn = $stateProvider.state;
             $stateProvider.state = function (state, config) {
-                if (config.dependencies) {
+                var lazyArray = config.requires ? config.requires : config.dependencies ? config.dependencies : [];
+                if (lazyArray.length > 0) {
                     var resolve = config.resolve || {};
-                    resolve.$deps = resolveDependencies(config.dependencies);
+                    resolve.$deps = resolveDependencies(lazyArray);
                     config.resolve = resolve;
                 }
                 return stateFn(state, config);

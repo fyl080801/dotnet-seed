@@ -1,0 +1,33 @@
+{
+  "name": "dotnet-seed",
+  "version": "1.0.0",
+  "description": "cacslibrary 的 .net core 版",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fyl080801/dotnet-seed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fyl080801/dotnet-seed/issues"
+  },
+  "homepage": "https://github.com/fyl080801/dotnet-seed#readme",
+  "devDependencies": {
+    "bower": "^1.8.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-less": "*",
+    "gulp-ngmin": "^0.3.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-rename": "*",
+    "gulp-webserver": "^0.9.1",
+    "lite-server": "^1.3.4",
+    "rimraf": "^2.5.2",
+    "amd-optimize": "^0.6.1",
+    "minimist": "^1.2.0"
+  }
+}
