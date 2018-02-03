@@ -6,6 +6,7 @@ namespace SeedModules.AngularUI.Controllers
     {
         public IActionResult Index()
         {
+            
             return View();
         }
     }

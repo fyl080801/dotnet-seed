@@ -1,12 +1,15 @@
 define([
-    'app.application'
+    'app/application',
+    'SeedModules.AngularUI/ui/configs'
 ], function (application) {
     'use strict';
 
     application.requires.push('modules.angularui');
 
     return angular
-        .module('modules.angularui', [])
+        .module('modules.angularui', [
+            'modules.angularui.configs'
+        ])
         .config(['$provide', '$appConfig',
             function ($provide, $appConfig) {
                 // var app = $('#app').length > 0 ? $('#app') : null;
