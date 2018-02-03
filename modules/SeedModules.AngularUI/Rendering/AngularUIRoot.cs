@@ -29,12 +29,12 @@ namespace SeedModules.AngularUI.Rendering
             : base("script")
         {
             Attributes.Add("id", "seed-ui");
-            Attributes.Add("data-options", "{ version: '1.0', requires: [], references: {}, noDebugs: [] }");
+            Attributes.Add("data-options", "{ requires: [], references: {}, noDebugs: [] }");
         }
 
         public void SetOptions(object options)
         {
-            var optionsString = JsonConvert.SerializeObject(options);
+            var optionsString = (options is string) ? options.ToString() : JsonConvert.SerializeObject(options);
             if (Attributes.ContainsKey("data-options"))
             {
                 Attributes["data-options"] = optionsString;

@@ -1,0 +1,24 @@
+{
+    "references": {
+        "patch": {
+            "path": "SeedModules.AngularUI/js/patch"
+        },
+        "rcss": {
+            "path": "SeedModules.AngularUI/js/app"
+        },
+        "angular": {
+            "path": "SeedModules.AngularUI/js/app"
+        },
+        "app": {
+            "path": "SeedModules.AngularUI/js/app"
+        },
+        "app/application": {
+            "path": "SeedModules.AngularUI/js/app.application",
+            "shim": {
+                "deps": ["app"]
+            }
+        }
+    },
+    "requires": [],
+    "patchs": ["patch"]
+}

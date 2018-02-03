@@ -1,3 +1,5 @@
+@using SeedModules.AngularUI.Extensions;
+@model SeedModules.AngularUI.Models.OptionsModel;
 <!DOCTYPE html>
 <!--[if lte IE 8]><html lang="zh-cn" data-html-type="no-js lte-ie8"><![endif]-->
 <!--[if gt IE 8]><!-->
@@ -14,7 +16,7 @@
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/font-awesome.min.css" />
-    @(Html.AngularUI("/SeedModules.AngularUI/js/require.min.js", "/SeedModules.AngularUI/js/main.js").Options(Model))
+    @(Html.AngularUI("/SeedModules.AngularUI/js/require.min.js", "/SeedModules.AngularUI/main.js").Options(Model.Options))
 </head>
 <body ui-view>
     

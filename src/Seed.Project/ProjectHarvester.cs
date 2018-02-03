@@ -31,7 +31,6 @@ namespace Seed.Project
             _pluginManager = pluginManager;
             _hostingEnvironment = hostingEnvironment;
             _projectOptions = projectOptions;
-
             _logger = logger;
         }
 
@@ -48,36 +47,35 @@ namespace Seed.Project
 
         public static Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync(string path, ProjectHarvestingOptions options, IHostingEnvironment hostingEnvironment)
         {
-            var recipeContainerFileInfo = hostingEnvironment
+            var projectContainerFileInfo = hostingEnvironment
                 .ContentRootFileProvider
                 .GetFileInfo(path);
 
-            var recipeDescriptors = new List<ProjectDescriptor>();
+            var projectDescriptors = new List<ProjectDescriptor>();
 
-            var recipeFiles = hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(path)
+            var projectFiles = hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(path)
                 .Where(x => !x.IsDirectory && x.Name.EndsWith(".project.json"));
 
-            if (recipeFiles.Any())
+            if (projectFiles.Any())
             {
-                recipeDescriptors.AddRange(recipeFiles.Select(recipeFile =>
+                projectDescriptors.AddRange(projectFiles.Select(projectFile =>
                 {
-                    using (var stream = recipeFile.CreateReadStream())
+                    using (var stream = projectFile.CreateReadStream())
                     {
                         using (var reader = new StreamReader(stream))
                         {
                             using (var jsonReader = new JsonTextReader(reader))
                             {
-                                var serializer = new JsonSerializer();
-                                var recipeDescriptor = serializer.Deserialize<ProjectDescriptor>(jsonReader);
-                                recipeDescriptor.ProjectFileInfo = recipeFile;
-                                return recipeDescriptor;
+                                var projectDescriptor = new JsonSerializer().Deserialize<ProjectDescriptor>(jsonReader);
+                                projectDescriptor.ProjectFileInfo = projectFile;
+                                return projectDescriptor;
                             }
                         }
                     }
                 }));
             }
 
-            return Task.FromResult<IEnumerable<ProjectDescriptor>>(recipeDescriptors);
+            return Task.FromResult<IEnumerable<ProjectDescriptor>>(projectDescriptors);
         }
     }
 }

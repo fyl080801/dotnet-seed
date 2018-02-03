@@ -1,5 +1,6 @@
 define([
-    'app.application'
+    'app/application',
+    'SeedModules.AngularUI/ui/module'
 ], function (application) {
     'use strict';
 
