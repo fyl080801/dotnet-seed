@@ -9,14 +9,10 @@ namespace SeedModules.AngularUI.Controllers
     public class HomeController : Controller
     {
         readonly IUIOptionsBuilder _optionsBuilder;
-        readonly IHostingEnvironment _hostingEnvironment;
 
-        public HomeController(
-            IUIOptionsBuilder optionsBuilder,
-            IHostingEnvironment hostingEnvironment)
+        public HomeController(IUIOptionsBuilder optionsBuilder)
         {
             _optionsBuilder = optionsBuilder;
-            _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
