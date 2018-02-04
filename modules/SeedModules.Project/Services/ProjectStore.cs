@@ -1,7 +1,5 @@
 ﻿using Seed.Data;
-using Seed.Project;
-using Seed.Project.Models;
-using System;
+using SeedModules.Project.Models;
 using System.Threading.Tasks;
 
 namespace SeedModules.Project.Services

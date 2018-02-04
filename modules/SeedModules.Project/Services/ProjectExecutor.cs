@@ -8,16 +8,15 @@ using Seed.Environment.Engine;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules;
 using Seed.Modules.DeferredTasks;
-using Seed.Project.Events;
-using Seed.Project.Models;
+using SeedModules.Project.Events;
+using SeedModules.Project.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.ExceptionServices;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Project
+namespace SeedModules.Project.Services
 {
     public class ProjectExecutor : IProjectExecutor
     {

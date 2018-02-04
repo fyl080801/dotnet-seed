@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Seed.Project.Models
+namespace SeedModules.Project.Models
 {
     public class ProjectExecutionContext
     {

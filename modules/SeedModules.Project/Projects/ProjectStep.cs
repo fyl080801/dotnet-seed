@@ -1,9 +1,8 @@
-﻿using Seed.Project;
-using Seed.Project.Models;
+﻿using SeedModules.Project.Models;
+using SeedModules.Project.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SeedModules.Project.Projects

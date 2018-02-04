@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
-using Seed.Project;
-using Seed.Project.Extensions;
+using SeedModules.Project.Extensions;
 using SeedModules.Project.Projects;
 using SeedModules.Project.Services;
 

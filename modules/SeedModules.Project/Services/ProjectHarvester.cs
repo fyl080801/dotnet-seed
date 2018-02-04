@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Seed.Environment.Engine.Extensions;
 using Seed.Plugins;
-using Seed.Project.Models;
+using SeedModules.Project.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Seed.Project
+namespace SeedModules.Project.Services
 {
     public class ProjectHarvester : IProjectHarvester
     {

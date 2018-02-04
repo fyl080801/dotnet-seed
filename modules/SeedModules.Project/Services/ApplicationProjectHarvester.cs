@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 using Seed.Plugins;
-using Seed.Project.Models;
+using SeedModules.Project.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace Seed.Project
+namespace SeedModules.Project.Services
 {
     public class ApplicationProjectHarvester : IProjectHarvester
     {

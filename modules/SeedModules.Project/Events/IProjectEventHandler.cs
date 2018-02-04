@@ -1,10 +1,7 @@
-﻿using Seed.Project.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SeedModules.Project.Models;
 using System.Threading.Tasks;
 
-namespace Seed.Project.Events
+namespace SeedModules.Project.Events
 {
     public interface IProjectEventHandler
     {

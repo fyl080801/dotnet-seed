@@ -1,10 +1,8 @@
-﻿using Seed.Project.Models;
-using System;
+﻿using SeedModules.Project.Models;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Project
+namespace SeedModules.Project.Services
 {
     public interface IProjectHarvester
     {

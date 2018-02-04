@@ -5,8 +5,8 @@ using Seed.Environment.Engine.Data;
 using Seed.Modules;
 using Seed.Modules.Extensions;
 using Seed.Plugins.Extensions;
-using Seed.Project;
 using SeedModules.Common.Projects;
+using SeedModules.Project.Extensions;
 
 namespace SeedModules.Common
 {

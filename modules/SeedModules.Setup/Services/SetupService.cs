@@ -7,7 +7,7 @@ using Seed.Environment.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.DeferredTasks;
 using Seed.Modules.Setup.Events;
-using Seed.Project;
+using SeedModules.Project.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
