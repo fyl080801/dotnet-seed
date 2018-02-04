@@ -44,8 +44,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Mvc", "modules\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FFF6BEF4-8719-4817-BEFB-05AE448D5073}"
 	ProjectSection(SolutionItems) = preProject
+		.eslintrc = .eslintrc
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		bower.json = bower.json
+		gulpfile.js = gulpfile.js
+		package-lock.json = package-lock.json
+		package.json = package.json
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -65,11 +70,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Common", "modul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Admin", "modules\SeedModules.Admin\SeedModules.Admin.csproj", "{8B3261A8-2631-4CC2-86B2-0819E38FCC5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Project", "src\Seed.Project\Seed.Project.csproj", "{6A3F2F8D-A87E-4A0F-A5CC-714329000EF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Project", "src\Seed.Project\Seed.Project.csproj", "{6A3F2F8D-A87E-4A0F-A5CC-714329000EF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Project.Abstractions", "src\Seed.Project.Abstractions\Seed.Project.Abstractions.csproj", "{62013E89-3397-4A61-80EC-EA1860B04190}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Project.Abstractions", "src\Seed.Project.Abstractions\Seed.Project.Abstractions.csproj", "{62013E89-3397-4A61-80EC-EA1860B04190}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Project", "modules\SeedModules.Project\SeedModules.Project.csproj", "{57A13ACC-4498-4A53-B6FD-1D9D46CC9232}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Project", "modules\SeedModules.Project\SeedModules.Project.csproj", "{57A13ACC-4498-4A53-B6FD-1D9D46CC9232}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
