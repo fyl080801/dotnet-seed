@@ -7,5 +7,4 @@ var gulp = require('gulp'),
     ngmin = require('gulp-ngmin'),
     minimist = require('minimist'),
     amdOptimize = require('amd-optimize'),
-    webserver = require('gulp-webserver'),
     fs = require('fs');
