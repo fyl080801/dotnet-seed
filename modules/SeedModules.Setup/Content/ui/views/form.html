@@ -15,9 +15,14 @@
                     <label>功能：</label>
                     <span class="text-danger pull-right" ng-show="form.Purpose.$invalid">*必须选择功能</span>
                 </div>
-                <div>
+                <div class="input-group">
                     <select class="form-control" name="Purpose" ng-model="data.Purpose" ng-options="item.Id as item.Name for item in me.purposes"
                         required></select>
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" ng-click="me.selectProject()">
+                            <i class="fa fa-folder-open"></i>
+                        </button>
+                    </div>
                 </div>
             </fieldset>
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Name.$invalid }">

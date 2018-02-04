@@ -5,9 +5,10 @@ define([
 
     module.controller('SeedModules.Setup/ui/controllers/form', [
         '$scope',
+        '$modal',
         'app.services.popupService',
         'app.services.httpService',
-        function ($scope, popupService, httpService) {
+        function ($scope, $modal, popupService, httpService) {
             this.purposes = [{
                 Id: '1',
                 Name: '管理系统'
@@ -20,6 +21,16 @@ define([
                 Provider: 'MySql',
                 Name: 'MySql Database'
             }];
+
+            this.selectProject = function () {
+                $modal
+                    .open({
+                        template: 'aaaaaaa'
+                    }).result
+                    .then(function (data) {
+
+                    });
+            };
 
             $scope.mysql = {};
 

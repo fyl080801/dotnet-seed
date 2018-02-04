@@ -1,19 +1,19 @@
 {
     "references": {
         "patch": {
-            "path": "SeedModules.AngularUI/js/patch"
+            "path": "SeedModules.AngularUI/js/seed/patch"
         },
         "rcss": {
-            "path": "SeedModules.AngularUI/js/app"
+            "path": "SeedModules.AngularUI/js/seed/app"
         },
         "angular": {
-            "path": "SeedModules.AngularUI/js/app"
+            "path": "SeedModules.AngularUI/js/seed/app"
         },
         "app": {
-            "path": "SeedModules.AngularUI/js/app"
+            "path": "SeedModules.AngularUI/js/seed/app"
         },
         "app/application": {
-            "path": "SeedModules.AngularUI/js/app.application",
+            "path": "SeedModules.AngularUI/js/seed/app.application",
             "shim": {
                 "deps": ["app"]
             }
