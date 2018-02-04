@@ -1,11 +1,14 @@
 <div class="container" ng-controller="SeedModules.Setup/ui/controllers/form as me">
-    <div class="well">
+    <div class="well well-lg">
         <h1>安装系统</h1>
+        <hr/>
         <p>就是需要先安装一下</p>
     </div>
     <form name="form" role="form">
         <h6>
-            <i class="glyphicon glyphicon-chevron-right"></i> 基本信息</h6>
+            <i class="glyphicon glyphicon-chevron-right"></i> 基本信息
+            <hr>
+        </h6>
         <div class="row">
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.Purpose.$invalid }">
                 <div>
@@ -28,7 +31,9 @@
             </fieldset>
         </div>
         <h6>
-            <i class="glyphicon glyphicon-chevron-right"></i> 数据库信息</h6>
+            <i class="glyphicon glyphicon-chevron-right"></i> 数据库信息
+            <hr>
+        </h6>
         <div class="row">
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.DatabaseProvider.$invalid }">
                 <div>
@@ -49,64 +54,67 @@
                     <input class="form-control" placeholder="输入表前缀" name="TablePrefix" ng-model="data.TablePrefix" required />
                 </div>
             </fieldset>
-            <!-- <div ng-show="data.DatabaseProvider==='SqlConnection'" ng-init="initMsSql()">
-                <fieldset class="form-group col-md-6">
+
+            <div ng-show="data.DatabaseProvider==='SqlConnection'" ng-init="initMsSql()">
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mssql_Server.$invalid }">
                     <div>
                         <label>服务地址：</label>
+                        <span class="text-danger pull-right" ng-show="form.mssql_Server.$invalid">*服务地址是必填的</span>
                     </div>
                     <div>
-                        <input class="form-control" placeholder="输入服务地址" ng-model="mssql.Server" />
+                        <input class="form-control" name="mssql_Server" placeholder="输入服务地址" ng-model="mssql.Server" ng-required="data.DatabaseProvider==='SqlConnection'"
+                        />
                     </div>
                 </fieldset>
-                <fieldset class="form-group col-md-6">
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mssql_Database.$invalid }">
                     <div>
                         <label>数据库名称：</label>
+                        <span class="text-danger pull-right" ng-show="form.mssql_Database.$invalid">*数据库名称是必填的</span>
                     </div>
                     <div>
-                        <input class="form-control" placeholder="输入数据库名称" ng-model="mssql.Database" />
+                        <input class="form-control" name="mssql_Database" placeholder="输入数据库名称" ng-model="mssql.Database" ng-required="data.DatabaseProvider==='SqlConnection'"
+                        />
                     </div>
                 </fieldset>
-                <fieldset class="form-group col-md-6">
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mssql_Username.$invalid }">
                     <div>
                         <label>数据库账号：</label>
+                        <span class="text-danger pull-right" ng-show="form.mssql_Username.$invalid">*数据库账号是必填的</span>
                     </div>
                     <div>
-                        <input class="form-control" placeholder="输入账号" ng-model="mssql.Username" />
+                        <input class="form-control" name="mssql_Username" placeholder="输入账号" ng-model="mssql.Username" ng-required="data.DatabaseProvider==='SqlConnection'"
+                        />
                     </div>
                 </fieldset>
-                <fieldset class="form-group col-md-6">
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mssql_Password.$invalid }">
                     <div>
                         <label>数据库密码：</label>
+                        <span class="text-danger pull-right" ng-show="form.mssql_Password.$invalid">*数据库密码是必填的</span>
                     </div>
                     <div>
-                        <input type="password" class="form-control" placeholder="输入密码" ng-model="mssql.Password" />
+                        <input type="password" class="form-control" name="mssql_Password" placeholder="输入密码" ng-model="mssql.Password" ng-required="data.DatabaseProvider==='SqlConnection'"
+                        />
                     </div>
                 </fieldset>
             </div>
 
             <div ng-show="data.DatabaseProvider==='MySql'">
-                <fieldset class="form-group col-md-12">
+                <fieldset class="form-group col-md-12" ng-class="{ 'has-error': form.mysql_ConnectionString.$invalid }">
                     <div>
                         <label>连接字符串：</label>
+                        <span class="text-danger pull-right" ng-show="form.mysql_ConnectionString.$invalid">*连接字符串是必填的</span>
                     </div>
                     <div>
-                        <input class="form-control" placeholder="输入连接字符串" ng-model="mysql.ConnectionString" />
+                        <input class="form-control" name="mysql_ConnectionString" placeholder="输入连接字符串" ng-model="mysql.ConnectionString" ng-required="data.DatabaseProvider==='MySql'"
+                        />
                     </div>
                 </fieldset>
             </div>
-            <input type="hidden" name="ConnectionString" ng-model="data.ConnectionString" /> -->
-            <fieldset class="form-group col-md-12">
-                <div>
-                    <label>连接字符串：</label>
-                </div>
-                <div>
-                    <input class="form-control" placeholder="输入连接字符串" ng-model="data.ConnectionString" />
-                </div>
-                <span>Data Source=.;Initial Catalog=seeddb;Integrated Security=False;User ID=sa;Password=qazwsxedc;</span>
-            </fieldset>
         </div>
         <h6>
-            <i class="glyphicon glyphicon-chevron-right"></i> 用户信息</h6>
+            <i class="glyphicon glyphicon-chevron-right"></i> 用户信息
+            <hr>
+        </h6>
         <div class="row">
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.UserName.$invalid }">
                 <div>

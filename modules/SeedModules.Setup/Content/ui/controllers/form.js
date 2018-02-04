@@ -21,16 +21,39 @@ define([
                 Name: 'MySql Database'
             }];
 
+            $scope.mysql = {};
+
             $scope.mssql = {};
 
-            $scope.data = {};
+            $scope.data = {
+                Name: 'seeddefault',
+                TablePrefix: 'seeddefault',
+                UserName: 'admin',
+                Email: 'fyl080801@hotmail.com',
+                Password: '123',
+                PasswordConfirmation: '123'
+            };
 
             $scope.initMsSql = function () {
                 $scope.mssql.Server = '.';
                 $scope.mssql.Username = 'sa';
+                $scope.mssql.Database = 'seeddb';
+                $scope.mssql.Password = 'qazwsxedc';
             };
 
             $scope.install = function () {
+                switch (data.DatabaseProvider) {
+                    case 'SqlConnection':
+                        $scope.data.ConnectionString = 'Data Source=' + $scope.mssql.Server + ';Initial Catalog=' + $scope.mssql.Database + ';User ID=' + $scope.mssql.Username + ';Password=' + $scope.mssql.Password + ';';
+                        break;
+                    case 'MySql':
+                        $scope.data.ConnectionString = $scope.mysql.ConnectionString;
+                        break;
+                    default:
+                        $scope.data.ConnectionString = '';
+                        break;
+                }
+
                 httpService
                     .post('/api/setup', $scope.data)
                     .then(function (result) {
