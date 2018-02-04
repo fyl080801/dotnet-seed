@@ -19,7 +19,7 @@ define([
                 $stateProvider.state('setup', {
                     url: '/setup',
                     templateUrl: 'SeedModules.Setup/ui/views/form.html',
-                    requires: ['SeedModules.Setup/ui/requires']
+                    requires: ['SeedModules.AngularUI/ui/requires', 'SeedModules.Setup/ui/requires']
                 });
             }
         ]);

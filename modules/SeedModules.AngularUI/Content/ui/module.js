@@ -1,6 +1,7 @@
 define([
     'app/application',
-    'SeedModules.AngularUI/ui/configs'
+    'SeedModules.AngularUI/ui/configs/httpConfig',
+    'SeedModules.AngularUI/ui/configs/storeAdapter'
 ], function (application) {
     'use strict';
 

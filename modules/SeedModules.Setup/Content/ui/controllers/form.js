@@ -22,10 +22,14 @@ define([
                 Name: 'MySql Database'
             }];
 
-            this.selectProject = function () {
+            this.selectProject = function (elmId) {
+                $('#' + elmId).trigger('click');
+            };
+
+            $scope.projectChanged = function (elmId) {
                 $modal
                     .open({
-                        template: 'aaaaaaa'
+                        template: 'aaa'
                     }).result
                     .then(function (data) {
 
