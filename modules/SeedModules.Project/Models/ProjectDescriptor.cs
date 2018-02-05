@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.FileProviders;
 using System;
+using System.IO;
 
 namespace SeedModules.Project.Models
 {
@@ -24,7 +25,9 @@ namespace SeedModules.Project.Models
         public string[] Categories { get; set; }
 
         public string[] Tags { get; set; }
-        
+
         public IFileInfo ProjectFileInfo { get; set; }
+
+        public Stream ProjectStream { get; set; }
     }
 }

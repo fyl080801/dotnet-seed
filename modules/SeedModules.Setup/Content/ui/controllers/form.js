@@ -9,31 +9,12 @@ define([
         'app.services.popupService',
         'app.services.httpService',
         function ($scope, $modal, popupService, httpService) {
-            this.purposes = [{
-                Id: '1',
-                Name: '管理系统'
-            }];
-
-            this.databaseProviders = [{
-                Provider: 'SqlConnection',
-                Name: 'Microsoft SQLServer'
-            }, {
-                Provider: 'MySql',
-                Name: 'MySql Database'
-            }];
-
-            this.selectProject = function (elmId) {
-                $('#' + elmId).trigger('click');
+            $scope.setupForm = {
+                url: '/api/setup'
             };
 
-            $scope.projectChanged = function (elmId) {
-                $modal
-                    .open({
-                        template: 'aaa'
-                    }).result
-                    .then(function (data) {
+            $scope.projectFile = {
 
-                    });
             };
 
             $scope.mysql = {};
@@ -49,6 +30,16 @@ define([
                 PasswordConfirmation: '123'
             };
 
+            // $scope.projectChanged = function () {
+            //     $scope.fileForm
+            //         .submit()
+            //         .then(function (result) {
+            //             $scope.projectFile.clear();
+            //         }, function (result) {
+            //             $scope.projectFile.clear();
+            //         });
+            // };
+
             $scope.initMsSql = function () {
                 $scope.mssql.Server = '.';
                 $scope.mssql.Username = 'sa';
@@ -57,7 +48,7 @@ define([
             };
 
             $scope.install = function () {
-                switch (data.DatabaseProvider) {
+                switch ($scope.data.DatabaseProvider) {
                     case 'SqlConnection':
                         $scope.data.ConnectionString = 'Data Source=' + $scope.mssql.Server + ';Initial Catalog=' + $scope.mssql.Database + ';User ID=' + $scope.mssql.Username + ';Password=' + $scope.mssql.Password + ';';
                         break;
@@ -69,12 +60,34 @@ define([
                         break;
                 }
 
-                httpService
-                    .post('/api/setup', $scope.data)
+                $scope.setupForm
+                    .submit({
+                        data: {
+                            DatabaseProvider: $scope.data.DatabaseProvider,
+                            ConnectionString: $scope.data.ConnectionString
+                        }
+                    })
                     .then(function (result) {
-                        popupService.information(result);
+
                     });
             };
+
+            this.selectProject = function () {
+                $scope.projectFile.open();
+            };
+
+            this.purposes = [{
+                Id: '1',
+                Name: '管理系统'
+            }];
+
+            this.databaseProviders = [{
+                Provider: 'SqlConnection',
+                Name: 'Microsoft SQLServer'
+            }, {
+                Provider: 'MySql',
+                Name: 'MySql Database'
+            }];
         }
     ]);
 });

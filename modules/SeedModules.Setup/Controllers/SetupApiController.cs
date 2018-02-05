@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SeedModules.Project.Services;
+using SeedModules.Project.Models;
 
 namespace SeedModules.Setup.Controllers
 {
@@ -14,38 +16,63 @@ namespace SeedModules.Setup.Controllers
     {
         ISetupService _setupService;
         EngineSettings _engineSettings;
+        IProjectReader _projectReader;
 
-        public SetupApiController(ISetupService setupService, EngineSettings engineSettings)
+        public SetupApiController(
+            ISetupService setupService,
+            EngineSettings engineSettings,
+            IProjectReader projectReader)
         {
             _setupService = setupService;
             _engineSettings = engineSettings;
+            _projectReader = projectReader;
         }
 
         [HttpPost]
-        public async Task DoSetup([FromBody]SetupModel model)
+        [Route("project")]
+        public async Task<ProjectDescriptor> ChangeProject()
         {
-            var setupContext = new SetupContext
-            {
-                Name = model.Name,
-                EnabledFeatures = null,// 回头加上默认的
-                AdminUsername = model.UserName,
-                AdminEmail = model.Email,
-                AdminPassword = model.Password,
-                Errors = new Dictionary<string, string>(),
-                DatabaseConnectionString = model.ConnectionString,
-                DatabaseProvider = model.DatabaseProvider,
-                DatabaseTablePrefix = model.TablePrefix
-            };
+            if (Request.Form.Files.Count <= 0)
+                throw new Exception("未选择任何文件");
 
-            await _setupService.SetupAsync(setupContext);
-
-            if (setupContext.Errors.Any())
+            using (var stream = Request.Form.Files[0].OpenReadStream())
             {
-                foreach (var error in setupContext.Errors)
+                return await Task.FromResult(_projectReader.ReadDescriptor(stream));
+            }
+        }
+
+        [HttpPost]
+        public async Task DoSetup([FromForm]SetupModel model)
+        {
+            if (Request.Form.Files.Count <= 0)
+                throw new Exception("未选择任何项目文件");
+
+            using (var stream = Request.Form.Files[0].OpenReadStream())
+            {
+                var setupContext = new SetupContext
                 {
-                    //ModelState.AddModelError(error.Key, error.Value);
+                    Name = model.Name,
+                    EnabledFeatures = null,// 回头加上默认的
+                    AdminUsername = model.UserName,
+                    AdminEmail = model.Email,
+                    AdminPassword = model.Password,
+                    Errors = new Dictionary<string, string>(),
+                    DatabaseConnectionString = model.ConnectionString,
+                    DatabaseProvider = model.DatabaseProvider,
+                    DatabaseTablePrefix = model.TablePrefix,
+                    Project = await Task.FromResult(_projectReader.ReadDescriptor(stream))
+                };
+
+                await _setupService.SetupAsync(setupContext);
+
+                if (setupContext.Errors.Any())
+                {
+                    foreach (var error in setupContext.Errors)
+                    {
+                        //ModelState.AddModelError(error.Key, error.Value);
+                    }
+                    throw new Exception();
                 }
-                throw new Exception();
             }
         }
     }

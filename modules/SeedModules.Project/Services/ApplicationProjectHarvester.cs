@@ -9,23 +9,26 @@ namespace SeedModules.Project.Services
 {
     public class ApplicationProjectHarvester : IProjectHarvester
     {
-        private readonly IPluginManager _pluginManager;
-        private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IOptions<ProjectHarvestingOptions> _projectOptions;
+        readonly IPluginManager _pluginManager;
+        readonly IHostingEnvironment _hostingEnvironment;
+        readonly IOptions<ProjectHarvestingOptions> _projectOptions;
+        readonly IProjectReader _projectReader;
 
         public ApplicationProjectHarvester(
             IPluginManager pluginManager,
             IHostingEnvironment hostingEnvironment,
-            IOptions<ProjectHarvestingOptions> projectOptions)
+            IOptions<ProjectHarvestingOptions> projectOptions,
+            IProjectReader projectReader)
         {
             _pluginManager = pluginManager;
             _hostingEnvironment = hostingEnvironment;
             _projectOptions = projectOptions;
+            _projectReader = projectReader;
         }
 
         public Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync()
         {
-            return ProjectHarvester.HarvestProjectsAsync("Projects", _projectOptions.Value, _hostingEnvironment);
+            return ProjectHarvester.HarvestProjectsAsync("Projects", _projectOptions.Value, _hostingEnvironment, _projectReader);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace SeedModules.Project.Extensions
         public static IServiceCollection AddProject(this IServiceCollection services)
         {
             services.AddScoped<IProjectHarvester, ApplicationProjectHarvester>();
+            services.AddScoped<IProjectReader, JsonProjectReader>();
             services.AddScoped<IProjectHarvester, ProjectHarvester>();
             services.AddScoped<IProjectExecutor, ProjectExecutor>();
 

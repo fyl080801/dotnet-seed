@@ -9,9 +9,6 @@ namespace SeedModules.Setup.ViewModels
     {
         public string Name { get; set; }
 
-        [Required]
-        public string Purpose { get; set; }
-
         public string DatabaseProvider { get; set; }
 
         public string ConnectionString { get; set; }

@@ -14,9 +14,10 @@ namespace SeedModules.Project.Services
 {
     public class ProjectHarvester : IProjectHarvester
     {
-        private readonly IPluginManager _pluginManager;
-        private readonly IHostingEnvironment _hostingEnvironment;
-        private readonly IOptions<ProjectHarvestingOptions> _projectOptions;
+        readonly IPluginManager _pluginManager;
+        readonly IHostingEnvironment _hostingEnvironment;
+        readonly IOptions<ProjectHarvestingOptions> _projectOptions;
+        readonly IProjectReader _projectReader;
 
         ILogger _logger;
 
@@ -24,11 +25,13 @@ namespace SeedModules.Project.Services
             IPluginManager pluginManager,
             IHostingEnvironment hostingEnvironment,
             IOptions<ProjectHarvestingOptions> projectOptions,
+            IProjectReader projectReader,
             ILogger<ProjectHarvester> logger)
         {
             _pluginManager = pluginManager;
             _hostingEnvironment = hostingEnvironment;
             _projectOptions = projectOptions;
+            _projectReader = projectReader;
             _logger = logger;
         }
 
@@ -40,10 +43,10 @@ namespace SeedModules.Project.Services
         private Task<IEnumerable<ProjectDescriptor>> HarvestProjects(IPluginInfo plugin)
         {
             var folderSubPath = Path.Combine(plugin.Path, "Projects");
-            return HarvestProjectsAsync(folderSubPath, _projectOptions.Value, _hostingEnvironment);
+            return HarvestProjectsAsync(folderSubPath, _projectOptions.Value, _hostingEnvironment, _projectReader);
         }
 
-        public static Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync(string path, ProjectHarvestingOptions options, IHostingEnvironment hostingEnvironment)
+        public static Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync(string path, ProjectHarvestingOptions options, IHostingEnvironment hostingEnvironment, IProjectReader projectReader)
         {
             var projectContainerFileInfo = hostingEnvironment
                 .ContentRootFileProvider
@@ -56,21 +59,7 @@ namespace SeedModules.Project.Services
 
             if (projectFiles.Any())
             {
-                projectDescriptors.AddRange(projectFiles.Select(projectFile =>
-                {
-                    using (var stream = projectFile.CreateReadStream())
-                    {
-                        using (var reader = new StreamReader(stream))
-                        {
-                            using (var jsonReader = new JsonTextReader(reader))
-                            {
-                                var projectDescriptor = new JsonSerializer().Deserialize<ProjectDescriptor>(jsonReader);
-                                projectDescriptor.ProjectFileInfo = projectFile;
-                                return projectDescriptor;
-                            }
-                        }
-                    }
-                }));
+                projectDescriptors.AddRange(projectFiles.Select(projectReader.ReadDescriptor));
             }
 
             return Task.FromResult<IEnumerable<ProjectDescriptor>>(projectDescriptors);

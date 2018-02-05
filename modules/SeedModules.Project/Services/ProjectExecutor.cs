@@ -57,7 +57,13 @@ namespace SeedModules.Project.Services
 
                 await _projectStore.CreateAsync(result);
 
-                using (var stream = projectDescriptor.ProjectFileInfo.CreateReadStream())
+                var stream = projectDescriptor.ProjectFileInfo != null
+                    ? projectDescriptor.ProjectFileInfo.CreateReadStream() : projectDescriptor.ProjectStream;
+
+                if (stream == null)
+                    throw new Exception("Project 不包含内容");
+
+                using (stream)
                 {
                     using (var file = new StreamReader(stream))
                     {

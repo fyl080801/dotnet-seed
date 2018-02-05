@@ -17,6 +17,13 @@
             "shim": {
                 "deps": ["app"]
             }
+        },
+        "jquery-form": {
+            "path": "SeedModules.AngularUI/js/jquery-form/jquery.form.min",
+            "shim": {
+                "deps": ["app"]
+            },
+            "noDebug": true
         }
     },
     "requires": [],
