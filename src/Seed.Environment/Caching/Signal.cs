@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Seed.Environment.Cache
+namespace Seed.Environment.Caching
 {
     public class Signal : ISignal
     {

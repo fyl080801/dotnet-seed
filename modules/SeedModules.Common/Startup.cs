@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Data.Extensions;
-using Seed.Environment.Cache.Extensions;
+using Seed.Environment.Caching.Extensions;
 using Seed.Environment.Engine.Data;
 using Seed.Modules;
 using Seed.Modules.Extensions;

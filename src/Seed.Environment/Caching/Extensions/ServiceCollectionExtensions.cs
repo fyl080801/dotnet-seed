@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Seed.Environment.Cache.Extensions
+namespace Seed.Environment.Caching.Extensions
 {
     public static class ServiceCollectionExtensions
     {

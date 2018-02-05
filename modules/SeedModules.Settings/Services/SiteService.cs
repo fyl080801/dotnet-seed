@@ -4,7 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Seed.Data;
-using Seed.Environment.Cache;
+using Seed.Environment.Caching;
 using Seed.Modules.Site;
 using SeedModules.Settings.Domain;
 using System;

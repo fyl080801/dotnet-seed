@@ -5,7 +5,7 @@ using System.Text;
 namespace Seed.Environment.Engine
 {
     /// <summary>
-    /// 
+    /// 管理定位运行中的租户 Engine
     /// </summary>
     public interface IRunningEngineTable
     {

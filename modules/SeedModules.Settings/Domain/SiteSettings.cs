@@ -20,11 +20,11 @@ namespace SeedModules.Settings.Domain
         public string SuperUser { get; set; }
     }
 
-    public class SiteSettingsConfiguration : IEntityTypeConfiguration<SiteSettings>
-    {
-        public void Configure(EntityTypeBuilder<SiteSettings> builder)
-        {
+    // public class SiteSettingsConfiguration : IEntityTypeConfiguration<SiteSettings>
+    // {
+    //     public void Configure(EntityTypeBuilder<SiteSettings> builder)
+    //     {
 
-        }
-    }
+    //     }
+    // }
 }

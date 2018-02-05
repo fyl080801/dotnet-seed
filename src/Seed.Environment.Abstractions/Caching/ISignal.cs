@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Environment.Cache
+namespace Seed.Environment.Caching
 {
     public interface ISignal
     {

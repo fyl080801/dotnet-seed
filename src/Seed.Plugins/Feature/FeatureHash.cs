@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
-using Seed.Environment.Cache;
+using Seed.Environment.Caching;
 using Seed.Environment.Engine;
 using System.Linq;
 using System.Threading.Tasks;
