@@ -27,7 +27,5 @@ namespace SeedModules.Project.Models
         public string[] Tags { get; set; }
 
         public IFileInfo ProjectFileInfo { get; set; }
-
-        public Stream ProjectStream { get; set; }
     }
 }

@@ -35,10 +35,7 @@ namespace SeedModules.Setup.Controllers
             if (Request.Form.Files.Count <= 0)
                 throw new Exception("未选择任何文件");
 
-            using (var stream = Request.Form.Files[0].OpenReadStream())
-            {
-                return await Task.FromResult(_projectReader.ReadDescriptor(stream));
-            }
+            return await Task.FromResult(_projectReader.ReadDescriptor(new FormFileInfo(Request.Form.Files[0])));
         }
 
         [HttpPost]
@@ -47,32 +44,29 @@ namespace SeedModules.Setup.Controllers
             if (Request.Form.Files.Count <= 0)
                 throw new Exception("未选择任何项目文件");
 
-            using (var stream = Request.Form.Files[0].OpenReadStream())
+            var setupContext = new SetupContext
             {
-                var setupContext = new SetupContext
-                {
-                    Name = model.Name,
-                    EnabledFeatures = null,// 回头加上默认的
-                    AdminUsername = model.UserName,
-                    AdminEmail = model.Email,
-                    AdminPassword = model.Password,
-                    Errors = new Dictionary<string, string>(),
-                    DatabaseConnectionString = model.ConnectionString,
-                    DatabaseProvider = model.DatabaseProvider,
-                    DatabaseTablePrefix = model.TablePrefix,
-                    Project = await Task.FromResult(_projectReader.ReadDescriptor(stream))
-                };
+                Name = model.Name,
+                EnabledFeatures = null,// 回头加上默认的
+                AdminUsername = model.UserName,
+                AdminEmail = model.Email,
+                AdminPassword = model.Password,
+                Errors = new Dictionary<string, string>(),
+                DatabaseConnectionString = model.ConnectionString,
+                DatabaseProvider = model.DatabaseProvider,
+                DatabaseTablePrefix = model.TablePrefix,
+                Project = await Task.FromResult(_projectReader.ReadDescriptor(new FormFileInfo(Request.Form.Files[0])))
+            };
 
-                await _setupService.SetupAsync(setupContext);
+            await _setupService.SetupAsync(setupContext);
 
-                if (setupContext.Errors.Any())
+            if (setupContext.Errors.Any())
+            {
+                foreach (var error in setupContext.Errors)
                 {
-                    foreach (var error in setupContext.Errors)
-                    {
-                        //ModelState.AddModelError(error.Key, error.Value);
-                    }
-                    throw new Exception();
+                    //ModelState.AddModelError(error.Key, error.Value);
                 }
+                throw new Exception();
             }
         }
     }

@@ -12,6 +12,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace Seed.Data
 {
@@ -21,6 +22,8 @@ namespace Seed.Data
         readonly IDbContext _dbContext;
         readonly DbSet<Document> _document;
         readonly Type _entityType;
+        readonly string _entityTypeName;
+        readonly Type _documentType = typeof(Document);
         readonly IEnumerable<PropertyInfo> _keyCollection;
 
         LocalView<TEntity> _local;
@@ -30,8 +33,14 @@ namespace Seed.Data
             _dbContext = dbContext;
             _document = dbContext.Set<Document>();
             _entityType = typeof(TEntity);
-            _keyCollection = _entityType.GetProperties()
+            _entityTypeName = _entityType.ToString();
+
+            var documentKeys = typeof(Document).GetProperties()
                 .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0)
+                .AsEnumerable();
+
+            _keyCollection = _entityType.GetProperties()
+                .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0 && documentKeys.Any(x => x.Name == e.Name && x.PropertyType == e.PropertyType))
                 .AsEnumerable();
         }
 
@@ -55,9 +64,11 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
-            var documents = GetQueryableEntities().ToList();
-            documents.Add(entity);
-            UpdateDocument(documents);
+            _document.Add(new Document()
+            {
+                Type = _entityTypeName,
+                Content = JsonConvert.SerializeObject(entity)
+            });
             return null;
         }
 
@@ -68,9 +79,10 @@ namespace Seed.Data
 
         public override void AddRange(IEnumerable<TEntity> entities)
         {
-            var documents = GetQueryableEntities().ToList();
-            documents.AddRange(entities);
-            UpdateDocument(documents);
+            foreach (var entity in entities)
+            {
+                Add(entity);
+            }
         }
 
         public override void AddRange(params TEntity[] entities)
@@ -90,23 +102,8 @@ namespace Seed.Data
 
         public override TEntity Find(params object[] keyValues)
         {
-            var documents = GetQueryableEntities().ToList();
-            return documents.Find(e =>
-            {
-                bool isContain = false;
-                foreach (var key in _keyCollection)
-                {
-                    foreach (var val in keyValues)
-                    {
-                        isContain = key.GetValue(e) == val;
-                        if (isContain)
-                        {
-                            return isContain;
-                        }
-                    }
-                }
-                return isContain;
-            });
+            var document = _document.Find(keyValues);
+            return document == null ? null : ResolveKeyValue(document, JsonConvert.DeserializeObject<TEntity>(document.Content));
         }
 
         public override Task<TEntity> FindAsync(object[] keyValues, CancellationToken cancellationToken)
@@ -121,22 +118,18 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Remove(TEntity entity)
         {
-            var documents = GetQueryableEntities().ToList();
-            var oldItem = documents.Find(e => e.Equals(entity));
-            documents.Remove(oldItem);
-            UpdateDocument(documents);
+            var keys = _keyCollection.Select(e => e.GetValue(entity)).ToArray();
+            var document = _document.Find(keys);
+            _document.Remove(document);
             return null;
         }
 
         public override void RemoveRange(IEnumerable<TEntity> entities)
         {
-            var documents = GetQueryableEntities().ToList();
-            var removes = documents.Where(e => entities.Contains(e));
-            foreach (var entity in removes)
+            foreach (var entity in entities)
             {
-                documents.Remove(entity);
+                Remove(entity);
             }
-            UpdateDocument(documents);
         }
 
         public override void RemoveRange(params TEntity[] entities)
@@ -146,59 +139,48 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Update(TEntity entity)
         {
-            return base.Update(entity);
+            var keys = _keyCollection.Select(e => e.GetValue(entity)).ToArray();
+            var document = _document.Find(keys);
+            document.Content = JsonConvert.SerializeObject(entity);
+            _document.Update(document);
+            return null;
         }
 
         public override void UpdateRange(IEnumerable<TEntity> entities)
         {
-            base.UpdateRange(entities);
+            foreach (var entity in entities)
+            {
+                Update(entity);
+            }
         }
 
         public override void UpdateRange(params TEntity[] entities)
         {
-            base.UpdateRange(entities);
-        }
-
-        private Document GetDocument()
-        {
-            var typeName = typeof(TEntity).FullName;
-            return _document.Where(e => e.Type == typeName).FirstOrDefault() ?? new Document()
-            {
-                Content = "[]",
-                Type = typeName
-            };
+            RemoveRange((entities ?? new TEntity[0]).AsEnumerable());
         }
 
         private IQueryable<TEntity> GetQueryableEntities()
         {
-            return JsonConvert.DeserializeObject<TEntity[]>(GetDocument().Content).AsQueryable();
+            return _document.Where(e => e.Type == _entityTypeName)
+                .ToArray()
+                .Select(e => ResolveKeyValue(e, JsonConvert.DeserializeObject<TEntity>(e.Content)))
+                .AsQueryable();
         }
 
-        private void UpdateDocument(IEnumerable<TEntity> entities)
+        private TEntity ResolveKeyValue(Document document, TEntity entity)
         {
-            var typeName = typeof(TEntity).FullName;
-            var content = JsonConvert.SerializeObject(entities.ToArray());
-            var document = _document.Where(e => e.Type == typeName).FirstOrDefault();
-            if (document == null)
+            foreach (var key in _keyCollection)
             {
-                document = new Document()
-                {
-                    Content = content,
-                    Type = typeName
-                };
-                _document.Add(document);
+                key.SetValue(entity, _documentType.GetProperty(key.Name).GetValue(document));
             }
-            else
-            {
-                document.Content = content;
-            }
+            return entity;
         }
 
         IAsyncEnumerable<TEntity> IAsyncEnumerableAccessor<TEntity>.AsyncEnumerable
             => GetQueryableEntities().ToAsyncEnumerable();
 
         Type IQueryable.ElementType
-            => typeof(TEntity);
+            => _entityType;
 
         Expression IQueryable.Expression
             => GetQueryableEntities().Expression;
