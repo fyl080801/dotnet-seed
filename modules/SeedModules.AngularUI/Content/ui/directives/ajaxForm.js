@@ -47,7 +47,7 @@ define([
                         return defer.promise;
                     };
                 }
-            }
+            };
         }
     ]);
 });
