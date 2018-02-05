@@ -25,6 +25,8 @@ namespace Seed.Data
         readonly string _entityTypeName;
         readonly Type _documentType = typeof(Document);
         readonly IEnumerable<PropertyInfo> _keyCollection;
+        // private Expression _expression;
+        // private IQueryProvider _provider;
 
         LocalView<TEntity> _local;
 
@@ -34,6 +36,9 @@ namespace Seed.Data
             _document = dbContext.Set<Document>();
             _entityType = typeof(TEntity);
             _entityTypeName = _entityType.ToString();
+
+            // _provider = new DocumentQueryProvider<TEntity>(_document, _keyCollection);
+            // _expression = Expression.Constant(_document);
 
             var documentKeys = typeof(Document).GetProperties()
                 .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0)
@@ -159,12 +164,9 @@ namespace Seed.Data
             RemoveRange((entities ?? new TEntity[0]).AsEnumerable());
         }
 
-        private IQueryable<TEntity> GetQueryableEntities()
+        private IEnumerable<TEntity> GetEntityQuery()
         {
-            return _document.Where(e => e.Type == _entityTypeName)
-                .ToArray()
-                .Select(e => ResolveKeyValue(e, JsonConvert.DeserializeObject<TEntity>(e.Content)))
-                .AsQueryable();
+            return _dbContext.Set<Document>().Where(e => e.Type == _entityTypeName).Select(e => ResolveKeyValue(e, JsonConvert.DeserializeObject<TEntity>(e.Content))).ToArray();
         }
 
         private TEntity ResolveKeyValue(Document document, TEntity entity)
@@ -176,29 +178,24 @@ namespace Seed.Data
             return entity;
         }
 
-        IAsyncEnumerable<TEntity> IAsyncEnumerableAccessor<TEntity>.AsyncEnumerable
-            => GetQueryableEntities().ToAsyncEnumerable();
+        IAsyncEnumerable<TEntity> IAsyncEnumerableAccessor<TEntity>.AsyncEnumerable => throw new NotImplementedException();
 
-        Type IQueryable.ElementType
-            => _entityType;
+        Type IQueryable.ElementType => _entityType;
 
-        Expression IQueryable.Expression
-            => GetQueryableEntities().Expression;
+        Expression IQueryable.Expression => GetEntityQuery().AsQueryable().Expression;
 
-        IQueryProvider IQueryable.Provider
-            => new DocumentQueryProvider<TEntity>(GetQueryableEntities());
+        IQueryProvider IQueryable.Provider => GetEntityQuery().AsQueryable().Provider;
 
-        IServiceProvider IInfrastructure<IServiceProvider>.Instance
-            => _dbContext.Context.GetInfrastructure();
+        IServiceProvider IInfrastructure<IServiceProvider>.Instance => _dbContext.Context.GetInfrastructure();
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetQueryableEntities().GetEnumerator();
+            return GetEntityQuery().GetEnumerator();
         }
 
         IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator()
         {
-            return GetQueryableEntities().GetEnumerator();
+            return GetEntityQuery().GetEnumerator();
         }
     }
 }

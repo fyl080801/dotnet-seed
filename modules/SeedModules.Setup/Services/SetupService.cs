@@ -46,7 +46,7 @@ namespace SeedModules.Setup.Services
 
         private async Task<string> ExecuteSetupAsync(SetupContext context)
         {
-            string[] defaultEnables =
+            var defaultEnables = new string[]
             {
                 "SeedModules.Common",
                 "SeedModules.Project",

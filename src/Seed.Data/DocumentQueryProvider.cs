@@ -6,26 +6,32 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Reflection;
+using Newtonsoft.Json;
 
 namespace Seed.Data
 {
-    public class DocumentQueryProvider<TEntity> : IAsyncQueryProvider
+    public class DocumentQueryProvider<TEntity> : IAsyncQueryProvider where TEntity : class
     {
-        IQueryable<TEntity> _queryable;
+        IQueryable<Document> _queryable;
+        IEnumerable<PropertyInfo> _keyCollection;
+        Type _documentType;
 
-        public DocumentQueryProvider(IQueryable<TEntity> queryable)
+        public DocumentQueryProvider(IQueryable<Document> queryable, IEnumerable<PropertyInfo> keyCollection)
         {
             _queryable = queryable;
+            _keyCollection = keyCollection;
+            _documentType = typeof(Document);
         }
 
         public IQueryable CreateQuery(Expression expression)
         {
-            return _queryable.Provider.CreateQuery(expression);
+            return _queryable.Select(e => ResolveKeyValue(e, JsonConvert.DeserializeObject<TEntity>(e.Content))).ToArray().AsQueryable().Provider.CreateQuery(expression);
         }
 
         public IQueryable<TElement> CreateQuery<TElement>(Expression expression)
         {
-            return _queryable.Provider.CreateQuery<TElement>(expression);
+            throw new NotImplementedException();
         }
 
         public object Execute(Expression expression)
@@ -46,6 +52,15 @@ namespace Seed.Data
         public Task<TResult> ExecuteAsync<TResult>(Expression expression, CancellationToken cancellationToken)
         {
             return Task.Run(() => Execute<TResult>(expression), cancellationToken);
+        }
+
+        private TEntity ResolveKeyValue(Document document, TEntity entity)
+        {
+            foreach (var key in _keyCollection)
+            {
+                key.SetValue(entity, _documentType.GetProperty(key.Name).GetValue(document));
+            }
+            return entity;
         }
     }
 }
