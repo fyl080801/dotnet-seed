@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Seed.Environment.Engine.Descriptors
 {
@@ -10,12 +11,13 @@ namespace Seed.Environment.Engine.Descriptors
         /// <summary>
         /// Id
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
         /// 序列号
         /// </summary>
-        public string SerialNumber { get; set; }
+        public int SerialNumber { get; set; }
 
         /// <summary>
         /// 特性集合

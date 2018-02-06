@@ -19,12 +19,12 @@ namespace SeedModules.AngularUI
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            routes.MapAreaRoute(
-                name: "AngularUI",
-                areaName: "SeedModules.AngularUI",
-                template: "",
-                defaults: new { controller = "Home", action = "Index" }
-            );
+            //routes.MapAreaRoute(
+            //    name: "AngularUI",
+            //    areaName: "SeedModules.AngularUI",
+            //    template: "",
+            //    defaults: new { controller = "Home", action = "Index" }
+            //);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace SeedModules.Project.Models
 {
     public class ProjectResult
     {
+        [Key]
         public int Id { get; set; }
 
         public string ExecutionId { get; set; }

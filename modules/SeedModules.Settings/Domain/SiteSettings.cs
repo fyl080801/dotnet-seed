@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeedModules.Settings.Domain
 {
-    [Table("SiteSettings")]
+    //[Table("SiteSettings")]
     public class SiteSettings : ISiteInfo
     {
         [Key]

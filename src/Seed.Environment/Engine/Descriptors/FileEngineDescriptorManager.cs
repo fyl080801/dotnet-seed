@@ -16,7 +16,7 @@ namespace Seed.Environment.Engine.Descriptors
             throw new NotImplementedException();
         }
 
-        public Task UpdateEngineDescriptorAsync(string serialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters)
+        public Task UpdateEngineDescriptorAsync(int serialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters)
         {
             throw new NotImplementedException();
         }

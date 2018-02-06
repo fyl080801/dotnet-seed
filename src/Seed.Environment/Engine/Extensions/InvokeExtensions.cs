@@ -8,6 +8,21 @@ namespace Seed.Environment.Engine.Extensions
 {
     public static class InvokeExtensions
     {
+        public static void Invoke<TEvents>(this IEnumerable<TEvents> events, Action<TEvents> dispatch, ILogger logger)
+        {
+            foreach (var sink in events)
+            {
+                try
+                {
+                    dispatch(sink);
+                }
+                catch (Exception ex)
+                {
+                    HandleException(ex, logger, typeof(TEvents).Name, sink.GetType().FullName);
+                }
+            }
+        }
+
         public static async Task InvokeAsync<TEvents>(this IEnumerable<TEvents> events, Func<TEvents, Task> dispatcher, ILogger logger)
         {
             foreach (var evt in events)

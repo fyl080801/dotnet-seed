@@ -43,10 +43,9 @@ namespace Seed.Data
 
         public override DbSet<TEntity> Set<TEntity>()
         {
-            var dbset = Model.FindEntityType(typeof(TEntity)) != null
+            return Model.FindEntityType(typeof(TEntity)) != null
                 ? base.Set<TEntity>()
                 : new DocumentDbSet<TEntity>(this);
-            return dbset;
         }
     }
 }

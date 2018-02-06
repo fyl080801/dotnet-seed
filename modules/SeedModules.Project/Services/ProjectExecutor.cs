@@ -55,7 +55,7 @@ namespace SeedModules.Project.Services
 
                 var result = new ProjectResult { ExecutionId = executionId };
 
-                await _projectStore.CreateAsync(result);
+                //await _projectStore.CreateAsync(result);
 
                 using (var stream = projectDescriptor.ProjectFileInfo.CreateReadStream())
                 {
@@ -91,7 +91,7 @@ namespace SeedModules.Project.Services
 
                                             var stepResult = new ProjectStepResult { StepName = projectStep.Name };
                                             result.Steps.Add(stepResult);
-                                            await _projectStore.UpdateAsync(result);
+                                            //await _projectStore.UpdateAsync(result);
 
                                             ExceptionDispatchInfo capturedException = null;
                                             try
@@ -108,7 +108,7 @@ namespace SeedModules.Project.Services
                                             }
 
                                             stepResult.IsCompleted = true;
-                                            await _projectStore.UpdateAsync(result);
+                                            //await _projectStore.UpdateAsync(result);
 
                                             if (stepResult.IsSuccessful == false)
                                             {
@@ -123,6 +123,8 @@ namespace SeedModules.Project.Services
                 }
 
                 await _projectEventHandlers.InvokeAsync(x => x.ExecutedAsync(executionId, projectDescriptor), _logger);
+
+                await _projectStore.CreateAsync(result);
 
                 return executionId;
             }

@@ -51,7 +51,7 @@ namespace Seed.Environment.Engine
             }
             else
             {
-                throw new InvalidOperationException("Unexpected engine state for " + settings.Name);
+                throw new InvalidOperationException("EngineHost 未知的状态 " + settings.Name);
             }
         }
 

@@ -25,6 +25,7 @@ namespace Seed.Data
     public class DocumentDbSet<TEntity> : DbSet<TEntity>, IQueryable<TEntity>, IAsyncEnumerableAccessor<TEntity>, IInfrastructure<IServiceProvider>
         where TEntity : class
     {
+        readonly IDbContext _dbContext;
         readonly DbSet<Document> _document;
         readonly Type _entityType;
         readonly Type _documentType = typeof(Document);
@@ -36,9 +37,11 @@ namespace Seed.Data
 
         public DocumentDbSet(IDbContext dbContext)
         {
+            _dbContext = dbContext;
             _document = dbContext.Document;
             _entityType = typeof(TEntity);
-            _documentQuery = _document.Where(e => e.Type == _entityType.ToString());
+            var entityTypeName = _entityType.ToString();
+            _documentQuery = _document.Where(e => e.Type == entityTypeName);
 
             var documentKeys = typeof(Document).GetProperties()
                 .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0)
@@ -69,11 +72,14 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
-            _document.Add(new Document()
+            var document = new Document()
             {
                 Type = _entityType.ToString(),
                 Content = JsonConvert.SerializeObject(entity)
-            });
+            };
+            _document.Add(document);
+            _dbContext.SaveChanges();
+            ResolveKeyValue(document, entity);
             return null;
         }
 

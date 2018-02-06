@@ -8,6 +8,7 @@ using Seed.Environment.Caching;
 using Seed.Modules.Site;
 using SeedModules.Settings.Domain;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SeedModules.Settings.Services
@@ -34,19 +35,24 @@ namespace SeedModules.Settings.Services
             if (!_memoryCache.TryGetValue(SiteCacheKey, out ISiteInfo site))
             {
                 var dbContext = GetDbContext();
-                site = await dbContext.Context.Set<SiteSettings>().FirstOrDefaultAsync();
+                var siteSettingsSet = dbContext.Set<SiteSettings>();
+                site = await Task.FromResult(siteSettingsSet.FirstOrDefault());
                 if (site == null)
                 {
                     lock (_memoryCache)
                     {
                         if (!_memoryCache.TryGetValue(SiteCacheKey, out site))
                         {
-                            dbContext.Context.Add(new SiteSettings
+                            var siteSettings = new SiteSettings
                             {
                                 SiteName = "Seed Application"
-                            });
+                            };
+                            siteSettingsSet.Add(siteSettings);
 
                             dbContext.SaveChanges();
+
+                            site = siteSettings;
+
                             _memoryCache.Set(SiteCacheKey, site);
                             _signal.SignalToken(SiteCacheKey);
                         }
@@ -65,8 +71,8 @@ namespace SeedModules.Settings.Services
         public async Task UpdateSiteInfoAsync(ISiteInfo site)
         {
             var dbContext = GetDbContext();
-
-            var existing = await dbContext.Context.Set<SiteSettings>().FirstOrDefaultAsync();
+            var siteSettingsSet = dbContext.Set<SiteSettings>();
+            var existing = await Task.FromResult(siteSettingsSet.FirstOrDefault());
 
             existing.BaseUrl = site.BaseUrl;
             existing.SiteName = site.SiteName;

@@ -1,11 +1,6 @@
-﻿using Seed.Events;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Seed.Plugins.Feature
+﻿namespace Seed.Plugins.Feature
 {
-    public interface IFeatureEventHandler : IEventHandler
+    public interface IFeatureEventHandler
     {
         void Installing(IFeatureInfo feature);
 

@@ -23,6 +23,6 @@ namespace Seed.Environment.Engine.Descriptors
         /// <param name="enabledFeatures">启用的特性</param>
         /// <param name="parameters"></param>
         /// <returns></returns>
-        Task UpdateEngineDescriptorAsync(string priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters);
+        Task UpdateEngineDescriptorAsync(int priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters);
     }
 }

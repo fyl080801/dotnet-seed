@@ -44,29 +44,35 @@ namespace Seed.Environment.Engine.Data
             return _engineDescriptor;
         }
 
-        public async Task UpdateEngineDescriptorAsync(string priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters)
+        public async Task UpdateEngineDescriptorAsync(int priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters)
         {
             var engineDescriptorRecord = await GetEngineDescriptorAsync();
-            var serialNumber = engineDescriptorRecord == null ? "0" : engineDescriptorRecord.SerialNumber;
+            var serialNumber = engineDescriptorRecord == null ? 0 : engineDescriptorRecord.SerialNumber;
             if (priorSerialNumber != serialNumber)
             {
                 throw new InvalidOperationException("错误的序列号");
             }
 
-            var timeNumber = DateTime.Now.ToString("yyyyMMddHHmmss");
             if (engineDescriptorRecord == null)
             {
-                engineDescriptorRecord = new EngineDescriptor { SerialNumber = timeNumber };
+                engineDescriptorRecord = new EngineDescriptor { SerialNumber = 1 };
             }
             else
             {
-                engineDescriptorRecord.SerialNumber = timeNumber;
+                engineDescriptorRecord.SerialNumber++;
             }
 
             engineDescriptorRecord.Features = enabledFeatures.ToList();
             engineDescriptorRecord.Parameters = parameters.ToList();
 
-            _engineDescriptorSet.Add(engineDescriptorRecord);
+            if (engineDescriptorRecord.Id <= 0)
+            {
+                _engineDescriptorSet.Add(engineDescriptorRecord);
+            }
+            else
+            {
+                _engineDescriptorSet.Update(engineDescriptorRecord);
+            }
 
             _dbContext.SaveChanges();
 

@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Seed
 {
+    public delegate void FeatureDependencyNotificationHandler(string messageFormat, IFeatureInfo feature, IEnumerable<IFeatureInfo> features);
+
     public interface IEngineDescriptorFeaturesManager
     {
         Task<IEnumerable<IFeatureInfo>> EnableFeaturesAsync(EngineDescriptor engineDescriptor, IEnumerable<IFeatureInfo> features);

@@ -1,8 +1,8 @@
-﻿using Seed.Events;
-using Seed.Events.Extensions;
-using Seed.Modules.DeferredTasks;
+﻿using Microsoft.Extensions.Logging;
+using Seed.Environment.Engine.Extensions;
 using Seed.Plugins;
 using Seed.Plugins.Feature;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +13,9 @@ namespace Seed.Environment.Engine
         private readonly EngineSettings _settings;
         private readonly IEngineStateManager _stateManager;
         private readonly IPluginManager _pluginManager;
-        private readonly IEventBus _eventBus;
+        private readonly IEnumerable<IFeatureEventHandler> _featureEventHandlers;
+
+        ILogger _logger;
         //private readonly IDeferredTaskEngine _deferredTaskEngine;
 
         public EngineStateUpdater(
@@ -21,13 +23,15 @@ namespace Seed.Environment.Engine
             IEngineStateManager stateManager,
             IPluginManager pluginManager,
             //IDeferredTaskEngine deferredTaskEngine,
-            IEventBus eventBus)
+            IEnumerable<IFeatureEventHandler> featureEventHandlers,
+            ILogger<EngineStateUpdater> logger)
         {
             //_deferredTaskEngine = deferredTaskEngine;
             _settings = settings;
             _stateManager = stateManager;
             _pluginManager = pluginManager;
-            _eventBus = eventBus;
+            _featureEventHandlers = featureEventHandlers;
+            _logger = logger;
         }
 
         public async Task ApplyChanges()
@@ -50,10 +54,7 @@ namespace Seed.Environment.Engine
 
             var allEntries = loadedEntries.Concat(additionalState.Select(featureState =>
             {
-                var featureDescriptor = new InternalFeatureInfo(
-                    featureState.Id,
-                    new InternalPluginInfo(featureState.Id)
-                    );
+                var featureDescriptor = new InternalFeatureInfo(featureState.Id, new InternalPluginInfo(featureState.Id));
 
                 return new
                 {
@@ -62,34 +63,34 @@ namespace Seed.Environment.Engine
                     FeatureState = featureState
                 };
             })).ToArray();
-            
+
             foreach (var entry in allEntries.Reverse().Where(entry => entry.FeatureState.EnableState == EngineFeatureState.State.Falling))
             {
-                _eventBus.Notify<IFeatureEventHandler>(x => x.Disabling(entry.Feature.FeatureInfo));
+                _featureEventHandlers.Invoke(x => x.Disabling(entry.Feature.FeatureInfo), _logger);
                 await _stateManager.UpdateEnabledStateAsync(entry.FeatureState, EngineFeatureState.State.Down);
-                _eventBus.Notify<IFeatureEventHandler>(x => x.Disabled(entry.Feature.FeatureInfo));
+                _featureEventHandlers.Invoke(x => x.Disabled(entry.Feature.FeatureInfo), _logger);
             }
-            
+
             foreach (var entry in allEntries.Reverse().Where(entry => entry.FeatureState.InstallState == EngineFeatureState.State.Falling))
             {
-                _eventBus.Notify<IFeatureEventHandler>(x => x.Uninstalling(entry.Feature.FeatureInfo));
+                _featureEventHandlers.Invoke(x => x.Uninstalling(entry.Feature.FeatureInfo), _logger);
                 await _stateManager.UpdateInstalledStateAsync(entry.FeatureState, EngineFeatureState.State.Down);
-                _eventBus.Notify<IFeatureEventHandler>(x => x.Uninstalled(entry.Feature.FeatureInfo));
+                _featureEventHandlers.Invoke(x => x.Uninstalled(entry.Feature.FeatureInfo), _logger);
             }
-            
+
             foreach (var entry in allEntries.Where(entry => IsRising(entry.FeatureState)))
             {
                 if (entry.FeatureState.InstallState == EngineFeatureState.State.Rising)
                 {
-                    _eventBus.Notify<IFeatureEventHandler>(x => x.Installing(entry.Feature.FeatureInfo));
+                    _featureEventHandlers.Invoke(x => x.Installing(entry.Feature.FeatureInfo), _logger);
                     await _stateManager.UpdateInstalledStateAsync(entry.FeatureState, EngineFeatureState.State.Up);
-                    _eventBus.Notify<IFeatureEventHandler>(x => x.Installed(entry.Feature.FeatureInfo));
+                    _featureEventHandlers.Invoke(x => x.Installed(entry.Feature.FeatureInfo), _logger);
                 }
                 if (entry.FeatureState.EnableState == EngineFeatureState.State.Rising)
                 {
-                    _eventBus.Notify<IFeatureEventHandler>(x => x.Enabling(entry.Feature.FeatureInfo));
+                    _featureEventHandlers.Invoke(x => x.Enabling(entry.Feature.FeatureInfo), _logger);
                     await _stateManager.UpdateEnabledStateAsync(entry.FeatureState, EngineFeatureState.State.Up);
-                    _eventBus.Notify<IFeatureEventHandler>(x => x.Enabled(entry.Feature.FeatureInfo));
+                    _featureEventHandlers.Invoke(x => x.Enabled(entry.Feature.FeatureInfo), _logger);
                 }
             }
         }

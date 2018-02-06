@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Seed.Environment.Engine.Extensions;
-using Seed.Events;
 using Seed.Modules;
 using Seed.Plugins.Feature;
 using System;
@@ -32,9 +31,6 @@ namespace Seed.Environment.Engine.Builder
 
             AddCoreServices(tenantServiceCollection);
 
-            tenantServiceCollection.AddScoped<IEventBus, DefaultEventBus>();
-            tenantServiceCollection.AddSingleton<IEventBusState, EventBusState>();
-
             IServiceCollection moduleServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
 
             foreach (var dependency in schema.Dependencies.Where(t => typeof(IStartup).IsAssignableFrom(t.Key)))
@@ -49,12 +45,14 @@ namespace Seed.Environment.Engine.Builder
 
             moduleServiceCollection.AddSingleton(settings);
 
-            var moduleServiceProvider = moduleServiceCollection.BuildServiceProvider();
+            var moduleServiceProvider = moduleServiceCollection.BuildServiceProvider(true);
 
             var featureAwareServiceCollection = new FeatureAwareServiceCollection(tenantServiceCollection);
 
-            // 加载所有 IStartup 接口
-            var startups = moduleServiceProvider.GetServices<IStartup>().OrderBy(e => e.Order);
+            var startups = moduleServiceProvider.GetServices<IStartup>();
+
+            startups = startups.OrderBy(s => s.Order);
+
             foreach (var startup in startups)
             {
                 var feature = schema.Dependencies.FirstOrDefault(x => x.Key == startup.GetType()).Value.FeatureInfo;
@@ -67,46 +65,7 @@ namespace Seed.Environment.Engine.Builder
 
             var applicationServiceDescriptors = _applicationServices.Where(x => x.Lifetime == ServiceLifetime.Singleton);
 
-            var eventHandlers = tenantServiceCollection
-                .Union(applicationServiceDescriptors)
-                .Select(x => x.ImplementationType)
-                .Distinct()
-                .Where(t => t != null && typeof(IEventHandler).IsAssignableFrom(t) && t.GetTypeInfo().IsClass)
-                .ToArray();
-
-            foreach (var handlerClass in eventHandlers)
-            {
-                // 使用动态代理响应事件
-                foreach (var i in handlerClass.GetInterfaces().Where(t => t != typeof(IEventHandler) && typeof(IEventHandler).IsAssignableFrom(t)))
-                {
-                    tenantServiceCollection.AddScoped(i, serviceProvider =>
-                    {
-                        var proxy = DefaultEventBus.CreateProxy(i);
-                        proxy.EventBus = serviceProvider.GetService<IEventBus>();
-                        return proxy;
-                    });
-                }
-            }
-
-            var engineServiceProvider = tenantServiceCollection.BuildServiceProvider();
-
-            using (var scope = engineServiceProvider.CreateScope())
-            {
-                var eventBusState = scope.ServiceProvider.GetService<IEventBusState>();
-
-                foreach (var handlerClass in eventHandlers)
-                {
-                    foreach (var handlerInterface in handlerClass.GetInterfaces().Where(x => typeof(IEventHandler).IsAssignableFrom(x) && typeof(IEventHandler) != x))
-                    {
-                        foreach (var interfaceMethod in handlerInterface.GetMethods())
-                        {
-                            eventBusState.Add(
-                                $"{handlerInterface.Name}.{interfaceMethod.Name}",
-                                (sp, parameters) => DefaultEventBus.Invoke(sp, parameters, interfaceMethod, handlerClass));
-                        }
-                    }
-                }
-            }
+            var engineServiceProvider = tenantServiceCollection.BuildServiceProvider(true);
 
             var typeFeatureProvider = engineServiceProvider.GetRequiredService<ITypeFeatureProvider>();
 
@@ -124,7 +83,7 @@ namespace Seed.Environment.Engine.Builder
                     }
                     else
                     {
-                        // ?
+
                     }
                 }
             }
@@ -136,8 +95,7 @@ namespace Seed.Environment.Engine.Builder
         {
             services.TryAddScoped<IEngineStateUpdater, EngineStateUpdater>();
             services.TryAddScoped<IEngineStateManager, NullEngineStateManager>();
-            services.AddScoped<EngineStateCoordinator>();
-            services.AddScoped<IEngineDescriptorManagerEventHandler>(sp => sp.GetRequiredService<EngineStateCoordinator>());
+            services.AddScoped<IEngineDescriptorManagerEventHandler, EngineStateCoordinator>();
         }
     }
 }
