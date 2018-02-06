@@ -58,11 +58,10 @@ namespace Seed.Data.Migrations
         {
             return Task.Run(() =>
             {
-                var migrationRecordSet = _dbContext.Set<MigrationRecord>();
                 IModel lastModel = null;
                 try
                 {
-                    var lastMigration = migrationRecordSet.OrderByDescending(e => e.MigrationTime).FirstOrDefault();
+                    var lastMigration = _dbContext.Migrations.OrderByDescending(e => e.MigrationTime).FirstOrDefault();
                     lastModel = lastMigration == null ? null : (CreateModelSnapshot(lastMigration.SnapshotDefine).Result?.Model);
                 }
                 catch (SqlException) { }
@@ -89,7 +88,7 @@ namespace Seed.Data.Migrations
                         .GetService<IMigrationsCodeGenerator>()
                         .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Context.Model);
 
-                    migrationRecordSet.Add(new MigrationRecord()
+                    _dbContext.Migrations.Add(new MigrationRecord()
                     {
                         SnapshotDefine = snapshotCode,
                         MigrationTime = DateTime.Now

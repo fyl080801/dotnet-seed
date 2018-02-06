@@ -16,29 +16,29 @@ using Newtonsoft.Json.Linq;
 
 namespace Seed.Data
 {
+    /// <summary>
+    /// 实现读取序列化数据的 DbSet
+    /// </summary>
+    /// <remarks>
+    /// 不支持直接使用异步方法（FirstOrDefaultAsync 之类的）
+    /// </remarks>
     public class DocumentDbSet<TEntity> : DbSet<TEntity>, IQueryable<TEntity>, IAsyncEnumerableAccessor<TEntity>, IInfrastructure<IServiceProvider>
         where TEntity : class
     {
-        readonly IDbContext _dbContext;
         readonly DbSet<Document> _document;
         readonly Type _entityType;
-        readonly string _entityTypeName;
         readonly Type _documentType = typeof(Document);
         readonly IEnumerable<PropertyInfo> _keyCollection;
-        // private Expression _expression;
-        // private IQueryProvider _provider;
+        readonly IQueryable<Document> _documentQuery;
 
+        IQueryable<TEntity> _entityQuery;
         LocalView<TEntity> _local;
 
         public DocumentDbSet(IDbContext dbContext)
         {
-            _dbContext = dbContext;
-            _document = dbContext.Set<Document>();
+            _document = dbContext.Document;
             _entityType = typeof(TEntity);
-            _entityTypeName = _entityType.ToString();
-
-            // _provider = new DocumentQueryProvider<TEntity>(_document, _keyCollection);
-            // _expression = Expression.Constant(_document);
+            _documentQuery = _document.Where(e => e.Type == _entityType.ToString());
 
             var documentKeys = typeof(Document).GetProperties()
                 .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0)
@@ -71,7 +71,7 @@ namespace Seed.Data
         {
             _document.Add(new Document()
             {
-                Type = _entityTypeName,
+                Type = _entityType.ToString(),
                 Content = JsonConvert.SerializeObject(entity)
             });
             return null;
@@ -164,9 +164,11 @@ namespace Seed.Data
             RemoveRange((entities ?? new TEntity[0]).AsEnumerable());
         }
 
-        private IEnumerable<TEntity> GetEntityQuery()
+        private IQueryable<TEntity> GetEntityQuery()
         {
-            return _dbContext.Set<Document>().Where(e => e.Type == _entityTypeName).Select(e => ResolveKeyValue(e, JsonConvert.DeserializeObject<TEntity>(e.Content))).ToArray();
+            return _documentQuery.ToArray()
+                .Select(e => ResolveKeyValue(e, JsonConvert.DeserializeObject<TEntity>(e.Content)))
+                .AsQueryable();
         }
 
         private TEntity ResolveKeyValue(Document document, TEntity entity)
@@ -178,24 +180,27 @@ namespace Seed.Data
             return entity;
         }
 
-        IAsyncEnumerable<TEntity> IAsyncEnumerableAccessor<TEntity>.AsyncEnumerable => throw new NotImplementedException();
+        private IQueryable<TEntity> EntityQuery
+            => _entityQuery ?? (_entityQuery = GetEntityQuery());
 
-        Type IQueryable.ElementType => _entityType;
+        public Type ElementType
+            => _entityType;
 
-        Expression IQueryable.Expression => GetEntityQuery().AsQueryable().Expression;
+        public IAsyncEnumerable<TEntity> AsyncEnumerable
+            => EntityQuery.ToAsyncEnumerable();
 
-        IQueryProvider IQueryable.Provider => GetEntityQuery().AsQueryable().Provider;
+        public IQueryProvider Provider
+            => EntityQuery.Provider;
 
-        IServiceProvider IInfrastructure<IServiceProvider>.Instance => _dbContext.Context.GetInfrastructure();
+        public Expression Expression
+            => EntityQuery.Expression;
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public IServiceProvider Instance
+            => _document.GetInfrastructure();
+
+        public IEnumerator<TEntity> GetEnumerator()
         {
-            return GetEntityQuery().GetEnumerator();
-        }
-
-        IEnumerator<TEntity> IEnumerable<TEntity>.GetEnumerator()
-        {
-            return GetEntityQuery().GetEnumerator();
+            return EntityQuery.GetEnumerator();
         }
     }
 }

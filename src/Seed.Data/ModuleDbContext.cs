@@ -12,6 +12,10 @@ namespace Seed.Data
 
         public DbContext Context => this;
 
+        public DbSet<Document> Document { get; set; }
+
+        public DbSet<MigrationRecord> Migrations { get; set; }
+
         public ModuleDbContext(
             DbContextOptions options,
             EngineSettings settings,
@@ -24,9 +28,6 @@ namespace Seed.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Model.AddEntityType(typeof(Document));
-            modelBuilder.Model.AddEntityType(typeof(MigrationRecord));
-
             foreach (var configuration in _entityConfigurations)
             {
                 modelBuilder.ApplyConfiguration((dynamic)configuration);
@@ -42,9 +43,10 @@ namespace Seed.Data
 
         public override DbSet<TEntity> Set<TEntity>()
         {
-            return Model.FindEntityType(typeof(TEntity)) != null
+            var dbset = Model.FindEntityType(typeof(TEntity)) != null
                 ? base.Set<TEntity>()
                 : new DocumentDbSet<TEntity>(this);
+            return dbset;
         }
     }
 }

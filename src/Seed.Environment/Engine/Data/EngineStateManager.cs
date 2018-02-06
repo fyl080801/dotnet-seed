@@ -25,7 +25,7 @@ namespace Seed.Environment.Engine.Data
                 return _state;
             }
 
-            _state = await _dbContext.Set<EngineState>().FirstOrDefaultAsync();
+            _state = await Task.FromResult(_dbContext.Set<EngineState>().FirstOrDefault());
 
             if (_state == null)
             {

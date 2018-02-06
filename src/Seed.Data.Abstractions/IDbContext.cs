@@ -12,7 +12,8 @@ namespace Seed.Data
 {
     public interface IDbContext : IDisposable
     {
-        //DbSet<Document> Document { get; set; }
+        DbSet<Document> Document { get; set; }
+        DbSet<MigrationRecord> Migrations { get; set; }
         DbContext Context { get; }
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         int SaveChanges();

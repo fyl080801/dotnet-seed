@@ -93,11 +93,7 @@ namespace SeedModules.Setup.Services
                     // 刷新 EngineDescriptor
                     await scope.ServiceProvider
                         .GetService<IEngineDescriptorManager>()
-                        .UpdateEngineDescriptorAsync(
-                            "0",
-                            engineContext.Schema.Descriptor.Features,
-                            engineContext.Schema.Descriptor.Parameters
-                        );
+                        .UpdateEngineDescriptorAsync("0", engineContext.Schema.Descriptor.Features, engineContext.Schema.Descriptor.Parameters);
 
                     // 后台延迟进程服务
                     var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();

@@ -16,6 +16,7 @@ namespace Seed.Environment.Engine.Data
         readonly EngineSettings _engineSettings;
         readonly IEnumerable<IEngineDescriptorManagerEventHandler> _engineDescriptorManagerEventHandlers;
         readonly IDbContext _dbContext;
+        readonly DbSet<EngineDescriptor> _engineDescriptorSet;
         readonly ILogger _logger;
 
         EngineDescriptor _engineDescriptor;
@@ -29,6 +30,7 @@ namespace Seed.Environment.Engine.Data
             _engineSettings = engineSettings;
             _engineDescriptorManagerEventHandlers = engineDescriptorManagerEventHandlers;
             _dbContext = dbContext;
+            _engineDescriptorSet = dbContext.Set<EngineDescriptor>();
             _logger = logger;
         }
 
@@ -36,7 +38,7 @@ namespace Seed.Environment.Engine.Data
         {
             if (_engineDescriptor == null)
             {
-                _engineDescriptor = await _dbContext.Set<EngineDescriptor>().FirstOrDefaultAsync();
+                _engineDescriptor = await Task.FromResult(_engineDescriptorSet.FirstOrDefault());
             }
 
             return _engineDescriptor;
@@ -64,7 +66,7 @@ namespace Seed.Environment.Engine.Data
             engineDescriptorRecord.Features = enabledFeatures.ToList();
             engineDescriptorRecord.Parameters = parameters.ToList();
 
-            _dbContext.Set<EngineDescriptor>().Add(engineDescriptorRecord);
+            _engineDescriptorSet.Add(engineDescriptorRecord);
 
             _dbContext.SaveChanges();
 

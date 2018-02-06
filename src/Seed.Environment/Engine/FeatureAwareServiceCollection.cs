@@ -8,6 +8,9 @@ using System.Text;
 
 namespace Seed.Environment.Engine
 {
+    /// <summary>
+    /// 根据特性提供 ServiceColletion 服务的集合
+    /// </summary>
     public class FeatureAwareServiceCollection : IServiceCollection
     {
         private readonly IServiceCollection _innerServiceCollection;
