@@ -19,7 +19,7 @@ namespace SeedModules.AngularUI.Extensions
             return builder;
         }
 
-        public static IUIRoot AngularUI(this IHtmlHelper htmlHelper, string src, string main)
+        public static IViewRoot AngularUI(this IHtmlHelper htmlHelper, string src, string main)
         {
             return new AngularUIRoot()
             {
@@ -28,7 +28,7 @@ namespace SeedModules.AngularUI.Extensions
             };
         }
 
-        public static IUIRoot Options(this IUIRoot ui, object options)
+        public static IViewRoot Options(this IViewRoot ui, object options)
         {
             if (options != null)
                 ui.SetOptions(options);

@@ -1,23 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.AspNetCore.Routing;
+using Seed.Data;
 using Seed.Modules.Site;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeedModules.Settings.Domain
 {
-    //[Table("SiteSettings")]
-    public class SiteSettings : ISiteInfo
+    public class SiteSettings : JEntity, ISiteInfo
     {
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string SiteName { get; set; }
 
         public string BaseUrl { get; set; }
 
         public string SuperUser { get; set; }
+
+        public RouteValueDictionary HomeRoute { get; set; }
     }
 
     // public class SiteSettingsConfiguration : IEntityTypeConfiguration<SiteSettings>

@@ -2,28 +2,22 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
-using SeedModules.AngularUI.Extensions;
-using SeedModules.Setup.Services;
+using SeedModules.AngularUI.Rendering;
+using SeedModules.Router.Routes;
 using System;
 
-namespace SeedModules.Setup
+namespace SeedModules.Router
 {
     public class Startup : StartupBase
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddViewOptionBuilder();
-            services.AddScoped<ISetupService, SetupService>();
+
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            routes.MapAreaRoute(
-                name: "Setup",
-                areaName: "SeedModules.Setup",
-                template: "",
-                defaults: new { controller = "Setup", action = "Index" }
-            );
+            routes.Routes.Add(new HomeRoute(routes, serviceProvider.GetService<IInlineConstraintResolver>()));
         }
     }
 }

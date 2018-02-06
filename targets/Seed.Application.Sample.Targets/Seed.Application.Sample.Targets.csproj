@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\modules\SeedModules.Common\SeedModules.Common.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Mvc\SeedModules.Mvc.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.Router\SeedModules.Router.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Settings\SeedModules.Settings.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" />

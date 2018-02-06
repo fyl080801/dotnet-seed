@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public class UIReference
+    public class ViewReference
     {
         [JsonProperty("references")]
         public IDictionary<string, ModuleReference> References { get; set; }

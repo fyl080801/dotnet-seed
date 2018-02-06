@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public interface IUIRoot : IUIContent
+    public interface IViewRoot : IViewContent
     {
         string Src { get; set; }
 

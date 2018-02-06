@@ -12,18 +12,18 @@ using System.Threading.Tasks;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public class UIOptionBuilder : IUIOptionsBuilder
+    public class ViewOptionBuilder : IViewOptionsBuilder
     {
-        readonly IOptions<UIOptions> _options;
+        readonly IOptions<ViewOptions> _options;
         readonly IPluginManager _pluginManager;
         readonly IHostingEnvironment _hostingEnvironment;
         readonly ILogger _logger;
 
-        public UIOptionBuilder(
-            IOptions<UIOptions> options,
+        public ViewOptionBuilder(
+            IOptions<ViewOptions> options,
             IPluginManager pluginManager,
             IHostingEnvironment hostingEnvironment,
-            ILogger<UIOptionBuilder> logger)
+            ILogger<ViewOptionBuilder> logger)
         {
             _options = options;
             _pluginManager = pluginManager;
@@ -33,7 +33,7 @@ namespace SeedModules.AngularUI.Rendering
 
         public async Task<string> Build()
         {
-            var referencies = await GetUIReferencesAsync();
+            var referencies = await GetViewReferencesAsync();
             var defineOptions = new
             {
                 app = string.IsNullOrEmpty(_options.Value.App) ? "app.application" : _options.Value.App,
@@ -57,17 +57,17 @@ namespace SeedModules.AngularUI.Rendering
             return await Task.FromResult(JsonConvert.SerializeObject(defineOptions));
         }
 
-        private Task<IEnumerable<UIReference>> GetUIReferencesAsync()
+        private Task<IEnumerable<ViewReference>> GetViewReferencesAsync()
         {
-            return _pluginManager.GetPlugins().InvokeAsync(descriptor => GetUIReferences(descriptor), _logger);
+            return _pluginManager.GetPlugins().InvokeAsync(descriptor => GetViewReferences(descriptor), _logger);
         }
 
-        private Task<IEnumerable<UIReference>> GetUIReferences(IPluginInfo pluginInfo)
+        protected virtual Task<IEnumerable<ViewReference>> GetViewReferences(IPluginInfo pluginInfo)
         {
             var uiFlag = _hostingEnvironment.IsDevelopment() ? "dev" : "dist";
             var uiFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
                 .Where(x => !x.IsDirectory && x.Name.EndsWith($".ui.{uiFlag}.json"));
-            var uiReferences = new List<UIReference>();
+            var uiReferences = new List<ViewReference>();
 
             if (uiFiles.Any())
             {
@@ -79,14 +79,14 @@ namespace SeedModules.AngularUI.Rendering
                         {
                             using (var jsonReader = new JsonTextReader(reader))
                             {
-                                return new JsonSerializer().Deserialize<UIReference>(jsonReader);
+                                return new JsonSerializer().Deserialize<ViewReference>(jsonReader);
                             }
                         }
                     }
                 }));
             }
 
-            return Task.FromResult<IEnumerable<UIReference>>(uiReferences);
+            return Task.FromResult<IEnumerable<ViewReference>>(uiReferences);
         }
     }
 }

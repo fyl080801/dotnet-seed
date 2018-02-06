@@ -5,13 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SeedModules.Setup.Controllers
+namespace SeedModules.Admin.Controllers
 {
-    public class SetupController : Controller
+    public class HomeController : Controller
     {
         readonly IViewOptionsBuilder _optionsBuilder;
 
-        public SetupController(IViewOptionsBuilder optionsBuilder)
+        public HomeController(IViewOptionsBuilder optionsBuilder)
         {
             _optionsBuilder = optionsBuilder;
         }

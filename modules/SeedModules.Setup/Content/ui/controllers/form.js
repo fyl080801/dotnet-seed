@@ -22,8 +22,8 @@ define([
             $scope.mssql = {};
 
             $scope.data = {
-                Name: 'seeddefault',
-                TablePrefix: 'seeddefault',
+                Name: 'seed',
+                TablePrefix: 'seed',
                 UserName: 'admin',
                 Email: 'fyl080801@hotmail.com',
                 Password: '123',

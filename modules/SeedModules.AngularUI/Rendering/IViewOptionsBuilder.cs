@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public interface IUIOptionsBuilder
+    public interface IViewOptionsBuilder
     {
         Task<string> Build();
     }

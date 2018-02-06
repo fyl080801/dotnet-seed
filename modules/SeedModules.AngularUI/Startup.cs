@@ -14,7 +14,7 @@ namespace SeedModules.AngularUI
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddOptionBuilder();
+            //services.AddOptionBuilder();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

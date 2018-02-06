@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Routing;
+using Seed.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Seed.Modules.Site
 {
-    public interface ISiteInfo
+    public interface ISiteInfo : IJEntity
     {
         string SiteName { get; set; }
 
@@ -33,6 +34,6 @@ namespace Seed.Modules.Site
 
         //int MaxPagedCount { get; set; }
 
-        //RouteValueDictionary HomeRoute { get; set; }
+        RouteValueDictionary HomeRoute { get; set; }
     }
 }

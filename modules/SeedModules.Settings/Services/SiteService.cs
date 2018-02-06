@@ -28,7 +28,8 @@ namespace SeedModules.Settings.Services
             _serviceProvider = serviceProvider;
         }
 
-        public IChangeToken ChangeToken => _signal.GetToken(SiteCacheKey);
+        public IChangeToken ChangeToken
+            => _signal.GetToken(SiteCacheKey);
 
         public async Task<ISiteInfo> GetSiteInfoAsync()
         {
@@ -77,6 +78,10 @@ namespace SeedModules.Settings.Services
             existing.BaseUrl = site.BaseUrl;
             existing.SiteName = site.SiteName;
             existing.SuperUser = site.SuperUser;
+            existing.HomeRoute = site.HomeRoute;
+            existing.Properties = site.Properties;
+
+            siteSettingsSet.Update(existing);
 
             dbContext.SaveChanges();
 

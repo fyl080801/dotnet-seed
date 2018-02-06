@@ -3,6 +3,8 @@ using Seed.Modules;
 using Seed.Modules.Account.Permissions;
 using Seed.Modules.Setup.Events;
 using Seed.Modules.Site;
+using SeedModules.Project.Extensions;
+using SeedModules.Settings.Projects;
 using SeedModules.Settings.Services;
 
 namespace SeedModules.Settings
@@ -14,6 +16,8 @@ namespace SeedModules.Settings
             services.AddScoped<ISetupEventHandler, SetupEventHandler>();
             services.AddScoped<IPermissionProvider, PermissionProvider>();
             services.AddSingleton<ISiteService, SiteService>();
+
+            services.AddProjectExecutionStep<SettingsStep>();
         }
     }
 }
