@@ -6,9 +6,11 @@ define([
     module.controller('SeedModules.Setup/ui/controllers/form', [
         '$scope',
         '$modal',
+        '$location',
+        '$window',
         'app.services.popupService',
         'app.services.httpService',
-        function ($scope, $modal, popupService, httpService) {
+        function ($scope, $modal, $location, $window, popupService, httpService) {
             $scope.setupForm = {
                 url: '/api/setup'
             };
@@ -29,16 +31,6 @@ define([
                 Password: '123',
                 PasswordConfirmation: '123'
             };
-
-            // $scope.projectChanged = function () {
-            //     $scope.fileForm
-            //         .submit()
-            //         .then(function (result) {
-            //             $scope.projectFile.clear();
-            //         }, function (result) {
-            //             $scope.projectFile.clear();
-            //         });
-            // };
 
             $scope.initMsSql = function () {
                 $scope.mssql.Server = '.';
@@ -68,7 +60,8 @@ define([
                         }
                     })
                     .then(function (result) {
-
+                        $location.url('/');
+                        $window.location.reload();
                     });
             };
 
