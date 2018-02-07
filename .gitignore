@@ -249,6 +249,4 @@ publish
 
 # seed build
 */Seed/App_Data/
-*/Seed/Plugins/
-*/Seed/Modules/
 */Seed/modules/

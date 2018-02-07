@@ -18,9 +18,9 @@ namespace SeedModules.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new OptionsModel()
+            return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
-                Options = _optionsBuilder.Build().Result
+                Options = _optionsBuilder.Build(RouteData).Result
             });
         }
     }

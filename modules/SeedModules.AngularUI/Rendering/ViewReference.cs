@@ -6,13 +6,13 @@ namespace SeedModules.AngularUI.Rendering
     public class ViewReference
     {
         [JsonProperty("references")]
-        public IDictionary<string, ModuleReference> References { get; set; }
+        public IDictionary<string, ModuleReference> References { get; set; } = new Dictionary<string, ModuleReference>();
 
         [JsonProperty("requires")]
-        public IEnumerable<string> Requires { get; set; }
+        public IEnumerable<string> Requires { get; set; } = new HashSet<string>();
 
         [JsonProperty("patchs")]
-        public IEnumerable<string> Patchs { get; set; }
+        public IEnumerable<string> Patchs { get; set; } = new HashSet<string>();
     }
 
     public class ModuleReference
@@ -30,6 +30,6 @@ namespace SeedModules.AngularUI.Rendering
     public class ReferenceShim
     {
         [JsonProperty("deps")]
-        public IEnumerable<string> Dependencies { get; set; }
+        public IEnumerable<string> Dependencies { get; set; } = new HashSet<string>();
     }
 }

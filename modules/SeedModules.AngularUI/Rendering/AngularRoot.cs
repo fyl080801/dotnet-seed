@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public class AngularUIRoot : TagBuilder, IViewRoot
+    public class AngularRoot : TagBuilder, IViewRoot
     {
         public string Src
         {
@@ -25,7 +25,7 @@ namespace SeedModules.AngularUI.Rendering
             }
         }
 
-        public AngularUIRoot()
+        public AngularRoot()
             : base("script")
         {
             Attributes.Add("id", "seed-ui");

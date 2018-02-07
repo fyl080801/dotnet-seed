@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}"
 EndProject
@@ -25,6 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Mvc", "src\Seed.Mvc\Se
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{B744AE02-1693-4BB9-96C3-01DF54DFB172}"
 	ProjectSection(SolutionItems) = preProject
+		modules\admin.project.json = modules\admin.project.json
 		modules\Directory.Build.props = modules\Directory.Build.props
 	EndProjectSection
 EndProject
@@ -68,7 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Admin", "module
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Project", "modules\SeedModules.Project\SeedModules.Project.csproj", "{57A13ACC-4498-4A53-B6FD-1D9D46CC9232}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Router", "modules\SeedModules.Router\SeedModules.Router.csproj", "{B9F18D7B-6333-4EB9-A575-EB8EFF5F0DA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Router", "modules\SeedModules.Router\SeedModules.Router.csproj", "{B9F18D7B-6333-4EB9-A575-EB8EFF5F0DA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

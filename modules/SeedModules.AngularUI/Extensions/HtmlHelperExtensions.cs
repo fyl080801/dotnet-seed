@@ -21,7 +21,7 @@ namespace SeedModules.AngularUI.Extensions
 
         public static IViewRoot AngularUI(this IHtmlHelper htmlHelper, string src, string main)
         {
-            return new AngularUIRoot()
+            return new AngularRoot()
             {
                 Src = src,
                 DataMain = main

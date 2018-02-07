@@ -12,7 +12,7 @@ namespace SeedModules.Setup
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddViewOptionBuilder();
+            services.AddAllViewOptions();
             services.AddScoped<ISetupService, SetupService>();
         }
 

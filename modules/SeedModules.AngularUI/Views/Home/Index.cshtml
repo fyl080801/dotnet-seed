@@ -1,5 +1,5 @@
-@using SeedModules.AngularUI.Extensions;
-@model SeedModules.AngularUI.Models.OptionsModel;
+﻿@using SeedModules.AngularUI.Extensions;
+@model SeedModules.AngularUI.Models.ViewOptionsModel;
 <!DOCTYPE html>
 <!--[if lte IE 8]><html lang="zh-cn" data-html-type="no-js lte-ie8"><![endif]-->
 <!--[if gt IE 8]><!-->
@@ -19,6 +19,6 @@
     @(Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(Model.Options))
 </head>
 <body ui-view>
-    
+
 </body>
 </html>

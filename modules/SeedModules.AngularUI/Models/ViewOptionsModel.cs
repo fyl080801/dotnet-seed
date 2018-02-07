@@ -1,6 +1,6 @@
 namespace SeedModules.AngularUI.Models
 {
-    public class OptionsModel
+    public class ViewOptionsModel
     {
         public string Options { get; set; }
     }

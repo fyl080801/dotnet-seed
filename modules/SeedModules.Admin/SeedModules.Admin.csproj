@@ -5,14 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageAssetFiles Remove="admin.ui.dev.json" />
-    <PackageAssetFiles Remove="admin.ui.dist.json" />
-    <PackageAssetFiles Remove="Content\ui\module.js" />
-    <PackageAssetFiles Remove="Content\ui\requires.js" />
-    <PackageAssetFiles Remove="Content\ui\views\admin.html" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
     <ProjectReference Include="..\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />

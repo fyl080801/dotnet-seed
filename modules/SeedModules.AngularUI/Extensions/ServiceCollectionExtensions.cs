@@ -5,9 +5,9 @@ namespace SeedModules.AngularUI.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddViewOptionBuilder(this IServiceCollection services)
+        public static IServiceCollection AddAllViewOptions(this IServiceCollection services)
         {
-            services.AddScoped<IViewOptionsBuilder, ViewOptionBuilder>();
+            services.AddScoped<IViewOptionsBuilder, AllViewOptionBuilder>();
 
             return services;
         }
