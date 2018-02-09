@@ -29,7 +29,6 @@
     "requires": [
         "app/application",
         "rcss!SeedModules.AngularUI/css/font-awesome.min.css",
-        "rcss!SeedModules.AngularUI/css/seed-angularui.css",
         "SeedModules.AngularUI/ui/module"
     ],
     "patchs": ["patch"]
