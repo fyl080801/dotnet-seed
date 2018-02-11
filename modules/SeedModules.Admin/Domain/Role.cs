@@ -18,8 +18,6 @@ namespace SeedModules.Admin.Domain
         [StringLength(50)]
         public string Rolename { get; set; }
 
-        public virtual List<RoleUser> Users { get; set; } = new List<RoleUser>();
-
         public virtual List<RoleClaim> RoleClaims { get; } = new List<RoleClaim>();
     }
 
@@ -27,9 +25,7 @@ namespace SeedModules.Admin.Domain
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.HasMany(e => e.Users)
-                .WithOne(e => e.Role)
-                .HasForeignKey(e => e.RoleId);
+
         }
     }
 }

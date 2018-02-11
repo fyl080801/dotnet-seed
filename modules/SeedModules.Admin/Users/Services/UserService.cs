@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SeedModules.Admin.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -33,7 +34,7 @@ namespace SeedModules.Admin.Users.Services
             return identityResult.Succeeded;
         }
 
-        public async Task<IUser> CreateUserAsync(string username, string email, string[] rolename, string password, Action<string, string> reportError)
+        public async Task<IUser> CreateUserAsync(string username, string email, string[] roleNames, string password, Action<string, string> reportError)
         {
             if (await _userManager.FindByEmailAsync(email) != null)
             {
@@ -44,7 +45,7 @@ namespace SeedModules.Admin.Users.Services
             {
                 Username = username,
                 Email = email,
-                RoleNames = new List<string>(rolename)
+                RoleNames = new List<string>(roleNames)
             };
 
             var identityResult = await _userManager.CreateAsync(user, password);
