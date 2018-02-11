@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Seed.Security.Services;
 
 namespace SeedModules.Admin.Users
 {
@@ -14,6 +15,13 @@ namespace SeedModules.Admin.Users
         IUserEmailStore<IUser>,
         IUserSecurityStampStore<IUser>
     {
+        readonly IRoleProvider _roleProvider;
+        
+        public UserStore()
+        {
+            
+        }
+
         public Task AddToRoleAsync(IUser user, string roleName, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
