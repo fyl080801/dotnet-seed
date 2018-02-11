@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Services
+namespace Seed.Security.AuthorizationHandlers
 {
-    public class SuperUserHandler : IAuthorizationHandler
+    public class PermissionHandler : IAuthorizationHandler
     {
         public Task HandleAsync(AuthorizationHandlerContext context)
         {

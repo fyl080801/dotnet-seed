@@ -1,9 +1,7 @@
-﻿using Seed.Modules.Account.Permissions;
-using System;
+﻿using Seed.Security.Permissions;
 using System.Collections.Generic;
-using System.Text;
 
-namespace SeedModules.Settings.Services
+namespace SeedModules.Settings
 {
     public class PermissionProvider : IPermissionProvider
     {

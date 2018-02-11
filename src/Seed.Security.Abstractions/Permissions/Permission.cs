@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 
-namespace Seed.Modules.Account.Permissions
+namespace Seed.Security.Permissions
 {
     public class Permission
     {

@@ -1,11 +1,9 @@
 ﻿using Seed.Modules.Setup.Events;
-using SeedModules.Admin.Abstractions;
+using SeedModules.Admin.Users.Services;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Services
+namespace SeedModules.Admin.Users
 {
     public class SetupEventHandler : ISetupEventHandler
     {

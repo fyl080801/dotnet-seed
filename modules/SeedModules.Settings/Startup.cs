@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
-using Seed.Modules.Account.Permissions;
 using Seed.Modules.Setup.Events;
 using Seed.Modules.Site;
+using Seed.Security.Permissions;
 using SeedModules.Project.Extensions;
 using SeedModules.Settings.Projects;
 using SeedModules.Settings.Services;

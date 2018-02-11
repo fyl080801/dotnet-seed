@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Abstractions
+namespace SeedModules.Admin.Users.Services
 {
     public interface IMembershipService
     {

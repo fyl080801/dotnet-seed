@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed.Modules.Account.Permissions
+namespace Seed.Security.Permissions
 {
     /// <summary>
     /// 权限策略

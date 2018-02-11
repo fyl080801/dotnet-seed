@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SeedModules.Admin.Abstractions;
 using SeedModules.Admin.Models;
+using SeedModules.Admin.Users;
 using System.Threading.Tasks;
 
 namespace SeedModules.Admin.Controllers

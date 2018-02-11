@@ -6,15 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Seed.Modules.Account.Permissions;
 using Seed.Modules.Setup.Events;
-using SeedModules.Admin.Abstractions;
-using SeedModules.Admin.Services;
+using Seed.Security;
+using Seed.Security.Extensions;
+using Seed.Security.Permissions;
+using SeedModules.Admin.Users;
+using SeedModules.Admin.Users.Services;
 using System;
 
 namespace SeedModules.Admin.Extensions
 {
-    public static class AuthenticationServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         const string LoginPath = "Login";
 
@@ -98,16 +100,7 @@ namespace SeedModules.Admin.Extensions
             services.AddScoped<ISetupEventHandler, SetupEventHandler>();
             services.AddScoped<IRoleRemovedEventHandler, UserRoleRemovedEventHandler>();
 
-            services.AddScoped<IPermissionProvider, ManagePermissions>();
-
-            return services;
-        }
-
-        public static IServiceCollection AddSecurity(this IServiceCollection services)
-        {
-            services.AddAuthorization();
-            services.AddScoped<IAuthorizationHandler, SuperUserHandler>();
-            services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+            services.AddScoped<IPermissionProvider, PermissionsProvider>();
 
             return services;
         }

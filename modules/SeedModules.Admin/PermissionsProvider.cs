@@ -1,18 +1,18 @@
-﻿using Seed.Modules.Account.Permissions;
+﻿using Seed.Security.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SeedModules.Admin.Services
+namespace SeedModules.Admin
 {
-    public class ManagePermissions : IPermissionProvider
+    public class PermissionsProvider : IPermissionProvider
     {
-        public static readonly Permission Users = new Permission("Users", "Users");
+        public static readonly Permission ManageUsers = new Permission("ManageUsers", "用户管理");
 
         public IEnumerable<Permission> GetPermissions()
         {
             return new[] {
-                Users
+                ManageUsers
             };
         }
 
@@ -21,7 +21,7 @@ namespace SeedModules.Admin.Services
             return new[] {
                 new PermissionStereotype {
                     Name = "Administrator",
-                    Permissions = new[] { Users }
+                    Permissions = new[] { ManageUsers }
                 }
             };
         }

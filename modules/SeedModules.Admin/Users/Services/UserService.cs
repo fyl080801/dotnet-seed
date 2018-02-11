@@ -1,11 +1,10 @@
-﻿using SeedModules.Admin.Abstractions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Services
+namespace SeedModules.Admin.Users.Services
 {
     public class UserService : IUserService
     {

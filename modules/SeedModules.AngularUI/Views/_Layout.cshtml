@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/font-awesome.min.css" />
-    @(Html.AngularUI("/SeedModules.AngularUI/js/require.min.js", "/SeedModules.AngularUI/js/main.js").Options(ViewBag.UIOptions as object))
+    @(Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(Model.Options))
 </head>
 <body>
     @RenderBody()
