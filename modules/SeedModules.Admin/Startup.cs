@@ -24,6 +24,7 @@ namespace SeedModules.Admin
 
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddRoleServices();
             services.AddAuthenticationServices(_dataProtectionProvider, _tenantName, _prefix);
         }
 

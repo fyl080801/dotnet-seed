@@ -8,11 +8,15 @@ namespace SeedModules.Admin
     public class PermissionsProvider : IPermissionProvider
     {
         public static readonly Permission ManageUsers = new Permission("ManageUsers", "用户管理");
+        public static readonly Permission ManageRoles = new Permission("ManageRoles", "角色管理");
+        public static readonly Permission AssignRoles = new Permission("AssignRoles", "分配角色", new[] { ManageRoles });
 
         public IEnumerable<Permission> GetPermissions()
         {
             return new[] {
-                ManageUsers
+                ManageUsers,
+                ManageRoles,
+                AssignRoles
             };
         }
 
@@ -21,7 +25,12 @@ namespace SeedModules.Admin
             return new[] {
                 new PermissionStereotype {
                     Name = "Administrator",
-                    Permissions = new[] { ManageUsers }
+                    Permissions = new[]
+                    {
+                        ManageUsers,
+                        ManageRoles,
+                        AssignRoles
+                    }
                 }
             };
         }

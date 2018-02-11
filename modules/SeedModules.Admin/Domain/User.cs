@@ -29,7 +29,7 @@ namespace SeedModules.Admin.Domain
 
         public bool EmailConfirmed { get; set; }
 
-        public IList<string> RoleNames { get; set; } = new List<string>();
+        public virtual List<RoleUser> Roles { get; set; } = new List<RoleUser>();
 
         public override string ToString()
         {
@@ -41,7 +41,9 @@ namespace SeedModules.Admin.Domain
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-
+            builder.HasMany(e => e.Roles)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId);
         }
     }
 }

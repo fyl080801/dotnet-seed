@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Seed.Modules.Setup.Events;
+using Seed.Plugins.Feature;
 using Seed.Security;
 using Seed.Security.Extensions;
 using Seed.Security.Permissions;
+using Seed.Security.Services;
+using SeedModules.Admin.Roles;
 using SeedModules.Admin.Users;
 using SeedModules.Admin.Users.Services;
 using System;
@@ -19,6 +22,20 @@ namespace SeedModules.Admin.Extensions
     public static class ServiceCollectionExtensions
     {
         const string LoginPath = "Login";
+
+        public static IServiceCollection AddRoleServices(this IServiceCollection services)
+        {
+            services.TryAddScoped<RoleManager<IRole>>();
+            services.TryAddScoped<IRoleStore<IRole>, RoleStore>();
+            services.TryAddScoped<IRoleProvider, RoleStore>();
+            services.TryAddScoped<IRoleClaimStore<IRole>, RoleStore>();
+            //services.AddRecipeExecutionStep<RolesStep>();
+
+            services.AddScoped<IFeatureEventHandler, RoleUpdater>();
+            services.AddScoped<IAuthorizationHandler, RolesPermissionsHandler>();
+
+            return services;
+        }
 
         public static IServiceCollection AddAuthenticationServices(this IServiceCollection services, IDataProtectionProvider dataProtectionProvider, string tenantName, string prefix)
         {
