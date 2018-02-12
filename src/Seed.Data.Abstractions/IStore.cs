@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Seed.Data
@@ -17,6 +15,13 @@ namespace Seed.Data
         /// </summary>
         /// <returns></returns>
         IDbContext CreateDbContext();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="features"></param>
+        /// <returns></returns>
+        IDbContext CreateDbContext(IEnumerable<string> features);
 
         /// <summary>
         /// 初始化数据访问

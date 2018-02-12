@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace SeedModules.Admin.Users.Services
 {
@@ -45,7 +46,7 @@ namespace SeedModules.Admin.Users.Services
             {
                 Username = username,
                 Email = email,
-                RoleNames = new List<string>(roleNames)
+                RoleNames = new ObservableCollection<string>(roleNames)
             };
 
             var identityResult = await _userManager.CreateAsync(user, password);

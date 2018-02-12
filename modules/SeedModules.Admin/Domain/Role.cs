@@ -18,6 +18,9 @@ namespace SeedModules.Admin.Domain
         [StringLength(50)]
         public string Rolename { get; set; }
 
+        [StringLength(50)]
+        public string NormalizedRolename { get; set; }
+
         public virtual List<RoleClaim> RoleClaims { get; } = new List<RoleClaim>();
     }
 

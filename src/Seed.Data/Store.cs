@@ -16,20 +16,73 @@ namespace Seed.Data
         readonly DbContextOptionsBuilder _dbContextOptionsBuilder;
         readonly IPluginManager _pluginManager;
         readonly EngineSettings _settings;
+        readonly IServiceProvider _serviceProvider;
 
         IEnumerable<object> _entityConfigurations = Enumerable.Empty<object>();
 
-        public Store(DbContextOptionsBuilder dbContextOptionsBuilder, IServiceProvider serviceProvider)
+        public Store(
+            //DbContextOptionsBuilder dbContextOptionsBuilder,
+            IServiceProvider serviceProvider)
         {
-            _dbContextOptionsBuilder = dbContextOptionsBuilder;
+            _serviceProvider = serviceProvider;
+            _dbContextOptionsBuilder = CreateOptionBuilder();//dbContextOptionsBuilder;
             _pluginManager = serviceProvider.GetService<IPluginManager>();
             _settings = serviceProvider.GetService<EngineSettings>();
 
             var engineDescriptor = serviceProvider.GetService<EngineDescriptor>();
-            var configurationType = typeof(IEntityTypeConfiguration<>);
 
-            // 获取当前加载的模块特性，找到所有数据访问映射
-            _pluginManager.GetFeatures(engineDescriptor.Features.Select(e => e.Id).ToArray())
+            _entityConfigurations = GetFeatureTypeConfigurations(engineDescriptor.Features.Select(e => e.Id).ToArray());
+        }
+
+        public IDbContext CreateDbContext()
+        {
+            return new ModuleDbContext(_dbContextOptionsBuilder.Options, _settings, _entityConfigurations.ToArray());
+        }
+
+        public IDbContext CreateDbContext(IEnumerable<string> features)
+        {
+            return new ModuleDbContext(CreateOptionBuilder().Options, _settings, GetFeatureTypeConfigurations(features));
+        }
+
+        public Task InitializeAsync(IServiceProvider service)
+        {
+            CreateDbContext().Context.Database.Migrate();
+            return service.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
+        }
+
+        private DbContextOptionsBuilder CreateOptionBuilder()
+        {
+            var engineSettings = _serviceProvider.GetService<EngineSettings>();
+
+            if (engineSettings.DatabaseProvider == null)
+            {
+                return null;
+            }
+
+            var optionBuilder = new DbContextOptionsBuilder();
+
+            switch (engineSettings.DatabaseProvider)
+            {
+                case "SqlConnection":
+                    optionBuilder.UseSqlServer(engineSettings.ConnectionString, builder =>
+                    {
+                        builder.UseRowNumberForPaging(true);
+                    });
+                    break;
+                case "MySql":
+                    optionBuilder.UseMySQL(engineSettings.ConnectionString);
+                    break;
+                default:
+                    throw new ArgumentException("未知数据访问提供程序: " + engineSettings.DatabaseProvider);
+            }
+            return optionBuilder;
+        }
+
+        private IEnumerable<object> GetFeatureTypeConfigurations(IEnumerable<string> features)
+        {
+            var configurations = new List<object>();
+            var configurationType = typeof(IEntityTypeConfiguration<>);
+            _pluginManager.GetFeatures(features.ToArray())
                 .ToDictionary(x => x.Id, y => y.Plugin)
                 .Values.Distinct()
                 .ToDictionary(
@@ -48,26 +101,17 @@ namespace Seed.Data
                                 }
                                 return false;
                             })
-                            .Select(e => ActivatorUtilities.GetServiceOrCreateInstance(serviceProvider, e))
+                            .Select(e => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, e))
                             .ToList();
                     }
                 )
                 .Values.ToList()
                 .ForEach(list =>
                 {
-                    _entityConfigurations = _entityConfigurations.Concat(list);
+                    configurations = configurations.Concat(list).ToList();
                 });
-        }
 
-        public IDbContext CreateDbContext()
-        {
-            return new ModuleDbContext(_dbContextOptionsBuilder.Options, _settings, _entityConfigurations.ToArray());
-        }
-
-        public Task InitializeAsync(IServiceProvider service)
-        {
-            CreateDbContext().Context.Database.Migrate();
-            return service.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
+            return configurations;
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿using Seed.Environment.Engine;
+﻿using Microsoft.EntityFrameworkCore;
+using Seed.Data;
+using Seed.Data.Migrations;
+using Seed.Environment.Engine;
 using Seed.Plugins;
 using SeedModules.Project.Models;
 using SeedModules.Project.Services;
@@ -10,15 +13,21 @@ namespace SeedModules.Common.Projects
 {
     public class FeatureStep : IProjectStepHandler
     {
-        private readonly IPluginManager _pluginManager;
-        private readonly IEngineFeaturesManager _engineFeatureManager;
+        readonly IPluginManager _pluginManager;
+        readonly IEngineFeaturesManager _engineFeatureManager;
+        readonly IDataMigrationManager _dataMigrationManager;
+        readonly IStore _store;
 
         public FeatureStep(
             IPluginManager pluginManager,
-            IEngineFeaturesManager engineFeatureManager)
+            IEngineFeaturesManager engineFeatureManager,
+            IDataMigrationManager dataMigrationManager,
+            IStore store)
         {
             _pluginManager = pluginManager;
             _engineFeatureManager = engineFeatureManager;
+            _dataMigrationManager = dataMigrationManager;
+            _store = store;
         }
 
         public async Task ExecuteAsync(ProjectExecutionContext context)
@@ -61,6 +70,12 @@ namespace SeedModules.Common.Projects
 
                 await _engineFeatureManager.EnableFeaturesAsync(featuresToEnable, true);
             }
+
+            var enabled = await _engineFeatureManager.GetEnabledFeaturesAsync();
+
+            await _dataMigrationManager
+                .Create(_store.CreateDbContext(enabled.Select(e => e.Id)))
+                .UpdateAllFeaturesAsync();
         }
     }
 }
