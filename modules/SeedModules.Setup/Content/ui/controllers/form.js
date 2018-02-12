@@ -28,8 +28,8 @@ define([
                 TablePrefix: 'seed',
                 UserName: 'admin',
                 Email: 'fyl080801@hotmail.com',
-                Password: '123',
-                PasswordConfirmation: '123'
+                Password: '!QAZ2wsx',
+                PasswordConfirmation: '!QAZ2wsx'
             };
 
             $scope.initMsSql = function () {

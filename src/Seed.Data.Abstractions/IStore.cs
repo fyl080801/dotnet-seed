@@ -17,13 +17,6 @@ namespace Seed.Data
         IDbContext CreateDbContext();
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="features"></param>
-        /// <returns></returns>
-        IDbContext CreateDbContext(IEnumerable<string> features);
-
-        /// <summary>
         /// 初始化数据访问
         /// </summary>
         /// <param name="service"></param>

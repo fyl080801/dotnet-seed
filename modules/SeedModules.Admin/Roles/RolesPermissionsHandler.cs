@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Seed.Security;
+using Seed.Security.Permissions;
+using SeedModules.Admin.Domain;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Seed.Security.Permissions;
-using System.Security.Claims;
-using SeedModules.Admin.Domain;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SeedModules.Admin.Roles
 {

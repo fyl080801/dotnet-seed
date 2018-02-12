@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Seed.Data;
+using Seed.Security.Services;
+using SeedModules.Admin.Domain;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Seed.Security.Services;
-using Seed.Data;
-using SeedModules.Admin.Domain;
-using System.Collections.ObjectModel;
 
 namespace SeedModules.Admin.Users
 {
@@ -48,7 +47,7 @@ namespace SeedModules.Admin.Users
                 throw new InvalidOperationException($"角色 {normalRolename} 不存在.");
             }
 
-            var olduser = _dbContext.Set<User>().Find(user.Id);
+            var olduser = _dbContext.Set<User>().Find(((User)user).Id);
             var exRoles = rolenames.Intersect(olduser.RoleNames).ToList();
             exRoles.Add(normalRolename);
             olduser.RoleNames = new ObservableCollection<string>(exRoles);
@@ -67,7 +66,7 @@ namespace SeedModules.Admin.Users
         public Task<IdentityResult> DeleteAsync(IUser user, CancellationToken cancellationToken)
         {
             var userSet = _dbContext.Set<User>();
-            var olduser = userSet.Find(user.Id);
+            var olduser = userSet.Find(((User)user).Id);
             userSet.Remove(olduser);
             _dbContext.SaveChanges();
 
@@ -99,49 +98,42 @@ namespace SeedModules.Admin.Users
 
         public Task<string> GetEmailAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult(exuser.Email);
+            return Task.FromResult(((User)user).Email);
         }
 
         public Task<bool> GetEmailConfirmedAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult(exuser.EmailConfirmed);
+            return Task.FromResult(((User)user).EmailConfirmed);
         }
 
         public Task<string> GetNormalizedEmailAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult(exuser.NormalizedEmail);
+            return Task.FromResult(((User)user).NormalizedEmail);
         }
 
         public Task<string> GetNormalizedUserNameAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult(exuser.NormalizedUsername);
+            return Task.FromResult(((User)user).NormalizedUsername);
         }
 
         public Task<string> GetPasswordHashAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult(exuser.PasswordHash);
+            return Task.FromResult(((User)user).PasswordHash);
         }
 
         public Task<IList<string>> GetRolesAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult<IList<string>>(exuser.RoleNames.ToList());
+            return Task.FromResult<IList<string>>(((User)user).RoleNames.ToList());
         }
 
         public Task<string> GetSecurityStampAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult(exuser.SecurityStamp);
+            return Task.FromResult(((User)user).SecurityStamp);
         }
 
         public Task<string> GetUserIdAsync(IUser user, CancellationToken cancellationToken)
         {
-            return Task.FromResult(user.Id.ToString());
+            return Task.FromResult(((User)user).Id.ToString());
         }
 
         public Task<string> GetUserNameAsync(IUser user, CancellationToken cancellationToken)
@@ -159,8 +151,7 @@ namespace SeedModules.Admin.Users
 
         public Task<bool> HasPasswordAsync(IUser user, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
-            return Task.FromResult(exuser.PasswordHash != null);
+            return Task.FromResult(((User)user).PasswordHash != null);
         }
 
         public Task<bool> IsInRoleAsync(IUser user, string roleName, CancellationToken cancellationToken)
@@ -171,7 +162,7 @@ namespace SeedModules.Admin.Users
 
         public Task RemoveFromRoleAsync(IUser user, string roleName, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = _dbContext.Set<User>().Find(((User)user).Id);
             exuser.RoleNames.Remove(roleName);
             _dbContext.SaveChanges();
             return Task.CompletedTask;
@@ -179,57 +170,50 @@ namespace SeedModules.Admin.Users
 
         public Task SetEmailAsync(IUser user, string email, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = (User)user;
             exuser.Email = email;
-            _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
 
         public Task SetEmailConfirmedAsync(IUser user, bool confirmed, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = (User)user;
             exuser.EmailConfirmed = confirmed;
-            _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
 
         public Task SetNormalizedEmailAsync(IUser user, string normalizedEmail, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = (User)user;
             exuser.NormalizedEmail = normalizedEmail;
-            _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
 
         public Task SetNormalizedUserNameAsync(IUser user, string normalizedName, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = (User)user;
             exuser.NormalizedUsername = normalizedName;
-            _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
 
         public Task SetPasswordHashAsync(IUser user, string passwordHash, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = (User)user;
             exuser.PasswordHash = passwordHash;
-            _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
 
         public Task SetSecurityStampAsync(IUser user, string stamp, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = (User)user;
             exuser.SecurityStamp = stamp;
-            _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
 
         public Task SetUserNameAsync(IUser user, string userName, CancellationToken cancellationToken)
         {
-            var exuser = _dbContext.Set<User>().Find(user.Id);
+            var exuser = (User)user;
             exuser.Username = userName;
-            _dbContext.SaveChanges();
             return Task.CompletedTask;
         }
 

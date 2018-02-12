@@ -20,31 +20,33 @@ namespace Seed.Data.Extensions
 
             services.AddSingleton<IStore>(sp =>
             {
-                //var engineSettings = sp.GetService<EngineSettings>();
+                var engineSettings = sp.GetService<EngineSettings>();
 
-                //if (engineSettings.DatabaseProvider == null)
-                //{
-                //    return null;
-                //}
+                if (engineSettings.DatabaseProvider == null)
+                {
+                    return null;
+                }
 
-                //var optionBuilder = new DbContextOptionsBuilder();
+                var optionBuilder = new DbContextOptionsBuilder();
 
-                //switch (engineSettings.DatabaseProvider)
-                //{
-                //    case "SqlConnection":
-                //        optionBuilder.UseSqlServer(engineSettings.ConnectionString, builder =>
-                //        {
-                //            builder.UseRowNumberForPaging(true);
-                //        });
-                //        break;
-                //    case "MySql":
-                //        optionBuilder.UseMySQL(engineSettings.ConnectionString);
-                //        break;
-                //    default:
-                //        throw new ArgumentException("未知数据访问提供程序: " + engineSettings.DatabaseProvider);
-                //}
-                return new Store(sp);
-                //return new Store(optionBuilder, sp);
+                switch (engineSettings.DatabaseProvider)
+                {
+                    case "SqlConnection":
+                        optionBuilder.UseSqlServer(engineSettings.ConnectionString, builder =>
+                        {
+                            builder.UseRowNumberForPaging(true);
+                        });
+                        break;
+                    case "MySql":
+                        optionBuilder.UseMySQL(engineSettings.ConnectionString);
+                        break;
+                    default:
+                        throw new ArgumentException("未知数据访问提供程序: " + engineSettings.DatabaseProvider);
+                }
+
+                optionBuilder.UseApplicationServiceProvider(sp);
+
+                return new Store(optionBuilder, sp);
             });
 
             services.AddScoped(sp =>

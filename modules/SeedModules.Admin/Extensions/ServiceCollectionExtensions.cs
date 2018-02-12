@@ -12,9 +12,11 @@ using Seed.Security;
 using Seed.Security.Extensions;
 using Seed.Security.Permissions;
 using Seed.Security.Services;
+using SeedModules.Admin.Projects;
 using SeedModules.Admin.Roles;
 using SeedModules.Admin.Users;
 using SeedModules.Admin.Users.Services;
+using SeedModules.Project.Extensions;
 using System;
 
 namespace SeedModules.Admin.Extensions
@@ -29,7 +31,7 @@ namespace SeedModules.Admin.Extensions
             services.TryAddScoped<IRoleStore<IRole>, RoleStore>();
             services.TryAddScoped<IRoleProvider, RoleStore>();
             services.TryAddScoped<IRoleClaimStore<IRole>, RoleStore>();
-            //services.AddRecipeExecutionStep<RolesStep>();
+            services.AddProjectExecutionStep<RolesStep>();
 
             services.AddScoped<IFeatureEventHandler, RoleUpdater>();
             services.AddScoped<IAuthorizationHandler, RolesPermissionsHandler>();

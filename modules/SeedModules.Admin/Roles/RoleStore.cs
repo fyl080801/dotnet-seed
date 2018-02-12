@@ -7,11 +7,10 @@ using Seed.Security.Services;
 using SeedModules.Admin.Domain;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace SeedModules.Admin.Roles
 {
@@ -63,7 +62,7 @@ namespace SeedModules.Admin.Roles
         public Task<IdentityResult> DeleteAsync(IRole role, CancellationToken cancellationToken)
         {
             var set = _dbContext.Set<Role>();
-            var oldrole = set.Find(role.Id);
+            var oldrole = set.Find(((Role)role).Id);
             set.Remove(oldrole);
             _dbContext.SaveChanges();
             return Task.FromResult(IdentityResult.Success);
@@ -98,13 +97,12 @@ namespace SeedModules.Admin.Roles
 
         public Task<string> GetNormalizedRoleNameAsync(IRole role, CancellationToken cancellationToken)
         {
-            var exrole = _dbContext.Set<Role>().Find(role.Id);
-            return Task.FromResult(exrole.NormalizedRolename);
+            return Task.FromResult(((Role)role).NormalizedRolename);
         }
 
         public Task<string> GetRoleIdAsync(IRole role, CancellationToken cancellationToken)
         {
-            return Task.FromResult(role.Id.ToString());
+            return Task.FromResult(((Role)role).Id.ToString());
         }
 
         public Task<string> GetRoleNameAsync(IRole role, CancellationToken cancellationToken)
@@ -137,17 +135,13 @@ namespace SeedModules.Admin.Roles
 
         public Task SetNormalizedRoleNameAsync(IRole role, string normalizedName, CancellationToken cancellationToken)
         {
-            var exrole = _dbContext.Set<Role>().Find(role.Id);
-            exrole.NormalizedRolename = normalizedName;
-            _dbContext.SaveChanges();
+            ((Role)role).NormalizedRolename = normalizedName;
             return Task.CompletedTask;
         }
 
         public Task SetRoleNameAsync(IRole role, string roleName, CancellationToken cancellationToken)
         {
-            var exrole = _dbContext.Set<Role>().Find(role.Id);
-            exrole.Rolename = roleName;
-            _dbContext.SaveChanges();
+            ((Role)role).Rolename = roleName;
             return Task.CompletedTask;
         }
 

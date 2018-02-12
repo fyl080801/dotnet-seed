@@ -156,21 +156,5 @@ namespace SeedModules.Setup.Services
 
             return executionId;
         }
-
-        // private async Task<bool> InitDb(IServiceScope scope, SetupContext context)
-        // {
-        //     IStore store;
-        //     try
-        //     {
-        //         store = scope.ServiceProvider.GetRequiredService<IStore>();
-        //         await store.InitializeAsync(scope.ServiceProvider);
-        //         return await Task.FromResult(true);
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         context.Errors.Add("DatabaseProvider", string.Format("初始化数据库访问时发生异常: {0}", e.Message));
-        //         return await Task.FromResult(false);
-        //     }
-        // }
     }
 }

@@ -2,11 +2,9 @@
 using Microsoft.Extensions.Options;
 using SeedModules.Admin.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 
 namespace SeedModules.Admin.Users.Services
 {
