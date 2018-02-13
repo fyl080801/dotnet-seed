@@ -59,6 +59,14 @@ namespace SeedModules.Admin.Controllers
             }
         }
 
+        //[HttpGet]
+        //[Route("session")]
+        //[AllowAnonymous]
+        //public async Task<bool> Session()
+        //{
+        //    return await Task.FromResult(HttpContext.User.Identity.IsAuthenticated);
+        //}
+
         [HttpPost]
         [Route("logout")]
         [ValidateAntiForgeryToken]
