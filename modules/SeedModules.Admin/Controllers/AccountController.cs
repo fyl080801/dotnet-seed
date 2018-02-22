@@ -20,15 +20,6 @@ namespace SeedModules.Admin.Controllers
             _signInManager = signInManager;
         }
 
-        // [HttpGet]
-        // [AllowAnonymous]
-        // public async Task<IActionResult> Login(string returnUrl = null)
-        // {
-        //     await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-        //     return Redirect(returnUrl);
-        // }
-
         [HttpPost("login")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -55,15 +46,6 @@ namespace SeedModules.Admin.Controllers
                 throw new ValidationException("输入信息有误");
             }
         }
-
-
-        //[HttpGet]
-        //[Route("session")]
-        //[AllowAnonymous]
-        //public async Task<bool> Session()
-        //{
-        //    return await Task.FromResult(HttpContext.User.Identity.IsAuthenticated);
-        //}
 
         [HttpPost("logout")]
         [ValidateAntiForgeryToken]

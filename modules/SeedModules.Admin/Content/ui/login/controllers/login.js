@@ -6,18 +6,17 @@ define([
     module.controller('SeedModules.Admin/ui/login/controllers/login', [
         '$scope',
         '$location',
-        'SeedModules.AngularUI/ui/services/apiService',
-        function ($scope, $location, apiService) {
+        'SeedModules.AngularUI/ui/services/requestService',
+        function ($scope, $location, requestService) {
             $scope.data = {};
 
             $scope.login = function () {
                 var query = $location.search();
-                apiService
-                    .post('/api/account/login?ReturnUrl=/', $scope.data)
-                    .success(function (result) {
 
-                    })
-                    .error(function (err) {
+                requestService
+                    .url('/api/account/login?ReturnUrl=/')
+                    .post($scope.data)
+                    .then(function (result) {
 
                     });
             };

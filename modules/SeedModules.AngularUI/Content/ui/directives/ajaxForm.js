@@ -25,7 +25,7 @@ define([
 
                         var loading = $modal
                             .open({
-                                templateUrl: 'SeedModules.AngularUI/ui/views/Loading.html',
+                                templateUrl: '/SeedModules.AngularUI/ui/views/Loading.html',
                                 size: 'sm'
                             });
 
