@@ -1,22 +1,28 @@
 <div class="container" ng-controller="SeedModules.Admin/ui/login/controllers/login">
+    <div class="navbar"></div>
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     用户登录
                 </div>
-                <div class="panel-body">
+                <form class="panel-body" name="loginform" role="form">
                     <div class="form-group">
                         <label>用户名</label>
-                        <input class="form-control">
+                        <input class="form-control" name="Username" ng-model="data.Username" required>
                     </div>
                     <div class="form-group">
                         <label>密码</label>
-                        <input type="password" class="form-control">
+                        <input type="password" class="form-control" name="Password" ng-model="data.Password" required>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="IsRemember" ng-model="data.IsRemember"> 记住用户名
+                        </label>
+                    </div>
+                </form>
                 <div class="panel-footer text-right">
-                    <button type="button" class="btn btn-primary">登录</button>
+                    <button type="button" class="btn btn-primary" ng-disabled="loginform.$invalid" ng-click="login()">登录</button>
                 </div>
             </div>
         </div>

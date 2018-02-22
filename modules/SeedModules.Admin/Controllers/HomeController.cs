@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Seed.Mvc.Filters;
 using SeedModules.AngularUI.Models;
 using SeedModules.AngularUI.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SeedModules.Admin.Controllers
 {
@@ -17,6 +15,7 @@ namespace SeedModules.Admin.Controllers
             _optionsBuilder = optionsBuilder;
         }
 
+        [GenerateAntiforgeryTokenCookie]
         public IActionResult Login(string returnUrl = null)
         {
             return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
@@ -26,6 +25,7 @@ namespace SeedModules.Admin.Controllers
         }
 
         [Authorize]
+        [GenerateAntiforgeryTokenCookie]
         public IActionResult Index()
         {
             return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()

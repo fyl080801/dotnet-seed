@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
@@ -31,6 +32,10 @@ namespace Seed.Mvc.Extensions
             services.TryAddSingleton(new ApplicationPartManager());
 
             var builder = services
+                .AddAntiforgery(options =>
+                {
+                    options.HeaderName = "X-XSRF-TOKEN";
+                })
                 .AddMvcCore(options =>
                 {
                     //options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAuthorizationFilter));

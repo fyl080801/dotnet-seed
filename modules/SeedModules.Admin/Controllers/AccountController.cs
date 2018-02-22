@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SeedModules.Admin.Models;
 using SeedModules.Admin.Users;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace SeedModules.Admin.Controllers
@@ -19,45 +20,42 @@ namespace SeedModules.Admin.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
-        {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+        // [HttpGet]
+        // [AllowAnonymous]
+        // public async Task<IActionResult> Login(string returnUrl = null)
+        // {
+        //     await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            return Redirect(returnUrl);
-        }
+        //     return Redirect(returnUrl);
+        // }
 
-        [HttpPost]
-        [Route("login")]
+        [HttpPost("login")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<LoginResult> Login(LoginModel model, string returnUrl = null)
+        public async Task<LoginResult> Login([FromBody]LoginModel model, [FromQuery]string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.IsRemember, false);
 
-                return result.Succeeded
-                    ? new LoginResult()
+                if (result.Succeeded)
+                {
+                    return new LoginResult()
                     {
                         Success = true
-                    }
-                    : new LoginResult()
-                    {
-                        Success = false,
-                        Message = "”√ªß—È÷§–≈œ¢”–ŒÛ"
                     };
+                }
+                else
+                {
+                    throw new ValidationException("Áî®Êà∑ÁôªÂΩï‰∏çÊàêÂäü");
+                }
             }
             else
             {
-                return new LoginResult()
-                {
-                    Success = false,
-                    Message = ModelState.ToString()
-                };
+                throw new ValidationException("ËæìÂÖ•‰ø°ÊÅØÊúâËØØ");
             }
         }
+
 
         //[HttpGet]
         //[Route("session")]
@@ -67,8 +65,7 @@ namespace SeedModules.Admin.Controllers
         //    return await Task.FromResult(HttpContext.User.Identity.IsAuthenticated);
         //}
 
-        [HttpPost]
-        [Route("logout")]
+        [HttpPost("logout")]
         [ValidateAntiForgeryToken]
         public async Task Logout()
         {
