@@ -1,5 +1,5 @@
 define([
-    'SeedModules.Admin/ui/module'
+    'SeedModules.Admin/ui/admin/module'
 ], function (module) {
     'use strict';
 
@@ -8,7 +8,7 @@ define([
             return {
                 restrict: 'AE',
                 replace: true,
-                templateUrl: 'SeedModules.Admin/ui/directives/sidebar.html',
+                templateUrl: '/SeedModules.Admin/ui/admin/directives/sidebar.html',
                 scope: {
                     sidebar: '='
                 },

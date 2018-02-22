@@ -1,5 +1,5 @@
 ﻿define([
-    'app/application',
+    'app/application'
 ], function (application) {
     'use strict';
 
@@ -17,8 +17,8 @@
 
                 $stateProvider.state('admin', {
                     url: '/admin',
-                    templateUrl: 'SeedModules.Admin/ui/views/admin.html',
-                    requires: ['SeedModules.AngularUI/ui/requires', 'SeedModules.Admin/ui/requires']
+                    templateUrl: '/SeedModules.Admin/ui/admin/views/admin.html',
+                    requires: ['SeedModules.AngularUI/ui/requires', 'SeedModules.Admin/ui/admin/requires']
                 });
             }
         ]);

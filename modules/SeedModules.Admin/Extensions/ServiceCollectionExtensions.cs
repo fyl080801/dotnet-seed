@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Seed.Data.Extensions;
 using Seed.Modules.Setup.Events;
+using Seed.Modules.Site;
 using Seed.Plugins.Feature;
 using Seed.Security;
 using Seed.Security.Extensions;
@@ -23,7 +25,7 @@ namespace SeedModules.Admin.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        const string LoginPath = "Login";
+        const string LoginPath = "/SeedModules.Admin/Home/Login";
 
         public static IServiceCollection AddRoleServices(this IServiceCollection services)
         {
@@ -39,7 +41,11 @@ namespace SeedModules.Admin.Extensions
             return services;
         }
 
-        public static IServiceCollection AddAuthenticationServices(this IServiceCollection services, IDataProtectionProvider dataProtectionProvider, string tenantName, string prefix)
+        public static IServiceCollection AddAuthenticationServices(
+            this IServiceCollection services,
+            IDataProtectionProvider dataProtectionProvider,
+            string tenantName,
+            string prefix)
         {
             services.AddSecurity();
 
@@ -56,7 +62,7 @@ namespace SeedModules.Admin.Extensions
             })
             .AddCookie(IdentityConstants.ApplicationScheme, o =>
             {
-                o.LoginPath = new PathString("/Account/Login");
+                o.LoginPath = new PathString(LoginPath);
                 o.Events = new CookieAuthenticationEvents
                 {
                     OnValidatePrincipal = async context =>
@@ -97,8 +103,8 @@ namespace SeedModules.Admin.Extensions
             {
                 o.Cookie.Name = "seed_" + tenantName;
                 o.Cookie.Path = new PathString(prefix);
-                o.LoginPath = new PathString("/" + LoginPath);
-                o.AccessDeniedPath = new PathString("/" + LoginPath);
+                o.LoginPath = new PathString(LoginPath);
+                o.AccessDeniedPath = new PathString(LoginPath);
                 o.DataProtectionProvider = dataProtectionProvider;
             })
             .ConfigureExternalCookie(o =>

@@ -1,7 +1,6 @@
 {
   "name": "admin",
-  "steps": [
-    {
+  "steps": [{
       "name": "feature",
       "disable": [],
       "enable": [
@@ -18,19 +17,27 @@
         "Controller": "Home",
         "Action": "Index"
       },
-      "RouteReferences": [
-        {
-          "Route": {
-            "Area": "SeedModules.Admin",
-            "Controller": "Home",
-            "Action": "Index"
-          },
-          "References": [
-            "angularui",
-            "admin"
-          ]
-        }
-      ]
+      "RouteReferences": [{
+        "Route": {
+          "Area": "SeedModules.Admin",
+          "Controller": "Home",
+          "Action": "Index"
+        },
+        "References": [
+          "angularui",
+          "admin"
+        ]
+      }, {
+        "Route": {
+          "Area": "SeedModules.Admin",
+          "Controller": "Home",
+          "Action": "Login"
+        },
+        "References": [
+          "angularui",
+          "login"
+        ]
+      }]
     }
   ]
 }

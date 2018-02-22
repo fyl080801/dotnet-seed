@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
 using Seed.Modules;
+using Seed.Modules.Site;
 using SeedModules.Admin.Extensions;
 using System;
 
@@ -15,10 +16,10 @@ namespace SeedModules.Admin
         readonly string _prefix;
         readonly IDataProtectionProvider _dataProtectionProvider;
 
-        public Startup(EngineSettings shellSettings, IDataProtectionProvider dataProtectionProvider)
+        public Startup(EngineSettings engineSettings, IDataProtectionProvider dataProtectionProvider)
         {
-            _tenantName = shellSettings.Name;
-            _prefix = "/" + shellSettings.RequestUrlPrefix;
+            _tenantName = engineSettings.Name;
+            _prefix = "/" + engineSettings.RequestUrlPrefix;
             _dataProtectionProvider = dataProtectionProvider.CreateProtector(_tenantName);
         }
 
