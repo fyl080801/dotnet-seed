@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Seed.Mvc.Models;
 using SeedModules.Admin.Models;
 using SeedModules.Admin.Users;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Seed.Mvc.Extensions;
 
 namespace SeedModules.Admin.Controllers
 {
@@ -23,7 +25,7 @@ namespace SeedModules.Admin.Controllers
         [HttpPost("login")]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<LoginResult> Login([FromBody]LoginModel model, [FromQuery]string returnUrl = null)
+        public async Task<ApiResult> Login([FromBody]LoginModel model, [FromQuery]string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -31,19 +33,19 @@ namespace SeedModules.Admin.Controllers
 
                 if (result.Succeeded)
                 {
-                    return new LoginResult()
+                    return this.Success(new LoginResult()
                     {
-                        Success = true
-                    };
+                        ReturnUrl = returnUrl
+                    });
                 }
                 else
                 {
-                    throw new ValidationException("用户登录不成功");
+                    return this.Error("登录不成功");
                 }
             }
             else
             {
-                throw new ValidationException("输入信息有误");
+                return this.Error("输入信息有误");
             }
         }
 

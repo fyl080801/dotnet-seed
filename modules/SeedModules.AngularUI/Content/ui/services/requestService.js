@@ -8,7 +8,7 @@ define([
         '$http',
         '$modal',
         'app.factories.httpDataHandler',
-        function ($q, $http, httpDataHandler) {
+        function ($q, $http, $modal, httpDataHandler) {
 
             function resolveHttp(method, apiDefer) {
                 var defer = $q.defer();

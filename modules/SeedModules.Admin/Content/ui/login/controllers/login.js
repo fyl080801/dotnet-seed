@@ -11,8 +11,6 @@ define([
             $scope.data = {};
 
             $scope.login = function () {
-                var query = $location.search();
-
                 requestService
                     .url('/api/account/login?ReturnUrl=/')
                     .post($scope.data)

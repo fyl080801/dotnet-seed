@@ -12,6 +12,7 @@ using Seed.Mvc.LocationExpanders;
 using Seed.Plugins;
 using System;
 using System.Linq;
+using Seed.Mvc.Filters;
 
 namespace Seed.Mvc.Extensions
 {

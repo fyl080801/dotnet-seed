@@ -12,7 +12,15 @@ define([
                 '$delegate', '$rootScope', '$modal', '$appEnvironment', 'app.services.popupService',
                 function ($delegate, $rootScope, $modal, $appEnvironment, popupService) {
                     $delegate.doResponse = function (response, defer) {
-                        defer.resolve(response.data, response);
+                        if (response.config.dataOnly) {
+                            defer.resolve(response.data, response);
+                        } else if (response.data.success) {
+                            defer.resolve(response.data.data, response);
+                        } else {
+                            $delegate.doError($.extend(response, {
+                                statusText: response.data.message
+                            }), defer);
+                        }
                     };
 
                     $delegate.doError = function (response, defer) {
