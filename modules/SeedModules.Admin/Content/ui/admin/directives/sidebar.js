@@ -8,28 +8,12 @@ define([
             return {
                 restrict: 'AE',
                 replace: true,
-                templateUrl: '/SeedModules.Admin/ui/admin/directives/sidebar.html',
+                template: '<div class="sidebar"><div class="sidebar-top"><a href="" ng-click="toggle()"><i class="fa fa-bars"></i></a></div><ul sidebar-nav nav-data="navData"></ul></div>',
                 scope: {
-                    sidebar: '='
+                    sidebar: '=',
+                    navData: '=',
                 },
                 link: function (scope, element, attrs, controller) {
-                    element.find('.sidebar-item>a').on('click', function () {
-                        var node = $(this);
-                        var navItemShow = element.find('.sidebar-item.sidebar-show');
-                        var navItem = element.find('.sidebar-item');
-                        if (!element.hasClass('sidebar-mini')) {
-                            if (node.next().css('display') == 'none') {
-                                //展开未展开
-                                navItem.children('ul').slideUp(300);
-                                node.next('ul').slideDown(300);
-                                node.parent('li').addClass('sidebar-show').siblings('li').removeClass('sidebar-show');
-                            } else {
-                                //收缩已展开
-                                node.next('ul').slideUp(300);
-                                navItemShow.removeClass('sidebar-show');
-                            }
-                        }
-                    });
 
                     scope.toggle = function () {
                         var navItemShow = element.find('.sidebar-item.sidebar-show');
@@ -45,6 +29,11 @@ define([
                             navContent.removeClass('sidebar-min');
                         }
                     };
+
+                    scope.sidebar = $.extend(scope.sidebar, {
+                        toggle: scope.toggle
+                    });
+
                 }
             };
         }
