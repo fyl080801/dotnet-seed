@@ -60,10 +60,10 @@ namespace SeedModules.Admin.Extensions
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             })
-            .AddCookie(IdentityConstants.ApplicationScheme, o =>
+            .AddCookie(IdentityConstants.ApplicationScheme, options =>
             {
-                o.LoginPath = new PathString(LoginPath);
-                o.Events = new CookieAuthenticationEvents
+                options.LoginPath = new PathString(LoginPath);
+                options.Events = new CookieAuthenticationEvents
                 {
                     OnValidatePrincipal = async context =>
                     {
@@ -71,19 +71,19 @@ namespace SeedModules.Admin.Extensions
                     }
                 };
             })
-            .AddCookie(IdentityConstants.ExternalScheme, o =>
+            .AddCookie(IdentityConstants.ExternalScheme, options =>
             {
-                o.Cookie.Name = IdentityConstants.ExternalScheme;
-                o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.Cookie.Name = IdentityConstants.ExternalScheme;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
             })
-            .AddCookie(IdentityConstants.TwoFactorRememberMeScheme, o =>
+            .AddCookie(IdentityConstants.TwoFactorRememberMeScheme, options =>
             {
-                o.Cookie.Name = IdentityConstants.TwoFactorRememberMeScheme;
+                options.Cookie.Name = IdentityConstants.TwoFactorRememberMeScheme;
             })
-            .AddCookie(IdentityConstants.TwoFactorUserIdScheme, IdentityConstants.TwoFactorUserIdScheme, o =>
+            .AddCookie(IdentityConstants.TwoFactorUserIdScheme, IdentityConstants.TwoFactorUserIdScheme, options =>
             {
-                o.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
-                o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                options.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
             });
 
             services.TryAddScoped<IUserValidator<IUser>, UserValidator<IUser>>();
@@ -99,25 +99,25 @@ namespace SeedModules.Admin.Extensions
 
             services.TryAddScoped<IUserStore<IUser>, UserStore>();
 
-            services.ConfigureApplicationCookie(o =>
+            services.ConfigureApplicationCookie(options =>
             {
-                o.Cookie.Name = "seed_" + tenantName;
-                o.Cookie.Path = new PathString(prefix);
-                o.LoginPath = new PathString(LoginPath);
-                o.AccessDeniedPath = new PathString(LoginPath);
-                o.DataProtectionProvider = dataProtectionProvider;
+                options.Cookie.Name = "seed_" + tenantName;
+                options.Cookie.Path = new PathString(prefix);
+                options.LoginPath = new PathString(LoginPath);
+                options.AccessDeniedPath = new PathString(LoginPath);
+                options.DataProtectionProvider = dataProtectionProvider;
             })
-            .ConfigureExternalCookie(o =>
+            .ConfigureExternalCookie(options =>
             {
-                o.DataProtectionProvider = dataProtectionProvider;
+                options.DataProtectionProvider = dataProtectionProvider;
             })
-            .Configure<CookieAuthenticationOptions>(IdentityConstants.TwoFactorRememberMeScheme, o =>
+            .Configure<CookieAuthenticationOptions>(IdentityConstants.TwoFactorRememberMeScheme, options =>
             {
-                o.DataProtectionProvider = dataProtectionProvider;
+                options.DataProtectionProvider = dataProtectionProvider;
             })
-            .Configure<CookieAuthenticationOptions>(IdentityConstants.TwoFactorUserIdScheme, o =>
+            .Configure<CookieAuthenticationOptions>(IdentityConstants.TwoFactorUserIdScheme, options =>
             {
-                o.DataProtectionProvider = dataProtectionProvider;
+                options.DataProtectionProvider = dataProtectionProvider;
             });
 
             services.AddScoped<IUserService, UserService>();

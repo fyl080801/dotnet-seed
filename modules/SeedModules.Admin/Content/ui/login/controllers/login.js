@@ -12,10 +12,10 @@ define([
 
             $scope.login = function () {
                 requestService
-                    .url('/api/account/login?ReturnUrl=/')
+                    .url('/api/account/login?ReturnUrl=' + $location.search().ReturnUrl)
                     .post($scope.data)
                     .then(function (result) {
-
+                        window.location = result.returnUrl;
                     });
             };
         }

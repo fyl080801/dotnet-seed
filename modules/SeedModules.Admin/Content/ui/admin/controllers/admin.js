@@ -6,10 +6,10 @@ define([
     module.controller('SeedModules.Admin/ui/admin/controllers/admin', [
         '$scope',
         '$modal',
-        '$location',
+        '$window',
         'app.services.popupService',
         'SeedModules.AngularUI/ui/services/requestService',
-        function ($scope, $modal, $location, popupService, requestService) {
+        function ($scope, $modal, $window, popupService, requestService) {
 
             $scope.logout = function () {
                 popupService
@@ -22,7 +22,7 @@ define([
                             })
                             .post()
                             .then(function () {
-
+                                $window.location.reload();
                             });
                     });
             };
