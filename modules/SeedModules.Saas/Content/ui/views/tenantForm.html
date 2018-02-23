@@ -1,0 +1,42 @@
+<div ng-controller="SeedModules.Saas/ui/controllers/tenantForm">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <i class="glyphicon glyphicon-edit"></i>&nbsp;租户
+        </h4>
+    </div>
+    <div class="modal-body container-fluid">
+        <form name="pform" role="form">
+            <div class="form-group">
+                <label>名称</label>
+                <input class="form-control" name="name" ng-model="$data.name" required>
+            </div>
+            <div class="form-group">
+                <label>Url前缀</label>
+                <input class="form-control" name="requestUrlPrefix" ng-model="$data.requestUrlPrefix">
+            </div>
+            <div class="form-group">
+                <label>主机</label>
+                <input class="form-control" name="requestUrlHost" ng-model="$data.requestUrlHost">
+            </div>
+            <div>
+                <label>数据库类型</label>
+                <select class="form-control" name="databaseProvider" ng-model="$data.databaseProvider" ng-init="$data.databaseProvider='SqlConnection'"
+                    required>
+                    <option ng-repeat="item in databaseProviders" value="{{item.Provider}}">{{item.Name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>连接字符串</label>
+                <input class="form-control" name="connectionString" ng-model="$data.connectionString" required>
+            </div>
+            <div class="form-group">
+                <label>表前缀</label>
+                <input class="form-control" name="tablePrefix" ng-model="$data.tablePrefix" required>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$close($data)" ng-disabled="pform.$invalid">确定</button>
+        <button class="btn btn-default" type="button" ng-click="$dismiss()">取消</button>
+    </div>
+</div>

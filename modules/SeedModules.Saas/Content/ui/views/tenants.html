@@ -1,3 +1,23 @@
-<div>
-    tenants
+<div ng-controller="SeedModules.Saas/ui/controllers/tenants" ng-init="load()">
+    <div class="navbar navbar-static-top navbar-blank" style="margin: 0">
+        <div class="container-fluid">
+            <div class="navbar-form navbar-right">
+                <button class="btn btn-success" ng-click="create()">
+                    添加
+                </button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>名称</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in list">
+                <td>{{row.name}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>

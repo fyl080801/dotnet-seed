@@ -11,6 +11,8 @@ define([
                 text: '平台管理',
                 icon: 'fa fa-server',
                 children: [{
+                    text: '数据源'
+                }, {
                     text: '租户管理',
                     itemClicked: function (evt) {
                         $state.go('admin.tenants');

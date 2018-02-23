@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Seed.Mvc.Models;
 using System;
 using System.Text;
@@ -22,6 +23,15 @@ namespace Seed.Mvc.Extensions
             {
                 Success = false,
                 Message = message
+            };
+        }
+
+        public static ApiResult Error(this Controller controller, ModelStateDictionary modelState)
+        {
+            return new ApiResult()
+            {
+                Success = false,
+                Message = ""
             };
         }
     }

@@ -167,3 +167,8 @@
 .sidebar-mini.sidebar .sidebar-item:hover ul {
     display: block;
 }
+
+.navbar-blank {
+    background-color: transparent;
+    border-color: #e7e7e7;
+}

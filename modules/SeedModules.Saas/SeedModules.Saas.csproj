@@ -1,13 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
+    <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="saas.ui.dev.json">
       <PackagePath>assets\$(PackageId)\</PackagePath>
@@ -16,5 +14,4 @@
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>
