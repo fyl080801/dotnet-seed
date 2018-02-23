@@ -1,14 +1,17 @@
-﻿<Project 
+﻿<Project
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!--
     Defines msbuild tasks on a Bundle package to copy all modules assets (projects and packages) to the "modules" folder.
   -->
   <Target Name="CopyPackageAssets" AfterTargets="Build" Condition="'$(IgnorePackageAssets)' != 'true'">
+    <ItemGroup>
+      <ModuleProjectReferences Include="@(_MSBuildProjectReferenceExistent)" Condition="Exists('%(RootDir)%(Directory)Module.txt')" />
+      <!--<ModuleProjectReferences Include="@(_MSBuildProjectReferenceExistent)" Condition="Exists('%(RootDir)%(Directory)Module.txt') Or Exists('%(RootDir)%(Directory)obj\Module.txt')" />-->
+    </ItemGroup>
+    <Message Text="压缩脚本" Importance="high" />
+    <MSBuild Targets="ExecuteModuleGulp" BuildInParallel="$(BuildInParallel)" Properties="ApplicationDirectory=$(MSBuildProjectDirectory)" Projects="@(ModuleProjectReferences)" Condition="'@(ModuleProjectReferences)' != ''" ContinueOnError="true"></MSBuild>
     <Message Text="复制项目文件" Importance="high" />
     <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="modules\%(RecursiveDir)" ContinueOnError="true" />
-    <ItemGroup>
-      <ModuleProjectReferences Include="@(_MSBuildProjectReferenceExistent)" Condition="Exists('%(RootDir)%(Directory)Module.txt') Or Exists('%(RootDir)%(Directory)obj\Module.txt')" />
-    </ItemGroup>
     <MSBuild Targets="CopyPackageAssetFiles" BuildInParallel="$(BuildInParallel)" Properties="ApplicationDirectory=$(MSBuildProjectDirectory)" Projects="@(ModuleProjectReferences)" Condition="'@(ModuleProjectReferences)' != ''" ContinueOnError="true"></MSBuild>
     <ItemGroup>
       <ModuleProjectRazorFiles Include="%(ModuleProjectReferences.RootDir)%(Directory)**\*.cshtml">
