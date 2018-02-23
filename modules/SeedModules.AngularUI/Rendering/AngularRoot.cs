@@ -44,5 +44,17 @@ namespace SeedModules.AngularUI.Rendering
                 Attributes.Add("data-options", optionsString);
             }
         }
+
+        public void SetPrefix(string prefix)
+        {
+            if (Attributes.ContainsKey("data-prefix"))
+            {
+                Attributes["data-prefix"] = prefix;
+            }
+            else
+            {
+                Attributes.Add("data-prefix", prefix);
+            }
+        }
     }
 }

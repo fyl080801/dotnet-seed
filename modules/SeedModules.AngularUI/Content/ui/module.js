@@ -13,8 +13,8 @@ define([
         ])
         .config(['$provide', '$appConfig',
             function ($provide, $appConfig) {
-                // var app = $('#app').length > 0 ? $('#app') : null;
-                // $appConfig.serviceUrl = app ? app.attr('data-service') : '';
+                var prefix = document.getElementById('seed-ui').getAttribute('data-prefix');
+                $appConfig.prefix = prefix ? '/' + prefix : '';
             }
         ]);
 });

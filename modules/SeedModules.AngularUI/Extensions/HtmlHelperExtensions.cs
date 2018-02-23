@@ -34,5 +34,12 @@ namespace SeedModules.AngularUI.Extensions
                 ui.SetOptions(options);
             return ui;
         }
+
+        public static IViewRoot Prefix(this IViewRoot ui, string prefix)
+        {
+            if (prefix != null)
+                ui.SetPrefix(prefix);
+            return ui;
+        }
     }
 }

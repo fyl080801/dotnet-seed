@@ -7,8 +7,9 @@ define([
     module.directive('ajaxForm', [
         '$q',
         '$modal',
+        '$appConfig',
         'app.factories.httpDataHandler',
-        function ($q, $modal, httpDataHandler) {
+        function ($q, $modal, $appConfig, httpDataHandler) {
             return {
                 restrict: 'AE',
                 scope: {
@@ -31,12 +32,14 @@ define([
 
                         var submitOptions = options ? $.extend(scope.ajaxForm, options) : scope.ajaxForm;
 
+                        submitOptions.url = $appConfig.prefix + submitOptions.url;
+
                         submitOptions.success = function (responseText, statusText, xhr, form) {
                             httpDataHandler.doResponse({
                                 data: '',
                                 config: {
                                     dataOnly: true,
-                                    url: scope.ajaxForm.url
+                                    url: $appConfig.prefix + scope.ajaxForm.url
                                 }
                             }, defer);
 

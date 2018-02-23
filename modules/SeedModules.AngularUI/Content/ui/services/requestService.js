@@ -7,8 +7,9 @@ define([
         '$q',
         '$http',
         '$modal',
+        '$appConfig',
         'app.factories.httpDataHandler',
-        function ($q, $http, $modal, httpDataHandler) {
+        function ($q, $http, $modal, $appConfig, httpDataHandler) {
 
             function resolveHttp(method, apiDefer) {
                 var defer = $q.defer();
@@ -19,7 +20,7 @@ define([
                 }, apiDefer.$$options);
 
                 configs.method = method;
-                configs.url = apiDefer.$$url;
+                configs.url = $appConfig.prefix + apiDefer.$$url;
                 configs.data = apiDefer.$$data;
 
                 var loading = configs.showLoading ? $modal
