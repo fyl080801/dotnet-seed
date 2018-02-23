@@ -35,6 +35,7 @@ define([
                             httpDataHandler.doResponse({
                                 data: '',
                                 config: {
+                                    dataOnly: true,
                                     url: scope.ajaxForm.url
                                 }
                             }, defer);
@@ -45,8 +46,9 @@ define([
                         submitOptions.error = function (response, statusText, responseText, form) {
                             httpDataHandler.doError({
                                 data: '',
-                                message: responseText,
+                                statusText: responseText,
                                 config: {
+                                    dataOnly: true,
                                     url: scope.ajaxForm.url
                                 }
                             }, defer);

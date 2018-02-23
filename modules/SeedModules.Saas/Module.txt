@@ -1,0 +1,4 @@
+﻿Name: Saas
+Version: 1.0
+Category: 基础模块
+Dependencies: SeedModules.Admin

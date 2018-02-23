@@ -9,25 +9,12 @@ define([
         '$modal',
         '$window',
         'app.services.popupService',
+        'SeedModules.Admin/ui/admin/configs/nav',
         'SeedModules.AngularUI/ui/services/requestService',
-        function ($scope, $state, $modal, $window, popupService, requestService) {
+        function ($scope, $state, $modal, $window, popupService, nav, requestService) {
             $scope.sidebar = {};
 
-            $scope.navData = [{
-                text: '系统管理',
-                icon: 'fa fa-cog',
-                children: [{
-                    text: '用户管理',
-                    itemClicked: function (evt) {
-                        $state.go('admin.users');
-                    }
-                }, {
-                    text: '角色管理',
-                    itemClicked: function (evt) {
-                        $state.go('admin.roles');
-                    }
-                }]
-            }];
+            $scope.navData = nav.tree();
 
             $scope.logout = function () {
                 popupService

@@ -1,5 +1,7 @@
 ﻿define([
-    'app/application'
+    'app/application',
+    'SeedModules.Admin/ui/admin/configs/nav',
+    'SeedModules.Admin/ui/admin/configs/menus'
 ], function (application) {
     'use strict';
 
@@ -7,7 +9,8 @@
 
     return angular
         .module('modules.admin', [
-            'ui.router'
+            'ui.router',
+            'modules.admin.configs'
         ])
         .config([
             '$stateProvider',

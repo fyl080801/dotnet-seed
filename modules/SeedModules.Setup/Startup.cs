@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
 using SeedModules.AngularUI.Extensions;
+using SeedModules.AngularUI.Rendering;
+using SeedModules.Setup.Rendering;
 using SeedModules.Setup.Services;
 using System;
 
@@ -12,7 +14,7 @@ namespace SeedModules.Setup
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddAllViewOptions();
+            services.AddScoped<IViewOptionsBuilder, SetupViewOptionBuilder>();
             services.AddScoped<ISetupService, SetupService>();
         }
 
