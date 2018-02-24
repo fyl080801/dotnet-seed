@@ -112,7 +112,7 @@ namespace SeedModules.AngularUI.Rendering
 
             var environment = _hostingEnvironment.IsDevelopment() ? "dev" : "dist";
             var uiFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
-                .Where(x => !x.IsDirectory && x.Name.EndsWith($".ui.{environment}.json") && references.References.Contains(x.Name.Replace($".ui.{environment}.json", "")));
+                .Where(x => !x.IsDirectory && x.Name.EndsWith(".ui.json") && references.References.Contains(x.Name.Replace(".ui.json", "")));
 
             if (uiFiles.Any())
             {
@@ -124,7 +124,12 @@ namespace SeedModules.AngularUI.Rendering
                         {
                             using (var jsonReader = new JsonTextReader(reader))
                             {
-                                return new JsonSerializer().Deserialize<ViewReference>(jsonReader);
+                                var ui = new JsonSerializer().Deserialize<ViewReference>(jsonReader);
+                                if (_hostingEnvironment.IsDevelopment())
+                                {
+                                    ui.References = ui.References.Where(e => !e.Value.IsDist).ToDictionary(e => e.Key, e => e.Value);
+                                }
+                                return ui;
                             }
                         }
                     }

@@ -25,6 +25,9 @@ namespace SeedModules.AngularUI.Rendering
 
         [JsonProperty("noDebug")]
         public bool NoDebug { get; set; }
+
+        [JsonProperty("isDist")]
+        public bool IsDist { get; set; }
     }
 
     public class ReferenceShim

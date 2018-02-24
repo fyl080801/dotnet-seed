@@ -20,8 +20,8 @@ gulp.task('build', function () {
     var uiContent = path.join(options.src, 'Content', 'ui');
     if (fs.existsSync(uiContent)) {
 
-        gulp.src(path.join(uiContent, '**/*.js'))
-            .pipe(amdOptimize('', {}));
+        // gulp.src(path.join(uiContent, '**/*.js'))
+        //     .pipe(amdOptimize('', {}));
         // getFolders(uiContent)
         //     .map(function (folder) {
         //         console.log(folder);

@@ -1,9 +1,0 @@
-{
-  "references": {
-
-  },
-  "requires": [
-    "rcss!SeedModules.Admin/css/seed-admin.css",
-    "SeedModules.Admin/ui/login/module"
-  ]
-}

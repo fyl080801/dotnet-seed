@@ -1,9 +1,0 @@
-{
-    "references": {
-
-    },
-    "requires": [
-        "SeedModules.Setup/ui/module"
-    ],
-    "patchs": []
-}
