@@ -5,5 +5,7 @@
   "requires": [
     "rcss!SeedModules.Admin/css/seed-admin.css",
     "SeedModules.Admin/ui/admin/module"
-  ]
+  ],
+  "module": "admin/module",
+  "require": "admin/requires"
 }

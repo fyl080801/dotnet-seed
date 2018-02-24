@@ -1,4 +1,4 @@
-﻿<Project
+﻿<Project 
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ModuleManifest>Name: $(MSBuildProjectName)</ModuleManifest>
@@ -10,7 +10,7 @@
   </ItemGroup>
   <Target Name="ExecuteModuleGulp" BeforeTargets="Build" Condition="'$(ApplicationDirectory)' != '' And Exists('$(ApplicationDirectory)')">
     <Message Text="压缩模块脚本文件: $(MSBuildProjectName)" Importance="high" />
-    <Exec Command="gulp build" />
+    <Exec Command="gulp build --src $(ApplicationDirectory)\modules\$(MSBuildProjectName)" />
   </Target>
   <Target Name="CheckManifestFile" AfterTargets="Build" Condition="!Exists('$(ModuleType).txt')">
     <Message Text="生成模块定义文件: $(MSBuildProjectName)" Importance="high" />
