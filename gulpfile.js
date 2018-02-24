@@ -12,29 +12,80 @@ var gulp = require('gulp'),
 var options = minimist(process.argv.slice(2), {
     string: 'src',
     default: {
-        src: process.env.NODE_ENV || ''
+        src: process.env.NODE_ENV || 'D:\\Source\\GitHub\\dotnet-seed\\src\\Seed\\modules'
     }
 });
 
 gulp.task('build', function () {
+    var modulePaths = [];
+    var requiresOptions = {
+        baseUrl: options.src,
+        skipDirOptimize: true,
+        paths: {},
+        exclude: [],
+        shim: {
+            'SeedModules.Admin/Content/ui/admin/requires': {
+                exports: 'SeedModules.Admin/ui/admin/requires'
+            }
+        }
+    };
+    var moduleOptions = {
+        baseUrl: options.src,
+        skipDirOptimize: true,
+        paths: {},
+        exclude: []
+    };
 
     getFolders(options.src).map(function (folder) {
         getFiles(path.join(options.src, folder), '.ui.json').map(function (file) {
             var uidef = JSON.parse(fs.readFileSync(path.join(options.src, folder, file)));
-            var uipath = path.join(options.src, folder, uidef.path);
+            var uipath = path.join(options.src, folder, (uidef.path ? uidef.path : 'Content/ui'));
+
+            modulePaths.push(uipath);
+
+            for (var name in uidef.references) {
+                requiresOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
+                requiresOptions.exclude.push(name);
+
+                moduleOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
+                moduleOptions.exclude.push(name);
+            }
+
+            getAllFiles(uipath, '.js').map(function (fullname) {
+                var reqname = fullname.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '').replace('.js', '');
+                var reqpath = fullname.replace(options.src, '').replace(/\\/g, '/').replace('.js', '');
+
+                requiresOptions.paths[reqname] = reqpath;
+                moduleOptions.paths[reqname] = reqpath;
+            });
+            requiresOptions.exclude.push(uipath.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '') + '/module');
         });
     });
 
-    // var uiContent = path.join(options.src, 'Content', 'ui');
-    // if (fs.existsSync(uiContent)) {
+    modulePaths.map(function (folder) {
+        var distname = folder.replace(options.src + '\\', '').replace(/\\/g, '.');
+        var targetPath = path.join(folder.substring(0, folder.lastIndexOf('\\ui')), 'js');
 
-    //     // gulp.src(path.join(uiContent, '**/*.js'))
-    //     //     .pipe(amdOptimize('', {}));
-    //     // getFolders(uiContent)
-    //     //     .map(function (folder) {
-    //     //         console.log(folder);
-    //     //     });
-    // }
+        gulp.src(path.join(folder, '**/*.js'))
+            .pipe(amdOptimize(path.join(folder.replace(options.src + '\\', ''), 'requires'), requiresOptions))
+            .pipe(concat(distname + '.requires.js'))
+            .pipe(gulp.dest(targetPath))
+            .pipe(concat(distname + '.requires.min.js'))
+            .pipe(uglify({
+                outSourceMap: false
+            }))
+            .pipe(gulp.dest(targetPath));
+
+        gulp.src(path.join(folder, '**/*.js'))
+            .pipe(amdOptimize(path.join(folder.replace(options.src + '\\', ''), 'module'), moduleOptions))
+            .pipe(concat(distname + '.module.js'))
+            .pipe(gulp.dest(targetPath))
+            .pipe(concat(distname + '.module.min.js'))
+            .pipe(uglify({
+                outSourceMap: false
+            }))
+            .pipe(gulp.dest(targetPath));
+    });
 });
 
 function getFolders(dir) {
@@ -51,4 +102,17 @@ function getFiles(dir, ext) {
         .filter(function (file) {
             return fs.statSync(path.join(dir, file)).isFile() && file.endsWith(ext);
         });
+}
+
+function getAllFiles(dir, ext) {
+    var files = [];
+    getFiles(dir, ext).map(function (file) {
+        files.push(path.join(dir, file));
+    });
+    getFolders(dir).map(function (folder) {
+        getAllFiles(path.join(dir, folder), ext).map(function (file) {
+            files.push(file);
+        });
+    });
+    return files;
 }

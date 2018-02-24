@@ -2,6 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <Target Name="ExecuteModuleGulp" />
   <Target Name="CopyPackageAssetFiles" />
+  <Target Name="ExecuteModuleGulp" />
 </Project>
