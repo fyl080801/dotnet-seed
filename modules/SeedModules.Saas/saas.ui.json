@@ -4,5 +4,6 @@
   },
   "requires": [
     "SeedModules.Saas/ui/module"
-  ]
+  ],
+  "path": "Content/ui"
 }

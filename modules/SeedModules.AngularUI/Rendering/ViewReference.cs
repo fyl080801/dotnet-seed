@@ -13,6 +13,9 @@ namespace SeedModules.AngularUI.Rendering
 
         [JsonProperty("patchs")]
         public IEnumerable<string> Patchs { get; set; } = new HashSet<string>();
+
+        [JsonProperty("path")]
+        public string Path { get; set; }
     }
 
     public class ModuleReference

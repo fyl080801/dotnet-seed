@@ -31,5 +31,6 @@
         "rcss!SeedModules.AngularUI/css/font-awesome.min.css",
         "SeedModules.AngularUI/ui/module"
     ],
-    "patchs": ["patch"]
+    "patchs": ["patch"],
+    "path": "Content/ui"
 }
