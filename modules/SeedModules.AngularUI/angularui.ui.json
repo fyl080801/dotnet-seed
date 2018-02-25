@@ -24,6 +24,18 @@
                 "deps": ["app"]
             },
             "noDebug": true
+        },
+
+        "SeedModules.AngularUI/ui/module": {
+            "path": "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.ui.module",
+            "isDist": true
+        },
+        "SeedModules.AngularUI/ui/requires": {
+            "path": "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.ui.requires",
+            "shim": {
+                "deps": ["SeedModules.AngularUI/ui/module"]
+            },
+            "isDist": true
         }
     },
     "requires": [

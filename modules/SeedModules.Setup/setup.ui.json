@@ -1,6 +1,16 @@
 {
     "references": {
-
+        "SeedModules.Setup/ui/module": {
+            "path": "SeedModules.Setup/js/SeedModules.Setup.Content.ui.module",
+            "isDist": true
+        },
+        "SeedModules.Setup/ui/requires": {
+            "path": "SeedModules.Setup/js/SeedModules.Setup.Content.ui.requires",
+            "shim": {
+                "deps": ["SeedModules.Setup/ui/module"]
+            },
+            "isDist": true
+        }
     },
     "requires": [
         "SeedModules.Setup/ui/module"

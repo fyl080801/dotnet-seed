@@ -4,6 +4,7 @@ var gulp = require('gulp'),
     cssmin = require('gulp-cssmin'),
     uglify = require('gulp-uglify'),
     ngmin = require('gulp-ngmin'),
+    replace = require('gulp-replace'),
     path = require('path'),
     minimist = require('minimist'),
     amdOptimize = require('amd-optimize'),
@@ -18,23 +19,12 @@ var options = minimist(process.argv.slice(2), {
 
 gulp.task('build', function () {
     var modulePaths = [];
-    var requiresOptions = {
-        baseUrl: options.src,
-        skipDirOptimize: true,
-        paths: {},
-        exclude: [],
-        shim: {
-            'SeedModules.Admin/Content/ui/admin/requires': {
-                exports: 'SeedModules.Admin/ui/admin/requires'
-            }
-        }
-    };
-    var moduleOptions = {
-        baseUrl: options.src,
-        skipDirOptimize: true,
-        paths: {},
-        exclude: []
-    };
+    var requiresOptions,
+        moduleOptions = {
+            baseUrl: options.src,
+            paths: {},
+            exclude: []
+        };
 
     getFolders(options.src).map(function (folder) {
         getFiles(path.join(options.src, folder), '.ui.json').map(function (file) {
@@ -44,30 +34,33 @@ gulp.task('build', function () {
             modulePaths.push(uipath);
 
             for (var name in uidef.references) {
-                requiresOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
-                requiresOptions.exclude.push(name);
-
-                moduleOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
-                moduleOptions.exclude.push(name);
+                if (!uidef.references[name].isDist) {
+                    moduleOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
+                    moduleOptions.exclude.push(name);
+                }
             }
 
             getAllFiles(uipath, '.js').map(function (fullname) {
-                var reqname = fullname.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '').replace('.js', '');
-                var reqpath = fullname.replace(options.src, '').replace(/\\/g, '/').replace('.js', '');
-
-                requiresOptions.paths[reqname] = reqpath;
-                moduleOptions.paths[reqname] = reqpath;
+                moduleOptions.paths[fullname.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '').replace('.js', '')] = fullname.replace(options.src, '').replace(/\\/g, '/').replace('.js', '');
             });
-            requiresOptions.exclude.push(uipath.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '') + '/module');
         });
+    });
+
+    requiresOptions = JSON.parse(JSON.stringify(moduleOptions));
+
+    modulePaths.map(function (folder) {
+        requiresOptions.exclude.push(folder.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '') + '/module');
     });
 
     modulePaths.map(function (folder) {
         var distname = folder.replace(options.src + '\\', '').replace(/\\/g, '.');
         var targetPath = path.join(folder.substring(0, folder.lastIndexOf('\\ui')), 'js');
+        var requireName = path.join(folder.replace(options.src + '\\', ''), 'requires');
+        var moduleName = path.join(folder.replace(options.src + '\\', ''), 'module');
 
         gulp.src(path.join(folder, '**/*.js'))
-            .pipe(amdOptimize(path.join(folder.replace(options.src + '\\', ''), 'requires'), requiresOptions))
+            .pipe(amdOptimize(requireName, requiresOptions))
+            .pipe(replace(requireName.replace(/\\/g, '/'), requireName.replace(/\\/g, '/').replace('/Content/', '/')))
             .pipe(concat(distname + '.requires.js'))
             .pipe(gulp.dest(targetPath))
             .pipe(concat(distname + '.requires.min.js'))
@@ -77,7 +70,8 @@ gulp.task('build', function () {
             .pipe(gulp.dest(targetPath));
 
         gulp.src(path.join(folder, '**/*.js'))
-            .pipe(amdOptimize(path.join(folder.replace(options.src + '\\', ''), 'module'), moduleOptions))
+            .pipe(amdOptimize(moduleName, moduleOptions))
+            .pipe(replace(moduleName.replace(/\\/g, '/'), moduleName.replace(/\\/g, '/').replace('/Content/', '/')))
             .pipe(concat(distname + '.module.js'))
             .pipe(gulp.dest(targetPath))
             .pipe(concat(distname + '.module.min.js'))

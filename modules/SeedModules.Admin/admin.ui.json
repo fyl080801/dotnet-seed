@@ -1,6 +1,16 @@
 {
   "references": {
-
+    "SeedModules.Admin/ui/admin/module": {
+      "path": "SeedModules.Admin/js/SeedModules.Admin.Content.ui.admin.module",
+      "isDist": true
+    },
+    "SeedModules.Admin/ui/admin/requires": {
+      "path": "SeedModules.Admin/js/SeedModules.Admin.Content.ui.admin.requires",
+      "shim": {
+        "deps": ["SeedModules.Admin/ui/admin/module"]
+      },
+      "isDist": true
+    }
   },
   "requires": [
     "rcss!SeedModules.Admin/css/seed-admin.css",
