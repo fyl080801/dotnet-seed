@@ -8,10 +8,18 @@ define([
         'SeedModules.Admin/ui/admin/configs/nav',
         function ($state, nav) {
             nav.add({
-                text: '平台管理',
+                text: '托管平台',
                 icon: 'fa fa-server',
                 children: [{
-                    text: '数据源'
+                    text: '数据源',
+                    itemClicked: function (evt) {
+                        $state.go('admin.datasources');
+                    }
+                }, {
+                    text: '模板管理',
+                    itemClicked: function (evt) {
+                        $state.go('admin.projects');
+                    }
                 }, {
                     text: '租户管理',
                     itemClicked: function (evt) {

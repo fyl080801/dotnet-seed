@@ -10,10 +10,14 @@
 
 .seed-container .seed-content {
     position: absolute;
-    top: 50px;
+    top: 70px;
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.seed-bg {
+    background-color: white;
 }
 
 /* sidebar */
@@ -144,7 +148,7 @@
     top: 0px;
     left: 55px;
     width: 180px;
-    z-index: 99;
+    z-index: 1025;
     background: #3C474C;
     overflow: hidden;
     border-radius: 0 4px 4px 0;

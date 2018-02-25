@@ -1,7 +1,8 @@
 ﻿define([
     'app/application',
     'SeedModules.Admin/ui/admin/configs/nav',
-    'SeedModules.Admin/ui/admin/configs/menus'
+    'SeedModules.Admin/ui/admin/configs/menus',
+    'SeedModules.Admin/ui/admin/configs/router'
 ], function (application) {
     'use strict';
 
@@ -32,12 +33,14 @@
 
                 $stateProvider.state('admin.users', {
                     url: '/users',
+                    title: '用户管理',
                     templateUrl: '/SeedModules.Admin/ui/admin/views/users.html',
                     requires: ['SeedModules.AngularUI/ui/requires', 'SeedModules.Admin/ui/admin/requires']
                 });
 
                 $stateProvider.state('admin.roles', {
                     url: '/roles',
+                    title: '角色管理',
                     templateUrl: '/SeedModules.Admin/ui/admin/views/roles.html',
                     requires: ['SeedModules.AngularUI/ui/requires', 'SeedModules.Admin/ui/admin/requires']
                 });
