@@ -8,10 +8,12 @@ define([
             return {
                 restrict: 'AE',
                 replace: true,
-                template: '<div class="sidebar"><div class="sidebar-top"><a href="" ng-click="toggle()"><i class="fa fa-bars"></i></a></div><ul sidebar-nav nav-data="navData"></ul></div>',
+                template: '<div class="sidebar"><div class="sidebar-top"><a href="{{homeHref}}"><i class="fa fa-home"></i> <span>{{homeTitle}}</span></a></div><ul sidebar-nav nav-data="navData"></ul></div>',
                 scope: {
                     sidebar: '=',
                     navData: '=',
+                    homeHref: '@',
+                    homeTitle: '@'
                 },
                 link: function (scope, element, attrs, controller) {
 

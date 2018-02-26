@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\modules\SeedModules.Saas\SeedModules.Saas.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Settings\SeedModules.Settings.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.Features\SeedModules.Features.csproj" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" />
   </ItemGroup>
 </Project>

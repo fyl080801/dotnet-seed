@@ -20,6 +20,21 @@
                 </div>
             </div>
             <div class="container-fluid">
+                <div class="navbar-form navbar-left">
+                    <button class="btn btn-info">
+                        <i class="glyphicon glyphicon-ok-circle"></i>
+                        启用
+                    </button>
+                    <button class="btn btn-danger">
+                        <i class="glyphicon glyphicon-ban-circle"></i>
+                        禁用
+                    </button>
+                    <button class="btn btn-warning">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        重启
+                    </button>
+                </div>
+
                 <div class="navbar-form navbar-right">
                     <button class="btn btn-success" ng-click="create()">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -29,15 +44,27 @@
             </div>
         </div>
         <table class="table table-striped table-hover">
+            <colgroup>
+                <col width="50px" />
+            </colgroup>
             <thead>
                 <tr>
-                    <th>名称</th>
+                    <th>
+                        <input type="checkbox" ng-model="checkedAll" ng-change="checkAll()">
+                    </th>
+                    <th class="text-right">
+                        <span class="pull-left">名称</span>
+                        <!-- <i class="fa fa-sort-down"></i> -->
+                    </th>
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="row in list">
+                    <td>
+                        <input type="checkbox" ng-model="checked[row.name]" ng-change="onCheck()">
+                    </td>
                     <td>{{row.name}}</td>
                     <td></td>
                     <td>

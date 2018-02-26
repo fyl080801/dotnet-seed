@@ -1,12 +1,12 @@
 ﻿<div ng-controller="SeedModules.Admin/ui/admin/controllers/admin">
-    <div sidebar="sidebar" nav-data="navData"></div>
+    <div sidebar="sidebar" nav-data="navData" home-href="#/admin/dashboard" home-title="首页"></div>
     <div class="sidebar-content seed-container seed-bg">
         <div class="navbar navbar-default navbar-static-top">
-            <!-- <div class="navbar-header navbar-form">
-                <button class="btn btn-success" ng-click="$state.go('admin.dashboard')">
-                    <i class="fa fa-home"></i>
+            <div class="navbar-header navbar-form">
+                <button class="btn btn-success" ng-click="sidebar.toggle()">
+                    <i class="fa fa-bars"></i>
                 </button>
-            </div> -->
+            </div>
             <div class="container-fluid">
                 <div class="collapse navbar-collapse">
                     <!-- <div class="navbar-form navbar-left">
@@ -91,7 +91,7 @@
                         首页
                     </a>
                 </li>
-                <li ng-show="$state.current.title&&$state.current.title!==''">
+                <li class="active" ng-show="$state.current.title&&$state.current.title!==''">
                     <span>{{$state.current.title}}</span>
                 </li>
             </ol>
