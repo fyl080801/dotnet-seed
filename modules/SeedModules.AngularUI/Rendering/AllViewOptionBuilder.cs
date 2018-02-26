@@ -78,7 +78,12 @@ namespace SeedModules.AngularUI.Rendering
                         {
                             using (var jsonReader = new JsonTextReader(reader))
                             {
-                                return new JsonSerializer().Deserialize<ViewReference>(jsonReader);
+                                var ui = new JsonSerializer().Deserialize<ViewReference>(jsonReader);
+                                if (_hostingEnvironment.IsDevelopment())
+                                {
+                                    ui.References = ui.References.Where(e => !e.Value.IsDist).ToDictionary(e => e.Key, e => e.Value);
+                                }
+                                return ui;
                             }
                         }
                     }
