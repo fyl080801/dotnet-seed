@@ -110,7 +110,6 @@ namespace SeedModules.AngularUI.Rendering
             if (references == null)
                 return Task.FromResult<IEnumerable<ViewReference>>(uiReferences);
 
-            var environment = _hostingEnvironment.IsDevelopment() ? "dev" : "dist";
             var uiFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
                 .Where(x => !x.IsDirectory && x.Name.EndsWith(".ui.json") && references.References.Contains(x.Name.Replace(".ui.json", "")));
 
