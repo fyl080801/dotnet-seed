@@ -8,7 +8,7 @@ define([
             return {
                 restrict: 'AE',
                 replace: true,
-                template: '<div class="sidebar"><div class="sidebar-top"><a href="{{homeHref}}"><i class="fa fa-home"></i> <span>{{homeTitle}}</span></a></div><ul sidebar-nav nav-data="navData"></ul></div>',
+                template: '<div class="sidebar"><div class="sidebar-top"><a href="{{homeHref}}"><i class="fa fa-home fa-fw"></i> <span>{{homeTitle}}</span></a></div><ul sidebar-nav nav-data="navData"></ul></div>',
                 scope: {
                     sidebar: '=',
                     navData: '=',

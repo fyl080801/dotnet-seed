@@ -9,7 +9,7 @@ define([
         function ($state, nav) {
             nav.add({
                 text: '托管平台',
-                icon: 'fa fa-server',
+                icon: 'fa fa-server fa-fw',
                 children: [{
                     text: '数据源',
                     itemClicked: function (evt) {

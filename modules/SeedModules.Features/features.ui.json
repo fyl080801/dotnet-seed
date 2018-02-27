@@ -1,0 +1,19 @@
+{
+    "references": {
+        "SeedModules.Features/ui/module": {
+            "path": "SeedModules.Features/js/SeedModules.Features.Content.ui.module",
+            "isDist": true
+        },
+        "SeedModules.Features/ui/requires": {
+            "path": "SeedModules.Features/js/SeedModules.Features.Content.ui.requires",
+            "shim": {
+                "deps": ["SeedModules.Features/ui/module"]
+            },
+            "isDist": true
+        }
+    },
+    "requires": [
+        "SeedModules.Features/ui/module"
+    ],
+    "path": "Content/ui"
+}

@@ -5,7 +5,6 @@
       "disable": [],
       "enable": [
         "SeedModules.Mvc",
-        "SeedModules.Admin",
         "SeedModules.Saas",
         "SeedModules.Common",
         "SeedModules.Router"
@@ -27,6 +26,7 @@
         "References": [
           "angularui",
           "admin",
+          "features",
           "saas"
         ]
       }, {

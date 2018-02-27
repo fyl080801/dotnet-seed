@@ -1,6 +1,16 @@
 {
   "references": {
-
+    "SeedModules.Saas/ui/module": {
+      "path": "SeedModules.Saas/js/SeedModules.Saas.Content.ui.module",
+      "isDist": true
+    },
+    "SeedModules.Saas/ui/requires": {
+      "path": "SeedModules.Saas/js/SeedModules.Saas.Content.ui.requires",
+      "shim": {
+        "deps": ["SeedModules.Saas/ui/module"]
+      },
+      "isDist": true
+    }
   },
   "requires": [
     "SeedModules.Saas/ui/module"

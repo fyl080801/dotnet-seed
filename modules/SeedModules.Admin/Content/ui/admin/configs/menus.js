@@ -9,7 +9,7 @@ define([
         function ($state, nav) {
             nav.add({
                 text: '系统管理',
-                icon: 'fa fa-cog',
+                icon: 'fa fa-cog fa-fw',
                 order: -1,
                 children: [{
                     text: '用户管理',
