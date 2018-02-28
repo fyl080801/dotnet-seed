@@ -1,6 +1,4 @@
-define([
-    'SeedModules.Features/ui/controllers/features'
-], function () {
-    'use strict';
+define(['SeedModules.Features/ui/controllers/features'], function() {
+  'use strict';
 
 });

@@ -1,8 +1,5 @@
-define([
-    'app/application'
-], function (application) {
-    'use strict';
+define(['app/application'], function(application) {
+  'use strict';
 
-    return angular
-        .module('modules.saas.configs', []);
+  return angular.module('modules.saas.configs', []);
 });

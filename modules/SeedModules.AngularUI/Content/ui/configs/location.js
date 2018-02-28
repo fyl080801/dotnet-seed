@@ -1,31 +1,27 @@
-define([
-    'SeedModules.AngularUI/ui/configs'
-], function (configs) {
-    'use strict';
+define(['SeedModules.AngularUI/ui/configs'], function(configs) {
+  'use strict';
 
-    configs.config([
-        '$provide',
-        function ($provide) {
-
-            $provide.decorator('$location', [
-                '$delegate',
-                function ($delegate) {
-                    $delegate.search = function () {
-                        var pairs = window.location.search.substring(1).split(/[&?]/);
-                        var res = {},
-                            i, pair;
-                        for (i = 0; i < pairs.length; i++) {
-                            pair = pairs[i].split('=');
-                            if (pair[1])
-                                res[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
-                        }
-                        return res;
-                    };
-
-                    return $delegate;
-                }
-            ]);
-
+  configs.config([
+    '$provide',
+    function($provide) {
+      $provide.decorator('$location', [
+        '$delegate',
+        function($delegate) {
+          $delegate.search = function() {
+            var pairs = window.location.search.substring(1).split(/[&?]/);
+            var res = {},
+              i,
+              pair;
+            for (i = 0; i < pairs.length; i++) {
+              pair = pairs[i].split('=');
+              if (pair[1])
+                res[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
+            }
+            return res;
+          };
+          return $delegate;
         }
-    ]);
+      ]);
+    }
+  ]);
 });
