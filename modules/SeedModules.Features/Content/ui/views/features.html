@@ -1,3 +1,8 @@
 <div ng-controller="SeedModules.Features/ui/controllers/features">
-    features
+    <table ng-table="tableParams" class="table table-striped">
+        <tr ng-repeat="row in $data">
+            <td title="'test1'" sortable="true">{{row.id}}</td>
+            <td title="'test2'">{{row.text}}</td>
+        </tr>
+    </table>
 </div>
