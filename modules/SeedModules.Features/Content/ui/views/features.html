@@ -1,6 +1,9 @@
 <div ng-controller="SeedModules.Features/ui/controllers/features">
     <table ng-table="tableParams" class="table table-striped">
-        <tr ng-repeat="row in $data">
+        <tr ng-repeat="row in list">
+            <td title="'#'">
+                <input type="checkbox">
+            </td>
             <td title="'test1'" sortable="true">{{row.id}}</td>
             <td title="'test2'">{{row.text}}</td>
         </tr>

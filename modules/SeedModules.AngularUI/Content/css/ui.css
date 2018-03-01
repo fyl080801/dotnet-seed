@@ -1,7 +1,7 @@
 /*! ngTable v0.8.3 by Vitalii Savchuk(esvit666@gmail.com) - https://github.com/esvit/ng-table - New BSD License */
 
 .ng-table th {
-  text-align: center;
+  text-align: left;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
