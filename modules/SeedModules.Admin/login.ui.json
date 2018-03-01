@@ -5,7 +5,8 @@
       "isDist": true
     },
     "SeedModules.Admin/ui/login/requires": {
-      "path": "SeedModules.Admin/js/SeedModules.Admin.Content.ui.login.requires",
+      "path":
+        "SeedModules.Admin/js/SeedModules.Admin.Content.ui.login.requires",
       "shim": {
         "deps": ["SeedModules.Admin/ui/login/module"]
       },

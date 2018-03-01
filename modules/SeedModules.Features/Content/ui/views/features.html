@@ -1,5 +1,42 @@
-<div ng-controller="SeedModules.Features/ui/controllers/features">
-    <table ng-table="tableParams" class="table table-striped">
+<div ng-controller="SeedModules.Features/ui/controllers/features" ng-init="load()">
+    <div class="navbar navbar-default">
+        <div class="navbar-header navbar-form">
+            <div class="input-group">
+                <input class="form-control" placeholder="搜索">
+                <div class="input-group-btn">
+                    <button class="btn btn-default">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-form navbar-right">
+                <button class="btn btn-default" ng-click="load()">
+                    <i class="glyphicon glyphicon-refresh"></i>
+                    刷新
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-repeat="item in list">
+        <h2 class="page-header">{{item.category}}</h2>
+        <div class="row">
+            <div class="col-md-6" ng-repeat="fea in item.features">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="btn-group pull-right">
+                            <button class="btn" ng-class="{'btn-danger active':!fea.enabled, 'btn-default':fea.enabled}" ng-disabled="!fea.enabled">禁用</button>
+                            <button class="btn" ng-class="{'btn-success active':fea.enabled, 'btn-default':!fea.enabled}" ng-disabled="fea.enabled">启用</button>
+                        </div>
+                        <h4 class="list-group-item-heading">{{fea.descriptor.name}}</h4>
+                        <p class="list-group-item-text text-muted">{{fea.descriptor.description||'无说明'}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <table ng-table="tableParams" class="table table-striped">
         <tr ng-repeat="row in list">
             <td title="'#'">
                 <input type="checkbox">
@@ -7,5 +44,5 @@
             <td title="'test1'" sortable="true">{{row.id}}</td>
             <td title="'test2'">{{row.text}}</td>
         </tr>
-    </table>
+    </table> -->
 </div>

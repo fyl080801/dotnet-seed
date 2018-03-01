@@ -10,8 +10,8 @@ namespace Seed.Plugins.Feature
         private readonly string _id;
         private readonly string _name;
         private readonly int _priority;
-        private readonly string _category;
-        private readonly string _description;
+        private readonly string _category = string.Empty;
+        private readonly string _description = string.Empty;
         private readonly IPluginInfo _plugin;
         private readonly string[] _dependencies;
 

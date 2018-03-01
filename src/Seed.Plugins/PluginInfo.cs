@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 using Seed.Plugins.Descriptors;
 using Seed.Plugins.Feature;
 
@@ -38,14 +39,10 @@ namespace Seed.Plugins
 
         public IDescriptorInfo Descriptor => _descriptorInfo;
 
+        [JsonIgnore]
         public IEnumerable<IFeatureInfo> Features => _features;
 
         public bool Exists => _fileInfo.Exists && _descriptorInfo.Exists;
-
-        public override bool Equals(object obj)
-        {
-            return ((IPluginInfo)obj).Id == this.Id;
-        }
 
         public override int GetHashCode()
         {

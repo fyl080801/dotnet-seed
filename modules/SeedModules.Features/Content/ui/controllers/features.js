@@ -3,20 +3,19 @@ define(['SeedModules.Features/ui/module'], function(module) {
 
   module.controller('SeedModules.Features/ui/controllers/features', [
     '$scope',
+    'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableParams',
-    function($scope, ngTableParams) {
-      $scope.list = [
-        {
-          id: 1,
-          text: 'aaaa'
-        },
-        {
-          id: 2,
-          text: 'aaaa'
-        }
-      ];
+    function($scope, requestService, ngTableParams) {
+      $scope.list = [];
 
-      $scope.tableParams = new ngTableParams();
+      $scope.load = function() {
+        requestService
+          .url('/api/features/query')
+          .post()
+          .then(function(result) {
+            $scope.list = result.list;
+          });
+      };
     }
   ]);
 });
