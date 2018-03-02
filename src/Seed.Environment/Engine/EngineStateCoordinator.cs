@@ -84,24 +84,24 @@ namespace Seed.Environment.Engine
             });
         }
 
-        private static bool FeatureIsChanging(EngineFeatureState shellFeatureState)
+        private static bool FeatureIsChanging(EngineFeatureState engineFeatureState)
         {
-            if (shellFeatureState.EnableState == EngineFeatureState.State.Rising ||
-                shellFeatureState.EnableState == EngineFeatureState.State.Falling)
+            if (engineFeatureState.EnableState == EngineFeatureState.State.Rising ||
+                engineFeatureState.EnableState == EngineFeatureState.State.Falling)
             {
                 return true;
             }
-            if (shellFeatureState.InstallState == EngineFeatureState.State.Rising ||
-                shellFeatureState.InstallState == EngineFeatureState.State.Falling)
+            if (engineFeatureState.InstallState == EngineFeatureState.State.Rising ||
+                engineFeatureState.InstallState == EngineFeatureState.State.Falling)
             {
                 return true;
             }
             return false;
         }
 
-        private static bool FeatureShouldBeLoadedForStateChangeNotifications(EngineFeatureState shellFeatureState)
+        private static bool FeatureShouldBeLoadedForStateChangeNotifications(EngineFeatureState engineFeatureState)
         {
-            return FeatureIsChanging(shellFeatureState) || shellFeatureState.EnableState == EngineFeatureState.State.Up;
+            return FeatureIsChanging(engineFeatureState) || engineFeatureState.EnableState == EngineFeatureState.State.Up;
         }
     }
 }

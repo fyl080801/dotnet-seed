@@ -1,11 +1,11 @@
-﻿using SeedModules.Project.Models;
+﻿using SeedModules.Project.Domain;
 using System.Threading.Tasks;
 
 namespace SeedModules.Project.Services
 {
     public interface IProjectStore
     {
-        Task CreateAsync(ProjectResult projectResult);
+        Task<ProjectResult> CreateAsync(ProjectResult projectResult);
 
         Task DeleteAsync(ProjectResult projectResult);
 

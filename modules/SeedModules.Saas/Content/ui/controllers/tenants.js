@@ -50,6 +50,9 @@ define(['SeedModules.Saas/ui/module'], function(module) {
       $scope.load = function() {
         requestService
           .url('/api/tenant?page=' + 1 + '&count=' + 10)
+          .options({
+            showLoading: false
+          })
           .post({
             keyword: ''
           })

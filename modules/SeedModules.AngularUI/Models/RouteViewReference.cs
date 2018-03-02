@@ -7,7 +7,7 @@ namespace SeedModules.AngularUI.Models
 {
     public class RouteViewReference
     {
-        public RouteValueDictionary Route { get; set; }
+        public string Route { get; set; }
 
         public IEnumerable<string> References { get; set; } = new HashSet<string>();
     }

@@ -91,13 +91,7 @@ namespace SeedModules.AngularUI.Rendering
                 .As<IEnumerable<RouteViewReference>>("RouteReferences")
                 .FirstOrDefault(e =>
                 {
-                    if (e.Route.Count != routeData.Values.Count) return false;
-                    foreach (var key in e.Route.Keys)
-                    {
-                        if (!routeData.Values[key].Equals(e.Route[key]))
-                            return false;
-                    }
-                    return true;
+                    return string.Join("/", routeData.Values.Select(r => r.Value).ToArray()).Equals(e.Route);
                 });
 
             return await _pluginManager.GetPlugins().InvokeAsync(descriptor => GetViewReferences(descriptor, routeReference), _logger);

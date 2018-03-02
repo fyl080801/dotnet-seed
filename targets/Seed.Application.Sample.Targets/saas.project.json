@@ -1,6 +1,7 @@
-{
+﻿{
   "name": "saas",
-  "steps": [{
+  "steps": [
+    {
       "name": "feature",
       "disable": [],
       "enable": [
@@ -17,29 +18,16 @@
         "Controller": "Home",
         "Action": "Index"
       },
-      "RouteReferences": [{
-        "Route": {
-          "Area": "SeedModules.Admin",
-          "Controller": "Home",
-          "Action": "Index"
+      "RouteReferences": [
+        {
+          "Route": "SeedModules.Admin/Home/Index",
+          "References": ["angularui", "admin", "features", "saas"]
         },
-        "References": [
-          "angularui",
-          "admin",
-          "features",
-          "saas"
-        ]
-      }, {
-        "Route": {
-          "Area": "SeedModules.Admin",
-          "Controller": "Home",
-          "Action": "Login"
-        },
-        "References": [
-          "angularui",
-          "login"
-        ]
-      }]
+        {
+          "Route": "SeedModules.Admin/Home/Login",
+          "References": ["angularui", "login"]
+        }
+      ]
     }
   ]
 }

@@ -10,20 +10,15 @@ namespace SeedModules.Settings.Domain
         [Key]
         public int Id { get; set; }
 
+        [StringLength(50)]
         public string SiteName { get; set; }
 
+        [StringLength(500)]
         public string BaseUrl { get; set; }
 
+        [StringLength(50)]
         public string SuperUser { get; set; }
 
         public RouteValueDictionary HomeRoute { get; set; }
     }
-
-    // public class SiteSettingsConfiguration : IEntityTypeConfiguration<SiteSettings>
-    // {
-    //     public void Configure(EntityTypeBuilder<SiteSettings> builder)
-    //     {
-
-    //     }
-    // }
 }

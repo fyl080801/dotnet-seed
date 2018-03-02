@@ -8,6 +8,7 @@ using Seed.Environment.Engine;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules;
 using Seed.Modules.DeferredTasks;
+using SeedModules.Project.Domain;
 using SeedModules.Project.Events;
 using SeedModules.Project.Models;
 using System;
@@ -53,9 +54,14 @@ namespace SeedModules.Project.Services
             {
                 //_environmentMethodProvider = new ParametersMethodProvider(environment);
 
-                var result = new ProjectResult { ExecutionId = executionId };
-
-                //await _projectStore.CreateAsync(result);
+                var result = await _projectStore.CreateAsync(new ProjectResult
+                {
+                    ExecutionId = executionId,
+                    ProjectName = projectDescriptor.Name,
+                    DisplayName = projectDescriptor.DisplayName,
+                    Description = projectDescriptor.Description,
+                    Version = projectDescriptor.Version
+                });
 
                 using (var stream = projectDescriptor.ProjectFileInfo.CreateReadStream())
                 {
@@ -91,7 +97,7 @@ namespace SeedModules.Project.Services
 
                                             var stepResult = new ProjectStepResult { StepName = projectStep.Name };
                                             result.Steps.Add(stepResult);
-                                            //await _projectStore.UpdateAsync(result);
+                                            await _projectStore.UpdateAsync(result);
 
                                             ExceptionDispatchInfo capturedException = null;
                                             try
@@ -108,7 +114,7 @@ namespace SeedModules.Project.Services
                                             }
 
                                             stepResult.IsCompleted = true;
-                                            //await _projectStore.UpdateAsync(result);
+                                            await _projectStore.UpdateAsync(result);
 
                                             if (stepResult.IsSuccessful == false)
                                             {
@@ -124,7 +130,7 @@ namespace SeedModules.Project.Services
 
                 await _projectEventHandlers.InvokeAsync(x => x.ExecutedAsync(executionId, projectDescriptor), _logger);
 
-                await _projectStore.CreateAsync(result);
+                await _projectStore.UpdateAsync(result);
 
                 return executionId;
             }

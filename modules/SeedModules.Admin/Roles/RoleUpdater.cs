@@ -10,12 +10,17 @@ using System.Threading.Tasks;
 
 namespace SeedModules.Admin.Roles
 {
+    /// <summary>
+    /// 功能发生事件时角色的相关处理
+    /// </summary>
+    /// <remarks>
+    /// 用于功能启用时添加功能相关的角色
+    /// </remarks>
     public class RoleUpdater : IFeatureEventHandler
     {
         readonly RoleManager<IRole> _roleManager;
         readonly IEnumerable<IPermissionProvider> _permissionProviders;
         readonly ITypeFeatureProvider _typeFeatureProvider;
-
 
         public RoleUpdater(
             RoleManager<IRole> roleManager,

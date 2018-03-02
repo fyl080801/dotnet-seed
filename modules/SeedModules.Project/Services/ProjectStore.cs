@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Seed.Data;
+using SeedModules.Project.Domain;
 using SeedModules.Project.Models;
 using System.Threading.Tasks;
 
@@ -16,11 +17,11 @@ namespace SeedModules.Project.Services
             _dbSet = dbContext.Set<ProjectResult>();
         }
 
-        public Task CreateAsync(ProjectResult projectResult)
+        public Task<ProjectResult> CreateAsync(ProjectResult projectResult)
         {
             _dbSet.Add(projectResult);
             _dbContext.SaveChanges();
-            return Task.CompletedTask;
+            return Task.FromResult(projectResult);
         }
 
         public Task DeleteAsync(ProjectResult projectResult)
