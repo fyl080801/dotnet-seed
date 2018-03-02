@@ -1,1 +1,2 @@
 ﻿Name: SeedModules.Router
+AllowManage: false

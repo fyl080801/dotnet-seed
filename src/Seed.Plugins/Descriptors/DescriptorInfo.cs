@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,10 @@ namespace Seed.Plugins.Descriptors
 
         public IEnumerable<string> Tags => _tags.Value;
 
+        [JsonIgnore]
         public IConfigurationRoot ConfigurationRoot => _configurationRoot;
+
+        public bool AllowedManage => string.IsNullOrEmpty(_configurationRoot["allowManage"]) ? true : Convert.ToBoolean(_configurationRoot["allowManage"]);
 
         private IEnumerable<string> ParseTags()
         {

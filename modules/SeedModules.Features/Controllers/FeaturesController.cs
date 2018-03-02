@@ -7,6 +7,7 @@ using Seed.Environment.Engine;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Models;
 using Seed.Plugins;
+using Seed.Plugins.Feature;
 using SeedModules.Features.Models;
 
 namespace SeedModules.Features.Controllers
@@ -25,13 +26,13 @@ namespace SeedModules.Features.Controllers
             _pluginManager = pluginManager;
         }
 
-        [HttpPost("query")]
+        [HttpGet]
         public async Task<ApiResult> List()
         {
             // 这里需要加特殊权限，只允许Default的管理员可访问
             var enabledFeatures = await _engineFeaturesManager.GetEnabledFeaturesAsync();
             var moduleFeatures = new List<FeatureModel>();
-            foreach (var moduleFeatureInfo in _pluginManager.GetFeatures())
+            foreach (var moduleFeatureInfo in _pluginManager.GetFeatures().Where(e => IsFeatureAllowed(e.Plugin)).ToList())
             {
                 moduleFeatures.Add(new FeatureModel()
                 {
@@ -50,6 +51,33 @@ namespace SeedModules.Features.Controllers
                     }).ToList(),
                 Total = moduleFeatures.Count
             });
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ApiResult> SetEnable([FromBody]FeatureModel model, string id)
+        {
+            var feature = _pluginManager.GetFeatures().FirstOrDefault(e => IsFeatureAllowed(e.Plugin) && e.Id == id);
+
+            if (feature == null)
+            {
+                return this.Error("未找到该功能");
+            }
+
+            if (model.Enabled)
+            {
+                await _engineFeaturesManager.EnableFeaturesAsync(new[] { feature }, true);
+            }
+            else
+            {
+                await _engineFeaturesManager.DisableFeaturesAsync(new[] { feature }, true);
+            }
+
+            return this.Success();
+        }
+
+        private bool IsFeatureAllowed(IPluginInfo plugin)
+        {
+            return plugin.Descriptor.AllowedManage;
         }
     }
 }

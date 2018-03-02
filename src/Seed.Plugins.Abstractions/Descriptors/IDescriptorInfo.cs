@@ -10,6 +10,8 @@ namespace Seed.Plugins.Descriptors
     {
         bool Exists { get; }
 
+        bool AllowedManage { get; }
+
         string Name { get; }
 
         string Description { get; }

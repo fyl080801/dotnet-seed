@@ -35,5 +35,7 @@ namespace Seed.Plugins.Descriptors
         public IEnumerable<string> Tags => Enumerable.Empty<string>();
 
         public IConfigurationRoot ConfigurationRoot => null;
+
+        public bool AllowedManage => false;
     }
 }

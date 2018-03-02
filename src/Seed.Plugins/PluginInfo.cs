@@ -33,6 +33,7 @@ namespace Seed.Plugins
 
         public string Id => _id;
 
+        [JsonIgnore]
         public IFileInfo PluginFileInfo => _fileInfo;
 
         public string Path => _path;

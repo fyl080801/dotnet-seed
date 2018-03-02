@@ -8,10 +8,27 @@ define(['SeedModules.Features/ui/module'], function(module) {
     function($scope, requestService, ngTableParams) {
       $scope.list = [];
 
+      $scope.setEnable = function(feature, enabled) {
+        if (enabled !== undefined) {
+          feature.enabled = enabled;
+        }
+        requestService
+          .url('/api/features/' + feature.descriptor.id)
+          .patch({
+            enabled: feature.enabled
+          })
+          .then(function(result) {
+            $scope.load();
+          });
+      };
+
       $scope.load = function() {
         requestService
-          .url('/api/features/query')
-          .post()
+          .url('/api/features')
+          .options({
+            showLoading: false
+          })
+          .get()
           .then(function(result) {
             $scope.list = result.list;
           });
