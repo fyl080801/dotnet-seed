@@ -1,0 +1,14 @@
+{
+  "name": "替换登录页",
+  "steps": [
+    {
+      "name": "routeSettings",
+      "RouteReferences": [
+        {
+          "Route": "SeedModules.Admin/Home/Login",
+          "References": ["angularui", "fakelogin"]
+        }
+      ]
+    }
+  ]
+}

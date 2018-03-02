@@ -1,0 +1,22 @@
+{
+  "references": {
+    "SeedModules.InPathTest/ui/module": {
+      "path":
+        "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.ui.module",
+      "isDist": true
+    },
+    "SeedModules.InPathTest/ui/requires": {
+      "path":
+        "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.ui.requires",
+      "shim": {
+        "deps": ["SeedModules.InPathTest/ui/module"]
+      },
+      "isDist": true
+    }
+  },
+  "requires": [
+    "rcss!SeedModules.Admin/css/seed-admin.css",
+    "SeedModules.InPathTest/ui/module"
+  ],
+  "path": "Content/ui"
+}

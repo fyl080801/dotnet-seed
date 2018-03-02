@@ -107,18 +107,17 @@ namespace SeedModules.Setup.Services
 
                 using (var scope = engineContext.EntryServiceScope())
                 {
-                    var projectExecutor = scope.ServiceProvider.GetService<IProjectExecutor>();
-
-                    await projectExecutor.ExecuteAsync(executionId, context.Project, new
-                    {
-                        context.Name,
-                        context.AdminUsername,
-                        context.AdminEmail,
-                        context.AdminPassword,
-                        context.DatabaseProvider,
-                        context.DatabaseConnectionString,
-                        context.DatabaseTablePrefix
-                    });
+                    await scope.ServiceProvider.GetService<IProjectExecutor>()
+                        .ExecuteAsync(executionId, context.Project, new
+                        {
+                            context.Name,
+                            context.AdminUsername,
+                            context.AdminEmail,
+                            context.AdminPassword,
+                            context.DatabaseProvider,
+                            context.DatabaseConnectionString,
+                            context.DatabaseTablePrefix
+                        });
                 }
             }
 

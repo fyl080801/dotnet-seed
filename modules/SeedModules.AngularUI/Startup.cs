@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using SeedModules.AngularUI.Rendering;
 using SeedModules.AngularUI.Extensions;
+using SeedModules.Project.Services;
+using SeedModules.AngularUI.Projects;
+using SeedModules.Project.Extensions;
 
 namespace SeedModules.AngularUI
 {
@@ -14,7 +17,7 @@ namespace SeedModules.AngularUI
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            //services.AddOptionBuilder();
+            services.AddProjectExecutionStep<RouteSettingStep>();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

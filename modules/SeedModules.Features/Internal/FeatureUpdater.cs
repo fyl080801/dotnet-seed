@@ -1,3 +1,10 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.FileProviders;
+using Newtonsoft.Json;
 using Seed.Plugins.Feature;
 using SeedModules.Project.Services;
 
@@ -5,16 +12,23 @@ namespace SeedModules.Features.Internal
 {
     public class FeatureUpdater : IFeatureEventHandler
     {
+        readonly IProjectReader _projectReader;
         readonly IProjectExecutor _projectExecutor;
+        readonly IHostingEnvironment _hostingEnvironment;
 
-        public FeatureUpdater(IProjectExecutor projectExecutor)
+        public FeatureUpdater(
+            IProjectReader projectReader,
+            IProjectExecutor projectExecutor,
+            IHostingEnvironment hostingEnvironment)
         {
+            _projectReader = projectReader;
             _projectExecutor = projectExecutor;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public void Disabled(IFeatureInfo feature)
         {
-
+            ExecuteProjects(feature, ".disabled.json");
         }
 
         public void Disabling(IFeatureInfo feature)
@@ -24,7 +38,7 @@ namespace SeedModules.Features.Internal
 
         public void Enabled(IFeatureInfo feature)
         {
-            //_projectExecutor.ExecuteAsync()
+            ExecuteProjects(feature, ".enabled.json");
         }
 
         public void Enabling(IFeatureInfo feature)
@@ -34,7 +48,7 @@ namespace SeedModules.Features.Internal
 
         public void Installed(IFeatureInfo feature)
         {
-
+            ExecuteProjects(feature, ".installed.json");
         }
 
         public void Installing(IFeatureInfo feature)
@@ -44,12 +58,29 @@ namespace SeedModules.Features.Internal
 
         public void Uninstalled(IFeatureInfo feature)
         {
-
+            ExecuteProjects(feature, ".uninstalled.json");
         }
 
         public void Uninstalling(IFeatureInfo feature)
         {
 
+        }
+
+        private void ExecuteProjects(IFeatureInfo feature, string stateString)
+        {
+            var projectPath = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(feature.Plugin.Path)
+                .FirstOrDefault(x => x.IsDirectory && x.Name.Equals("FeatureProjects", StringComparison.CurrentCultureIgnoreCase));
+
+            if (projectPath != null)
+            {
+                _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(feature.Plugin.Path + "\\FeatureProjects")
+                    .Where(x => !x.IsDirectory && x.Name.EndsWith(feature.Id + stateString))
+                    .ToList()
+                    .ForEach(file =>
+                    {
+                        _projectExecutor.ExecuteAsync(Guid.NewGuid().ToString("n"), _projectReader.ReadDescriptor(file), null).Wait();
+                    });
+            }
         }
     }
 }

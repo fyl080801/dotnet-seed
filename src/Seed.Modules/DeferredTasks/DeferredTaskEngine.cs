@@ -25,8 +25,10 @@ namespace Seed.Modules.DeferredTasks
 
         public async Task ExecuteTasksAsync(DeferredTaskContext context)
         {
-            foreach (var task in _deferredTaskState.Tasks)
+            for (var i = 0; i < _deferredTaskState.Tasks.Count; i++)
             {
+                var task = _deferredTaskState.Tasks[i];
+
                 try
                 {
                     await task(context);
@@ -36,7 +38,23 @@ namespace Seed.Modules.DeferredTasks
                     _logger.LogError("执行延迟进程时发生错误: ", ex);
                 }
             }
+
             _deferredTaskState.Tasks.Clear();
+
+            #region 如果是foreach就不行，线程那块儿已经晕了
+            // foreach (var task in _deferredTaskState.Tasks)
+            // {
+            //     try
+            //     {
+            //         await task(context);
+            //     }
+            //     catch (Exception ex)
+            //     {
+            //         _logger.LogError("执行延迟进程时发生错误: ", ex);
+            //     }
+            // }
+            // _deferredTaskState.Tasks.Clear();
+            #endregion
         }
     }
 }

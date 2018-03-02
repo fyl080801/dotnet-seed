@@ -30,7 +30,7 @@ namespace Seed.Environment.Engine.Data
             if (_state == null)
             {
                 _state = new EngineState();
-                UpdateEngineState();
+                UpdateEngineState(false);
             }
 
             return _state;
@@ -43,7 +43,7 @@ namespace Seed.Environment.Engine.Data
             previousFeatureState.EnableState = value;
             featureState.EnableState = value;
 
-            UpdateEngineState();
+            UpdateEngineState(true);
         }
 
         public async Task UpdateInstalledStateAsync(EngineFeatureState featureState, EngineFeatureState.State value)
@@ -53,7 +53,7 @@ namespace Seed.Environment.Engine.Data
             previousFeatureState.InstallState = value;
             featureState.InstallState = value;
 
-            UpdateEngineState();
+            UpdateEngineState(true);
         }
 
         private async Task<EngineFeatureState> GetOrCreateFeatureStateAsync(string id)
@@ -70,8 +70,16 @@ namespace Seed.Environment.Engine.Data
             return featureState;
         }
 
-        private void UpdateEngineState()
+        private void UpdateEngineState(bool stored)
         {
+            if (stored)
+            {
+                _dbContext.Set<EngineState>().Update(_state);
+            }
+            else
+            {
+                _dbContext.Set<EngineState>().Add(_state);
+            }
             _dbContext.SaveChanges();
         }
     }

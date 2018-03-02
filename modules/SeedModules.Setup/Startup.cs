@@ -24,7 +24,7 @@ namespace SeedModules.Setup
                 name: "Setup",
                 areaName: "SeedModules.Setup",
                 template: "",
-                defaults: new { controller = "Setup", action = "Index" }
+                defaults: new { controller = "Home", action = "Index" }
             );
         }
     }

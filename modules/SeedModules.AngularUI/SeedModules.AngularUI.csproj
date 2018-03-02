@@ -1,19 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
     <ProjectReference Include="..\..\src\Seed.Environment\Seed.Environment.csproj" />
+    <ProjectReference Include="..\SeedModules.Project\SeedModules.Project.csproj"/>
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="Content\css\bootstrap.min.css">
       <PackagePath>assets\$(PackageId)\</PackagePath>
@@ -91,5 +88,4 @@
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
   </ItemGroup>
-
 </Project>
