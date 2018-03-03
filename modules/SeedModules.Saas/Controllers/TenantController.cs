@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Environment.Engine;
 using Seed.Mvc.Extensions;
+using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
 using SeedModules.Saas.Models;
 
@@ -27,8 +28,8 @@ namespace SeedModules.Saas.Controllers
             _currentSettings = currentSettings;
         }
 
-        [HttpPost]
-        public ApiResult List(
+        [HttpPost, HandleResult]
+        public object List(
             [FromBody]TenantQuery search,
             [FromQuery]int page,
             [FromQuery]int count)
@@ -42,19 +43,19 @@ namespace SeedModules.Saas.Controllers
                     IsDefault = string.Equals(e.Settings.Name, EngineHelper.DefaultEngineName, StringComparison.OrdinalIgnoreCase),
                     EngineSettings = e.Settings
                 });
-            return this.Success(new
+            return new
             {
                 List = query.ToList(),
                 Total = GetEngines().Count()
-            });
+            };
         }
 
-        [HttpPost("info")]
-        public ApiResult Create([FromBody]TenantModel model)
+        [HttpPost("info"), HandleResult]
+        public void Create([FromBody]TenantModel model)
         {
             if (!IsDefault())
             {
-                return this.Error("非默认上下文禁止此操作");
+                this.Throw("非默认上下文禁止此操作");
             }
 
             if (ModelState.IsValid)
@@ -63,12 +64,12 @@ namespace SeedModules.Saas.Controllers
             }
             else
             {
-                return this.Error(ModelState);
+                this.Throw(ModelState);
             }
 
             if (!ModelState.IsValid)
             {
-                return this.Error(ModelState);
+                this.Throw(ModelState);
             }
 
             var engineSettings = new EngineSettings()
@@ -84,8 +85,6 @@ namespace SeedModules.Saas.Controllers
 
             _engineSettingsManager.SaveSettings(engineSettings);
             _engineHost.GetOrCreateContext(engineSettings);
-
-            return this.Success();
         }
 
         private void ValidateViewModel(TenantModel model, bool newTenant)

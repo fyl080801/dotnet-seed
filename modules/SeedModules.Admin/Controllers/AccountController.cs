@@ -8,6 +8,7 @@ using SeedModules.Admin.Users;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Seed.Mvc.Extensions;
+using Seed.Mvc.Filters;
 
 namespace SeedModules.Admin.Controllers
 {
@@ -22,10 +23,10 @@ namespace SeedModules.Admin.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpPost("login")]
+        [HttpPost("login"), HandleResult]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ApiResult> Login([FromBody]LoginModel model, [FromQuery]string returnUrl = null)
+        public async Task<LoginResult> Login([FromBody]LoginModel model, [FromQuery]string returnUrl = null)
         {
             if (ModelState.IsValid)
             {
@@ -33,20 +34,22 @@ namespace SeedModules.Admin.Controllers
 
                 if (result.Succeeded)
                 {
-                    return this.Success(new LoginResult()
+                    return new LoginResult(true)
                     {
                         ReturnUrl = returnUrl
-                    });
+                    };
                 }
                 else
                 {
-                    return this.Error("登录不成功");
+                    this.Throw("登录不成功");
                 }
             }
             else
             {
-                return this.Error("输入信息有误");
+                this.Throw("输入信息有误");
             }
+
+            return new LoginResult();
         }
 
         [HttpPost("logout")]

@@ -1,2 +1,3 @@
 ﻿Name: Mvc
+Category: 基础模块
 AllowManage: false

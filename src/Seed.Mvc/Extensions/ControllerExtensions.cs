@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Seed.Modules.Exceptions;
 using Seed.Mvc.Models;
 using System;
 using System.Text;
@@ -33,6 +34,21 @@ namespace Seed.Mvc.Extensions
                 Success = false,
                 Message = ""
             };
+        }
+
+        public static void Throw(this Controller controller, string message)
+        {
+            throw new GeneralOperateException(message);
+        }
+
+        public static void Throw(this Controller controller, ModelStateDictionary modelState)
+        {
+            throw new GeneralOperateException();
+        }
+
+        public static void Throw(this Controller controller, string message, Exception inner)
+        {
+            throw new GeneralOperateException(message, inner);
         }
     }
 }
