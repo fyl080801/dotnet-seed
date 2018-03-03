@@ -25,6 +25,32 @@
       },
       "noDebug": true
     },
+    "angular-sanitize": {
+      "path": "SeedModules.AngularUI/js/seed/angular-sanitize",
+      "shim": {
+        "deps": ["app"]
+      }
+    },
+    "tv4": {
+      "path": "SeedModules.AngularUI/js/seed/tv4",
+      "noDebug": true
+    },
+    "objectpath": {
+      "path": "SeedModules.AngularUI/js/seed/ObjectPath",
+      "noDebug": true
+    },
+    "schema-form": {
+      "path": "SeedModules.AngularUI/js/seed/schema-form",
+      "shim": {
+        "deps": ["angular-sanitize", "tv4", "objectpath"]
+      }
+    },
+    "schema-form-bootstrap": {
+      "path": "SeedModules.AngularUI/js/seed/bootstrap-decorator",
+      "shim": {
+        "deps": ["schema-form"]
+      }
+    },
 
     "SeedModules.AngularUI/ui/module": {
       "path":
