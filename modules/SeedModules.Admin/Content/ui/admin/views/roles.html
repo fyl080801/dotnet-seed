@@ -1,3 +1,74 @@
-<div ng-controller="SeedModules.Admin/ui/admin/controllers/roles">
-    roles
+<div class="row" ng-controller="SeedModules.Admin/ui/admin/controllers/roles">
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>角色列表</strong>
+            </div>
+            <div class="list-group">
+                <a href="" class="list-group-item">
+                    Cras justo odio
+                </a>
+                <a href="" class="list-group-item">
+                    Cras justo odio
+                </a>
+                <a href="" class="list-group-item">
+                    Cras justo odio
+                </a>
+                <a href="" class="list-group-item text-center">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    新建
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+                    <i class="glyphicon glyphicon-user"></i>
+                    成员
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    权限
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content" style="margin-top: 20px">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-form navbar-right">
+                            <button class="btn btn-default">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                编辑
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <table ng-table="tableParams" class="table table-striped">
+                    <tr>
+                        <td title="'用户名'"></td>
+                        <td title="'邮箱'"></td>
+                        <td title="'操作'"></td>
+                    </tr>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <div class="navbar-form navbar-right">
+                            <button class="btn btn-default">
+                                <i class="glyphicon glyphicon-floppy-disk"></i>
+                                保存
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>

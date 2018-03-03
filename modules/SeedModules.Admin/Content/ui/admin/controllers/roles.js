@@ -3,6 +3,9 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
 
   module.controller('SeedModules.Admin/ui/admin/controllers/roles', [
     '$scope',
-    function($scope) {}
+    'SeedModules.AngularUI/ui/factories/ngTableParams',
+    function($scope, ngTableParams) {
+      $scope.tableParams = new ngTableParams();
+    }
   ]);
 });
