@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using SeedModules.Admin.Domain;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -11,13 +12,16 @@ namespace SeedModules.Admin.Users.Services
     public class UserService : IUserService
     {
         readonly UserManager<IUser> _userManager;
+        readonly ILookupNormalizer _keyNormalizer;
         readonly IOptions<IdentityOptions> _identityOptions;
 
         public UserService(
             UserManager<IUser> userManager,
+            ILookupNormalizer keyNormalizer,
             IOptions<IdentityOptions> identityOptions)
         {
             _userManager = userManager;
+            _keyNormalizer = keyNormalizer;
             _identityOptions = identityOptions;
         }
 
@@ -44,7 +48,13 @@ namespace SeedModules.Admin.Users.Services
             {
                 Username = username,
                 Email = email,
-                RoleNames = new ObservableCollection<string>(roleNames)
+                Roles = roleNames.Select(e => new UserRole()
+                {
+                    Role = new Role(e)
+                    {
+                        NormalizedRolename = _keyNormalizer.Normalize(e)
+                    }
+                }).ToList()
             };
 
             var identityResult = await _userManager.CreateAsync(user, password);

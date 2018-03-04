@@ -4,21 +4,21 @@ using System.Security.Claims;
 
 namespace Seed.Security.Permissions
 {
-    public class Permission
+    public class PermissionInfo
     {
         public const string ClaimType = "Permission";
 
-        public Permission(string name)
+        public PermissionInfo(string name)
         {
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
-        public Permission(string name, string description) : this(name)
+        public PermissionInfo(string name, string description) : this(name)
         {
             Description = description;
         }
 
-        public Permission(string name, string description, IEnumerable<Permission> includeBy) : this(name, description)
+        public PermissionInfo(string name, string description, IEnumerable<PermissionInfo> includeBy) : this(name, description)
         {
             IncludeBy = includeBy;
         }
@@ -29,8 +29,8 @@ namespace Seed.Security.Permissions
 
         public string Category { get; set; }
 
-        public IEnumerable<Permission> IncludeBy { get; set; }
+        public IEnumerable<PermissionInfo> IncludeBy { get; set; }
 
-        public static implicit operator Claim(Permission p) => new Claim(ClaimType, p.Name);
+        public static implicit operator Claim(PermissionInfo p) => new Claim(ClaimType, p.Name);
     }
 }

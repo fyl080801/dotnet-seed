@@ -13,7 +13,7 @@ namespace SeedModules.Admin.Domain
     [Table("User")]
     public class User : IUser
     {
-        ObservableCollection<string> _rolenames;
+        //ObservableCollection<string> _rolenames;
 
         [Key]
         public int Id { get; set; }
@@ -39,40 +39,42 @@ namespace SeedModules.Admin.Domain
 
         public bool EmailConfirmed { get; set; }
 
-        [StringLength(1000)]
-        public string Roles { get; set; }
+        public virtual List<UserRole> Roles { get; set; } = new List<UserRole>();
 
-        [NotMapped]
-        public virtual ObservableCollection<string> RoleNames
-        {
-            get
-            {
-                if (_rolenames == null)
-                {
-                    _rolenames = string.IsNullOrEmpty(Roles)
-                        ? new ObservableCollection<string>()
-                        : new ObservableCollection<string>(Roles.Split(',').Where(e => !string.IsNullOrEmpty(e)));
-                    _rolenames.CollectionChanged += RoleNamesChanged;
-                }
-                return _rolenames;
-            }
-            set
-            {
-                _rolenames = value;
-                _rolenames.CollectionChanged += RoleNamesChanged;
-                Roles = "," + string.Join(",", _rolenames) + ",";
-            }
-        }
+        // [StringLength(1000)]
+        // public string Roles { get; set; }
+
+        // [NotMapped]
+        // public virtual ObservableCollection<string> RoleNames
+        // {
+        //     get
+        //     {
+        //         if (_rolenames == null)
+        //         {
+        //             _rolenames = string.IsNullOrEmpty(Roles)
+        //                 ? new ObservableCollection<string>()
+        //                 : new ObservableCollection<string>(Roles.Split(',').Where(e => !string.IsNullOrEmpty(e)));
+        //             _rolenames.CollectionChanged += RoleNamesChanged;
+        //         }
+        //         return _rolenames;
+        //     }
+        //     set
+        //     {
+        //         _rolenames = value;
+        //         _rolenames.CollectionChanged += RoleNamesChanged;
+        //         Roles = "," + string.Join(",", _rolenames) + ",";
+        //     }
+        // }
 
         public override string ToString()
         {
             return Username;
         }
 
-        private void RoleNamesChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            Roles = "," + string.Join(",", RoleNames) + ",";
-        }
+        // private void RoleNamesChanged(object sender, NotifyCollectionChangedEventArgs e)
+        // {
+        //     Roles = "," + string.Join(",", RoleNames) + ",";
+        // }
     }
 
     public class UserTypeConfiguration : IEntityTypeConfiguration<User>

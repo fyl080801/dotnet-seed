@@ -53,7 +53,7 @@ namespace SeedModules.Admin.Roles
                 {
                     foreach (var claim in ((Role)role).RoleClaims)
                     {
-                        if (!String.Equals(claim.ClaimType, Permission.ClaimType, StringComparison.OrdinalIgnoreCase))
+                        if (!String.Equals(claim.ClaimType, PermissionInfo.ClaimType, StringComparison.OrdinalIgnoreCase))
                         {
                             continue;
                         }
@@ -70,7 +70,7 @@ namespace SeedModules.Admin.Roles
             }
         }
 
-        private static void PermissionNames(Permission permission, HashSet<string> stack)
+        private static void PermissionNames(PermissionInfo permission, HashSet<string> stack)
         {
             stack.Add(permission.Name);
 

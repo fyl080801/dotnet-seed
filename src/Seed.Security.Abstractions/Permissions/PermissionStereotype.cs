@@ -13,6 +13,6 @@ namespace Seed.Security.Permissions
     {
         public string Name { get; set; }
 
-        public IEnumerable<Permission> Permissions { get; set; }
+        public IEnumerable<PermissionInfo> Permissions { get; set; }
     }
 }

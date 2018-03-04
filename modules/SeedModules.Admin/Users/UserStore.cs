@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Seed.Data;
+using Seed.Security;
 using Seed.Security.Services;
 using SeedModules.Admin.Domain;
 using System;
@@ -20,15 +21,18 @@ namespace SeedModules.Admin.Users
     {
         readonly IDbContext _dbContext;
         readonly IRoleProvider _roleProvider;
+        readonly IRoleClaimStore<IRole> _roleClaimStore;
         readonly ILookupNormalizer _keyNormalizer;
 
         public UserStore(
             IDbContext dbContext,
             IRoleProvider roleProvider,
+            IRoleClaimStore<IRole> roleClaimStore,
             ILookupNormalizer keyNormalizer)
         {
             _dbContext = dbContext;
             _roleProvider = roleProvider;
+            _roleClaimStore = roleClaimStore;
             _keyNormalizer = keyNormalizer;
         }
 
@@ -48,9 +52,15 @@ namespace SeedModules.Admin.Users
             }
 
             var olduser = _dbContext.Set<User>().Find(((User)user).Id);
-            var exRoles = rolenames.Intersect(olduser.RoleNames).ToList();
-            exRoles.Add(normalRolename);
-            olduser.RoleNames = new ObservableCollection<string>(exRoles);
+            var role = (Role)(await _roleClaimStore.FindByNameAsync(normalRolename, cancellationToken));
+            if (olduser.Roles.Count(e => e.Role.Id == role.Id) <= 0)
+            {
+                olduser.Roles.Add(new UserRole()
+                {
+                    UserId = olduser.Id,
+                    RoleId = role.Id
+                });
+            }
             _dbContext.SaveChanges();
         }
 
@@ -123,7 +133,7 @@ namespace SeedModules.Admin.Users
 
         public Task<IList<string>> GetRolesAsync(IUser user, CancellationToken cancellationToken)
         {
-            return Task.FromResult<IList<string>>(((User)user).RoleNames.ToList());
+            return Task.FromResult<IList<string>>(((User)user).Roles.Select(e => e.Role.Rolename).ToList());
         }
 
         public Task<string> GetSecurityStampAsync(IUser user, CancellationToken cancellationToken)
@@ -143,10 +153,12 @@ namespace SeedModules.Admin.Users
 
         public Task<IList<IUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
         {
-            var query = _dbContext.Set<User>().Where(e => e.Roles.Contains("," + roleName + ","))
-                .Select(e => e as IUser)
-                .ToList();
-            return Task.FromResult<IList<IUser>>(query);
+            var role = _dbContext.Set<Role>().FirstOrDefault(e => e.Rolename == roleName);
+            if (role == null)
+            {
+                throw new Exception($"找不到角色：{roleName}");
+            }
+            return Task.FromResult<IList<IUser>>(role.Users.Select(e => (IUser)e.User).ToList());
         }
 
         public Task<bool> HasPasswordAsync(IUser user, CancellationToken cancellationToken)
@@ -156,14 +168,15 @@ namespace SeedModules.Admin.Users
 
         public Task<bool> IsInRoleAsync(IUser user, string roleName, CancellationToken cancellationToken)
         {
-            var count = _dbContext.Set<User>().Count(e => e.Roles.Contains(roleName));
+            var count = ((User)user).Roles.Count(e => e.Role.Rolename == roleName);
             return Task.FromResult(count > 0);
         }
 
         public Task RemoveFromRoleAsync(IUser user, string roleName, CancellationToken cancellationToken)
         {
             var exuser = _dbContext.Set<User>().Find(((User)user).Id);
-            exuser.RoleNames.Remove(roleName);
+            var userrole = exuser.Roles.FirstOrDefault(e => e.Role.Rolename == roleName);
+            exuser.Roles.Remove(userrole);
             _dbContext.SaveChanges();
             return Task.CompletedTask;
         }

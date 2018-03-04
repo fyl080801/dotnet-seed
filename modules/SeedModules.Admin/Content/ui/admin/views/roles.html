@@ -1,18 +1,12 @@
 <div class="row" ng-controller="SeedModules.Admin/ui/admin/controllers/roles">
     <div class="col-md-3">
-        <div class="panel panel-default">
+        <div class="panel panel-default" ng-init="loadRoles()">
             <div class="panel-heading">
                 <strong>角色列表</strong>
             </div>
             <div class="list-group">
-                <a href="" class="list-group-item">
-                    Cras justo odio
-                </a>
-                <a href="" class="list-group-item">
-                    Cras justo odio
-                </a>
-                <a href="" class="list-group-item">
-                    Cras justo odio
+                <a href="" class="list-group-item" ng-repeat="role in roles">
+                    {{role.rolename}}
                 </a>
                 <a href="" class="list-group-item text-center" ng-click="create()">
                     <i class="glyphicon glyphicon-plus"></i>

@@ -6,11 +6,11 @@ namespace Seed.Security
 {
     public class PermissionRequirement : IAuthorizationRequirement
     {
-        public PermissionRequirement(Permission permission)
+        public PermissionRequirement(PermissionInfo permission)
         {
             Permission = permission ?? throw new ArgumentNullException(nameof(permission));
         }
 
-        public Permission Permission { get; set; }
+        public PermissionInfo Permission { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Seed.Security.AuthorizationHandlers
             {
                 return Task.CompletedTask;
             }
-            else if (context.User.HasClaim(Permission.ClaimType, requirement.Permission.Name))
+            else if (context.User.HasClaim(PermissionInfo.ClaimType, requirement.Permission.Name))
             {
                 context.Succeed(requirement);
             }

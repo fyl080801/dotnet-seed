@@ -19,19 +19,19 @@ namespace SeedModules.Admin.Roles
         private const string Key = "RolesManager.Roles";
 
         readonly IDbContext _dbContext;
-        readonly ISignal _signal;
-        readonly IMemoryCache _memoryCache;
+        //readonly ISignal _signal;
+        //readonly IMemoryCache _memoryCache;
         readonly IServiceProvider _serviceProvider;
 
         public RoleStore(
             IDbContext dbContext,
-            ISignal signal,
-            IMemoryCache memoryCache,
+            //ISignal signal,
+            //IMemoryCache memoryCache,
             IServiceProvider serviceProvider)
         {
             _dbContext = dbContext;
-            _signal = signal;
-            _memoryCache = memoryCache;
+            //_signal = signal;
+            //_memoryCache = memoryCache;
             _serviceProvider = serviceProvider;
         }
 
@@ -95,6 +95,12 @@ namespace SeedModules.Admin.Roles
             return Task.FromResult<IList<Claim>>(((Role)role).RoleClaims.Select(x => x.ToClaim()).ToList());
         }
 
+        // public Task<IEnumerable<IRole>> GetFullRolesAsync()
+        // {
+        //     var result = _dbContext.Set<Role>().ToArray();
+        //     return Task.FromResult<IEnumerable<IRole>>(result);
+        // }
+
         public Task<string> GetNormalizedRoleNameAsync(IRole role, CancellationToken cancellationToken)
         {
             return Task.FromResult(((Role)role).NormalizedRolename);
@@ -151,5 +157,23 @@ namespace SeedModules.Admin.Roles
             _dbContext.SaveChanges();
             return Task.FromResult(IdentityResult.Success);
         }
+
+        public Task<IEnumerable<IRole>> GetRolesAsync()
+        {
+            return Task.FromResult(_dbContext.Set<Role>().Select(e => (IRole)e).ToArray().AsEnumerable());
+            // return _memoryCache.GetOrCreateAsync(Key, async (entry) =>
+            // {
+            //     var roles = _dbContext.Set<Role>().Select(e => (IRole)e).ToArray().AsEnumerable();
+
+            //     entry.ExpirationTokens.Add(_signal.GetToken(Key));
+
+            //     return await Task.FromResult(roles);
+            // });
+        }
+
+        // private void UpdateRoles(IEnumerable<IRole> roles)
+        // {
+        //     _memoryCache.Set(Key, roles);
+        // }
     }
 }

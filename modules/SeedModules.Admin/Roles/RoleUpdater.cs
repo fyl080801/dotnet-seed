@@ -89,8 +89,8 @@ namespace SeedModules.Admin.Roles
                         await _roleManager.CreateAsync(role);
                     }
 
-                    var stereotypePermissionNames = (stereotype.Permissions ?? Enumerable.Empty<Permission>()).Select(x => x.Name);
-                    var currentPermissionNames = ((Role)role).RoleClaims.Where(x => x.ClaimType == Permission.ClaimType).Select(x => x.ClaimValue);
+                    var stereotypePermissionNames = (stereotype.Permissions ?? Enumerable.Empty<PermissionInfo>()).Select(x => x.Name);
+                    var currentPermissionNames = ((Role)role).RoleClaims.Where(x => x.ClaimType == PermissionInfo.ClaimType).Select(x => x.ClaimValue);
 
                     var distinctPermissionNames = currentPermissionNames
                         .Union(stereotypePermissionNames)
@@ -102,7 +102,7 @@ namespace SeedModules.Admin.Roles
                     {
                         foreach (var permissionName in additionalPermissionNames)
                         {
-                            await _roleManager.AddClaimAsync(role, new Claim(Permission.ClaimType, permissionName));
+                            await _roleManager.AddClaimAsync(role, new Claim(PermissionInfo.ClaimType, permissionName));
                         }
                     }
                 }

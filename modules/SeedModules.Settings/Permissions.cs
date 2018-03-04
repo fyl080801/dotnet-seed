@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace SeedModules.Settings
 {
-    public class PermissionProvider : IPermissionProvider
+    public class Permissions : IPermissionProvider
     {
-        public static readonly Permission ManageSettings = new Permission("ManageSettings", "系统设置");
+        public static readonly PermissionInfo ManageSettings = new PermissionInfo("ManageSettings", "系统设置");
 
-        public static readonly Permission ManageGroupSettings = new Permission("ManageResourceSettings", "系统设置", new[] { ManageSettings });
+        public static readonly PermissionInfo ManageGroupSettings = new PermissionInfo("ManageResourceSettings", "系统设置", new[] { ManageSettings });
 
         public IEnumerable<PermissionStereotype> GetDefaultStereotypes()
         {
@@ -21,7 +21,7 @@ namespace SeedModules.Settings
             };
         }
 
-        public IEnumerable<Permission> GetPermissions()
+        public IEnumerable<PermissionInfo> GetPermissions()
         {
             return new[]
             {

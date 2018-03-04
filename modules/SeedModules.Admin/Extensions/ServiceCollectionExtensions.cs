@@ -125,7 +125,7 @@ namespace SeedModules.Admin.Extensions
             services.AddScoped<ISetupEventHandler, SetupEventHandler>();
             services.AddScoped<IRoleRemovedEventHandler, UserRoleRemovedEventHandler>();
 
-            services.AddScoped<IPermissionProvider, PermissionsProvider>();
+            services.AddScoped<IPermissionProvider, Permissions>();
 
             return services;
         }

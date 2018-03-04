@@ -49,8 +49,8 @@ namespace SeedModules.Admin.Projects
                 {
                     role = new Role { Rolename = roleModel.Name };
                 }
-                role.RoleClaims.RemoveAll(e => e.ClaimType == Permission.ClaimType);
-                role.RoleClaims.AddRange(roleModel.Permissions.Select(e => new RoleClaim { ClaimType = Permission.ClaimType, ClaimValue = e }));
+                role.RoleClaims.RemoveAll(e => e.ClaimType == PermissionInfo.ClaimType);
+                role.RoleClaims.AddRange(roleModel.Permissions.Select(e => new RoleClaim { ClaimType = PermissionInfo.ClaimType, ClaimValue = e }));
 
                 if (isNewRole)
                 {

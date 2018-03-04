@@ -4,6 +4,6 @@ namespace Seed.Security
 {
     public class StandardPermissions
     {
-        public static readonly Permission SiteOwner = new Permission("SiteOwner", "系统所有者");
+        public static readonly PermissionInfo SiteOwner = new PermissionInfo("SiteOwner", "系统所有者");
     }
 }

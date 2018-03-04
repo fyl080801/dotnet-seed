@@ -8,7 +8,7 @@ namespace Seed.Security.Permissions
 {
     public interface IPermissionProvider
     {
-        IEnumerable<Permission> GetPermissions();
+        IEnumerable<PermissionInfo> GetPermissions();
 
         IEnumerable<PermissionStereotype> GetDefaultStereotypes();
     }

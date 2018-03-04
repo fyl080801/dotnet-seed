@@ -4,9 +4,23 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
   module.controller('SeedModules.Admin/ui/admin/controllers/roles', [
     '$scope',
     '$modal',
+    'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableParams',
-    function($scope, $modal, ngTableParams) {
+    function($scope, $modal, requestService, ngTableParams) {
+      $scope.roles = [];
       $scope.tableParams = new ngTableParams();
+
+      $scope.loadRoles = function() {
+        requestService
+          .url('/api/admin/roles')
+          .options({
+            showLoading: false
+          })
+          .get()
+          .then(function(result) {
+            $scope.roles = result;
+          });
+      };
 
       $scope.create = function() {
         $modal

@@ -5,13 +5,13 @@ using System.Text;
 
 namespace SeedModules.Admin
 {
-    public class PermissionsProvider : IPermissionProvider
+    public class Permissions : IPermissionProvider
     {
-        public static readonly Permission ManageUsers = new Permission("ManageUsers", "用户管理");
-        public static readonly Permission ManageRoles = new Permission("ManageRoles", "角色管理");
-        public static readonly Permission AssignRoles = new Permission("AssignRoles", "分配角色", new[] { ManageRoles });
+        public static readonly PermissionInfo ManageUsers = new PermissionInfo("ManageUsers", "用户管理");
+        public static readonly PermissionInfo ManageRoles = new PermissionInfo("ManageRoles", "角色管理");
+        public static readonly PermissionInfo AssignRoles = new PermissionInfo("AssignRoles", "分配角色", new[] { ManageRoles });
 
-        public IEnumerable<Permission> GetPermissions()
+        public IEnumerable<PermissionInfo> GetPermissions()
         {
             return new[] {
                 ManageUsers,
