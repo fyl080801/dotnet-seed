@@ -5,7 +5,8 @@
                 <strong>角色列表</strong>
             </div>
             <div class="list-group">
-                <a href="" class="list-group-item" ng-repeat="role in roles">
+                <a href="" class="list-group-item" ng-class="{'active': currentRole&&currentRole.id===role.id}" ng-click="selectRole(role)"
+                    ng-repeat="role in roles">
                     {{role.rolename}}
                 </a>
                 <a href="" class="list-group-item text-center" ng-click="create()">
@@ -15,7 +16,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9" ng-show="currentRole===null">
+        <div class="well well-lg text-center">
+            <h3>请选择角色</h3>
+        </div>
+    </div>
+    <div class="col-md-9" ng-show="currentRole!==null">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
                 <a href="#home" aria-controls="home" role="tab" data-toggle="tab">
@@ -27,6 +33,12 @@
                 <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
                     <i class="glyphicon glyphicon-lock"></i>
                     权限
+                </a>
+            </li>
+            <li class="pull-right">
+                <a href="" aria-controls="profile" ng-click="cancelEditing()">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    取消
                 </a>
             </li>
         </ul>
@@ -61,7 +73,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
