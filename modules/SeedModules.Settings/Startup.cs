@@ -14,7 +14,6 @@ namespace SeedModules.Settings
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ISetupEventHandler, SetupEventHandler>();
-            services.AddScoped<IPermissionProvider, Permissions>();
             services.AddSingleton<ISiteService, SiteService>();
 
             services.AddProjectExecutionStep<SettingsStep>();

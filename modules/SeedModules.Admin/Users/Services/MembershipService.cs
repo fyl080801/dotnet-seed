@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Seed.Security;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

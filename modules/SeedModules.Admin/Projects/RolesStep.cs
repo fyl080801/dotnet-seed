@@ -2,9 +2,9 @@
 using Seed.Plugins.Feature;
 using Seed.Security;
 using Seed.Security.Permissions;
-using SeedModules.Admin.Domain;
 using SeedModules.Project.Models;
 using SeedModules.Project.Services;
+using SeedModules.Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;

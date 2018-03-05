@@ -2,10 +2,9 @@
 using Seed.Data;
 using Seed.Security;
 using Seed.Security.Services;
-using SeedModules.Admin.Domain;
+using SeedModules.Security.Domain;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

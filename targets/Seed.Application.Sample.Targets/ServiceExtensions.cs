@@ -14,10 +14,6 @@ namespace Seed.Application.Sample.Targets
 
         public static IServiceCollection AddSeedApplication(this IServiceCollection services, IConfiguration configuration)
         {
-            //services.AddThemingHost();
-            //services.AddManifestDefinition("Theme.txt", "theme");
-            //services.AddExtensionLocation("Themes");
-
             services.AddSitesFolder("App_Data", "Sites");
 
             //services.AddCommands();
@@ -36,6 +32,7 @@ namespace Seed.Application.Sample.Targets
                     "SeedModules.AngularUI",
                     "SeedModules.Settings",
                     "SeedModules.Setup",
+                    "SeedModules.Security",
                     "SeedModules.Project");
             });
 

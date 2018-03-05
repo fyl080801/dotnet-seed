@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Mvc.Filters;
 using Seed.Security.Services;
-using SeedModules.Admin.Domain;
+using SeedModules.Security.Domain;
 
 namespace SeedModules.Admin.Controllers
 {

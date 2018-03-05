@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Seed.Security;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SeedModules.Admin.Users.Services

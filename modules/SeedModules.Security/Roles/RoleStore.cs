@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Caching.Memory;
 using Seed.Data;
-using Seed.Environment.Caching;
 using Seed.Security;
 using Seed.Security.Services;
-using SeedModules.Admin.Domain;
+using SeedModules.Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +10,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Roles
+namespace SeedModules.Security.Roles
 {
     public class RoleStore : IRoleClaimStore<IRole>, IRoleProvider
     {

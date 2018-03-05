@@ -6,19 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Seed.Data.Extensions;
 using Seed.Modules.Setup.Events;
-using Seed.Modules.Site;
 using Seed.Plugins.Feature;
 using Seed.Security;
 using Seed.Security.Extensions;
 using Seed.Security.Permissions;
 using Seed.Security.Services;
 using SeedModules.Admin.Projects;
-using SeedModules.Admin.Roles;
 using SeedModules.Admin.Users;
 using SeedModules.Admin.Users.Services;
 using SeedModules.Project.Extensions;
+using SeedModules.Security.Roles;
 using System;
 
 namespace SeedModules.Admin.Extensions

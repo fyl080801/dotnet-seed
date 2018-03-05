@@ -2,13 +2,13 @@
 using Seed.Plugins.Feature;
 using Seed.Security;
 using Seed.Security.Permissions;
-using SeedModules.Admin.Domain;
+using SeedModules.Security.Domain;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Roles
+namespace SeedModules.Security.Roles
 {
     /// <summary>
     /// 功能发生事件时角色的相关处理

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Text;
 
-namespace SeedModules.Admin.Domain
+namespace SeedModules.Security.Domain
 {
     [Table("RoleClaim")]
     public class RoleClaim

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
-using SeedModules.Admin.Domain;
+using Seed.Security;
+using Seed.Security.Services;
+using SeedModules.Security.Domain;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -11,15 +13,18 @@ namespace SeedModules.Admin.Users.Services
 {
     public class UserService : IUserService
     {
+        readonly IRoleProvider _roleProvider;
         readonly UserManager<IUser> _userManager;
         readonly ILookupNormalizer _keyNormalizer;
         readonly IOptions<IdentityOptions> _identityOptions;
 
         public UserService(
+            IRoleProvider roleProvider,
             UserManager<IUser> userManager,
             ILookupNormalizer keyNormalizer,
             IOptions<IdentityOptions> identityOptions)
         {
+            _roleProvider = roleProvider;
             _userManager = userManager;
             _keyNormalizer = keyNormalizer;
             _identityOptions = identityOptions;
@@ -44,17 +49,27 @@ namespace SeedModules.Admin.Users.Services
                 throw new Exception("Email 重复");
             }
 
-            var user = new User
-            {
-                Username = username,
-                Email = email,
-                Roles = roleNames.Select(e => new UserRole()
+            var roles = await _roleProvider.GetRolesAsync();
+            var userRoles = roleNames.Where(e => !roles.Select(r => r.Rolename).Contains(e))
+                .Select(e => new UserRole()
                 {
                     Role = new Role(e)
                     {
                         NormalizedRolename = _keyNormalizer.Normalize(e)
                     }
-                }).ToList()
+                }).ToList();
+
+            userRoles.AddRange(roles.Where(e => roleNames.Contains(e.Rolename))
+                .Select(e => new UserRole()
+                {
+                    RoleId = ((Role)e).Id
+                }).ToList());
+
+            var user = new User
+            {
+                Username = username,
+                Email = email,
+                Roles = userRoles
             };
 
             var identityResult = await _userManager.CreateAsync(user, password);

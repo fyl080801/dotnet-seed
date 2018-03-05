@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Seed.Security;
 using Seed.Security.Permissions;
-using SeedModules.Admin.Domain;
+using SeedModules.Security.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Roles
+namespace SeedModules.Security.Roles
 {
     public class RolesPermissionsHandler : AuthorizationHandler<PermissionRequirement>
     {

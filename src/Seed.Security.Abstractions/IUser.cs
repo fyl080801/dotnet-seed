@@ -1,4 +1,4 @@
-﻿namespace SeedModules.Admin.Users
+﻿namespace Seed.Security
 {
     public interface IUser
     {

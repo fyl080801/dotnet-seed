@@ -1,0 +1,4 @@
+﻿Name: SeedModules.Security
+Version: 1.0
+Category: 基础模块
+AllowManage: false

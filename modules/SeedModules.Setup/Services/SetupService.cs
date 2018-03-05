@@ -51,6 +51,7 @@ namespace SeedModules.Setup.Services
                 "SeedModules.Common",
                 "SeedModules.Project",
                 "SeedModules.Settings",
+                "SeedModules.Security",// 先把Security引入，不然执行模块安装后事件时需要写权限数据时找不到表
                 "SeedModules.AngularUI"
             };
 
@@ -102,7 +103,7 @@ namespace SeedModules.Setup.Services
                     }
                 }
 
-                // 用于前台检测执行状态
+                // 用于前台检测执行状态和状态执行回溯
                 executionId = Guid.NewGuid().ToString("n");
 
                 using (var scope = engineContext.EntryServiceScope())

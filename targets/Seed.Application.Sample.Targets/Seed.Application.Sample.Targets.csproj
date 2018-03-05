@@ -12,6 +12,7 @@
     <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Router\SeedModules.Router.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Saas\SeedModules.Saas.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.Security\SeedModules.Security.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Settings\SeedModules.Settings.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Features\SeedModules.Features.csproj" />

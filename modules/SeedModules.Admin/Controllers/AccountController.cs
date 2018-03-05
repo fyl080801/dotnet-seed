@@ -1,14 +1,11 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Seed.Mvc.Models;
-using SeedModules.Admin.Models;
-using SeedModules.Admin.Users;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
+using Seed.Security;
+using SeedModules.Admin.Models;
+using System.Threading.Tasks;
 
 namespace SeedModules.Admin.Controllers
 {
