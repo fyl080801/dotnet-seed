@@ -1,30 +1,59 @@
 <div class="container" ng-controller="SeedModules.Admin/ui/login/controllers/login">
-    <div class="navbar"></div>
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    用户登录
+            <div class="panel-body">
+                <div class="text-center">
+                    <h2>
+                        <i class="fas fa-fire fa-2x"></i>
+                    </h2>
+                    <h2></h2>
+                    <h1>系统登录</h1>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <p></p>
                 <form class="panel-body" name="loginform" role="form">
-                    <div class="form-group">
-                        <label>用户名</label>
-                        <input class="form-control" name="Username" ng-model="data.Username" required>
-                    </div>
-                    <div class="form-group">
-                        <label>密码</label>
-                        <input type="password" class="form-control" name="Password" ng-model="data.Password" required>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="IsRemember" ng-model="data.IsRemember"> 记住用户名
-                        </label>
+                    <div class="container-fluid">
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <input class="form-control" name="Username" ng-model="data.Username" required>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label>密码</label>
+                                <a href="" class="pull-right" tabindex="-1">忘记密码？</a>
+                            </div>
+                            <input type="password" class="form-control" name="Password" ng-model="data.Password" required>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="IsRemember" ng-model="data.IsRemember"> 记住用户名
+                            </label>
+                        </div>
+                        <button type="button" class="btn btn-success btn-group-justified" ng-disabled="loginform.$invalid" ng-click="login()">登录</button>
                     </div>
                 </form>
-                <div class="panel-footer text-right">
-                    <button type="button" class="btn btn-primary" ng-disabled="loginform.$invalid" ng-click="login()">登录</button>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default" style="background-color: #F9F9F9">
+                <div class="panel-body text-center">
+                    还没有注册企业？
+                    <a href="">立即注册</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<style>
+    body {
+        background-color: #f9f9f9
+    }
+</style>

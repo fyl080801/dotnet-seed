@@ -7,7 +7,7 @@ define(['SeedModules.Saas/ui/configs'], function(configs) {
     function($state, nav) {
       nav.add({
         text: '托管平台',
-        icon: 'fa fa-server fa-fw',
+        icon: 'fas fa-server fa-fw',
         children: [
           {
             text: '数据源',

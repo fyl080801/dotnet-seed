@@ -7,7 +7,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         restrict: 'AE',
         replace: true,
         template:
-          '<div class="sidebar"><div class="sidebar-top"><a href="{{homeHref}}"><i class="fa fa-home fa-fw"></i> <span>{{homeTitle}}</span></a></div><ul sidebar-nav nav-data="navData"></ul></div>',
+          '<div class="sidebar"><div class="sidebar-top"><a href="{{homeHref}}"><i class="fas fa-home fa-fw"></i> <span>{{homeTitle}}</span></a></div><ul sidebar-nav nav-data="navData"></ul></div>',
         scope: {
           sidebar: '=',
           navData: '=',

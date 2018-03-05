@@ -25,7 +25,7 @@ define(['app/application'], function(application) {
       function($state, nav) {
         nav.add({
           text: '功能管理',
-          icon: 'fa fa-cubes fa-fw',
+          icon: 'fas fa-cubes fa-fw',
           order: 2,
           itemClicked: function(evt) {
             $state.go('admin.features');

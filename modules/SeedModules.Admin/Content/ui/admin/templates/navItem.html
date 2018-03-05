@@ -1,7 +1,7 @@
 <a href="" ng-click="warpClick(item, $event)">
     <i class="{{item.icon}}"></i>
     <span>{{item.text}}</span>
-    <i class="fa fa-angle-right sidebar-more" ng-if="!isLeaf(item)"></i>
+    <i class="fas fa-angle-right sidebar-more" ng-if="!isLeaf(item)"></i>
 </a>
 <ul ng-if="!isLeaf(item)">
     <li ng-repeat="item in item.children" ng-include="'/SeedModules.Admin/ui/admin/templates/navItem.html'"></li>

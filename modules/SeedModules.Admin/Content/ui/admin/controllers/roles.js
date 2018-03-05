@@ -6,10 +6,20 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
     '$modal',
     'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableParams',
-    function($scope, $modal, requestService, ngTableParams) {
+    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    function($scope, $modal, requestService, ngTableParams, schemaFormParams) {
       $scope.roles = [];
       $scope.currentRole = null;
       $scope.tableParams = new ngTableParams();
+      $scope.roleForm = new schemaFormParams();
+
+      $scope.roleForm.properties({
+        rolename: {
+          title: '名称',
+          type: 'string',
+          required: true
+        }
+      });
 
       $scope.loadRoles = function() {
         requestService
@@ -38,19 +48,8 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
             size: 'sm',
             data: {
               title: '新建角色',
-              schema: {
-                type: 'object',
-                properties: {
-                  rolename: {
-                    title: '名称',
-                    type: 'string'
-                  }
-                },
-                required: ['rolename']
-              },
-              fields: ['rolename'],
-              options: {},
-              model: {}
+              formParams: $scope.roleForm,
+              form: ['rolename']
             }
           })
           .result.then(function(data) {

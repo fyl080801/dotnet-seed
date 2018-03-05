@@ -4,13 +4,18 @@ define(['SeedModules.Saas/ui/module'], function(module) {
   module.controller('SeedModules.Saas/ui/controllers/tenants', [
     '$scope',
     '$modal',
+    'app.services.popupService',
+    'SeedModules.AngularUI/ui/factories/ngTableParams',
     'SeedModules.AngularUI/ui/services/requestService',
-    function($scope, $modal, requestService) {
+    function($scope, $modal, popupService, ngTableParams, requestService) {
+      $scope.tableParams = new ngTableParams();
       $scope.list = [];
+      $scope.checkedAll = false;
       $scope.checked = {};
       $scope.total = 0;
 
       $scope.checkAll = function() {
+        $scope.checkedAll = !$scope.checkedAll;
         if ($scope.checkedAll) {
           $.each($scope.list, function(idx, item) {
             $scope.checked[item.name] = true;
@@ -45,6 +50,10 @@ define(['SeedModules.Saas/ui/module'], function(module) {
                 $scope.load();
               });
           });
+      };
+
+      $scope.drop = function() {
+        popupService.confirm('是否删除？').ok(function() {});
       };
 
       $scope.load = function() {
