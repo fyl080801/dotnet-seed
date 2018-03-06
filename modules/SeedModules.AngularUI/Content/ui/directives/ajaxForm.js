@@ -33,7 +33,8 @@ define(['SeedModules.AngularUI/ui/module', 'jquery-form'], function(module) {
               ? $.extend(scope.ajaxForm, options)
               : scope.ajaxForm;
 
-            submitOptions.url = $appConfig.prefix + submitOptions.url;
+            submitOptions.url =
+              $appConfig.siteSettings.prefix + submitOptions.url;
 
             submitOptions.success = function(
               responseText,
@@ -46,7 +47,7 @@ define(['SeedModules.AngularUI/ui/module', 'jquery-form'], function(module) {
                   data: '',
                   config: {
                     dataOnly: true,
-                    url: $appConfig.prefix + scope.ajaxForm.url
+                    url: $appConfig.siteSettings.prefix + scope.ajaxForm.url
                   }
                 },
                 defer

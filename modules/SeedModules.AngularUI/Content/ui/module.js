@@ -20,10 +20,12 @@ define([
       '$provide',
       '$appConfig',
       function($provide, $appConfig) {
-        var prefix = document
-          .getElementById('seed-ui')
-          .getAttribute('data-prefix');
-        $appConfig.prefix = prefix ? '/' + prefix : '';
+        var settings = JSON.parse(
+          document.getElementById('seed-ui').getAttribute('data-site')
+        );
+        settings.prefix = settings.prefix ? '/' + settings.prefix : '';
+
+        $appConfig.siteSettings = settings;
       }
     ]);
 });

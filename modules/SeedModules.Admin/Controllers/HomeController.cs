@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Environment.Engine;
+using Seed.Modules.Site;
 using Seed.Mvc.Filters;
 using SeedModules.AngularUI.Models;
 using SeedModules.AngularUI.Rendering;
@@ -11,11 +13,13 @@ namespace SeedModules.Admin.Controllers
     {
         readonly IViewOptionsBuilder _optionsBuilder;
         readonly EngineSettings _engineSettings;
+        readonly ISiteSettingsBuilder _siteSettingsBuilder;
 
-        public HomeController(IViewOptionsBuilder optionsBuilder, EngineSettings engineSettings)
+        public HomeController(IViewOptionsBuilder optionsBuilder, EngineSettings engineSettings, ISiteSettingsBuilder siteSettingsBuilder)
         {
             _optionsBuilder = optionsBuilder;
             _engineSettings = engineSettings;
+            _siteSettingsBuilder = siteSettingsBuilder;
         }
 
         [GenerateAntiforgeryTokenCookie]
@@ -24,7 +28,7 @@ namespace SeedModules.Admin.Controllers
             return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
                 Options = _optionsBuilder.Build(RouteData).Result,
-                Prefix = _engineSettings.RequestUrlPrefix
+                SiteSettings = _siteSettingsBuilder.Build().ToString()
             });
         }
 
@@ -35,7 +39,7 @@ namespace SeedModules.Admin.Controllers
             return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
                 Options = _optionsBuilder.Build(RouteData).Result,
-                Prefix = _engineSettings.RequestUrlPrefix
+                SiteSettings = _siteSettingsBuilder.Build().ToString()
             });
         }
     }

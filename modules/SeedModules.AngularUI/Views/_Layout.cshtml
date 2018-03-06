@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
     <!-- <link rel="stylesheet" href="/SeedModules.AngularUI/css/fontawesome-all.min.css" /> -->
-    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(((ViewOptionsModel)Model).Options).Prefix(((ViewOptionsModel)Model).Prefix)
+    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(((ViewOptionsModel)Model).Options).Settings(((ViewOptionsModel)Model).SiteSettings)
 </head>
 <body>
     @RenderBody()

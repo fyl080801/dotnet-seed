@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Routing;
+using Newtonsoft.Json;
 using Seed.Data;
 using System;
 using System.Collections.Generic;
@@ -28,11 +29,13 @@ namespace Seed.Modules.Site
 
         //bool UseCdn { get; set; }
 
-        //int PageSize { get; set; }
+        int PageSize { get; set; }
 
-        //int MaxPageSize { get; set; }
+        string PageCounts { get; set; }
 
-        //int MaxPagedCount { get; set; }
+        // int MaxPageSize { get; set; }
+
+        // int MaxPagedCount { get; set; }
 
         RouteValueDictionary HomeRoute { get; set; }
     }

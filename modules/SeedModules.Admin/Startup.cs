@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
 using Seed.Modules;
 using SeedModules.Admin.Extensions;
+using SeedModules.Admin.Rendering;
+using SeedModules.AngularUI.Rendering;
 using System;
 
 namespace SeedModules.Admin
@@ -26,6 +28,7 @@ namespace SeedModules.Admin
         {
             services.AddRoleServices();
             services.AddAuthenticationServices(_dataProtectionProvider, _tenantName, _prefix);
+            services.AddScoped<ISiteSettingsBuilder, SiteSettingsBuilder>();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

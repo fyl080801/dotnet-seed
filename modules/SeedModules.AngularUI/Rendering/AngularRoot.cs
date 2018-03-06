@@ -45,15 +45,15 @@ namespace SeedModules.AngularUI.Rendering
             }
         }
 
-        public void SetPrefix(string prefix)
+        public void SetSettings(string siteSettings)
         {
-            if (Attributes.ContainsKey("data-prefix"))
+            if (Attributes.ContainsKey("data-site"))
             {
-                Attributes["data-prefix"] = prefix;
+                Attributes["data-site"] = siteSettings;
             }
             else
             {
-                Attributes.Add("data-prefix", prefix);
+                Attributes.Add("data-site", siteSettings);
             }
         }
     }

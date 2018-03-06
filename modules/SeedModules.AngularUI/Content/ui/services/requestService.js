@@ -20,7 +20,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
         );
 
         configs.method = method;
-        configs.url = $appConfig.prefix + apiDefer.$$url;
+        configs.url = $appConfig.siteSettings.prefix + apiDefer.$$url;
         configs.data = apiDefer.$$data;
 
         var loading = configs.showLoading

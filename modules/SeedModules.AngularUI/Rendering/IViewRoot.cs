@@ -13,6 +13,6 @@ namespace SeedModules.AngularUI.Rendering
 
         void SetOptions(object options);
 
-        void SetPrefix(string prefix);
+        void SetSettings(string siteSettings);
     }
 }

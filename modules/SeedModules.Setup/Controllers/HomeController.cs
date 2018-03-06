@@ -11,12 +11,14 @@ namespace SeedModules.Setup.Controllers
     public class HomeController : Controller
     {
         readonly IViewOptionsBuilder _optionsBuilder;
-        readonly EngineSettings _engineSettings;
+        readonly ISiteSettingsBuilder _siteSettingsBuilder;
 
-        public HomeController(IViewOptionsBuilder optionsBuilder, EngineSettings engineSettings)
+        public HomeController(
+            IViewOptionsBuilder optionsBuilder,
+            ISiteSettingsBuilder siteSettingsBuilder)
         {
             _optionsBuilder = optionsBuilder;
-            _engineSettings = engineSettings;
+            _siteSettingsBuilder = siteSettingsBuilder;
         }
 
         public IActionResult Index()
@@ -24,7 +26,7 @@ namespace SeedModules.Setup.Controllers
             return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
                 Options = _optionsBuilder.Build(RouteData).Result,
-                Prefix = _engineSettings.RequestUrlPrefix
+                SiteSettings = _siteSettingsBuilder.Build().ToString()
             });
         }
     }

@@ -4,6 +4,8 @@ namespace SeedModules.AngularUI.Models
     {
         public string Options { get; set; }
 
-        public string Prefix { get; set; }
+        public string SiteSettings { get; set; }
+
+        public string Permissions { get; set; }
     }
 }

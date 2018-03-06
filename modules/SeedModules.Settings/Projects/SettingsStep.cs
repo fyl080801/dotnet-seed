@@ -43,17 +43,21 @@ namespace SeedModules.Settings.Projects
                     //    site.Culture = property.Value.ToString();
                     //    break;
 
-                    //case "MaxPagedCount":
-                    //    site.MaxPagedCount = property.Value<int>();
-                    //    break;
+                    // case "MaxPagedCount":
+                    //     site.MaxPagedCount = property.Value<int>();
+                    //     break;
 
-                    //case "MaxPageSize":
-                    //    site.MaxPageSize = property.Value<int>();
-                    //    break;
+                    // case "MaxPageSize":
+                    //     site.MaxPageSize = property.Value<int>();
+                    //     break;
 
-                    //case "PageSize":
-                    //    site.PageSize = property.Value<int>();
-                    //    break;
+                    case "PageCounts":
+                        site.PageCounts = property.ToString();
+                        break;
+
+                    case "PageSize":
+                        site.PageSize = property.Value<int>();
+                        break;
 
                     //case "ResourceDebugMode":
                     //    site.ResourceDebugMode = property.Value<ResourceDebugMode>();
