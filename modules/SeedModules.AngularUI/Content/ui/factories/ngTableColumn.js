@@ -4,7 +4,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
   module.factory('SeedModules.AngularUI/ui/factories/ngTableColumn', [
     function() {
       var defaults = {
-        class: function() {
+        'class': function() {
           return '';
         },
         //filterData: angular.noop,
