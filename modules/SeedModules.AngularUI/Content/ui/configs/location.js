@@ -7,8 +7,10 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
       $provide.decorator('$location', [
         '$delegate',
         function($delegate) {
-          $delegate.search = function() {
-            var pairs = window.location.search.substring(1).split(/[&?]/);
+          $delegate.search = function(urlString) {
+            var pairs = (urlString || window.location.search)
+              .substring(1)
+              .split(/[&?]/);
             var res = {},
               i,
               pair;

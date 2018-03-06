@@ -45,7 +45,7 @@
         <colgroup>
             <col width="50px" />
         </colgroup>
-        <tr ng-repeat="row in list">
+        <tr ng-repeat="row in $data">
             <td header="'table-checkbox.html'">
                 <input type="checkbox" ng-model="checked[row.name]" ng-change="onCheck()">
             </td>
@@ -67,6 +67,7 @@
             </td>
         </tr>
     </table>
+    <!-- <div ng-pager="tableParams"></div> -->
 </div>
 
 <script type="text/ng-template" id="table-checkbox.html">

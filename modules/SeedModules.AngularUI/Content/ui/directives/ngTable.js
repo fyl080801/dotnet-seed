@@ -66,7 +66,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
               titleAlt: parsedAttribute('title-alt'),
               headerTitle: parsedAttribute('header-title'),
               sortable: parsedAttribute('sortable'),
-              'class': parsedAttribute('header-class'),
+              class: parsedAttribute('header-class'),
               headerTemplateURL: parsedAttribute('header'),
               show: (function() {
                 if (el.attr('ng-if')) {
