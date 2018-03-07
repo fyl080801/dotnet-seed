@@ -1,4 +1,4 @@
-define(['app/application'], function(application) {
+define(['app/application', 'schema-form-bootstrap'], function(application) {
   'use strict';
 
   return angular.module('modules.angularui.configs', [
