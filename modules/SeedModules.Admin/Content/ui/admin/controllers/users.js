@@ -4,6 +4,8 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
   module.controller('SeedModules.Admin/ui/admin/controllers/users', [
     '$scope',
     '$modal',
+    '$q',
+    '$timeout',
     'app.services.popupService',
     'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableRequest',
@@ -11,6 +13,8 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
     function(
       $scope,
       $modal,
+      $q,
+      $timeout,
       popupService,
       requestService,
       ngTableRequest,
@@ -76,7 +80,15 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         },
         {
           key: 'confirmPassword',
-          type: 'password'
+          type: 'password',
+          validationMessage: {
+            notConfirm: '密码不一致'
+          },
+          $validators: {
+            notConfirm: function(value) {
+              return false;
+            }
+          }
         }
       ];
 
@@ -97,6 +109,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         $modal
           .open({
             templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            controller: ['$scope', function($scope) {}],
             data: {
               title: '新建用户',
               formParams: $scope.formParams,
