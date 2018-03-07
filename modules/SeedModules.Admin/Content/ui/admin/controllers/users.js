@@ -47,12 +47,12 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
           title: '初始密码',
           type: 'string',
           required: true
-        },
-        confirmPassword: {
-          title: '密码确认',
-          type: 'string',
-          required: true
-        }
+        } //,
+        // confirmPassword: {
+        //   title: '密码确认',
+        //   type: 'string',
+        //   required: true
+        // }
       });
 
       $scope.form = [
@@ -77,19 +77,14 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         {
           key: 'password',
           type: 'password'
-        },
-        {
-          key: 'confirmPassword',
-          type: 'password',
-          validationMessage: {
-            notConfirm: '密码不一致'
-          },
-          $validators: {
-            notConfirm: function(value) {
-              return false;
-            }
-          }
-        }
+        } //,
+        // {
+        //   key: 'confirmPassword',
+        //   type: 'password',
+        //   validationMessage: {
+        //     notConfirm: '密码不一致'
+        //   }
+        // }
       ];
 
       $scope.create = function() {
@@ -109,7 +104,6 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         $modal
           .open({
             templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
-            controller: ['$scope', function($scope) {}],
             data: {
               title: '新建用户',
               formParams: $scope.formParams,

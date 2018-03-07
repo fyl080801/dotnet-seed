@@ -20,6 +20,12 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
         var condition = sfBuilderProvider.builders.condition;
         var array = sfBuilderProvider.builders.array;
 
+        var ngCompare = function(args) {
+          args.fieldFrag.firstChild.setAttribute('ng-compare', '');
+        };
+
+        sfBuilderProvider.stdBuilders.push(ngCompare);
+
         schemaFormDecoratorsProvider.defineDecorator('seedDecorator', {});
 
         // schemaFormDecoratorsProvider.defineAddOn(
