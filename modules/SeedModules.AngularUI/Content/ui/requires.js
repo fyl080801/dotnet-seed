@@ -13,6 +13,7 @@ define([
   'SeedModules.AngularUI/ui/directives/ngTableDynamic',
   'SeedModules.AngularUI/ui/directives/ngTablePagination',
   'SeedModules.AngularUI/ui/directives/ngTableSorterRow',
+  'SeedModules.AngularUI/ui/filters/booleanText',
   'SeedModules.AngularUI/ui/controllers/ngTable',
   'SeedModules.AngularUI/ui/controllers/ngTableSorterRow'
 ], function() {

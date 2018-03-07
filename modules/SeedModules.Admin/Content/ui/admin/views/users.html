@@ -24,7 +24,11 @@
             <td title="'用户名'">{{row.username}}</td>
             <td title="'姓名'">{{row.lastName}}&nbsp;{{row.firstName}}</td>
             <td title="'邮箱'">{{row.email}}</td>
-            <td title="'已验证'"></td>
+            <td title="'已验证'">
+                <span class="label" ng-class="{
+                    'label-default': !row.emailConfirmed,
+                    'label-success': row.emailConfirmed}" ng-bind="row.emailConfirmed|booleanText"></span>
+            </td>
             <td title="'操作'">
                 <a href="" class="text-primary" ng-click="edit(row)">编辑</a>
                 <a href="" class="text-danger" ng-click="drop(row)">删除</a>
