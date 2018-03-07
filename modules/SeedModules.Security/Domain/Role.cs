@@ -13,11 +13,14 @@ namespace SeedModules.Security.Domain
         [Key]
         public int Id { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50), Required]
         public string Rolename { get; set; }
 
         [StringLength(50)]
         public string NormalizedRolename { get; set; }
+
+        [StringLength(50)]
+        public string DisplayName { get; set; }
 
         public virtual List<RoleClaim> RoleClaims { get; } = new List<RoleClaim>();
 

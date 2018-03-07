@@ -13,8 +13,7 @@ namespace SeedModules.Security.Domain
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(20)]
+        [StringLength(20), Required]
         public string Username { get; set; }
 
         [StringLength(20)]
@@ -33,6 +32,12 @@ namespace SeedModules.Security.Domain
         public string SecurityStamp { get; set; }
 
         public bool EmailConfirmed { get; set; }
+
+        [StringLength(25)]
+        public string FirstName { get; set; }
+
+        [StringLength(25)]
+        public string LastName { get; set; }
 
         public virtual List<UserRole> Roles { get; set; } = new List<UserRole>();
 

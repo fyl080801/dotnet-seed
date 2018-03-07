@@ -11,13 +11,15 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       $scope.roles = [];
       $scope.currentRole = null;
       $scope.tableParams = new ngTableParams();
-      $scope.roleForm = new schemaFormParams();
-
-      $scope.roleForm.properties({
+      $scope.roleForm = new schemaFormParams().properties({
         rolename: {
           title: '名称',
           type: 'string',
           required: true
+        },
+        displayName: {
+          title: '别名',
+          type: 'string'
         }
       });
 
@@ -49,11 +51,16 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
             data: {
               title: '新建角色',
               formParams: $scope.roleForm,
-              form: ['rolename']
+              form: ['rolename', 'displayName']
             }
           })
           .result.then(function(data) {
-            console.log(data);
+            requestService
+              .url('/api/admin/roles')
+              .post(data)
+              .then(function(result) {
+                $scope.loadRoles();
+              });
           });
       };
     }

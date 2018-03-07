@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
+using Seed.Security;
 using Seed.Security.Services;
 using SeedModules.Security.Domain;
 
@@ -13,10 +16,12 @@ namespace SeedModules.Admin.Controllers
     public class RoleController : Controller
     {
         readonly IRoleProvider _roleProvider;
+        readonly RoleManager<IRole> _roleManager;
 
-        public RoleController(IRoleProvider roleProvider)
+        public RoleController(IRoleProvider roleProvider, RoleManager<IRole> roleManager)
         {
             _roleProvider = roleProvider;
+            _roleManager = roleManager;
         }
 
         [HttpGet, HandleResult]
@@ -26,16 +31,34 @@ namespace SeedModules.Admin.Controllers
             return roles.Select(e => (Role)e).ToArray();
         }
 
-        // [HttpGet("error"), HandleResult]
-        // public void TestError()
-        // {
-        //     throw new Exception("aaaaaaaa");
-        // }
+        [HttpPost, HandleResult]
+        public async Task<Role> Create([FromBody]Role model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.Rolename = model.Rolename.Trim();
 
-        // [HttpGet("str"), HandleResult]
-        // public string TestString()
-        // {
-        //     return "xxxxxxx";
-        // }
+                if (await _roleManager.FindByNameAsync(_roleManager.NormalizeKey(model.Rolename)) != null)
+                {
+                    ModelState.AddModelError(string.Empty, "角色已存在");
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                var result = await _roleManager.CreateAsync(model);
+                if (result.Succeeded)
+                {
+                    return model;
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            throw this.Exception(ModelState);
+        }
     }
 }

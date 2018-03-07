@@ -36,19 +36,19 @@ namespace Seed.Mvc.Extensions
             };
         }
 
-        public static void Throw(this Controller controller, string message)
+        public static Exception Exception(this Controller controller, string message)
         {
-            throw new GeneralOperateException(message);
+            return new GeneralOperateException(message);
         }
 
-        public static void Throw(this Controller controller, ModelStateDictionary modelState)
+        public static Exception Exception(this Controller controller, ModelStateDictionary modelState)
         {
-            throw new GeneralOperateException();
+            return new GeneralOperateException();
         }
 
-        public static void Throw(this Controller controller, string message, Exception inner)
+        public static Exception Exception(this Controller controller, string message, Exception inner)
         {
-            throw new GeneralOperateException(message, inner);
+            return new GeneralOperateException(message, inner);
         }
     }
 }

@@ -4,6 +4,7 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
   configs.value('SeedModules.AngularUI/ui/configs/schemaFormDefaults', {
     schema: {},
     options: {
+      validateOnRender: true,
       validationMessage: {
         0: '错误的类型: {{schema.type}} (应为 {{form.type}})',
         302: '{{title}} 不可为空',

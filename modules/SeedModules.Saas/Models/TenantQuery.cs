@@ -1,6 +1,8 @@
+using Seed.Mvc.Models;
+
 namespace SeedModules.Saas.Models
 {
-    public class TenantQuery
+    public class TenantQueryModel : QueryModel
     {
         public string Keyword { get; set; }
 

@@ -38,15 +38,13 @@ namespace SeedModules.Admin.Controllers
                 }
                 else
                 {
-                    this.Throw("登录不成功");
+                    throw this.Exception("登录不成功");
                 }
             }
             else
             {
-                this.Throw("输入信息有误");
+                throw this.Exception("输入信息有误");
             }
-
-            return new LoginResult();
         }
 
         [HttpPost("logout")]

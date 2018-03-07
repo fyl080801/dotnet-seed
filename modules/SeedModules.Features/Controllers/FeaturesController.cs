@@ -62,7 +62,7 @@ namespace SeedModules.Features.Controllers
 
             if (feature == null)
             {
-                this.Throw("未找到该功能");
+                throw this.Exception("未找到该功能");
             }
 
             if (model.Enabled)

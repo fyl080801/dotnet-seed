@@ -19,6 +19,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
         this.options = function(newOptions) {
           if (angular.isDefined(newOptions)) {
             angular.extend(options, newOptions);
+            return self;
           }
           return options;
         };
@@ -28,6 +29,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
             formSchema.type = newSchema.type || 'object';
             formSchema.properties = newSchema.properties || {};
             formSchema.required = newSchema.required || [];
+            return self;
           }
           return formSchema;
         };
@@ -37,8 +39,9 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
           if (angular.isDefined(propertiesDefine)) {
             currentSchema.properties = propertiesDefine;
             angular.forEach(currentSchema.properties, function(item, key) {
-              self.setRequired(key, item.required);
+              self.required(key, item.required);
             });
+            return self;
           }
           return currentSchema.properties;
         };
@@ -47,12 +50,13 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
           var currentSchema = this.schema();
           if (angular.isDefined(propertyDefine)) {
             currentSchema.properties[propertyName] = propertyDefine;
-            self.setRequired(propertyName, propertyDefine.required);
+            self.required(propertyName, propertyDefine.required);
+            return self;
           }
           return currentSchema.properties[propertyName];
         };
 
-        this.setRequired = function(propertyName, req) {
+        this.required = function(propertyName, req) {
           var currentSchema = this.schema();
           var requiredIndex = currentSchema.required.indexOf(propertyName);
           if (req && requiredIndex < 0) {
@@ -60,6 +64,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
           } else if (requiredIndex >= 0) {
             currentSchema.required.splice(requiredIndex, 1);
           }
+          return self;
         };
 
         this.options(schemaFormDefaults.options);

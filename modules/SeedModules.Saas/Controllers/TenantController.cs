@@ -30,7 +30,7 @@ namespace SeedModules.Saas.Controllers
 
         [HttpPost, HandleResult]
         public object List(
-            [FromBody]TenantQuery search,
+            [FromBody]TenantQueryModel search,
             [FromQuery]int page,
             [FromQuery]int count)
         {
@@ -43,7 +43,7 @@ namespace SeedModules.Saas.Controllers
                     IsDefault = string.Equals(e.Settings.Name, EngineHelper.DefaultEngineName, StringComparison.OrdinalIgnoreCase),
                     EngineSettings = e.Settings
                 });
-            return new
+            return new PagedResult<EngineSettingsModel>()
             {
                 List = query.ToList(),
                 Total = GetEngines().Count()
@@ -55,7 +55,7 @@ namespace SeedModules.Saas.Controllers
         {
             if (!IsDefault())
             {
-                this.Throw("非默认上下文禁止此操作");
+                throw this.Exception("非默认上下文禁止此操作");
             }
 
             if (ModelState.IsValid)
@@ -64,12 +64,12 @@ namespace SeedModules.Saas.Controllers
             }
             else
             {
-                this.Throw(ModelState);
+                throw this.Exception(ModelState);
             }
 
             if (!ModelState.IsValid)
             {
-                this.Throw(ModelState);
+                throw this.Exception(ModelState);
             }
 
             var engineSettings = new EngineSettings()
