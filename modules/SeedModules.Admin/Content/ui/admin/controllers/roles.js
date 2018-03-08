@@ -16,10 +16,6 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
           title: '名称',
           type: 'string',
           required: true
-        },
-        displayName: {
-          title: '别名',
-          type: 'string'
         }
       });
 

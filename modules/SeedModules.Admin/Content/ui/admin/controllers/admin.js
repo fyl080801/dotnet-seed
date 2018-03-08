@@ -9,6 +9,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
     'app.services.popupService',
     'SeedModules.Admin/ui/admin/configs/nav',
     'SeedModules.AngularUI/ui/services/requestService',
+    'SeedModules.AngularUI/ui/factories/schemaFormParams',
     function(
       $scope,
       $state,
@@ -16,8 +17,48 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       $window,
       popupService,
       nav,
-      requestService
+      requestService,
+      schemaFormParams
     ) {
+      $scope.passwordFormParams = new schemaFormParams().properties({
+        currentPassword: {
+          title: '当前密码',
+          type: 'string',
+          required: true
+        },
+        password: {
+          title: '新密码',
+          type: 'string',
+          required: true
+        },
+        confirmPassword: {
+          title: '密码确认',
+          type: 'string',
+          required: true
+        }
+      });
+
+      $scope.passwordForm = [
+        {
+          key: 'currentPassword',
+          type: 'password'
+        },
+        {
+          key: 'password',
+          type: 'password'
+        },
+        {
+          key: 'confirmPassword',
+          type: 'password',
+          validationMessage: {
+            compare: '密码不一致'
+          },
+          compare: function(modelValue, model, form) {
+            return modelValue === model.password;
+          }
+        }
+      ];
+
       $scope.sidebar = {};
 
       $scope.navData = nav.tree();
@@ -34,6 +75,28 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
               $window.location.reload();
             });
         });
+      };
+
+      $scope.changePassword = function() {
+        $modal
+          .open({
+            templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            size: 'sm',
+            data: {
+              title: '修改密码',
+              formParams: $scope.passwordFormParams,
+              form: $scope.passwordForm,
+              model: {}
+            }
+          })
+          .result.then(function(data) {
+            requestService
+              .url('/api/admin/users/password')
+              .patch(data)
+              .then(function() {
+                popupService.information('修改成功');
+              });
+          });
       };
     }
   ]);

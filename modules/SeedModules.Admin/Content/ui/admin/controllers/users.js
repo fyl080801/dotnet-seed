@@ -78,18 +78,36 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         },
         'email',
         {
-          key: 'password',
-          type: 'password'
-        },
-        {
-          key: 'confirmPassword',
-          type: 'password',
-          validationMessage: {
-            compare: '密码不一致'
-          },
-          compare: function(modelValue, model, form) {
-            return modelValue === model.password;
-          }
+          type: 'section',
+          htmlClass: 'row',
+          items: [
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: [
+                {
+                  key: 'password',
+                  type: 'password'
+                }
+              ]
+            },
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: [
+                {
+                  key: 'confirmPassword',
+                  type: 'password',
+                  validationMessage: {
+                    compare: '密码不一致'
+                  },
+                  compare: function(modelValue, model, form) {
+                    return modelValue === model.password;
+                  }
+                }
+              ]
+            }
+          ]
         }
       ];
 
@@ -103,25 +121,58 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
               form: $scope.form
             }
           })
-          .result.then(function(data) {});
+          .result.then(function(data) {
+            requestService
+              .url('/api/admin/users')
+              .post(data)
+              .then(function(result) {
+                $scope.tableParams.reload();
+              });
+          });
       };
 
-      $scope.edit = function(row) {
+      $scope.resetPassword = function(row) {
         $modal
           .open({
             templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            size: 'sm',
             data: {
-              title: '新建用户',
-              formParams: $scope.formParams,
-              form: $scope.form,
-              model: $.extend({}, row)
+              title: '重置密码',
+              formParams: new schemaFormParams().properties({
+                password: {
+                  title: '新密码',
+                  type: 'string',
+                  required: true
+                }
+              }),
+              form: [
+                {
+                  key: 'password',
+                  type: 'password'
+                }
+              ],
+              model: {}
             }
           })
-          .result.then(function(data) {});
+          .result.then(function(data) {
+            requestService
+              .url('/api/admin/users/password/' + row.id)
+              .patch(data)
+              .then(function(result) {
+                popupService.information('重置成功');
+              });
+          });
       };
 
       $scope.drop = function(row) {
-        popupService.confirm('是否删除用户？').ok(function() {});
+        popupService.confirm('是否删除用户？').ok(function() {
+          requestService
+            .url('/api/admin/users/' + row.id)
+            .drop()
+            .then(function(result) {
+              $scope.tableParams.reload();
+            });
+        });
       };
     }
   ]);

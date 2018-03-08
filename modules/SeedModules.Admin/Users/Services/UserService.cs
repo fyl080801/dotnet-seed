@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Seed.Data;
 using Seed.Security;
 using Seed.Security.Services;
 using SeedModules.Security.Domain;
@@ -13,17 +14,20 @@ namespace SeedModules.Admin.Users.Services
 {
     public class UserService : IUserService
     {
+        readonly IDbContext _dbContext;
         readonly IRoleProvider _roleProvider;
         readonly UserManager<IUser> _userManager;
         readonly ILookupNormalizer _keyNormalizer;
         readonly IOptions<IdentityOptions> _identityOptions;
 
         public UserService(
+            IDbContext dbContext,
             IRoleProvider roleProvider,
             UserManager<IUser> userManager,
             ILookupNormalizer keyNormalizer,
             IOptions<IdentityOptions> identityOptions)
         {
+            _dbContext = dbContext;
             _roleProvider = roleProvider;
             _userManager = userManager;
             _keyNormalizer = keyNormalizer;
@@ -36,7 +40,7 @@ namespace SeedModules.Admin.Users.Services
 
             if (!identityResult.Succeeded)
             {
-                throw new Exception("修改不成功");
+                ReportError(string.Empty, "修改不成功", reportError);
             }
 
             return identityResult.Succeeded;
@@ -46,7 +50,7 @@ namespace SeedModules.Admin.Users.Services
         {
             if (await _userManager.FindByEmailAsync(email) != null)
             {
-                throw new Exception("Email 重复");
+                ReportError(string.Empty, "Email 重复", reportError);
             }
 
             var roles = await _roleProvider.GetRolesAsync();
@@ -76,7 +80,7 @@ namespace SeedModules.Admin.Users.Services
 
             if (!identityResult.Succeeded)
             {
-                throw new Exception("创建不成功");
+                ReportError(string.Empty, "创建不成功", reportError);
             }
 
             return user;
@@ -90,6 +94,35 @@ namespace SeedModules.Admin.Users.Services
             }
 
             return _userManager.GetUserAsync(principal);
+        }
+
+        public async Task ChangeNameAsync(IUser user, string firstName, string lastName, Action<string, string> reportError)
+        {
+            var result = await _userManager.FindByNameAsync(user.Username);
+            if (result == null)
+            {
+                ReportError(string.Empty, "用户不存在", reportError);
+            }
+
+            var existUser = result as User;
+
+            existUser.FirstName = firstName.Trim();
+            existUser.LastName = lastName.Trim();
+
+            _dbContext.Set<User>().Update(existUser);
+            _dbContext.SaveChanges();
+        }
+
+        private void ReportError(string key, string message, Action<string, string> reportError)
+        {
+            if (reportError != null)
+            {
+                reportError(key, message);
+            }
+            else
+            {
+                throw new Exception(message);
+            }
         }
     }
 }

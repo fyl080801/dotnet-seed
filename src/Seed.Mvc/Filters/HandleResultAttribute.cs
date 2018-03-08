@@ -42,7 +42,9 @@ namespace Seed.Mvc.Filters
                     Message = context.Exception.Message
                 });
 
-                context.Result.ExecuteResultAsync(context);
+                context.ExceptionHandled = true;
+
+                //context.HttpContext.RequestServices.GetService<ILogger<Controller>>().LogError()
             }
         }
 
@@ -52,10 +54,13 @@ namespace Seed.Mvc.Filters
 
             if (context.Result is ObjectResult)
             {
-                context.Result = new ObjectResult(new ApiResult()
+                if (!(((ObjectResult)context.Result).Value is ApiResult))
                 {
-                    Data = ((ObjectResult)context.Result).Value
-                });
+                    context.Result = new ObjectResult(new ApiResult()
+                    {
+                        Data = ((ObjectResult)context.Result).Value
+                    });
+                }
             }
             else if (context.Result is EmptyResult)
             {

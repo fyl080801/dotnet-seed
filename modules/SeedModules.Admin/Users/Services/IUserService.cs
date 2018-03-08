@@ -12,5 +12,7 @@ namespace SeedModules.Admin.Users.Services
         Task<bool> ChangePasswordAsync(IUser user, string currentPassword, string newPassword, Action<string, string> reportError);
 
         Task<IUser> GetAuthenticatedUserAsync(ClaimsPrincipal principal);
+
+        Task ChangeNameAsync(IUser user, string firstName, string lastName, Action<string, string> reportError);
     }
 }

@@ -31,7 +31,7 @@ namespace SeedModules.Admin.Controllers
             return roles.Select(e => (Role)e).ToArray();
         }
 
-        [HttpPost, HandleResult]
+        [HttpPost, ValidateAntiForgeryToken, HandleResult]
         public async Task<Role> Create([FromBody]Role model)
         {
             if (ModelState.IsValid)
