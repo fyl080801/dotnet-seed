@@ -26,13 +26,16 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
 
         var sfCompare = function(args) {
           if (args.form.compare) {
-            args.fieldFrag
-              .querySelector('[ng-model]')
-              .setAttribute('sf-compare', '');
+            var ngModelElement = args.fieldFrag.querySelector('[ng-model]');
+            if (ngModelElement) ngModelElement.setAttribute('sf-compare', '');
           }
         };
 
-        bootstrapDecorator.default.builder.push(sfCompare);
+        angular.forEach(bootstrapDecorator, function(item, idx) {
+          if (angular.isArray(item.builder)) {
+            item.builder.push(sfCompare);
+          }
+        });
 
         // schemaFormDecoratorsProvider.defineDecorator('seedDecorator', {});
 
