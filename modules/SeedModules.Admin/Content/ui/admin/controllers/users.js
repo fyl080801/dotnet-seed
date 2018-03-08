@@ -10,6 +10,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
     'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableRequest',
     'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'schemaFormDecorators',
     function(
       $scope,
       $modal,
@@ -18,12 +19,14 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       popupService,
       requestService,
       ngTableRequest,
-      schemaFormParams
+      schemaFormParams,
+      schemaFormDecorators
     ) {
       $scope.tableParams = new ngTableRequest({
         url: '/api/admin/users/query',
         showLoading: false
       }).ngTableParams();
+
       $scope.formParams = new schemaFormParams().properties({
         username: {
           title: '用户名',
@@ -47,12 +50,12 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
           title: '初始密码',
           type: 'string',
           required: true
-        } //,
-        // confirmPassword: {
-        //   title: '密码确认',
-        //   type: 'string',
-        //   required: true
-        // }
+        },
+        confirmPassword: {
+          title: '密码确认',
+          type: 'string',
+          required: true
+        }
       });
 
       $scope.form = [
@@ -77,14 +80,17 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         {
           key: 'password',
           type: 'password'
-        } //,
-        // {
-        //   key: 'confirmPassword',
-        //   type: 'password',
-        //   validationMessage: {
-        //     notConfirm: '密码不一致'
-        //   }
-        // }
+        },
+        {
+          key: 'confirmPassword',
+          type: 'password',
+          validationMessage: {
+            compare: '密码不一致'
+          },
+          compare: function(modelValue, model, form) {
+            return modelValue === model.password;
+          }
+        }
       ];
 
       $scope.create = function() {

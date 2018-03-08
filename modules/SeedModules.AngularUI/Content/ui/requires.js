@@ -8,6 +8,7 @@ define([
   'SeedModules.AngularUI/ui/services/requestService',
   'SeedModules.AngularUI/ui/directives/ajaxForm',
   'SeedModules.AngularUI/ui/directives/fileInput',
+  'SeedModules.AngularUI/ui/directives/sfCompare',
   'SeedModules.AngularUI/ui/directives/ngPager',
   'SeedModules.AngularUI/ui/directives/ngTable',
   'SeedModules.AngularUI/ui/directives/ngTableDynamic',

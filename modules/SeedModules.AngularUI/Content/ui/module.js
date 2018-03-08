@@ -5,7 +5,7 @@ define([
   'SeedModules.AngularUI/ui/configs/ngTableDefaults',
   'SeedModules.AngularUI/ui/configs/ngTableTemplates',
   'SeedModules.AngularUI/ui/configs/schemaFormDefaults',
-  'SeedModules.AngularUI/ui/configs/schemaFormAddons',
+  'SeedModules.AngularUI/ui/configs/schemaForm',
   'SeedModules.AngularUI/ui/providers/ngTableDefaultGetData'
 ], function(application) {
   'use strict';
