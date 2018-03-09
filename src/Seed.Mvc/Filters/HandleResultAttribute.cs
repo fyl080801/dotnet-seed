@@ -42,9 +42,11 @@ namespace Seed.Mvc.Filters
                     Message = context.Exception.Message
                 });
 
-                context.ExceptionHandled = true;
+                context.HttpContext.RequestServices.GetService<ILoggerFactory>()
+                    .CreateLogger(context.Controller.GetType())
+                    .LogError(string.Format("{2} thrown from {0} by {1}", context.Controller.GetType().FullName, context.ActionDescriptor.DisplayName, context.Exception.GetType().Name), context.Exception);
 
-                //context.HttpContext.RequestServices.GetService<ILogger<Controller>>().LogError()
+                context.ExceptionHandled = true;
             }
         }
 

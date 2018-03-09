@@ -1,6 +1,6 @@
 namespace Seed.Mvc.Models
 {
-    public class QueryModel
+    public class ListQueryModel
     {
         public object Filters { get; set; }
     }

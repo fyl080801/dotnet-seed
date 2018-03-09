@@ -1,0 +1,49 @@
+<div ng-controller="SeedModules.Admin/ui/admin/controllers/members">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <i class="glyphicon glyphicon-edit"></i>
+            选择成员
+        </h4>
+    </div>
+    <div class="navbar navbar-static-top navbar-default" style="margin: 0">
+        <div class="navbar-header">
+            <div class="navbar-form">
+                <div class="input-group">
+                    <input class="form-control" placeholder="搜索">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-2" ng-repeat="item in tableParams.data">
+                <button class="btn btn-default" style="width: 100%" ng-class="{'btn-primary active': selected[item.id]}" ng-click="onCheck(item)">
+                    <i class="pull-left glyphicon" ng-class="{'glyphicon-check':selected[item.id], 'glyphicon-unchecked':!selected[item.id]}"></i>
+                    <span ng-bind="item.username" ng-if="(!item.lastName||item.lastName==='')&&(!item.firstName||item.firstName==='')"></span>
+                    <span ng-bind="item.lastName + ' ' + item.firstName" ng-if="(item.lastName&&item.lastName!=='')||(item.firstName&&item.firstName!=='')"></span>
+                </button>
+            </div>
+        </div>
+        <div style="display: none">
+            <table ng-table="tableParams">
+                <tr ng-repeat="item in $data"></tr>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="$close(selected)">
+            <i class="glyphicon glyphicon-ok-sign"></i>
+            确定
+        </button>
+        <button class="btn btn-default" ng-click="$dismiss()">
+            <i class="glyphicon glyphicon-remove-sign"></i>
+            取消
+        </button>
+        <div ng-pager="tableParams" class="pull-left"></div>
+    </div>
+</div>

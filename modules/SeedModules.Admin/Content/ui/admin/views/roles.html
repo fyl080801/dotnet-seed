@@ -7,7 +7,8 @@
             <div class="list-group">
                 <a href="" class="list-group-item" ng-class="{'active': currentRole&&currentRole.id===role.id}" ng-click="selectRole(role)"
                     ng-repeat="role in roles">
-                    {{role.rolename}}
+                    <span ng-bind="role.rolename" ng-if="!role.displayName||role.displayName===''"></span>
+                    <span ng-bind="role.displayName" ng-if="role.displayName&&role.displayName!==''"></span>
                 </a>
                 <a href="" class="list-group-item text-center" ng-click="create()">
                     <i class="glyphicon glyphicon-plus"></i>
@@ -35,6 +36,12 @@
                     权限
                 </a>
             </li>
+            <li>
+                <a href="" ng-click="setName(currentRole)">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                    别名
+                </a>
+            </li>
             <li class="pull-right">
                 <a href="" aria-controls="profile" ng-click="cancelEditing()">
                     <i class="glyphicon glyphicon-remove"></i>
@@ -47,7 +54,7 @@
                 <div class="navbar navbar-default">
                     <div class="navbar-header">
                         <div class="navbar-form">
-                            <button class="btn btn-danger">
+                            <button class="btn btn-danger" ng-click="removeMember()">
                                 <i class="glyphicon glyphicon-minus"></i>
                                 移除选中
                             </button>
@@ -55,7 +62,7 @@
                     </div>
                     <div class="container-fluid">
                         <div class="navbar-form navbar-right">
-                            <button class="btn btn-success">
+                            <button class="btn btn-success" ng-click="addMember()">
                                 <i class="glyphicon glyphicon-plus"></i>
                                 添加
                             </button>
@@ -74,7 +81,7 @@
                         <td title="'姓名'">{{row.lastName}}&nbsp;{{row.firstName}}</td>
                         <td title="'邮箱'">{{row.email}}</td>
                         <td title="'操作'">
-                            <a href="" class="text-danger">移除</a>
+                            <a href="" class="text-danger" ng-click="removeMember(row)">移除</a>
                         </td>
                     </tr>
                 </table>

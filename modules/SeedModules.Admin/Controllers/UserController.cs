@@ -32,7 +32,7 @@ namespace SeedModules.Admin.Controllers
         }
 
         [HttpPost("query"), HandleResult]
-        public PagedResult<User> List([FromBody]QueryModel model, [FromQuery]int page, [FromQuery]int count)
+        public PagedResult<User> List([FromBody]ListQueryModel model, [FromQuery]int page, [FromQuery]int count)
         {
             var userSet = _dbContext.Set<User>();
             var query = userSet.OrderBy(e => e.Username).Select(e => new User()
