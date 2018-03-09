@@ -1,4 +1,8 @@
 <div class="container" ng-controller="SeedModules.Admin/ui/login/controllers/login">
+    <form style="display:none">
+        <input type="password" />
+    </form>
+    <input type="password" style="width: 0; height: 0; float: left; visibility: hidden" />
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel-body">
@@ -27,6 +31,7 @@
                                 <label>密码</label>
                                 <a href="" class="pull-right" tabindex="-1">忘记密码？</a>
                             </div>
+                            <input type="password" name="Password" tabindex="-1" style="width: 0; height: 0; float: left; visibility: hidden" />
                             <input type="password" class="form-control" name="Password" ng-model="data.Password" required>
                         </div>
                         <div class="form-group">
