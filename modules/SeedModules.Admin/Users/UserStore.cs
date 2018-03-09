@@ -153,11 +153,12 @@ namespace SeedModules.Admin.Users
         public Task<IList<IUser>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
         {
             var role = _dbContext.Set<Role>().FirstOrDefault(e => e.Rolename == roleName);
+            var user = _dbContext.Set<User>();
             if (role == null)
             {
                 throw new Exception($"找不到角色：{roleName}");
             }
-            return Task.FromResult<IList<IUser>>(role.Users.Select(e => (IUser)e.User).ToList());
+            return Task.FromResult<IList<IUser>>(user.Where(e => e.Roles.Select(r => r.RoleId).Contains(role.Id)).Select(e => (IUser)e).ToList());
         }
 
         public Task<bool> HasPasswordAsync(IUser user, CancellationToken cancellationToken)

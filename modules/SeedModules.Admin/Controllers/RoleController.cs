@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
+using Seed.Mvc.Models;
 using Seed.Security;
 using Seed.Security.Services;
 using SeedModules.Security.Domain;
@@ -17,11 +18,16 @@ namespace SeedModules.Admin.Controllers
     {
         readonly IRoleProvider _roleProvider;
         readonly RoleManager<IRole> _roleManager;
+        readonly UserManager<IUser> _userManager;
 
-        public RoleController(IRoleProvider roleProvider, RoleManager<IRole> roleManager)
+        public RoleController(
+            IRoleProvider roleProvider,
+            RoleManager<IRole> roleManager,
+            UserManager<IUser> userManager)
         {
             _roleProvider = roleProvider;
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         [HttpGet, HandleResult]
@@ -59,6 +65,35 @@ namespace SeedModules.Admin.Controllers
             }
 
             throw this.Exception(ModelState);
+        }
+
+        [HttpPost("{id}/members/query"), HandleResult]
+        public async Task<PagedResult<User>> Members([FromBody]QueryModel model, string id, int page, int count)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null) throw this.Exception("找不到角色");
+
+            var users = await _userManager.GetUsersInRoleAsync(role.Rolename);
+
+            var query = users.OrderBy(e => e.Username).Select(ConvertToUser).AsQueryable();
+
+            // 先这样，实际上应该是根据角色id查
+            return new PagedResult<User>(query, page, count);
+        }
+
+        private User ConvertToUser(IUser user)
+        {
+            var e = (User)user;
+            return new User()
+            {
+                Email = e.Email,
+                EmailConfirmed = e.EmailConfirmed,
+                FirstName = e.FirstName,
+                LastName = e.LastName,
+                Id = e.Id,
+                Username = e.Username
+            };
         }
     }
 }

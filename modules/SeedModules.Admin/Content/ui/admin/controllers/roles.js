@@ -5,12 +5,45 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
     '$scope',
     '$modal',
     'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/ngTableParams',
+    'SeedModules.AngularUI/ui/factories/ngTableRequest',
     'SeedModules.AngularUI/ui/factories/schemaFormParams',
-    function($scope, $modal, requestService, ngTableParams, schemaFormParams) {
+    function($scope, $modal, requestService, ngTableRequest, schemaFormParams) {
       $scope.roles = [];
       $scope.currentRole = null;
-      $scope.tableParams = new ngTableParams();
+      $scope.tableParams = null;
+      $scope.tableRequest = new ngTableRequest({
+        //url: '/api/admin/roles/' + $scope.currentRole.id + '/members/query',
+        showLoading: false
+      });
+
+      // 选择
+      $scope.checkedAll = false;
+      $scope.checked = {};
+
+      $scope.checkAll = function() {
+        $scope.checkedAll = !$scope.checkedAll;
+        if ($scope.checkedAll) {
+          $.each($scope.tableParams.data, function(idx, item) {
+            $scope.checked[item.id] = true;
+          });
+        } else {
+          $.each($scope.tableParams.data, function(idx, item) {
+            $scope.checked[item.id] = false;
+          });
+        }
+      };
+
+      $scope.onCheck = function() {
+        $scope.checkedAll = true;
+        $.each($scope.tableParams.data, function(idx, item) {
+          if (!$scope.checked[item.id]) {
+            $scope.checkedAll = false;
+            return false;
+          }
+        });
+      };
+
+      // 方法
       $scope.roleForm = new schemaFormParams().properties({
         rolename: {
           title: '名称',
@@ -59,6 +92,23 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
               });
           });
       };
+
+      $scope.loadRoleDetails = function(role) {
+        $scope.checkedAll = false;
+        $scope.checked = {};
+
+        if (role === null) return;
+
+        $scope.tableParams = $scope.tableRequest
+          .options({
+            url: '/api/admin/roles/' + role.id + '/members/query'
+          })
+          .ngTableParams();
+      };
+
+      $scope.$watch(function() {
+        return $scope.currentRole;
+      }, $scope.loadRoleDetails);
     }
   ]);
 });

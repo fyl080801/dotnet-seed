@@ -27,13 +27,16 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
           });
       }
 
-      return function(newOptions) {
+      return function(initOptions) {
         var self = this;
         var options = {};
 
-        if (angular.isDefined(newOptions)) {
-          angular.extend(options, newOptions);
-        }
+        this.options = function(newOptions) {
+          if (angular.isDefined(newOptions)) {
+            angular.extend(options, newOptions);
+          }
+          return self;
+        };
 
         this.ngTableParams = function(newParams, newSettings) {
           return new ngTableParams(
@@ -45,6 +48,8 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
             })
           );
         };
+
+        this.options(initOptions);
 
         return this;
       };
