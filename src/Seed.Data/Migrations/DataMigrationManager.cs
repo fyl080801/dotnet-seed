@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Design;
 using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Engine;
+using Seed.Environment.Engine.Descriptors;
+using Seed.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -22,11 +25,27 @@ namespace Seed.Data.Migrations
         const string ContextAssembly = "Seed.Data.Migration";
         const string SnapshotName = "ModuleDbSnapshot";
 
-        readonly IDbContext _dbContext;
+        readonly IStore _store;
+        readonly IPluginManager _pluginManager;
+        readonly IEngineStateManager _engineStateManager;
+        readonly EngineSettings _engineSettings;
+        readonly EngineDescriptor _engineDescriptor;
+        readonly IServiceProvider _serviceProvider;
 
-        public DataMigrationManager(IDbContext dbContext)
+        public DataMigrationManager(
+            IStore store,
+            IPluginManager pluginManager,
+            IEngineStateManager engineStateManager,
+            EngineSettings engineSettings,
+            EngineDescriptor engineDescriptor,
+            IServiceProvider serviceProvider)
         {
-            _dbContext = dbContext;
+            _store = store;
+            _pluginManager = pluginManager;
+            _engineStateManager = engineStateManager;
+            _engineSettings = engineSettings;
+            _engineDescriptor = engineDescriptor;
+            _serviceProvider = serviceProvider;
         }
 
         public Task<IEnumerable<string>> GetFeaturesByUpdateAsync()
@@ -56,8 +75,10 @@ namespace Seed.Data.Migrations
 
         private Task RunUpdate()
         {
-            return Task.Run(() =>
+            return Task.Run(async () =>
             {
+                var _dbContext = await CreateDbContext();
+
                 IModel lastModel = null;
                 try
                 {
@@ -128,6 +149,58 @@ namespace Seed.Data.Migrations
                         : null;
                 }
             });
+        }
+
+        private async Task<IDbContext> CreateDbContext()
+        {
+            var features = new string[0];
+            try
+            {
+                var engineState = await _engineStateManager.GetEngineStateAsync();
+                features = engineState.Features.Where(e => e.IsInstalled).Select(e => e.Id).ToArray();
+            }
+            catch (SqlException)
+            {
+                features = _engineDescriptor.Features.Select(e => e.Id).ToArray();
+            }
+
+            return _store.CreateDbContext(GetFeatureTypeConfigurations(features));
+        }
+
+        private IEnumerable<object> GetFeatureTypeConfigurations(IEnumerable<string> features)
+        {
+            var configurations = new List<object>();
+            var configurationType = typeof(IEntityTypeConfiguration<>);
+            _pluginManager.GetFeatures(features.ToArray())
+                .ToDictionary(x => x.Id, y => y.Plugin)
+                .Values.Distinct()
+                .ToDictionary(
+                    x => x.Id,
+                    y =>
+                    {
+                        var exports = _pluginManager.GetPluginEntryAsync(y).Result.Exports;
+                        return exports
+                            .Where(e =>
+                            {
+                                var typeInterfaces = e.GetInterfaces();
+                                foreach (var inter in typeInterfaces)
+                                {
+                                    if (inter.IsGenericType && inter.GetGenericTypeDefinition() == configurationType)
+                                        return true;
+                                }
+                                return false;
+                            })
+                            .Select(e => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, e))
+                            .ToList();
+                    }
+                )
+                .Values.ToList()
+                .ForEach(list =>
+                {
+                    configurations = configurations.Concat(list).ToList();
+                });
+
+            return configurations;
         }
     }
 }

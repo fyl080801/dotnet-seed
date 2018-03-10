@@ -14,7 +14,7 @@ namespace Seed.Data
         /// 创建一个数据访问上下文
         /// </summary>
         /// <returns></returns>
-        IDbContext CreateDbContext();
+        IDbContext CreateDbContext(params object[] typeConfigs);
 
         /// <summary>
         /// 初始化数据访问

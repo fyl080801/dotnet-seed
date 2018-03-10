@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Seed.Data;
 using Seed.Modules;
 using SeedModules.Project.Extensions;
 using SeedModules.Project.Projects;
@@ -14,6 +15,8 @@ namespace SeedModules.Project
             services.AddScoped<IProjectStore, ProjectStore>();
 
             services.AddProjectExecutionStep<ProjectStep>();
+
+            services.AddScoped<IEntityTypeConfigurationProvider, EntityTypeConfigurations>();
         }
     }
 }

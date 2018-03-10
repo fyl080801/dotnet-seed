@@ -3,8 +3,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Data.Migrations;
 using Seed.Environment.Engine;
+using Seed.Environment.Engine.Extensions;
+using Seed.Environment.Engine.Descriptors;
 using Seed.Modules;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Seed.Data.Extensions
 {
@@ -51,7 +55,11 @@ namespace Seed.Data.Extensions
 
             services.AddScoped(sp =>
             {
-                return sp.GetService<IStore>()?.CreateDbContext();
+                var typeConfigs = sp.GetServices<IEntityTypeConfigurationProvider>()
+                    .InvokeAsync(provider => provider.GetEntityTypeConfigurationsAsync(), null)
+                    .GetAwaiter()
+                    .GetResult();
+                return sp.GetService<IStore>()?.CreateDbContext(typeConfigs.ToArray());
             });
 
             return services;

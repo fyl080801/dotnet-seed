@@ -59,7 +59,7 @@ namespace Seed.Environment.Engine.Extensions
 
         public static void HandleException(Exception ex, ILogger logger, string sourceType, string method)
         {
-            if (IsLogged(ex))
+            if (IsLogged(ex) && logger != null)
             {
                 logger.LogError(string.Format("{2} thrown from {0} by {1}",
                     sourceType,
