@@ -87,6 +87,8 @@ namespace SeedModules.Admin.Controllers
 
             if (role == null) throw this.Exception("找不到角色");
 
+            if (role.Rolename == "Administrator") throw this.Exception("管理员角色不能删除");
+
             await _roleManager.DeleteAsync(role);
 
             await _roleRemovedEventHandlers.InvokeAsync(e => e.RoleRemovedAsync(role.Rolename), _logger);

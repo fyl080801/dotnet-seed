@@ -53,12 +53,11 @@ namespace Seed.Data.Extensions
                 return new Store(optionBuilder, sp);
             });
 
-            services.AddScoped(sp =>
+            services.AddScoped<IDbContext>(sp =>
             {
                 var typeConfigs = sp.GetServices<IEntityTypeConfigurationProvider>()
                     .InvokeAsync(provider => provider.GetEntityTypeConfigurationsAsync(), null)
-                    .GetAwaiter()
-                    .GetResult();
+                    .Result;
                 return sp.GetService<IStore>()?.CreateDbContext(typeConfigs.ToArray());
             });
 

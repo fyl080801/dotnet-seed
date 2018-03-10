@@ -1,4 +1,4 @@
-﻿Name: Saas
+﻿Name: 多租户云平台
 Version: 1.0
 Category: 基础模块
 AllowManage: false

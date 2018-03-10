@@ -34,7 +34,7 @@ namespace SeedModules.Features.Controllers
             // 这里需要加特殊权限，只允许Default的管理员可访问
             var enabledFeatures = await _engineFeaturesManager.GetEnabledFeaturesAsync();
             var moduleFeatures = new List<FeatureModel>();
-            foreach (var moduleFeatureInfo in _pluginManager.GetFeatures().Where(e => IsFeatureAllowed(e.Plugin)).ToList())
+            foreach (var moduleFeatureInfo in _pluginManager.GetFeatures().ToList())
             {
                 moduleFeatures.Add(new FeatureModel()
                 {
@@ -58,7 +58,12 @@ namespace SeedModules.Features.Controllers
         [HttpPatch("{id}"), HandleResult(true)]
         public async Task SetEnable([FromBody]FeatureModel model, string id)
         {
-            var feature = _pluginManager.GetFeatures().FirstOrDefault(e => IsFeatureAllowed(e.Plugin) && e.Id == id);
+            var feature = _pluginManager.GetFeatures().FirstOrDefault(e => e.Id == id);
+
+            if (!IsFeatureAllowed(feature.Plugin))
+            {
+                throw this.Exception("该功能不可进行此操作");
+            }
 
             if (feature == null)
             {

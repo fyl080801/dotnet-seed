@@ -7,8 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Design;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Descriptors;
+using Seed.Environment.Engine.Extensions;
 using Seed.Plugins;
 using System;
 using System.Collections.Generic;
@@ -31,6 +33,7 @@ namespace Seed.Data.Migrations
         readonly EngineSettings _engineSettings;
         readonly EngineDescriptor _engineDescriptor;
         readonly IServiceProvider _serviceProvider;
+        readonly ILogger _logger;
 
         public DataMigrationManager(
             IStore store,
@@ -38,7 +41,8 @@ namespace Seed.Data.Migrations
             IEngineStateManager engineStateManager,
             EngineSettings engineSettings,
             EngineDescriptor engineDescriptor,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider,
+            ILogger<DataMigrationManager> logger)
         {
             _store = store;
             _pluginManager = pluginManager;
@@ -46,6 +50,7 @@ namespace Seed.Data.Migrations
             _engineSettings = engineSettings;
             _engineDescriptor = engineDescriptor;
             _serviceProvider = serviceProvider;
+            _logger = logger;
         }
 
         public Task<IEnumerable<string>> GetFeaturesByUpdateAsync()
@@ -55,69 +60,66 @@ namespace Seed.Data.Migrations
 
         public Task Uninstall(string feature)
         {
-            return RunUpdate();
+            return RunUpdateAsync();
         }
 
         public Task UpdateAllFeaturesAsync()
         {
-            return RunUpdate();
+            return RunUpdateAsync();
         }
 
         public Task UpdateAsync(string featureId)
         {
-            return RunUpdate();
+            return RunUpdateAsync();
         }
 
         public Task UpdateAsync(IEnumerable<string> features)
         {
-            return RunUpdate();
+            return RunUpdateAsync();
         }
 
-        private Task RunUpdate()
+        private async Task RunUpdateAsync()
         {
-            return Task.Run(async () =>
+            var _dbContext = await CreateDbContext();
+
+            IModel lastModel = null;
+            try
             {
-                var _dbContext = await CreateDbContext();
+                var lastMigration = _dbContext.Migrations.OrderByDescending(e => e.MigrationTime).FirstOrDefault();
+                lastModel = lastMigration == null ? null : (CreateModelSnapshot(lastMigration.SnapshotDefine).Result?.Model);
+            }
+            catch (SqlException) { }
 
-                IModel lastModel = null;
-                try
+            // 需要从历史版本库中取出快照定义，反序列化成类型 GetDifferences(快照模型, context.Model);
+            // 实际情况下要传入历史快照
+            var modelDiffer = _dbContext.Context
+                .GetInfrastructure()
+                .GetService<IMigrationsModelDiffer>();
+            var hasDiffer = modelDiffer.HasDifferences(lastModel, _dbContext.Context.Model);
+
+            if (hasDiffer)
+            {
+                var upOperations = modelDiffer.GetDifferences(lastModel, _dbContext.Context.Model);
+
+                _dbContext.Context.GetInfrastructure()
+                    .GetRequiredService<IMigrationsSqlGenerator>()
+                    .Generate(upOperations, _dbContext.Context.Model)
+                    .ToList()
+                    .ForEach(cmd => _dbContext.Context.Database.ExecuteSqlCommand(cmd.CommandText));
+
+                var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter())
+                    .Build((DbContext)_dbContext)
+                    .GetService<IMigrationsCodeGenerator>()
+                    .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Context.Model);
+
+                _dbContext.Migrations.Add(new MigrationRecord()
                 {
-                    var lastMigration = _dbContext.Migrations.OrderByDescending(e => e.MigrationTime).FirstOrDefault();
-                    lastModel = lastMigration == null ? null : (CreateModelSnapshot(lastMigration.SnapshotDefine).Result?.Model);
-                }
-                catch (SqlException) { }
+                    SnapshotDefine = snapshotCode,
+                    MigrationTime = DateTime.Now
+                });
 
-                // 需要从历史版本库中取出快照定义，反序列化成类型 GetDifferences(快照模型, context.Model);
-                // 实际情况下要传入历史快照
-                var modelDiffer = _dbContext.Context
-                    .GetInfrastructure()
-                    .GetService<IMigrationsModelDiffer>();
-                var hasDiffer = modelDiffer.HasDifferences(lastModel, _dbContext.Context.Model);
-
-                if (hasDiffer)
-                {
-                    var upOperations = modelDiffer.GetDifferences(lastModel, _dbContext.Context.Model);
-
-                    _dbContext.Context.GetInfrastructure()
-                        .GetRequiredService<IMigrationsSqlGenerator>()
-                        .Generate(upOperations, _dbContext.Context.Model)
-                        .ToList()
-                        .ForEach(cmd => _dbContext.Context.Database.ExecuteSqlCommand(cmd.CommandText));
-
-                    var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter())
-                        .Build((DbContext)_dbContext)
-                        .GetService<IMigrationsCodeGenerator>()
-                        .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Context.Model);
-
-                    _dbContext.Migrations.Add(new MigrationRecord()
-                    {
-                        SnapshotDefine = snapshotCode,
-                        MigrationTime = DateTime.Now
-                    });
-
-                    _dbContext.SaveChanges();
-                }
-            });
+                _dbContext.SaveChanges();
+            }
         }
 
         private Task<ModelSnapshot> CreateModelSnapshot(string codedefine)
@@ -169,38 +171,23 @@ namespace Seed.Data.Migrations
 
         private IEnumerable<object> GetFeatureTypeConfigurations(IEnumerable<string> features)
         {
-            var configurations = new List<object>();
-            var configurationType = typeof(IEntityTypeConfiguration<>);
+            var providers = new List<IEntityTypeConfigurationProvider>();
+            var providerType = typeof(IEntityTypeConfigurationProvider);
             _pluginManager.GetFeatures(features.ToArray())
-                .ToDictionary(x => x.Id, y => y.Plugin)
-                .Values.Distinct()
-                .ToDictionary(
-                    x => x.Id,
-                    y =>
-                    {
-                        var exports = _pluginManager.GetPluginEntryAsync(y).Result.Exports;
-                        return exports
-                            .Where(e =>
-                            {
-                                var typeInterfaces = e.GetInterfaces();
-                                foreach (var inter in typeInterfaces)
-                                {
-                                    if (inter.IsGenericType && inter.GetGenericTypeDefinition() == configurationType)
-                                        return true;
-                                }
-                                return false;
-                            })
-                            .Select(e => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, e))
-                            .ToList();
-                    }
-                )
-                .Values.ToList()
+                .Select(e => e.Plugin)
+                .Distinct()
+                .Select(e =>
+                    _pluginManager.GetPluginEntryAsync(e).Result.Exports
+                        .Where(pro => providerType.IsAssignableFrom(pro))
+                        .Select(pro => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, pro) as IEntityTypeConfigurationProvider)
+                        .ToList())
+                .ToList()
                 .ForEach(list =>
                 {
-                    configurations = configurations.Concat(list).ToList();
+                    providers = providers.Concat(list).ToList();
                 });
 
-            return configurations;
+            return providers.InvokeAsync(e => e.GetEntityTypeConfigurationsAsync(), _logger).GetAwaiter().GetResult();
         }
     }
 }
