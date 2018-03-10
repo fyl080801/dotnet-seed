@@ -100,6 +100,18 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
           });
       };
 
+      $scope.drop = function() {
+        popupService.confirm('是否删除角色？').ok(function() {
+          requestService
+            .url('/api/admin/roles/' + $scope.currentRole.id)
+            .drop()
+            .then(function(result) {
+              $scope.currentRole = null;
+              $scope.loadRoles();
+            });
+        });
+      };
+
       $scope.setName = function(role) {
         $modal
           .open({

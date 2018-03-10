@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Seed.Data;
+using Seed.Environment.Engine.Extensions;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
@@ -22,17 +24,23 @@ namespace SeedModules.Admin.Controllers
         readonly IRoleProvider _roleProvider;
         readonly RoleManager<IRole> _roleManager;
         readonly UserManager<IUser> _userManager;
+        readonly IEnumerable<IRoleRemovedEventHandler> _roleRemovedEventHandlers;
+        readonly ILogger _logger;
 
         public RoleController(
             IDbContext dbContext,
             IRoleProvider roleProvider,
             RoleManager<IRole> roleManager,
-            UserManager<IUser> userManager)
+            UserManager<IUser> userManager,
+            IEnumerable<IRoleRemovedEventHandler> roleRemovedEventHandlers,
+            ILogger<RoleController> logger)
         {
             _dbContext = dbContext;
             _roleProvider = roleProvider;
             _roleManager = roleManager;
             _userManager = userManager;
+            _roleRemovedEventHandlers = roleRemovedEventHandlers;
+            _logger = logger;
         }
 
         [HttpGet, HandleResult]
@@ -70,6 +78,18 @@ namespace SeedModules.Admin.Controllers
             }
 
             throw this.Exception(ModelState);
+        }
+
+        [HttpDelete("{id}"), HandleResult]
+        public async Task Delete(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null) throw this.Exception("找不到角色");
+
+            await _roleManager.DeleteAsync(role);
+
+            await _roleRemovedEventHandlers.InvokeAsync(e => e.RoleRemovedAsync(role.Rolename), _logger);
         }
 
         [HttpPatch("{id}/displayname"), HandleResult]
