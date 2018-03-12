@@ -7,12 +7,23 @@ namespace SeedModules.Mvc
     {
         public IEnumerable<PermissionStereotype> GetDefaultStereotypes()
         {
-            throw new System.NotImplementedException();
+            return new[] {
+                new PermissionStereotype {
+                    Name = "Administrator",
+                    Permissions = new PermissionInfo[]
+                    {
+                        // ManageSettings,
+                        // ManageUsers,
+                        // ManageRoles,
+                        // AssignRoles
+                    }
+                }
+            };
         }
 
         public IEnumerable<PermissionInfo> GetPermissions()
         {
-            throw new System.NotImplementedException();
+            return new PermissionInfo[0];
         }
     }
 }
