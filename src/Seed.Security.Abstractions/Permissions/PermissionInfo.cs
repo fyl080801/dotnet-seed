@@ -27,6 +27,8 @@ namespace Seed.Security.Permissions
 
         public string Description { get; set; }
 
+        public string Help { get; set; }
+
         public string Category { get; set; }
 
         public IEnumerable<PermissionInfo> IncludeBy { get; set; }

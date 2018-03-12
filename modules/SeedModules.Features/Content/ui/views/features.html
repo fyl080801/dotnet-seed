@@ -28,7 +28,10 @@
         </div>
     </div>
     <div ng-repeat="item in list">
-        <h2 class="page-header">{{item.category}}</h2>
+        <h4 class="page-header">
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            {{item.category}}
+        </h4>
         <div class="row">
             <div class="col-md-6" ng-repeat="fea in item.features">
                 <div class="panel panel-default">
