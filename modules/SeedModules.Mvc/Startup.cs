@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
 using Seed.Modules.Extensions;
 using Seed.Mvc.Extensions;
+using Seed.Security.Permissions;
 using System;
 
 namespace SeedModules.Mvc
@@ -20,6 +21,8 @@ namespace SeedModules.Mvc
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcModules(_applicationServices);
+
+            services.AddScoped<IPermissionProvider, Permissions>();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
