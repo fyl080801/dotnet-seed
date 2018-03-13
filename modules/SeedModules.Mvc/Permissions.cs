@@ -41,7 +41,7 @@ namespace SeedModules.Mvc
 
         public IEnumerable<PermissionInfo> GetPermissions()
         {
-            throw new NotImplementedException();
+            return Enumerable.Empty<PermissionInfo>();
         }
 
         private Task<IEnumerable<PermissionInfo>> GetControllerPermissions(Controller controller)

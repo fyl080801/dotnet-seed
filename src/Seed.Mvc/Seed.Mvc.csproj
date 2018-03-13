@@ -14,5 +14,6 @@
     <ProjectReference Include="..\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Plugins.Abstractions\Seed.Plugins.Abstractions.csproj" />
+    <ProjectReference Include="..\Seed.Security.Abstractions\Seed.Security.Abstractions.csproj" />
   </ItemGroup>
 </Project>
