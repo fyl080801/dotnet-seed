@@ -130,11 +130,12 @@ namespace SeedModules.Admin.Users
             return Task.FromResult(((User)user).PasswordHash);
         }
 
-        public Task<IList<string>> GetRolesAsync(IUser user, CancellationToken cancellationToken)
+        public async Task<IList<string>> GetRolesAsync(IUser user, CancellationToken cancellationToken)
         {
-            var userRoles = _dbContext.Set<UserRole>().Where(e => e.UserId == ((User)user).Id).Select(e => e.RoleId).ToArray();
+            var userId = await this.GetUserIdAsync(user, cancellationToken);
+            var userRoles = _dbContext.Set<UserRole>().Where(e => e.UserId == int.Parse(userId)).Select(e => e.RoleId).ToArray();
             var roles = _dbContext.Set<Role>().Where(e => userRoles.Contains(e.Id));
-            return Task.FromResult<IList<string>>(roles.Select(e => e.Rolename).ToList());
+            return roles.Select(e => e.Rolename).ToList();
         }
 
         public Task<string> GetSecurityStampAsync(IUser user, CancellationToken cancellationToken)
