@@ -48,17 +48,17 @@ namespace SeedModules.Security.Roles
             foreach (var roleName in rolesToExamine)
             {
                 var role = await _roleManager.FindByNameAsync(roleName);
-
                 if (role != null)
                 {
-                    foreach (var claim in ((Role)role).RoleClaims)
+                    var claims = await _roleManager.GetClaimsAsync(role);
+                    foreach (var claim in claims)
                     {
-                        if (!String.Equals(claim.ClaimType, PermissionInfo.ClaimType, StringComparison.OrdinalIgnoreCase))
+                        if (!String.Equals(claim.Type, PermissionInfo.ClaimType, StringComparison.OrdinalIgnoreCase))
                         {
                             continue;
                         }
 
-                        string permissionName = claim.ClaimValue;
+                        string permissionName = claim.Value;
 
                         if (grantingNames.Contains(permissionName))
                         {

@@ -132,7 +132,9 @@ namespace SeedModules.Admin.Users
 
         public Task<IList<string>> GetRolesAsync(IUser user, CancellationToken cancellationToken)
         {
-            return Task.FromResult<IList<string>>(((User)user).Roles.Select(e => e.Role.Rolename).ToList());
+            var userRoles = _dbContext.Set<UserRole>().Where(e => e.UserId == ((User)user).Id).Select(e => e.RoleId).ToArray();
+            var roles = _dbContext.Set<Role>().Where(e => userRoles.Contains(e.Id));
+            return Task.FromResult<IList<string>>(roles.Select(e => e.Rolename).ToList());
         }
 
         public Task<string> GetSecurityStampAsync(IUser user, CancellationToken cancellationToken)

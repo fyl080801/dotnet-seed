@@ -31,7 +31,7 @@ namespace Seed.Mvc.Filters
             var permissions = permissionProviders.InvokeAsync(e => GetProviderPermissions(e), logger).Result;
 
             var permissionInfo = permissions.FirstOrDefault(e => e.Name == this.Name);
-            
+
             if (permissionInfo == null)
             {
                 context.Result = new ObjectResult(new ApiResult(false)
@@ -41,15 +41,12 @@ namespace Seed.Mvc.Filters
             }
             else if (!authorizationService.AuthorizeAsync(context.HttpContext.User, permissionInfo).Result)
             {
-                context.Result = new ObjectResult(new ApiResult(false)
+                context.Result =new ObjectResult(new ApiResult(false)
                 {
                     Message = $"用户没有 {permissionInfo.Description} 的权限"
                 });
             }
-            else
-            {
-                base.OnActionExecuting(context);
-            }
+            base.OnActionExecuting(context);
         }
 
         private Task<IEnumerable<PermissionInfo>> GetProviderPermissions(IPermissionProvider provider)

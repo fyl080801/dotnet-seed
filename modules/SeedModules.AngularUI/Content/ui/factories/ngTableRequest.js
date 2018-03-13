@@ -21,10 +21,15 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
           .url(urlString)
           .options(requestOptions)
           .post($.extend({}, requestOptions.data))
-          .then(function(result) {
-            params.total(result.total);
-            return result.list;
-          });
+          .then(
+            function(result) {
+              if (result && result.total) params.total(result.total);
+              return result.list;
+            },
+            function() {
+              return [];
+            }
+          );
       }
 
       return function(initOptions) {

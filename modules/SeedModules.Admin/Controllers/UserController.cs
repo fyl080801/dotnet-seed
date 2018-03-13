@@ -31,7 +31,7 @@ namespace SeedModules.Admin.Controllers
             _userManager = userManager;
         }
 
-        [HttpPost("query"), HandleResult]
+        [HttpPost("query"), HandleResult, Permission("ManageUsers")]
         public PagedResult<User> List([FromBody]ListQueryModel model, [FromQuery]int page, [FromQuery]int count)
         {
             var userSet = _dbContext.Set<User>();

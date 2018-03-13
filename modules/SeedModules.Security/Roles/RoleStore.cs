@@ -83,14 +83,17 @@ namespace SeedModules.Security.Roles
             return Task.FromResult<IRole>(exrole);
         }
 
-        public Task<IList<Claim>> GetClaimsAsync(IRole role, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<IList<Claim>> GetClaimsAsync(IRole role, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (role == null)
             {
                 throw new ArgumentNullException(nameof(role));
             }
 
-            return Task.FromResult<IList<Claim>>(((Role)role).RoleClaims.Select(x => x.ToClaim()).ToList());
+            var roleId = await this.GetRoleIdAsync(role, cancellationToken);
+            var claims = _dbContext.Set<RoleClaim>().Where(e => e.RoleId == int.Parse(roleId));
+
+            return claims.Select(x => x.ToClaim()).ToList();
         }
 
         // public Task<IEnumerable<IRole>> GetFullRolesAsync()
