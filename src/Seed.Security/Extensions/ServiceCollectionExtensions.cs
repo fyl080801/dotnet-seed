@@ -11,6 +11,7 @@ namespace Seed.Security.Extensions
             services.AddAuthorization();
             services.AddScoped<IAuthorizationHandler, SuperUserHandler>();
             services.AddScoped<IAuthorizationHandler, PermissionHandler>();
+            services.AddScoped<IPermissionService, PermissionService>();
 
             return services;
         }

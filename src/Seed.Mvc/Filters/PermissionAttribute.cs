@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine.Extensions;
 using Seed.Mvc.Models;
+using Seed.Security;
 using Seed.Security.Extensions;
 using Seed.Security.Permissions;
 
@@ -24,15 +25,10 @@ namespace Seed.Mvc.Filters
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            var authorizationService = context.HttpContext.RequestServices.GetService<IAuthorizationService>();
-            var permissionProviders = context.HttpContext.RequestServices.GetServices<IPermissionProvider>();
-            var logger = context.HttpContext.RequestServices.GetService<ILogger<PermissionAttribute>>();
+            var permissionService = context.HttpContext.RequestServices.GetService<IPermissionService>();
+            var isPermission = permissionService.GetPermissionAsync(this.Name).Result;
 
-            var permissions = permissionProviders.InvokeAsync(e => GetProviderPermissions(e), logger).Result;
-
-            var permissionInfo = permissions.FirstOrDefault(e => e.Name == this.Name);
-
-            if (permissionInfo == null)
+            if (isPermission == null)
             {
                 context.Result = new ObjectResult(new ApiResult(false)
                 {
@@ -41,7 +37,7 @@ namespace Seed.Mvc.Filters
             }
             else if (!authorizationService.AuthorizeAsync(context.HttpContext.User, permissionInfo).Result)
             {
-                context.Result =new ObjectResult(new ApiResult(false)
+                context.Result = new ObjectResult(new ApiResult(false)
                 {
                     Message = $"用户没有 {permissionInfo.Description} 的权限"
                 });
