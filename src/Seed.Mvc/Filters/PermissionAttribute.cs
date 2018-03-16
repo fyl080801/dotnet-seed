@@ -26,16 +26,16 @@ namespace Seed.Mvc.Filters
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var permissionService = context.HttpContext.RequestServices.GetService<IPermissionService>();
-            var isPermission = permissionService.GetPermissionAsync(this.Name).Result;
+            var permissionInfo = permissionService.GetPermissionAsync(this.Name).Result;
 
-            if (isPermission == null)
+            if (permissionInfo == null)
             {
                 context.Result = new ObjectResult(new ApiResult(false)
                 {
                     Message = "未知访问权限"
                 });
             }
-            else if (!authorizationService.AuthorizeAsync(context.HttpContext.User, permissionInfo).Result)
+            else if (!permissionService.CheckPermissionAsync(permissionInfo).Result)
             {
                 context.Result = new ObjectResult(new ApiResult(false)
                 {

@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using Seed.Security.Permissions;
 using Seed.Environment.Engine.Extensions;
 using System.Linq;
 using System.Security.Claims;
 using Seed.Security.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace Seed.Security
 {
@@ -14,24 +15,24 @@ namespace Seed.Security
     {
         readonly IAuthorizationService _authorizationService;
         readonly IEnumerable<IPermissionProvider> _permissionProviders;
-        readonly ClaimsPrincipal _principal;
+        readonly IHttpContextAccessor _httpContextAccessor;
         readonly ILogger _logger;
 
         public PermissionService(
             IAuthorizationService authorizationService,
             IEnumerable<IPermissionProvider> permissionProviders,
-            ClaimsPrincipal principal,
+            IHttpContextAccessor httpContextAccessor,
             ILogger<PermissionService> logger)
         {
             _authorizationService = authorizationService;
             _permissionProviders = permissionProviders;
-            _principal = principal;
+            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
         }
 
         public Task<bool> CheckPermissionAsync(PermissionInfo permission)
         {
-            return _authorizationService.AuthorizeAsync(_principal, permission).Result;
+            return _authorizationService.PermissionAuthorizeAsync(_httpContextAccessor.HttpContext.User, permission);
         }
 
         public async Task<PermissionInfo> GetPermissionAsync(string name)
