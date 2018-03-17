@@ -119,7 +119,13 @@ namespace SeedModules.Admin.Extensions
             })
             .Configure<IdentityOptions>(options =>
             {
-
+                // 先实现一个无策略的，回头加针对每个租户分别设置的 ConfigurationSource
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
             });
 
             services.AddScoped<IUserService, UserService>();
