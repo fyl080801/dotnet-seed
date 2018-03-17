@@ -116,6 +116,10 @@ namespace SeedModules.Admin.Extensions
             .Configure<CookieAuthenticationOptions>(IdentityConstants.TwoFactorUserIdScheme, options =>
             {
                 options.DataProtectionProvider = dataProtectionProvider;
+            })
+            .Configure<IdentityOptions>(options =>
+            {
+
             });
 
             services.AddScoped<IUserService, UserService>();
