@@ -21,6 +21,12 @@ define(['SeedModules.Admin/ui/admin/configs'], function(configs) {
             itemClicked: function(evt) {
               $state.go('admin.roles');
             }
+          },
+          {
+            text: '设置',
+            itemClicked: function(evt) {
+              $state.go('admin.settings');
+            }
           }
         ]
       });

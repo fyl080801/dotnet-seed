@@ -8,25 +8,33 @@ using System.Security.Claims;
 using Seed.Security.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Memory;
+using Seed.Environment.Caching;
 
 namespace Seed.Security
 {
     public class PermissionService : IPermissionService
     {
+        public const string PermissionCacheKey = "PermissionService";
+
         readonly IAuthorizationService _authorizationService;
         readonly IEnumerable<IPermissionProvider> _permissionProviders;
         readonly IHttpContextAccessor _httpContextAccessor;
+        readonly IMemoryCache _memoryCache;
         readonly ILogger _logger;
 
         public PermissionService(
             IAuthorizationService authorizationService,
             IEnumerable<IPermissionProvider> permissionProviders,
             IHttpContextAccessor httpContextAccessor,
+            IMemoryCache memoryCache,
+            ISignal signal,
             ILogger<PermissionService> logger)
         {
             _authorizationService = authorizationService;
             _permissionProviders = permissionProviders;
             _httpContextAccessor = httpContextAccessor;
+            _memoryCache = memoryCache;
             _logger = logger;
         }
 
@@ -37,7 +45,11 @@ namespace Seed.Security
 
         public async Task<PermissionInfo> GetPermissionAsync(string name)
         {
-            var permissions = await _permissionProviders.InvokeAsync(e => GetProviderPermissions(e), _logger);
+            if (!_memoryCache.TryGetValue(PermissionCacheKey, out IEnumerable<PermissionInfo> permissions))
+            {
+                permissions = await _permissionProviders.InvokeAsync(e => GetProviderPermissions(e), _logger);
+                _memoryCache.Set(PermissionCacheKey, permissions);
+            }
 
             var permissionInfo = permissions.FirstOrDefault(e => e.Name == name);
 

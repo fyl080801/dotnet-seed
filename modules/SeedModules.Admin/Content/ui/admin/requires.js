@@ -5,7 +5,8 @@
   'SeedModules.Admin/ui/admin/controllers/dashboard',
   'SeedModules.Admin/ui/admin/controllers/users',
   'SeedModules.Admin/ui/admin/controllers/roles',
-  'SeedModules.Admin/ui/admin/controllers/members'
+  'SeedModules.Admin/ui/admin/controllers/members',
+  'SeedModules.Admin/ui/admin/controllers/settings'
 ], function() {
   'use strict';
 

@@ -58,6 +58,16 @@
             'SeedModules.Admin/ui/admin/requires'
           ]
         });
+
+        $stateProvider.state('admin.settings', {
+          url: '/settings',
+          title: '设置',
+          templateUrl: '/SeedModules.Admin/ui/admin/views/settings.html',
+          requires: [
+            'SeedModules.AngularUI/ui/requires',
+            'SeedModules.Admin/ui/admin/requires'
+          ]
+        });
       }
     ]);
 });
