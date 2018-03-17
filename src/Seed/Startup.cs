@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Seed.Application.Sample.Targets;
+using Seed.Application.All.Targets;
 using Seed.Modules.Extensions;
 
 namespace Seed

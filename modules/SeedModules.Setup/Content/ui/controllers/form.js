@@ -7,8 +7,8 @@ define(['SeedModules.Setup/ui/module'], function(module) {
     '$location',
     '$window',
     'app.services.popupService',
-    'app.services.httpService',
-    function($scope, $modal, $location, $window, popupService, httpService) {
+    'SeedModules.AngularUI/ui/services/requestService',
+    function($scope, $modal, $location, $window, popupService, requestService) {
       $scope.setupForm = {
         url: '/api/setup'
       };
@@ -91,6 +91,17 @@ define(['SeedModules.Setup/ui/module'], function(module) {
           Name: 'MySql Database'
         }
       ];
+
+      requestService
+        .url('/api/setup')
+        .get()
+        .then(function(result) {
+          $scope.data.Name = result.name ? result.name : $scope.data.Name;
+          $scope.data.TablePrefix = result.tablePrefix
+            ? result.tablePrefix
+            : $scope.data.TablePrefix;
+          $scope.data.TenantCreated = result.tenantCreated;
+        });
     }
   ]);
 });

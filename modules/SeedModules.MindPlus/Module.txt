@@ -1,0 +1,5 @@
+﻿Name: Mind++
+Version: 1.0
+Category: 应用模块
+AllowManage: false
+Dependencies: SeedModules.Mvc, SeedModules.Admin, SeedModules.Features

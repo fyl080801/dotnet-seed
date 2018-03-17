@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\targets\Seed.Application.Sample.Targets\Seed.Application.Sample.Targets.csproj" />
+    <ProjectReference Include="..\..\targets\Seed.Application.All.Targets\Seed.Application.All.Targets.csproj" />
     <ProjectReference Include="..\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
     <ProjectReference Include="..\Seed.Modules\Seed.Modules.csproj" />
   </ItemGroup>

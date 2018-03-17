@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine.Data;
 using Seed.Modules.Extensions;
 
-namespace Seed.Application.Sample.Targets
+namespace Seed.Application.All.Targets
 {
     public static class ServiceExtensions
     {

@@ -26,5 +26,7 @@ namespace SeedModules.Setup.ViewModels
 
         [DataType(DataType.Password)]
         public string PasswordConfirmation { get; set; }
+
+        public bool TenantCreated { get; set; }
     }
 }

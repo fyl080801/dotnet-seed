@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using SeedModules.Project.Services;
 using SeedModules.Project.Models;
+using Seed.Mvc.Extensions;
+using Seed.Mvc.Filters;
 
 namespace SeedModules.Setup.Controllers
 {
@@ -38,6 +40,17 @@ namespace SeedModules.Setup.Controllers
             return await Task.FromResult(_projectReader.ReadDescriptor(new FormFileInfo(Request.Form.Files[0])));
         }
 
+        [HttpGet, HandleResult]
+        public SetupModel LoadCurrent()
+        {
+            return new SetupModel()
+            {
+                Name = _engineSettings.Name,
+                TablePrefix = _engineSettings.TablePrefix,
+                TenantCreated = _engineSettings.State == TenantStates.Uninitialized && !string.IsNullOrEmpty(_engineSettings.ConnectionString)
+            };
+        }
+
         [HttpPost]
         public async Task DoSetup([FromForm]SetupModel model)
         {
@@ -46,15 +59,15 @@ namespace SeedModules.Setup.Controllers
 
             var setupContext = new SetupContext
             {
-                Name = model.Name,
+                Name = string.IsNullOrEmpty(_engineSettings.Name) ? model.Name : _engineSettings.Name,
                 EnabledFeatures = null,// 回头加上默认的
                 AdminUsername = model.UserName,
                 AdminEmail = model.Email,
                 AdminPassword = model.Password,
                 Errors = new Dictionary<string, string>(),
-                DatabaseConnectionString = model.ConnectionString,
-                DatabaseProvider = model.DatabaseProvider,
-                DatabaseTablePrefix = model.TablePrefix,
+                DatabaseConnectionString = string.IsNullOrEmpty(_engineSettings.ConnectionString) ? model.ConnectionString : _engineSettings.ConnectionString,
+                DatabaseProvider = string.IsNullOrEmpty(_engineSettings.DatabaseProvider) ? model.DatabaseProvider : _engineSettings.DatabaseProvider,
+                DatabaseTablePrefix = string.IsNullOrEmpty(_engineSettings.TablePrefix) ? model.TablePrefix : _engineSettings.TablePrefix,
                 Project = await Task.FromResult(_projectReader.ReadDescriptor(new FormFileInfo(Request.Form.Files[0])))
             };
 
@@ -64,9 +77,9 @@ namespace SeedModules.Setup.Controllers
             {
                 foreach (var error in setupContext.Errors)
                 {
-                    //ModelState.AddModelError(error.Key, error.Value);
+                    ModelState.AddModelError(error.Key, error.Value);
                 }
-                throw new Exception();
+                throw this.Exception(ModelState);
             }
         }
     }

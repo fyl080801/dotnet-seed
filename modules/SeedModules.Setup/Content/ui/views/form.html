@@ -34,15 +34,16 @@
                     <span class="text-danger pull-right" ng-show="form.Name.$invalid">*名称是必填的</span>
                 </div>
                 <div>
-                    <input class="form-control" placeholder="输入名称" name="Name" ng-model="data.Name" required />
+                    <input class="form-control" placeholder="输入名称" name="Name" ng-model="data.Name" ng-disabled="data.TenantCreated" required
+                    />
                 </div>
             </fieldset>
         </div>
-        <h6>
+        <h6 ng-if="!data.TenantCreated">
             <i class="glyphicon glyphicon-chevron-right"></i> 数据库信息
             <hr>
         </h6>
-        <div class="row">
+        <div class="row" ng-if="!data.TenantCreated">
             <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.DatabaseProvider.$invalid }">
                 <div>
                     <label>数据库类型：</label>
