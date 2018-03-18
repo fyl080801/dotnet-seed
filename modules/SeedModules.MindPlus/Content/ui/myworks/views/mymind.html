@@ -22,7 +22,7 @@
                         </li>
                         <li role="separator" class="divider"></li>
                         <li>
-                            <a href="" ng-click="logout()">注销</a>
+                            <a href="">注销</a>
                         </li>
                     </ul>
                 </li>
@@ -32,14 +32,14 @@
     <div class="mind-nav">
         <div class="mind-nav-sidebar">
             <ul class="nav">
-                <li>
-                    <a href="">
+                <li ng-class="{'active':$state.current.name==='mymind.works'}">
+                    <a href="" ng-click="$state.go('mymind.works')">
                         <i class="glyphicon glyphicon-home"></i>
                         我的项目
                     </a>
                 </li>
-                <li>
-                    <a href="">
+                <li ng-class="{'active':$state.current.name==='mymind.trash'}">
+                    <a href="" ng-click="$state.go('mymind.trash')">
                         <i class="glyphicon glyphicon-trash"></i>
                         回收站
                     </a>

@@ -24,3 +24,8 @@
   left: 0;
   margin-left: 180px;
 }
+
+.mind-nav-sidebar li.active {
+  border-left: 3px #23527c solid;
+  background-color: #eee;
+}

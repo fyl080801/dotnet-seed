@@ -7,11 +7,29 @@ define(['app/application'], function(application) {
     '$stateProvider',
     '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/mymind');
 
-      $stateProvider.state('mindPlus', {
-        url: '/',
+      $stateProvider.state('mymind', {
+        url: '/mymind',
         templateUrl: '/SeedModules.MindPlus/ui/myworks/views/mymind.html',
+        requires: [
+          'SeedModules.AngularUI/ui/requires',
+          'SeedModules.MindPlus/ui/myworks/requires'
+        ]
+      });
+
+      $stateProvider.state('mymind.works', {
+        url: '/works',
+        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/works.html',
+        requires: [
+          'SeedModules.AngularUI/ui/requires',
+          'SeedModules.MindPlus/ui/myworks/requires'
+        ]
+      });
+
+      $stateProvider.state('mymind.trash', {
+        url: '/trash',
+        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/trash.html',
         requires: [
           'SeedModules.AngularUI/ui/requires',
           'SeedModules.MindPlus/ui/myworks/requires'

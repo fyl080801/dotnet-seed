@@ -10,7 +10,6 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
     'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableRequest',
     'SeedModules.AngularUI/ui/factories/schemaFormParams',
-    'schemaFormDecorators',
     function(
       $scope,
       $modal,
@@ -19,8 +18,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       popupService,
       requestService,
       ngTableRequest,
-      schemaFormParams,
-      schemaFormDecorators
+      schemaFormParams
     ) {
       $scope.tableParams = new ngTableRequest({
         url: '/api/admin/users/query',
