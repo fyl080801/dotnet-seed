@@ -7,7 +7,7 @@ define(['app/application'], function(application) {
     '$stateProvider',
     '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/mymind');
+      $urlRouterProvider.otherwise('/mymind/works');
 
       $stateProvider.state('mymind', {
         url: '/mymind',
