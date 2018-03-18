@@ -31,7 +31,15 @@
         },
         {
           "Route": "SeedModules.MindPlus/Home/Index",
-          "References": ["angularui", "mindPlus"]
+          "References": ["angularui", "portals"]
+        },
+        {
+          "Route": "SeedModules.MindPlus/Home/Works",
+          "References": ["angularui", "myworks"]
+        },
+        {
+          "Route": "SeedModules.MindPlus/Home/Mind",
+          "References": ["angularui", "mind"]
         }
       ]
     }

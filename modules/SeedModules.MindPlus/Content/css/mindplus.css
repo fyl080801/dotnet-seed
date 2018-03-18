@@ -1,0 +1,26 @@
+.mind-nav {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+.mind-nav .mind-nav-sidebar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  background-color: #f8f8f8;
+  width: 180px;
+}
+
+.mind-nav .mind-nav-content {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  margin-left: 180px;
+}

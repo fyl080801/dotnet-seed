@@ -1,0 +1,51 @@
+<div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/mymind">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <div class="navbar-brand">
+                Mind+
+            </div>
+        </div>
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw"></i>
+                        管理员
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="">我的文档</a>
+                        </li>
+                        <li>
+                            <a href="">个人中心</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="" ng-click="logout()">注销</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mind-nav">
+        <div class="mind-nav-sidebar">
+            <ul class="nav">
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-home"></i>
+                        我的项目
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        回收站
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="mind-nav-content" ui-view></div>
+    </div>
+</div>

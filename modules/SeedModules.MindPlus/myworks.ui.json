@@ -1,0 +1,25 @@
+{
+  "references": {
+    "SeedModules.MindPlus/ui/myworks/module": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.myworks.module",
+      "isDist": true
+    },
+    "SeedModules.MindPlus/ui/myworks/requires": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.myworks.requires",
+      "shim": {
+        "deps": ["SeedModules.MindPlus/ui/myworks/module"]
+      },
+      "isDist": true
+    },
+    "kityminder": {
+      "path": "SeedModules.AngularUI/js/kityminder/kityminder.core"
+    }
+  },
+  "requires": [
+    "rcss!SeedModules.MindPlus/css/mindplus.css",
+    "SeedModules.MindPlus/ui/myworks/module"
+  ],
+  "path": "Content/ui/myworks"
+}

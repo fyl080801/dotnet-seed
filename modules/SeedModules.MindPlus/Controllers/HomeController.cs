@@ -28,5 +28,23 @@ namespace SeedModules.MindPlus.Controllers
                 SiteSettings = _siteSettingsBuilder.Build().ToString()
             });
         }
+
+        public IActionResult Works()
+        {
+            return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
+            {
+                Options = _optionsBuilder.Build(RouteData).Result,
+                SiteSettings = _siteSettingsBuilder.Build().ToString()
+            });
+        }
+
+        public IActionResult Mind()
+        {
+            return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
+            {
+                Options = _optionsBuilder.Build(RouteData).Result,
+                SiteSettings = _siteSettingsBuilder.Build().ToString()
+            });
+        }
     }
 }
