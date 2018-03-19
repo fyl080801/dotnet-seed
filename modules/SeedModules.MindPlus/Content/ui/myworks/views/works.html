@@ -1,12 +1,20 @@
 <div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/works">
     <div class="navbar navbar-static-top" style="margin: 0">
+        <div class="navbar-header" ng-show="$stateParams.parentid">
+            <div class="navbar-form">
+                <button class="btn btn-default" ng-click="back()">
+                    <i class="glyphicon glyphicon-level-up"></i>
+                    返回上一级
+                </button>
+            </div>
+        </div>
         <div class="navbar-header">
             <div class="navbar-form">
                 <button class="btn btn-primary" ng-click="create()">
                     <i class="glyphicon glyphicon-plus"></i>
                     新建项目
                 </button>
-                <button class="btn btn-default">
+                <button class="btn btn-default" ng-click="addfolder()">
                     <i class="glyphicon glyphicon-plus"></i>
                     新建文件夹
                 </button>
@@ -71,8 +79,13 @@
                         <i class="glyphicon glyphicon-option-vertical"></i>
                     </a>
                 </td>
-                <td title="'名称'"></td>
-                <td title="'修改时间'"></td>
+                <td title="'名称'">
+                    <a ng-href="{{$appConfig.siteSettings.prefix + (row.isFolder ? '/SeedModules.MindPlus/Home/Works#/mymind/works/' : '/SeedModules.MindPlus/Home/Works#/workspace/') + row.id}}">
+                        <i ng-class="{'fas fa-file fa-fw':!row.isFolder, 'fas fa-folder fa-fw':row.isFolder}"></i>
+                        {{row.name}}
+                    </a>
+                </td>
+                <td title="'修改时间'">{{row.modifyTime|date:'yyyy-MM-dd HH:mm'}}</td>
             </tr>
         </table>
     </div>

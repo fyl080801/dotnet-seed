@@ -7,7 +7,7 @@ define(['app/application'], function(application) {
     '$stateProvider',
     '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/mymind/works');
+      $urlRouterProvider.otherwise('/mymind/works/');
 
       $stateProvider.state('mymind', {
         url: '/mymind',
@@ -19,7 +19,7 @@ define(['app/application'], function(application) {
       });
 
       $stateProvider.state('mymind.works', {
-        url: '/works',
+        url: '/works/{parentid}',
         templateUrl: '/SeedModules.MindPlus/ui/myworks/views/works.html',
         requires: [
           'SeedModules.AngularUI/ui/requires',
@@ -30,6 +30,15 @@ define(['app/application'], function(application) {
       $stateProvider.state('mymind.trash', {
         url: '/trash',
         templateUrl: '/SeedModules.MindPlus/ui/myworks/views/trash.html',
+        requires: [
+          'SeedModules.AngularUI/ui/requires',
+          'SeedModules.MindPlus/ui/myworks/requires'
+        ]
+      });
+
+      $stateProvider.state('workspace', {
+        url: '/workspace/{id}',
+        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/workspace.html',
         requires: [
           'SeedModules.AngularUI/ui/requires',
           'SeedModules.MindPlus/ui/myworks/requires'

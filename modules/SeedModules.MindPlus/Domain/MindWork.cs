@@ -9,7 +9,7 @@ namespace SeedModules.MindPlus.Domain
     [Table("MindWork")]
     public class MindWork
     {
-        [Key]
+        [Key, Required]
         public int Id { get; set; }
 
         [StringLength(50), Required]
@@ -17,7 +17,9 @@ namespace SeedModules.MindPlus.Domain
 
         public string Description { get; set; }
 
-        public DateTime ModifyTime { get; set; }
+        public bool IsFolder { get; set; }
+
+        public DateTime ModifyTime { get; set; } = DateTime.Now;
 
         public int? ParentId { get; set; }
 

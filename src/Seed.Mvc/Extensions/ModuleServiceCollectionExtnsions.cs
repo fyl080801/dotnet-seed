@@ -13,6 +13,7 @@ using Seed.Plugins;
 using System;
 using System.Linq;
 using Seed.Mvc.Filters;
+using Newtonsoft.Json;
 
 namespace Seed.Mvc.Extensions
 {
@@ -46,6 +47,10 @@ namespace Seed.Mvc.Extensions
                 .AddAuthorization()
                 .AddViews()
                 .AddViewLocalization()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                })
                 .AddJsonFormatters();
 
             AddModuleFrameworkParts(applicationServices, builder.PartManager);

@@ -1,8 +1,15 @@
-<div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/mymind">
+<div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/workspace" ng-init="load()">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="" ng-click="$state.go('mymind.works', {parentid: current.parentId})">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                    </a>
+                </li>
+            </ul>
             <div class="navbar-brand">
-                Mind+
+                {{current.name}}
             </div>
         </div>
         <div class="container-fluid">
@@ -31,7 +38,7 @@
     </div>
     <div class="mind-nav">
         <div class="mind-nav-sidebar">
-            <ul class="nav">
+            <!-- <ul class="nav">
                 <li ng-class="{'active':$state.current.name==='mymind.works'}">
                     <a href="" ng-click="$state.go('mymind.works', {parentid:null})">
                         <i class="glyphicon glyphicon-home"></i>
@@ -44,7 +51,7 @@
                         回收站
                     </a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         <div class="mind-nav-content" ui-view></div>
     </div>
