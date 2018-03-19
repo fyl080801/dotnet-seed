@@ -18,6 +18,14 @@ namespace SeedModules.MindPlus.Domain
         public string Description { get; set; }
 
         public DateTime ModifyTime { get; set; }
+
+        public int? ParentId { get; set; }
+
+        [StringLength(500)]
+        public string Path { get; set; }
+
+        [ForeignKey("ParentId")]
+        public virtual MindWork Parent { get; set; }
     }
 
     public class MindWorkTypeConfiguration : IEntityTypeConfiguration<MindWork>
