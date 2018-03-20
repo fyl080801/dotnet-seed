@@ -24,6 +24,25 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
     ) {
       $scope.current = null;
 
+      $scope.workMenu = [
+        {
+          text: '脑图',
+          icon: ''
+        },
+        {
+          text: '任务',
+          icon: '',
+          children: [
+            {
+              text: '任务列表'
+            },
+            {
+              text: '任务板'
+            }
+          ]
+        }
+      ];
+
       $scope.load = function() {
         requestService
           .url('/api/mindplus/works/' + $stateParams.id)

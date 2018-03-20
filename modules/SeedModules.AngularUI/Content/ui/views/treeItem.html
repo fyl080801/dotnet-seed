@@ -1,0 +1,11 @@
+<a href="" ng-if="!isLeaf(item)" ng-click="itemExpended(item, $event)">
+    <i class="{{getItemIcon(item)}}"></i>
+    {{getItemText(item)}}
+</a>
+<a href="" ng-if="isLeaf(item)" ng-click="warpCallback('itemClicked', item, $event)">
+    <i class="{{getItemIcon(item)}}"></i>
+    {{getItemText(item)}}
+</a>
+<ul class="nav" style="margin: 0" ng-if="!isLeaf(item)" ng-show="item.$$isExpend">
+    <li ng-repeat="item in item[childrenField ? childrenField : 'children']" ng-include="itemTemplateUrl || '/SeedModules.AngularUI/ui/views/treeItem.html'"></li>
+</ul>

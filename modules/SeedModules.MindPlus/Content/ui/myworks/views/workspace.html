@@ -38,17 +38,26 @@
     </div>
     <div class="mind-nav">
         <div class="mind-nav-sidebar">
+            <ul ng-tree tree-data="workMenu"></ul>
             <!-- <ul class="nav">
-                <li ng-class="{'active':$state.current.name==='mymind.works'}">
-                    <a href="" ng-click="$state.go('mymind.works', {parentid:null})">
-                        <i class="glyphicon glyphicon-home"></i>
-                        我的项目
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-th-list"></i>
+                        任务
                     </a>
+                    <ul class="nav">
+                        <li>
+                            <a>列表</a>
+                        </li>
+                        <li>
+                            <a>看板</a>
+                        </li>
+                    </ul>
                 </li>
-                <li ng-class="{'active':$state.current.name==='mymind.trash'}">
-                    <a href="" ng-click="$state.go('mymind.trash')">
-                        <i class="glyphicon glyphicon-trash"></i>
-                        回收站
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        设置
                     </a>
                 </li>
             </ul> -->
