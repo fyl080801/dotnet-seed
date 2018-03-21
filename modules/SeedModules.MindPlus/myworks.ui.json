@@ -12,9 +12,6 @@
         "deps": ["SeedModules.MindPlus/ui/myworks/module"]
       },
       "isDist": true
-    },
-    "kityminder": {
-      "path": "SeedModules.AngularUI/js/kityminder/kityminder.core"
     }
   },
   "requires": [

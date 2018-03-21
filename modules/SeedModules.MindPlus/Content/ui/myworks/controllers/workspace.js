@@ -7,6 +7,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
     '$state',
     '$stateParams',
     '$appConfig',
+    '$location',
     'app.services.popupService',
     'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableRequest',
@@ -17,6 +18,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       $state,
       $stateParams,
       $appConfig,
+      $location,
       popupService,
       requestService,
       ngTableRequest,
@@ -31,19 +33,27 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
           children: [
             {
               text: '脑图',
-              icon: ''
+              itemClicked: function(item) {
+                window.location =
+                  $appConfig.siteSettings.prefix +
+                  '/SeedModules.MindPlus/Home/Mind#/mindeditor/' +
+                  $stateParams.id;
+              }
             },
             {
               text: '任务列表'
             },
             {
               text: '任务板'
+            },
+            {
+              text: '进度'
             }
           ]
         },
         {
           text: '设置',
-          icon: 'fas fa-sitemap fa-fw'
+          icon: 'fas fa-cogs fa-fw'
         }
       ];
 

@@ -41,7 +41,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
             };
 
             $scope.warpCallback = function(callback, item, $event) {
-              ($scope[callback] || angular.noop)({
+              (item[callback] || $scope[callback] || angular.noop)({
                 $item: item,
                 $event: $event
               });

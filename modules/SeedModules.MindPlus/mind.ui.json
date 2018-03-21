@@ -1,0 +1,34 @@
+{
+  "references": {
+    "SeedModules.MindPlus/ui/mind/module": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.mind.module",
+      "isDist": true
+    },
+    "SeedModules.MindPlus/ui/mind/requires": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.mind.requires",
+      "shim": {
+        "deps": ["SeedModules.MindPlus/ui/mind/module"]
+      },
+      "isDist": true
+    },
+    "kity": {
+      "path": "SeedModules.MindPlus/js/kityminder/kity.min",
+      "noDebug": true
+    },
+    "kityminder": {
+      "path": "SeedModules.MindPlus/js/kityminder/kityminder.core.min",
+      "noDebug": true,
+      "shim": {
+        "deps": ["kity"]
+      }
+    }
+  },
+  "requires": [
+    "rcss!SeedModules.MindPlus/css/mindplus.css",
+    "rcss!SeedModules.MindPlus/css/kityminder.core.css",
+    "SeedModules.MindPlus/ui/mind/module"
+  ],
+  "path": "Content/ui/mind"
+}

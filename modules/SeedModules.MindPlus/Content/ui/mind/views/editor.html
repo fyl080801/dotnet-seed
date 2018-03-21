@@ -1,0 +1,47 @@
+<div ng-controller="SeedModules.MindPlus/ui/mind/controllers/editor">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a ng-href="{{$appConfig.siteSettings.prefix + '/SeedModules.MindPlus/Home/Works#/workspace/' + $stateParams.id}}">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        返回项目
+                    </a>
+                </li>
+            </ul>
+            <div class="navbar-brand">
+                {{current.name}}
+            </div>
+        </div>
+        <div class="container-fluid">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="">
+                        <i class="glyphicon glyphicon-floppy-disk"></i>
+                        保存
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-circle fa-fw"></i>
+                        管理员
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="">我的文档</a>
+                        </li>
+                        <li>
+                            <a href="">个人中心</a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a href="">注销</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mind-nav mind-container" style="position: absolute; overflow: hidden;"></div>
+</div>
