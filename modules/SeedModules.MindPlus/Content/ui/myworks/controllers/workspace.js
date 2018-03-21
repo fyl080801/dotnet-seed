@@ -26,13 +26,13 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
 
       $scope.workMenu = [
         {
-          text: '脑图',
-          icon: ''
-        },
-        {
           text: '任务',
-          icon: '',
+          icon: 'fas fa-tasks fa-fw',
           children: [
+            {
+              text: '脑图',
+              icon: ''
+            },
             {
               text: '任务列表'
             },
@@ -40,6 +40,10 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
               text: '任务板'
             }
           ]
+        },
+        {
+          text: '设置',
+          icon: 'fas fa-sitemap fa-fw'
         }
       ];
 
