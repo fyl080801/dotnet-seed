@@ -23,11 +23,19 @@
       "shim": {
         "deps": ["kity"]
       }
+    },
+    "kityminder.editor": {
+      "path": "SeedModules.MindPlus/js/kityminder/kityminder.editor.min",
+      "noDebug": true,
+      "shim": {
+        "deps": ["kityminder"]
+      }
     }
   },
   "requires": [
     "rcss!SeedModules.MindPlus/css/mindplus.css",
     "rcss!SeedModules.MindPlus/css/kityminder.core.css",
+    "rcss!SeedModules.MindPlus/js/kityminder/kityminder.editor.min.css",
     "SeedModules.MindPlus/ui/mind/module"
   ],
   "path": "Content/ui/mind"

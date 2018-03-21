@@ -8,24 +8,29 @@ define(['SeedModules.MindPlus/ui/mind/module'], function(module) {
       $scope.$appConfig = $appConfig;
       $scope.currentNode = null;
 
-      var minder = new kityminder.Minder({
-        renderTo: '.mind-container'
-      });
+      $scope.initEditor = function(editor, minder) {
+        window.editor = editor;
+        window.minder = minder;
+      };
 
-      // 触发选择事件
-      minder.on('selectionchange', function(e) {
-        $scope.currentNode = e.minder.getSelectedNode();
-      });
+      // var minder = new kityminder.Minder({
+      //   renderTo: '.mind-container'
+      // });
 
-      // 双击事件
-      minder.on('normal.dblclick', function(e) {});
+      // // 触发选择事件
+      // minder.on('selectionchange', function(e) {
+      //   $scope.currentNode = e.minder.getSelectedNode();
+      // });
 
-      // 鼠标按下
-      minder.on('normal.mousedown', function(e) {
-        // 右键
-        if (e.originEvent.button == 2) {
-        }
-      });
+      // // 双击事件
+      // minder.on('normal.dblclick', function(e) {});
+
+      // // 鼠标按下
+      // minder.on('normal.mousedown', function(e) {
+      //   // 右键
+      //   if (e.originEvent.button == 2) {
+      //   }
+      // });
     }
   ]);
 });
