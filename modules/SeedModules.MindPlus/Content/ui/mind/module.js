@@ -4,7 +4,12 @@ define(['app/application', 'kityminder.editor'], function(application) {
   application.requires.push('modules.mindPlus.mind');
 
   return angular
-    .module('modules.mindPlus.mind', ['ui.router', 'kityminderEditor'])
+    .module('modules.mindPlus.mind', [
+      'ui.router',
+      'ui.codemirror',
+      'ui.colorpicker',
+      'kityminderEditor'
+    ])
     .config([
       '$stateProvider',
       '$urlRouterProvider',

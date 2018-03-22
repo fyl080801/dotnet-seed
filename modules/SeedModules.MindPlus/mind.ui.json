@@ -13,6 +13,32 @@
       },
       "isDist": true
     },
+    "codemirror": {
+      "path": "SeedModules.MindPlus/js/codemirror/dist/codemirror",
+      "noDebug": true
+    },
+    "angular-ui-codemirror": {
+      "path": "SeedModules.MindPlus/js/angular-ui-codemirror/ui-codemirror",
+      "shim": {
+        "deps": ["app", "codemirror"]
+      }
+    },
+    "color-picker": {
+      "path": "SeedModules.MindPlus/js/color-picker/color-picker",
+      "shim": {
+        "deps": ["app"]
+      }
+    },
+    "json-diff": {
+      "path": "SeedModules.MindPlus/js/json-diff/json-diff",
+      "noDebug": true
+    },
+    "marked": {
+      "path": "SeedModules.MindPlus/js/marked/marked"
+    },
+    "hotbox": {
+      "path": "SeedModules.MindPlus/js/hotbox/hotbox"
+    },
     "kity": {
       "path": "SeedModules.MindPlus/js/kityminder/kity.min",
       "noDebug": true
@@ -28,7 +54,14 @@
       "path": "SeedModules.MindPlus/js/kityminder/kityminder.editor.min",
       "noDebug": true,
       "shim": {
-        "deps": ["kityminder"]
+        "deps": [
+          "kityminder",
+          "marked",
+          "angular-ui-codemirror",
+          "color-picker",
+          "json-diff",
+          "hotbox"
+        ]
       }
     }
   },
@@ -36,6 +69,9 @@
     "rcss!SeedModules.MindPlus/css/mindplus.css",
     "rcss!SeedModules.MindPlus/css/kityminder.core.css",
     "rcss!SeedModules.MindPlus/js/kityminder/kityminder.editor.min.css",
+    "rcss!SeedModules.MindPlus/js/hotbox/hotbox.css",
+    "rcss!SeedModules.MindPlus/js/color-picker/color-picker.min.css",
+    "rcss!SeedModules.MindPlus/js/codemirror/dist/codemirror.css",
     "SeedModules.MindPlus/ui/mind/module"
   ],
   "path": "Content/ui/mind"
