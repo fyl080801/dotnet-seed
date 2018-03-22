@@ -1,7 +1,7 @@
 define([
-  'app/application',
-  'kityminder.editor',
-  'SeedModules.MindPlus/ui/mind/configs/mindTemplates'
+  'app/application'
+  // 'kityminder.editor',
+  // 'SeedModules.MindPlus/ui/mind/configs/mindTemplates'
 ], function(application) {
   'use strict';
 
@@ -9,11 +9,10 @@ define([
 
   return angular
     .module('modules.mindPlus.mind', [
-      'ui.router',
+      'ui.router'
       // 'ui.codemirror',
-      // 'ui.colorpicker',
-      'kityminderEditor',
-      'modules.mindPlus.mind.configs'
+      // 'kityminderEditor',
+      // 'modules.mindPlus.mind.configs'
     ])
     .config([
       '$stateProvider',
@@ -24,7 +23,8 @@ define([
           templateUrl: '/SeedModules.MindPlus/ui/mind/views/editor.html',
           requires: [
             'SeedModules.AngularUI/ui/requires',
-            'SeedModules.MindPlus/ui/mind/requires'
+            'SeedModules.MindPlus/ui/mind/requires',
+            'kityminder'
           ]
         });
       }

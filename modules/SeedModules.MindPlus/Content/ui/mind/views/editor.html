@@ -43,5 +43,82 @@
             </ul>
         </div>
     </div>
-    <kityminder-editor on-init="initEditor(editor, minder)" class="mind-nav mind-container" style="position: absolute; top: 50px; overflow: hidden;"></kityminder-editor>
+    <div class="container-fluid mind-nav">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#mind" aria-controls="mind" role="tab" data-toggle="tab">思路</a>
+            </li>
+            <li role="presentation">
+                <a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">外观</a>
+            </li>
+            <li role="presentation">
+                <a href="#views" aria-controls="views" role="tab" data-toggle="tab">视图</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane panel panel-default active" id="mind">
+                <div class="panel-body">
+                    <div class="mind-editor-group">
+                        <div class="btn-group-vertical btn-group-sm">
+                            <button class="btn btn-default">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                            <button class="btn btn-default">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mind-editor-group">
+                        <div class="btn-group-vertical btn-group-sm">
+                            <button class="btn btn-default">
+                                插入下级主题
+                            </button>
+                            <button class="btn btn-default">
+                                插入同级主题
+                            </button>
+                        </div>
+                        <div class="btn-group-vertical btn-group-sm">
+                            <button class="btn btn-default">
+                                插入上级主题
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mind-editor-group">
+                        <div class="btn-group-vertical btn-group-sm">
+                            <button class="btn btn-default">
+                                上移
+                            </button>
+                            <button class="btn btn-default">
+                                下移
+                            </button>
+                        </div>
+                        <div class="btn-group-vertical btn-group-sm">
+                            <button class="btn btn-default">
+                                编辑
+                            </button>
+                            <button class="btn btn-default">
+                                删除
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane panel panel-default" id="theme">
+                <div class="panel-body">bbb</div>
+            </div>
+            <div role="tabpanel" class="tab-pane panel panel-default" id="views">
+                <div class="panel-body">ccc</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mind-editor">
+        <div class="panel panel-default">
+            <div class="mind-container" style="overflow: hidden;"></div>
+        </div>
+    </div>
+    <!-- <div class="mind-nav mind-container" style="position: absolute; top: 50px; overflow: hidden;"></div> -->
+    <!-- <kityminder-editor on-init="initEditor(editor, minder)" class="mind-nav mind-container" style="position: absolute; top: 50px; overflow: hidden;"></kityminder-editor> -->
 </div>
