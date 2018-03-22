@@ -1,4 +1,8 @@
-define(['app/application', 'kityminder.editor'], function(application) {
+define([
+  'app/application',
+  'kityminder.editor',
+  'SeedModules.MindPlus/ui/mind/configs/mindTemplates'
+], function(application) {
   'use strict';
 
   application.requires.push('modules.mindPlus.mind');
@@ -6,9 +10,10 @@ define(['app/application', 'kityminder.editor'], function(application) {
   return angular
     .module('modules.mindPlus.mind', [
       'ui.router',
-      'ui.codemirror',
-      'ui.colorpicker',
-      'kityminderEditor'
+      // 'ui.codemirror',
+      // 'ui.colorpicker',
+      'kityminderEditor',
+      'modules.mindPlus.mind.configs'
     ])
     .config([
       '$stateProvider',
