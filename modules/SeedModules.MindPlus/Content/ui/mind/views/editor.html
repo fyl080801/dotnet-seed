@@ -43,7 +43,9 @@
             </ul>
         </div>
     </div>
-    <div class="container-fluid mind-nav">
+
+    <!-- 功能导航 -->
+    <div class="container-fluid mind-editor-nav">
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active">
                 <a href="#mind" aria-controls="mind" role="tab" data-toggle="tab">思路</a>
@@ -61,44 +63,53 @@
             <div role="tabpanel" class="tab-pane panel panel-default active" id="mind">
                 <div class="panel-body">
                     <div class="mind-editor-group">
-                        <div class="btn-group-vertical btn-group-sm">
-                            <button class="btn btn-default">
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default">
                                 <i class="fas fa-undo"></i>
+                                撤销
                             </button>
-                            <button class="btn btn-default">
+                            <button class="btn btn-xs btn-default">
                                 <i class="fas fa-redo"></i>
+                                重做
                             </button>
                         </div>
                     </div>
                     <div class="mind-editor-group">
-                        <div class="btn-group-vertical btn-group-sm">
-                            <button class="btn btn-default">
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default">
+                                <i class="glyphicon glyphicon-import"></i>
                                 插入下级主题
                             </button>
-                            <button class="btn btn-default">
-                                插入同级主题
-                            </button>
-                        </div>
-                        <div class="btn-group-vertical btn-group-sm">
-                            <button class="btn btn-default">
+                            <button class="btn btn-xs btn-default">
+                                <i class="glyphicon glyphicon-export"></i>
                                 插入上级主题
                             </button>
                         </div>
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default">
+                                <i class="glyphicon glyphicon-save"></i>
+                                插入同级主题
+                            </button>
+                        </div>
                     </div>
                     <div class="mind-editor-group">
-                        <div class="btn-group-vertical btn-group-sm">
-                            <button class="btn btn-default">
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default">
+                                <i class="glyphicon glyphicon-arrow-up"></i>
                                 上移
                             </button>
-                            <button class="btn btn-default">
+                            <button class="btn btn-xs btn-default">
+                                <i class="glyphicon glyphicon-arrow-down"></i>
                                 下移
                             </button>
                         </div>
-                        <div class="btn-group-vertical btn-group-sm">
-                            <button class="btn btn-default">
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default">
+                                <i class="glyphicon glyphicon-edit"></i>
                                 编辑
                             </button>
-                            <button class="btn btn-default">
+                            <button class="btn btn-xs btn-default">
+                                <i class="glyphicon glyphicon-trash"></i>
                                 删除
                             </button>
                         </div>
@@ -106,10 +117,82 @@
                 </div>
             </div>
             <div role="tabpanel" class="tab-pane panel panel-default" id="theme">
-                <div class="panel-body">bbb</div>
+                <div class="panel-body">
+                    <div class="mind-editor-group">
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default editor-btn">
+                                <i class="fas fa-expand-arrows-alt fa-2x"></i>
+                                <br/>
+                                <span>整理布局</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mind-editor-group">
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default editor-btn">
+                                <i class="fas fa-eraser fa-2x"></i>
+                                <br/>
+                                <span>清除样式</span>
+                            </button>
+                        </div>
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default">
+                                <i class="fas fa-paste"></i>
+                                复制样式
+                            </button>
+                            <button class="btn btn-xs btn-default">
+                                <i class="fa fa-clipboard"></i>
+                                粘贴样式
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mind-editor-group">
+                        <div class="editor-group">
+                            <div class="editor-group-row">
+                                <div class="form-group-xs">
+                                    <select class="form-control" style="width: 100px"></select>
+                                </div>
+                                <div class="form-group-xs">
+                                    <select class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="editor-group-row">
+                                <div class="btn-group btn-group-xs">
+                                    <button class="btn btn-default">
+                                        <i class="fas fa-bold fa-fw"></i>
+                                    </button>
+                                    <button class="btn btn-default">
+                                        <i class="fas fa-italic fa-fw"></i>
+                                    </button>
+                                </div>
+                                <div class="form-group-xs">
+                                    <select class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane panel panel-default" id="views">
-                <div class="panel-body">ccc</div>
+                <div class="panel-body">
+                    <div class="mind-editor-group">
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default editor-btn">
+                                <i class="fas fa-expand fa-2x"></i>
+                                <br/>
+                                <span>&nbsp;全选</span>
+                                <i class="fas fa-caret-down"></i>
+                            </button>
+                        </div>
+                        <div class="editor-group">
+                            <button class="btn btn-xs btn-default editor-btn">
+                                <i class="fas fa-search fa-2x"></i>
+                                <br/>
+                                <span>&nbsp;搜索&nbsp;</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
