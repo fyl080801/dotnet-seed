@@ -23,8 +23,7 @@ define([
           templateUrl: '/SeedModules.MindPlus/ui/mind/views/editor.html',
           requires: [
             'SeedModules.AngularUI/ui/requires',
-            'SeedModules.MindPlus/ui/mind/requires',
-            'kityminder'
+            'SeedModules.MindPlus/ui/mind/requires'
           ]
         });
       }

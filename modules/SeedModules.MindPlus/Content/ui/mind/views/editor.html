@@ -1,4 +1,4 @@
-<div ng-controller="SeedModules.MindPlus/ui/mind/controllers/editor">
+<div ng-controller="SeedModules.MindPlus/ui/mind/controllers/editor" ng-init="load()">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <ul class="nav navbar-nav">
@@ -76,17 +76,17 @@
                     </div>
                     <div class="mind-editor-group">
                         <div class="editor-group">
-                            <button class="btn btn-xs btn-default">
+                            <button class="btn btn-xs btn-default" ng-click="addChild()" ng-disabled="!currentNode">
                                 <i class="glyphicon glyphicon-import"></i>
                                 插入下级主题
                             </button>
-                            <button class="btn btn-xs btn-default">
+                            <button class="btn btn-xs btn-default" ng-click="addParent()" ng-disabled="!currentNode">
                                 <i class="glyphicon glyphicon-export"></i>
                                 插入上级主题
                             </button>
                         </div>
                         <div class="editor-group">
-                            <button class="btn btn-xs btn-default">
+                            <button class="btn btn-xs btn-default" ng-click="addCurrent()" ng-disabled="!currentNode">
                                 <i class="glyphicon glyphicon-save"></i>
                                 插入同级主题
                             </button>
@@ -94,21 +94,21 @@
                     </div>
                     <div class="mind-editor-group">
                         <div class="editor-group">
-                            <button class="btn btn-xs btn-default">
+                            <button class="btn btn-xs btn-default" ng-click="arrangeUp()" ng-disabled="!currentNode">
                                 <i class="glyphicon glyphicon-arrow-up"></i>
                                 上移
                             </button>
-                            <button class="btn btn-xs btn-default">
+                            <button class="btn btn-xs btn-default" ng-click="arrangeDown()" ng-disabled="!currentNode">
                                 <i class="glyphicon glyphicon-arrow-down"></i>
                                 下移
                             </button>
                         </div>
                         <div class="editor-group">
-                            <button class="btn btn-xs btn-default">
+                            <button class="btn btn-xs btn-default" ng-click="edit()" ng-disabled="!currentNode">
                                 <i class="glyphicon glyphicon-edit"></i>
                                 编辑
                             </button>
-                            <button class="btn btn-xs btn-default">
+                            <button class="btn btn-xs btn-default" ng-click="drop()" ng-disabled="!currentNode">
                                 <i class="glyphicon glyphicon-trash"></i>
                                 删除
                             </button>
