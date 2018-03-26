@@ -41,6 +41,9 @@ define(['SeedModules.MindPlus/ui/mind/module'], function(module) {
       $scope.load = function() {
         requestService
           .url('/api/mindplus/works/' + $stateParams.id)
+          .options({
+            showLoading: false
+          })
           .get()
           .then(function(result) {
             $scope.mind = result;

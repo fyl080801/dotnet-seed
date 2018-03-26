@@ -13,7 +13,10 @@ namespace SeedModules.MindPlus
         {
             return Task.FromResult(new object[]
             {
-                new MindWorkTypeConfiguration()
+                new MindWorkTypeConfiguration(),
+                new TagTypeConfiguration(),
+                new WorkItemTypeConfiguration(),
+                new WorkItemTagTypeConfiguration()
             }.AsEnumerable());
         }
     }

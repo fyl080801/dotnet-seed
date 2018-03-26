@@ -30,6 +30,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
           icon: 'fas fa-tasks fa-fw',
           children: [
             {
+              icon: 'fas fa-fw',
               text: '脑图',
               itemClicked: function(item) {
                 window.location =
@@ -39,25 +40,50 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
               }
             },
             {
-              text: '任务列表'
+              icon: 'fas fa-fw',
+              text: '任务列表',
+              itemClicked: function() {
+                $state.go('workspace.list', { id: $stateParams.id });
+              }
             },
             {
+              icon: 'fas fa-fw',
               text: '任务板'
             },
             {
+              icon: 'fas fa-fw',
               text: '进度'
             }
           ]
         },
         {
           text: '设置',
-          icon: 'fas fa-cogs fa-fw'
+          icon: 'fas fa-cogs fa-fw',
+          children: [
+            {
+              icon: 'fas fa-fw',
+              text: '任务设置',
+              itemClicked: function() {
+                $state.go('workspace.settings', { id: $stateParams.id });
+              }
+            },
+            {
+              icon: 'fas fa-fw',
+              text: '标签设置',
+              itemClicked: function() {
+                $state.go('workspace.tags', { id: $stateParams.id });
+              }
+            }
+          ]
         }
       ];
 
       $scope.load = function() {
         requestService
           .url('/api/mindplus/works/' + $stateParams.id)
+          .options({
+            showLoading: false
+          })
           .get()
           .then(function(result) {
             $scope.current = result;

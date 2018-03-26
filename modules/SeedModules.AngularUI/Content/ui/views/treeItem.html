@@ -7,6 +7,6 @@
     <i class="{{getItemIcon(item)}}"></i>
     {{getItemText(item)}}
 </a>
-<ul class="nav" style="margin-left: 35px" ng-if="!isLeaf(item)" ng-show="item.$$isExpend">
+<ul class="nav" ng-if="!isLeaf(item)" ng-show="item.$$isExpend">
     <li ng-repeat="item in item[childrenField ? childrenField : 'children']" ng-include="itemTemplateUrl || '/SeedModules.AngularUI/ui/views/treeItem.html'"></li>
 </ul>

@@ -44,6 +44,33 @@ define(['app/application'], function(application) {
           'SeedModules.MindPlus/ui/myworks/requires'
         ]
       });
+
+      $stateProvider.state('workspace.list', {
+        url: '/list',
+        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/worklist.html',
+        requires: [
+          'SeedModules.AngularUI/ui/requires',
+          'SeedModules.MindPlus/ui/myworks/requires'
+        ]
+      });
+
+      $stateProvider.state('workspace.settings', {
+        url: '/settings',
+        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/settings.html',
+        requires: [
+          'SeedModules.AngularUI/ui/requires',
+          'SeedModules.MindPlus/ui/myworks/requires'
+        ]
+      });
+
+      $stateProvider.state('workspace.tags', {
+        url: '/tags',
+        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/tags.html',
+        requires: [
+          'SeedModules.AngularUI/ui/requires',
+          'SeedModules.MindPlus/ui/myworks/requires'
+        ]
+      });
     }
   ]);
 });
