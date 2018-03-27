@@ -98,6 +98,9 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       $scope.back = function() {
         requestService
           .url('/api/mindplus/works/' + $stateParams.parentid)
+          .options({
+            showLoading: false
+          })
           .get()
           .then(function(result) {
             $state.go('mymind.works', { parentid: result.parentId });

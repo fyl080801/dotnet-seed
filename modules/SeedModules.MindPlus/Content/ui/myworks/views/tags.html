@@ -18,20 +18,52 @@
         </div>
     </div>
     <div class="container-fluid">
-        <table ng-table="tableParams" class="table table-striped table-hover">
+        <table ng-table="tableParams" class="table table-hover">
             <thead>
                 <tr>
                     <th colspan="4">总数：</th>
                 </tr>
             </thead>
-            <tr ng-repeat="row in list">
+            <tr ng-repeat-start="row in list" ng-show="editing===null">
                 <td>{{row.name}}</td>
-                <td></td>
+                <td>
+                    <i class="glyphicon glyphicon-stop" ng-style="{'color':row.color}"></i>
+                </td>
                 <td>{{row.workItems}}</td>
                 <td>
                     <a href="" class="text-danger" ng-show="row.id" ng-click="drop(row)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
+                </td>
+            </tr>
+            <tr ng-repeat-end ng-show="editing!==null&&editing.id===row.id">
+                <td>
+                    <div class="form-group-sm">
+                        <input class="form-control" placeholder="标签名称" ng-model="editing.name">
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div class="dropdown">
+                        <button class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-stop" ng-style="{'color':editing.color}"></i>
+                            <span class="caret"></span>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="container-fluid">
+                                <button class="btn btn-sm col-xs-3" ng-repeat="c in colors" ng-style="{'background-color': c}" ng-click="editing.color=c">&nbsp;</button>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-primary btn-sm">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        确定
+                    </button>
+                    <button class="btn btn-default btn-sm">
+                        <i class="glyphicon glyphicon-remove"></i>
+                        取消
+                    </button>
                 </td>
             </tr>
         </table>

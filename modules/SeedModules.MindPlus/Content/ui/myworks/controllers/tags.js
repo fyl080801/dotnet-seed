@@ -9,6 +9,17 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
     function($scope, popupService, requestService, ngTableRequest) {
       $scope.list = [];
 
+      $scope.colors = [
+        '#428bca',
+        '#5cb85c',
+        '#5bc0de',
+        '#f0ad4e',
+        '#d9534f',
+        '#009688',
+        '#777',
+        '#000'
+      ];
+
       $scope.editing = null;
 
       $scope.load = function() {
@@ -24,7 +35,8 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       };
 
       $scope.create = function() {
-        $scope.list.push({});
+        $scope.editing = { id: 0 };
+        $scope.list.push({ id: 0 });
       };
 
       $scope.drop = function(row) {

@@ -18,6 +18,11 @@ namespace SeedModules.MindPlus.Domain
         [StringLength(7)]
         public string Color { get; set; }
 
+        public int MindWorkId { get; set; }
+
+        [ForeignKey("MindWorkId")]
+        public virtual MindWork MindWork { get; set; }
+
         public virtual List<WorkItemTag> WorkItems { get; set; }
     }
 

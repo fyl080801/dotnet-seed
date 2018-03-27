@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Seed.Data
 {
-    [Table("Document")]
+    [Table("_Document")]
     public class Document
     {
         [Key]

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,7 +21,18 @@ namespace SeedModules.MindPlus.Domain
         [StringLength(255)]
         public string Path { get; set; }
 
+        public int Level { get; set; }
+
+        public DateTime CreateTime { get; set; } = DateTime.Now;
+
+        public DateTime ModifyTime { get; set; } = DateTime.Now;
+
+        public int MindWorkId { get; set; }
+
         public virtual List<WorkItemTag> Tags { get; set; }
+
+        [ForeignKey("MindWorkId")]
+        public virtual MindWork MindWork { get; set; }
 
         [ForeignKey("ParentId")]
         public virtual WorkItem Parent { get; set; }

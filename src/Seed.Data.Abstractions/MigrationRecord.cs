@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Seed.Data
 {
-    [Table("MigrationRecord")]
+    [Table("_MigrationRecord")]
     public class MigrationRecord
     {
         [Key]

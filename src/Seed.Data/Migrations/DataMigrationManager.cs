@@ -101,24 +101,37 @@ namespace Seed.Data.Migrations
             {
                 var upOperations = modelDiffer.GetDifferences(lastModel, _dbContext.Context.Model);
 
-                _dbContext.Context.GetInfrastructure()
-                    .GetRequiredService<IMigrationsSqlGenerator>()
-                    .Generate(upOperations, _dbContext.Context.Model)
-                    .ToList()
-                    .ForEach(cmd => _dbContext.Context.Database.ExecuteSqlCommand(cmd.CommandText));
-
-                var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter())
-                    .Build((DbContext)_dbContext)
-                    .GetService<IMigrationsCodeGenerator>()
-                    .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Context.Model);
-
-                _dbContext.Migrations.Add(new MigrationRecord()
+                using (var trans = _dbContext.Context.Database.BeginTransaction())
                 {
-                    SnapshotDefine = snapshotCode,
-                    MigrationTime = DateTime.Now
-                });
+                    try
+                    {
+                        _dbContext.Context.GetInfrastructure()
+                            .GetRequiredService<IMigrationsSqlGenerator>()
+                            .Generate(upOperations, _dbContext.Context.Model)
+                            .ToList()
+                            .ForEach(cmd => _dbContext.Context.Database.ExecuteSqlCommand(cmd.CommandText));
 
-                _dbContext.SaveChanges();
+                        trans.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback();
+                        throw ex;
+                    }
+
+                    var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter())
+                        .Build((DbContext)_dbContext)
+                        .GetService<IMigrationsCodeGenerator>()
+                        .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Context.Model);
+
+                    _dbContext.Migrations.Add(new MigrationRecord()
+                    {
+                        SnapshotDefine = snapshotCode,
+                        MigrationTime = DateTime.Now
+                    });
+
+                    _dbContext.Context.SaveChanges();
+                }
             }
         }
 
