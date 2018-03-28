@@ -3,10 +3,19 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
 
   module.controller('SeedModules.MindPlus/ui/myworks/controllers/tags', [
     '$scope',
+    '$modal',
     'app.services.popupService',
     'SeedModules.AngularUI/ui/services/requestService',
     'SeedModules.AngularUI/ui/factories/ngTableRequest',
-    function($scope, popupService, requestService, ngTableRequest) {
+    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    function(
+      $scope,
+      $modal,
+      popupService,
+      requestService,
+      ngTableRequest,
+      schemaFormParams
+    ) {
       $scope.list = [];
 
       $scope.colors = [
@@ -20,7 +29,15 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
         '#000'
       ];
 
-      $scope.editing = null;
+      var formParams = new schemaFormParams().properties({
+        name: {
+          title: '名称',
+          type: 'string',
+          required: true
+        }
+      });
+
+      var form = ['name'];
 
       $scope.load = function() {
         requestService
@@ -35,8 +52,18 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       };
 
       $scope.create = function() {
-        $scope.editing = { id: 0 };
-        $scope.list.push({ id: 0 });
+        $modal
+          .open({
+            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            size: 'sm',
+            data: {
+              title: '新建标签',
+              formParams: formParams,
+              form: form,
+              model: {}
+            }
+          })
+          .result.then(function(data) {});
       };
 
       $scope.drop = function(row) {

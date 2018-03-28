@@ -24,19 +24,19 @@
                     <th colspan="4">总数：</th>
                 </tr>
             </thead>
-            <tr ng-repeat-start="row in list" ng-show="editing===null">
+            <tr ng-repeat="row in list">
                 <td>{{row.name}}</td>
                 <td>
                     <i class="glyphicon glyphicon-stop" ng-style="{'color':row.color}"></i>
                 </td>
-                <td>{{row.workItems}}</td>
+                <td>工作项：{{row.workItems}}</td>
                 <td>
                     <a href="" class="text-danger" ng-show="row.id" ng-click="drop(row)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </td>
             </tr>
-            <tr ng-repeat-end ng-show="editing!==null&&editing.id===row.id">
+            <!-- <tr ng-repeat-end ng-show="editing!==null&&editing.id===row.id">
                 <td>
                     <div class="form-group-sm">
                         <input class="form-control" placeholder="标签名称" ng-model="editing.name">
@@ -65,7 +65,7 @@
                         取消
                     </button>
                 </td>
-            </tr>
+            </tr> -->
         </table>
     </div>
 </div>
