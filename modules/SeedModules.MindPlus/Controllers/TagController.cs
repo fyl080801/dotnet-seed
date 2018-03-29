@@ -30,5 +30,29 @@ namespace SeedModules.MindPlus.Controllers
                 WorkItems = e.WorkItems.Count()
             }).ToList();
         }
+
+        [HttpPost, HandleResult]
+        public void Create([FromBody]Tag model)
+        {
+            _dbContext.Set<Tag>().Add(model);
+            _dbContext.SaveChanges();
+        }
+
+        [HttpPatch, HandleResult]
+        public void Update([FromBody]Tag model)
+        {
+            var domain = _dbContext.Set<Tag>().Find(model.Id);
+            domain.Color = model.Color;
+            domain.Name = model.Name;
+            _dbContext.SaveChanges();
+        }
+
+        [HttpDelete("{id}"), HandleResult]
+        public void Delete(int id)
+        {
+            var domain = _dbContext.Set<Tag>().Find(id);
+            _dbContext.Set<Tag>().Remove(domain);
+            _dbContext.SaveChanges();
+        }
     }
 }

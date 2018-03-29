@@ -21,8 +21,6 @@ namespace SeedModules.MindPlus.Domain
         public void Configure(EntityTypeBuilder<WorkItemTag> builder)
         {
             builder.HasKey(e => new { e.TagId, e.WorkItemId });
-            // builder.HasOne(e => e.Tag).WithMany(e => e.WorkItems).HasForeignKey(e => e.TagId);
-            // builder.HasOne(e => e.WorkItem).WithMany(e => e.Tags).HasForeignKey(e => e.WorkItemId);
             builder.HasOne(e => e.Tag).WithMany(e => e.WorkItems).OnDelete(DeleteBehavior.ClientSetNull).HasForeignKey(e => e.TagId);
             builder.HasOne(e => e.WorkItem).WithMany(e => e.Tags).OnDelete(DeleteBehavior.ClientSetNull).HasForeignKey(e => e.WorkItemId);
         }

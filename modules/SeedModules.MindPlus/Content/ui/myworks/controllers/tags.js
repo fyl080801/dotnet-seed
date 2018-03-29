@@ -3,6 +3,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
 
   module.controller('SeedModules.MindPlus/ui/myworks/controllers/tags', [
     '$scope',
+    '$stateParams',
     '$modal',
     'app.services.popupService',
     'SeedModules.AngularUI/ui/services/requestService',
@@ -10,6 +11,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
     'SeedModules.AngularUI/ui/factories/schemaFormParams',
     function(
       $scope,
+      $stateParams,
       $modal,
       popupService,
       requestService,
@@ -17,17 +19,6 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       schemaFormParams
     ) {
       $scope.list = [];
-
-      // $scope.colors = [
-      //   '#428bca',
-      //   '#5cb85c',
-      //   '#5bc0de',
-      //   '#f0ad4e',
-      //   '#d9534f',
-      //   '#009688',
-      //   '#777',
-      //   '#000'
-      // ];
 
       var formParams = new schemaFormParams().properties({
         name: {
@@ -74,7 +65,14 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
               model: {}
             }
           })
-          .result.then(function(data) {});
+          .result.then(function(data) {
+            requestService
+              .url('/api/mindplus/tags')
+              .post($.extend(data, { mindWorkId: $stateParams.id }))
+              .then(function(result) {
+                $scope.load();
+              });
+          });
       };
 
       $scope.drop = function(row) {
