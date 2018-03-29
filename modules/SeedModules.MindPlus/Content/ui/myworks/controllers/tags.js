@@ -18,26 +18,37 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
     ) {
       $scope.list = [];
 
-      $scope.colors = [
-        '#428bca',
-        '#5cb85c',
-        '#5bc0de',
-        '#f0ad4e',
-        '#d9534f',
-        '#009688',
-        '#777',
-        '#000'
-      ];
+      // $scope.colors = [
+      //   '#428bca',
+      //   '#5cb85c',
+      //   '#5bc0de',
+      //   '#f0ad4e',
+      //   '#d9534f',
+      //   '#009688',
+      //   '#777',
+      //   '#000'
+      // ];
 
       var formParams = new schemaFormParams().properties({
         name: {
           title: '名称',
           type: 'string',
           required: true
+        },
+        color: {
+          title: '颜色',
+          type: 'string',
+          required: true
         }
       });
 
-      var form = ['name'];
+      var form = [
+        'name',
+        {
+          key: 'color',
+          type: 'simplecolor'
+        }
+      ];
 
       $scope.load = function() {
         requestService

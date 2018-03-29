@@ -4,25 +4,27 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
   configs
     .config([
       'schemaFormDecoratorsProvider',
+      'schemaFormProvider',
       'sfBuilderProvider',
       'sfPathProvider',
       function(
         schemaFormDecoratorsProvider,
+        schemaFormProvider,
         sfBuilderProvider,
         sfPathProvider
       ) {
-        var base = '/SeedModules.AngularUI/ui/templates/';
+        // var base = '/SeedModules.AngularUI/ui/templates/';
+        // var simpleTransclusion = sfBuilderProvider.builders.simpleTransclusion;
+        // var ngModelOptions = sfBuilderProvider.builders.ngModelOptions;
+        // var ngModel = sfBuilderProvider.builders.ngModel;
+        // var sfField = sfBuilderProvider.builders.sfField;
+        // var condition = sfBuilderProvider.builders.condition;
+        // var array = sfBuilderProvider.builders.array;
+        // var defaults = [sfField, ngModel, ngModelOptions, condition];
 
         var bootstrapDecorator = schemaFormDecoratorsProvider.decorator(
           'bootstrapDecorator'
         );
-
-        var simpleTransclusion = sfBuilderProvider.builders.simpleTransclusion;
-        var ngModelOptions = sfBuilderProvider.builders.ngModelOptions;
-        var ngModel = sfBuilderProvider.builders.ngModel;
-        var sfField = sfBuilderProvider.builders.sfField;
-        var condition = sfBuilderProvider.builders.condition;
-        var array = sfBuilderProvider.builders.array;
 
         var sfCompare = function(args) {
           if (args.form.compare) {
@@ -36,16 +38,15 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
             item.builder.push(sfCompare);
           }
         });
-
-        // schemaFormDecoratorsProvider.defineDecorator('seedDecorator', {});
-
-        // schemaFormDecoratorsProvider.defineAddOn(
-        //   'seedFormDecorators', // Name of the decorator you want to add to.
-        //   'seedForm', // Form type that should render this add-on
-        //   '', // Template name in $templateCache
-        //   sfBuilderProvider.stdBuilders // List of builder functions to apply.
-        // );
       }
     ])
-    .run(['$templateCache', function($templateCache) {}]);
+    .run([
+      '$templateCache',
+      function($templateCache) {
+        // $templateCache.put(
+        //   '/SeedModules.AngularUI/ui/templates/simplecolor.html',
+        //   'aaaaa'
+        // );
+      }
+    ]);
 });

@@ -14,6 +14,17 @@ html {
   -webkit-box-orient: vertical;
 }
 
+/* color */
+
+.colorpanel .col-xs-3,
+.colorpanel .col-xs-4 {
+  padding: 5px;
+}
+
+.colorpanel .btn {
+  width: 100%;
+}
+
 /* bs-callout */
 
 .bs-callout {
