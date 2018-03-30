@@ -1,15 +1,22 @@
 <div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/works">
     <div class="navbar navbar-static-top" style="margin: 0">
-        <div class="navbar-header" ng-show="$stateParams.parentid">
-            <div class="navbar-form">
-                <button class="btn btn-default" ng-click="back()">
-                    <i class="glyphicon glyphicon-level-up"></i>
-                    返回上一级
-                </button>
-            </div>
-        </div>
         <div class="navbar-header">
             <div class="navbar-form">
+                <div class="form-group has-feedback">
+                    <input class="form-control" placeholder="搜索...">
+                    <span class="form-control-feedback text-muted">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-form navbar-left text-muted">
+                <span class="form-control-static">搜索条件：</span>
+                <span class="form-control-static">无</span>
+            </div>
+
+            <div class="navbar-form navbar-right">
                 <button class="btn btn-primary" ng-click="create()">
                     <i class="glyphicon glyphicon-plus"></i>
                     新建项目
@@ -18,20 +25,22 @@
                     <i class="glyphicon glyphicon-plus"></i>
                     新建文件夹
                 </button>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="navbar-form navbar-right">
                 <button class="btn btn-default">
                     <i class="glyphicon glyphicon-list"></i>
                     批量操作
                 </button>
             </div>
+            <div class="navbar-form navbar-right" ng-show="$stateParams.parentid">
+                <button class="btn btn-default" ng-click="back()">
+                    <i class="glyphicon glyphicon-level-up"></i>
+                    返回上一级
+                </button>
+            </div>
         </div>
     </div>
     <div class="navbar navbar-static-top" style="margin: 0">
-        <div class="navbar-header">
-            <div class="navbar-form">
+        <div class="container-fluid">
+            <div class="navbar-form navbar-right">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         最后编辑
@@ -55,30 +64,15 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="navbar-form navbar-right">
-                <div class="input-group">
-                    <input class="form-control" placeholder="关键字">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="container-fluid">
         <table ng-table="tableParams" class="table table-striped table-hover">
             <colgroup>
+                <col/>
+                <col/>
                 <col width="45px" />
             </colgroup>
             <tr ng-repeat="row in $data">
-                <td title="'操作'">
-                    <a href="">
-                        <i class="glyphicon glyphicon-option-vertical"></i>
-                    </a>
-                </td>
                 <td title="'名称'">
                     <a ng-href="{{$appConfig.siteSettings.prefix + (row.isFolder ? '/SeedModules.MindPlus/Home/Works#/mymind/works/' : '/SeedModules.MindPlus/Home/Works#/workspace/') + row.id}}">
                         <i ng-class="{'fas fa-file fa-fw':!row.isFolder, 'fas fa-folder fa-fw':row.isFolder}"></i>
@@ -86,6 +80,11 @@
                     </a>
                 </td>
                 <td title="'修改时间'">{{row.modifyTime|date:'yyyy-MM-dd HH:mm'}}</td>
+                <td title="'操作'" class="text-center">
+                    <a href="">
+                        <i class="glyphicon glyphicon-option-vertical"></i>
+                    </a>
+                </td>
             </tr>
         </table>
     </div>

@@ -38,10 +38,10 @@ namespace SeedModules.MindPlus.Controllers
             _dbContext.SaveChanges();
         }
 
-        [HttpPatch, HandleResult]
-        public void Update([FromBody]Tag model)
+        [HttpPut("{id}"), HandleResult]
+        public void Update([FromBody]TagModel model, int id)
         {
-            var domain = _dbContext.Set<Tag>().Find(model.Id);
+            var domain = _dbContext.Set<Tag>().Find(id);
             domain.Color = model.Color;
             domain.Name = model.Name;
             _dbContext.SaveChanges();

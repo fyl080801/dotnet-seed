@@ -75,8 +75,37 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
           });
       };
 
+      $scope.edit = function(row) {
+        $modal
+          .open({
+            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            size: 'sm',
+            data: {
+              title: '编辑标签',
+              formParams: formParams,
+              form: form,
+              model: $.extend({}, row)
+            }
+          })
+          .result.then(function(data) {
+            requestService
+              .url('/api/mindplus/tags/' + row.id)
+              .put($.extend(data, { mindWorkId: $stateParams.id }))
+              .then(function(result) {
+                $scope.load();
+              });
+          });
+      };
+
       $scope.drop = function(row) {
-        popupService.confirm('是否删除标签？').ok(function() {});
+        popupService.confirm('是否删除标签？').ok(function() {
+          requestService
+            .url('/api/mindplus/tags/' + row.id)
+            .drop()
+            .then(function(result) {
+              $scope.load();
+            });
+        });
       };
     }
   ]);

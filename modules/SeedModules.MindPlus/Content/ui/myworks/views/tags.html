@@ -34,6 +34,9 @@
                     <a ng-href="{{'#/workspace/' + $stateParams.id + '/list?tag=' + row.id}}" class="text-primary">{{row.workItems}}</a>
                 </td>
                 <td>
+                    <a href="" class="text-primary" ng-show="row.id" ng-click="edit(row)">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
                     <a href="" class="text-danger" ng-show="row.id" ng-click="drop(row)">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
