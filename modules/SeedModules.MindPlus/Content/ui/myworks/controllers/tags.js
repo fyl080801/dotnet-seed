@@ -43,11 +43,11 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
 
       $scope.load = function() {
         requestService
-          .url('/api/mindplus/tags')
+          .url('/api/mindplus/tags/query')
           .options({
             showLoading: false
           })
-          .get()
+          .post({})
           .then(function(result) {
             $scope.list = result;
           });

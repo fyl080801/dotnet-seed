@@ -1,0 +1,37 @@
+<div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/workItem">
+    <div class="modal-body row">
+        <div class="col-md-9">
+            <p>
+                <h4 class="modal-title">
+                    {{$data.title}}
+                </h4>
+            </p>
+            <form name="theForm" sf-schema="formParams.schema()" sf-form="formFields" sf-options="formParams.options()" sf-model="$data.model">
+            </form>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>所属项目</label>
+            </div>
+            <div class="form-group">
+                <label>执行人</label>
+            </div>
+            <div class="form-group">
+                <label>状态</label>
+            </div>
+            <div class="form-group">
+                <label>优先级</label>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer clearfix">
+        <button class="btn btn-primary">
+            <i class="glyphicon glyphicon-ok-sign"></i>
+            确定
+        </button>
+        <button class="btn btn-default" ng-click="$dismiss()">
+            <i class="glyphicon glyphicon-remove-sign"></i>
+            取消
+        </button>
+    </div>
+</div>

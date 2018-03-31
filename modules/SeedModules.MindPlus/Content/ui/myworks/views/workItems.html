@@ -1,4 +1,4 @@
-<div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/worklist">
+<div ng-controller="SeedModules.MindPlus/ui/myworks/controllers/workItems">
     <div class="navbar navbar-static-top" style="margin: 0">
         <div class="navbar-header">
             <div class="navbar-form">
@@ -14,7 +14,7 @@
                 <span class="form-control-static">无</span>
             </div>
             <div class="navbar-form navbar-right">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary" ng-click="create()">
                     <i class="glyphicon glyphicon-plus"></i>
                     新建任务
                 </button>
@@ -58,8 +58,25 @@
                     标签
                     <span class="caret"></span>
                 </a>
-                <ul class="dropdown-menu">
-
+                <ul class="dropdown-menu" style="padding-top: 0">
+                    <li>
+                        <div class="navbar navbar-default navbar-static-top" style="margin-bottom: 10px">
+                            <div class="navbar-header">
+                                <div class="navbar-form">
+                                    <div class="form-group has-feedback">
+                                        <input class="form-control" placeholder="搜索...">
+                                        <span class="glyphicon glyphicon-search text-muted form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-stop"></i>
+                            aa
+                        </a>
+                    </li> -->
                 </ul>
             </li>
             <li role="presentation" class="dropdown pull-right">
@@ -91,5 +108,6 @@
             </li>
         </ul>
         <hr>
+
     </div>
 </div>

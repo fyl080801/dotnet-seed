@@ -19,8 +19,8 @@ namespace SeedModules.MindPlus.Controllers
             _dbContext = dbContext;
         }
 
-        [HttpGet, HandleResult]
-        public IList<TagModel> List()
+        [HttpPost("query"), HandleResult]
+        public IList<TagModel> List([FromBody]ListQueryModel model)
         {
             return _dbContext.Set<Tag>().OrderBy(e => e.Name).Select(e => new TagModel()
             {
