@@ -47,7 +47,7 @@ define(['app/application'], function(application) {
 
       $stateProvider.state('workspace.list', {
         url: '/list',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/worklist.html',
+        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/workItems.html',
         requires: [
           'SeedModules.AngularUI/ui/requires',
           'SeedModules.MindPlus/ui/myworks/requires'
