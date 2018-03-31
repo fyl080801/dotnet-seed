@@ -113,6 +113,59 @@ html {
   border-radius: 0 6px 6px;
 }
 
+.form-control-enabled,
+.form-control-enabled[disabled],
+.form-control-enabled[readonly] {
+  background-color: #fff;
+}
+
+/* tag input */
+
+.form-control.bootstrap-taginput {
+  height: auto;
+}
+
+.bootstrap-taginput input {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 6px;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
+}
+
+.bootstrap-taginput select {
+  display: none;
+}
+
+.bootstrap-taginput .dropdown-menu {
+  width: 100%;
+}
+
+.bootstrap-taginput span.tag {
+  margin-right: 5px;
+  color: white;
+}
+
+.bootstrap-taginput span.tag.label {
+  padding-top: 0.3em;
+  padding-right: 0.2em;
+  padding-bottom: 0.3em;
+  padding-left: 0.6em;
+}
+
+.bootstrap-taginput span.tag > span.remove {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.bootstrap-taginput span.tag > span.remove:after {
+  content: 'x';
+  padding: 0px 2px;
+}
+
 /*! ngTable v0.8.3 by Vitalii Savchuk(esvit666@gmail.com) - https://github.com/esvit/ng-table - New BSD License */
 
 .ng-table th {

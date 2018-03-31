@@ -2,25 +2,51 @@
     <div class="modal-body row">
         <div class="col-md-9">
             <p>
-                <h4 class="modal-title">
+                <h3 class="modal-title">
                     {{$data.title}}
-                </h4>
+                </h3>
             </p>
             <form name="theForm" sf-schema="formParams.schema()" sf-form="formFields" sf-options="formParams.options()" sf-model="$data.model">
             </form>
+            <div class="form-group">
+                <label>标签</label>
+                <div tag-input value-field="value" text-field="text" tag-options='queryCities' text-input="true" ng-disabled="testDisabled"
+                    placeholder="aaaa"></div>
+                <!-- <input class="form-control" ng-disabled="true">
+                <input type="checkbox" ng-model="testDisabled"> -->
+            </div>
         </div>
         <div class="col-md-3">
-            <div class="form-group">
-                <label>所属项目</label>
+            <div class="form-group has-feedback dropdown">
+                <label class="control-label">所属项目</label>
+                <input class="form-control form-control-enabled" data-toggle="dropdown" ng-readonly="true" placeholder="请选择...">
+                <span class="form-control-feedback">
+                    <i class="caret"></i>
+                </span>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a href="">项目1</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label">执行人</label>
+                <input class="form-control form-control-enabled" data-toggle="dropdown" ng-readonly="true" placeholder="请选择...">
+                <span class="form-control-feedback">
+                    <i class="caret"></i>
+                </span>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a href="">项目1</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="form-group has-feedback">
+                <label class="control-label">状态</label>
+                <select class="form-control"></select>
             </div>
             <div class="form-group">
-                <label>执行人</label>
-            </div>
-            <div class="form-group">
-                <label>状态</label>
-            </div>
-            <div class="form-group">
-                <label>优先级</label>
+                <label class="control-label">优先级</label>
             </div>
         </div>
     </div>

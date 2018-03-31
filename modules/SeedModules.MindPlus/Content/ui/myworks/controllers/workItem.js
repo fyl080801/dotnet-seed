@@ -14,6 +14,14 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       });
 
       $scope.formFields = ['title'];
+
+      $scope.queryCities = [
+        { value: 1, text: 'Amsterdam', continent: 'Europe' },
+        { value: 4, text: 'Washington', continent: 'America' },
+        { value: 7, text: 'Sydney', continent: 'Australia' },
+        { value: 10, text: 'Beijing', continent: 'Asia' },
+        { value: 13, text: 'Cairo', continent: 'Africa' }
+      ];
     }
   ]);
 });
