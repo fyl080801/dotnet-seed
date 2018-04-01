@@ -13,7 +13,12 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
         }
       });
 
-      $scope.formFields = ['title'];
+      $scope.formFields = [
+        {
+          key: 'title',
+          placeholder: '输入任务名称'
+        }
+      ];
 
       $scope.queryCities = [
         { value: 1, text: 'Amsterdam', continent: 'Europe' },
