@@ -10,7 +10,9 @@
             "name": "Gulp task",
             "program": "${workspaceFolder}/node_modules/gulp/bin/gulp.js",
             "args": [
-                "task"
+                "build",
+                "--src",
+                "/home/fyl/Source/dotnet-seed/src/Seed/modules"
             ]
         },
         {

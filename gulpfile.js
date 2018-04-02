@@ -41,7 +41,7 @@ gulp.task('build', function () {
             }
 
             getAllFiles(uipath, '.js').map(function (fullname) {
-                moduleOptions.paths[fullname.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '').replace('.js', '')] = fullname.replace(options.src, '').replace(/\\/g, '/').replace('.js', '');
+                moduleOptions.paths[fullname.replace(/\\/g, '/').replace(options.src + '/', '').replace(/\\/g, '/').replace('Content/', '').replace('.js', '')] = fullname.replace(options.src, '').replace(/\\/g, '/').replace('.js', '');
             });
         });
     });
@@ -49,14 +49,14 @@ gulp.task('build', function () {
     requiresOptions = JSON.parse(JSON.stringify(moduleOptions));
 
     modulePaths.map(function (folder) {
-        requiresOptions.exclude.push(folder.replace(options.src + '\\', '').replace(/\\/g, '/').replace('Content/', '') + '/module');
+        requiresOptions.exclude.push(folder.replace(/\\/g, '/').replace(options.src + '/', '').replace(/\\/g, '/').replace('Content/', '') + '/module');
     });
 
     modulePaths.map(function (folder) {
-        var distname = folder.replace(options.src + '\\', '').replace(/\\/g, '.');
-        var targetPath = path.join(folder.substring(0, folder.lastIndexOf('\\ui')), 'js');
-        var requireName = path.join(folder.replace(options.src + '\\', ''), 'requires');
-        var moduleName = path.join(folder.replace(options.src + '\\', ''), 'module');
+        var distname = folder.replace(options.src + '/', '').replace(/\//g, '.');
+        var targetPath = path.join(folder.substring(0, folder.lastIndexOf('/ui')), 'js');
+        var requireName = path.join(folder.replace(options.src + '/', ''), 'requires');
+        var moduleName = path.join(folder.replace(options.src + '/', ''), 'module');
 
         gulp.src(path.join(folder, '**/*.js'))
             .pipe(amdOptimize(requireName, requiresOptions))
