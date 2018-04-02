@@ -5,7 +5,7 @@
   -->
   <Target Name="ExecuteModuleGulp" AfterTargets="CopyPackageAssets">
     <Message Text="压缩模块脚本文件: $(MSBuildProjectName)" Importance="high" />
-    <Exec Command="gulp build --src $(MSBuildProjectDirectory)\modules" />
+    <Exec Command="gulp build --src $(MSBuildProjectDirectory)/modules" />
   </Target>
   <Target Name="CopyPackageAssets" AfterTargets="Build" Condition="'$(IgnorePackageAssets)' != 'true'">
     <ItemGroup>
