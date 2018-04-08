@@ -8,12 +8,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Design;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
 using Seed.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
@@ -88,7 +90,7 @@ namespace Seed.Data.Migrations
                 var lastMigration = _dbContext.Migrations.OrderByDescending(e => e.MigrationTime).FirstOrDefault();
                 lastModel = lastMigration == null ? null : (CreateModelSnapshot(lastMigration.SnapshotDefine).Result?.Model);
             }
-            catch (SqlException) { }
+            catch (DbException) { }
 
             // 需要从历史版本库中取出快照定义，反序列化成类型 GetDifferences(快照模型, context.Model);
             // 实际情况下要传入历史快照
@@ -174,7 +176,7 @@ namespace Seed.Data.Migrations
                 var engineState = await _engineStateManager.GetEngineStateAsync();
                 features = engineState.Features.Where(e => e.IsInstalled).Select(e => e.Id).ToArray();
             }
-            catch (SqlException)
+            catch (DbException)
             {
                 features = _engineDescriptor.Features.Select(e => e.Id).ToArray();
             }
