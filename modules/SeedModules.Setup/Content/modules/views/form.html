@@ -109,15 +109,53 @@
                 </fieldset>
             </div>
 
-            <div ng-show="data.DatabaseProvider==='MySql'">
-                <fieldset class="form-group col-md-12" ng-class="{ 'has-error': form.mysql_ConnectionString.$invalid }">
+            <div ng-show="data.DatabaseProvider==='MySql'" ng-init="initMySql()">
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mysql_Server.$invalid }">
                     <div>
-                        <label>连接字符串：</label>
-                        <span class="text-danger pull-right" ng-show="form.mysql_ConnectionString.$invalid">*连接字符串是必填的</span>
+                        <label>服务地址：</label>
+                        <span class="text-danger pull-right" ng-show="form.mysql_Server.$invalid">*服务地址是必填的</span>
                     </div>
                     <div>
-                        <input class="form-control" name="mysql_ConnectionString" placeholder="输入连接字符串" ng-model="mysql.ConnectionString" ng-required="data.DatabaseProvider==='MySql'"
+                        <input class="form-control" name="mysql_Server" placeholder="输入服务地址" ng-model="mysql.Server" ng-required="data.DatabaseProvider==='MySql'"
                         />
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mysql_Database.$invalid }">
+                    <div>
+                        <label>数据库名称：</label>
+                        <span class="text-danger pull-right" ng-show="form.mysql_Database.$invalid">*数据库名称是必填的</span>
+                    </div>
+                    <div>
+                        <input class="form-control" name="mysql_Database" placeholder="输入数据库名称" ng-model="mysql.Database" ng-required="data.DatabaseProvider==='MySql'"
+                        />
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mysql_Username.$invalid }">
+                    <div>
+                        <label>数据库账号：</label>
+                        <span class="text-danger pull-right" ng-show="form.mysql_Username.$invalid">*数据库账号是必填的</span>
+                    </div>
+                    <div>
+                        <input class="form-control" name="mysql_Username" placeholder="输入账号" ng-model="mysql.Username" ng-required="data.DatabaseProvider==='MySql'"
+                        />
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mysql_Password.$invalid }">
+                    <div>
+                        <label>数据库密码：</label>
+                        <span class="text-danger pull-right" ng-show="form.mysql_Password.$invalid">*数据库密码是必填的</span>
+                    </div>
+                    <div>
+                        <input type="password" class="form-control" name="mysql_Password" placeholder="输入密码" ng-model="mysql.Password" ng-required="data.DatabaseProvider==='MySql'"
+                        />
+                    </div>
+                </fieldset>
+                <fieldset class="form-group col-md-6">
+                    <div>
+                        <label>端口号：</label>
+                    </div>
+                    <div>
+                        <input class="form-control" name="mysql_Port" placeholder="输入端口号" ng-model="mysql.Port" />
                     </div>
                 </fieldset>
             </div>

@@ -46,10 +46,34 @@ define(['SeedModules.Saas/modules/module'], function(module) {
           required: true
         },
         // mysql
-        mySqlConnectionString: {
-          title: '连接字符串',
+        // mySqlConnectionString: {
+        //   title: '连接字符串',
+        //   type: 'string',
+        //   required: true
+        // },
+        mysql_Server: {
+          title: '服务地址',
           type: 'string',
           required: true
+        },
+        mysql_Database: {
+          title: '数据库名称',
+          type: 'string',
+          required: true
+        },
+        mysql_Username: {
+          title: '用户名',
+          type: 'string',
+          required: true
+        },
+        mysql_Password: {
+          title: '密码',
+          type: 'string',
+          required: true
+        },
+        mysql_Port: {
+          title: '端口号',
+          type: 'string'
         },
         // mssql
         mssql_Server: {
@@ -118,8 +142,41 @@ define(['SeedModules.Saas/modules/module'], function(module) {
           ]
         },
         {
-          key: 'mySqlConnectionString',
-          condition: "model.databaseProvider==='MySql'"
+          type: 'section',
+          htmlClass: 'row',
+          condition: "model.databaseProvider==='MySql'",
+          items: [
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: ['mysql_Server']
+            },
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: ['mysql_Database']
+            },
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: ['mysql_Username']
+            },
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: [
+                {
+                  key: 'mysql_Password',
+                  type: 'password'
+                }
+              ]
+            },
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: ['mysql_Port']
+            }
+          ]
         },
         {
           type: 'section',
@@ -184,7 +241,8 @@ define(['SeedModules.Saas/modules/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: 'SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              'SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '租户信息',
               formParams: $scope.formParams,
@@ -206,9 +264,23 @@ define(['SeedModules.Saas/modules/module'], function(module) {
                   data.mssql_Password +
                   ';';
                 break;
-              case 'MySql':
-                data.connectionString = data.mySqlConnectionString;
+              case 'MySql': {
+                data.connectionString =
+                  'server=' +
+                  data.mysql_Server +
+                  ';database=' +
+                  data.mysql_Database +
+                  ';uid=' +
+                  data.mysql_Username +
+                  ';pwd=' +
+                  data.mysql_Password +
+                  ';';
+                if (data.mysql_Port && data.mysql_Port !== '') {
+                  data.connectionString =
+                    data.connectionString + 'port=' + data.mysql_Port + ';';
+                }
                 break;
+              }
               default:
                 data.connectionString = '';
                 break;

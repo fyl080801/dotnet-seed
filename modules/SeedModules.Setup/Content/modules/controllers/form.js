@@ -35,6 +35,14 @@ define(['SeedModules.Setup/modules/module'], function(module) {
         $scope.mssql.Password = 'qazwsxedc';
       };
 
+      $scope.initMySql = function() {
+        $scope.mysql.Server = 'localhost';
+        $scope.mysql.Username = 'root';
+        $scope.mysql.Database = 'seeddb';
+        $scope.mysql.Password = '!QAZ2wsx';
+        $scope.mysql.Port = 3306;
+      };
+
       $scope.install = function() {
         switch ($scope.data.DatabaseProvider) {
           case 'SqlConnection':
@@ -49,9 +57,28 @@ define(['SeedModules.Setup/modules/module'], function(module) {
               $scope.mssql.Password +
               ';';
             break;
-          case 'MySql':
-            $scope.data.ConnectionString = $scope.mysql.ConnectionString;
+          case 'MySql': {
+            $scope.data.ConnectionString =
+              'server=' +
+              $scope.mysql.Server +
+              ';database=' +
+              $scope.mysql.Database +
+              ';uid=' +
+              $scope.mysql.Username +
+              ';pwd=' +
+              $scope.mysql.Password +
+              ';';
+
+            if ($scope.mysql.Port && $scope.mysql.Port !== '') {
+              $scope.data.ConnectionString =
+                $scope.data.ConnectionString +
+                'port=' +
+                $scope.mysql.Port +
+                ';';
+            }
+
             break;
+          }
           default:
             $scope.data.ConnectionString = '';
             break;
