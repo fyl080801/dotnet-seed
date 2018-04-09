@@ -7,13 +7,13 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
         restrict: 'EA',
         replace: true,
         template:
-          '<ul class="nav tree-view"> <li ng-repeat="item in treeData" ng-include="itemTemplateUrl || \'/SeedModules.AngularUI/modules/views/treeItem.html\'" ></li> </ul>',
+          '<ul class="tree-view"> <li ng-repeat="item in treeData" ng-include="itemTemplateUrl || \'/SeedModules.AngularUI/modules/views/treeItem.html\'" ></li> </ul>',
         scope: {
           treeData: '=',
           textField: '@',
           iconField: '@',
           childrenField: '@',
-          itemTemplateUrl: '@',
+          itemTemplateUrl: '=',
           itemClicked: '&',
           itemExtending: '&'
         },

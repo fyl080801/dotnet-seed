@@ -23,11 +23,8 @@
                 <span class="form-control-feedback">
                     <i class="caret"></i>
                 </span>
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li>
-                        <a href="">项目1</a>
-                    </li>
-                </ul>
+                <ul ng-tree tree-data="works" item-template-url="'/SeedModules.AngularUI/modules/templates/ngTreeItem.html'" class="list-group dropdown-menu dropdown-menu-right"
+                    style="padding: 0"></ul>
             </div>
             <div class="form-group has-feedback">
                 <label class="control-label">执行人</label>
