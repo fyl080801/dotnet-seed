@@ -2,12 +2,12 @@
   "references": {
     "SeedModules.MindPlus/modules/myworks/module": {
       "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.myworks.module",
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.myworks.module",
       "isDist": true
     },
     "SeedModules.MindPlus/modules/myworks/requires": {
       "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.myworks.requires",
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.myworks.requires",
       "shim": {
         "deps": ["SeedModules.MindPlus/modules/myworks/module"]
       },

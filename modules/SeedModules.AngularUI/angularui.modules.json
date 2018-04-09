@@ -54,12 +54,12 @@
 
     "SeedModules.AngularUI/modules/module": {
       "path":
-        "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.ui.module",
+        "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.modules.module",
       "isDist": true
     },
     "SeedModules.AngularUI/modules/requires": {
       "path":
-        "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.ui.requires",
+        "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.modules.requires",
       "shim": {
         "deps": ["SeedModules.AngularUI/modules/module"]
       },

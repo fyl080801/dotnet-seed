@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="admin.ui.dev.json">
+    <None Update="admin.modules.dev.json">
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
-    <None Update="admin.ui.dist.json">
+    <None Update="admin.modules.dist.json">
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
   </ItemGroup>

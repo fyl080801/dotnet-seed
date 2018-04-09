@@ -1,11 +1,11 @@
 {
     "references": {
         "SeedModules.Features/modules/module": {
-            "path": "SeedModules.Features/js/SeedModules.Features.Content.ui.module",
+            "path": "SeedModules.Features/js/SeedModules.Features.Content.modules.module",
             "isDist": true
         },
         "SeedModules.Features/modules/requires": {
-            "path": "SeedModules.Features/js/SeedModules.Features.Content.ui.requires",
+            "path": "SeedModules.Features/js/SeedModules.Features.Content.modules.requires",
             "shim": {
                 "deps": ["SeedModules.Features/modules/module"]
             },

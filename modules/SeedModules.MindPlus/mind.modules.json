@@ -2,12 +2,12 @@
   "references": {
     "SeedModules.MindPlus/modules/mind/module": {
       "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.mind.module",
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.mind.module",
       "isDist": true
     },
     "SeedModules.MindPlus/modules/mind/requires": {
       "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.mind.requires",
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.mind.requires",
       "shim": {
         "deps": ["SeedModules.MindPlus/modules/mind/module"]
       },

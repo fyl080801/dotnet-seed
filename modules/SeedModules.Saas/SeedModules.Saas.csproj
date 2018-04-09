@@ -7,10 +7,10 @@
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="saas.ui.dev.json">
+    <None Update="saas.modules.dev.json">
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
-    <None Update="saas.ui.dist.json">
+    <None Update="saas.modules.dist.json">
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
   </ItemGroup>

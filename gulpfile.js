@@ -28,7 +28,7 @@ gulp.task('build', function() {
     };
 
   getFolders(moduleOptions.baseUrl).map(function(folder) {
-    getFiles(path.join(moduleOptions.baseUrl, folder), '.ui.json').map(function(
+    getFiles(path.join(moduleOptions.baseUrl, folder), '.modules.json').map(function(
       file
     ) {
       var uidef = JSON.parse(

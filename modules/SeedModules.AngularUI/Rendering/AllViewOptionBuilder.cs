@@ -65,7 +65,7 @@ namespace SeedModules.AngularUI.Rendering
         protected virtual Task<IEnumerable<ViewReference>> GetViewReferences(IPluginInfo pluginInfo)
         {
             var uiFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
-                .Where(x => !x.IsDirectory && x.Name.EndsWith(".ui.json"));
+                .Where(x => !x.IsDirectory && x.Name.EndsWith(".modules.json"));
             var uiReferences = new List<ViewReference>();
 
             if (uiFiles.Any())

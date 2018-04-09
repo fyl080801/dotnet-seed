@@ -2,12 +2,12 @@
   "references": {
     "SeedModules.InPathTest/modules/module": {
       "path":
-        "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.ui.module",
+        "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.modules.module",
       "isDist": true
     },
     "SeedModules.InPathTest/modules/requires": {
       "path":
-        "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.ui.requires",
+        "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.modules.requires",
       "shim": {
         "deps": ["SeedModules.InPathTest/modules/module"]
       },

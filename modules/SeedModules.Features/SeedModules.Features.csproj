@@ -8,7 +8,7 @@
     <ProjectReference Include="..\SeedModules.Project\SeedModules.Project.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="saas.ui.json">
+    <None Update="saas.modules.json">
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
   </ItemGroup>

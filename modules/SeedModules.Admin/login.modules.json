@@ -1,12 +1,12 @@
 {
   "references": {
     "SeedModules.Admin/modules/login/module": {
-      "path": "SeedModules.Admin/js/SeedModules.Admin.Content.ui.login.module",
+      "path": "SeedModules.Admin/js/SeedModules.Admin.Content.modules.login.module",
       "isDist": true
     },
     "SeedModules.Admin/modules/login/requires": {
       "path":
-        "SeedModules.Admin/js/SeedModules.Admin.Content.ui.login.requires",
+        "SeedModules.Admin/js/SeedModules.Admin.Content.modules.login.requires",
       "shim": {
         "deps": ["SeedModules.Admin/modules/login/module"]
       },
