@@ -1,4 +1,4 @@
-define(['SeedModules.Admin/ui/admin/module'], function(module) {
+define(['SeedModules.Admin/modules/admin/module'], function(module) {
   'use strict';
 
   module.directive('sidebarNav', [
@@ -44,7 +44,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         restrict: 'AE',
         replace: true,
         template:
-          '<ul><li class="sidebar-item" ng-repeat="item in navData" ng-include="\'/SeedModules.Admin/ui/admin/templates/navItem.html\'"></li></ul>',
+          '<ul><li class="sidebar-item" ng-repeat="item in navData" ng-include="\'/SeedModules.Admin/modules/admin/templates/navItem.html\'"></li></ul>',
         scope: {
           navData: '='
         },

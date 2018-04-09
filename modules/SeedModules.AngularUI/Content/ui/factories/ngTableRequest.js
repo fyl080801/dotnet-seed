@@ -1,10 +1,10 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
-  module.factory('SeedModules.AngularUI/ui/factories/ngTableRequest', [
+  module.factory('SeedModules.AngularUI/modules/factories/ngTableRequest', [
     '$location',
-    'SeedModules.AngularUI/ui/factories/ngTableParams',
-    'SeedModules.AngularUI/ui/services/requestService',
+    'SeedModules.AngularUI/modules/factories/ngTableParams',
+    'SeedModules.AngularUI/modules/services/requestService',
     function($location, ngTableParams, requestService) {
       function getData(params, requestOptions) {
         var query = $location.search(requestOptions.url);

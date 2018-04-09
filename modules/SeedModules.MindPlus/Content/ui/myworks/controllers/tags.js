@@ -1,14 +1,14 @@
-define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
+define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.MindPlus/ui/myworks/controllers/tags', [
+  module.controller('SeedModules.MindPlus/modules/myworks/controllers/tags', [
     '$scope',
     '$stateParams',
     '$modal',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/ngTableRequest',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/ngTableRequest',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function(
       $scope,
       $stateParams,
@@ -56,7 +56,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '新建标签',
@@ -78,7 +78,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       $scope.edit = function(row) {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '编辑标签',

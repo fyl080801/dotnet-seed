@@ -1,16 +1,16 @@
-define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
+define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.MindPlus/ui/myworks/controllers/workspace', [
+  module.controller('SeedModules.MindPlus/modules/myworks/controllers/workspace', [
     '$scope',
     '$modal',
     '$state',
     '$stateParams',
     '$appConfig',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/ngTableRequest',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/ngTableRequest',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function(
       $scope,
       $modal,

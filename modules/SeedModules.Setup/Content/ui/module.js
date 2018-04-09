@@ -1,4 +1,4 @@
-define(['app/application', 'SeedModules.AngularUI/ui/module'], function(
+define(['app/application', 'SeedModules.AngularUI/modules/module'], function(
   application
 ) {
   'use strict';
@@ -13,10 +13,10 @@ define(['app/application', 'SeedModules.AngularUI/ui/module'], function(
 
       $stateProvider.state('setup', {
         url: '/setup',
-        templateUrl: 'SeedModules.Setup/ui/views/form.html',
+        templateUrl: 'SeedModules.Setup/modules/views/form.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.Setup/ui/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.Setup/modules/requires'
         ]
       });
     }

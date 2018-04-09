@@ -1,8 +1,8 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
   module.controller(
-    'SeedModules.AngularUI/ui/controllers/ngTableSorterRow',
+    'SeedModules.AngularUI/modules/controllers/ngTableSorterRow',
     [
       '$scope',
       function($scope) {

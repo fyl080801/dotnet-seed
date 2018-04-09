@@ -1,19 +1,19 @@
 {
   "references": {
-    "SeedModules.Saas/ui/module": {
+    "SeedModules.Saas/modules/module": {
       "path": "SeedModules.Saas/js/SeedModules.Saas.Content.ui.module",
       "isDist": true
     },
-    "SeedModules.Saas/ui/requires": {
+    "SeedModules.Saas/modules/requires": {
       "path": "SeedModules.Saas/js/SeedModules.Saas.Content.ui.requires",
       "shim": {
-        "deps": ["SeedModules.Saas/ui/module"]
+        "deps": ["SeedModules.Saas/modules/module"]
       },
       "isDist": true
     }
   },
   "requires": [
-    "SeedModules.Saas/ui/module"
+    "SeedModules.Saas/modules/module"
   ],
-  "path": "Content/ui"
+  "path": "Content/modules"
 }

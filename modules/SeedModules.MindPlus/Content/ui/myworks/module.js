@@ -11,64 +11,64 @@ define(['app/application'], function(application) {
 
       $stateProvider.state('mymind', {
         url: '/mymind',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/mymind.html',
+        templateUrl: '/SeedModules.MindPlus/modules/myworks/views/mymind.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/myworks/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
 
       $stateProvider.state('mymind.works', {
         url: '/works/{parentid}',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/works.html',
+        templateUrl: '/SeedModules.MindPlus/modules/myworks/views/works.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/myworks/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
 
       $stateProvider.state('mymind.trash', {
         url: '/trash',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/trash.html',
+        templateUrl: '/SeedModules.MindPlus/modules/myworks/views/trash.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/myworks/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
 
       $stateProvider.state('workspace', {
         url: '/workspace/{id}',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/workspace.html',
+        templateUrl: '/SeedModules.MindPlus/modules/myworks/views/workspace.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/myworks/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
 
       $stateProvider.state('workspace.list', {
         url: '/list',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/workItems.html',
+        templateUrl: '/SeedModules.MindPlus/modules/myworks/views/workItems.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/myworks/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
 
       $stateProvider.state('workspace.settings', {
         url: '/settings',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/settings.html',
+        templateUrl: '/SeedModules.MindPlus/modules/myworks/views/settings.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/myworks/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
 
       $stateProvider.state('workspace.tags', {
         url: '/tags',
-        templateUrl: '/SeedModules.MindPlus/ui/myworks/views/tags.html',
+        templateUrl: '/SeedModules.MindPlus/modules/myworks/views/tags.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/myworks/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
     }

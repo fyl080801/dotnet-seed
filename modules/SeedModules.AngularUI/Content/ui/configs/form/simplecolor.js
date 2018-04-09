@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/configs', 'schema-form-bootstrap'], function(
+define(['SeedModules.AngularUI/modules/configs', 'schema-form-bootstrap'], function(
   configs
 ) {
   'use strict';
@@ -14,7 +14,7 @@ define(['SeedModules.AngularUI/ui/configs', 'schema-form-bootstrap'], function(
       sfBuilderProvider,
       sfPathProvider
     ) {
-      var base = '/SeedModules.AngularUI/ui/templates/';
+      var base = '/SeedModules.AngularUI/modules/templates/';
 
       var simplecolor = function(name, schema, options) {
         if (schema.type === 'string' && schema.format == 'html') {

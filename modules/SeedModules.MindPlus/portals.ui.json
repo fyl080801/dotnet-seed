@@ -1,19 +1,19 @@
 {
   "references": {
-    "SeedModules.MindPlus/ui/portals/module": {
+    "SeedModules.MindPlus/modules/portals/module": {
       "path":
         "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.portals.module",
       "isDist": true
     },
-    "SeedModules.MindPlus/ui/portals/requires": {
+    "SeedModules.MindPlus/modules/portals/requires": {
       "path":
         "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.portals.requires",
       "shim": {
-        "deps": ["SeedModules.MindPlus/ui/portals/module"]
+        "deps": ["SeedModules.MindPlus/modules/portals/module"]
       },
       "isDist": true
     }
   },
-  "requires": ["SeedModules.MindPlus/ui/portals/module"],
-  "path": "Content/ui/portals"
+  "requires": ["SeedModules.MindPlus/modules/portals/module"],
+  "path": "Content/modules/portals"
 }

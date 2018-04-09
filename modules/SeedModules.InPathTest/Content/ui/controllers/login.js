@@ -1,10 +1,10 @@
-define(['SeedModules.InPathTest/ui/module'], function(module) {
+define(['SeedModules.InPathTest/modules/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.InPathTest/ui/controllers/login', [
+  module.controller('SeedModules.InPathTest/modules/controllers/login', [
     '$scope',
     '$location',
-    'SeedModules.AngularUI/ui/services/requestService',
+    'SeedModules.AngularUI/modules/services/requestService',
     function($scope, $location, requestService) {
       $scope.data = {};
 

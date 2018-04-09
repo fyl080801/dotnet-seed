@@ -1,4 +1,4 @@
-define(['SeedModules.Admin/ui/login/controllers/login'], function() {
+define(['SeedModules.Admin/modules/login/controllers/login'], function() {
   'use strict';
 
 });

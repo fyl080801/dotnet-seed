@@ -1,22 +1,22 @@
 {
   "references": {
-    "SeedModules.InPathTest/ui/module": {
+    "SeedModules.InPathTest/modules/module": {
       "path":
         "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.ui.module",
       "isDist": true
     },
-    "SeedModules.InPathTest/ui/requires": {
+    "SeedModules.InPathTest/modules/requires": {
       "path":
         "SeedModules.InPathTest/js/SeedModules.InPathTest.Content.ui.requires",
       "shim": {
-        "deps": ["SeedModules.InPathTest/ui/module"]
+        "deps": ["SeedModules.InPathTest/modules/module"]
       },
       "isDist": true
     }
   },
   "requires": [
     "rcss!SeedModules.Admin/css/seed-admin.css",
-    "SeedModules.InPathTest/ui/module"
+    "SeedModules.InPathTest/modules/module"
   ],
-  "path": "Content/ui"
+  "path": "Content/modules"
 }

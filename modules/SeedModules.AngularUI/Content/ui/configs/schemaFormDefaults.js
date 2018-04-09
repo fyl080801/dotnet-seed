@@ -1,7 +1,7 @@
-define(['SeedModules.AngularUI/ui/configs'], function(configs) {
+define(['SeedModules.AngularUI/modules/configs'], function(configs) {
   'use strict';
 
-  configs.value('SeedModules.AngularUI/ui/configs/schemaFormDefaults', {
+  configs.value('SeedModules.AngularUI/modules/configs/schemaFormDefaults', {
     schema: {},
     options: {
       validateOnRender: true,

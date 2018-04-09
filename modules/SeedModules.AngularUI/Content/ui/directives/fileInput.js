@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
   module.directive('fileInput', [

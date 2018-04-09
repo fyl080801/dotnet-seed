@@ -1,16 +1,16 @@
-define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
+define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.MindPlus/ui/myworks/controllers/works', [
+  module.controller('SeedModules.MindPlus/modules/myworks/controllers/works', [
     '$scope',
     '$modal',
     '$state',
     '$stateParams',
     '$appConfig',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/ngTableRequest',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/ngTableRequest',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function(
       $scope,
       $modal,
@@ -53,7 +53,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '新建项目',
               formParams: $scope.formParams,
@@ -75,7 +75,7 @@ define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
       $scope.addfolder = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '新建文件夹',
               formParams: $scope.formParams,

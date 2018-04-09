@@ -1,4 +1,4 @@
-define(['SeedModules.Setup/ui/controllers/form'], function() {
+define(['SeedModules.Setup/modules/controllers/form'], function() {
   'use strict';
 
 });

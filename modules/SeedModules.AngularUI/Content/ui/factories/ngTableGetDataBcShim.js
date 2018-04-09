@@ -1,7 +1,7 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
-  module.factory('SeedModules.AngularUI/ui/factories/ngTableGetDataBcShim', [
+  module.factory('SeedModules.AngularUI/modules/factories/ngTableGetDataBcShim', [
     '$q',
     function($q) {
       return createWrapper;

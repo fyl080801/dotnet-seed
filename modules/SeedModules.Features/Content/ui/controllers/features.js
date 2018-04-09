@@ -1,10 +1,10 @@
-define(['SeedModules.Features/ui/module'], function(module) {
+define(['SeedModules.Features/modules/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Features/ui/controllers/features', [
+  module.controller('SeedModules.Features/modules/controllers/features', [
     '$scope',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/ngTableParams',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/ngTableParams',
     function($scope, requestService, ngTableParams) {
       $scope.list = [];
 

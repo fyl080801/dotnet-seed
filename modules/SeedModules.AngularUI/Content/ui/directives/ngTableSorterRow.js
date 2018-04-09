@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
   module.directive('ngTableSorterRow', [
@@ -8,7 +8,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
         replace: true,
         templateUrl: 'ng-table/sorterRow.html',
         scope: true,
-        controller: 'SeedModules.AngularUI/ui/controllers/ngTableSorterRow'
+        controller: 'SeedModules.AngularUI/modules/controllers/ngTableSorterRow'
       };
       return directive;
     }

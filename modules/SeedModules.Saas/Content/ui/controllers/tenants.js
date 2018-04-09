@@ -1,13 +1,13 @@
-define(['SeedModules.Saas/ui/module'], function(module) {
+define(['SeedModules.Saas/modules/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Saas/ui/controllers/tenants', [
+  module.controller('SeedModules.Saas/modules/controllers/tenants', [
     '$scope',
     '$modal',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/factories/ngTableRequest',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/factories/ngTableRequest',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function(
       $scope,
       $modal,
@@ -184,7 +184,7 @@ define(['SeedModules.Saas/ui/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: 'SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '租户信息',
               formParams: $scope.formParams,

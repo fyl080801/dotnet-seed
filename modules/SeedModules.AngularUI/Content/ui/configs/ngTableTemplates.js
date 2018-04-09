@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/configs'], function(configs) {
+define(['SeedModules.AngularUI/modules/configs'], function(configs) {
   'use strict';
 
   configs.run([

@@ -1,16 +1,16 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.AngularUI/ui/controllers/ngTable', [
+  module.controller('SeedModules.AngularUI/modules/controllers/ngTable', [
     '$scope',
     '$timeout',
     '$parse',
     '$compile',
     '$attrs',
     '$element',
-    'SeedModules.AngularUI/ui/factories/ngTableParams',
-    'SeedModules.AngularUI/ui/factories/ngTableColumn',
-    'SeedModules.AngularUI/ui/factories/ngTableEventsChannel',
+    'SeedModules.AngularUI/modules/factories/ngTableParams',
+    'SeedModules.AngularUI/modules/factories/ngTableColumn',
+    'SeedModules.AngularUI/modules/factories/ngTableEventsChannel',
     function(
       $scope,
       $timeout,

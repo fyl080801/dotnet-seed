@@ -4,5 +4,5 @@
     <i class="fas fa-angle-right sidebar-more" ng-if="!isLeaf(item)"></i>
 </a>
 <ul ng-if="!isLeaf(item)">
-    <li ng-repeat="item in item.children" ng-include="'/SeedModules.Admin/ui/admin/templates/navItem.html'"></li>
+    <li ng-repeat="item in item.children" ng-include="'/SeedModules.Admin/modules/admin/templates/navItem.html'"></li>
 </ul>

@@ -1,9 +1,9 @@
-define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
+define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.MindPlus/ui/myworks/controllers/workItem', [
+  module.controller('SeedModules.MindPlus/modules/myworks/controllers/workItem', [
     '$scope',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function($scope, schemaFormParams) {
       $scope.formParams = new schemaFormParams().properties({
         title: {

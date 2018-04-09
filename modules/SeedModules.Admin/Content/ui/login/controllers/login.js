@@ -1,10 +1,10 @@
-define(['SeedModules.Admin/ui/login/module'], function(module) {
+define(['SeedModules.Admin/modules/login/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Admin/ui/login/controllers/login', [
+  module.controller('SeedModules.Admin/modules/login/controllers/login', [
     '$scope',
     '$location',
-    'SeedModules.AngularUI/ui/services/requestService',
+    'SeedModules.AngularUI/modules/services/requestService',
     function($scope, $location, requestService) {
       $scope.data = {};
 

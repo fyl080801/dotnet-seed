@@ -1,8 +1,8 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
-  module.factory('SeedModules.AngularUI/ui/factories/schemaFormParams', [
-    'SeedModules.AngularUI/ui/configs/schemaFormDefaults',
+  module.factory('SeedModules.AngularUI/modules/factories/schemaFormParams', [
+    'SeedModules.AngularUI/modules/configs/schemaFormDefaults',
     function(schemaFormDefaults) {
       var schemaFormParams = function(baseSchema, baseOptions) {
         var self = this;

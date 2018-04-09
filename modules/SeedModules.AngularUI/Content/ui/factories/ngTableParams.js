@@ -1,13 +1,13 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
-  module.factory('SeedModules.AngularUI/ui/factories/ngTableParams', [
+  module.factory('SeedModules.AngularUI/modules/factories/ngTableParams', [
     '$q',
     '$log',
-    'SeedModules.AngularUI/ui/configs/ngTableDefaults',
-    'SeedModules.AngularUI/ui/factories/ngTableGetDataBcShim',
-    'SeedModules.AngularUI/ui/providers/ngTableDefaultGetData',
-    'SeedModules.AngularUI/ui/factories/ngTableEventsChannel',
+    'SeedModules.AngularUI/modules/configs/ngTableDefaults',
+    'SeedModules.AngularUI/modules/factories/ngTableGetDataBcShim',
+    'SeedModules.AngularUI/modules/providers/ngTableDefaultGetData',
+    'SeedModules.AngularUI/modules/factories/ngTableEventsChannel',
     function(
       $q,
       $log,

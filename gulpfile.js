@@ -37,7 +37,7 @@ gulp.task('build', function() {
       var uipath = path.join(
         moduleOptions.baseUrl,
         folder,
-        uidef.path ? uidef.path : 'Content/ui'
+        uidef.path ? uidef.path : 'Content/modules'
       );
 
       modulePaths.push(uipath);
@@ -78,7 +78,7 @@ gulp.task('build', function() {
       .replace(/\//g, '.')
       .replace(/\\/g, '.');
     var targetPath = path.join(
-      folder.substring(0, folder.lastIndexOf(path.join('/ui', ''))),
+      folder.substring(0, folder.lastIndexOf(path.join('/modules', ''))),
       'js'
     );
     var requireName = path

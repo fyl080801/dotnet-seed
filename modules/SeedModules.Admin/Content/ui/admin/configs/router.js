@@ -1,4 +1,4 @@
-define(['SeedModules.Admin/ui/admin/configs'], function(configs) {
+define(['SeedModules.Admin/modules/admin/configs'], function(configs) {
   'use strict';
 
   configs.run([

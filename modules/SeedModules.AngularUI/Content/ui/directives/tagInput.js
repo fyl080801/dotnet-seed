@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
   module.directive('tagInput', [
@@ -26,7 +26,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
           textInput: '@',
           placeholder: '@placeholder'
         },
-        templateUrl: '/SeedModules.AngularUI/ui/templates/tagInput.html',
+        templateUrl: '/SeedModules.AngularUI/modules/templates/tagInput.html',
         replace: true,
         link: function(scope, element, attrs) {
           scope.getText = function(tag) {

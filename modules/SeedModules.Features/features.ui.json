@@ -1,19 +1,19 @@
 {
     "references": {
-        "SeedModules.Features/ui/module": {
+        "SeedModules.Features/modules/module": {
             "path": "SeedModules.Features/js/SeedModules.Features.Content.ui.module",
             "isDist": true
         },
-        "SeedModules.Features/ui/requires": {
+        "SeedModules.Features/modules/requires": {
             "path": "SeedModules.Features/js/SeedModules.Features.Content.ui.requires",
             "shim": {
-                "deps": ["SeedModules.Features/ui/module"]
+                "deps": ["SeedModules.Features/modules/module"]
             },
             "isDist": true
         }
     },
     "requires": [
-        "SeedModules.Features/ui/module"
+        "SeedModules.Features/modules/module"
     ],
-    "path": "Content/ui"
+    "path": "Content/modules"
 }

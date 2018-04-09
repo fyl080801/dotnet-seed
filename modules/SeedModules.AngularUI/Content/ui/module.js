@@ -1,13 +1,13 @@
 define([
   'app/application',
-  'SeedModules.AngularUI/ui/configs/httpConfig',
-  'SeedModules.AngularUI/ui/configs/location',
-  'SeedModules.AngularUI/ui/configs/ngTableDefaults',
-  'SeedModules.AngularUI/ui/configs/ngTableTemplates',
-  'SeedModules.AngularUI/ui/configs/schemaFormDefaults',
-  'SeedModules.AngularUI/ui/configs/schemaForm',
-  'SeedModules.AngularUI/ui/configs/form/simplecolor',
-  'SeedModules.AngularUI/ui/providers/ngTableDefaultGetData'
+  'SeedModules.AngularUI/modules/configs/httpConfig',
+  'SeedModules.AngularUI/modules/configs/location',
+  'SeedModules.AngularUI/modules/configs/ngTableDefaults',
+  'SeedModules.AngularUI/modules/configs/ngTableTemplates',
+  'SeedModules.AngularUI/modules/configs/schemaFormDefaults',
+  'SeedModules.AngularUI/modules/configs/schemaForm',
+  'SeedModules.AngularUI/modules/configs/form/simplecolor',
+  'SeedModules.AngularUI/modules/providers/ngTableDefaultGetData'
 ], function(application) {
   'use strict';
 

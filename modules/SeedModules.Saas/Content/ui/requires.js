@@ -1,8 +1,8 @@
 define([
-  'SeedModules.Saas/ui/controllers/tenants',
-  'SeedModules.Saas/ui/controllers/projects',
-  'SeedModules.Saas/ui/controllers/datasources',
-  'SeedModules.Saas/ui/filters/tenantState'
+  'SeedModules.Saas/modules/controllers/tenants',
+  'SeedModules.Saas/modules/controllers/projects',
+  'SeedModules.Saas/modules/controllers/datasources',
+  'SeedModules.Saas/modules/filters/tenantState'
 ], function() {
   'use strict';
 

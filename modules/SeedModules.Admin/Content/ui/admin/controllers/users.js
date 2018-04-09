@@ -1,15 +1,15 @@
-define(['SeedModules.Admin/ui/admin/module'], function(module) {
+define(['SeedModules.Admin/modules/admin/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Admin/ui/admin/controllers/users', [
+  module.controller('SeedModules.Admin/modules/admin/controllers/users', [
     '$scope',
     '$modal',
     '$q',
     '$timeout',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/ngTableRequest',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/ngTableRequest',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function(
       $scope,
       $modal,
@@ -112,7 +112,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: 'SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '新建用户',
               formParams: $scope.formParams,
@@ -132,7 +132,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       $scope.resetPassword = function(row) {
         $modal
           .open({
-            templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: 'SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '重置密码',

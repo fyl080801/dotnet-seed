@@ -11,10 +11,10 @@ define(['app/application'], function(application) {
 
       $stateProvider.state('login', {
         url: '/login',
-        templateUrl: '/SeedModules.InPathTest/ui/views/login.html',
+        templateUrl: '/SeedModules.InPathTest/modules/views/login.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.InPathTest/ui/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.InPathTest/modules/requires'
         ]
       });
     }

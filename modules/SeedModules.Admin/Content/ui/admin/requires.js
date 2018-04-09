@@ -1,12 +1,12 @@
 ﻿define([
-  'SeedModules.Admin/ui/admin/directives/sidebar',
-  'SeedModules.Admin/ui/admin/directives/sidebarNav',
-  'SeedModules.Admin/ui/admin/controllers/admin',
-  'SeedModules.Admin/ui/admin/controllers/dashboard',
-  'SeedModules.Admin/ui/admin/controllers/users',
-  'SeedModules.Admin/ui/admin/controllers/roles',
-  'SeedModules.Admin/ui/admin/controllers/members',
-  'SeedModules.Admin/ui/admin/controllers/settings'
+  'SeedModules.Admin/modules/admin/directives/sidebar',
+  'SeedModules.Admin/modules/admin/directives/sidebarNav',
+  'SeedModules.Admin/modules/admin/controllers/admin',
+  'SeedModules.Admin/modules/admin/controllers/dashboard',
+  'SeedModules.Admin/modules/admin/controllers/users',
+  'SeedModules.Admin/modules/admin/controllers/roles',
+  'SeedModules.Admin/modules/admin/controllers/members',
+  'SeedModules.Admin/modules/admin/controllers/settings'
 ], function() {
   'use strict';
 

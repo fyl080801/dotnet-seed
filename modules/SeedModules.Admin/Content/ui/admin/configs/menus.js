@@ -1,9 +1,9 @@
-define(['SeedModules.Admin/ui/admin/configs'], function(configs) {
+define(['SeedModules.Admin/modules/admin/configs'], function(configs) {
   'use strict';
 
   configs.run([
     '$state',
-    'SeedModules.Admin/ui/admin/configs/nav',
+    'SeedModules.Admin/modules/admin/configs/nav',
     function($state, nav) {
       nav.add({
         text: '系统管理',

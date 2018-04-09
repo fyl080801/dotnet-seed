@@ -1,7 +1,7 @@
-define(['SeedModules.Admin/ui/admin/module'], function(module) {
+define(['SeedModules.Admin/modules/admin/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Admin/ui/admin/controllers/settings', [
+  module.controller('SeedModules.Admin/modules/admin/controllers/settings', [
     '$scope',
     function($scope) {}
   ]);

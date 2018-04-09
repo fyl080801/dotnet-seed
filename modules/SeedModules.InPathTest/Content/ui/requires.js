@@ -1,4 +1,4 @@
-define(['SeedModules.InPathTest/ui/controllers/login'], function() {
+define(['SeedModules.InPathTest/modules/controllers/login'], function() {
   'use strict';
 
 });

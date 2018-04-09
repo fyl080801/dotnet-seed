@@ -11,10 +11,10 @@ define(['app/application'], function(application) {
 
       $stateProvider.state('mindPlus', {
         url: '/',
-        templateUrl: '/SeedModules.MindPlus/ui/portals/views/index.html',
+        templateUrl: '/SeedModules.MindPlus/modules/portals/views/index.html',
         requires: [
-          'SeedModules.AngularUI/ui/requires',
-          'SeedModules.MindPlus/ui/portals/requires'
+          'SeedModules.AngularUI/modules/requires',
+          'SeedModules.MindPlus/modules/portals/requires'
         ]
       });
     }

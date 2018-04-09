@@ -1,4 +1,4 @@
-define(['SeedModules.Admin/ui/admin/module'], function(module) {
+define(['SeedModules.Admin/modules/admin/module'], function(module) {
   'use strict';
 
   module.directive('sidebar', [

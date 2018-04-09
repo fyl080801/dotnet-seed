@@ -1,9 +1,9 @@
 ﻿define([
   'app/application',
   'schema-form-bootstrap',
-  'SeedModules.Admin/ui/admin/configs/nav',
-  'SeedModules.Admin/ui/admin/configs/menus',
-  'SeedModules.Admin/ui/admin/configs/router'
+  'SeedModules.Admin/modules/admin/configs/nav',
+  'SeedModules.Admin/modules/admin/configs/menus',
+  'SeedModules.Admin/modules/admin/configs/router'
 ], function(application) {
   'use strict';
 
@@ -23,49 +23,49 @@
 
         $stateProvider.state('admin', {
           url: '/admin',
-          templateUrl: '/SeedModules.Admin/ui/admin/views/admin.html',
+          templateUrl: '/SeedModules.Admin/modules/admin/views/admin.html',
           requires: [
-            'SeedModules.AngularUI/ui/requires',
-            'SeedModules.Admin/ui/admin/requires'
+            'SeedModules.AngularUI/modules/requires',
+            'SeedModules.Admin/modules/admin/requires'
           ]
         });
 
         $stateProvider.state('admin.dashboard', {
           url: '/dashboard',
-          templateUrl: '/SeedModules.Admin/ui/admin/views/dashboard.html',
+          templateUrl: '/SeedModules.Admin/modules/admin/views/dashboard.html',
           requires: [
-            'SeedModules.AngularUI/ui/requires',
-            'SeedModules.Admin/ui/admin/requires'
+            'SeedModules.AngularUI/modules/requires',
+            'SeedModules.Admin/modules/admin/requires'
           ]
         });
 
         $stateProvider.state('admin.users', {
           url: '/users',
           title: '用户管理',
-          templateUrl: '/SeedModules.Admin/ui/admin/views/users.html',
+          templateUrl: '/SeedModules.Admin/modules/admin/views/users.html',
           requires: [
-            'SeedModules.AngularUI/ui/requires',
-            'SeedModules.Admin/ui/admin/requires'
+            'SeedModules.AngularUI/modules/requires',
+            'SeedModules.Admin/modules/admin/requires'
           ]
         });
 
         $stateProvider.state('admin.roles', {
           url: '/roles',
           title: '角色管理',
-          templateUrl: '/SeedModules.Admin/ui/admin/views/roles.html',
+          templateUrl: '/SeedModules.Admin/modules/admin/views/roles.html',
           requires: [
-            'SeedModules.AngularUI/ui/requires',
-            'SeedModules.Admin/ui/admin/requires'
+            'SeedModules.AngularUI/modules/requires',
+            'SeedModules.Admin/modules/admin/requires'
           ]
         });
 
         $stateProvider.state('admin.settings', {
           url: '/settings',
           title: '设置',
-          templateUrl: '/SeedModules.Admin/ui/admin/views/settings.html',
+          templateUrl: '/SeedModules.Admin/modules/admin/views/settings.html',
           requires: [
-            'SeedModules.AngularUI/ui/requires',
-            'SeedModules.Admin/ui/admin/requires'
+            'SeedModules.AngularUI/modules/requires',
+            'SeedModules.Admin/modules/admin/requires'
           ]
         });
       }

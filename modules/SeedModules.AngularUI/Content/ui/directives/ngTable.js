@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
   module.directive('ngTable', [
@@ -9,7 +9,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
         restrict: 'A',
         priority: 1001,
         scope: true,
-        controller: 'SeedModules.AngularUI/ui/controllers/ngTable',
+        controller: 'SeedModules.AngularUI/modules/controllers/ngTable',
         compile: function(element) {
           var columns = [],
             i = 0,

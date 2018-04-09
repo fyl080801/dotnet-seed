@@ -1,7 +1,7 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
-  module.factory('SeedModules.AngularUI/ui/factories/ngTableEventsChannel', [
+  module.factory('SeedModules.AngularUI/modules/factories/ngTableEventsChannel', [
     '$rootScope',
     function($rootScope) {
       var events = {};

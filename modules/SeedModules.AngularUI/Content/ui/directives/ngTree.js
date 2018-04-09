@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
   module.directive('ngTree', [
@@ -7,7 +7,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
         restrict: 'EA',
         replace: true,
         template:
-          '<ul class="nav tree-view"> <li ng-repeat="item in treeData" ng-include="itemTemplateUrl || \'/SeedModules.AngularUI/ui/views/treeItem.html\'" ></li> </ul>',
+          '<ul class="nav tree-view"> <li ng-repeat="item in treeData" ng-include="itemTemplateUrl || \'/SeedModules.AngularUI/modules/views/treeItem.html\'" ></li> </ul>',
         scope: {
           treeData: '=',
           textField: '@',

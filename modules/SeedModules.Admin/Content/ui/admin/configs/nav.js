@@ -1,7 +1,7 @@
-define(['SeedModules.Admin/ui/admin/configs'], function(configs) {
+define(['SeedModules.Admin/modules/admin/configs'], function(configs) {
   'use strict';
 
-  configs.provider('SeedModules.Admin/ui/admin/configs/nav', [
+  configs.provider('SeedModules.Admin/modules/admin/configs/nav', [
     function() {
       var me = this;
       var defaultOrder = 65535;

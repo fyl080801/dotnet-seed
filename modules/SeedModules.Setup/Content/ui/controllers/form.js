@@ -1,13 +1,13 @@
-define(['SeedModules.Setup/ui/module'], function(module) {
+define(['SeedModules.Setup/modules/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Setup/ui/controllers/form', [
+  module.controller('SeedModules.Setup/modules/controllers/form', [
     '$scope',
     '$modal',
     '$location',
     '$window',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/services/requestService',
+    'SeedModules.AngularUI/modules/services/requestService',
     function($scope, $modal, $location, $window, popupService, requestService) {
       $scope.setupForm = {
         url: '/api/setup'

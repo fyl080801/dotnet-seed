@@ -1,7 +1,7 @@
-define(['SeedModules.MindPlus/ui/myworks/module'], function(module) {
+define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.MindPlus/ui/myworks/controllers/trash', [
+  module.controller('SeedModules.MindPlus/modules/myworks/controllers/trash', [
     '$scope',
     function($scope) {}
   ]);

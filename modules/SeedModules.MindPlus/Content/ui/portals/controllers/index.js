@@ -1,7 +1,7 @@
-define(['SeedModules.MindPlus/ui/portals/module'], function(module) {
+define(['SeedModules.MindPlus/modules/portals/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.MindPlus/ui/portals/controllers/index', [
+  module.controller('SeedModules.MindPlus/modules/portals/controllers/index', [
     '$scope',
     '$appConfig',
     function($scope, $appConfig) {

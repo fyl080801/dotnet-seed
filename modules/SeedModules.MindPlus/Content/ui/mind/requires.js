@@ -1,6 +1,6 @@
 define([
-  'SeedModules.MindPlus/ui/mind/factories/minderInstance',
-  'SeedModules.MindPlus/ui/mind/controllers/editor'
+  'SeedModules.MindPlus/modules/mind/factories/minderInstance',
+  'SeedModules.MindPlus/modules/mind/controllers/editor'
 ], function() {
   'use strict';
 

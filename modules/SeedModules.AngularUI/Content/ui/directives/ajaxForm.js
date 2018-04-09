@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/module', 'jquery-form'], function(module) {
+define(['SeedModules.AngularUI/modules/module', 'jquery-form'], function(module) {
   'use strict';
 
   module.directive('ajaxForm', [
@@ -25,7 +25,7 @@ define(['SeedModules.AngularUI/ui/module', 'jquery-form'], function(module) {
             var defer = $q.defer();
 
             var loading = $modal.open({
-              templateUrl: '/SeedModules.AngularUI/ui/views/Loading.html',
+              templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
               size: 'sm'
             });
 

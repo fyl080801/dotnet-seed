@@ -11,17 +11,17 @@ define(['app/application'], function(application) {
         $stateProvider.state('admin.features', {
           url: '/features',
           title: '功能管理',
-          templateUrl: '/SeedModules.Features/ui/views/features.html',
+          templateUrl: '/SeedModules.Features/modules/views/features.html',
           requires: [
-            'SeedModules.AngularUI/ui/requires',
-            'SeedModules.Features/ui/requires'
+            'SeedModules.AngularUI/modules/requires',
+            'SeedModules.Features/modules/requires'
           ]
         });
       }
     ])
     .run([
       '$state',
-      'SeedModules.Admin/ui/admin/configs/nav',
+      'SeedModules.Admin/modules/admin/configs/nav',
       function($state, nav) {
         nav.add({
           text: '功能管理',

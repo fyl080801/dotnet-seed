@@ -1,15 +1,15 @@
-define(['SeedModules.Admin/ui/admin/module'], function(module) {
+define(['SeedModules.Admin/modules/admin/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Admin/ui/admin/controllers/admin', [
+  module.controller('SeedModules.Admin/modules/admin/controllers/admin', [
     '$scope',
     '$state',
     '$modal',
     '$window',
     'app.services.popupService',
-    'SeedModules.Admin/ui/admin/configs/nav',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.Admin/modules/admin/configs/nav',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function(
       $scope,
       $state,
@@ -80,7 +80,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       $scope.changePassword = function() {
         $modal
           .open({
-            templateUrl: 'SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: 'SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '修改密码',

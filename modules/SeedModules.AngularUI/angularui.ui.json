@@ -52,16 +52,16 @@
       }
     },
 
-    "SeedModules.AngularUI/ui/module": {
+    "SeedModules.AngularUI/modules/module": {
       "path":
         "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.ui.module",
       "isDist": true
     },
-    "SeedModules.AngularUI/ui/requires": {
+    "SeedModules.AngularUI/modules/requires": {
       "path":
         "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.ui.requires",
       "shim": {
-        "deps": ["SeedModules.AngularUI/ui/module"]
+        "deps": ["SeedModules.AngularUI/modules/module"]
       },
       "isDist": true
     }
@@ -70,8 +70,8 @@
     "app/application",
     "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",
     "rcss!SeedModules.AngularUI/css/ng-ui.css",
-    "SeedModules.AngularUI/ui/module"
+    "SeedModules.AngularUI/modules/module"
   ],
   "patchs": ["patch"],
-  "path": "Content/ui"
+  "path": "Content/modules"
 }

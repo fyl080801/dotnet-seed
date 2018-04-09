@@ -1,15 +1,15 @@
 {
   "references": {
-    "SeedModules.MindPlus/ui/mind/module": {
+    "SeedModules.MindPlus/modules/mind/module": {
       "path":
         "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.mind.module",
       "isDist": true
     },
-    "SeedModules.MindPlus/ui/mind/requires": {
+    "SeedModules.MindPlus/modules/mind/requires": {
       "path":
         "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.ui.mind.requires",
       "shim": {
-        "deps": ["SeedModules.MindPlus/ui/mind/module"]
+        "deps": ["SeedModules.MindPlus/modules/mind/module"]
       },
       "isDist": true
     },
@@ -51,7 +51,7 @@
     "rcss!SeedModules.MindPlus/js/kityminder/kityminder.editor.min.css",
     "rcss!SeedModules.MindPlus/js/hotbox/hotbox.css",
     "rcss!SeedModules.MindPlus/js/color-picker/color-picker.min.css",
-    "SeedModules.MindPlus/ui/mind/module"
+    "SeedModules.MindPlus/modules/mind/module"
   ],
-  "path": "Content/ui/mind"
+  "path": "Content/modules/mind"
 }

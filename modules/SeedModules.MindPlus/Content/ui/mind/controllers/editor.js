@@ -1,15 +1,15 @@
-define(['SeedModules.MindPlus/ui/mind/module'], function(module) {
+define(['SeedModules.MindPlus/modules/mind/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.MindPlus/ui/mind/controllers/editor', [
+  module.controller('SeedModules.MindPlus/modules/mind/controllers/editor', [
     '$scope',
     '$stateParams',
     '$appConfig',
     '$timeout',
     '$modal',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.MindPlus/ui/mind/factories/minderInstance',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.MindPlus/modules/mind/factories/minderInstance',
     function(
       $scope,
       $stateParams,

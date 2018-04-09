@@ -1,7 +1,7 @@
-define(['SeedModules.AngularUI/ui/module'], function(module) {
+define(['SeedModules.AngularUI/modules/module'], function(module) {
   'use strict';
 
-  module.service('SeedModules.AngularUI/ui/services/requestService', [
+  module.service('SeedModules.AngularUI/modules/services/requestService', [
     '$q',
     '$http',
     '$modal',
@@ -25,7 +25,7 @@ define(['SeedModules.AngularUI/ui/module'], function(module) {
 
         var loading = configs.showLoading
           ? $modal.open({
-              templateUrl: '/SeedModules.AngularUI/ui/views/Loading.html',
+              templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
               size: 'sm'
             })
           : null;

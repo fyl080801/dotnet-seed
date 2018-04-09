@@ -1,21 +1,21 @@
 {
   "references": {
-    "SeedModules.Admin/ui/login/module": {
+    "SeedModules.Admin/modules/login/module": {
       "path": "SeedModules.Admin/js/SeedModules.Admin.Content.ui.login.module",
       "isDist": true
     },
-    "SeedModules.Admin/ui/login/requires": {
+    "SeedModules.Admin/modules/login/requires": {
       "path":
         "SeedModules.Admin/js/SeedModules.Admin.Content.ui.login.requires",
       "shim": {
-        "deps": ["SeedModules.Admin/ui/login/module"]
+        "deps": ["SeedModules.Admin/modules/login/module"]
       },
       "isDist": true
     }
   },
   "requires": [
     "rcss!SeedModules.Admin/css/seed-admin.css",
-    "SeedModules.Admin/ui/login/module"
+    "SeedModules.Admin/modules/login/module"
   ],
-  "path": "Content/ui/login"
+  "path": "Content/modules/login"
 }

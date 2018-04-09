@@ -1,7 +1,7 @@
-define(['SeedModules.AngularUI/ui/providers'], function(module) {
+define(['SeedModules.AngularUI/modules/providers'], function(module) {
   'use strict';
 
-  module.provider('SeedModules.AngularUI/ui/providers/ngTableDefaultGetData', [
+  module.provider('SeedModules.AngularUI/modules/providers/ngTableDefaultGetData', [
     function() {
       var provider = this;
       provider.$get = ngTableDefaultGetData;

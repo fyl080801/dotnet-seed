@@ -1,4 +1,4 @@
-define(['SeedModules.AngularUI/ui/configs'], function(configs) {
+define(['SeedModules.AngularUI/modules/configs'], function(configs) {
   'use strict';
 
   configs
@@ -13,7 +13,7 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
         sfBuilderProvider,
         sfPathProvider
       ) {
-        // var base = '/SeedModules.AngularUI/ui/templates/';
+        // var base = '/SeedModules.AngularUI/modules/templates/';
         // var simpleTransclusion = sfBuilderProvider.builders.simpleTransclusion;
         // var ngModelOptions = sfBuilderProvider.builders.ngModelOptions;
         // var ngModel = sfBuilderProvider.builders.ngModel;
@@ -44,7 +44,7 @@ define(['SeedModules.AngularUI/ui/configs'], function(configs) {
       '$templateCache',
       function($templateCache) {
         // $templateCache.put(
-        //   '/SeedModules.AngularUI/ui/templates/simplecolor.html',
+        //   '/SeedModules.AngularUI/modules/templates/simplecolor.html',
         //   'aaaaa'
         // );
       }

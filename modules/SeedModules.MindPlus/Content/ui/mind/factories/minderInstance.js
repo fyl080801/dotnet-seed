@@ -1,7 +1,7 @@
-define(['SeedModules.MindPlus/ui/mind/module', 'kityminder'], function(module) {
+define(['SeedModules.MindPlus/modules/mind/module', 'kityminder'], function(module) {
   'use strict';
 
-  module.factory('SeedModules.MindPlus/ui/mind/factories/minderInstance', [
+  module.factory('SeedModules.MindPlus/modules/mind/factories/minderInstance', [
     function() {
       var minderInit = function(options) {
         var minder = new kityminder.Minder({

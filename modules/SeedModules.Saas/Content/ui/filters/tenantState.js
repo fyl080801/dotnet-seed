@@ -1,4 +1,4 @@
-define(['SeedModules.Saas/ui/module'], function(module) {
+define(['SeedModules.Saas/modules/module'], function(module) {
   'use strict';
 
   module.filter('tenantState', [

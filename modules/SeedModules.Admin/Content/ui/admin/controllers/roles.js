@@ -1,13 +1,13 @@
-define(['SeedModules.Admin/ui/admin/module'], function(module) {
+define(['SeedModules.Admin/modules/admin/module'], function(module) {
   'use strict';
 
-  module.controller('SeedModules.Admin/ui/admin/controllers/roles', [
+  module.controller('SeedModules.Admin/modules/admin/controllers/roles', [
     '$scope',
     '$modal',
     'app.services.popupService',
-    'SeedModules.AngularUI/ui/services/requestService',
-    'SeedModules.AngularUI/ui/factories/ngTableRequest',
-    'SeedModules.AngularUI/ui/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/services/requestService',
+    'SeedModules.AngularUI/modules/factories/ngTableRequest',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams',
     function(
       $scope,
       $modal,
@@ -82,7 +82,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '新建角色',
@@ -115,7 +115,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
       $scope.setName = function(role) {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/ui/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '设置别名',
@@ -147,7 +147,7 @@ define(['SeedModules.Admin/ui/admin/module'], function(module) {
         if (!$scope.currentRole) return;
         $modal
           .open({
-            templateUrl: '/SeedModules.Admin/ui/admin/views/members.html',
+            templateUrl: '/SeedModules.Admin/modules/admin/views/members.html',
             size: 'lg',
             data: {
               role: $scope.currentRole
