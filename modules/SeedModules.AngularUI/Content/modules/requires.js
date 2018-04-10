@@ -17,6 +17,7 @@ define([
   'SeedModules.AngularUI/modules/directives/ngTree',
   'SeedModules.AngularUI/modules/directives/stopPropagation',
   'SeedModules.AngularUI/modules/directives/tagInput',
+  'SeedModules.AngularUI/modules/directives/tenantHref',
   'SeedModules.AngularUI/modules/filters/booleanText',
   'SeedModules.AngularUI/modules/controllers/ngTable',
   'SeedModules.AngularUI/modules/controllers/ngTableSorterRow'

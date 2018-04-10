@@ -5,8 +5,9 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
     'SeedModules.MindPlus/modules/myworks/controllers/workItem',
     [
       '$scope',
+      'SeedModules.AngularUI/modules/services/requestService',
       'SeedModules.AngularUI/modules/factories/schemaFormParams',
-      function($scope, schemaFormParams) {
+      function($scope, requestService, schemaFormParams) {
         $scope.formParams = new schemaFormParams().properties({
           title: {
             title: '任务名称',
@@ -22,38 +23,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
           }
         ];
 
-        $scope.works = [
-          {
-            text: '项目集合',
-            children: [
-              {
-                text: '下级目录',
-                children: [
-                  {
-                    text: '项目1'
-                  },
-                  {
-                    text: '项目2'
-                  }
-                ]
-              },
-              {
-                text: '项目1'
-              },
-              {
-                text: '项目2'
-              }
-            ]
-          },
-          {
-            text: '集合2',
-            children: [
-              {
-                text: 'aaa'
-              }
-            ]
-          }
-        ];
+        $scope.works = [];
 
         $scope.queryCities = [
           { value: 1, text: 'Amsterdam', continent: 'Europe' },
@@ -62,6 +32,31 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
           { value: 10, text: 'Beijing', continent: 'Asia' },
           { value: 13, text: 'Cairo', continent: 'Africa' }
         ];
+
+        $scope.loadWorks = function(item) {
+          if (item && item.children && item.children.length > 0) return;
+          if (!item && $scope.works.length > 0) return;
+          requestService
+            .url('/api/mindplus/works/tree?parent=' + (item ? item.id : ''))
+            .options({
+              showLoading: false
+            })
+            .get()
+            .then(function(result) {
+              for (var idx in result) {
+                result[idx].children = result[idx].isFolder ? [] : null;
+              }
+              if (item) {
+                item.children = result;
+              } else {
+                $scope.works = result;
+              }
+            });
+        };
+
+        $scope.workSelected = function(item) {
+          $scope.$data.model.work = item;
+        };
       }
     ]
   );

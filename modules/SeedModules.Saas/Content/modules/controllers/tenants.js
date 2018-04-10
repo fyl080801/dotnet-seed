@@ -242,7 +242,7 @@ define(['SeedModules.Saas/modules/module'], function(module) {
         $modal
           .open({
             templateUrl:
-              'SeedModules.AngularUI/modules/views/schemaConfirm.html',
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '租户信息',
               formParams: $scope.formParams,

@@ -19,12 +19,13 @@
         <div class="col-md-3">
             <div class="form-group has-feedback dropdown">
                 <label class="control-label">所属项目</label>
-                <input class="form-control form-control-enabled" data-toggle="dropdown" ng-readonly="true" placeholder="请选择...">
+                <input class="form-control form-control-enabled" ng-model="$data.model.work.name" data-toggle="dropdown" ng-readonly="true"
+                    placeholder="请选择..." ng-click="loadWorks()">
                 <span class="form-control-feedback">
                     <i class="caret"></i>
                 </span>
-                <ul ng-tree tree-data="works" item-template-url="'/SeedModules.AngularUI/modules/templates/ngTreeItem.html'" class="list-group dropdown-menu dropdown-menu-right"
-                    style="padding: 0"></ul>
+                <ul ng-tree tree-data="works" item-extending="loadWorks($item)" item-clicked="workSelected($item)" text-field="name" item-template-url="'/SeedModules.AngularUI/modules/templates/ngTreeItem.html'"
+                    class="nav dropdown-menu dropdown-menu-right" style="padding: 0"></ul>
             </div>
             <div class="form-group has-feedback">
                 <label class="control-label">执行人</label>

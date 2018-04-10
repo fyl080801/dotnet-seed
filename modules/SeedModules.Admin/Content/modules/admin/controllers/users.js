@@ -112,7 +112,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: 'SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '新建用户',
               formParams: $scope.formParams,
@@ -132,7 +132,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       $scope.resetPassword = function(row) {
         $modal
           .open({
-            templateUrl: 'SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '重置密码',

@@ -33,6 +33,14 @@ namespace SeedModules.MindPlus.Controllers
             return new PagedResult<MindWork>(query, page, count);
         }
 
+        [HttpGet("tree"), HandleResult]
+        public IEnumerable<MindWork> GetWorks([FromQuery]int? parent)
+        {
+            var query = parent.HasValue ? _dbContext.Set<MindWork>().Where(e => e.ParentId == parent) : _dbContext.Set<MindWork>().Where(e => !e.ParentId.HasValue);
+
+            return query.OrderByDescending(e => e.IsFolder).OrderBy(e => e.Name).ToList();
+        }
+
         [HttpPost, HandleResult]
         public void Create([FromBody]MindWork model)
         {
