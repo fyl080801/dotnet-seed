@@ -87,7 +87,10 @@ namespace Seed.Data.Migrations
             IModel lastModel = null;
             try
             {
-                var lastMigration = _dbContext.Migrations.OrderByDescending(e => e.MigrationTime).FirstOrDefault();
+                var lastMigration = _dbContext.Migrations
+                    .OrderByDescending(e => e.MigrationTime)
+                    .OrderByDescending(e => e.Id) // mysql下自动生成的时间日期字段时间精度为秒
+                    .FirstOrDefault();
                 lastModel = lastMigration == null ? null : (CreateModelSnapshot(lastMigration.SnapshotDefine).Result?.Model);
             }
             catch (DbException) { }
@@ -115,7 +118,7 @@ namespace Seed.Data.Migrations
 
                         trans.Commit();
                     }
-                    catch (Exception ex)
+                    catch (DbException ex)
                     {
                         trans.Rollback();
                         throw ex;
