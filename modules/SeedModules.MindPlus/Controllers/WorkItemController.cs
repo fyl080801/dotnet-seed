@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Seed.Data;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
+using SeedModules.MindPlus.Domain;
 
 namespace SeedModules.MindPlus.Controllers
 {
@@ -15,6 +16,11 @@ namespace SeedModules.MindPlus.Controllers
             _dbContext = dbContext;
         }
 
-
+        [HttpPost, HandleResult]
+        public void Add([FromBody]WorkItem domain)
+        {
+            _dbContext.Set<WorkItem>().Add(domain);
+            _dbContext.SaveChanges();
+        }
     }
 }

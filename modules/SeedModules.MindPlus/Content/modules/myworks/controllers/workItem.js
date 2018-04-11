@@ -55,7 +55,12 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         };
 
         $scope.workSelected = function(item) {
-          $scope.$data.model.work = item;
+          $scope.$data.work = item;
+        };
+
+        $scope.submit = function() {
+          $scope.$data.model.mindWorkId = $scope.$data.work.id;
+          $scope.$close($scope.$data.model);
         };
       }
     ]

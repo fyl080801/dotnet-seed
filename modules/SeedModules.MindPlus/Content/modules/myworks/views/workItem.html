@@ -19,8 +19,8 @@
         <div class="col-md-3">
             <div class="form-group has-feedback dropdown">
                 <label class="control-label">所属项目</label>
-                <input class="form-control form-control-enabled" ng-model="$data.model.work.name" data-toggle="dropdown" ng-readonly="true"
-                    placeholder="请选择..." ng-click="loadWorks()">
+                <input class="form-control form-control-enabled" ng-model="$data.work.name" data-toggle="dropdown" ng-readonly="true" placeholder="请选择..."
+                    ng-click="loadWorks()">
                 <span class="form-control-feedback">
                     <i class="caret"></i>
                 </span>
@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="modal-footer clearfix">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" ng-click="submit()">
             <i class="glyphicon glyphicon-ok-sign"></i>
             确定
         </button>
