@@ -19,24 +19,13 @@
         </div>
         <div class="container-fluid">
             <div class="navbar-form navbar-right">
-                <button class="btn btn-success" ng-click="create()">
+                <button class="btn btn-primary" ng-click="create()">
                     <i class="glyphicon glyphicon-plus"></i>
                     添加
                 </button>
-            </div>
-            <div class="navbar-form navbar-right">
-
                 <button class="btn btn-default">
-                    <i class="glyphicon glyphicon-ok-circle"></i>
-                    启用
-                </button>
-                <button class="btn btn-danger">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    禁用
-                </button>
-                <button class="btn btn-warning">
-                    <i class="glyphicon glyphicon-refresh"></i>
-                    重启
+                    <i class="glyphicon glyphicon-list"></i>
+                    批量操作
                 </button>
             </div>
         </div>
@@ -58,7 +47,7 @@
                     'label-error': row.engineSettings.state===4
                 }"></span>
             </td>
-            <td title="'操作'">
+            <td title="'操作'" style="width: 140px">
                 <a href="">编辑</a>
                 <a href="" ng-if="!row.isDefault&&row.engineSettings.state===2">禁用</a>
                 <a href="" ng-if="!row.isDefault&&row.engineSettings.state===3">启用</a>
@@ -67,7 +56,6 @@
             </td>
         </tr>
     </table>
-    <!-- <div ng-pager="tableParams"></div> -->
 </div>
 
 <script type="text/ng-template" id="table-checkbox.html">
