@@ -1,4 +1,4 @@
-<div ng-controller="SeedModules.MindPlus/modules/myworks/controllers/workItems">
+<div ng-controller="SeedModules.MindPlus/modules/myworks/controllers/workItems" ng-init="load()">
     <div class="navbar navbar-static-top" style="margin: 0">
         <div class="navbar-header">
             <div class="navbar-form">
@@ -24,6 +24,9 @@
     <div class="container-fluid">
         <ul class="nav nav-pills" role="tablist">
             <li role="presentation" class="active">
+                <a href="">全部</a>
+            </li>
+            <li role="presentation">
                 <a href="">进行中</a>
             </li>
             <li role="presentation">
@@ -109,67 +112,17 @@
         </ul>
         <hr>
         <!--表格-->
-        <div ng-tree class="row" tree-data="" item-template-url="'/SeedModules.AngularUI/modules/templates/ngTreeItem.html'">
-            <div>
-                <div class="col-md-4">标题</div>
-                <div class="col-md-4">开始</div>
-                <div class="col-md-4">结束</div>
-
-                <!--内容-->
-                <div class="col-md-12">
-                    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                </div>
-
-                <!--2级-->
-                <div>
-                    <div class="col-md-4">
-                        <a style="padding-left: 30px"></a>标题</div>
-                    <div class="col-md-4">开始</div>
-                    <div class="col-md-4">结束</div>
-
-                    <!--内容-->
-                    <div class="col-md-12">
-                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaaaaa
-                    </div>
-
-                    <!--3级-->
-                    <div>
-                        <div class="col-md-4">
-                            <a style="padding-left: 60px"></a>标题</div>
-                        <div class="col-md-4">开始</div>
-                        <div class="col-md-4">结束</div>
-                    </div>
-
+        <div>
+            <div class="col-md-2" style="border-right: 1px solid #ddd">
+                <div class="row">
+                    <h3 class="page-header">
+                        <i class="glyphicon glyphicon-th-list"></i>
+                        目录
+                    </h3>
                 </div>
             </div>
-
-            <div>
-                <div class="col-md-4">标题</div>
-                <div class="col-md-4">开始</div>
-                <div class="col-md-4">结束</div>
-
-                <!--2级-->
-                <div>
-                    <div class="col-md-4">
-                        <a style="padding-left: 30px"></a>标题</div>
-                    <div class="col-md-4">开始</div>
-                    <div class="col-md-4">结束</div>
-
-                    <!--3级-->
-                    <div>
-                        <div class="col-md-4">
-                            <a style="padding-left: 60px"></a>标题</div>
-                        <div class="col-md-4">开始</div>
-                        <div class="col-md-4">结束</div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div>
-                <div class="col-md-4">标题</div>
-                <div class="col-md-4">开始</div>
-                <div class="col-md-4">结束</div>
+            <div ng-tree class="col-md-10 nav" tree-data="list" item-init="initWorkItem($item)" item-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'"
+                style="padding-left: 15px">
             </div>
         </div>
     </div>

@@ -51,7 +51,7 @@ namespace SeedModules.Security.Domain
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-
+            builder.HasAlternateKey(e => e.Username);
         }
     }
 }

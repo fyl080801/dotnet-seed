@@ -21,6 +21,8 @@ namespace SeedModules.MindPlus.Domain
         [StringLength(255)]
         public string Path { get; set; }
 
+        public bool Finished { get; set; }
+
         public int Level { get; set; }
 
         public DateTime CreateTime { get; set; } = DateTime.Now;
@@ -42,7 +44,7 @@ namespace SeedModules.MindPlus.Domain
     {
         public void Configure(EntityTypeBuilder<WorkItem> builder)
         {
-
+            
         }
     }
 }

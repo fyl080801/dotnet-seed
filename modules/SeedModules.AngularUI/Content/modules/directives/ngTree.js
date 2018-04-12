@@ -15,7 +15,8 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           childrenField: '@',
           itemTemplateUrl: '=',
           itemClicked: '&',
-          itemExtending: '&'
+          itemExtending: '&',
+          itemInit: '&'
         },
         controller: [
           '$scope',
@@ -45,6 +46,10 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
               return {
                 'padding-left': (item.level || 1) * 15 + 'px'
               };
+            };
+
+            $scope.itemInited = function(item, $event) {
+              $scope.warpCallback('itemInit', item, $event);
             };
 
             $scope.isLeaf = function(item) {

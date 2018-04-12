@@ -1,0 +1,27 @@
+<div class="col-md-6 form-group" ng-init="itemInited(item, $event)">
+    <div class="form-control-static" ng-style="item.titleStyle">
+        <a href="">
+            <i class="glyphicon glyphicon-unchecked"></i>
+        </a>
+        <label ng-if="!isLeaf(item)">
+            <a href="" ng-click="itemExpended(item, $event)">{{item.title}}</a>
+        </label>
+        <label ng-if="isLeaf(item)">{{item.title}}</label>
+    </div>
+</div>
+<div class="col-md-3 form-group">
+    <!-- <input class="form-control"> -->
+    <label class="form-control-static">开始时间</label>
+</div>
+<div class="col-md-3 form-group">
+    <label class="form-control-static">结束时间</label>
+</div>
+
+<!--内容-->
+<div class="col-md-12" style="border-bottom: 1px solid #ddd">
+
+</div>
+
+<div ng-if="!isLeaf(item)" ng-show="item.$$isExpend">
+    <div ng-repeat="item in getItemChildren(item)" ng-include="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'"></div>
+</div>

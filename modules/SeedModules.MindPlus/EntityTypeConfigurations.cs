@@ -16,7 +16,9 @@ namespace SeedModules.MindPlus
                 new MindWorkTypeConfiguration(),
                 new TagTypeConfiguration(),
                 new WorkItemTypeConfiguration(),
-                new WorkItemTagTypeConfiguration()
+                new WorkItemTagTypeConfiguration(),
+                new WorkItemContentTypeConfiguration(),
+                new BaseLineTypeConfiguration()
             }.AsEnumerable());
         }
     }

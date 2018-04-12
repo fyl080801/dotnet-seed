@@ -38,7 +38,7 @@ namespace SeedModules.Security.Domain
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-
+            builder.HasAlternateKey(e => e.Rolename);
         }
     }
 }
