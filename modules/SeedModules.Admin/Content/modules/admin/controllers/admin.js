@@ -80,7 +80,8 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       $scope.changePassword = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '修改密码',
@@ -97,6 +98,10 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
                 popupService.information('修改成功');
               });
           });
+      };
+
+      $scope.testFn = function() {
+        $('#testa').slideUp(300);
       };
     }
   ]);

@@ -14,6 +14,11 @@
   startup(config);
 
   function startup(config) {
+    define('angular', [], function() {
+      'use strict';
+      return window.angular;
+    });
+
     require.config(config);
     require(options.requires, function(application) {
       angular.element(document).ready(function() {

@@ -25,12 +25,6 @@
       },
       "noDebug": true
     },
-    "angular-sanitize": {
-      "path": "SeedModules.AngularUI/js/seed/angular-sanitize",
-      "shim": {
-        "deps": ["app"]
-      }
-    },
     "tv4": {
       "path": "SeedModules.AngularUI/js/seed/tv4",
       "noDebug": true
@@ -42,7 +36,7 @@
     "schema-form": {
       "path": "SeedModules.AngularUI/js/seed/schema-form",
       "shim": {
-        "deps": ["angular-sanitize", "tv4", "objectpath"]
+        "deps": ["app", "tv4", "objectpath"]
       }
     },
     "schema-form-bootstrap": {

@@ -11,7 +11,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
 
         scope.warpClick = function(item, $event) {
           if (!scope.isLeaf(item)) {
-            var sidebar = element.parent('.sidebar');
+            var sidebar = $(element.parent('.sidebar'));
             var node = $($event.currentTarget);
             var navItemShow = sidebar.find('.sidebar-item.sidebar-show');
             var navItem = sidebar.find('.sidebar-item');

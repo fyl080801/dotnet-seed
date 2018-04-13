@@ -37,5 +37,8 @@ namespace SeedModules.AngularUI.Rendering
     {
         [JsonProperty("deps")]
         public IEnumerable<string> Dependencies { get; set; } = new HashSet<string>();
+
+        [JsonProperty("exports")]
+        public string Exports { get; set; }
     }
 }
