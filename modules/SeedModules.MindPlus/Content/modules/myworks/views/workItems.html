@@ -23,6 +23,13 @@
     </div>
     <div class="container-fluid">
         <ul class="nav nav-pills" role="tablist">
+            <li role="presentation">
+                <a href="">
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    目录
+                    <i class="caret"></i>
+                </a>
+            </li>
             <li role="presentation" class="active">
                 <a href="">全部</a>
             </li>
@@ -113,16 +120,7 @@
         <hr>
         <!--表格-->
         <div>
-            <div class="col-md-2" style="border-right: 1px solid #ddd">
-                <div class="row">
-                    <h3 class="page-header">
-                        <i class="glyphicon glyphicon-th-list"></i>
-                        目录
-                    </h3>
-                </div>
-            </div>
-            <div ng-tree class="col-md-10 nav" tree-data="list" item-init="initWorkItem($item)" item-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'"
-                style="padding-left: 15px">
+            <div ng-tree class="col-md-10 nav" tree-data="list" item-init="initWorkItem($item)" item-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'">
             </div>
         </div>
     </div>
