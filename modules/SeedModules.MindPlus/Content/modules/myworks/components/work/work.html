@@ -1,0 +1,17 @@
+<div class="mind-container" ng-controller="SeedModules.MindPlus/modules/myworks/components/work/work">
+    <div class="container-fluid">
+        <h4>名称</h4>
+    </div>
+    <ul class="nav nav-tabs">
+        <li role="presentation" ng-class="{'active': $state.current.name.indexOf('home.work.dashboard')===0}">
+            <a href="" ng-click="$state.go('home.work.dashboard', { id: $stateParams.id })">最新动态</a>
+        </li>
+        <li role="presentation" ng-class="{'active': $state.current.name.indexOf('home.work.workitems')===0}">
+            <a href="" ng-click="$state.go('home.work.workitems.broad', { id: $stateParams.id })">工作项</a>
+        </li>
+        <li role="presentation">
+            <a href="">日程</a>
+        </li>
+    </ul>
+    <div ui-view></div>
+</div>

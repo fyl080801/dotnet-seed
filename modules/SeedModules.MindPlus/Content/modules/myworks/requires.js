@@ -8,7 +8,9 @@ define([
   'SeedModules.MindPlus/modules/myworks/controllers/workItem',
   'SeedModules.MindPlus/modules/myworks/controllers/workItems',
   'SeedModules.MindPlus/modules/myworks/controllers/settings',
-  'SeedModules.MindPlus/modules/myworks/controllers/tags'
+  'SeedModules.MindPlus/modules/myworks/controllers/tags',
+  'SeedModules.MindPlus/modules/myworks/components/work/work',
+  'SeedModules.MindPlus/modules/myworks/components/workitem/master'
 ], function() {
   'use strict';
 

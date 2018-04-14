@@ -53,7 +53,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '新建项目',
               formParams: $scope.formParams,
@@ -75,7 +76,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       $scope.addfolder = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '新建文件夹',
               formParams: $scope.formParams,
@@ -103,7 +105,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
           })
           .get()
           .then(function(result) {
-            $state.go('mymind.works', { parentid: result.parentId });
+            $state.go('home.works', { parentid: result.parentId });
           });
       };
     }

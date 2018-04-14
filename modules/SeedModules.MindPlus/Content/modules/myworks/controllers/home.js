@@ -13,7 +13,9 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             {
               text: '我的工作',
               state: 'home.works',
-              stateParams: {}
+              stateParams: {
+                parentid: ''
+              }
             },
             {
               text: '关注的工作'
