@@ -11,6 +11,7 @@ define(['app/application'], function(application) {
 
       $stateProvider.state('home', {
         url: '/home',
+        title: 'Mind+',
         templateUrl: '/SeedModules.MindPlus/modules/myworks/views/home.html',
         requires: [
           'SeedModules.AngularUI/modules/requires',
@@ -20,6 +21,7 @@ define(['app/application'], function(application) {
 
       $stateProvider.state('home.dashboard', {
         url: '/dashboard',
+        title: 'Mind+',
         templateUrl:
           '/SeedModules.MindPlus/modules/myworks/views/dashboard.html',
         requires: [

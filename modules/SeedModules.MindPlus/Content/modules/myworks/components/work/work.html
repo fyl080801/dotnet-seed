@@ -1,6 +1,6 @@
-<div class="mind-container" ng-controller="SeedModules.MindPlus/modules/myworks/components/work/work">
+<div class="mind-container" ng-controller="SeedModules.MindPlus/modules/myworks/components/work/work" ng-init="loadDetails()">
     <div class="container-fluid">
-        <h4>名称</h4>
+        <h4>{{current?current.name:'&nbsp;'}}</h4>
     </div>
     <ul class="nav nav-tabs">
         <li role="presentation" ng-class="{'active': $state.current.name.indexOf('home.work.dashboard')===0}">
