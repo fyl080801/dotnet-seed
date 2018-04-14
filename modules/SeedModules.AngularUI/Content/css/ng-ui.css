@@ -85,6 +85,36 @@ html {
 }
 
 /* bs */
+.bg-muted {
+  background-color: #eee;
+}
+
+.bg-skyblue {
+  color: #fff;
+  background-color: #62c6ad;
+}
+
+.navbar-skyblue {
+  color: #fff;
+  background-color: #62c6ad;
+}
+
+.navbar-skyblue .navbar-nav > li > a {
+  color: #fff;
+}
+
+.navbar-skyblue .nav > li > a:focus,
+.navbar-skyblue .nav > li > a:hover {
+  text-decoration: none;
+  background-color: #60a594;
+}
+
+.navbar-skyblue .nav .open > a,
+.navbar-skyblue .nav .open > a:focus,
+.navbar-skyblue .nav .open > a:hover {
+  background-color: #60a594;
+}
+
 .dropdown-submenu {
   position: relative;
 }

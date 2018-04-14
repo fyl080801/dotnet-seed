@@ -7,20 +7,25 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
         restrict: 'EA',
         replace: true,
         template:
-          '<ul class="tree-view"> <li ng-repeat="item in treeData" ng-include="itemTemplateUrl || \'/SeedModules.AngularUI/modules/views/treeItem.html\'" ></li> </ul>',
+          '<ul class="tree-view" ng-include="itemRootTemplateUrl || \'/SeedModules.AngularUI/modules/templates/ngTreeRoot.html\'"> </ul>',
         scope: {
           treeData: '=',
           textField: '@',
           iconField: '@',
           childrenField: '@',
+          itemRootTemplateUrl: '=',
           itemTemplateUrl: '=',
           itemClicked: '&',
           itemExtending: '&',
-          itemInit: '&'
+          itemInit: '&',
+          itemNgClass: '='
         },
         controller: [
           '$scope',
-          function($scope) {
+          '$state',
+          function($scope, $state) {
+            $scope.$state = $state;
+
             $scope.getItemText = function(item) {
               return $scope.textField ? item[$scope.textField] : item.text;
             };

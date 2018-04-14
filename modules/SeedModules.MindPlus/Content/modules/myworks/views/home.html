@@ -1,0 +1,62 @@
+<div ng-controller="SeedModules.MindPlus/modules/myworks/controllers/home">
+    <div sidebar>
+        <div class="navbar navbar-static-top navbar-skyblue" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <div class="sideheader">
+                    <i class="item-icon fas fa-user-circle fa-3x"></i>
+                    <div>
+                        用户名
+                        <span class="caret"></span>
+                    </div>
+                    <div>所属</div>
+                </div>
+            </div>
+        </div>
+        <div ng-tree class="sidemenu" tree-data="menus" item-clicked="menuClicked($item)" item-init="isMenuActive($item)" item-root-template-url="'/SeedModules.MindPlus/modules/myworks/templates/menuRoot.html'"></div>
+    </div>
+    <div class="sidebar-content mind-container">
+        <div class="navbar navbar-static-top navbar-skyblue">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="" ng-click="$state.go('home.dashboard')">
+                            <i class="glyphicon glyphicon-home"></i>
+                            首页
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="navbar-form">
+                            <div class="form-group has-feedback">
+                                <input class="form-control" placeholder="全文检索...">
+                                <div class="form-control-feedback text-muted">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-question-sign"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                            MindPlus
+                            <i class="caret"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="">退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="mind-container mind-container-navcontent bg-muted" ui-view></div>
+    </div>
+</div>

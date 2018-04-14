@@ -1,4 +1,6 @@
 define([
+  'SeedModules.MindPlus/modules/myworks/directives/sidebar',
+  'SeedModules.MindPlus/modules/myworks/controllers/home',
   'SeedModules.MindPlus/modules/myworks/controllers/mymind',
   'SeedModules.MindPlus/modules/myworks/controllers/works',
   'SeedModules.MindPlus/modules/myworks/controllers/trash',
