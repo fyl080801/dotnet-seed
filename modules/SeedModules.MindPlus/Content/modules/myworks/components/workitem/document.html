@@ -1,6 +1,8 @@
-<div ng-controller="SeedModules.MindPlus/modules/myworks/components/workitem/document">
-    <div class="mind-container" style="margin-right: 35%">
-        <div ng-tree class="nav" tree-data="worktree" item-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'">
+<div class="mind-container" ng-controller="SeedModules.MindPlus/modules/myworks/components/workitem/document">
+    <div class="mind-container" style="margin-right: 35%; overflow: auto">
+        <div class="container-fluid" style="margin-top: 20px">
+            <div ng-tree class="nav mind-document-tree" tree-data="worktree" item-init="initWorkItem($item)" item-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'">
+            </div>
         </div>
     </div>
     <div class="mind-container bg-blank" style="left: auto; width: 35%; border-left: solid 1px #ddd">

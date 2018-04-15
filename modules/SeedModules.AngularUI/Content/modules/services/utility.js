@@ -23,6 +23,7 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           var item3 = data[k];
           var parent = map[item3[defer.parentKeyProperty]];
           if (parent) {
+            item3.$parent = parent;
             (
               parent[defer.childrenProperty] ||
               (parent[defer.childrenProperty] = [])

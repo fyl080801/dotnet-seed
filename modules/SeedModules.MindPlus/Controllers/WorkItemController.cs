@@ -51,5 +51,13 @@ namespace SeedModules.MindPlus.Controllers
             _dbContext.Set<WorkItem>().Add(domain);
             _dbContext.SaveChanges();
         }
+
+        [HttpPatch("{id}/parent"), HandleResult]
+        public void SetParent(int id, [FromQuery]int? parentId)
+        {
+            var domain = _dbContext.Set<WorkItem>().Find(id);
+            domain.ParentId = parentId;
+            _dbContext.SaveChanges();
+        }
     }
 }

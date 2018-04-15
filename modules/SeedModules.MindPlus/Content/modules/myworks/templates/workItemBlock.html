@@ -1,20 +1,41 @@
-<div class="col-md-6 form-group" ng-init="itemInited(item, $event)">
-    <div class="form-control-static" ng-style="item.titleStyle">
-        <a href="">
-            <i class="glyphicon glyphicon-unchecked"></i>
-        </a>
-        <label ng-if="!isLeaf(item)">
-            <a href="" ng-click="itemExpended(item, $event)">{{item.title}}</a>
-        </label>
-        <label ng-if="isLeaf(item)">{{item.title}}</label>
+<div class="panel panel-default mind-document-flag" ng-init="itemInited(item, $event)" ng-style="item.flagStyle">
+    <div class="mind-document-flag-icon"></div>
+</div>
+<div class="mind-document-item" ng-style="item.customStyle">
+    <div class="mind-document-body panel panel-default">
+        <div class="list-group">
+            <div class="list-group-item mind-document-title">
+                <i class="glyphicon" ng-class="{'glyphicon-eye-open':item.showContent, 'glyphicon-eye-close':!item.showContent}" ng-click="item.showContent=!item.showContent"
+                    style="cursor: pointer;"></i>
+                {{item.title}}
+                <div class="dropdown pull-right">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-option-vertical"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="" ng-click="item.levelUp(item)">
+                                <i class="glyphicon glyphicon-arrow-left"></i>
+                                上移一级
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" ng-click="item.levelDown(item)">
+                                <i class="glyphicon glyphicon-arrow-right"></i>
+                                下移一级
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="list-group" ng-show="item.showContent">
+            <div class="list-group-item">
+                内容
+            </div>
+        </div>
     </div>
 </div>
-
-<!--内容-->
-<div class="col-md-12" style="border-bottom: 1px solid #ddd">
-
-</div>
-
-<div ng-if="!isLeaf(item)" ng-show="item.$$isExpend">
+<div ng-if="!isLeaf(item)" ng-show="item.$$isExpend" style="position: relative;">
     <div ng-repeat="item in getItemChildren(item)" ng-include="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'"></div>
 </div>

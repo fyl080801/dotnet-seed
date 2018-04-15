@@ -112,6 +112,72 @@
   color: #f9f9f9;
 }
 
+/* mind */
+.mind-document-tree {
+}
+
+.mind-document-item {
+  display: block;
+  position: relative;
+}
+
+.mind-document-tree .mind-document-flag {
+  float: left;
+}
+
+.mind-document-flag:before {
+  content: ' ';
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  border: solid 1px #ddd;
+  margin-top: 12px;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  background-color: #fff;
+}
+
+.mind-document-flag:after {
+  content: ' ';
+  position: absolute;
+  height: 52%;
+  width: 22px;
+  margin-top: 26px;
+  margin-left: 7px;
+  border-left: solid 1px #ddd;
+}
+
+.mind-document-title:before {
+  content: ' ';
+  position: absolute;
+  top: 15px;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #ddd;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  background: #fff;
+  z-index: 1;
+}
+
+.mind-document-titleflag:after,
+.mind-document-titleflag:before {
+  content: ' ';
+  position: absolute;
+  left: 7px;
+  width: 1px;
+  height: 100%;
+  background: #d8dde4;
+}
+
+.mind-document-item .mind-document-body {
+  margin-left: 30px;
+}
+
 /* */
 .mind-nav {
   position: absolute;
