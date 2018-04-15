@@ -8,10 +8,9 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       '$state',
       '$stateParams',
       '$modal',
-      'SeedModules.AngularUI/modules/services/utility',
       'SeedModules.AngularUI/modules/services/requestService',
-      function($scope, $state, $stateParams, $modal, utility, requestService) {
-        $scope.list = [];
+      function($scope, $state, $stateParams, $modal, requestService) {
+        $scope.workitems = [];
 
         $scope.views = {
           'home.work.workitems.broad': {
@@ -49,16 +48,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             })
             .get()
             .then(function(result) {
-              utility
-                .toTree(result)
-                .key('id')
-                .parentKey('parentId')
-                .onEach(function(idx, item) {
-                  item.$$isExpend = true;
-                })
-                .then(function(tree) {
-                  $scope.list = tree;
-                });
+              $scope.workitems = result;
             });
         };
 

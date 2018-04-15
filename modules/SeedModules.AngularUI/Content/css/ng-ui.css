@@ -85,6 +85,10 @@ html {
 }
 
 /* bs */
+.bg-blank {
+  background-color: #fff;
+}
+
 .bg-muted {
   background-color: #eee;
 }

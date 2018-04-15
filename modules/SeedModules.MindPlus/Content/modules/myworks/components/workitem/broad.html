@@ -1,7 +1,4 @@
-<div class="container-fluid">
-    <div>
-
-    </div>
+<div class="mind-container container-fluid bg-blank" style="padding-top: 20px">
     <div style="width: 25%">
         <div class="panel panel-default">
             <div class="panel-heading clearfix">
@@ -10,12 +7,39 @@
                     未指定
                 </span>
                 <div class="pull-right">
-                    <a href="" class="text-muted" ng-click="createWorkItem()">
-                        <i class="glyphicon glyphicon-plus"></i>
-                    </a>
+                    <div class="dropdown">
+                        <a href="" class="text-muted dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-menu-hamburger"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li>
+                                <a href="" ng-click="createWorkItem()">新建工作项</a>
+                            </li>
+                            <li>
+                                <a href="">编辑状态</a>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li>
+                                <a href="">删除</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body"></div>
+            <div class="list-group">
+                <!-- <div href="" class="list-group-item">
+                    <h4 class="list-group-item-heading">List group item heading</h4>
+                    <p class="list-group-item-text"></p>
+                </div> -->
+            </div>
+            <div class="list-group">
+                <a href="" class="list-group-item text-center" ng-click="createWorkItem()">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    添加工作项
+                </a>
+            </div>
         </div>
+
+
     </div>
 </div>
