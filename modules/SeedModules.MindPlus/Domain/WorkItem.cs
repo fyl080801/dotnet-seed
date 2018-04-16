@@ -29,6 +29,8 @@ namespace SeedModules.MindPlus.Domain
 
         public DateTime ModifyTime { get; set; } = DateTime.Now;
 
+        public int Order { get; set; }
+
         public int MindWorkId { get; set; }
 
         public virtual List<WorkItemTag> Tags { get; set; }

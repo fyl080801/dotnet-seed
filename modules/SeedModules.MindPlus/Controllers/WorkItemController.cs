@@ -5,6 +5,7 @@ using Seed.Data;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
 using SeedModules.MindPlus.Domain;
+using SeedModules.MindPlus.Models;
 
 namespace SeedModules.MindPlus.Controllers
 {
@@ -57,6 +58,20 @@ namespace SeedModules.MindPlus.Controllers
         {
             var domain = _dbContext.Set<WorkItem>().Find(id);
             domain.ParentId = parentId;
+            _dbContext.SaveChanges();
+        }
+
+        [HttpPatch("parents"), HandleResult]
+        public void SetParents([FromBody]WorkItemParent[] models)
+        {
+            var changes = (models ?? new WorkItemParent[0]).Select(m => m.Id).ToArray();
+            var query = _dbContext.Set<WorkItem>()
+                .Where(e => changes.Contains(e.Id))
+                .ToDictionary(k => k.Id, v => v);
+            foreach (var model in models)
+            {
+                query[model.Id].ParentId = model.ParentId;
+            }
             _dbContext.SaveChanges();
         }
     }

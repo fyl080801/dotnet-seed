@@ -50,6 +50,7 @@ namespace Seed.Mvc.Extensions
                 .AddJsonOptions(options =>
                 {
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 })
                 .AddJsonFormatters();
 

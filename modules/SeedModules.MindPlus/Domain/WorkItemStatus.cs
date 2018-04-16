@@ -14,6 +14,8 @@ namespace SeedModules.MindPlus.Domain
         [StringLength(20), Required]
         public string Name { get; set; }
 
+        public int Order { get; set; }
+
         public int MindWorkId { get; set; }
 
         [ForeignKey("MindWorkId")]

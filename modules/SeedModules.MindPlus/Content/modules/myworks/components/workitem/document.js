@@ -93,10 +93,20 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         function setItemLevelUp(arr, item) {
           var itemIndex = -1;
           var parentIndex = -1;
+          var afters = [];
+          var afterlength = 0;
 
           for (var i in item.$parent.children) {
             if (item.id === item.$parent.children[i].id) {
-              itemIndex = i;
+              itemIndex = parseInt(i);
+              for (
+                var j = itemIndex + 1;
+                j < item.$parent.children.length;
+                j++
+              ) {
+                afterlength++;
+                afters.push(item.$parent.children[j]);
+              }
               break;
             }
           }
@@ -109,15 +119,31 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
           }
 
           if (itemIndex >= 0) {
+            var changes = [
+              {
+                id: item.id,
+                parentId: item.$parent.$parent ? item.$parent.$parent.id : null
+              }
+            ];
+            for (var i in afters) {
+              changes.push({
+                id: afters[i].id,
+                parentId: item.id
+              });
+            }
             requestService
-              .url(
-                '/api/mindplus/workitem/' +
-                  item.id +
-                  '/parent?parentId=' +
-                  (item.$parent.$parent ? item.$parent.$parent.id : '')
-              )
-              .patch()
+              .url('/api/mindplus/workitem/parents')
+              .patch(changes)
               .then(function() {
+                if (afters.length > 0) {
+                  item.children = item.children || [];
+                  for (var i in afters) {
+                    afters[i].$parent = item;
+                    item.children.push(afters[i]);
+                  }
+                  item.$parent.children.splice(itemIndex + 1, afterlength);
+                }
+
                 item.$parent.children.splice(itemIndex, 1);
                 item.parentId = item.$parent.$parent
                   ? item.$parent.$parent.id

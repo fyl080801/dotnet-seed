@@ -9,7 +9,16 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       '$stateParams',
       '$modal',
       'SeedModules.AngularUI/modules/services/requestService',
-      function($scope, $state, $stateParams, $modal, requestService) {
+      'SeedModules.AngularUI/modules/factories/schemaFormParams',
+      function(
+        $scope,
+        $state,
+        $stateParams,
+        $modal,
+        requestService,
+        schemaFormParams
+      ) {
+        $scope.status = [];
         $scope.workitems = [];
 
         $scope.views = {
@@ -70,6 +79,44 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
                 .post(data)
                 .then(function(result) {
                   $scope.loadWorkItems();
+                });
+            });
+        };
+
+        $scope.loadStatus = function() {
+          requestService
+            .url('/api/mindplus/works/' + $stateParams.id + '/status')
+            .options({ showLoading: false })
+            .get()
+            .then(function(result) {
+              $scope.status = result;
+            });
+        };
+
+        $scope.addStatus = function() {
+          $modal
+            .open({
+              templateUrl:
+                '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+              data: {
+                title: '添加状态',
+                formParams: new schemaFormParams().properties({
+                  name: {
+                    title: '状态名称',
+                    type: 'string',
+                    required: true
+                  }
+                }),
+                form: ['name']
+              },
+              size: 'sm'
+            })
+            .result.then(function(data) {
+              requestService
+                .url('/api/mindplus/works/' + $stateParams.id + '/status')
+                .post(data)
+                .then(function(result) {
+                  $scope.loadStatus();
                 });
             });
         };

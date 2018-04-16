@@ -56,5 +56,62 @@ namespace SeedModules.MindPlus.Controllers
         {
             return _dbContext.Set<MindWork>().Find(id);
         }
+
+        //----------------------------------------------------------
+
+        [HttpGet("{id}/status"), HandleResult]
+        public IEnumerable<WorkItemStatus> Status(int id)
+        {
+            var query = _dbContext.Set<WorkItemStatus>().Where(e => e.MindWorkId == id).OrderBy(e => e.Order);
+            return query.ToList();
+        }
+
+        [HttpPost("{id}/status"), HandleResult]
+        public void AddStatus(int id, [FromBody]WorkItemStatus domain)
+        {
+            domain.MindWorkId = id;
+            var set = _dbContext.Set<WorkItemStatus>();
+            if (set.FirstOrDefault(e => e.Name == domain.Name && e.MindWorkId == id) != null)
+            {
+                ModelState.AddModelError("Name", "名称重复了");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                throw this.Exception(ModelState);
+            }
+
+            set.Add(domain);
+            _dbContext.SaveChanges();
+        }
+
+
+        [HttpPut("status"), HandleResult]
+        public void UpdateStatus([FromBody]WorkItemStatus domain)
+        {
+            var set = _dbContext.Set<WorkItemStatus>();
+            if (set.FirstOrDefault(e => e.Name == domain.Name && e.MindWorkId == domain.MindWorkId) != null)
+            {
+                ModelState.AddModelError("Name", "名称重复了");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                throw this.Exception(ModelState);
+            }
+            var old = set.Find(domain.Id);
+            old.Name = domain.Name;
+            old.Order = domain.Order;
+
+            _dbContext.SaveChanges();
+        }
+
+        [HttpDelete("status/{id}"), HandleResult]
+        public void DeleteStatus(int id)
+        {
+            var set = _dbContext.Set<WorkItemStatus>();
+            set.Remove(set.Find(id));
+            _dbContext.SaveChanges();
+        }
     }
 }
