@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <h4>{{current?current.name:'&nbsp;'}}</h4>
     </div>
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-swiper nav-swiper-primary">
         <li role="presentation" ng-class="{'active': $state.current.name.indexOf('home.work.dashboard')===0}">
             <a href="" ng-click="$state.go('home.work.dashboard', { id: $stateParams.id })">最新动态</a>
         </li>
@@ -13,5 +13,5 @@
             <a href="">日程</a>
         </li>
     </ul>
-    <div ui-view class="mind-container" style="top: 81px"></div>
+    <div ui-view class="mind-container" style="top: 79px"></div>
 </div>

@@ -341,3 +341,99 @@ html {
     display: block;
   }
 }
+
+/* nav-swiper */
+
+.nav-swiper {
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-swiper.shadow {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 1px 5px rgba(0, 0, 0, 0.075);
+}
+
+.nav-swiper > li {
+  float: left;
+  margin-bottom: -1px;
+}
+
+.nav-swiper.nav-justified {
+  width: 100%;
+  border-bottom: none;
+}
+
+.nav-swiper.nav-justified > li {
+  float: none;
+}
+
+.nav-swiper.nav-justified > li > a {
+  line-height: 1.4;
+  margin-right: 0;
+}
+
+@media (min-width: 768px) {
+  .nav-swiper.nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-swiper.nav-justified > li > a {
+    margin-bottom: 0;
+  }
+  .nav-swiper.nav-justified > li > a {
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+.nav.nav-swiper > li > a:hover,
+.nav.nav-swiper > li > a:focus {
+  background-color: transparent;
+}
+
+.nav-swiper > li.active:after {
+  float: left;
+  width: 100%;
+  height: 4px;
+  background-color: #eee;
+}
+
+.nav-swiper.nav-swiper-default > li.active:after {
+  background-color: #777;
+}
+
+.nav-swiper.nav-swiper-primary > li.active:after {
+  background-color: #428bca;
+}
+
+.nav-swiper.nav-swiper-warning > li.active:after {
+  background-color: #f0ad4e;
+}
+
+.nav-swiper.nav-swiper-danger > li.active:after {
+  background-color: #d9534f;
+}
+
+.nav-swiper.nav-swiper-info > li.active:after {
+  background-color: #5bc0de;
+}
+
+.nav-swiper.nav-swiper-success > li.active:after {
+  background-color: #5cb85c;
+}
+
+.nav-swiper li:after {
+  position: absolute;
+  top: auto;
+  right: auto;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 1px;
+  content: '';
+  background-color: transparent;
+  -webkit-transform-origin: 50% 100%;
+  transform-origin: 50% 100%;
+  -webkit-transform: scaleY(0.5);
+}
