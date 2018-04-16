@@ -5,13 +5,14 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
     '$timeout',
     function($timeout) {
       function link(scope, element, attrs, controller) {
+        element = $(element);
         scope.isLeaf = function(item) {
           return !item.children || item.children.length <= 0;
         };
 
         scope.warpClick = function(item, $event) {
           if (!scope.isLeaf(item)) {
-            var sidebar = $(element.parent('.sidebar'));
+            var sidebar = element.parent('.sidebar');
             var node = $($event.currentTarget);
             var navItemShow = sidebar.find('.sidebar-item.sidebar-show');
             var navItem = sidebar.find('.sidebar-item');

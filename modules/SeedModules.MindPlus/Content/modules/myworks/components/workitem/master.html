@@ -8,25 +8,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="navbar-form navbar-right">
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <i class="{{views[$state.current.name].icon}}"></i>
-                        {{views[$state.current.name].text}}
-                        <i class="caret"></i>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li ng-class="{'active': $state.current.name===v.state}" ng-repeat="v in views">
-                            <a href="" ng-click="$state.go(v.state, {id:$stateParams.id})">
-                                <i class="{{v.icon}}"></i>
-                                {{v.text}}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        <div class="container-fluid" ui-view="toolbar"></div>
     </div>
-    <div ui-view class="mind-container mind-container-navcontent"></div>
+    <div ui-view="content" class="mind-container mind-container-navcontent"></div>
 </div>

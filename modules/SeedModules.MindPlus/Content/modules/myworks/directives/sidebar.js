@@ -9,6 +9,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         transclude: true,
         template: '<div class="sidebar" ng-transclude></div>',
         link: function(scope, element, attrs, controller) {
+          element = $(element);
           scope.$on('toggleSidebar', function(e, m) {
             var navItemShow = element.find('.sidebar-item.sidebar-show');
             var navItem = element.find('.sidebar-item');

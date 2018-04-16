@@ -12,10 +12,22 @@
         </div>
         <div class="container-fluid">
             <div class="navbar-form navbar-right">
-                <button class="btn btn-primary" ng-click="create()">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    新建工作
-                </button>
+                <div class="btn-group">
+                    <button class="btn btn-primary" ng-click="create()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        新建工作
+                    </button>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <i class="caret"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="">
+                                从模板创建
+                            </a>
+                        </li>
+                    </ul>
+                </div>
                 <button class="btn btn-default" ng-click="addfolder()">
                     <i class="glyphicon glyphicon-plus"></i>
                     新建文件夹
@@ -43,7 +55,7 @@
                 </colgroup>
                 <tr ng-repeat="row in $data">
                     <td title="'名称'">
-                        <a ng-href="{{$appConfig.siteSettings.prefix + (row.isFolder ? ('/SeedModules.MindPlus/Home/Works#/home/works/' + row.id) : ('/SeedModules.MindPlus/Home/Works#/home/work/' + row.id + '/workitems/broad'))}}">
+                        <a ng-href="{{$appConfig.siteSettings.prefix + (row.isFolder ? ('/SeedModules.MindPlus/Home/Works#/home/works/' + row.id) : ('/SeedModules.MindPlus/Home/Works#/home/work/' + row.id + '/workitems/board'))}}">
                             <i ng-class="{'fas fa-file fa-fw':!row.isFolder, 'fas fa-folder fa-fw':row.isFolder}"></i>
                             {{row.name}}
                         </a>

@@ -11,6 +11,7 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           tenantHref: '@'
         },
         link: function(scope, element, attrs, ctl) {
+          element = $(element);
           element.attr(
             'href',
             $appConfig.siteSettings.prefix + scope.tenantHref

@@ -13,8 +13,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         $scope.workitems = [];
 
         $scope.views = {
-          'home.work.workitems.broad': {
-            state: 'home.work.workitems.broad',
+          'home.work.workitems.board': {
+            state: 'home.work.workitems.board',
             text: '看板视图',
             icon: 'glyphicon glyphicon-blackboard'
           },

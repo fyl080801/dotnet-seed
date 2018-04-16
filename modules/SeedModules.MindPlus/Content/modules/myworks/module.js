@@ -75,10 +75,18 @@ define(['app/application'], function(application) {
       });
 
       // 工作项工作板视图
-      $stateProvider.state('home.work.workitems.broad', {
-        url: '/broad',
-        templateUrl:
-          '/SeedModules.MindPlus/modules/myworks/components/workitem/broad.html',
+      $stateProvider.state('home.work.workitems.board', {
+        url: '/board',
+        views: {
+          toolbar: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/boardToolbar.html'
+          },
+          content: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/board.html'
+          }
+        },
         requires: [
           'SeedModules.AngularUI/modules/requires',
           'SeedModules.MindPlus/modules/myworks/requires'
@@ -88,8 +96,16 @@ define(['app/application'], function(application) {
       // 工作项脑图
       $stateProvider.state('home.work.workitems.mind', {
         url: '/mind',
-        templateUrl:
-          '/SeedModules.MindPlus/modules/myworks/components/workitem/mind.html',
+        views: {
+          toolbar: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/mindToolbar.html'
+          },
+          content: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/mind.html'
+          }
+        },
         requires: [
           'SeedModules.AngularUI/modules/requires',
           'SeedModules.MindPlus/modules/myworks/requires'
@@ -99,8 +115,16 @@ define(['app/application'], function(application) {
       // 工作项文档
       $stateProvider.state('home.work.workitems.document', {
         url: '/document',
-        templateUrl:
-          '/SeedModules.MindPlus/modules/myworks/components/workitem/document.html',
+        views: {
+          toolbar: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/documentToolbar.html'
+          },
+          content: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/document.html'
+          }
+        },
         requires: [
           'SeedModules.AngularUI/modules/requires',
           'SeedModules.MindPlus/modules/myworks/requires'
@@ -110,8 +134,16 @@ define(['app/application'], function(application) {
       // 工作项文档
       $stateProvider.state('home.work.workitems.gantt', {
         url: '/gantt',
-        templateUrl:
-          '/SeedModules.MindPlus/modules/myworks/components/workitem/gantt.html',
+        views: {
+          toolbar: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/ganttToolbar.html'
+          },
+          content: {
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/workitem/gantt.html'
+          }
+        },
         requires: [
           'SeedModules.AngularUI/modules/requires',
           'SeedModules.MindPlus/modules/myworks/requires'
@@ -126,64 +158,6 @@ define(['app/application'], function(application) {
           'SeedModules.MindPlus/modules/myworks/requires'
         ]
       });
-
-      // old
-      // $stateProvider.state('mymind', {
-      //   url: '/mymind',
-      //   templateUrl: '/SeedModules.MindPlus/modules/myworks/views/mymind.html',
-      //   requires: [
-      //     'SeedModules.AngularUI/modules/requires',
-      //     'SeedModules.MindPlus/modules/myworks/requires'
-      //   ]
-      // });
-
-      // $stateProvider.state('mymind.works', {
-      //   url: '/works/{parentid}',
-      //   templateUrl: '/SeedModules.MindPlus/modules/myworks/views/works.html',
-      //   requires: [
-      //     'SeedModules.AngularUI/modules/requires',
-      //     'SeedModules.MindPlus/modules/myworks/requires'
-      //   ]
-      // });
-
-      // $stateProvider.state('workspace', {
-      //   url: '/workspace/{id}',
-      //   templateUrl:
-      //     '/SeedModules.MindPlus/modules/myworks/views/workspace.html',
-      //   requires: [
-      //     'SeedModules.AngularUI/modules/requires',
-      //     'SeedModules.MindPlus/modules/myworks/requires'
-      //   ]
-      // });
-
-      // $stateProvider.state('workspace.list', {
-      //   url: '/list',
-      //   templateUrl:
-      //     '/SeedModules.MindPlus/modules/myworks/views/workItems.html',
-      //   requires: [
-      //     'SeedModules.AngularUI/modules/requires',
-      //     'SeedModules.MindPlus/modules/myworks/requires'
-      //   ]
-      // });
-
-      // $stateProvider.state('workspace.settings', {
-      //   url: '/settings',
-      //   templateUrl:
-      //     '/SeedModules.MindPlus/modules/myworks/views/settings.html',
-      //   requires: [
-      //     'SeedModules.AngularUI/modules/requires',
-      //     'SeedModules.MindPlus/modules/myworks/requires'
-      //   ]
-      // });
-
-      // $stateProvider.state('workspace.tags', {
-      //   url: '/tags',
-      //   templateUrl: '/SeedModules.MindPlus/modules/myworks/views/tags.html',
-      //   requires: [
-      //     'SeedModules.AngularUI/modules/requires',
-      //     'SeedModules.MindPlus/modules/myworks/requires'
-      //   ]
-      // });
     }
   ]);
 });

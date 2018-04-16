@@ -15,6 +15,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
           homeTitle: '@'
         },
         link: function(scope, element, attrs, controller) {
+          element = $(element);
           scope.toggle = function() {
             var navItemShow = element.find('.sidebar-item.sidebar-show');
             var navItem = element.find('.sidebar-item');
