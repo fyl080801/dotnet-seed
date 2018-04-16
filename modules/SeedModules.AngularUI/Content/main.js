@@ -15,7 +15,6 @@
 
   function startup(config) {
     define('angular', [], function() {
-      'use strict';
       return window.angular;
     });
 
