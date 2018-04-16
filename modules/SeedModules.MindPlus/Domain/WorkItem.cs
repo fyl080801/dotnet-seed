@@ -38,13 +38,18 @@ namespace SeedModules.MindPlus.Domain
 
         [ForeignKey("ParentId")]
         public virtual WorkItem Parent { get; set; }
+
+        public int? StatusId { get; set; }
+
+        [ForeignKey("StatusId")]
+        public virtual WorkItemStatus WorkItemStatus { get; set; }
     }
 
     public class WorkItemTypeConfiguration : IEntityTypeConfiguration<WorkItem>
     {
         public void Configure(EntityTypeBuilder<WorkItem> builder)
         {
-            
+
         }
     }
 }
