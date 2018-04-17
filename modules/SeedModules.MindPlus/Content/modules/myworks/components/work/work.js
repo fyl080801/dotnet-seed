@@ -7,8 +7,9 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       '$scope',
       '$state',
       '$stateParams',
+      '$modal',
       'SeedModules.AngularUI/modules/services/requestService',
-      function($scope, $state, $stateParams, requestService) {
+      function($scope, $state, $stateParams, $modal, requestService) {
         $scope.current = null;
 
         $scope.loadDetails = function() {
@@ -21,6 +22,13 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             .then(function(result) {
               $scope.current = result;
             });
+        };
+
+        $scope.settings = function() {
+          $modal.open({
+            templateUrl:
+              '/SeedModules.MindPlus/modules/myworks/components/work/workSettings.html'
+          });
         };
       }
     ]

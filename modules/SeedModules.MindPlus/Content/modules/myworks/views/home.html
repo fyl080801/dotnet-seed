@@ -12,7 +12,8 @@
                 </div>
             </div>
         </div>
-        <div ng-tree class="sidemenu" tree-data="menus" item-clicked="menuClicked($item)" item-init="isMenuActive($item)" item-root-template-url="'/SeedModules.MindPlus/modules/myworks/templates/menuRoot.html'"></div>
+        <div ng-tree class="sidemenu" tree-data="menus" item-clicked="menuClicked($item)" single-expand="true" item-init="isMenuActive($item)"
+            item-root-template-url="'/SeedModules.MindPlus/modules/myworks/templates/menuRoot.html'"></div>
     </div>
     <div class="sidebar-content mind-container">
         <div class="navbar navbar-static-top navbar-skyblue">

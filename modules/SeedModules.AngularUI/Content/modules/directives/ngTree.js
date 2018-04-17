@@ -16,14 +16,16 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           itemRootTemplateUrl: '=',
           itemTemplateUrl: '=',
           itemClicked: '&',
-          itemExtending: '&',
+          itemExpanding: '&',
           itemInit: '&',
-          itemNgClass: '='
+          itemNgClass: '=',
+          singleExpand: '='
         },
         controller: [
           '$scope',
           '$state',
-          function($scope, $state) {
+          'SeedModules.AngularUI/modules/services/utility',
+          function($scope, $state, utility) {
             $scope.$state = $state;
 
             $scope.getItemText = function(item) {
@@ -64,11 +66,26 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
               return !children;
             };
 
-            $scope.itemExpended = function(item, $event) {
-              item.$$isExpend = !item.$$isExpend;
-              if (item.$$isExpend) {
-                $scope.warpCallback('itemExtending', item, $event);
-              }
+            $scope.itemExpanded = function(item, $event) {
+              utility
+                .eachTree($scope.treeData)
+                .children(
+                  $scope.childrenField ? $scope.childrenField : 'children'
+                )
+                .onEach(function(child) {
+                  if (child.$$hashKey !== item.$$hashKey) {
+                    child.$$isExpand = !$scope.signalExpand
+                      ? false
+                      : child.$$isExpand;
+                  }
+                })
+                .then(function() {
+                  item.$$isExpand = !item.$$isExpand;
+                  if (item.$$isExpand) {
+                    $scope.warpCallback('itemExpanding', item, $event);
+                  }
+                });
+
               $event.stopPropagation();
             };
 

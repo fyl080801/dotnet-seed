@@ -8,6 +8,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       '$state',
       '$stateParams',
       '$modal',
+      'app.services.popupService',
       'SeedModules.AngularUI/modules/services/requestService',
       'SeedModules.AngularUI/modules/factories/schemaFormParams',
       function(
@@ -15,6 +16,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         $state,
         $stateParams,
         $modal,
+        popupService,
         requestService,
         schemaFormParams
       ) {
@@ -119,6 +121,54 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
                   $scope.loadStatus();
                 });
             });
+        };
+
+        $scope.editStatus = function(item) {
+          $modal
+            .open({
+              templateUrl:
+                '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+              data: {
+                title: '编辑状态',
+                formParams: new schemaFormParams().properties({
+                  name: {
+                    title: '状态名称',
+                    type: 'string',
+                    required: true
+                  }
+                }),
+                model: $.extend({}, item),
+                form: ['name']
+              },
+              size: 'sm'
+            })
+            .result.then(function(data) {
+              requestService
+                .url('/api/mindplus/works/status')
+                .put(data)
+                .then(function(result) {
+                  $scope.loadStatus();
+                });
+            });
+        };
+
+        $scope.deleteStatus = function(item) {
+          popupService.confirm('是否删除？').ok(function() {
+            requestService
+              .url('/api/mindplus/works/status/' + item.id)
+              .drop()
+              .then(function(result) {
+                $scope.loadStatus();
+              });
+          });
+        };
+
+        $scope.expand = function(all) {
+          $scope.$broadcast('expandWorkItem', all);
+        };
+
+        $scope.reduce = function() {
+          $scope.$broadcast('reduceWorkItem', null);
         };
       }
     ]

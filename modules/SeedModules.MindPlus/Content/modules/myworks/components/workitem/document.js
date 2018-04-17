@@ -41,6 +41,26 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
           };
         };
 
+        $scope.$on('expandWorkItem', function(e, all) {
+          utility
+            .eachTree($scope.worktree)
+            .children('children')
+            .onEach(function(item) {
+              item.showContent = all
+                ? true
+                : !item.children || item.children.length <= 0;
+            });
+        });
+
+        $scope.$on('reduceWorkItem', function(e) {
+          utility
+            .eachTree($scope.worktree)
+            .children('children')
+            .onEach(function(item) {
+              item.showContent = false;
+            });
+        });
+
         $scope.$watch(
           function() {
             return $scope.workitems;
@@ -51,7 +71,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               .key('id')
               .parentKey('parentId')
               .onEach(function(idx, item) {
-                item.$$isExpend = true;
+                item.$$isExpand = true;
               })
               .then(function(tree) {
                 $scope.worktree = tree;
@@ -79,6 +99,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
                   '/parent?parentId=' +
                   arr[preIndex].id
               )
+              .options({ showLoading: false })
               .patch()
               .then(function() {
                 arr[preIndex].children = arr[preIndex].children || [];
@@ -133,6 +154,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             }
             requestService
               .url('/api/mindplus/workitem/parents')
+              .options({ showLoading: false })
               .patch(changes)
               .then(function() {
                 if (afters.length > 0) {

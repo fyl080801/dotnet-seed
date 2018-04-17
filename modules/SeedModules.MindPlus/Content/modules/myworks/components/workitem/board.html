@@ -14,19 +14,31 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li>
-                                <a href="" ng-click="createWorkItem()">新建工作项</a>
+                                <a href="" ng-click="createWorkItem()">添加工作项</a>
                             </li>
                             <li>
-                                <a href="">编辑状态</a>
+                                <a href="" ng-click="editStatus(item)">编辑状态</a>
                             </li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a href="">删除</a>
+                                <a href="" ng-click="deleteStatus(item)">删除</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+            <!-- <div class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                    <div class="navbar-form">
+                        <div class="form-group has-feedback">
+                            <input class="form-control" placeholder="搜索...">
+                            <div class="form-control-feedback">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
             <div class="list-group">
                 <!-- <div href="" class="list-group-item">
                         <h4 class="list-group-item-heading">List group item heading</h4>
@@ -55,19 +67,24 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li>
-                                <a href="" ng-click="createWorkItem()">新建工作项</a>
+                                <a href="" ng-click="createWorkItem()">添加工作项</a>
                             </li>
-                            <!-- <li>
-                                <a href="">编辑状态</a>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li>
-                                <a href="">删除</a>
-                            </li> -->
                         </ul>
                     </div>
                 </div>
             </div>
+            <!-- <div class="navbar navbar-default navbar-static-top">
+                <div class="navbar-header">
+                    <div class="navbar-form">
+                        <div class="form-group has-feedback">
+                            <input class="form-control" placeholder="搜索...">
+                            <div class="form-control-feedback">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
             <div class="list-group">
                 <!-- <div href="" class="list-group-item">
                     <h4 class="list-group-item-heading">List group item heading</h4>

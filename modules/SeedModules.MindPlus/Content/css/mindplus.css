@@ -20,6 +20,17 @@
   padding-left: 15px;
 }
 
+.work-status .navbar {
+  z-index: 0;
+}
+
+.work-status .navbar-header,
+.work-status .navbar-form,
+.work-status .form-group,
+.work-status .form-group > input {
+  width: 100%;
+}
+
 .work-status {
   display: inline-block;
   position: relative;

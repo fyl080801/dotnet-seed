@@ -5,3 +5,24 @@
     </button>
     <div class="btn-group" ng-include="'/SeedModules.MindPlus/modules/myworks/templates/viewSelector.html'"></div>
 </div>
+<div class="navbar-form navbar-right">
+    <div class="btn-group">
+        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <i class="glyphicon glyphicon-plus-sign"></i>
+            展开
+            <i class="caret"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+                <a href="" ng-click="expand(true)">全部</a>
+            </li>
+            <li>
+                <a href="" ng-click="expand(false)">最后一级</a>
+            </li>
+        </ul>
+    </div>
+    <button class="btn btn-default" ng-click="reduce()">
+        <i class="glyphicon glyphicon-minus-sign"></i>
+        收缩
+    </button>
+</div>

@@ -4,7 +4,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
   module.controller('SeedModules.MindPlus/modules/myworks/controllers/home', [
     '$scope',
     '$state',
-    function($scope, $state) {
+    'SeedModules.AngularUI/modules/services/utility',
+    function($scope, $state, utility) {
       $scope.menus = [
         {
           icon: 'fas fa-briefcase',
@@ -18,10 +19,25 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               }
             },
             {
-              text: '关注的工作'
+              text: '已关注'
             },
             {
-              text: '全部工作'
+              text: '全部'
+            }
+          ]
+        },
+        {
+          icon: 'fas fa-list-ul',
+          text: '工作项',
+          children: [
+            {
+              text: '我的工作项'
+            },
+            {
+              text: '已关注'
+            },
+            {
+              text: '全部'
             }
           ]
         },
@@ -43,6 +59,10 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       $scope.menuClicked = function(item) {
         if (item.state) $state.go(item.state, item.stateParamse || {});
       };
+
+      // $scope.menuExpanding = function(item) {
+
+      // };
     }
   ]);
 });

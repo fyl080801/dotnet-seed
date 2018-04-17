@@ -46,7 +46,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
                 .key('id')
                 .parentKey('parentId')
                 .onEach(function(idx, item) {
-                  item.$$isExpend = true;
+                  item.$$isExpand = true;
                 })
                 .then(function(tree) {
                   $scope.list = tree;

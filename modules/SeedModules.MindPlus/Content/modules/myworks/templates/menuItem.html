@@ -1,12 +1,12 @@
-<a href="" ng-if="!isLeaf(item)" ng-click="itemExpended(item, $event)">
+<a href="" ng-if="!isLeaf(item)" ng-click="itemExpanded(item, $event)">
     <i class="item-icon {{item.icon}}"></i>
     <span>{{item.text}}</span>
-    <i class="fas fa-angle-right item-fold-ico" ng-if="!isLeaf(item)" ng-class="{'fa-rotate-90':item.$$isExpend}"></i>
+    <i class="fas fa-angle-right item-fold-ico" ng-if="!isLeaf(item)" ng-class="{'fa-rotate-90':item.$$isExpand}"></i>
 </a>
 <a href="" ng-if="isLeaf(item)" ng-click="warpCallback('itemClicked', item, $event)">
     <i class="item-icon {{item.icon}}"></i>
     <span>{{item.text}}</span>
 </a>
-<ul class="subsidemenu" ng-if="!isLeaf(item)" ng-show="item.$$isExpend">
+<ul class="subsidemenu" ng-if="!isLeaf(item)" ng-show="item.$$isExpand">
     <li ng-class="{'active': $state.current.name.indexOf(item.state)>=0}" ng-repeat="item in getItemChildren(item)" ng-include="'/SeedModules.MindPlus/modules/myworks/templates/menuItem.html'"></li>
 </ul>

@@ -36,6 +36,14 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
         return val;
       }
 
+      function doEachTree(tree, defer) {
+        for (var i in tree) {
+          defer.onEachFunction(tree[i]);
+          if (tree[i][defer.childrenProperty])
+            doEachTree(tree[i][defer.childrenProperty], defer);
+        }
+      }
+
       this.uid = function() {
         return Date.parse(new Date()) / 1000 + '';
       };
@@ -76,6 +84,29 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
             defer.resolve(convertToTree(data, defer));
           }
         });
+        return defer.promise;
+      };
+
+      this.eachTree = function(tree) {
+        var defer = $q.defer();
+        defer.childrenProperty = 'children';
+
+        defer.promise.children = function(property) {
+          defer.childrenProperty = property;
+          return defer.promise;
+        };
+
+        defer.promise.onEach = function(fn) {
+          if ($.isFunction(fn)) {
+            defer.onEachFunction = fn;
+          }
+          return defer.promise;
+        };
+
+        $timeout(function() {
+          defer.resolve(doEachTree(tree, defer));
+        });
+
         return defer.promise;
       };
     }
