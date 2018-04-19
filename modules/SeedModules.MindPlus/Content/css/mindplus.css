@@ -160,15 +160,29 @@ ol.mind-ol {
   counter-reset: a;
 }
 
-ol.mind-ol > li:before {
+/* ol.mind-ol > li:before {
   counter-increment: a;
-  content: counters(a, '.') '. ';
+  content: counters(a, '.');
   float: left;
+} */
+
+.mind-document-header .mind-document-fold {
+  float: left;
+  margin-top: 2px;
+}
+
+.mind-document-header .mind-document-number:after {
+  counter-increment: a;
+  content: counters(a, ' . ');
+  float: left;
+  margin: 0 15px;
+  font-weight: bold;
 }
 
 .mind-document-item {
   display: block;
   position: relative;
+  margin-bottom: 5px;
 }
 
 .mind-document-tree .mind-document-flag {
@@ -178,6 +192,24 @@ ol.mind-ol > li:before {
 .mind-document-flag:before {
   content: ' ';
   position: absolute;
+  top: 0;
+  bottom: 0;
+  border-left: solid 1px #ddd;
+  margin-left: 7px;
+}
+
+/* .mind-document-flag:after {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  border-left: solid 1px #ddd;
+  margin-left: 7px;
+} */
+
+.mind-document-flag .mind-document-flag-icon {
+  content: ' ';
+  position: absolute;
   height: 15px;
   width: 15px;
   border: solid 1px #ddd;
@@ -185,10 +217,10 @@ ol.mind-ol > li:before {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
-  background-color: #fff;
+  background-color: #ddd;
 }
 
-.mind-document-flag:after {
+/* .mind-document-flag:after {
   content: ' ';
   position: absolute;
   height: 52%;
@@ -196,10 +228,11 @@ ol.mind-ol > li:before {
   margin-top: 26px;
   margin-left: 7px;
   border-left: solid 1px #ddd;
-}
+} */
 
 .mind-document-title:before {
   content: ' ';
+  margin-left: 30px;
   position: absolute;
   top: 15px;
   left: -5px;
@@ -210,8 +243,22 @@ ol.mind-ol > li:before {
   border-bottom-color: transparent;
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
-  background: #fff;
   z-index: 1;
+}
+
+.mind-document-title-default:before {
+  background-image: -webkit-linear-gradient(top, #f5f5f5 0, #e8e8e8 100%);
+  background-image: -o-linear-gradient(top, #f5f5f5 0, #e8e8e8 100%);
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#f5f5f5),
+    to(#e8e8e8)
+  );
+  background-image: linear-gradient(to bottom, #f5f5f5 0, #e8e8e8 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
+  background-repeat: repeat-x;
 }
 
 .mind-document-titleflag:after,

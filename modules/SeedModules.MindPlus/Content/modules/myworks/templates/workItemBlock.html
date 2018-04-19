@@ -1,32 +1,32 @@
-<div class="panel panel-default mind-document-flag" ng-init="item.$index=$index+1;itemInited(item, $event)">
+<div class="panel panel-default mind-document-flag">
     <div class="mind-document-flag-icon"></div>
 </div>
-<div class="mind-document-item">
+<div class="mind-document-item" ng-init="itemInited(item, $event)">
     <div class="mind-document-body panel panel-default">
-        <div class="list-group">
-            <div class="list-group-item mind-document-title">
-                <i class="glyphicon" ng-class="{'glyphicon-eye-open':item.showContent, 'glyphicon-eye-close':!item.showContent}" ng-click="item.showContent=!item.showContent"
-                    style="cursor: pointer;"></i>
-                <strong>{{item.title}}</strong>
-                <div class="dropdown pull-right">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-option-vertical"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                        <li>
-                            <a href="" ng-click="item.levelUp(item)">
-                                <i class="glyphicon glyphicon-arrow-left"></i>
-                                上移一级
-                            </a>
-                        </li>
-                        <li>
-                            <a href="" ng-click="item.levelDown(item)">
-                                <i class="glyphicon glyphicon-arrow-right"></i>
-                                下移一级
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+        <div class="panel-heading mind-document-header">
+            <div class="mind-document-title mind-document-title-default"></div>
+            <i class="mind-document-fold glyphicon" ng-class="{'glyphicon-eye-open':item.showContent, 'glyphicon-eye-close':!item.showContent}"
+                ng-click="item.showContent=!item.showContent" style="cursor: pointer"></i>
+            <div class="mind-document-number"></div>
+            <strong>{{item.title}}</strong>
+            <div class="dropdown pull-right">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="glyphicon glyphicon-option-vertical"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a href="" ng-click="item.levelUp(item)">
+                            <i class="glyphicon glyphicon-arrow-left"></i>
+                            上移一级
+                        </a>
+                    </li>
+                    <li>
+                        <a href="" ng-click="item.levelDown(item)">
+                            <i class="glyphicon glyphicon-arrow-right"></i>
+                            下移一级
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="list-group" ng-show="item.showContent">
