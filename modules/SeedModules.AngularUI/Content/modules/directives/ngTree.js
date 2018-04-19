@@ -7,9 +7,9 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
         restrict: 'EA',
         replace: true,
         templateUrl: function(element, attrs) {
-          if (attrs.itemRootTemplateUrl && attrs.itemRootTemplateUrl !== '') {
+          if (attrs.rootTemplateUrl && attrs.rootTemplateUrl !== '') {
             var fn = Function;
-            return new fn('return ' + attrs.itemRootTemplateUrl + ';')();
+            return new fn('return ' + attrs.rootTemplateUrl + ';')();
           } else {
             return '/SeedModules.AngularUI/modules/templates/ngTreeRoot.html';
           }
@@ -21,7 +21,7 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           textField: '@',
           iconField: '@',
           childrenField: '@',
-          itemRootTemplateUrl: '=',
+          //itemRootTemplateUrl: '=',
           itemTemplateUrl: '=',
           itemClicked: '&',
           itemExpanding: '&',
