@@ -14,14 +14,11 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
             return '/SeedModules.AngularUI/modules/templates/ngTreeRoot.html';
           }
         },
-        // template:
-        //   '<div ng-include="itemRootTemplateUrl || \'/SeedModules.AngularUI/modules/templates/ngTreeRoot.html\'"> </div>',
         scope: {
           treeData: '=',
           textField: '@',
           iconField: '@',
           childrenField: '@',
-          //itemRootTemplateUrl: '=',
           itemTemplateUrl: '=',
           itemClicked: '&',
           itemExpanding: '&',
@@ -48,12 +45,6 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
                 ? item[$scope.childrenField]
                 : item.children;
             };
-
-            // $scope.getItemStyle = function(item) {
-            //   return {
-            //     'padding-left': (item.level || 1) * 15 + 'px'
-            //   };
-            // };
 
             $scope.itemInited = function(item, $event) {
               // var children = $scope.getItemChildren(item);

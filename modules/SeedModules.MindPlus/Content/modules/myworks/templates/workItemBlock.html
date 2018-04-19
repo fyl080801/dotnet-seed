@@ -1,37 +1,52 @@
-<div class="panel panel-default mind-document-flag">
+<div class="panel panel-default mind-document-flag" id="{{'workitem_document_'+item.id}}">
     <div class="mind-document-flag-icon"></div>
 </div>
 <div class="mind-document-item" ng-init="itemInited(item, $event)">
     <div class="mind-document-body panel panel-default">
-        <div class="panel-heading mind-document-header">
+        <div class="panel-heading mind-document-header clearfix">
             <div class="mind-document-title mind-document-title-default"></div>
             <i class="mind-document-fold glyphicon" ng-class="{'glyphicon-eye-open':item.showContent, 'glyphicon-eye-close':!item.showContent}"
                 ng-click="item.showContent=!item.showContent" style="cursor: pointer"></i>
             <div class="mind-document-number"></div>
-            <strong>{{item.title}}</strong>
+            <a href="" ng-click="warpCallback('itemClicked', item, $event)" ng-show="!item.$titleEditing">
+                <strong>{{item.title}}</strong>
+            </a>
+            <input ng-model="item.title" ng-keydown="warpCallback('titleKeyDown', item, $event)" ng-blur="warpCallback('endEdit', item, $event)"
+                ng-show="item.$titleEditing" class="mind-document-title-editor">
             <div class="dropdown pull-right">
                 <a href="" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="glyphicon glyphicon-option-vertical"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right">
                     <li>
-                        <a href="" ng-click="item.levelUp(item)">
-                            <i class="glyphicon glyphicon-arrow-left"></i>
-                            上移一级
-                        </a>
+                        <a href="" ng-click="item.levelUp(item)">上移</a>
                     </li>
                     <li>
-                        <a href="" ng-click="item.levelDown(item)">
-                            <i class="glyphicon glyphicon-arrow-right"></i>
-                            下移一级
-                        </a>
+                        <a href="" ng-click="item.levelDown(item)">下移</a>
+                    </li>
+                    <li>
+                        <a href="" ng-click="item.levelUp(item)">升一级</a>
+                    </li>
+                    <li>
+                        <a href="" ng-click="item.levelDown(item)">降一级</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a href="">之前插入工作项</a>
+                    </li>
+                    <li>
+                        <a href="">之后插入工作项</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a href="" ng-click="warpCallback('deleteWorkItem', item, $event)">删除</a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="list-group" ng-show="item.showContent">
             <div class="list-group-item">
-                内容
+                <i class="glyphicon glyphicon-align-left"></i>
             </div>
         </div>
     </div>

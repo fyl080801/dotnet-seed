@@ -1,7 +1,8 @@
 <div class="mind-container" ng-controller="SeedModules.MindPlus/modules/myworks/components/workitem/document">
-    <div class="mind-container bg-blank" style="margin-right: 35%; overflow: auto">
-        <div class="container-fluid" style="margin-top: 20px">
-            <div ng-tree class="panel-group nav mind-document-tree mind-ol" tree-data="worktree" item-init="initWorkItem($item)" root-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemRoot.html'">
+    <div scrollspy offset="200" class="mind-container bg-blank" style="margin-right: 35%; overflow: auto">
+        <div class="container-fluid document-content" style="margin-top: 20px">
+            <div ng-tree class="panel-group nav mind-document-tree mind-ol" tree-data="worktree" item-init="initWorkItem($item)" item-clicked="editTitle($item)"
+                root-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemRoot.html'">
             </div>
         </div>
     </div>

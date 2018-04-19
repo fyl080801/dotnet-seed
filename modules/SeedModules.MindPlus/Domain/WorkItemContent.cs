@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace SeedModules.MindPlus.Domain
         public string Content { get; set; }
 
         public virtual WorkItem WorkItem { get; set; }
+
+        public DateTime LastModify { get; set; } = DateTime.Now;
     }
 
     public class WorkItemContentTypeConfiguration : IEntityTypeConfiguration<WorkItemContent>

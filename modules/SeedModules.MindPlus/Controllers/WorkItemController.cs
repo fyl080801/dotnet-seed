@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Data;
+using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
 using SeedModules.MindPlus.Domain;
@@ -53,6 +55,24 @@ namespace SeedModules.MindPlus.Controllers
             _dbContext.SaveChanges();
         }
 
+        [HttpPatch("{id}/title"), HandleResult]
+        public void SetTitle(int id, [FromQuery]string title)
+        {
+            if (string.IsNullOrEmpty(title))
+            {
+                ModelState.AddModelError("title", "标题不能为空");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                throw this.Exception(ModelState);
+            }
+
+            var domain = _dbContext.Set<WorkItem>().Find(id);
+            domain.Title = title;
+            _dbContext.SaveChanges();
+        }
+
         [HttpPatch("{id}/parent"), HandleResult]
         public void SetParent(int id, [FromQuery]int? parentId)
         {
@@ -73,6 +93,19 @@ namespace SeedModules.MindPlus.Controllers
                 query[model.Id].ParentId = model.ParentId;
             }
             _dbContext.SaveChanges();
+        }
+
+        [HttpGet("{id}/content"), HandleResult]
+        public async Task<WorkItemContent> LoadContent(int id)
+        {
+            var domain = await _dbContext.Set<WorkItemContent>().FindAsync(id);
+
+            return new WorkItemContent()
+            {
+                Id = domain.Id,
+                Content = domain.Content,
+                LastModify = domain.LastModify
+            };
         }
     }
 }

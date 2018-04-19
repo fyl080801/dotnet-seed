@@ -230,6 +230,13 @@ ol.mind-ol {
   border-left: solid 1px #ddd;
 } */
 
+.mind-document-title-editor {
+  background-color: transparent;
+  border: none;
+  float: left;
+  height: 20px;
+}
+
 .mind-document-title:before {
   content: ' ';
   margin-left: 30px;

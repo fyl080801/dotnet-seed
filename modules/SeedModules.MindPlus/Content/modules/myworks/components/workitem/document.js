@@ -6,19 +6,38 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
     [
       '$scope',
       '$timeout',
+      'app.services.popupService',
       'SeedModules.AngularUI/modules/services/utility',
       'SeedModules.AngularUI/modules/services/requestService',
-      function($scope, $timeout, utility, requestService) {
+      function($scope, $timeout, popupService, utility, requestService) {
         $scope.worktree = [];
 
         $scope.initWorkItem = function(item) {
           item.contentShow = false;
-          // item.$levels = item.$index + '';
-          // var levelItem = $.extend({}, item);
-          // while (levelItem.$parent) {
-          //   levelItem = $.extend({}, levelItem.$parent);
-          //   item.$levels = levelItem.$index + '.' + item.$levels;
-          // }
+
+          item.endEdit = function(target) {
+            target.$item.$titleEditing = false;
+            requestService
+              .url(
+                '/api/mindplus/workitem/' +
+                  target.$item.id +
+                  '/title?title=' +
+                  target.$item.title
+              )
+              .options({ showLoading: false })
+              .patch()
+              .then(function() {});
+          };
+
+          item.titleKeyDown = function(target) {
+            if (target.$event.keyCode === 13) {
+              item.endEdit(target);
+            }
+          };
+
+          item.deleteWorkItem = function(target) {
+            popupService.confirm('是否删除？').ok(function() {});
+          };
 
           item.levelUp = function(cur) {
             if (cur.$parent) {
@@ -37,6 +56,10 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               setItemLevelDown(cur.$parent.children, cur);
             }
           };
+        };
+
+        $scope.editTitle = function(item) {
+          item.$titleEditing = true;
         };
 
         $scope.$on('expandWorkItem', function(e, all) {
