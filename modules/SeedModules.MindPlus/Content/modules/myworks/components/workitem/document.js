@@ -12,15 +12,13 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         $scope.worktree = [];
 
         $scope.initWorkItem = function(item) {
-          var level = 1;
-
-          item.flagStyle = {
-            'margin-left': ((item.level || 1) - 1) * 30 + 'px'
-          };
-          item.customStyle = {
-            'padding-left': ((item.level || 1) - 1) * 30 + 'px'
-          };
           item.contentShow = false;
+          // item.$levels = item.$index + '';
+          // var levelItem = $.extend({}, item);
+          // while (levelItem.$parent) {
+          //   levelItem = $.extend({}, levelItem.$parent);
+          //   item.$levels = levelItem.$index + '.' + item.$levels;
+          // }
 
           item.levelUp = function(cur) {
             if (cur.$parent) {
@@ -132,9 +130,9 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             }
           }
 
-          for (var i in arr) {
-            if (item.$parent.id === arr[i].id) {
-              parentIndex = i;
+          for (var m in arr) {
+            if (item.$parent.id === arr[m].id) {
+              parentIndex = m;
               break;
             }
           }
@@ -146,9 +144,9 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
                 parentId: item.$parent.$parent ? item.$parent.$parent.id : null
               }
             ];
-            for (var i in afters) {
+            for (var k in afters) {
               changes.push({
-                id: afters[i].id,
+                id: afters[k].id,
                 parentId: item.id
               });
             }

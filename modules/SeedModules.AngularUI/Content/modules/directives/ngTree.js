@@ -6,8 +6,16 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
       return {
         restrict: 'EA',
         replace: true,
-        template:
-          '<ul class="tree-view" ng-include="itemRootTemplateUrl || \'/SeedModules.AngularUI/modules/templates/ngTreeRoot.html\'"> </ul>',
+        templateUrl: function(element, attrs) {
+          if (attrs.itemRootTemplateUrl && attrs.itemRootTemplateUrl !== '') {
+            var fn = Function;
+            return new fn('return ' + attrs.itemRootTemplateUrl + ';')();
+          } else {
+            return '/SeedModules.AngularUI/modules/templates/ngTreeRoot.html';
+          }
+        },
+        // template:
+        //   '<div ng-include="itemRootTemplateUrl || \'/SeedModules.AngularUI/modules/templates/ngTreeRoot.html\'"> </div>',
         scope: {
           treeData: '=',
           textField: '@',
@@ -18,7 +26,6 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           itemClicked: '&',
           itemExpanding: '&',
           itemInit: '&',
-          itemNgClass: '=',
           singleExpand: '='
         },
         controller: [
@@ -42,20 +49,20 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
                 : item.children;
             };
 
-            $scope.getItemStyle = function(item) {
-              return {
-                'padding-left': (item.level || 1) * 15 + 'px'
-              };
-            };
+            // $scope.getItemStyle = function(item) {
+            //   return {
+            //     'padding-left': (item.level || 1) * 15 + 'px'
+            //   };
+            // };
 
             $scope.itemInited = function(item, $event) {
-              var children = $scope.getItemChildren(item);
-              if (children) {
-                for (var idx in children) {
-                  children[idx].$parent = item;
-                }
-              }
-              item.level = getLevel(item, 1);
+              // var children = $scope.getItemChildren(item);
+              // if (children) {
+              //   for (var idx in children) {
+              //     children[idx].$parent = item;
+              //   }
+              // }
+              // item.level = getLevel(item, 1);
               $scope.warpCallback('itemInit', item, $event);
             };
 
@@ -96,12 +103,12 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
               });
             };
 
-            function getLevel(item, level) {
-              if (item.$parent) {
-                return getLevel(item.$parent, level + 1);
-              }
-              return level;
-            }
+            // function getLevel(item, level) {
+            //   if (item.$parent) {
+            //     return getLevel(item.$parent, level + 1);
+            //   }
+            //   return level;
+            // }
           }
         ]
       };

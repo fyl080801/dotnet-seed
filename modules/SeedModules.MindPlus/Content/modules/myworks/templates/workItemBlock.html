@@ -1,19 +1,13 @@
-<div class="panel panel-default mind-document-flag" ng-init="itemInited(item, $event)" ng-style="item.flagStyle">
+<div class="panel panel-default mind-document-flag" ng-init="item.$index=$index+1;itemInited(item, $event)">
     <div class="mind-document-flag-icon"></div>
 </div>
-<div class="mind-document-item" ng-style="item.customStyle">
+<div class="mind-document-item">
     <div class="mind-document-body panel panel-default">
         <div class="list-group">
             <div class="list-group-item mind-document-title">
                 <i class="glyphicon" ng-class="{'glyphicon-eye-open':item.showContent, 'glyphicon-eye-close':!item.showContent}" ng-click="item.showContent=!item.showContent"
                     style="cursor: pointer;"></i>
                 <strong>{{item.title}}</strong>
-                <!-- <a href="" ng-click="item.levelUp(item)">
-                    <i class="glyphicon glyphicon-arrow-left"></i>
-                </a>
-                <a href="" ng-click="item.levelDown(item)">
-                    <i class="glyphicon glyphicon-arrow-right"></i>
-                </a> -->
                 <div class="dropdown pull-right">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="glyphicon glyphicon-option-vertical"></i>
@@ -42,6 +36,6 @@
         </div>
     </div>
 </div>
-<div ng-if="!isLeaf(item)" ng-show="item.$$isExpand" style="position: relative;">
-    <div ng-repeat="item in getItemChildren(item)" ng-include="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'"></div>
-</div>
+<ol class="nav mind-ol" ng-if="!isLeaf(item)" ng-show="item.$$isExpand" style="position: relative;">
+    <li ng-repeat="item in getItemChildren(item)" ng-include="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'"></li>
+</ol>

@@ -155,7 +155,15 @@
 }
 
 /* mind */
-.mind-document-tree {
+ol.mind-ol {
+  list-style: none;
+  counter-reset: a;
+}
+
+ol.mind-ol > li:before {
+  counter-increment: a;
+  content: counters(a, '.') '. ';
+  float: left;
 }
 
 .mind-document-item {
