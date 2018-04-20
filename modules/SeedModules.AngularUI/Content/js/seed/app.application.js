@@ -301,44 +301,59 @@ define('app/services/httpService', ['app/services'], function (services) {
             };
             this.get = function (url) {
                 var defer = $q.defer();
+                var cancelDefer = $q.defer();
                 $http({
                     method: 'get',
                     url: me.resolveUrl(url),
-                    withCredentials: false
+                    withCredentials: false,
+                    timeout: cancelDefer.promise
                 }).then(function (response) {
                     httpDataHandler.doResponse(response, defer);
                 }, function (response) {
                     httpDataHandler.doError(response, defer);
                 });
+                defer.promise.cancel = function () {
+                    cancelDefer.resolve();
+                };
                 return defer.promise;
             };
             this.post = function (url, params) {
                 var defer = $q.defer();
+                var cancelDefer = $q.defer();
                 $http({
                     method: 'post',
                     data: params,
                     url: me.resolveUrl(url),
                     withCredentials: false,
+                    timeout: cancelDefer.promise,
                     headers: { 'Content-Type': 'application/json;charset=UTF-8' }
                 }).then(function (response) {
                     httpDataHandler.doResponse(response, defer);
                 }, function (response) {
                     httpDataHandler.doError(response, defer);
                 });
+                defer.promise.cancel = function () {
+                    cancelDefer.resolve();
+                };
                 return defer.promise;
             };
             this.jsonp = function (url, params) {
                 var defer = $q.defer();
+                var cancelDefer = $q.defer();
                 $http({
                     method: 'jsonp',
                     data: params,
                     url: me.resolveUrl(url),
-                    withCredentials: false
+                    withCredentials: false,
+                    timeout: cancelDefer.promise
                 }).then(function (response) {
                     httpDataHandler.doResponse(response, defer);
                 }, function (response) {
                     httpDataHandler.doError(response, defer);
                 });
+                defer.promise.cancel = function () {
+                    cancelDefer.resolve();
+                };
                 return defer.promise;
             };
         }

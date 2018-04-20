@@ -7,6 +7,7 @@ define([
   'SeedModules.AngularUI/modules/configs/schemaFormDefaults',
   'SeedModules.AngularUI/modules/configs/schemaForm',
   'SeedModules.AngularUI/modules/configs/form/simplecolor',
+  'SeedModules.AngularUI/modules/configs/form/switchField',
   'SeedModules.AngularUI/modules/providers/ngTableDefaultGetData'
 ], function(application) {
   'use strict';

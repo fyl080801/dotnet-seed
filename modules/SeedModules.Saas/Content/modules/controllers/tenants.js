@@ -75,6 +75,10 @@ define(['SeedModules.Saas/modules/module'], function(module) {
           title: '端口号',
           type: 'string'
         },
+        mysql_Ssl: {
+          title: 'SSL',
+          type: 'boolean'
+        },
         // mssql
         mssql_Server: {
           title: '服务地址',
@@ -175,6 +179,18 @@ define(['SeedModules.Saas/modules/module'], function(module) {
               type: 'section',
               htmlClass: 'col-xs-6',
               items: ['mysql_Port']
+            },
+            {
+              type: 'section',
+              htmlClass: 'col-xs-6',
+              items: [
+                {
+                  key: 'mysql_Ssl',
+                  type: 'switch',
+                  trueText: '开',
+                  falseText: '关'
+                }
+              ]
             }
           ]
         },
@@ -278,6 +294,10 @@ define(['SeedModules.Saas/modules/module'], function(module) {
                 if (data.mysql_Port && data.mysql_Port !== '') {
                   data.connectionString =
                     data.connectionString + 'port=' + data.mysql_Port + ';';
+                }
+                if (!data.mysql_Ssl) {
+                  data.connectionString =
+                    data.connectionString + 'SslMode=none;';
                 }
                 break;
               }

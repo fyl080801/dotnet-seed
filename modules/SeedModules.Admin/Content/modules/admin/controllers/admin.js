@@ -100,9 +100,9 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
           });
       };
 
-      $scope.testFn = function() {
-        $('#testa').slideUp(300);
-      };
+      // $scope.testFn = function() {
+      //   $('#testa').slideUp(300);
+      // };
     }
   ]);
 });
