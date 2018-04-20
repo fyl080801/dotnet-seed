@@ -158,6 +158,18 @@
                         <input class="form-control" name="mysql_Port" placeholder="输入端口号" ng-model="mysql.Port" />
                     </div>
                 </fieldset>
+                <fieldset class="form-group col-md-6">
+                    <div>
+                        <label>SSL：</label>
+                    </div>
+                    <div>
+                        <!-- <input class="form-control" name="mysql_Ssl" placeholder="输入端口号" ng-model="mysql.Ssl" /> -->
+                        <div class="btn-group">
+                            <button class="btn btn-default" ng-click="mysql.Ssl=true" ng-class="{'active': mysql.Ssl}">启用</button>
+                            <button class="btn btn-default" ng-click="mysql.Ssl=false" ng-class="{'active': !mysql.Ssl}">禁用</button>
+                        </div>
+                    </div>
+                </fieldset>
             </div>
         </div>
         <h6>

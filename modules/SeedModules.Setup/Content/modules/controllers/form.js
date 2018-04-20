@@ -77,6 +77,11 @@ define(['SeedModules.Setup/modules/module'], function(module) {
                 ';';
             }
 
+            if (!$scope.mysql.Ssl) {
+              $scope.data.ConnectionString =
+                $scope.data.ConnectionString + 'SslMode=none;';
+            }
+
             break;
           }
           default:
