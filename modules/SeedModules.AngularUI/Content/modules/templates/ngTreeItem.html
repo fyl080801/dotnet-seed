@@ -1,8 +1,8 @@
-<a href="" ng-if="!isLeaf(item)" ng-click="itemExpanded(item, $event)" ng-style="getItemStyle(item)">
+<a href="" ng-if="!isLeaf(item)" ng-click="itemExpanded(item, $event)">
     <i class="fas fa-plus fa-fw"></i>
     {{getItemText(item)}}
 </a>
-<a href="" ng-if="isLeaf(item)" ng-click="warpCallback('itemClicked', item, $event)" ng-style="getItemStyle(item)">
+<a href="" ng-if="isLeaf(item)" ng-click="warpCallback('itemClicked', item, $event)">
     <i class="fas fa-file fa-fw"></i>
     {{getItemText(item)}}
 </a>

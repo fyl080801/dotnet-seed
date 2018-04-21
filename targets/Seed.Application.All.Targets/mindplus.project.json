@@ -23,23 +23,39 @@
       "RouteReferences": [
         {
           "Route": "SeedModules.Admin/Home/Index",
-          "References": ["angularui", "admin"]
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/admin",
+            "SeedModules.MindPlus/admin"
+          ]
         },
         {
           "Route": "SeedModules.Admin/Home/Login",
-          "References": ["angularui", "login"]
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/login"
+          ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Index",
-          "References": ["angularui", "portals"]
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.MindPlus/portals"
+          ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Works",
-          "References": ["angularui", "myworks"]
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.MindPlus/myworks"
+          ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Mind",
-          "References": ["angularui", "mind"]
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.MindPlus/mind"
+          ]
         }
       ]
     }

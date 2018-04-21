@@ -47,13 +47,6 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
             };
 
             $scope.itemInited = function(item, $event) {
-              // var children = $scope.getItemChildren(item);
-              // if (children) {
-              //   for (var idx in children) {
-              //     children[idx].$parent = item;
-              //   }
-              // }
-              // item.level = getLevel(item, 1);
               $scope.warpCallback('itemInit', item, $event);
             };
 
@@ -93,13 +86,6 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
                 $event: $event
               });
             };
-
-            // function getLevel(item, level) {
-            //   if (item.$parent) {
-            //     return getLevel(item.$parent, level + 1);
-            //   }
-            //   return level;
-            // }
           }
         ]
       };

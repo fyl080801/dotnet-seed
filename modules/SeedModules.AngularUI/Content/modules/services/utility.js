@@ -58,6 +58,7 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
        * 列表转tree
        * key()-主键, parentKey()-父级字段, children()-children属性
        * @param {*} data
+       * @param {*} warp
        */
       this.toTree = function(data, warp) {
         var defer = $q.defer();

@@ -22,11 +22,17 @@
       "RouteReferences": [
         {
           "Route": "SeedModules.Admin/Home/Index",
-          "References": ["angularui", "admin"]
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/admin"
+          ]
         },
         {
           "Route": "SeedModules.Admin/Home/Login",
-          "References": ["angularui", "login"]
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/login"
+          ]
         }
       ]
     }

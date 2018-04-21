@@ -6,6 +6,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
     '$state',
     'SeedModules.AngularUI/modules/services/utility',
     function($scope, $state, utility) {
+      $scope.globalSearching = false;
+
       $scope.menus = [
         {
           icon: 'fas fa-briefcase',
@@ -60,9 +62,14 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         if (item.state) $state.go(item.state, item.stateParamse || {});
       };
 
-      // $scope.menuExpanding = function(item) {
+      // 搜索框去焦点
+      $scope.blurSearch = function() {
+        $scope.globalSearching = false;
+      };
 
-      // };
+      $scope.focusSearch = function() {
+        $scope.globalSearching = true;
+      };
     }
   ]);
 });

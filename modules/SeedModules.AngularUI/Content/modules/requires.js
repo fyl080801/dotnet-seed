@@ -5,6 +5,7 @@ define([
   'SeedModules.AngularUI/modules/factories/ngTableParams',
   'SeedModules.AngularUI/modules/factories/ngTableRequest',
   'SeedModules.AngularUI/modules/factories/schemaFormParams',
+  'SeedModules.AngularUI/modules/factories/delayTimer',
   'SeedModules.AngularUI/modules/services/requestService',
   'SeedModules.AngularUI/modules/services/utility',
   'SeedModules.AngularUI/modules/directives/ajaxForm',
