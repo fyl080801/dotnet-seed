@@ -12,6 +12,14 @@
         "deps": ["SeedModules.MindPlus/modules/myworks/module"]
       },
       "isDist": true
+    },
+    "wysihtml": {
+      "path": "SeedModules.MindPlus/js/wysihtml/wysihtml.min",
+      "noDebug": true
+    },
+    "wysihtml-toolbar": {
+      "path": "SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min",
+      "noDebug": true
     }
   },
   "requires": [
