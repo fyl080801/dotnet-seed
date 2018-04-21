@@ -1,1 +1,23 @@
-mindsettings
+<div ng-controller="SeedModules.MindPlus/modules/admin/controllers/mindsettings" ng-init="loadSettings()">
+    <form ajax-form="setupForm" name="form" role="form">
+        <h6>
+            <i class="glyphicon glyphicon-chevron-right"></i> 文档服务
+            <hr>
+        </h6>
+        <div class="row">
+            <div class="form-group col-md-7" ng-class="{ 'has-error': form.DocumentHost.$invalid }">
+                <div>
+                    <label>服务地址：</label>
+                    <span class="text-danger pull-right" ng-show="form.DocumentHost.$invalid">*服务地址不能为空</span>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        http://
+                    </span>
+                    <input class="form-control" name="DocumentHost" ng-model="settings.documentHost" placeholder="输入服务地址" required>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" ng-click="saveSettings()">保存</button>
+    </form>
+</div>
