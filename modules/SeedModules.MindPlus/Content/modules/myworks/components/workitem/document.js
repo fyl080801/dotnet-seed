@@ -15,6 +15,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
         $scope.initWorkItem = function(item) {
           item.contentShow = false;
 
+          item.editWorkItemContent = function(target) {};
+
           item.endEdit = function(target) {
             target.$item.$titleEditing = false;
             requestService

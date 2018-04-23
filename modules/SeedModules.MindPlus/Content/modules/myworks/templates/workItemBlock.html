@@ -44,11 +44,8 @@
                 </ul>
             </div>
         </div>
-        <div class="list-group" ng-show="item.showContent">
-            <div class="list-group-item">
-                <i class="glyphicon glyphicon-align-left"></i>
-            </div>
-        </div>
+        <!--内容-->
+        <div work-item-content="item"></div>
     </div>
 </div>
 <ol class="nav mind-ol" ng-if="!isLeaf(item)" ng-show="item.$$isExpand" style="position: relative;">

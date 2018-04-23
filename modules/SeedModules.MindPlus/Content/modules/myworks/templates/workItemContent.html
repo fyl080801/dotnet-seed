@@ -1,0 +1,16 @@
+<div class="list-group" ng-if="workItem.showContent">
+    <div class="dir-workitem-new list-group-item mp-workitem hide">
+        <!-- <i class="glyphicon glyphicon-align-left pull-left"></i> -->
+        <div class="text-muted">
+            <a href="" ng-click="warpCallback('editWorkItemContent', item, $event)">
+                <i class="glyphicon glyphicon-pencil"></i>
+                点击进行编辑
+            </a>
+        </div>
+    </div>
+    <div class="dir-workitem-content list-group-item mp-workitem hide"></div>
+    <div class="dir-workitem-content list-group-item text-center mp-workitem">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        读取中...
+    </div>
+</div>

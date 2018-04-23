@@ -11,21 +11,26 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
 
           var content = element.children();
           var elmHeight = element.height();
-          var locked = false;
+          //var locked = false;
 
           element.scroll(function() {
             var scrollTop = element.scrollTop();
+            // scrollTop + elmHeight: 已滚动的高度和元素高度之和
+            // 
             var offset =
               content.offset().top + content.height() - (scrollTop + elmHeight);
-            if (offset < parseInt(attr.offset) && !locked) {
-              locked = true;
-              $timeout(function() {
-                locked = false;
-              });
-              // settings.load(settings.page, function() {
-              //   locked = false;
-              // });
+            if (offset < parseInt(attr.offset)) {
+              scope.$broadcast('spyscrolled');
             }
+            // if (offset < parseInt(attr.offset) && !locked) {
+            //   locked = true;
+            //   $timeout(function() {
+            //     locked = false;
+            //   });
+            //   // settings.load(settings.page, function() {
+            //   //   locked = false;
+            //   // });
+            // }
           });
         }
       };
