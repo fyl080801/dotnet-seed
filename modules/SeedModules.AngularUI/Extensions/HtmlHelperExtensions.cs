@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json.Linq;
 using SeedModules.AngularUI.Rendering;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,13 @@ namespace SeedModules.AngularUI.Extensions
         {
             if (settings != null)
                 ui.SetSettings(settings);
+            return ui;
+        }
+
+        public static IViewRoot Properties(this IViewRoot ui, JObject data)
+        {
+            if (data != null)
+                ui.SetProperties(data);
             return ui;
         }
     }

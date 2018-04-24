@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace SeedModules.AngularUI.Rendering
 {
@@ -54,6 +55,14 @@ namespace SeedModules.AngularUI.Rendering
             else
             {
                 Attributes.Add("data-site", siteSettings);
+            }
+        }
+
+        public void SetProperties(JObject data)
+        {
+            foreach (var item in data)
+            {
+                Attributes.Add(item.Key.ToLower(), item.Value.ToString());
             }
         }
     }

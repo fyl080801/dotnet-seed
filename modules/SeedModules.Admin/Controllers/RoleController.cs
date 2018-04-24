@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,7 +12,10 @@ using Seed.Environment.Engine.Extensions;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
+using Seed.Plugins.Feature;
 using Seed.Security;
+using Seed.Security.Extensions;
+using Seed.Security.Permissions;
 using Seed.Security.Services;
 using SeedModules.Admin.Models;
 using SeedModules.Security.Domain;
@@ -24,7 +29,10 @@ namespace SeedModules.Admin.Controllers
         readonly IRoleProvider _roleProvider;
         readonly RoleManager<IRole> _roleManager;
         readonly UserManager<IUser> _userManager;
+        readonly IAuthorizationService _authorizationService;
         readonly IEnumerable<IRoleRemovedEventHandler> _roleRemovedEventHandlers;
+        readonly IEnumerable<IPermissionProvider> _permissionProviders;
+        readonly ITypeFeatureProvider _typeFeatureProvider;
         readonly ILogger _logger;
 
         public RoleController(
@@ -32,14 +40,20 @@ namespace SeedModules.Admin.Controllers
             IRoleProvider roleProvider,
             RoleManager<IRole> roleManager,
             UserManager<IUser> userManager,
+            IAuthorizationService authorizationService,
             IEnumerable<IRoleRemovedEventHandler> roleRemovedEventHandlers,
+            IEnumerable<IPermissionProvider> permissionProviders,
+            ITypeFeatureProvider typeFeatureProvider,
             ILogger<RoleController> logger)
         {
             _dbContext = dbContext;
             _roleProvider = roleProvider;
             _roleManager = roleManager;
             _userManager = userManager;
+            _authorizationService = authorizationService;
             _roleRemovedEventHandlers = roleRemovedEventHandlers;
+            _permissionProviders = permissionProviders;
+            _typeFeatureProvider = typeFeatureProvider;
             _logger = logger;
         }
 
@@ -50,7 +64,7 @@ namespace SeedModules.Admin.Controllers
             return roles.Select(e => (Role)e).ToArray();
         }
 
-        [HttpPost, ValidateAntiForgeryToken, HandleResult]
+        [HttpPost, ValidateAntiForgeryToken, Permission("ManageRoles"), HandleResult]
         public async Task<Role> Create([FromBody]Role model)
         {
             if (ModelState.IsValid)
@@ -80,7 +94,7 @@ namespace SeedModules.Admin.Controllers
             throw this.Exception(ModelState);
         }
 
-        [HttpDelete("{id}"), HandleResult]
+        [HttpDelete("{id}"), Permission("ManageRoles"), HandleResult]
         public async Task Delete(string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -94,7 +108,7 @@ namespace SeedModules.Admin.Controllers
             await _roleRemovedEventHandlers.InvokeAsync(e => e.RoleRemovedAsync(role.Rolename), _logger);
         }
 
-        [HttpPatch("{id}/displayname"), HandleResult]
+        [HttpPatch("{id}/displayname"), Permission("ManageRoles"), HandleResult]
         public async Task SetDisplayName(string id, [FromQuery]string name)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -134,7 +148,7 @@ namespace SeedModules.Admin.Controllers
             return new PagedResult<User>(query, page, count);
         }
 
-        [HttpPost("{id}/members"), HandleResult]
+        [HttpPost("{id}/members"), Permission("AssignRoles"), HandleResult]
         public async Task AddToRole([FromBody]RoleMembersModel model, string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -152,7 +166,7 @@ namespace SeedModules.Admin.Controllers
             _dbContext.SaveChanges();
         }
 
-        [HttpPatch("{id}/members"), HandleResult]
+        [HttpPatch("{id}/members"), Permission("AssignRoles"), HandleResult]
         public async Task RemoveFromRole([FromBody]RoleMembersModel model, string id)
         {
             var role = await _roleManager.FindByIdAsync(id);
@@ -173,6 +187,72 @@ namespace SeedModules.Admin.Controllers
             dbSet.RemoveRange(usersToRemove);
 
             _dbContext.SaveChanges();
+        }
+
+        [HttpGet("{id}/permission"), HandleResult]
+        public async Task<RolePermissionModel> GetRolePermissions(string id)
+        {
+            var role = await _roleManager.FindByIdAsync(id);
+            var allPermissions = GetPermissions();
+            return new RolePermissionModel()
+            {
+                Enables = await GetEnabledPermissions((Role)role, allPermissions.SelectMany(e => e.Value)),
+                Permissions = allPermissions
+            };
+        }
+
+        [HttpPut("{id}/permission"), Permission("ManageRoles"), HandleResult]
+        public async Task SaveRolePermission(string id, [FromBody]string[] permissions)
+        {
+            var role = (Role)await _roleManager.FindByIdAsync(id);
+            var newPermissions = permissions.Select(e => new RoleClaim() { ClaimType = PermissionInfo.ClaimType, ClaimValue = e }).ToArray();
+            role.RoleClaims.RemoveAll(e => e.ClaimType == PermissionInfo.ClaimType);
+            role.RoleClaims.AddRange(newPermissions);
+            await _roleManager.UpdateAsync(role);
+        }
+
+        private IDictionary<string, IEnumerable<PermissionInfo>> GetPermissions()
+        {
+            var existPermissions = new Dictionary<string, IEnumerable<PermissionInfo>>();
+            foreach (var permissionProvider in _permissionProviders)
+            {
+                var feature = _typeFeatureProvider.GetFeatureForDependency(permissionProvider.GetType());
+                var permissions = permissionProvider.GetPermissions();
+                foreach (var permission in permissions)
+                {
+                    string title = String.IsNullOrWhiteSpace(permission.Category) ? feature.Name : permission.Category;
+
+                    if (existPermissions.ContainsKey(title))
+                    {
+                        existPermissions[title] = existPermissions[title].Concat(new[] { permission });
+                    }
+                    else
+                    {
+                        existPermissions.Add(title, new[] { permission });
+                    }
+                }
+            }
+            return existPermissions;
+        }
+
+        private async Task<IEnumerable<string>> GetEnabledPermissions(Role role, IEnumerable<PermissionInfo> all)
+        {
+            var noneUser = new ClaimsPrincipal(
+                new ClaimsIdentity(new[] { new Claim(ClaimTypes.Role, role.Rolename) },
+                role.Rolename != "Anonymous" ? "FakeAuthenticationType" : null)
+            );
+
+            var result = new List<string>();
+
+            foreach (var permission in all)
+            {
+                if (await _authorizationService.AuthorizeAsync(noneUser, permission))
+                {
+                    result.Add(permission.Name);
+                }
+            }
+
+            return result;
         }
 
         private User ConvertToUser(IUser user)

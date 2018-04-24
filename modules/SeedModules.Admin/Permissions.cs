@@ -28,13 +28,7 @@ namespace SeedModules.Admin
             return new[] {
                 new PermissionStereotype {
                     Name = "Administrator",
-                    Permissions = new[]
-                    {
-                        ManageSettings,
-                        ManageUsers,
-                        ManageRoles,
-                        AssignRoles
-                    }
+                    Permissions = GetPermissions()
                 }
             };
         }

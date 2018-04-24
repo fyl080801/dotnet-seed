@@ -55,9 +55,9 @@
                 </a>
             </li>
         </ul>
-        <div class="tab-content" style="margin-top: 20px">
+        <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
-                <div class="navbar navbar-default">
+                <div class="navbar navbar-default navbar-static-top">
                     <div class="navbar-header">
                         <div class="navbar-form">
                             <button class="btn btn-danger" ng-click="removeMember()">
@@ -75,98 +75,62 @@
                         </div>
                     </div>
                 </div>
-                <table ng-table="tableParams" class="table table-striped table-hover">
-                    <colgroup>
-                        <col width="45px" />
-                    </colgroup>
-                    <tr ng-repeat="row in $data">
-                        <td header="'table-checkbox.html'">
-                            <input type="checkbox" ng-model="checked[row.id]" ng-change="onCheck()">
-                        </td>
-                        <td title="'用户名'">{{row.username}}</td>
-                        <td title="'姓名'">{{row.lastName}}&nbsp;{{row.firstName}}</td>
-                        <td title="'邮箱'">{{row.email}}</td>
-                        <td title="'操作'">
-                            <a href="" class="text-danger" ng-click="removeMember(row)">移除</a>
-                        </td>
-                    </tr>
-                </table>
+                <div class="panel panel-default">
+                    <table ng-table="tableParams" class="table table-striped table-hover" template-pagination="/SeedModules.AngularUI/modules/templates/tablePagination.html">
+                        <colgroup>
+                            <col width="45px" />
+                        </colgroup>
+                        <tr ng-repeat="row in $data">
+                            <td header="'table-checkbox.html'">
+                                <input type="checkbox" ng-model="checked[row.id]" ng-change="onCheck()">
+                            </td>
+                            <td title="'用户名'">{{row.username}}</td>
+                            <td title="'姓名'">{{row.lastName}}&nbsp;{{row.firstName}}</td>
+                            <td title="'邮箱'">{{row.email}}</td>
+                            <td title="'操作'">
+                                <a href="" class="text-danger" ng-click="removeMember(row)">移除</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">
-                <div class="navbar navbar-default">
+                <div class="navbar navbar-default navbar-static-top">
                     <div class="navbar-header">
-                        <div class="navbar-form">
+                        <!-- <div class="navbar-form">
                             <button class="btn btn-default">全选</button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="container-fluid">
                         <div class="navbar-form navbar-right">
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" ng-click="saveRolePermission()">
                                 <i class="glyphicon glyphicon-floppy-disk"></i>
                                 保存
                             </button>
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="panel panel-default">
-                    <table class="table table-bordered">
-                        <colgroup>
-                            <col width="20%">
-                        </colgroup>
-                        <tr>
-                            <td>
-                                <input type="checkbox"> aaaaa</td>
-                            <td>aaaaaaaa</td>
+                <div class="panel panel-default">
+                    <table ng-table class="table table-striped table-bordered">
+                        <tr ng-repeat="(key, val) in permissions">
+                            <td title="'功能'">
+                                <div class="form-group col-md-12">
+                                    <label>
+                                        <input type="checkbox" ng-click="changeAllPermission(key)" ng-checked="isAllPermission(key)"> {{key}}
+                                    </label>
+                                </div>
+                            </td>
+                            <td title="'权限'">
+                                <div class="form-group col-md-3" ng-repeat="per in val">
+                                    <label>
+                                        <input type="checkbox" ng-click="permissionChanged(per)" ng-checked="hasPermission(per)"> {{per.description}}
+                                    </label>
+                                </div>
+                            </td>
                         </tr>
                     </table>
-                </div> -->
-                <div class="list-group">
-                    <div class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <input type="checkbox"> aaaaa
-                            </div>
-                            <div class="col-md-10" style="border-left: 1px solid #ddd;">
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <input type="checkbox"> aaaaaaaaaa
-                                        <i class="glyphicon glyphicon-question-sign text-muted" tooltip="help"></i>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="checkbox"> aaaaaaaaaa
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="checkbox"> aaaaaaaaaa
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="checkbox"> aaaaaaaaaa
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="checkbox"> aaaaaaaaaa
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="list-group-item">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <input type="checkbox"> aaaaa
-                            </div>
-                            <div class="col-md-10" style="border-left: 1px solid #ddd;">
-                                <div class="row">
-                                    <div class="form-group col-md-4">
-                                        <input type="checkbox"> aaaaaaaaaa
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <input type="checkbox"> aaaaaaaaaa
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
             </div>
         </div>
     </div>

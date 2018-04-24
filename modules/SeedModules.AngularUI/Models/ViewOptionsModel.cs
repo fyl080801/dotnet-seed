@@ -1,6 +1,8 @@
+using Seed.Data;
+
 namespace SeedModules.AngularUI.Models
 {
-    public class ViewOptionsModel
+    public class ViewOptionsModel : JEntity
     {
         public string Options { get; set; }
 

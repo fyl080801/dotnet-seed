@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,7 @@ namespace SeedModules.AngularUI.Rendering
         void SetOptions(object options);
 
         void SetSettings(string siteSettings);
+
+        void SetProperties(JObject data);
     }
 }

@@ -27,6 +27,10 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       $scope.checkedAll = false;
       $scope.checked = {};
 
+      // 权限
+      $scope.permissions = [];
+      $scope.roleEnables = [];
+
       $scope.checkAll = function() {
         $scope.checkedAll = !$scope.checkedAll;
         if ($scope.checkedAll) {
@@ -82,7 +86,8 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '新建角色',
@@ -115,7 +120,8 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       $scope.setName = function(role) {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '设置别名',
@@ -212,7 +218,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
         $scope.checkedAll = false;
         $scope.checked = {};
 
-        if (role === null) return;
+        if (!role) return;
 
         $scope.tableParams = $scope.tableRequest
           .options({
@@ -221,9 +227,85 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
           .ngTableParams();
       };
 
-      $scope.$watch(function() {
-        return $scope.currentRole;
-      }, $scope.loadRoleDetails);
+      // 读权限
+      $scope.loadRolePermissions = function(role) {
+        $scope.permissions = [];
+        $scope.roleEnables = [];
+        if (!role) return;
+
+        requestService
+          .url('/api/admin/roles/' + role.id + '/permission')
+          .options({ showLoading: false })
+          .get()
+          .then(function(result) {
+            $scope.permissions = result.permissions;
+            $scope.roleEnables = result.enables;
+          });
+      };
+
+      $scope.hasPermission = function(per) {
+        if ($scope.roleEnables) {
+          return $scope.roleEnables.indexOf(per.name) >= 0;
+        } else {
+          return false;
+        }
+      };
+
+      $scope.permissionChanged = function(per) {
+        var idx = $scope.roleEnables.indexOf(per.name);
+        if (idx >= 0) {
+          $scope.roleEnables.splice(idx, 1);
+        } else {
+          $scope.roleEnables.push(per.name);
+        }
+      };
+
+      $scope.isAllPermission = function(defd) {
+        var pers = $scope.permissions[defd];
+        for (var i = 0; i < pers.length; i++) {
+          if ($scope.roleEnables.indexOf(pers[i].name) < 0) {
+            return false;
+          }
+        }
+        return true;
+      };
+
+      $scope.changeAllPermission = function(defd) {
+        var isAll = $scope.isAllPermission(defd);
+        var pers = $scope.permissions[defd];
+        if (!isAll) {
+          for (var i = 0; i < pers.length; i++) {
+            if ($scope.roleEnables.indexOf(pers[i].name) < 0) {
+              $scope.roleEnables.push(pers[i].name);
+            }
+          }
+        } else {
+          for (var i = 0; i < pers.length; i++) {
+            var idx = $scope.roleEnables.indexOf(pers[i].name);
+            if (idx >= 0) {
+              $scope.roleEnables.splice(idx, 1);
+            }
+          }
+        }
+      };
+
+      $scope.saveRolePermission = function() {
+        if (!$scope.currentRole) return;
+        requestService
+          .url('/api/admin/roles/' + $scope.currentRole.id + '/permission')
+          //.options({ showLoading: false })
+          .put($scope.roleEnables);
+      };
+
+      $scope.$watch(
+        function() {
+          return $scope.currentRole;
+        },
+        function(val) {
+          $scope.loadRoleDetails(val);
+          $scope.loadRolePermissions(val);
+        }
+      );
     }
   ]);
 });
