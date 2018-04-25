@@ -10,12 +10,30 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       'SeedModules.AngularUI/modules/services/utility',
       'SeedModules.AngularUI/modules/services/requestService',
       function($scope, $timeout, popupService, utility, requestService) {
+        // $($('head')[0]).append(
+        //   $(
+        //     '<script src="/SeedModules.MindPlus/js/parser_rules/advanced_and_extended.js"></script>'
+        //   )
+        // );
+        // $($('head')[0]).append(
+        //   $(
+        //     '<script src="/SeedModules.MindPlus/js/wysihtml/rangy-core.js"></script>'
+        //   )
+        // );
+        // $($('head')[0]).append(
+        //   $(
+        //     '<script src="/SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min.js"></script>'
+        //   )
+        // );
+
         $scope.worktree = [];
 
         $scope.initWorkItem = function(item) {
           item.contentShow = false;
 
-          item.editWorkItemContent = function(target) {};
+          item.editWorkItemContent = function(target) {
+            console.log(target);
+          };
 
           item.endEdit = function(target) {
             target.$item.$titleEditing = false;

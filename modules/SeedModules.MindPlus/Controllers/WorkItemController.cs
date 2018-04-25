@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,6 +71,7 @@ namespace SeedModules.MindPlus.Controllers
 
             var domain = _dbContext.Set<WorkItem>().Find(id);
             domain.Title = title;
+            domain.ModifyTime = DateTime.Now;
             _dbContext.SaveChanges();
         }
 
@@ -78,6 +80,7 @@ namespace SeedModules.MindPlus.Controllers
         {
             var domain = _dbContext.Set<WorkItem>().Find(id);
             domain.ParentId = parentId;
+            domain.ModifyTime = DateTime.Now;
             _dbContext.SaveChanges();
         }
 
@@ -91,6 +94,7 @@ namespace SeedModules.MindPlus.Controllers
             foreach (var model in models)
             {
                 query[model.Id].ParentId = model.ParentId;
+                query[model.Id].ModifyTime = DateTime.Now;
             }
             _dbContext.SaveChanges();
         }
@@ -99,13 +103,14 @@ namespace SeedModules.MindPlus.Controllers
         public async Task<WorkItemContent> LoadContent(int id)
         {
             var domain = await _dbContext.Set<WorkItemContent>().FindAsync(id);
-
-            return new WorkItemContent()
+            var content = new WorkItemContent();
+            if (domain != null)
             {
-                Id = domain.Id,
-                Content = domain.Content,
-                LastModify = domain.LastModify
-            };
+                content.Id = domain.Id;
+                content.Content = domain.Content;
+                content.LastModify = domain.LastModify;
+            }
+            return content;
         }
     }
 }

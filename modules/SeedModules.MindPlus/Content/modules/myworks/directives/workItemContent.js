@@ -13,10 +13,32 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
           workItem: '=workItemContent'
         },
         link: function(scope, element, attrs, ctl) {
-          element = $(element);
+          scope.status = 'loading';
 
-          var newArea = element.find('.dir-workitem-new'),
-            contentArea = element.find('.dir-workitem-content');
+          scope.load = function() {
+            requestService
+              .url('/api/mindplus/workitem/' + scope.workItem.id + '/content')
+              .options({ showLoading: false })
+              .get()
+              .then(function(result) {
+                if (result.content && result.content !== '') {
+                  scope.status = 'show';
+                } else {
+                  scope.status = 'new';
+                }
+              });
+          };
+
+          scope.editContent = function() {
+            scope.status = 'editing';
+          };
+
+          // scope.warpCallback = function(callback, item, $event) {
+          //   (item[callback] || scope[callback] || angular.noop)({
+          //     $item: item,
+          //     $event: $event
+          //   });
+          // };
 
           scope.$on('spyscrolled', function(evt) {});
         }
