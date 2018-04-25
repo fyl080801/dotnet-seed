@@ -2,6 +2,6 @@
 
 基于.net core的多租户云平台框架
 
-集成EFCore实现数据结构自动迁移功能,支持Mysql和Sqlserver
+通过EFCore设计时类库，实现数据结构根据租户进行自动迁移功能，支持Mysql和Sqlserver
 
-集成angularjs,开发模块化单页应用
+集成angularjs、bootstrap、jquery等前端库，实现分模块开发单页应用，视图和脚本根据模块访问按需加载
