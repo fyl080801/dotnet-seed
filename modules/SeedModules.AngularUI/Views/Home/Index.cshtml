@@ -15,8 +15,9 @@
 
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
-    <!-- <script src="/SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min.js"></script>
-    <script src="/SeedModules.MindPlus/js/parser_rules/advanced_and_extended.js"></script> -->
+    @foreach (var script in Model.Scripts) {
+        <script src="@script"></script>
+    }
     @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
 </head>
 <body ui-view>

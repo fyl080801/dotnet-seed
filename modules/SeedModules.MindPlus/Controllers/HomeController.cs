@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Environment.Engine;
@@ -34,7 +35,11 @@ namespace SeedModules.MindPlus.Controllers
             return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
                 Options = _optionsBuilder.Build(RouteData).Result,
-                SiteSettings = _siteSettingsBuilder.Build().ToString()
+                SiteSettings = _siteSettingsBuilder.Build().ToString(),
+                Scripts = new List<string>() {
+                    "/SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min.js",
+                    "/SeedModules.MindPlus/js/wysihtml/parser_rules/advanced_and_extended.js"
+                }
             });
         }
 

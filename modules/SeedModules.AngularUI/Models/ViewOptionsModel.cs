@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Seed.Data;
 
 namespace SeedModules.AngularUI.Models
@@ -8,6 +9,6 @@ namespace SeedModules.AngularUI.Models
 
         public string SiteSettings { get; set; }
 
-        public string Permissions { get; set; }
+        public IList<string> Scripts { get; set; } = new List<string>();
     }
 }

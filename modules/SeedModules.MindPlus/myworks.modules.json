@@ -38,8 +38,6 @@
     }
   },
   "requires": [
-    "/SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min.js",
-    "/SeedModules.MindPlus/js/parser_rules/advanced_and_extended.js",
     "rcss!SeedModules.MindPlus/css/mindplus.css",
     "SeedModules.MindPlus/modules/myworks/module"
   ],
