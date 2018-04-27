@@ -3,7 +3,8 @@
   'schema-form-bootstrap',
   'SeedModules.Admin/modules/admin/configs/nav',
   'SeedModules.Admin/modules/admin/configs/menus',
-  'SeedModules.Admin/modules/admin/configs/router'
+  'SeedModules.Admin/modules/admin/configs/router',
+  'SeedModules.Admin/modules/admin/configs/environment'
 ], function(application) {
   'use strict';
 
