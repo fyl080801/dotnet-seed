@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace SeedModules.Security.Roles
 {
+    /// <summary>
+    /// 角色权限验证的处理程序
+    /// </summary>
     public class RolesPermissionsHandler : AuthorizationHandler<PermissionRequirement>
     {
         readonly RoleManager<IRole> _roleManager;
@@ -29,20 +32,20 @@ namespace SeedModules.Security.Roles
 
             var grantingNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+            // 认证权限前先把权限以及关联的权限，默认的权限取出来
             PermissionNames(requirement.Permission, grantingNames);
 
+            // 系统里的默认角色，包括Anonymous和Authenticated
+            // 其中Authenticated针对登录后的用户
             var rolesToExamine = new List<string> { "Anonymous" };
 
             if (context.User.Identity.IsAuthenticated)
             {
+                // 已登录用户加入一个 Authenticated
                 rolesToExamine.Add("Authenticated");
-                foreach (var claim in context.User.Claims)
-                {
-                    if (claim.Type == ClaimTypes.Role)
-                    {
-                        rolesToExamine.Add(claim.Value);
-                    }
-                }
+
+                // 加入当前用户所属于的角色
+                rolesToExamine.AddRange(context.User.Claims.Where(e => e.Type == ClaimTypes.Role).Select(e => e.Value).ToArray());
             }
 
             foreach (var roleName in rolesToExamine)
@@ -50,6 +53,7 @@ namespace SeedModules.Security.Roles
                 var role = await _roleManager.FindByNameAsync(roleName);
                 if (role != null)
                 {
+                    // 获取角色的授权
                     var claims = await _roleManager.GetClaimsAsync(role);
                     foreach (var claim in claims)
                     {
