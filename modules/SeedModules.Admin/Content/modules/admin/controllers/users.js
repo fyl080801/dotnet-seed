@@ -20,9 +20,14 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       ngTableRequest,
       schemaFormParams
     ) {
+      $scope.search = {
+        keyword: ''
+      };
+
       $scope.tableParams = new ngTableRequest({
         url: '/api/admin/users/query',
-        showLoading: false
+        showLoading: false,
+        data: $scope.search
       }).ngTableParams();
 
       $scope.formParams = new schemaFormParams().properties({
@@ -109,10 +114,15 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
         }
       ];
 
+      $scope.keywordCallback = function() {
+        
+      };
+
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             data: {
               title: '新建用户',
               formParams: $scope.formParams,
@@ -132,7 +142,8 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
       $scope.resetPassword = function(row) {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '重置密码',

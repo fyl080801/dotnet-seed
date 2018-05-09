@@ -8,6 +8,7 @@ define([
   'SeedModules.AngularUI/modules/factories/delayTimer',
   'SeedModules.AngularUI/modules/services/requestService',
   'SeedModules.AngularUI/modules/services/utility',
+  'SeedModules.AngularUI/modules/directives/triggerInput',
   'SeedModules.AngularUI/modules/directives/ajaxForm',
   'SeedModules.AngularUI/modules/directives/fileInput',
   'SeedModules.AngularUI/modules/directives/sfCompare',

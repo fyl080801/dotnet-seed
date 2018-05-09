@@ -6,6 +6,7 @@ define(['SeedModules.Features/modules/module'], function(module) {
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.AngularUI/modules/factories/ngTableParams',
     function($scope, requestService, ngTableParams) {
+      $scope.keyword = '';
       $scope.list = [];
 
       $scope.setEnable = function(feature, enabled) {
@@ -23,8 +24,8 @@ define(['SeedModules.Features/modules/module'], function(module) {
       };
 
       $scope.load = function() {
-        requestService
-          .url('/api/features')
+        return requestService
+          .url('/api/features?keyword=' + $scope.keyword)
           .options({
             showLoading: false
           })
@@ -32,6 +33,10 @@ define(['SeedModules.Features/modules/module'], function(module) {
           .then(function(result) {
             $scope.list = result.list;
           });
+      };
+
+      $scope.keywordCallback = function() {
+        return $scope.load();
       };
     }
   ]);

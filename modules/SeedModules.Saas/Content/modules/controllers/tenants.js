@@ -16,9 +16,13 @@ define(['SeedModules.Saas/modules/module'], function(module) {
       requestService,
       schemaFormParams
     ) {
+      $scope.search = {
+        keyword: ''
+      };
       $scope.tableParams = new ngTableRequest({
         url: '/api/tenant',
-        showLoading: false
+        showLoading: false,
+        data: $scope.search
       }).ngTableParams();
 
       $scope.formParams = new schemaFormParams().properties({
@@ -318,6 +322,9 @@ define(['SeedModules.Saas/modules/module'], function(module) {
       $scope.drop = function() {
         popupService.confirm('是否删除？').ok(function() {});
       };
+
+      // 搜索监控
+      $scope.keywordCallback = function() {};
     }
   ]);
 });

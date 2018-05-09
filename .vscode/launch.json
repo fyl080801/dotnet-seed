@@ -17,7 +17,7 @@
       "request": "launch",
       //"preLaunchTask": "build",
       // If you have changed target frameworks, make sure to update the program path.
-      "program": "${workspaceFolder}/src/Seed/bin/Debug/netcoreapp2.0/Seed.dll",
+      "program": "${workspaceFolder}/src/Seed/bin/Debug/netcoreapp2.1/Seed.dll",
       "args": [],
       "cwd": "${workspaceFolder}/src/Seed",
       "stopAtEntry": false,

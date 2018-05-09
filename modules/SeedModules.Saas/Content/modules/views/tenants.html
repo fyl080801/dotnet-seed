@@ -8,14 +8,7 @@
                 <option value="3">已禁用</option>
                 <option value="4">异常</option>
             </select>
-            <div class="input-group">
-                <input class="form-control">
-                <div class="input-group-btn">
-                    <button class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                </div>
-            </div>
+            <input trigger-input ng-model="search.keyword" mark="'关键字...'" callback="keywordCallback()">
         </div>
         <div class="container-fluid">
             <div class="navbar-form navbar-right">
@@ -40,7 +33,7 @@
             </td>
             <td title="'名称'" sortable="true">{{row.name}}</td>
             <td title="'状态'">
-                <span class="label" ng-bind="row.engineSettings.state|tenantState" ng-class="{                    
+                <span class="label" ng-bind="row.engineSettings.state|tenantState" ng-class="{
                     'label-default': row.engineSettings.state===0 || row.engineSettings.state===3,
                     'label-warning': row.engineSettings.state===1,
                     'label-success': row.engineSettings.state===2,
