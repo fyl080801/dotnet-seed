@@ -4,10 +4,11 @@ define(['SeedModules.Admin/modules/admin/configs'], function(configs) {
   configs.config([
     '$provide',
     function($provide) {
-      $provide.constant(
-        '$permissions',
-        JSON.parse($('#app').attr('permissions'))
-      );
+      var permissions = (function(data) {
+        return new Function('return ' + data + ';')();
+      })($('#app').attr('permissions'));
+
+      $provide.constant('$permissions', permissions);
     }
   ]);
 });
