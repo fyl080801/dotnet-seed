@@ -1,14 +1,7 @@
 <div ng-controller="SeedModules.Admin/modules/admin/controllers/users">
     <div class="navbar navbar-default">
         <div class="navbar-header navbar-form">
-            <div class="input-group">
-                <input class="form-control" placeholder="搜索">
-                <div class="input-group-btn">
-                    <button class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
-                </div>
-            </div>
+            <input trigger-input ng-model="search.keyword" mark="'关键字...'" callback="keywordCallback()">
         </div>
         <div class="container-fluid">
             <div class="navbar-form navbar-right">

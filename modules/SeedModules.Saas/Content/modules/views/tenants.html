@@ -8,19 +8,7 @@
                 <option value="3">已禁用</option>
                 <option value="4">异常</option>
             </select>
-            <div class="form-group" ng-class="{'has-feedback':!search.keyword||search.keyword===''}">
-                <div ng-class="{'input-group':search.keyword&&search.keyword!==''}">
-                    <input class="form-control" placeholder="关键字..." ng-model="search.keyword">
-                    <div class="input-group-btn" ng-if="search.keyword&&search.keyword!==''">
-                        <button class="btn btn-danger" ng-click="search.keyword=''">
-                            <i class="glyphicon glyphicon-remove"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="form-control-feedback text-muted" ng-if="!search.keyword||search.keyword===''">
-                    <i class="glyphicon glyphicon-search"></i>
-                </div>
-            </div>
+            <input trigger-input ng-model="search.keyword" mark="'关键字...'" callback="keywordCallback()">
         </div>
         <div class="container-fluid">
             <div class="navbar-form navbar-right">

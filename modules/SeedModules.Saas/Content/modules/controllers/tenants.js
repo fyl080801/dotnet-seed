@@ -8,15 +8,13 @@ define(['SeedModules.Saas/modules/module'], function(module) {
     'SeedModules.AngularUI/modules/factories/ngTableRequest',
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.AngularUI/modules/factories/schemaFormParams',
-    'SeedModules.AngularUI/modules/factories/delayTimer',
     function(
       $scope,
       $modal,
       popupService,
       ngTableRequest,
       requestService,
-      schemaFormParams,
-      delayTimer
+      schemaFormParams
     ) {
       $scope.search = {
         keyword: ''
@@ -326,18 +324,7 @@ define(['SeedModules.Saas/modules/module'], function(module) {
       };
 
       // 搜索监控
-      var searchTrigger = new delayTimer({
-        callback: function() {}
-      });
-
-      $scope.$watch(
-        function() {
-          return $scope.search.keyword;
-        },
-        function(val) {
-          searchTrigger.invoke();
-        }
-      );
+      $scope.keywordCallback = function() {};
     }
   ]);
 });
