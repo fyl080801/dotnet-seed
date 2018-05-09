@@ -1,0 +1,19 @@
+{
+  "references": {
+    "SeedModules.MindPlus/modules/portals/module": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.portals.module",
+      "isDist": true
+    },
+    "SeedModules.MindPlus/modules/portals/requires": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.portals.requires",
+      "shim": {
+        "deps": ["SeedModules.MindPlus/modules/portals/module"]
+      },
+      "isDist": true
+    }
+  },
+  "requires": ["SeedModules.MindPlus/modules/portals/module"],
+  "path": "Content/modules/portals"
+}

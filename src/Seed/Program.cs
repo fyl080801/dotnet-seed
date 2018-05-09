@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Seed.Hosting;
-using Seed.Hosting.Extensions;
+﻿using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Seed
 {
@@ -14,45 +11,23 @@ namespace Seed
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
+            Build(args).Run();
+        }
+
+        public static IWebHost Build(string[] args)
+        {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("hosting.json", optional: true)
                 .Build();
 
-            host.Run();
-
-            //using (host)
-            //{
-            //    using (var cts = new CancellationTokenSource())
-            //    {
-            //        //try
-            //        //{
-            //        //    var tf = host.Services.GetService<IPluginFinder>();
-            //        //    var dess = tf.GetDescriptors().ToList();
-
-            //        //    host.Run(cts.Token);
-            //        //}
-            //        //catch (Exception ex)
-            //        //{
-            //        //    throw ex;
-            //        //}
-
-            //        host.Run((services) =>
-            //        {
-            //            var hostAgent = new HostAgent(
-            //                services,
-            //                Console.In,
-            //                Console.Out);
-            //            hostAgent
-            //                .RunAsync()
-            //                .Wait();
-
-            //            cts.Cancel();
-            //        }, cts.Token, "application started, press 'Ctrl + c' to exit.");
-            //    }
-            //}
+            return WebHost.CreateDefaultBuilder(args)
+                .UseIISIntegration()
+                .UseKestrel()
+                .UseConfiguration(config)
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseStartup<Startup>()
+                .Build();
         }
     }
 }

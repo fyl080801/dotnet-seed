@@ -1,0 +1,41 @@
+﻿{
+  "name": "saas",
+  "steps": [
+    {
+      "name": "feature",
+      "disable": [],
+      "enable": [
+        "SeedModules.Mvc",
+        "SeedModules.Saas",
+        "SeedModules.Common",
+        "SeedModules.Router"
+      ]
+    },
+    {
+      "name": "settings",
+      "HomeRoute": {
+        "Area": "SeedModules.Admin",
+        "Controller": "Home",
+        "Action": "Index"
+      },
+      "RouteReferences": [
+        {
+          "Route": "SeedModules.Admin/Home/Index",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/admin",
+            "SeedModules.Features/features",
+            "SeedModules.Saas/saas"
+          ]
+        },
+        {
+          "Route": "SeedModules.Admin/Home/Login",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/login"
+          ]
+        }
+      ]
+    }
+  ]
+}

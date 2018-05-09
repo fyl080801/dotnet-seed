@@ -1,0 +1,40 @@
+﻿{
+  "name": "admin",
+  "steps": [
+    {
+      "name": "feature",
+      "disable": [],
+      "enable": [
+        "SeedModules.Mvc",
+        "SeedModules.Admin",
+        "SeedModules.Features",
+        "SeedModules.Common",
+        "SeedModules.Router"
+      ]
+    },
+    {
+      "name": "settings",
+      "HomeRoute": {
+        "Area": "SeedModules.Admin",
+        "Controller": "Home",
+        "Action": "Index"
+      },
+      "RouteReferences": [
+        {
+          "Route": "SeedModules.Admin/Home/Index",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/admin"
+          ]
+        },
+        {
+          "Route": "SeedModules.Admin/Home/Login",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/login"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+<div class="form-group schema-form-{{form.type}} {{form.htmlClass}}">
+    <label class="control-label {{form.labelHtmlClass}}" ng-class="{'sr-only': !showTitle()}">{{form.title}}</label>
+    <div>
+        <div class="btn-group {{form.fieldHtmlClass}}">
+            <button class="btn btn-default" ng-class="{'active':!$$value$$}" ng-disabled="form.readonly" ng-click="$$value$$=false" style="outline:none;">{{form.falseText||'否'}}</button>
+            <button class="btn" ng-class="{'btn-success active':$$value$$, 'btn-default':!$$value$$}" ng-disabled="form.readonly" style="outline:none;"
+                ng-click="$$value$$=true">{{form.trueText||'是'}}</button>
+        </div>
+        <input type="hidden" sf-changed="form" id="{{form.key.slice(-1)[0]}}" sf-field-model="" ng-model="$$value$$" name="{{form.key.slice(-1)[0]}}"
+            aria-describedby="{{form.key.slice(-1)[0] + 'Status'}}">
+    </div>
+    <div class="help-block" sf-message="form.description"></div>
+</div>

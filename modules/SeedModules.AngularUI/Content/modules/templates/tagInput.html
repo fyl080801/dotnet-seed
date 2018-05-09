@@ -1,0 +1,16 @@
+<div class="form-control has-feedback bootstrap-taginput dropdown">
+    <span class="tag label label-default" ng-class="getClass(tag)" ng-repeat="tag in model">{{getText(tag)}}
+        <span class="remove" ng-click="remove(tag)"></span>
+    </span>
+    <input data-toggle="dropdown" ng-readonly="!textInput" ng-if="!disabled" placeholder="{{getPlaceholder()}}">
+    <input disabled="disabled" ng-if="disabled" placeholder="{{getPlaceholder()}}">
+    <select multiple="multiple" ng-options=""></select>
+    <ul class="dropdown-menu">
+        <li ng-repeat="opt in options">
+            <a href="">{{getText(opt)}}</a>
+        </li>
+    </ul>
+    <div class="form-control-feedback">
+        <span class="caret"></span>
+    </div>
+</div>

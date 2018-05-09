@@ -1,0 +1,5 @@
+﻿Name: 通用组件
+Version: 1.0
+Category: 基础模块
+AllowManage: false
+Dependencies: SeedModules.Project

@@ -1,0 +1,45 @@
+{
+  "references": {
+    "SeedModules.MindPlus/modules/myworks/module": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.myworks.module",
+      "isDist": true
+    },
+    "SeedModules.MindPlus/modules/myworks/requires": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.myworks.requires",
+      "shim": {
+        "deps": ["SeedModules.MindPlus/modules/myworks/module"]
+      },
+      "isDist": true
+    },
+    "rangy-core": {
+      "path": "SeedModules.MindPlus/js/wysihtml/rangy/rangy-core",
+      "noDebug": true
+    },
+    "rangy-serializer": {
+      "path": "SeedModules.MindPlus/js/wysihtml/rangy/rangy-serializer",
+      "shim": {
+        "deps": ["rangy-core"]
+      },
+      "noDebug": true
+    },
+    "wysihtml": {
+      "path": "SeedModules.MindPlus/js/wysihtml/wysihtml.min",
+      "noDebug": true
+    },
+    "wysihtml-toolbar": {
+      "path": "SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min",
+      "noDebug": true
+    },
+    "wysihtml-advanced": {
+      "path": "SeedModules.MindPlus/js/parser_rules/advanced_and_extended",
+      "noDebug": true
+    }
+  },
+  "requires": [
+    "rcss!SeedModules.MindPlus/css/mindplus.css",
+    "SeedModules.MindPlus/modules/myworks/module"
+  ],
+  "path": "Content/modules/myworks"
+}

@@ -1,0 +1,63 @@
+﻿{
+  "name": "admin",
+  "steps": [
+    {
+      "name": "feature",
+      "disable": [],
+      "enable": [
+        "SeedModules.Mvc",
+        "SeedModules.Admin",
+        "SeedModules.Features",
+        "SeedModules.Common",
+        "SeedModules.Router",
+        "SeedModules.MindPlus"
+      ]
+    },
+    {
+      "name": "settings",
+      "HomeRoute": {
+        "Area": "SeedModules.MindPlus",
+        "Controller": "Home",
+        "Action": "Index"
+      },
+      "RouteReferences": [
+        {
+          "Route": "SeedModules.Admin/Home/Index",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/admin",
+            "SeedModules.MindPlus/admin"
+          ]
+        },
+        {
+          "Route": "SeedModules.Admin/Home/Login",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.Admin/login"
+          ]
+        },
+        {
+          "Route": "SeedModules.MindPlus/Home/Index",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.MindPlus/portals"
+          ]
+        },
+        {
+          "Route": "SeedModules.MindPlus/Home/Works",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.MindPlus/myworks"
+          ]
+        },
+        {
+          "Route": "SeedModules.MindPlus/Home/Mind",
+          "References": [
+            "SeedModules.AngularUI/angularui",
+            "SeedModules.MindPlus/mind"
+          ]
+        }
+      ]
+    }
+  ]
+}

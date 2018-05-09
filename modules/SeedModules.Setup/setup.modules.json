@@ -1,0 +1,19 @@
+{
+    "references": {
+        "SeedModules.Setup/modules/module": {
+            "path": "SeedModules.Setup/js/SeedModules.Setup.Content.modules.module",
+            "isDist": true
+        },
+        "SeedModules.Setup/modules/requires": {
+            "path": "SeedModules.Setup/js/SeedModules.Setup.Content.modules.requires",
+            "shim": {
+                "deps": ["SeedModules.Setup/modules/module"]
+            },
+            "isDist": true
+        }
+    },
+    "requires": [
+        "SeedModules.Setup/modules/module"
+    ],
+    "patchs": []
+}

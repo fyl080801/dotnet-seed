@@ -1,0 +1,19 @@
+{
+  "references": {
+    "SeedModules.MindPlus/modules/admin/module": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.admin.module",
+      "isDist": true
+    },
+    "SeedModules.MindPlus/modules/admin/requires": {
+      "path":
+        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.admin.requires",
+      "shim": {
+        "deps": ["SeedModules.MindPlus/modules/admin/module"]
+      },
+      "isDist": true
+    }
+  },
+  "requires": ["SeedModules.MindPlus/modules/admin/module"],
+  "path": "Content/modules/admin"
+}

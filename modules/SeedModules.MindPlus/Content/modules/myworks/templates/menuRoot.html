@@ -1,0 +1,3 @@
+<ul class="tree-view">
+    <li ng-class="{'active': $state.current.name.indexOf(item.state)>=0}" ng-repeat="item in treeData" ng-include="'/SeedModules.MindPlus/modules/myworks/templates/menuItem.html'"></li>
+</ul>

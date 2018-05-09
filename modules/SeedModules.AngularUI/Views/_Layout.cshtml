@@ -1,0 +1,23 @@
+﻿@using SeedModules.AngularUI.Models;
+<!DOCTYPE html>
+<!--[if lte IE 8]><html lang="zh-cn" data-html-type="no-js lte-ie8"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="zh-cn" data-html-type="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
+    <!-- <link rel="stylesheet" href="/SeedModules.AngularUI/css/fontawesome-all.min.css" /> -->
+    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(((ViewOptionsModel)Model).Options).Settings(((ViewOptionsModel)Model).SiteSettings)
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

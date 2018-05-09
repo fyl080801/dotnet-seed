@@ -1,0 +1,127 @@
+<div ng-controller="SeedModules.MindPlus/modules/myworks/controllers/workItems" ng-init="load()">
+    <div class="navbar navbar-static-top" style="margin: 0">
+        <div class="navbar-header">
+            <div class="navbar-form">
+                <div class="form-group has-feedback">
+                    <input class="form-control" placeholder="搜索..." />
+                    <span class="glyphicon glyphicon-search text-muted form-control-feedback" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-form navbar-left text-muted">
+                <span class="form-control-static">搜索条件：</span>
+                <span class="form-control-static">无</span>
+            </div>
+            <div class="navbar-form navbar-right">
+                <button class="btn btn-primary" ng-click="create()">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    新建任务
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <ul class="nav nav-pills" role="tablist">
+            <li role="presentation">
+                <a href="">
+                    <i class="glyphicon glyphicon-th-list"></i>
+                    目录
+                    <i class="caret"></i>
+                </a>
+            </li>
+            <li role="presentation" class="active">
+                <a href="">全部</a>
+            </li>
+            <li role="presentation">
+                <a href="">进行中</a>
+            </li>
+            <li role="presentation">
+                <a href="">已完成</a>
+            </li>
+
+            <li role="presentation" class="dropdown pull-right">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    排序
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="">紧急程度</a>
+                    </li>
+                    <li>
+                        <a href="">最近创建</a>
+                    </li>
+                    <li>
+                        <a href="">最早创建</a>
+                    </li>
+                    <li>
+                        <a href="">最近更新</a>
+                    </li>
+                    <li>
+                        <a href="">最早更新</a>
+                    </li>
+                </ul>
+            </li>
+            <li role="presentation" class="dropdown pull-right">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    标签
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="padding-top: 0">
+                    <li>
+                        <div class="navbar navbar-default navbar-static-top" style="margin-bottom: 10px">
+                            <div class="navbar-header">
+                                <div class="navbar-form">
+                                    <div class="form-group has-feedback">
+                                        <input class="form-control" placeholder="搜索...">
+                                        <span class="glyphicon glyphicon-search text-muted form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li>
+                        <a href="">
+                            <i class="glyphicon glyphicon-stop"></i>
+                            aa
+                        </a>
+                    </li> -->
+                </ul>
+            </li>
+            <li role="presentation" class="dropdown pull-right">
+                <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    执行人
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" style="padding-top: 0">
+                    <li>
+                        <div class="navbar navbar-default navbar-static-top" style="margin-bottom: 10px">
+                            <div class="navbar-header">
+                                <div class="navbar-form">
+                                    <div class="form-group has-feedback">
+                                        <input class="form-control" placeholder="搜索...">
+                                        <span class="glyphicon glyphicon-search text-muted form-control-feedback" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="">所有成员</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <a href="">aaa</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <hr>
+        <!--表格-->
+        <div>
+            <div ng-tree class="col-md-10 nav" tree-data="list" item-init="initWorkItem($item)" item-template-url="'/SeedModules.MindPlus/modules/myworks/templates/workItemBlock.html'">
+            </div>
+        </div>
+    </div>
+</div>

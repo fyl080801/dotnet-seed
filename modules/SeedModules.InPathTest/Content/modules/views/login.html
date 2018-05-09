@@ -1,0 +1,20 @@
+<div class="container" ng-controller="SeedModules.InPathTest/modules/controllers/login">
+    <form class="panel-body" name="loginform" role="form">
+        <div class="form-group">
+            <label>用户名</label>
+            <input class="form-control" name="Username" ng-model="data.Username" required>
+        </div>
+        <div class="form-group">
+            <label>密码</label>
+            <input type="password" class="form-control" name="Password" ng-model="data.Password" required>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="IsRemember" ng-model="data.IsRemember"> 记住用户名
+            </label>
+        </div>
+    </form>
+    <div class="panel-footer text-right">
+        <button type="button" class="btn btn-primary" ng-disabled="loginform.$invalid" ng-click="login()">登录</button>
+    </div>
+</div>

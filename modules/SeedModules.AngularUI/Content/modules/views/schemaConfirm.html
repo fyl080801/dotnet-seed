@@ -1,0 +1,20 @@
+<div ng-init="$data.model=$data.model||{}">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <i class="glyphicon glyphicon-edit"></i>&nbsp;{{$data.title}}
+        </h4>
+    </div>
+    <div class="modal-body">
+        <form name="theForm" sf-schema="$data.formParams.schema()" sf-form="$data.form" sf-options="$data.formParams.options()" sf-model="$data.model"></form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="!theForm.$valid" ng-click="$close($data.model)">
+            <i class="glyphicon glyphicon-ok-sign"></i>
+            确定
+        </button>
+        <button class="btn btn-default" ng-click="$dismiss()">
+            <i class="glyphicon glyphicon-remove-sign"></i>
+            取消
+        </button>
+    </div>
+</div>

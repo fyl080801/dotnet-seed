@@ -1,0 +1,19 @@
+{
+  "references": {
+    "SeedModules.Saas/modules/module": {
+      "path": "SeedModules.Saas/js/SeedModules.Saas.Content.modules.module",
+      "isDist": true
+    },
+    "SeedModules.Saas/modules/requires": {
+      "path": "SeedModules.Saas/js/SeedModules.Saas.Content.modules.requires",
+      "shim": {
+        "deps": ["SeedModules.Saas/modules/module"]
+      },
+      "isDist": true
+    }
+  },
+  "requires": [
+    "SeedModules.Saas/modules/module"
+  ],
+  "path": "Content/modules"
+}

@@ -1,16 +1,23 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Engine.Descriptors;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace Seed.Environment.Engine.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddAllPluginDescriptor(this IServiceCollection services)
+        public static IServiceCollection AddAllFeaturesDescriptor(this IServiceCollection services)
         {
-            services.AddScoped<IEngineDescriptorManager, AllPluginsDescriptorManager>();
+            services.AddScoped<IEngineDescriptorManager, AllFeaturesEngineDescriptorManager>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddSetFeaturesDescriptor(this IServiceCollection services, IEnumerable<EngineFeature> features)
+        {
+            services.AddSingleton<IEngineDescriptorManager>(new SetFeaturesEngineDescriptorManager(features));
 
             return services;
         }
