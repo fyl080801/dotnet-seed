@@ -8,12 +8,17 @@
                 <option value="3">已禁用</option>
                 <option value="4">异常</option>
             </select>
-            <div class="input-group">
-                <input class="form-control">
-                <div class="input-group-btn">
-                    <button class="btn btn-default">
-                        <i class="glyphicon glyphicon-search"></i>
-                    </button>
+            <div class="form-group" ng-class="{'has-feedback':!search.keyword||search.keyword===''}">
+                <div ng-class="{'input-group':search.keyword&&search.keyword!==''}">
+                    <input class="form-control" placeholder="关键字..." ng-model="search.keyword">
+                    <div class="input-group-btn" ng-if="search.keyword&&search.keyword!==''">
+                        <button class="btn btn-danger" ng-click="search.keyword=''">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-control-feedback text-muted" ng-if="!search.keyword||search.keyword===''">
+                    <i class="glyphicon glyphicon-search"></i>
                 </div>
             </div>
         </div>
@@ -40,7 +45,7 @@
             </td>
             <td title="'名称'" sortable="true">{{row.name}}</td>
             <td title="'状态'">
-                <span class="label" ng-bind="row.engineSettings.state|tenantState" ng-class="{                    
+                <span class="label" ng-bind="row.engineSettings.state|tenantState" ng-class="{
                     'label-default': row.engineSettings.state===0 || row.engineSettings.state===3,
                     'label-warning': row.engineSettings.state===1,
                     'label-success': row.engineSettings.state===2,

@@ -8,17 +8,23 @@ define(['SeedModules.Saas/modules/module'], function(module) {
     'SeedModules.AngularUI/modules/factories/ngTableRequest',
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.AngularUI/modules/factories/schemaFormParams',
+    'SeedModules.AngularUI/modules/factories/delayTimer',
     function(
       $scope,
       $modal,
       popupService,
       ngTableRequest,
       requestService,
-      schemaFormParams
+      schemaFormParams,
+      delayTimer
     ) {
+      $scope.search = {
+        keyword: ''
+      };
       $scope.tableParams = new ngTableRequest({
         url: '/api/tenant',
-        showLoading: false
+        showLoading: false,
+        data: $scope.search
       }).ngTableParams();
 
       $scope.formParams = new schemaFormParams().properties({
@@ -318,6 +324,20 @@ define(['SeedModules.Saas/modules/module'], function(module) {
       $scope.drop = function() {
         popupService.confirm('是否删除？').ok(function() {});
       };
+
+      // 搜索监控
+      var searchTrigger = new delayTimer({
+        callback: function() {}
+      });
+
+      $scope.$watch(
+        function() {
+          return $scope.search.keyword;
+        },
+        function(val) {
+          searchTrigger.invoke();
+        }
+      );
     }
   ]);
 });
