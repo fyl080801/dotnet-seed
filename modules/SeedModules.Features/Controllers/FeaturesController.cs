@@ -29,7 +29,7 @@ namespace SeedModules.Features.Controllers
         }
 
         [HttpGet, HandleResult]
-        public async Task<object> List()
+        public async Task<object> List([FromQuery]string keyword)
         {
             // 这里需要加特殊权限，只允许Default的管理员可访问
             var enabledFeatures = await _engineFeaturesManager.GetEnabledFeaturesAsync();
@@ -43,9 +43,14 @@ namespace SeedModules.Features.Controllers
                     Dependencies = _pluginManager.GetFeaturesDependencies(moduleFeatureInfo.Id).Where(d => d.Id != moduleFeatureInfo.Id).ToList()
                 });
             }
+            var query = moduleFeatures.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(e => e.Descriptor.Name.Contains(keyword) || e.Descriptor.Id.Contains(keyword));
+            }
             return new
             {
-                List = moduleFeatures.GroupBy(e => !string.IsNullOrEmpty(e.Descriptor.Category) ? e.Descriptor.Category : "其他")
+                List = query.GroupBy(e => !string.IsNullOrEmpty(e.Descriptor.Category) ? e.Descriptor.Category : "其他")
                     .Select(e => new FeatureGroupModel()
                     {
                         Category = e.Key,

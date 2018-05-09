@@ -27,6 +27,7 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           };
           scope.reset = function() {
             scope.ngModel = '';
+            delayTrigger.invoke();
           };
         }
       };
