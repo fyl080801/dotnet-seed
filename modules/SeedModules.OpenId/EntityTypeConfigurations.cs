@@ -1,12 +1,12 @@
 ﻿using Seed.Data;
-using SeedModules.OAuth.Domain;
+using SeedModules.OpenId.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeedModules.OAuth
+namespace SeedModules.OpenId
 {
     public class EntityTypeConfigurations : IEntityTypeConfigurationProvider
     {

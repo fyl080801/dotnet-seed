@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SeedModules.OAuth.Domain
+namespace SeedModules.OpenId.Domain
 {
     public class OpenIddictApplicationTypeConfiguration : IEntityTypeConfiguration<OpenIddictApplication>
     {

@@ -6,11 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SeedModules.OAuth.Stores
+namespace SeedModules.OpenId.Stores
 {
-    public class OpenIddictApplicationStore : OpenIddictApplicationStore<DbContext>
+    public class OpenIddictTokenStore : OpenIddictTokenStore<DbContext>
     {
-        public OpenIddictApplicationStore(IDbContext context, IMemoryCache cache) : base(context.Context, cache)
+        public OpenIddictTokenStore(IDbContext context, IMemoryCache cache) : base(context.Context, cache)
         {
         }
     }

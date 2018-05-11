@@ -1,5 +1,5 @@
-﻿Name: OAuth
+﻿Name: IdentityServer
 Version: 1.0
 Category: 安全认证
-Description: 连接认证服务器的客户端
+Description: 启用该功能，让本租户环境具有认证服务器功能
 Dependencies: SeedModules.Mvc, SeedModules.AngularUI, SeedModules.Settings, SeedModules.Security

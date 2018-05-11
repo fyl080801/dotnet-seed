@@ -1,15 +1,14 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using Seed.Security.Permissions;
-using Seed.Environment.Engine.Extensions;
-using System.Linq;
-using System.Security.Claims;
-using Seed.Security.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Seed.Environment.Caching;
+using Seed.Environment.Engine.Extensions;
+using Seed.Security.Extensions;
+using Seed.Security.Permissions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Seed.Security
 {
