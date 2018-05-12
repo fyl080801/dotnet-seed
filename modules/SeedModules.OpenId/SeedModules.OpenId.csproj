@@ -9,6 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNet.Security.OAuth.Validation" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.4" />
     <PackageReference Include="OpenIddict" Version="2.0.0-rc2-final" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0-rc2-final" />
   </ItemGroup>
