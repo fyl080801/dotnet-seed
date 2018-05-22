@@ -14,9 +14,9 @@
   startup(config);
 
   function startup(config) {
-    define('angular', [], function() {
-      return window.angular;
-    });
+    // define('angular', [], function() {
+    //   return window.angular;
+    // });
 
     require.config(config);
     require(options.requires, function(application) {
@@ -24,8 +24,7 @@
         angular
           .element(document)
           .find('html')
-          .attr('id', 'ng-app')
-          .attr('ng-app', options.app);
+          .addClass('ng-app');
         angular.bootstrap(document, [options.app]);
       });
     });

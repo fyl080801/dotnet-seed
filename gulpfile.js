@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+  pump = require('pump'),
   rimraf = require('rimraf'),
   concat = require('gulp-concat'),
   cssmin = require('gulp-cssmin'),
@@ -9,6 +10,8 @@ var gulp = require('gulp'),
   process = require('process'),
   minimist = require('minimist'),
   amdOptimize = require('amd-optimize'),
+  rev = require('gulp-rev'),
+  revCollector = require('sog-gulp-rev-collector'),
   fs = require('fs');
 
 var options = minimist(process.argv.slice(2), {
@@ -28,37 +31,37 @@ gulp.task('build', function() {
     };
 
   getFolders(moduleOptions.baseUrl).map(function(folder) {
-    getFiles(path.join(moduleOptions.baseUrl, folder), '.modules.json').map(function(
-      file
-    ) {
-      var uidef = JSON.parse(
-        fs.readFileSync(path.join(moduleOptions.baseUrl, folder, file))
-      );
-      var uipath = path.join(
-        moduleOptions.baseUrl,
-        folder,
-        uidef.path ? uidef.path : 'Content/modules'
-      );
+    getFiles(path.join(moduleOptions.baseUrl, folder), '.modules.json').map(
+      function(file) {
+        var uidef = JSON.parse(
+          fs.readFileSync(path.join(moduleOptions.baseUrl, folder, file))
+        );
+        var uipath = path.join(
+          moduleOptions.baseUrl,
+          folder,
+          uidef.path ? uidef.path : 'Content/modules'
+        );
 
-      modulePaths.push(uipath);
+        modulePaths.push(uipath);
 
-      for (var name in uidef.references) {
-        if (!uidef.references[name].isDist) {
-          moduleOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
-          moduleOptions.exclude.push(name);
+        for (var name in uidef.references) {
+          if (!uidef.references[name].isDist) {
+            moduleOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
+            moduleOptions.exclude.push(name);
+          }
         }
-      }
 
-      getAllFiles(uipath, '.js').map(function(fullname) {
-        moduleOptions.paths[
-          fullname
-            .replace(moduleOptions.baseUrl, '')
-            .replace(path.join('Content/', ''), '')
-            .replace('.js', '')
-            .replace(/\\/g, '/')
-        ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
-      });
-    });
+        getAllFiles(uipath, '.js').map(function(fullname) {
+          moduleOptions.paths[
+            fullname
+              .replace(moduleOptions.baseUrl, '')
+              .replace(path.join('Content/', ''), '')
+              .replace('.js', '')
+              .replace(/\\/g, '/')
+          ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
+        });
+      }
+    );
   });
 
   requiresOptions = JSON.parse(JSON.stringify(moduleOptions));

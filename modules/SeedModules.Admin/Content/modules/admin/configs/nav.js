@@ -1,4 +1,4 @@
-define(['SeedModules.Admin/modules/admin/configs'], function(configs) {
+define(['SeedModules.Admin/modules/admin/boot'], function(configs) {
   'use strict';
 
   configs.provider('SeedModules.Admin/modules/admin/configs/nav', [

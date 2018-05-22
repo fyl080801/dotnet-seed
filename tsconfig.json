@@ -5,7 +5,7 @@
     "module": "amd",
     "removeComments": false,
     "sourceMap": true,
-    "outDir": "scripts"
+    "outDir": "modules"
   },
   "exclude": ["node_modules"]
 }
