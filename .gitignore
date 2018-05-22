@@ -240,7 +240,7 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-package-lock.json
+/package-lock.json
 
 # reference
 lib
