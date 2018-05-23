@@ -2231,7 +2231,7 @@ define('json2', [], function () {
 define('respond', [], function () {
     return;
 });
-define('patch', [
+define('app/patch', [
     'es5-shim',
     'es5-sham',
     'html5shiv',

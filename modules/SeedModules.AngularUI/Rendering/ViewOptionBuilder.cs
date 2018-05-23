@@ -55,7 +55,8 @@ namespace SeedModules.AngularUI.Rendering
                     urlArgs = _options.Value.UrlArgs,
                     references = new Dictionary<string, object>(),
                     requires = new List<string>(),
-                    patchs = new List<string>()
+                    patchs = new List<string>(),
+                    map = new Dictionary<string, IDictionary<string, string>>()
                 };
 
                 foreach (var refDefine in referencies)
@@ -66,6 +67,10 @@ namespace SeedModules.AngularUI.Rendering
                     }
                     defineOptions.requires.AddRange(refDefine.Requires);
                     defineOptions.patchs.AddRange(refDefine.Patchs);
+                    foreach (var mk in refDefine.Map.Keys)
+                    {
+                        defineOptions.map.Add(mk, refDefine.Map[mk]);
+                    }
                 }
                 optionString = JsonConvert.SerializeObject(defineOptions);
                 _memoryCache.Set(cacheKey, optionString);
@@ -106,26 +111,19 @@ namespace SeedModules.AngularUI.Rendering
 
             var uiFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
                 .Where(x => !x.IsDirectory && x.Name.EndsWith(".modules.json") && references.References.Contains(string.Format("{0}/{1}", pluginInfo.Id, x.Name.Replace(".modules.json", ""))));
-            //.Where(x => !x.IsDirectory && x.Name.EndsWith(".modules.json") && references.References.Contains(x.Name.Replace(".modules.json", "")));
 
             if (uiFiles.Any())
             {
                 uiReferences.AddRange(uiFiles.Select(uiDefineFile =>
                 {
-                    using (var fs = uiDefineFile.CreateReadStream())
+                    using (var jsonReader = new JsonTextReader(new StreamReader(uiDefineFile.CreateReadStream())))
                     {
-                        using (var reader = new StreamReader(fs))
+                        var ui = new JsonSerializer().Deserialize<ViewReference>(jsonReader);
+                        if (_hostingEnvironment.IsDevelopment())
                         {
-                            using (var jsonReader = new JsonTextReader(reader))
-                            {
-                                var ui = new JsonSerializer().Deserialize<ViewReference>(jsonReader);
-                                if (_hostingEnvironment.IsDevelopment())
-                                {
-                                    ui.References = ui.References.Where(e => !e.Value.IsDist).ToDictionary(e => e.Key, e => e.Value);
-                                }
-                                return ui;
-                            }
+                            ui.References = ui.References.Where(e => !e.Value.IsDist).ToDictionary(e => e.Key, e => e.Value);
                         }
+                        return ui;
                     }
                 }));
             }

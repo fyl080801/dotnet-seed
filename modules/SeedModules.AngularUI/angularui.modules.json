@@ -1,27 +1,54 @@
 {
   "references": {
-    "patch": {
-      "path": "SeedModules.AngularUI/js/seed/patch"
+    "es5-shim": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
     },
-    "rcss": {
-      "path": "SeedModules.AngularUI/js/seed/app"
+    "es5-sham": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
+    "html5shiv": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
+    "json2": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
+    "respond": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
+
+    "angular-base": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
     },
     "angular": {
-      "path": "SeedModules.AngularUI/js/seed/app"
+      "path": "SeedModules.AngularUI/js/seed/app.application"
     },
-    "app": {
-      "path": "SeedModules.AngularUI/js/seed/app"
-    },
-    "app/application": {
+    "angular-ui-router": {
       "path": "SeedModules.AngularUI/js/seed/app.application",
-      "shim": {
-        "deps": ["app"]
-      }
+      "shim": { "deps": ["angular"] }
+    },
+    "angular-cookies": {
+      "path": "SeedModules.AngularUI/js/seed/app.application",
+      "shim": { "deps": ["angular"] }
+    },
+    "angular-ui-bootstrap": {
+      "path": "SeedModules.AngularUI/js/seed/app.application",
+      "shim": { "deps": ["angular"] }
+    },
+    "bootstrap": {
+      "path": "SeedModules.AngularUI/js/seed/app.application",
+      "shim": { "deps": ["jquery"] }
+    },
+    "jquery": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
+    },
+
+    "app/application": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
     },
     "jquery-form": {
       "path": "SeedModules.AngularUI/js/jquery-form/jquery.form.min",
       "shim": {
-        "deps": ["app"]
+        "deps": ["app/application"]
       },
       "noDebug": true
     },
@@ -36,7 +63,7 @@
     "schema-form": {
       "path": "SeedModules.AngularUI/js/seed/schema-form",
       "shim": {
-        "deps": ["app", "tv4", "objectpath"]
+        "deps": ["tv4", "objectpath"]
       }
     },
     "schema-form-bootstrap": {
@@ -60,12 +87,14 @@
       "isDist": true
     }
   },
+  "map": {
+    "*": { "rcss": "SeedModules.AngularUI/js/seed/css.js" }
+  },
   "requires": [
     "app/application",
     "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",
     "rcss!SeedModules.AngularUI/css/ng-ui.css",
     "SeedModules.AngularUI/modules/module"
   ],
-  "patchs": ["patch"],
   "path": "Content/modules"
 }
