@@ -1,0 +1,14 @@
+{
+  "configs": {
+    "SeedModules.Saas/modules/module": {
+      "path": "SeedModules.Saas/js/modules.module"
+    },
+    "SeedModules.Saas/modules/requires": {
+      "path": "SeedModules.Saas/js/modules.requires",
+      "shim": {
+        "deps": ["SeedModules.Saas/modules/module"]
+      }
+    }
+  },
+  "requires": ["SeedModules.Saas/modules/module"]
+}

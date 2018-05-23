@@ -1,4 +1,5 @@
-﻿@using SeedModules.AngularUI.Models;
+﻿@using SeedModules.AngularUI.Extensions;
+@model SeedModules.AngularUI.Models.ViewOptionsModel;
 <!DOCTYPE html>
 <!--[if lte IE 8]><html lang="zh-cn" data-html-type="no-js lte-ie8"><![endif]-->
 <!--[if gt IE 8]><!-->
@@ -14,8 +15,7 @@
 
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
-    <!-- <link rel="stylesheet" href="/SeedModules.AngularUI/css/fontawesome-all.min.css" /> -->
-    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(((ViewOptionsModel)Model).Options).Settings(((ViewOptionsModel)Model).SiteSettings)
+    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/startup.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
 </head>
 <body>
     @RenderBody()

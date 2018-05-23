@@ -1,22 +1,18 @@
 {
-  "references": {
+  "configs": {
     "SeedModules.MindPlus/modules/mind/module": {
-      "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.mind.module",
-      "isDist": true
+      "path": "SeedModules.MindPlus/js/modules.mind.module"
     },
     "SeedModules.MindPlus/modules/mind/requires": {
-      "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.mind.requires",
+      "path": "SeedModules.MindPlus/js/modules.mind.requires",
       "shim": {
         "deps": ["SeedModules.MindPlus/modules/mind/module"]
-      },
-      "isDist": true
+      }
     },
     "color-picker": {
       "path": "SeedModules.MindPlus/js/color-picker/color-picker",
       "shim": {
-        "deps": ["app"]
+        "deps": ["app/application"]
       }
     },
     "json-diff": {
@@ -52,6 +48,5 @@
     "rcss!SeedModules.MindPlus/js/hotbox/hotbox.css",
     "rcss!SeedModules.MindPlus/js/color-picker/color-picker.min.css",
     "SeedModules.MindPlus/modules/mind/module"
-  ],
-  "path": "Content/modules/mind"
+  ]
 }

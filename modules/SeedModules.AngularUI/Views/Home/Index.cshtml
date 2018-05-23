@@ -18,7 +18,7 @@
     @foreach (var script in Model.Scripts) {
         <script src="@script"></script>
     }
-    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/main.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
+    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/startup.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
 </head>
 <body ui-view>
 

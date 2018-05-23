@@ -26,42 +26,43 @@ gulp.task('build', function() {
   var requiresOptions,
     moduleOptions = {
       baseUrl: path.join(options.src, '/'),
+      removeCombined: true,
+      fileExclusionRegExp: /^\./,
       paths: {},
       exclude: []
     };
 
-  getFolders(moduleOptions.baseUrl).map(function(folder) {
-    getFiles(path.join(moduleOptions.baseUrl, folder), '.modules.json').map(
-      function(file) {
-        var uidef = JSON.parse(
-          fs.readFileSync(path.join(moduleOptions.baseUrl, folder, file))
-        );
-        var uipath = path.join(
-          moduleOptions.baseUrl,
-          folder,
-          uidef.path ? uidef.path : 'Content/modules'
-        );
+  // 获取所有UI定义
+  getAllFiles(moduleOptions.baseUrl, 'options.json').map(function(fullname) {
+    var option = JSON.parse(fs.readFileSync(fullname));
+    var uipath = fullname.replace(/\\options.json/g, '');
 
-        modulePaths.push(uipath);
+    modulePaths.push(uipath);
 
-        for (var name in uidef.references) {
-          if (!uidef.references[name].isDist) {
-            moduleOptions.paths[name] = 'SeedModules.AngularUI/Content/main';
-            moduleOptions.exclude.push(name);
-          }
-        }
-
-        getAllFiles(uipath, '.js').map(function(fullname) {
-          moduleOptions.paths[
-            fullname
-              .replace(moduleOptions.baseUrl, '')
-              .replace(path.join('Content/', ''), '')
-              .replace('.js', '')
-              .replace(/\\/g, '/')
-          ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
-        });
+    for (var name in option.configs) {
+      // 模块前缀，用于判断是否是一个模块引用
+      var moduleprefix = uipath
+        .replace(moduleOptions.baseUrl, '')
+        .replace(path.join('Content/', ''), '')
+        .replace(/\\/g, '/');
+      if (
+        name !== moduleprefix + '/requires' &&
+        name !== moduleprefix + '/module'
+      ) {
+        moduleOptions.paths[name] = '../../../modules/build';
+        moduleOptions.exclude.push(name);
       }
-    );
+    }
+
+    getAllFiles(uipath, '.js').map(function(fullname) {
+      moduleOptions.paths[
+        fullname
+          .replace(moduleOptions.baseUrl, '')
+          .replace(path.join('Content/', ''), '')
+          .replace('.js', '')
+          .replace(/\\/g, '/')
+      ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
+    });
   });
 
   requiresOptions = JSON.parse(JSON.stringify(moduleOptions));
@@ -76,20 +77,21 @@ gulp.task('build', function() {
   });
 
   modulePaths.map(function(folder) {
-    var distname = folder
-      .replace(moduleOptions.baseUrl, '')
+    var sortpath = folder.replace(moduleOptions.baseUrl, '');
+    var modulename = sortpath.substring(
+      0,
+      sortpath.indexOf(path.join('Content/', ''))
+    );
+    var distname = sortpath
+      .replace(path.join(modulename, 'Content/', ''), '')
       .replace(/\//g, '.')
       .replace(/\\/g, '.');
     var targetPath = path.join(
       folder.substring(0, folder.lastIndexOf(path.join('/modules', ''))),
       'js'
     );
-    var requireName = path
-      .join(folder.replace(moduleOptions.baseUrl, ''), 'requires')
-      .replace(/\\/g, '/');
-    var moduleName = path
-      .join(folder.replace(moduleOptions.baseUrl, ''), 'module')
-      .replace(/\\/g, '/');
+    var requireName = path.join(sortpath, 'requires').replace(/\\/g, '/');
+    var moduleName = path.join(sortpath, 'module').replace(/\\/g, '/');
 
     // requires
     gulp

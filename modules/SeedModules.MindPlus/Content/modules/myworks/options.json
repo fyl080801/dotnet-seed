@@ -1,17 +1,13 @@
 {
-  "references": {
+  "configs": {
     "SeedModules.MindPlus/modules/myworks/module": {
-      "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.myworks.module",
-      "isDist": true
+      "path": "SeedModules.MindPlus/js/modules.myworks.module"
     },
     "SeedModules.MindPlus/modules/myworks/requires": {
-      "path":
-        "SeedModules.MindPlus/js/SeedModules.MindPlus.Content.modules.myworks.requires",
+      "path": "SeedModules.MindPlus/js/modules.myworks.requires",
       "shim": {
         "deps": ["SeedModules.MindPlus/modules/myworks/module"]
-      },
-      "isDist": true
+      }
     },
     "rangy-core": {
       "path": "SeedModules.MindPlus/js/wysihtml/rangy/rangy-core",
@@ -40,6 +36,5 @@
   "requires": [
     "rcss!SeedModules.MindPlus/css/mindplus.css",
     "SeedModules.MindPlus/modules/myworks/module"
-  ],
-  "path": "Content/modules/myworks"
+  ]
 }

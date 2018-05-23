@@ -1,5 +1,5 @@
 {
-  "references": {
+  "configs": {
     "es5-shim": {
       "path": "SeedModules.AngularUI/js/seed/app.patch"
     },
@@ -16,6 +16,9 @@
       "path": "SeedModules.AngularUI/js/seed/app.patch"
     },
 
+    "rcss": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
+    },
     "angular-base": {
       "path": "SeedModules.AngularUI/js/seed/app.application"
     },
@@ -74,21 +77,14 @@
     },
 
     "SeedModules.AngularUI/modules/module": {
-      "path":
-        "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.modules.module",
-      "isDist": true
+      "path": "SeedModules.AngularUI/js/modules.module"
     },
     "SeedModules.AngularUI/modules/requires": {
-      "path":
-        "SeedModules.AngularUI/js/SeedModules.AngularUI.Content.modules.requires",
+      "path": "SeedModules.AngularUI/js/modules.requires",
       "shim": {
         "deps": ["SeedModules.AngularUI/modules/module"]
-      },
-      "isDist": true
+      }
     }
-  },
-  "map": {
-    "*": { "rcss": "SeedModules.AngularUI/js/seed/css.js" }
   },
   "requires": [
     "app/application",
@@ -96,5 +92,5 @@
     "rcss!SeedModules.AngularUI/css/ng-ui.css",
     "SeedModules.AngularUI/modules/module"
   ],
-  "path": "Content/modules"
+  "application": "app.application"
 }
