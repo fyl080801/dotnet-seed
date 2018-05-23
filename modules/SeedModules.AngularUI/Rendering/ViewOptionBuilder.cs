@@ -4,6 +4,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Seed.Data.Extensions;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Site;
@@ -47,32 +48,33 @@ namespace SeedModules.AngularUI.Rendering
             var cacheKey = BuildCacheKey(routeData);
             if (!_memoryCache.TryGetValue(cacheKey, out string optionString))
             {
-                var referencies = await GetViewReferencesAsync(routeData);
-                var defineOptions = new
-                {
-                    app = string.IsNullOrEmpty(_options.Value.App) ? "app.application" : _options.Value.App,
-                    isDebug = _options.Value.IsDebug,
-                    urlArgs = _options.Value.UrlArgs,
-                    references = new Dictionary<string, object>(),
-                    requires = new List<string>(),
-                    patchs = new List<string>(),
-                    map = new Dictionary<string, IDictionary<string, string>>()
-                };
+                var options = await GetViewOptionsAsync(routeData);
+                // var defineOptions = new
+                // {
+                //     app = string.IsNullOrEmpty(_options.Value.App) ? "app.application" : _options.Value.App,
+                //     isDebug = _options.Value.IsDebug,
+                //     urlArgs = _options.Value.UrlArgs,
+                //     references = new Dictionary<string, object>(),
+                //     requires = new List<string>(),
+                //     patchs = new List<string>(),
+                //     map = new Dictionary<string, IDictionary<string, string>>()
+                // };
 
-                foreach (var refDefine in referencies)
-                {
-                    foreach (var refItem in refDefine.References)
-                    {
-                        defineOptions.references[refItem.Key] = refItem.Value;
-                    }
-                    defineOptions.requires.AddRange(refDefine.Requires);
-                    defineOptions.patchs.AddRange(refDefine.Patchs);
-                    foreach (var mk in refDefine.Map.Keys)
-                    {
-                        defineOptions.map.Add(mk, refDefine.Map[mk]);
-                    }
-                }
-                optionString = JsonConvert.SerializeObject(defineOptions);
+                // foreach (var refDefine in referencies)
+                // {
+                //     foreach (var refItem in refDefine.References)
+                //     {
+                //         defineOptions.references[refItem.Key] = refItem.Value;
+                //     }
+                //     defineOptions.requires.AddRange(refDefine.Requires);
+                //     defineOptions.patchs.AddRange(refDefine.Patchs);
+                //     foreach (var mk in refDefine.Map.Keys)
+                //     {
+                //         defineOptions.map.Add(mk, refDefine.Map[mk]);
+                //     }
+                // }
+                // optionString = JsonConvert.SerializeObject(defineOptions);
+
                 _memoryCache.Set(cacheKey, optionString);
             }
             return await Task.FromResult(optionString);
@@ -88,7 +90,7 @@ namespace SeedModules.AngularUI.Rendering
             return keyBuilder.ToString();
         }
 
-        private async Task<IEnumerable<ViewReference>> GetViewReferencesAsync(RouteData routeData)
+        private async Task<IEnumerable<JObject>> GetViewOptionsAsync(RouteData routeData)
         {
             var routeReference = _siteService.GetSiteInfoAsync()
                 .GetAwaiter()
@@ -99,36 +101,38 @@ namespace SeedModules.AngularUI.Rendering
                     return string.Join("/", routeData.Values.Select(r => r.Value).ToArray()).Equals(e.Route);
                 });
 
-            return await _pluginManager.GetPlugins().InvokeAsync(descriptor => GetViewReferences(descriptor, routeReference), _logger);
+            return await _pluginManager.GetPlugins().InvokeAsync(descriptor => GetViewOptions(descriptor, routeReference), _logger);
         }
 
-        protected virtual Task<IEnumerable<ViewReference>> GetViewReferences(IPluginInfo pluginInfo, RouteViewReference references)
+        protected virtual Task<IEnumerable<JObject>> GetViewOptions(IPluginInfo pluginInfo, RouteViewReference references)
         {
-            var uiReferences = new List<ViewReference>();
+            var options = new List<JObject>();
 
             if (references == null)
-                return Task.FromResult<IEnumerable<ViewReference>>(uiReferences);
+                return Task.FromResult<IEnumerable<JObject>>(options);
 
-            var uiFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
-                .Where(x => !x.IsDirectory && x.Name.EndsWith(".modules.json") && references.References.Contains(string.Format("{0}/{1}", pluginInfo.Id, x.Name.Replace(".modules.json", ""))));
+            var optionFiles = Directory.GetFiles(pluginInfo.Path, "options.json", SearchOption.AllDirectories).Select(e => new FileInfo(e));
+            //  _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
+            //     .Where(x => !x.IsDirectory && x.Name.Equals("options.json"));
+            //.Where(x => !x.IsDirectory && x.Name.Equals("options.json") && references.References.Contains(string.Format("{0}/{1}", pluginInfo.Id, x.Name.Replace(".modules.json", ""))));
 
-            if (uiFiles.Any())
-            {
-                uiReferences.AddRange(uiFiles.Select(uiDefineFile =>
-                {
-                    using (var jsonReader = new JsonTextReader(new StreamReader(uiDefineFile.CreateReadStream())))
-                    {
-                        var ui = new JsonSerializer().Deserialize<ViewReference>(jsonReader);
-                        if (_hostingEnvironment.IsDevelopment())
-                        {
-                            ui.References = ui.References.Where(e => !e.Value.IsDist).ToDictionary(e => e.Key, e => e.Value);
-                        }
-                        return ui;
-                    }
-                }));
-            }
+            // if (uiFiles.Any())
+            // {
+            //     uiReferences.AddRange(uiFiles.Select(uiDefineFile =>
+            //     {
+            //         using (var jsonReader = new JsonTextReader(new StreamReader(uiDefineFile.CreateReadStream())))
+            //         {
+            //             var ui = new JsonSerializer().Deserialize<ViewReference>(jsonReader);
+            //             if (_hostingEnvironment.IsDevelopment())
+            //             {
+            //                 ui.References = ui.References.Where(e => !e.Value.IsDist).ToDictionary(e => e.Key, e => e.Value);
+            //             }
+            //             return ui;
+            //         }
+            //     }));
+            // }
 
-            return Task.FromResult<IEnumerable<ViewReference>>(uiReferences);
+            return Task.FromResult<IEnumerable<JObject>>(options);
         }
     }
 }

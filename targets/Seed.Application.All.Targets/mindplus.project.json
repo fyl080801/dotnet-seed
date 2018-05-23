@@ -24,37 +24,37 @@
         {
           "Route": "SeedModules.Admin/Home/Index",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.Admin/admin",
-            "SeedModules.MindPlus/admin"
+            "SeedModules.AngularUI/modules",
+            "SeedModules.Admin/modules/admin",
+            "SeedModules.MindPlus/modules/admin"
           ]
         },
         {
           "Route": "SeedModules.Admin/Home/Login",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.Admin/login"
+            "SeedModules.AngularUI/modules",
+            "SeedModules.Admin/modules/login"
           ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Index",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.MindPlus/portals"
+            "SeedModules.AngularUI/modules",
+            "SeedModules.MindPlus/modules/portals"
           ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Works",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.MindPlus/myworks"
+            "SeedModules.AngularUI/modules",
+            "SeedModules.MindPlus/modules/myworks"
           ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Mind",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.MindPlus/mind"
+            "SeedModules.AngularUI/modules",
+            "SeedModules.MindPlus/modules/mind"
           ]
         }
       ]
