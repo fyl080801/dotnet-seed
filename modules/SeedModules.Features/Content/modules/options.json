@@ -1,0 +1,13 @@
+{
+  "configs": {
+    "SeedModules.Features/modules/module": {
+      "path": "SeedModules.Features/js/modules.module"
+    },
+    "SeedModules.Features/modules/requires": {
+      "path": "SeedModules.Features/js/modules.requires",
+      "shim": {
+        "deps": ["SeedModules.Features/modules/module"]
+      }
+    }
+  }
+}

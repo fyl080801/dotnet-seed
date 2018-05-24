@@ -6,7 +6,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
     [
       '$scope',
       '$timeout',
-      'app.services.popupService',
+      'app/services/popupService',
       'SeedModules.AngularUI/modules/services/utility',
       'SeedModules.AngularUI/modules/services/requestService',
       function($scope, $timeout, popupService, utility, requestService) {

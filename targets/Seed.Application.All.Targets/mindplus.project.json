@@ -24,37 +24,38 @@
         {
           "Route": "SeedModules.Admin/Home/Index",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.Admin/admin",
-            "SeedModules.MindPlus/admin"
+            "rcss!SeedModules.Admin/css/seed-admin.css",
+            "SeedModules.Admin/modules/admin/module",
+            "SeedModules.MindPlus/modules/admin/module"
           ]
         },
         {
           "Route": "SeedModules.Admin/Home/Login",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.Admin/login"
+            "rcss!SeedModules.Admin/css/seed-admin.css",
+            "SeedModules.Admin/modules/login/module"
           ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Index",
-          "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.MindPlus/portals"
-          ]
+          "References": ["SeedModules.MindPlus/modules/portals/module"]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Works",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.MindPlus/myworks"
+            "rcss!SeedModules.MindPlus/css/mindplus.css",
+            "SeedModules.MindPlus/modules/myworks/module"
           ]
         },
         {
           "Route": "SeedModules.MindPlus/Home/Mind",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.MindPlus/mind"
+            "rcss!SeedModules.MindPlus/css/mindplus.css",
+            "rcss!SeedModules.MindPlus/css/kityminder.core.css",
+            "rcss!SeedModules.MindPlus/js/kityminder/kityminder.editor.min.css",
+            "rcss!SeedModules.MindPlus/js/hotbox/hotbox.css",
+            "rcss!SeedModules.MindPlus/js/color-picker/color-picker.min.css",
+            "SeedModules.MindPlus/modules/mind/module"
           ]
         }
       ]

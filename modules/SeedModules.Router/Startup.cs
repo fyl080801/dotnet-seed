@@ -12,7 +12,7 @@ namespace SeedModules.Router
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IViewOptionsBuilder, ViewOptionBuilder>();
+            services.AddScoped<IViewOptionsBuilder, PluginViewOptionBuilder>();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

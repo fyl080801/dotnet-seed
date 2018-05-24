@@ -6,7 +6,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
     '$modal',
     '$q',
     '$timeout',
-    'app.services.popupService',
+    'app/services/popupService',
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.AngularUI/modules/factories/ngTableRequest',
     'SeedModules.AngularUI/modules/factories/schemaFormParams',

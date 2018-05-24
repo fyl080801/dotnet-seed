@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es3",
+    "noImplicitAny": false,
+    "module": "amd",
+    "removeComments": false,
+    "sourceMap": true,
+    "outDir": "modules"
+  },
+  "exclude": ["node_modules"]
+}

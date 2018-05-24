@@ -6,7 +6,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
     '$state',
     '$modal',
     '$window',
-    'app.services.popupService',
+    'app/services/popupService',
     'SeedModules.Admin/modules/admin/configs/nav',
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.AngularUI/modules/factories/schemaFormParams',

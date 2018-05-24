@@ -22,17 +22,17 @@
         {
           "Route": "SeedModules.Admin/Home/Index",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.Admin/admin",
-            "SeedModules.Features/features",
-            "SeedModules.Saas/saas"
+            "rcss!SeedModules.Admin/css/seed-admin.css",
+            "SeedModules.Admin/modules/admin/module",
+            "SeedModules.Features/modules/module",
+            "SeedModules.Saas/modules/module"
           ]
         },
         {
           "Route": "SeedModules.Admin/Home/Login",
           "References": [
-            "SeedModules.AngularUI/angularui",
-            "SeedModules.Admin/login"
+            "rcss!SeedModules.Admin/css/seed-admin.css",
+            "SeedModules.Admin/modules/login/module"
           ]
         }
       ]

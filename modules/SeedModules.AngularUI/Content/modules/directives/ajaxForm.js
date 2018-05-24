@@ -5,7 +5,7 @@ define(['SeedModules.AngularUI/modules/module', 'jquery-form'], function(module)
     '$q',
     '$modal',
     '$appConfig',
-    'app.factories.httpDataHandler',
+    'app/factories/httpDataHandler',
     function($q, $modal, $appConfig, httpDataHandler) {
       return {
         restrict: 'AE',
