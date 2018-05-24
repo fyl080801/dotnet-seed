@@ -32,9 +32,5 @@
       "path": "SeedModules.MindPlus/js/parser_rules/advanced_and_extended",
       "noDebug": true
     }
-  },
-  "requires": [
-    "rcss!SeedModules.MindPlus/css/mindplus.css",
-    "SeedModules.MindPlus/modules/myworks/module"
-  ]
+  }
 }

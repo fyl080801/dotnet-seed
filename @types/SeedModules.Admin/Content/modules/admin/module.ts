@@ -63,6 +63,6 @@ class AdminModule {
   }
 }
 
-application['requires'].push('modules.admin');
-
-angular.module('modules.admin', ['modules.admin.boot']).config(AdminModule);
+export = angular
+  .module('modules.admin', ['modules.admin.boot'])
+  .config(AdminModule);

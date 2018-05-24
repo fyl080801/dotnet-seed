@@ -9,9 +9,5 @@
         "deps": ["SeedModules.InPathTest/modules/module"]
       }
     }
-  },
-  "requires": [
-    "rcss!SeedModules.Admin/css/seed-admin.css",
-    "SeedModules.InPathTest/modules/module"
-  ]
+  }
 }

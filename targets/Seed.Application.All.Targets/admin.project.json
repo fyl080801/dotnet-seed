@@ -23,15 +23,15 @@
         {
           "Route": "SeedModules.Admin/Home/Index",
           "References": [
-            "SeedModules.AngularUI/modules",
-            "SeedModules.Admin/modules/admin"
+            "rcss!SeedModules.Admin/css/seed-admin.css",
+            "SeedModules.Admin/modules/admin/module"
           ]
         },
         {
           "Route": "SeedModules.Admin/Home/Login",
           "References": [
-            "SeedModules.AngularUI/modules",
-            "SeedModules.Admin/modules/login"
+            "rcss!SeedModules.Admin/css/seed-admin.css",
+            "SeedModules.Admin/modules/login/module"
           ]
         }
       ]

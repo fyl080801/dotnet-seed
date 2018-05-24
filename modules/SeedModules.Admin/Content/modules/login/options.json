@@ -9,9 +9,5 @@
         "deps": ["SeedModules.Admin/modules/login/module"]
       }
     }
-  },
-  "requires": [
-    "rcss!SeedModules.Admin/css/seed-admin.css",
-    "SeedModules.Admin/modules/login/module"
-  ]
+  }
 }

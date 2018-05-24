@@ -9,6 +9,5 @@
         "deps": ["SeedModules.MindPlus/modules/portals/module"]
       }
     }
-  },
-  "requires": ["SeedModules.MindPlus/modules/portals/module"]
+  }
 }

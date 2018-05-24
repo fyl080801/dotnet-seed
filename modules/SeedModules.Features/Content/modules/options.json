@@ -9,6 +9,5 @@
         "deps": ["SeedModules.Features/modules/module"]
       }
     }
-  },
-  "requires": ["SeedModules.Features/modules/module"]
+  }
 }

@@ -5,7 +5,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
     '$scope',
     '$stateParams',
     '$modal',
-    'app.services.popupService',
+    'app/services/popupService',
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.AngularUI/modules/factories/ngTableRequest',
     'SeedModules.AngularUI/modules/factories/schemaFormParams',

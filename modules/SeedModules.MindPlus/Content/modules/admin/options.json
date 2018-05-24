@@ -9,6 +9,5 @@
         "deps": ["SeedModules.MindPlus/modules/admin/module"]
       }
     }
-  },
-  "requires": ["SeedModules.MindPlus/modules/admin/module"]
+  }
 }

@@ -4,7 +4,10 @@
       "path": "SeedModules.AngularUI/js/seed/app.patch"
     },
     "es5-sham": {
-      "path": "SeedModules.AngularUI/js/seed/app.patch"
+      "path": "SeedModules.AngularUI/js/seed/app.patch",
+      "shim": {
+        "deps": ["es5-shim"]
+      }
     },
     "html5shiv": {
       "path": "SeedModules.AngularUI/js/seed/app.patch"
@@ -86,6 +89,7 @@
       }
     }
   },
+  "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
   "requires": [
     "app/application",
     "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",

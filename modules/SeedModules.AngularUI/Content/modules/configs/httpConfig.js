@@ -5,12 +5,12 @@ define(['SeedModules.AngularUI/modules/configs'], function(configs) {
     '$provide',
     '$httpProvider',
     function($provide, $httpProvider) {
-      $provide.decorator('app.factories.httpDataHandler', [
+      $provide.decorator('app/factories/httpDataHandler', [
         '$delegate',
         '$rootScope',
         '$modal',
         '$appEnvironment',
-        'app.services.popupService',
+        'app/services/popupService',
         function($delegate, $rootScope, $modal, $appEnvironment, popupService) {
           $delegate.doResponse = function(response, defer) {
             if (response.config.dataOnly) {

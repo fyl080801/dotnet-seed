@@ -6,7 +6,7 @@ define(['SeedModules.Setup/modules/module'], function(module) {
     '$modal',
     '$location',
     '$window',
-    'app.services.popupService',
+    'app/services/popupService',
     'SeedModules.AngularUI/modules/services/requestService',
     function($scope, $modal, $location, $window, popupService, requestService) {
       $scope.setupForm = {

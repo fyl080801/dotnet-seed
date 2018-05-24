@@ -7,7 +7,7 @@ define(['SeedModules.MindPlus/modules/mind/module'], function(module) {
     '$appConfig',
     '$timeout',
     '$modal',
-    'app.services.popupService',
+    'app/services/popupService',
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.MindPlus/modules/mind/factories/minderInstance',
     function(

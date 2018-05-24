@@ -8,7 +8,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       '$state',
       '$stateParams',
       '$modal',
-      'app.services.popupService',
+      'app/services/popupService',
       'SeedModules.AngularUI/modules/services/requestService',
       'SeedModules.AngularUI/modules/factories/schemaFormParams',
       function(

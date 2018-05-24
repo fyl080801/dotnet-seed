@@ -6,7 +6,7 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
     '$http',
     '$modal',
     '$appConfig',
-    'app.factories.httpDataHandler',
+    'app/factories/httpDataHandler',
     function($q, $http, $modal, $appConfig, httpDataHandler) {
       function resolveHttp(method, apiDefer) {
         var defer = $q.defer();

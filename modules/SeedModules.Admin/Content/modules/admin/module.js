@@ -1,6 +1,5 @@
-define(["require", "exports", "angular", "app/application", "SeedModules.Admin/modules/admin/configs/nav", "SeedModules.Admin/modules/admin/configs/menus", "SeedModules.Admin/modules/admin/configs/router", "SeedModules.Admin/modules/admin/configs/environment"], function (require, exports, angular, application) {
+define(["require", "exports", "angular", "SeedModules.Admin/modules/admin/configs/nav", "SeedModules.Admin/modules/admin/configs/menus", "SeedModules.Admin/modules/admin/configs/router", "SeedModules.Admin/modules/admin/configs/environment"], function (require, exports, angular) {
     "use strict";
-    exports.__esModule = true;
     var AdminModule = /** @class */ (function () {
         function AdminModule($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/admin/dashboard');
@@ -51,7 +50,8 @@ define(["require", "exports", "angular", "app/application", "SeedModules.Admin/m
         AdminModule.$inject = ['$stateProvider', '$urlRouterProvider'];
         return AdminModule;
     }());
-    application['requires'].push('modules.admin');
-    angular.module('modules.admin', ['modules.admin.boot']).config(AdminModule);
+    return angular
+        .module('modules.admin', ['modules.admin.boot'])
+        .config(AdminModule);
 });
 //# sourceMappingURL=module.js.map

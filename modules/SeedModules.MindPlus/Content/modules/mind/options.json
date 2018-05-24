@@ -40,13 +40,5 @@
         "deps": ["kityminder", "color-picker", "json-diff", "hotbox"]
       }
     }
-  },
-  "requires": [
-    "rcss!SeedModules.MindPlus/css/mindplus.css",
-    "rcss!SeedModules.MindPlus/css/kityminder.core.css",
-    "rcss!SeedModules.MindPlus/js/kityminder/kityminder.editor.min.css",
-    "rcss!SeedModules.MindPlus/js/hotbox/hotbox.css",
-    "rcss!SeedModules.MindPlus/js/color-picker/color-picker.min.css",
-    "SeedModules.MindPlus/modules/mind/module"
-  ]
+  }
 }

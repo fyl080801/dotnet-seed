@@ -4,7 +4,7 @@ define(['SeedModules.Saas/modules/module'], function(module) {
   module.controller('SeedModules.Saas/modules/controllers/tenants', [
     '$scope',
     '$modal',
-    'app.services.popupService',
+    'app/services/popupService',
     'SeedModules.AngularUI/modules/factories/ngTableRequest',
     'SeedModules.AngularUI/modules/services/requestService',
     'SeedModules.AngularUI/modules/factories/schemaFormParams',

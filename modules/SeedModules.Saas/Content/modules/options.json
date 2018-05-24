@@ -9,6 +9,5 @@
         "deps": ["SeedModules.Saas/modules/module"]
       }
     }
-  },
-  "requires": ["SeedModules.Saas/modules/module"]
+  }
 }

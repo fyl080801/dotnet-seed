@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine.Extensions;
 using Seed.Plugins;
 using System.Collections.Generic;
@@ -14,18 +15,15 @@ namespace SeedModules.AngularUI.Rendering
 {
     public class AllViewOptionBuilder : IViewOptionsBuilder
     {
-        readonly IOptions<ViewOptions> _options;
         readonly IPluginManager _pluginManager;
         readonly IHostingEnvironment _hostingEnvironment;
         readonly ILogger _logger;
 
         public AllViewOptionBuilder(
-            IOptions<ViewOptions> options,
             IPluginManager pluginManager,
             IHostingEnvironment hostingEnvironment,
             ILogger<AllViewOptionBuilder> logger)
         {
-            _options = options;
             _pluginManager = pluginManager;
             _hostingEnvironment = hostingEnvironment;
             _logger = logger;
@@ -33,64 +31,42 @@ namespace SeedModules.AngularUI.Rendering
 
         public async Task<string> Build(RouteData routeData)
         {
-            var referencies = await GetViewReferencesAsync();
-            var defineOptions = new
-            {
-                app = string.IsNullOrEmpty(_options.Value.App) ? "app.application" : _options.Value.App,
-                isDebug = _options.Value.IsDebug,
-                urlArgs = _options.Value.UrlArgs,
-                references = new Dictionary<string, object>(),
-                requires = new List<string>(),
-                patchs = new List<string>()
-            };
-
-            foreach (var refDefine in referencies)
-            {
-                foreach (var refItem in refDefine.References)
+            var options = new JObject();
+            GetViewReferencesAsync().GetAwaiter().GetResult()
+                .ToList()
+                .ForEach(option =>
                 {
-                    defineOptions.references[refItem.Key] = refItem.Value;
-                }
-                defineOptions.requires.AddRange(refDefine.Requires);
-                defineOptions.patchs.AddRange(refDefine.Patchs);
-            }
+                    options.Merge(option);
+                });
 
-            return await Task.FromResult(JsonConvert.SerializeObject(defineOptions));
+            return await Task.FromResult(options.ToString());
         }
 
-        private Task<IEnumerable<ViewReference>> GetViewReferencesAsync()
+        private Task<IEnumerable<JObject>> GetViewReferencesAsync()
         {
-            return _pluginManager.GetPlugins().InvokeAsync(descriptor => GetViewReferences(descriptor), _logger);
+            return _pluginManager.GetPlugins().InvokeAsync(descriptor => GetViewOptions(descriptor), _logger);
         }
 
-        protected virtual Task<IEnumerable<ViewReference>> GetViewReferences(IPluginInfo pluginInfo)
+        protected virtual Task<IEnumerable<JObject>> GetViewOptions(IPluginInfo pluginInfo)
         {
-            var uiFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
-                .Where(x => !x.IsDirectory && x.Name.EndsWith(".modules.json"));
-            var uiReferences = new List<ViewReference>();
+            var options = new List<JObject>();
 
-            if (uiFiles.Any())
+            var optionFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
+                .Where(e => e.IsDirectory)
+                .SelectMany(e => Directory.GetFiles(e.PhysicalPath, "options.json", SearchOption.AllDirectories));
+
+            if (optionFiles.Any())
             {
-                uiReferences.AddRange(uiFiles.Select(uiDefineFile =>
+                options.AddRange(optionFiles.Select(optionFile =>
                 {
-                    using (var fs = uiDefineFile.CreateReadStream())
+                    using (var jsonReader = new JsonTextReader(new StreamReader(File.OpenRead(optionFile))))
                     {
-                        using (var reader = new StreamReader(fs))
-                        {
-                            using (var jsonReader = new JsonTextReader(reader))
-                            {
-                                var ui = new JsonSerializer().Deserialize<ViewReference>(jsonReader);
-                                if (_hostingEnvironment.IsDevelopment())
-                                {
-                                    ui.References = ui.References.Where(e => !e.Value.IsDist).ToDictionary(e => e.Key, e => e.Value);
-                                }
-                                return ui;
-                            }
-                        }
+                        return JObject.Load(jsonReader);
                     }
                 }));
             }
 
-            return Task.FromResult<IEnumerable<ViewReference>>(uiReferences);
+            return Task.FromResult<IEnumerable<JObject>>(options);
         }
     }
 }
