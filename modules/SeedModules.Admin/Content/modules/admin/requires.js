@@ -2,4 +2,3 @@ define(["require", "exports", "SeedModules.Admin/modules/admin/directives/sideba
     "use strict";
     exports.__esModule = true;
 });
-//# sourceMappingURL=requires.js.map

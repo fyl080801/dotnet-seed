@@ -27,7 +27,7 @@ class NgTableColumnFactory {
         return '';
       }
     };
-    
+
     /**
      * @ngdoc method
      * @name ngTableColumn#buildColumn

@@ -61,7 +61,18 @@ namespace SeedModules.AngularUI.Rendering
                 {
                     using (var jsonReader = new JsonTextReader(new StreamReader(File.OpenRead(optionFile))))
                     {
-                        return JObject.Load(jsonReader);
+                        var option = JObject.Load(jsonReader);
+                        if (_hostingEnvironment.IsDevelopment() && option.ContainsKey("configs"))
+                        {
+                            option.GetValue("configs").Where(e =>
+                            {
+                                var name = e.GetType().GetProperty("Name").GetValue(e).ToString();
+                                return name.StartsWith(pluginInfo.Id + "/") && (name.EndsWith("/requires") || name.EndsWith("/module"));
+                            })
+                                .ToList()
+                                .ForEach(e => e.Remove());
+                        }
+                        return option;
                     }
                 }));
             }

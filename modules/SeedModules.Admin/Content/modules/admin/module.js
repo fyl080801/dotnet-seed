@@ -1,4 +1,4 @@
-define(["require", "exports", "angular", "SeedModules.Admin/modules/admin/configs/nav", "SeedModules.Admin/modules/admin/configs/menus", "SeedModules.Admin/modules/admin/configs/router", "SeedModules.Admin/modules/admin/configs/environment"], function (require, exports, angular) {
+define(["require", "exports", "angular", "app/application", "SeedModules.Admin/modules/admin/configs/nav", "SeedModules.Admin/modules/admin/configs/menus", "SeedModules.Admin/modules/admin/configs/router", "SeedModules.Admin/modules/admin/configs/environment"], function (require, exports, angular) {
     "use strict";
     var AdminModule = /** @class */ (function () {
         function AdminModule($stateProvider, $urlRouterProvider) {
@@ -54,4 +54,3 @@ define(["require", "exports", "angular", "SeedModules.Admin/modules/admin/config
         .module('modules.admin', ['modules.admin.boot'])
         .config(AdminModule);
 });
-//# sourceMappingURL=module.js.map

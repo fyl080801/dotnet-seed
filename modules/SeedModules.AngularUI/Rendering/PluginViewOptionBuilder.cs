@@ -12,6 +12,7 @@ using Seed.Modules.Site;
 using Seed.Plugins;
 using Seed.Plugins.Feature;
 using SeedModules.AngularUI.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -65,7 +66,7 @@ namespace SeedModules.AngularUI.Rendering
             return keyBuilder.ToString();
         }
 
-        private async Task<IEnumerable<JObject>> GetViewOptionsAsync(RouteData routeData)
+        protected virtual async Task<IEnumerable<JObject>> GetViewOptionsAsync(RouteData routeData)
         {
             var routeReference = _siteService.GetSiteInfoAsync()
                 .GetAwaiter()
@@ -96,7 +97,7 @@ namespace SeedModules.AngularUI.Rendering
             return options;
         }
 
-        protected virtual Task<IEnumerable<JObject>> GetViewOptions(IPluginInfo pluginInfo)
+        private Task<IEnumerable<JObject>> GetViewOptions(IPluginInfo pluginInfo)
         {
             var options = new List<JObject>();
 
@@ -110,7 +111,19 @@ namespace SeedModules.AngularUI.Rendering
                 {
                     using (var jsonReader = new JsonTextReader(new StreamReader(File.OpenRead(optionFile))))
                     {
-                        return JObject.Load(jsonReader);
+                        // return JObject.Load(jsonReader);
+                        var option = JObject.Load(jsonReader);
+                        if (_hostingEnvironment.IsDevelopment() && option.ContainsKey("configs"))
+                        {
+                            option.GetValue("configs").Where(e =>
+                            {
+                                var name = e.GetType().GetProperty("Name").GetValue(e).ToString();
+                                return name.StartsWith(pluginInfo.Id + "/") && (name.EndsWith("/requires") || name.EndsWith("/module"));
+                            })
+                                .ToList()
+                                .ForEach(e => e.Remove());
+                        }
+                        return option;
                     }
                 }));
             }

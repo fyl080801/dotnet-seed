@@ -1,13 +1,15 @@
 {
   "configs": {
     "SeedModules.Admin/modules/admin/module": {
-      "path": "SeedModules.Admin/js/modules.admin.module"
+      "path": "SeedModules.Admin/js/modules.admin.module",
+      "dev": true
     },
     "SeedModules.Admin/modules/admin/requires": {
       "path": "SeedModules.Admin/js/modules.admin.requires",
       "shim": {
         "deps": ["SeedModules.Admin/modules/admin/module"]
-      }
+      },
+      "dev": true
     }
   }
 }

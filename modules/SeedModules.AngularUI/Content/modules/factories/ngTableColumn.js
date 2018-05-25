@@ -79,4 +79,3 @@ define(["require", "exports", "angular", "SeedModules.AngularUI/modules/module"]
     }());
     mod.factory('SeedModules.AngularUI/modules/factories/ngTableColumn', NgTableColumnFactory.$new);
 });
-//# sourceMappingURL=ngTableColumn.js.map

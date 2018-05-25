@@ -1,4 +1,4 @@
-<div class="container" ng-controller="SeedModules.Admin/modules/login/controllers/login">
+<div class="container" ng-controller="SeedModules.Admin/modules/login/controllers/login as vm">
     <form style="display:none">
         <input type="password" />
     </form>
@@ -32,7 +32,7 @@
                         <input type="checkbox" name="IsRemember" ng-model="data.IsRemember"> 记住用户名
                     </label>
                 </div> -->
-                <button type="button" class="btn btn-success btn-group-justified" ng-disabled="loginform.$invalid" ng-click="login()">登录</button>
+                <button type="button" class="btn btn-success btn-group-justified" ng-disabled="loginform.$invalid" ng-click="vm.login()">登录</button>
             </form>
         </div>
     </div>
