@@ -6,7 +6,7 @@
       "RouteReferences": [
         {
           "Route": "SeedModules.Admin/Home/Login",
-          "References": ["angularui", "fakelogin"]
+          "References": ["SeedModules.InPathTest/modules/module"]
         }
       ]
     }

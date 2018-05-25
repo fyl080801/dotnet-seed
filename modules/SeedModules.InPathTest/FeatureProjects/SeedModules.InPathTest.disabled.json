@@ -6,7 +6,10 @@
       "RouteReferences": [
         {
           "Route": "SeedModules.Admin/Home/Login",
-          "References": ["angularui", "login"]
+          "References": [
+            "rcss!SeedModules.Admin/css/seed-admin.css",
+            "SeedModules.Admin/modules/login/module"
+          ]
         }
       ]
     }
