@@ -124,7 +124,7 @@ namespace Seed.Data.Migrations
                         throw ex;
                     }
 
-                    var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter())
+                    var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter(), new string[0])
                         .Build((DbContext)_dbContext)
                         .GetService<IMigrationsCodeGenerator>()
                         .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Context.Model);

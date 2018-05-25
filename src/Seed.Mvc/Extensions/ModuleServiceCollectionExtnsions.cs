@@ -2,18 +2,16 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
-using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Seed.Modules;
 using Seed.Mvc.LocationExpanders;
 using Seed.Plugins;
 using System;
 using System.Linq;
-using Seed.Mvc.Filters;
-using Newtonsoft.Json;
 
 namespace Seed.Mvc.Extensions
 {
@@ -68,13 +66,12 @@ namespace Seed.Mvc.Extensions
 
         internal static IMvcCoreBuilder AddModuleRazorViewEngine(this IMvcCoreBuilder builder, IServiceProvider services)
         {
+            var env = services.GetRequiredService<IHostingEnvironment>();
+            var pluginHosts = services.GetService<IOptions<PluginExpanderOptions>>().Value.Options.Select(e => e.Path).ToArray();
+
             return builder.AddRazorViewEngine(options =>
             {
                 options.ViewLocationExpanders.Add(new CompositeViewLocationExpanderProvider());
-
-                var env = services.GetRequiredService<IHostingEnvironment>();
-
-                var pluginHosts = services.GetService<IOptions<PluginExpanderOptions>>().Value.Options.Select(e => e.Path).ToArray();
                 IFileProvider moduleFileProvider;
                 if (env.IsDevelopment())
                 {

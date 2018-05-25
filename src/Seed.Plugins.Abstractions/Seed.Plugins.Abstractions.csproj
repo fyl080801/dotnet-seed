@@ -4,7 +4,7 @@
     <RootNamespace>Seed.Plugins</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.1.0-rc1-final" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
