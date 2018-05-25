@@ -10,6 +10,9 @@ using SeedModules.Project.Services;
 
 namespace SeedModules.Features.Internal
 {
+    /// <summary>
+    /// 特性启用或禁用时执行的操作
+    /// </summary>
     public class FeatureUpdater : IFeatureEventHandler
     {
         readonly IProjectReader _projectReader;

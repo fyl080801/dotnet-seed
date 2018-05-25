@@ -1,5 +1,4 @@
 import angular = require('angular');
-import application = require('app/application');
 import 'SeedModules.Admin/modules/admin/configs/nav';
 import 'SeedModules.Admin/modules/admin/configs/menus';
 import 'SeedModules.Admin/modules/admin/configs/router';
