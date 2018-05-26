@@ -13,5 +13,5 @@
       "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"]
     }
   },
-  "exclude": ["node_modules", "src"]
+  "exclude": ["node_modules", "src", "targets"]
 }
