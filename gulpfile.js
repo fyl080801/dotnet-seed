@@ -120,14 +120,16 @@ function getFiles(dir, ext) {
 
 function getAllFiles(dir, ext) {
   var files = [];
-  getFiles(dir, ext).map(function(file) {
-    files.push(path.join(dir, file));
-  });
-  getFolders(dir).map(function(folder) {
-    getAllFiles(path.join(dir, folder), ext).map(function(file) {
-      files.push(file);
+  if (!fs.statSync(dir).isFile()) {
+    getFiles(dir, ext).map(function(file) {
+      files.push(path.join(dir, file));
     });
-  });
+    getFolders(dir).map(function(folder) {
+      getAllFiles(path.join(dir, folder), ext).map(function(file) {
+        files.push(file);
+      });
+    });
+  }
   return files;
 }
 
@@ -136,7 +138,9 @@ function resolveConfigs(modulePaths, moduleOptions, ext) {
     var option = JSON.parse(fs.readFileSync(fullname));
     var uipath = fullname
       .replace(/\\options.json/g, '')
-      .replace(/\\options.dist.json/g, '');
+      .replace(/\/options.json/g, '')
+      .replace(/\\options.dist.json/g, '')
+      .replace(/\/options.dist.json/g, '');
 
     modulePaths.push(uipath);
 
