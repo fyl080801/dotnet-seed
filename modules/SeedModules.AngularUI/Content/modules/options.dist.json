@@ -1,0 +1,10 @@
+{
+  "configs": {
+    "SeedModules.AngularUI/modules/module": {
+      "path": "SeedModules.AngularUI/js/modules.module"
+    },
+    "SeedModules.AngularUI/modules/requires": {
+      "path": "SeedModules.AngularUI/js/modules.requires"
+    }
+  }
+}

@@ -33,37 +33,8 @@ gulp.task('build', function() {
     };
 
   // 获取所有UI定义
-  getAllFiles(moduleOptions.baseUrl, 'options.json').map(function(fullname) {
-    var option = JSON.parse(fs.readFileSync(fullname));
-    var uipath = fullname.replace(/\\options.json/g, '');
-
-    modulePaths.push(uipath);
-
-    for (var name in option.configs) {
-      // 模块前缀，用于判断是否是一个模块引用
-      var moduleprefix = uipath
-        .replace(moduleOptions.baseUrl, '')
-        .replace(path.join('Content/', ''), '')
-        .replace(/\\/g, '/');
-      if (
-        name !== moduleprefix + '/requires' &&
-        name !== moduleprefix + '/module'
-      ) {
-        moduleOptions.paths[name] = '../../../modules/build';
-        moduleOptions.exclude.push(name);
-      }
-    }
-
-    getAllFiles(uipath, '.js').map(function(fullname) {
-      moduleOptions.paths[
-        fullname
-          .replace(moduleOptions.baseUrl, '')
-          .replace(path.join('Content/', ''), '')
-          .replace('.js', '')
-          .replace(/\\/g, '/')
-      ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
-    });
-  });
+  resolveConfigs(modulePaths, moduleOptions, 'options.json');
+  resolveConfigs(modulePaths, moduleOptions, 'options.dist.json');
 
   requiresOptions = JSON.parse(JSON.stringify(moduleOptions));
 
@@ -158,4 +129,40 @@ function getAllFiles(dir, ext) {
     });
   });
   return files;
+}
+
+function resolveConfigs(modulePaths, moduleOptions, ext) {
+  getAllFiles(moduleOptions.baseUrl, ext).map(function(fullname) {
+    var option = JSON.parse(fs.readFileSync(fullname));
+    var uipath = fullname
+      .replace(/\\options.json/g, '')
+      .replace(/\\options.dist.json/g, '');
+
+    modulePaths.push(uipath);
+
+    for (var name in option.configs) {
+      // 模块前缀，用于判断是否是一个模块引用
+      var moduleprefix = uipath
+        .replace(moduleOptions.baseUrl, '')
+        .replace(path.join('Content/', ''), '')
+        .replace(/\\/g, '/');
+      if (
+        name !== moduleprefix + '/requires' &&
+        name !== moduleprefix + '/module'
+      ) {
+        moduleOptions.paths[name] = '../../../modules/build';
+        moduleOptions.exclude.push(name);
+      }
+    }
+
+    getAllFiles(uipath, '.js').map(function(fullname) {
+      moduleOptions.paths[
+        fullname
+          .replace(moduleOptions.baseUrl, '')
+          .replace(path.join('Content/', ''), '')
+          .replace('.js', '')
+          .replace(/\\/g, '/')
+      ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
+    });
+  });
 }

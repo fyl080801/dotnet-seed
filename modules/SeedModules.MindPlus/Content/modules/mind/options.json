@@ -30,13 +30,6 @@
       "shim": {
         "deps": ["kityminder", "color-picker", "json-diff", "hotbox"]
       }
-    },
-
-    "SeedModules.MindPlus/modules/mind/module": {
-      "path": "SeedModules.MindPlus/js/modules.mind.module"
-    },
-    "SeedModules.MindPlus/modules/mind/requires": {
-      "path": "SeedModules.MindPlus/js/modules.mind.requires"
     }
   }
 }

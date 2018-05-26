@@ -22,13 +22,6 @@
     "wysihtml-advanced": {
       "path": "SeedModules.MindPlus/js/parser_rules/advanced_and_extended",
       "noDebug": true
-    },
-    
-    "SeedModules.MindPlus/modules/myworks/module": {
-      "path": "SeedModules.MindPlus/js/modules.myworks.module"
-    },
-    "SeedModules.MindPlus/modules/myworks/requires": {
-      "path": "SeedModules.MindPlus/js/modules.myworks.requires"
     }
   }
 }

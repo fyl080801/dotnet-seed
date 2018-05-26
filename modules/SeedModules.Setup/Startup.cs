@@ -15,7 +15,7 @@ namespace SeedModules.Setup
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IViewOptionsBuilder, SetupViewOptionBuilder>();
+            services.AddViewOptions<SetupViewOptionBuilder>();
             services.AddScoped<ISetupService, SetupService>();
             services.AddScoped<ISiteSettingsBuilder, SetupSiteSettingsBuilder>();
         }
