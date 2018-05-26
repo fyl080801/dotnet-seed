@@ -5,4 +5,10 @@ import 'SeedModules.Admin/modules/admin/controllers/dashboard';
 import 'SeedModules.Admin/modules/admin/controllers/users';
 import 'SeedModules.Admin/modules/admin/controllers/roles';
 import 'SeedModules.Admin/modules/admin/controllers/members';
-import 'SeedModules.Admin/modules/admin/controllers/settings';
+import admin = require('SeedModules.Admin/modules/admin/module');
+import { SettingsController } from 'SeedModules.Admin/modules/admin/controllers/settings';
+
+admin.controller(
+  'SeedModules.Admin/modules/admin/controllers/settings',
+  SettingsController
+);

@@ -1,8 +1,13 @@
-import mod = require('SeedModules.Admin/modules/admin/module');
-
-class SettingsController {
-  static $inject = ['$scope'];
-  constructor(private $scope) {}
+interface ISettingsScope extends ng.IScope {
+  form;
 }
 
-mod.controller('SeedModules.Admin/modules/admin/controllers/settings', SettingsController);
+export class SettingsController {
+  static $inject = [
+    '$scope',
+    'SeedModules.AngularUI/modules/factories/schemaFormParams'
+  ];
+  constructor(private $scope: ISettingsScope, private schemaFormParams) {
+    $scope.form = new schemaFormParams();
+  }
+}

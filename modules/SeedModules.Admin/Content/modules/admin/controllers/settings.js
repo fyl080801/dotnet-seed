@@ -1,13 +1,18 @@
-define(["require", "exports", "SeedModules.Admin/modules/admin/module"], function (require, exports, mod) {
+define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
     var SettingsController = /** @class */ (function () {
-        function SettingsController($scope) {
+        function SettingsController($scope, schemaFormParams) {
             this.$scope = $scope;
+            this.schemaFormParams = schemaFormParams;
+            $scope.form = new schemaFormParams();
         }
-        SettingsController.$inject = ['$scope'];
+        SettingsController.$inject = [
+            '$scope',
+            'SeedModules.AngularUI/modules/factories/schemaFormParams'
+        ];
         return SettingsController;
     }());
-    mod.controller('SeedModules.Admin/modules/admin/controllers/settings', SettingsController);
+    exports.SettingsController = SettingsController;
 });
 //# sourceMappingURL=settings.js.map
