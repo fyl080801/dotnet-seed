@@ -5,3 +5,4 @@ define(["require", "exports", "angular", "angular-ui-router", "schema-form-boots
         'schemaForm'
     ]);
 });
+//# sourceMappingURL=boot.js.map

@@ -1,1 +1,1 @@
-{"version":3,"file":"boot.js","sourceRoot":"","sources":["../../../../@types/SeedModules.AngularUI/Content/modules/boot.ts"],"names":[],"mappings":";;IAIA,OAAS,OAAO,CAAC,MAAM,CAAC,wBAAwB,EAAE;QAChD,cAAc;QACd,YAAY;KACb,CAAC,CAAC"}
+{"version":3,"file":"boot.js","sourceRoot":"","sources":["boot.ts"],"names":[],"mappings":";;IAIA,OAAS,OAAO,CAAC,MAAM,CAAC,wBAAwB,EAAE;QAChD,cAAc;QACd,YAAY;KACb,CAAC,CAAC"}

@@ -1,14 +1,5 @@
 {
   "configs": {
-    "SeedModules.MindPlus/modules/myworks/module": {
-      "path": "SeedModules.MindPlus/js/modules.myworks.module"
-    },
-    "SeedModules.MindPlus/modules/myworks/requires": {
-      "path": "SeedModules.MindPlus/js/modules.myworks.requires",
-      "shim": {
-        "deps": ["SeedModules.MindPlus/modules/myworks/module"]
-      }
-    },
     "rangy-core": {
       "path": "SeedModules.MindPlus/js/wysihtml/rangy/rangy-core",
       "noDebug": true
@@ -31,6 +22,13 @@
     "wysihtml-advanced": {
       "path": "SeedModules.MindPlus/js/parser_rules/advanced_and_extended",
       "noDebug": true
+    },
+    
+    "SeedModules.MindPlus/modules/myworks/module": {
+      "path": "SeedModules.MindPlus/js/modules.myworks.module"
+    },
+    "SeedModules.MindPlus/modules/myworks/requires": {
+      "path": "SeedModules.MindPlus/js/modules.myworks.requires"
     }
   }
 }

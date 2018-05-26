@@ -39,3 +39,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot"], function (r
         }
     ]);
 });
+//# sourceMappingURL=ngTableDefaultGetData.js.map

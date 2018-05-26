@@ -5,7 +5,8 @@
     "module": "amd",
     "removeComments": false,
     "sourceMap": true,
-    "baseUrl": "modules",
+    "outDir": "modules",
+    "baseUrl": "@types",
     "paths": {
       "SeedModules.AngularUI/*": ["SeedModules.AngularUI/Content/*"],
       "SeedModules.Admin/*": ["SeedModules.Admin/Content/*"],
@@ -13,5 +14,5 @@
       "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"]
     }
   },
-  "exclude": ["node_modules", "src"]
+  "exclude": ["node_modules"]
 }

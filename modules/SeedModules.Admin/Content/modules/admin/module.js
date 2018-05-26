@@ -54,3 +54,4 @@ define(["require", "exports", "angular", "app/application", "SeedModules.Admin/m
         .module('modules.admin', ['modules.admin.boot'])
         .config(AdminModule);
 });
+//# sourceMappingURL=module.js.map

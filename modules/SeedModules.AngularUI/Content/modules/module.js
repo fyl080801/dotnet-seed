@@ -16,3 +16,4 @@ define(["require", "exports", "angular", "app/application", "SeedModules.Angular
     ])
         .config(RouteClass);
 });
+//# sourceMappingURL=module.js.map

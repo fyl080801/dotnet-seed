@@ -80,15 +80,10 @@
     },
 
     "SeedModules.AngularUI/modules/module": {
-      "path": "SeedModules.AngularUI/js/modules.module",
-      "dev": true
+      "path": "SeedModules.AngularUI/js/modules.module"
     },
     "SeedModules.AngularUI/modules/requires": {
-      "path": "SeedModules.AngularUI/js/modules.requires",
-      "shim": {
-        "deps": ["SeedModules.AngularUI/modules/module"]
-      },
-      "dev": true
+      "path": "SeedModules.AngularUI/js/modules.requires"
     }
   },
   "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
