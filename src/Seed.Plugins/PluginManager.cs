@@ -30,10 +30,10 @@ namespace Seed.Plugins
         readonly IEnumerable<IPluginDependencyStrategy> _pluginDependencyStrategies;
         readonly IEnumerable<IPluginPriorityStrategy> _pluginPriorityStrategies;
 
-        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _featureDependencies
+        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _dependencyFeatures
             = new ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>>();
 
-        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _dependentFeatures
+        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _featureDependencies
             = new ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>>();
 
         private IDictionary<string, PluginEntry> _plugins;
@@ -74,7 +74,7 @@ namespace Seed.Plugins
             ExecuteInitialized();
 
             var featuresWithDependencies = featureIdsToLoad
-                .SelectMany(id => GetFeaturesDependencies(id))
+                .SelectMany(id => GetDependencyFeatures(id))
                 .Distinct();
 
             return _orderedFeatures.Where(e => featuresWithDependencies.Any(f => f.Id == e.Id));
@@ -103,11 +103,11 @@ namespace Seed.Plugins
             return Task.FromResult<IEnumerable<FeatureEntry>>(loadedFeatures);
         }
 
-        public IEnumerable<IFeatureInfo> GetFeaturesDependencies(string featureId)
+        public IEnumerable<IFeatureInfo> GetDependencyFeatures(string featureId)
         {
             ExecuteInitialized();
 
-            return _featureDependencies.GetOrAdd(featureId, (key) => new Lazy<IEnumerable<IFeatureInfo>>(() =>
+            return _dependencyFeatures.GetOrAdd(featureId, (key) => new Lazy<IEnumerable<IFeatureInfo>>(() =>
             {
                 if (!_features.ContainsKey(key))
                 {
@@ -119,6 +119,37 @@ namespace Seed.Plugins
                 var dependencies = new HashSet<IFeatureInfo>() { feature };
                 var stack = new Stack<IFeatureInfo[]>();
 
+                stack.Push(GetDependencyFeaturesFunc(feature, _orderedFeatures));
+
+                while (stack.Count > 0)
+                {
+                    var next = stack.Pop();
+                    foreach (var dependency in next.Where(dependency => !dependencies.Contains(dependency)))
+                    {
+                        dependencies.Add(dependency);
+                        stack.Push(GetDependencyFeaturesFunc(dependency, _orderedFeatures));
+                    }
+                }
+
+                return dependencies.Reverse();
+            })).Value;
+        }
+
+        public IEnumerable<IFeatureInfo> GetFeatureDependencies(string featureId)
+        {
+            ExecuteInitialized();
+
+            return _featureDependencies.GetOrAdd(featureId, (key) => new Lazy<IEnumerable<IFeatureInfo>>(() =>
+            {
+                if (!_features.ContainsKey(key))
+                {
+                    return Enumerable.Empty<IFeatureInfo>();
+                }
+
+                var feature = _features[key].FeatureInfo;
+                var dependencies = new HashSet<IFeatureInfo>() { feature };
+                var stack = new Stack<IFeatureInfo[]>();
+
                 stack.Push(GetFeatureDependenciesFunc(feature, _orderedFeatures));
 
                 while (stack.Count > 0)
@@ -127,7 +158,7 @@ namespace Seed.Plugins
                     foreach (var dependency in next.Where(dependency => !dependencies.Contains(dependency)))
                     {
                         dependencies.Add(dependency);
-                        stack.Push(GetFeatureDependenciesFunc(dependency, _orderedFeatures));
+                        stack.Push(GetDependencyFeaturesFunc(dependency, _orderedFeatures));
                     }
                 }
 
@@ -304,12 +335,12 @@ namespace Seed.Plugins
             return _pluginPriorityStrategies.Sum(s => s.GetPriority(feature));
         }
 
-        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetDependantFeaturesFunc =
+        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetFeatureDependenciesFunc =
             new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
                 (currentFeature, fs) => fs
                     .Where(f => f.Dependencies.Any(dep => dep == currentFeature.Id)).OrderBy(x => x.Id).ToArray());
 
-        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetFeatureDependenciesFunc =
+        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetDependencyFeaturesFunc =
             new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
                 (currentFeature, fs) => fs
                     .Where(f => currentFeature.Dependencies.Any(dep => dep == f.Id)).OrderByDescending(x => x.Id).ToArray());

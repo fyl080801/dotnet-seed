@@ -8,9 +8,9 @@ using System.Text;
 
 namespace SeedModules.OpenId.Stores
 {
-    public class OpenIddictTokenStore : OpenIddictTokenStore<DbContext>
+    public class OpenIdTokenStore : OpenIddictTokenStore<DbContext>
     {
-        public OpenIddictTokenStore(IDbContext context, IMemoryCache cache) : base(context.Context, cache)
+        public OpenIdTokenStore(IDbContext context, IMemoryCache cache) : base(context.Context, cache)
         {
         }
     }

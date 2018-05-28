@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "cacslibrary 的 .net core 版",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsc --watch -p tsconfig.json"
   },
   "repository": {
     "type": "git",

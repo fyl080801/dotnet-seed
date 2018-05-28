@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Seed.Plugins;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SeedModules.AngularUI.Rendering
 {
@@ -60,6 +60,5 @@ namespace SeedModules.AngularUI.Rendering
 
             return Task.FromResult<IEnumerable<JObject>>(options);
         }
-
     }
 }

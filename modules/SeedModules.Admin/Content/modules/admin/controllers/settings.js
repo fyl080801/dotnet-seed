@@ -5,7 +5,8 @@ define(["require", "exports"], function (require, exports) {
         function SettingsController($scope, schemaFormParams) {
             this.$scope = $scope;
             this.schemaFormParams = schemaFormParams;
-            $scope.form = new schemaFormParams();
+            $scope.formParams = new schemaFormParams();
+            $scope.form = [];
         }
         SettingsController.$inject = [
             '$scope',

@@ -1,9 +1,7 @@
 ﻿using Seed.Data;
 using SeedModules.OpenId.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SeedModules.OpenId
@@ -14,10 +12,10 @@ namespace SeedModules.OpenId
         {
             return Task.FromResult(new object[]
             {
-                new OpenIddictApplicationTypeConfiguration(),
-                new OpenIddictAuthorizationTypeConfiguration(),
-                new OpenIddictScopeTypeConfiguration(),
-                new OpenIddictTokenTypeConfiguration()
+                new OpenIdApplicationTypeConfiguration(),
+                new OpenIdAuthorizationTypeConfiguration(),
+                new OpenIdScopeTypeConfiguration(),
+                new OpenIdTokenTypeConfiguration()
             }.AsEnumerable());
         }
     }

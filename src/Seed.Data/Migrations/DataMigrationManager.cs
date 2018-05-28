@@ -117,11 +117,11 @@ namespace Seed.Data.Migrations
                             .ToList()
                             .ForEach(cmd => _dbContext.Context.Database.ExecuteSqlCommand(cmd.CommandText));
 
-                        trans.Commit();
+                        _dbContext.Context.Database.CommitTransaction();
                     }
                     catch (DbException ex)
                     {
-                        trans.Rollback();
+                        _dbContext.Context.Database.RollbackTransaction();
                         throw ex;
                     }
 

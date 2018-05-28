@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
@@ -13,6 +9,10 @@ using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Site;
 using Seed.Plugins;
 using SeedModules.AngularUI.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SeedModules.AngularUI.Rendering
 {
@@ -43,7 +43,7 @@ namespace SeedModules.AngularUI.Rendering
 
         public override async Task<string> Build(RouteData routeData)
         {
-            if (!_hostingEnvironment.IsDevelopment())
+            if (_hostingEnvironment.IsDevelopment())
             {
                 return await base.Build(routeData);
             }

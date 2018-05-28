@@ -7,25 +7,29 @@ using System.Text;
 
 namespace SeedModules.OpenId.Domain
 {
-    public class OpenIddictTokenTypeConfiguration : IEntityTypeConfiguration<OpenIddictToken>
+    public class OpenIdTokenTypeConfiguration : IEntityTypeConfiguration<OpenIddictToken>
     {
         public void Configure(EntityTypeBuilder<OpenIddictToken> builder)
         {
             builder.HasKey(token => token.Id);
 
             builder.HasIndex(token => token.ReferenceId)
-                  .IsUnique();
+                .IsUnique();
 
             builder.Property(token => token.ConcurrencyToken)
-                  .IsConcurrencyToken();
+                .IsConcurrencyToken();
 
             builder.Property(token => token.Subject)
-                  .IsRequired();
+                .IsRequired();
 
             builder.Property(token => token.Type)
-                  .IsRequired();
+                .IsRequired();
 
-            builder.ToTable("OpenIddictTokens");
+            builder.Property(token => token.ReferenceId)
+                .HasMaxLength(255)
+                .IsRequired();
+
+            builder.ToTable("OpenIdTokens");
         }
     }
 }

@@ -7,31 +7,31 @@ using System.Text;
 
 namespace SeedModules.OpenId.Domain
 {
-    public class OpenIddictAuthorizationTypeConfiguration : IEntityTypeConfiguration<OpenIddictAuthorization>
+    public class OpenIdAuthorizationTypeConfiguration : IEntityTypeConfiguration<OpenIddictAuthorization>
     {
         public void Configure(EntityTypeBuilder<OpenIddictAuthorization> builder)
         {
             builder.HasKey(authorization => authorization.Id);
 
             builder.Property(authorization => authorization.ConcurrencyToken)
-                  .IsConcurrencyToken();
+                .IsConcurrencyToken();
 
             builder.Property(authorization => authorization.Status)
-                  .IsRequired();
+                .IsRequired();
 
             builder.Property(authorization => authorization.Subject)
-                  .IsRequired();
+                .IsRequired();
 
             builder.Property(authorization => authorization.Type)
-                  .IsRequired();
+                .IsRequired();
 
             builder.HasMany(authorization => authorization.Tokens)
-                  .WithOne(token => token.Authorization)
-                  .HasForeignKey("AuthorizationId")
-                  .IsRequired(required: false)
-                  .OnDelete(DeleteBehavior.Cascade);
+                .WithOne(token => token.Authorization)
+                .HasForeignKey("AuthorizationId")
+                .IsRequired(required: false)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.ToTable("OpenIddictAuthorizations");
+            builder.ToTable("OpenIdAuthorizations");
         }
     }
 }

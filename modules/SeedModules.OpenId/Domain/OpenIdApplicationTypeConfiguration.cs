@@ -7,35 +7,37 @@ using System.Text;
 
 namespace SeedModules.OpenId.Domain
 {
-    public class OpenIddictApplicationTypeConfiguration : IEntityTypeConfiguration<OpenIddictApplication>
+    public class OpenIdApplicationTypeConfiguration : IEntityTypeConfiguration<OpenIddictApplication>
     {
         public void Configure(EntityTypeBuilder<OpenIddictApplication> builder)
         {
             builder.HasKey(application => application.Id);
 
             builder.HasIndex(application => application.ClientId)
-                  .IsUnique();
+                .IsUnique();
 
             builder.Property(application => application.ClientId)
-                  .IsRequired();
+                .HasMaxLength(255)
+                .IsRequired();
 
             builder.Property(application => application.ConcurrencyToken)
-                  .IsConcurrencyToken();
+                .IsConcurrencyToken();
 
             builder.Property(application => application.Type)
-                  .IsRequired();
+                .IsRequired();
 
             builder.HasMany(application => application.Authorizations)
-                  .WithOne(authorization => authorization.Application)
-                  .HasForeignKey("ApplicationId")
-                  .IsRequired(required: false);
+                .WithOne(authorization => authorization.Application)
+                .HasForeignKey("ApplicationId")
+                .HasConstraintName("OID_AuthId_OID_APPID")
+                .IsRequired(required: false);
 
             builder.HasMany(application => application.Tokens)
-                  .WithOne(token => token.Application)
-                  .HasForeignKey("ApplicationId")
-                  .IsRequired(required: false);
+                .WithOne(token => token.Application)
+                .HasForeignKey("ApplicationId")
+                .IsRequired(required: false);
 
-            builder.ToTable("OpenIddictApplications");
+            builder.ToTable("OpenIdApplications");
         }
     }
 }

@@ -7,22 +7,23 @@ using System.Text;
 
 namespace SeedModules.OpenId.Domain
 {
-    public class OpenIddictScopeTypeConfiguration : IEntityTypeConfiguration<OpenIddictScope>
+    public class OpenIdScopeTypeConfiguration : IEntityTypeConfiguration<OpenIddictScope>
     {
         public void Configure(EntityTypeBuilder<OpenIddictScope> builder)
         {
             builder.HasKey(scope => scope.Id);
 
             builder.HasIndex(scope => scope.Name)
-                  .IsUnique();
+                .IsUnique();
 
             builder.Property(scope => scope.ConcurrencyToken)
-                  .IsConcurrencyToken();
+                .IsConcurrencyToken();
 
             builder.Property(scope => scope.Name)
-                  .IsRequired();
+                .HasMaxLength(255)
+                .IsRequired();
 
-            builder.ToTable("OpenIddictScopes");
+            builder.ToTable("OpenIdScopes");
         }
     }
 }
