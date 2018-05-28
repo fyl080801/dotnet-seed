@@ -1,5 +1,8 @@
+import { ISchemaFormParams } from 'SeedModules.AngularUI/modules/factories/schemaFormParams';
+
 interface ISettingsScope extends ng.IScope {
-  form;
+  formParams: ISchemaFormParams;
+  form: Array<any>;
 }
 
 export class SettingsController {
@@ -8,6 +11,8 @@ export class SettingsController {
     'SeedModules.AngularUI/modules/factories/schemaFormParams'
   ];
   constructor(private $scope: ISettingsScope, private schemaFormParams) {
-    $scope.form = new schemaFormParams();
+    $scope.formParams = new schemaFormParams();
+
+    $scope.form = [];
   }
 }
