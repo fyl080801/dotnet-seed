@@ -4,7 +4,7 @@ import 'SeedModules.AngularUI/modules/factories/ngTableEventsChannel';
 import 'SeedModules.AngularUI/modules/factories/ngTableGetDataBcShim';
 import 'SeedModules.AngularUI/modules/factories/ngTableParams';
 import 'SeedModules.AngularUI/modules/factories/ngTableRequest';
-import { schemaFormParamsFactory } from 'SeedModules.AngularUI/modules/factories/schemaFormParams';
+import { SchemaFormParams } from 'SeedModules.AngularUI/modules/factories/schemaFormParams';
 import 'SeedModules.AngularUI/modules/factories/delayTimer';
 import 'SeedModules.AngularUI/modules/services/requestService';
 import 'SeedModules.AngularUI/modules/services/utility';
@@ -28,5 +28,5 @@ import 'SeedModules.AngularUI/modules/controllers/ngTableSorterRow';
 
 mod.factory(
   'SeedModules.AngularUI/modules/factories/schemaFormParams',
-  schemaFormParamsFactory
+  SchemaFormParams.init
 );

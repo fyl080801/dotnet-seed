@@ -1,5 +1,5 @@
 import {
-  ISchemaFormParams,
+  //ISchemaFormParams,
   SchemaFormParams
 } from 'SeedModules.AngularUI/modules/factories/schemaFormParams';
 
