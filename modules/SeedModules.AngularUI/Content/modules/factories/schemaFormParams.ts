@@ -1,93 +1,155 @@
 import angular = require('angular');
+import schemaFormDefaults = require('SeedModules.AngularUI/modules/configs/ngTableDefaults');
 
 export interface ISchemaFormParams {
-  options(newOptions): ISchemaFormParams | any;
-  schema(newSchema): ISchemaFormParams | any;
-  properties(propertiesDefine): ISchemaFormParams | any;
-  property(propertyName, isRequired): ISchemaFormParams | any;
+  options(newOptions): ISchemaFormParams;
+  options(): any;
+  schema(newSchema): ISchemaFormParams;
+  schema(): any;
+  properties(propertiesDefine): ISchemaFormParams;
+  properties(): any;
+  property(propertyName, isRequired: boolean): ISchemaFormParams;
+  property(propertyName): any;
+  required(propertyName: string, isRequired: boolean): ISchemaFormParams;
+  required(propertyName: string): boolean;
 }
 
-export function schemaFormParamsFactory(schemaFormDefaults) {
-  var schemaFormParams = (baseSchema, baseOptions): ISchemaFormParams => {
-    var self = this;
-    var formSchema = {
-      type: 'object',
-      properties: {},
-      required: []
-    };
+export class SchemaFormParams implements ISchemaFormParams {
+  options(newOptions: any): ISchemaFormParams;
+  options();
+  options(newOptions?: any) {
+    if (!angular.isDefined(newOptions)) {
+      return this._options;
+    }
 
-    angular.extend(formSchema, schemaFormDefaults.schema);
+    angular.extend(this._options, newOptions);
+    return this;
+  }
 
-    var options = {};
+  schema(newSchema: any): ISchemaFormParams;
+  schema();
+  schema(newSchema?: any) {
+    if (!angular.isDefined(newSchema)) {
+      return this._formSchema;
+    }
 
-    this.options = function(newOptions) {
-      if (!angular.isDefined(newOptions)) {
-        return options;
-      }
+    this._formSchema.type = newSchema.type || 'object';
+    this._formSchema.properties = newSchema.properties || {};
+    this._formSchema.required = newSchema.required || [];
+    return this as ISchemaFormParams;
+  }
 
-      angular.extend(options, newOptions);
-      return self;
-    };
+  properties(propertiesDefine: any): ISchemaFormParams;
+  properties();
+  properties(propertiesDefine?: any) {
+    var currentSchema = this.schema();
 
-    this.schema = function(newSchema) {
-      if (!angular.isDefined(newSchema)) {
-        return formSchema;
-      }
+    if (!angular.isDefined(propertiesDefine)) {
+      return currentSchema.properties;
+    }
 
-      formSchema.type = newSchema.type || 'object';
-      formSchema.properties = newSchema.properties || {};
-      formSchema.required = newSchema.required || [];
-      return self;
-    };
+    currentSchema.properties = propertiesDefine;
+    angular.forEach(currentSchema.properties, function(item, key) {
+      this.required(key, item.required);
+    });
+    return this;
+  }
 
-    this.properties = function(propertiesDefine) {
-      var currentSchema = self.schema();
+  property(propertyName: any, isRequired: boolean): ISchemaFormParams;
+  property(propertyName: any);
+  property(propertyName: any, isRequired?: boolean) {
+    var currentSchema = this.schema();
 
-      if (!angular.isDefined(propertiesDefine)) {
-        return currentSchema.properties;
-      }
+    if (!angular.isDefined(propertyName)) {
+      return currentSchema.properties[propertyName];
+    }
 
-      currentSchema.properties = propertiesDefine;
-      angular.forEach(currentSchema.properties, function(item, key) {
-        self.required(key, item.required);
-      });
-      return self;
-    };
+    currentSchema.properties[propertyName] = propertyName;
+    this.required(propertyName, propertyName.required);
+    return this;
+  }
 
-    this.property = function(propertyName, propertyDefine) {
-      var currentSchema = self.schema();
+  required(propertyName: string, isRequired: boolean): ISchemaFormParams;
+  required(propertyName: string): boolean;
+  required(propertyName: any, isRequired?: any) {
+    var currentSchema = this.schema();
+    var requiredIndex = currentSchema.required.indexOf(propertyName);
 
-      if (!angular.isDefined(propertyDefine)) {
-        return currentSchema.properties[propertyName];
-      }
+    if (!angular.isDefined(isRequired)) {
+      return requiredIndex >= 0;
+    }
 
-      currentSchema.properties[propertyName] = propertyDefine;
-      self.required(propertyName, propertyDefine.required);
-      return self;
-    };
+    if (isRequired && requiredIndex < 0) {
+      currentSchema.required.push(propertyName);
+    } else if (requiredIndex >= 0) {
+      currentSchema.required.splice(requiredIndex, 1);
+    }
+    return this as ISchemaFormParams;
+  }
 
-    this.required = function(propertyName, isRequired) {
-      var currentSchema = self.schema();
-      var requiredIndex = currentSchema.required.indexOf(propertyName);
+  private _formSchema = {
+    type: 'object',
+    properties: {},
+    required: []
+  };
+  private _options = {};
 
-      if (!angular.isDefined(isRequired)) {
-        return requiredIndex >= 0;
-      }
-
-      if (isRequired && requiredIndex < 0) {
-        currentSchema.required.push(propertyName);
-      } else if (requiredIndex >= 0) {
-        currentSchema.required.splice(requiredIndex, 1);
-      }
-      return self;
-    };
-
+  constructor(baseSchema?, baseOptions?) {
+    angular.extend(this._formSchema, schemaFormDefaults.schema);
     this.options(schemaFormDefaults.options);
     this.options(baseOptions);
     this.schema(baseSchema);
+  }
+}
 
-    return this;
-  };
+export function schemaFormParamsFactory(schemaFormDefaults) {
+  // var schemaFormParams = (baseSchema, baseOptions): ISchemaFormParams => {
+  //   var self = this;
+  //   var formSchema = {
+  //     type: 'object',
+  //     properties: {},
+  //     required: []
+  //   };
+
+  //   angular.extend(formSchema, schemaFormDefaults.schema);
+
+  //   var options = {};
+
+  //   this.options = function(newOptions) {
+  //     if (!angular.isDefined(newOptions)) {
+  //       return options;
+  //     }
+
+  //     angular.extend(options, newOptions);
+  //     return self;
+  //   };
+
+  //   this.schema = function(newSchema) {};
+
+  //   this.properties = function(propertiesDefine) {};
+
+  //   this.property = function(propertyName, propertyDefine) {};
+
+  //   this.required = function(propertyName, isRequired) {
+  //     var currentSchema = self.schema();
+  //     var requiredIndex = currentSchema.required.indexOf(propertyName);
+
+  //     if (!angular.isDefined(isRequired)) {
+  //       return requiredIndex >= 0;
+  //     }
+
+  //     if (isRequired && requiredIndex < 0) {
+  //       currentSchema.required.push(propertyName);
+  //     } else if (requiredIndex >= 0) {
+  //       currentSchema.required.splice(requiredIndex, 1);
+  //     }
+  //     return self;
+  //   };
+
+  //   return this;
+  // };
+
+  var schemaFormParams = SchemaFormParams;
 
   return schemaFormParams;
 }
