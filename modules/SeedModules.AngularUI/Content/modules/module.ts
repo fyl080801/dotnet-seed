@@ -4,11 +4,11 @@ import 'SeedModules.AngularUI/modules/configs/httpConfig';
 import 'SeedModules.AngularUI/modules/configs/location';
 import 'SeedModules.AngularUI/modules/configs/ngTableDefaults';
 import 'SeedModules.AngularUI/modules/configs/ngTableTemplates';
-import 'SeedModules.AngularUI/modules/configs/schemaFormDefaults';
 import 'SeedModules.AngularUI/modules/configs/schemaForm';
 import 'SeedModules.AngularUI/modules/configs/form/simplecolor';
 import 'SeedModules.AngularUI/modules/configs/form/switchField';
 import ngTableDefaults = require('SeedModules.AngularUI/modules/providers/ngTableDefaultGetData');
+import schemaFormDefaults = require('SeedModules.AngularUI/modules/configs/schemaFormDefaults');
 
 class RouteClass {
   static $inject = ['$provide', '$appConfig'];
@@ -30,5 +30,9 @@ export = angular
   .value(
     'SeedModules.AngularUI/modules/configs/ngTableDefaults',
     ngTableDefaults
+  )
+  .value(
+    'SeedModules.AngularUI/modules/configs/schemaFormDefaults',
+    schemaFormDefaults
   )
   .config(RouteClass);

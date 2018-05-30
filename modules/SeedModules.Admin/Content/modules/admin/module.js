@@ -1,6 +1,6 @@
 define(["require", "exports", "angular", "app/application", "SeedModules.Admin/modules/admin/configs/nav", "SeedModules.Admin/modules/admin/configs/menus", "SeedModules.Admin/modules/admin/configs/router", "SeedModules.Admin/modules/admin/configs/environment"], function (require, exports, angular) {
     "use strict";
-    var AdminModule = /** @class */ (function () {
+    var AdminModule = (function () {
         function AdminModule($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/admin/dashboard');
             $stateProvider.state('admin', {

@@ -1,6 +1,6 @@
 define(["require", "exports", "angular", "app/application", "angular-ui-router"], function (require, exports, angular) {
     "use strict";
-    var ModuleClass = /** @class */ (function () {
+    var ModuleClass = (function () {
         function ModuleClass($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/login');
             $stateProvider.state('login', {

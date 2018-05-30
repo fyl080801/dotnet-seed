@@ -91,3 +91,7 @@ export function schemaFormParamsFactory(schemaFormDefaults) {
 
   return schemaFormParams;
 }
+
+schemaFormParamsFactory.$inject = [
+  'SeedModules.AngularUI/modules/configs/schemaFormDefaults'
+];

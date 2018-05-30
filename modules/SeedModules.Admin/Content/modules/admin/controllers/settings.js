@@ -1,7 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
-    var SettingsController = /** @class */ (function () {
+    var SettingsController = (function () {
         function SettingsController($scope, schemaFormParams) {
             this.$scope = $scope;
             this.schemaFormParams = schemaFormParams;

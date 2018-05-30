@@ -70,5 +70,8 @@ define(["require", "exports", "angular"], function (require, exports, angular) {
         return schemaFormParams;
     }
     exports.schemaFormParamsFactory = schemaFormParamsFactory;
+    schemaFormParamsFactory.$inject = [
+        'SeedModules.AngularUI/modules/configs/schemaFormDefaults'
+    ];
 });
 //# sourceMappingURL=schemaFormParams.js.map
