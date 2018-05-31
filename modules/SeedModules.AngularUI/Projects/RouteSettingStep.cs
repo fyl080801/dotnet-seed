@@ -35,6 +35,23 @@ namespace SeedModules.AngularUI.Projects
             if (stepReference != null)
             {
                 var projectReferences = stepReference.Value.ToObject<RouteViewReference[]>();
+                // foreach (var projectReference in projectReferences)
+                // {
+                //     if (projectReference.Type == RouteViewTypes.Attach)
+                //     {
+                //         //routeReferences.Where
+                //     }
+
+                //     if (projectReference.Type == RouteViewTypes.Add)
+                //     {
+
+                //     }
+
+                //     if (projectReference.Type == RouteViewTypes.Remove)
+                //     {
+
+                //     }
+                // }
                 var newReferences = routeReferences.Where(e => !projectReferences.Select(x => x.Route).Contains(e.Route)).ToList();
                 newReferences.AddRange(projectReferences);
                 site.Properties["RouteReferences"] = JArray.FromObject(newReferences);

@@ -1,4 +1,4 @@
 ﻿Name: OpenId
 Version: 1.0
 Category: 安全认证
-Dependencies: SeedModules.Mvc, SeedModules.AngularUI, SeedModules.Settings, SeedModules.Security
+Dependencies: SeedModules.Admin

@@ -6,8 +6,8 @@
       "RouteReferences": [
         {
           "Route": "SeedModules.Admin/Home/Login",
-          "Type": 0,
-          "References": ["SeedModules.InPathTest/modules/module"]
+          "Type": 1,
+          "References": ["SeedModules.WeChat/modules/module"]
         }
       ]
     }

@@ -6,11 +6,8 @@
       "RouteReferences": [
         {
           "Route": "SeedModules.Admin/Home/Login",
-          "Type": 0,
-          "References": [
-            "rcss!SeedModules.Admin/css/seed-admin.css",
-            "SeedModules.Admin/modules/login/module"
-          ]
+          "Type": -1,
+          "References": ["SeedModules.WeChat/modules/module"]
         }
       ]
     }
