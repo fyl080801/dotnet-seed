@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
+    <ProjectReference Include="..\SeedModules.Project\SeedModules.Project.csproj" />
   </ItemGroup>
 
   <ItemGroup>

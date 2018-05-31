@@ -9,8 +9,10 @@ using OpenIddict;
 using OpenIddict.Models;
 using Seed.Data;
 using Seed.Modules;
+using SeedModules.OpenId.Projects;
 using SeedModules.OpenId.Services;
 using SeedModules.OpenId.Stores;
+using SeedModules.Project.Extensions;
 
 namespace SeedModules.OpenId
 {
@@ -18,6 +20,9 @@ namespace SeedModules.OpenId
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            //services.AddProjectExecutionStep<OpenIdSettingsStep>();
+            services.AddProjectExecutionStep<OpenIdApplicationStep>();
+
             services.AddScoped<IEntityTypeConfigurationProvider, EntityTypeConfigurations>();
 
             services.AddOpenIddict<OpenIddictApplication, OpenIddictAuthorization, OpenIddictScope, OpenIddictToken>()
