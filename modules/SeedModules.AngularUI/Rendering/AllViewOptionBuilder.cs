@@ -1,72 +1,34 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine.Extensions;
 using Seed.Plugins;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public class AllViewOptionBuilder : IViewOptionsBuilder
+    public class AllViewOptionBuilder : ViewOptionBuilder
     {
         readonly IPluginManager _pluginManager;
-        readonly IHostingEnvironment _hostingEnvironment;
+        readonly IViewOptionLoader _viewOptionLoader;
         readonly ILogger _logger;
 
         public AllViewOptionBuilder(
             IPluginManager pluginManager,
+            IViewOptionLoader viewOptionLoader,
             IHostingEnvironment hostingEnvironment,
-            ILogger<AllViewOptionBuilder> logger)
+            ILogger<IViewOptionsBuilder> logger) : base(hostingEnvironment)
         {
             _pluginManager = pluginManager;
-            _hostingEnvironment = hostingEnvironment;
+            _viewOptionLoader = viewOptionLoader;
             _logger = logger;
         }
 
-        public async Task<string> Build(RouteData routeData)
+        protected override Task<IEnumerable<JObject>> GetViewOptionsAsync(RouteData routeData)
         {
-            var options = new JObject();
-            GetViewReferencesAsync().GetAwaiter().GetResult()
-                .ToList()
-                .ForEach(option =>
-                {
-                    options.Merge(option);
-                });
-
-            return await Task.FromResult(options.ToString());
-        }
-
-        private Task<IEnumerable<JObject>> GetViewReferencesAsync()
-        {
-            return _pluginManager.GetPlugins().InvokeAsync(descriptor => GetViewOptions(descriptor), _logger);
-        }
-
-        protected virtual Task<IEnumerable<JObject>> GetViewOptions(IPluginInfo pluginInfo)
-        {
-            var options = new List<JObject>();
-
-            var optionFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
-                .Where(e => e.IsDirectory)
-                .SelectMany(e => Directory.GetFiles(e.PhysicalPath, "options.json", SearchOption.AllDirectories));
-
-            if (optionFiles.Any())
-            {
-                options.AddRange(optionFiles.Select(optionFile =>
-                {
-                    using (var jsonReader = new JsonTextReader(new StreamReader(File.OpenRead(optionFile))))
-                    {
-                        return JObject.Load(jsonReader);
-                    }
-                }));
-            }
-
-            return Task.FromResult<IEnumerable<JObject>>(options);
+            return _pluginManager.GetPlugins().InvokeAsync(descriptor => _viewOptionLoader.LoadAsync(descriptor), _logger);
         }
     }
 }

@@ -3,9 +3,15 @@
     "target": "es3",
     "noImplicitAny": false,
     "module": "amd",
-    "removeComments": false,
+    "removeComments": true,
     "sourceMap": true,
-    "outDir": "modules"
+    "baseUrl": "modules",
+    "paths": {
+      "SeedModules.AngularUI/*": ["SeedModules.AngularUI/Content/*"],
+      "SeedModules.Admin/*": ["SeedModules.Admin/Content/*"],
+      "SeedModules.Features/*": ["SeedModules.Features/Content/*"],
+      "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"]
+    }
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "src", "targets"]
 }

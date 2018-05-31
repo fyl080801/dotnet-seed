@@ -1,8 +1,5 @@
 ﻿using AspNet.Security.OAuth.Validation;
-using Microsoft.AspNetCore.Builder;
-using System.IdentityModel.Tokens.Jwt;
-using AspNet.Security.OpenIdConnect.Primitives;
-using AspNet.Security.OpenIdConnect.Server;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -13,7 +10,6 @@ using Seed.Data;
 using Seed.Modules;
 using SeedModules.OpenId.Services;
 using SeedModules.OpenId.Stores;
-using Microsoft.AspNetCore.Authentication;
 
 namespace SeedModules.OpenId
 {
@@ -24,10 +20,10 @@ namespace SeedModules.OpenId
             services.AddScoped<IEntityTypeConfigurationProvider, EntityTypeConfigurations>();
 
             services.AddOpenIddict<OpenIddictApplication, OpenIddictAuthorization, OpenIddictScope, OpenIddictToken>()
-                .AddApplicationStore<OpenIddictApplicationStore>()
-                .AddAuthorizationStore<OpenIddictAuthorizationStore>()
-                .AddScopeStore<OpenIddictScopeStore>()
-                .AddTokenStore<OpenIddictTokenStore>();
+                .AddApplicationStore<OpenIdApplicationStore>()
+                .AddAuthorizationStore<OpenIdAuthorizationStore>()
+                .AddScopeStore<OpenIdScopeStore>()
+                .AddTokenStore<OpenIdTokenStore>();
 
             services.TryAddScoped<OpenIddictHandler>();
             services.TryAddScoped<OpenIddictProvider<OpenIddictApplication, OpenIddictAuthorization, OpenIddictScope, OpenIddictToken>>();

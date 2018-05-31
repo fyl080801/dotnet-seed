@@ -1,0 +1,10 @@
+{
+  "configs": {
+    "SeedModules.MindPlus/modules/admin/module": {
+      "path": "SeedModules.MindPlus/js/modules.admin.module"
+    },
+    "SeedModules.MindPlus/modules/admin/requires": {
+      "path": "SeedModules.MindPlus/js/modules.admin.requires"
+    }
+  }
+}

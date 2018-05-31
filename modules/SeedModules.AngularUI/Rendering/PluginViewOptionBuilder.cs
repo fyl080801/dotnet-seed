@@ -1,27 +1,24 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Seed.Data.Extensions;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Site;
 using Seed.Plugins;
-using Seed.Plugins.Feature;
 using SeedModules.AngularUI.Models;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SeedModules.AngularUI.Rendering
 {
-    public class PluginViewOptionBuilder : IViewOptionsBuilder
+    public class PluginViewOptionBuilder : ViewOptionBuilder
     {
+        readonly IViewOptionLoader _viewOptionsLoader;
         readonly IMemoryCache _memoryCache;
         readonly IEngineFeaturesManager _engineFeaturesManager;
         readonly IHostingEnvironment _hostingEnvironment;
@@ -29,12 +26,14 @@ namespace SeedModules.AngularUI.Rendering
         readonly ILogger _logger;
 
         public PluginViewOptionBuilder(
+            IViewOptionLoader viewOptionsLoader,
             IMemoryCache memoryCache,
             IEngineFeaturesManager engineFeaturesManager,
             IHostingEnvironment hostingEnvironment,
             ISiteService siteService,
-            ILogger<AllViewOptionBuilder> logger)
+            ILogger<IViewOptionsBuilder> logger) : base(hostingEnvironment)
         {
+            _viewOptionsLoader = viewOptionsLoader;
             _memoryCache = memoryCache;
             _engineFeaturesManager = engineFeaturesManager;
             _hostingEnvironment = hostingEnvironment;
@@ -42,17 +41,57 @@ namespace SeedModules.AngularUI.Rendering
             _logger = logger;
         }
 
-        public async Task<string> Build(RouteData routeData)
+        public override async Task<string> Build(RouteData routeData)
         {
-            var cacheKey = BuildCacheKey(routeData);
-            if (!_memoryCache.TryGetValue(cacheKey, out string optionString))
+            if (_hostingEnvironment.IsDevelopment())
             {
-                var options = new JObject();
-                (await GetViewOptionsAsync(routeData)).ToList().ForEach(options.Merge);
-                optionString = options.ToString();
-                _memoryCache.Set(cacheKey, optionString);
+                return await base.Build(routeData);
             }
-            return await Task.FromResult(optionString);
+            else
+            {
+                var cacheKey = BuildCacheKey(routeData);
+                if (!_memoryCache.TryGetValue(cacheKey, out string optionString))
+                {
+                    optionString = await base.Build(routeData);
+                    _memoryCache.Set(cacheKey, optionString);
+                }
+                return optionString;
+            }
+        }
+
+        protected override async Task<IEnumerable<JObject>> GetViewOptionsAsync(RouteData routeData)
+        {
+            var routeReference = _siteService.GetSiteInfoAsync()
+                .GetAwaiter()
+                .GetResult()
+                .As<IEnumerable<RouteViewReference>>("RouteReferences")
+                .FirstOrDefault(e =>
+                {
+                    return string.Join("/", routeData.Values.Select(r => r.Value).ToArray()).Equals(e.Route);
+                });
+            var options = await (await GetPluginsAsync(routeData)).InvokeAsync(descriptor => _viewOptionsLoader.LoadAsync(descriptor), _logger);
+            if (routeReference != null && routeReference.References != null)
+            {
+                options = options.Concat(new[] { new JObject { { "requires", new JArray { routeReference.References } } } });
+            }
+            return options;
+        }
+
+        private Task<IEnumerable<IPluginInfo>> GetPluginsAsync(RouteData routeData)
+        {
+            var plugins = new Dictionary<string, IPluginInfo>();
+            _engineFeaturesManager.GetEnabledFeaturesAsync()
+               .GetAwaiter()
+               .GetResult()
+               .ToList()
+               .ForEach(feature =>
+               {
+                   if (!plugins.ContainsKey(feature.Plugin.Id))
+                   {
+                       plugins.Add(feature.Plugin.Id, feature.Plugin);
+                   }
+               });
+            return Task.FromResult(plugins.Values.AsEnumerable());
         }
 
         private string BuildCacheKey(RouteData routeData)
@@ -63,59 +102,6 @@ namespace SeedModules.AngularUI.Rendering
                 keyBuilder.AppendFormat("_{0}.{1}", key, routeData.Values[key]);
             }
             return keyBuilder.ToString();
-        }
-
-        private async Task<IEnumerable<JObject>> GetViewOptionsAsync(RouteData routeData)
-        {
-            var routeReference = _siteService.GetSiteInfoAsync()
-                .GetAwaiter()
-                .GetResult()
-                .As<IEnumerable<RouteViewReference>>("RouteReferences")
-                .FirstOrDefault(e =>
-                {
-                    return string.Join("/", routeData.Values.Select(r => r.Value).ToArray()).Equals(e.Route);
-                });
-
-            var plugins = new Dictionary<string, IPluginInfo>();
-            _engineFeaturesManager.GetEnabledFeaturesAsync()
-                .GetAwaiter()
-                .GetResult()
-                .ToList()
-                .ForEach(feature =>
-                {
-                    if (!plugins.ContainsKey(feature.Plugin.Id))
-                    {
-                        plugins.Add(feature.Plugin.Id, feature.Plugin);
-                    }
-                });
-            var options = await plugins.Values.InvokeAsync(descriptor => GetViewOptions(descriptor), _logger);
-            if (routeReference != null && routeReference.References != null)
-            {
-                options = options.Concat(new[] { new JObject { { "requires", new JArray { routeReference.References } } } });
-            }
-            return options;
-        }
-
-        protected virtual Task<IEnumerable<JObject>> GetViewOptions(IPluginInfo pluginInfo)
-        {
-            var options = new List<JObject>();
-
-            var optionFiles = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
-                .Where(e => e.IsDirectory)
-                .SelectMany(e => Directory.GetFiles(e.PhysicalPath, "options.json", SearchOption.AllDirectories));
-
-            if (optionFiles.Any())
-            {
-                options.AddRange(optionFiles.Select(optionFile =>
-                {
-                    using (var jsonReader = new JsonTextReader(new StreamReader(File.OpenRead(optionFile))))
-                    {
-                        return JObject.Load(jsonReader);
-                    }
-                }));
-            }
-
-            return Task.FromResult<IEnumerable<JObject>>(options);
         }
     }
 }

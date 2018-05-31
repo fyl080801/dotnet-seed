@@ -40,7 +40,7 @@ namespace SeedModules.Features.Controllers
                 {
                     Descriptor = moduleFeatureInfo,
                     Enabled = enabledFeatures.Contains(moduleFeatureInfo),
-                    Dependencies = _pluginManager.GetFeaturesDependencies(moduleFeatureInfo.Id).Where(d => d.Id != moduleFeatureInfo.Id).ToList()
+                    Dependencies = _pluginManager.GetDependencyFeatures(moduleFeatureInfo.Id).Where(d => d.Id != moduleFeatureInfo.Id).ToList()
                 });
             }
             var query = moduleFeatures.AsQueryable();

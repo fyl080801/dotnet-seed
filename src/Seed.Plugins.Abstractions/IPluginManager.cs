@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Seed.Plugins
 {
+    /// <summary>
+    /// 插件管理接口
+    /// </summary>
     public interface IPluginManager
     {
         IPluginInfo GetPlugin(string id);
@@ -18,7 +21,19 @@ namespace Seed.Plugins
 
         IEnumerable<IFeatureInfo> GetFeatures(string[] featureIds);
 
-        IEnumerable<IFeatureInfo> GetFeaturesDependencies(string featureId);
+        /// <summary>
+        /// 获取功能的依赖项
+        /// </summary>
+        /// <param name="featureId"></param>
+        /// <returns></returns>
+        IEnumerable<IFeatureInfo> GetDependencyFeatures(string featureId);
+
+        /// <summary>
+        /// 获取被功能依赖的项
+        /// </summary>
+        /// <param name="featureId"></param>
+        /// <returns></returns>
+        IEnumerable<IFeatureInfo> GetFeatureDependencies(string featureId);
 
         Task<PluginEntry> GetPluginEntryAsync(IPluginInfo plugin);
 

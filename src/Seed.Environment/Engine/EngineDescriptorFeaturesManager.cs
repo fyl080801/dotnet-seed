@@ -91,8 +91,9 @@ namespace Seed.Environment.Engine
 
         private IEnumerable<IFeatureInfo> GetFeaturesToEnable(IFeatureInfo featureInfo, bool force)
         {
+            // 启用功能时，依赖的功能都启用
             var featuresToEnable = _pluginManager
-                .GetFeaturesDependencies(featureInfo.Id)
+                .GetDependencyFeatures(featureInfo.Id)
                 .ToList();
 
             if (featuresToEnable.Count > 1 && !force)
@@ -105,8 +106,9 @@ namespace Seed.Environment.Engine
 
         private IEnumerable<IFeatureInfo> GetFeaturesToDisable(IFeatureInfo featureInfo, bool force)
         {
+            // 禁用功能时，依赖于功能的都禁用
             var affectedFeatures = _pluginManager
-                .GetFeaturesDependencies(featureInfo.Id)
+                .GetFeatureDependencies(featureInfo.Id)
                 .ToList();
 
             if (affectedFeatures.Count > 1 && !force)

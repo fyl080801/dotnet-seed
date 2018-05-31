@@ -1,0 +1,10 @@
+{
+  "configs": {
+    "SeedModules.MindPlus/modules/portals/module": {
+      "path": "SeedModules.MindPlus/js/modules.portals.module"
+    },
+    "SeedModules.MindPlus/modules/portals/requires": {
+      "path": "SeedModules.MindPlus/js/modules.portals.requires"
+    }
+  }
+}

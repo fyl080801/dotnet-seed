@@ -20,6 +20,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Seed.Data.Migrations
@@ -91,7 +92,7 @@ namespace Seed.Data.Migrations
                     .OrderByDescending(e => e.MigrationTime)
                     .OrderByDescending(e => e.Id) // mysql下自动生成的时间日期字段时间精度为秒
                     .FirstOrDefault();
-                lastModel = lastMigration == null ? null : (CreateModelSnapshot(lastMigration.SnapshotDefine).Result?.Model);
+                lastModel = lastMigration == null ? null : (CreateModelSnapshot(Encoding.UTF8.GetString(Convert.FromBase64String(lastMigration.SnapshotDefine))).Result?.Model);
             }
             catch (DbException) { }
 
@@ -116,11 +117,11 @@ namespace Seed.Data.Migrations
                             .ToList()
                             .ForEach(cmd => _dbContext.Context.Database.ExecuteSqlCommand(cmd.CommandText));
 
-                        trans.Commit();
+                        _dbContext.Context.Database.CommitTransaction();
                     }
                     catch (DbException ex)
                     {
-                        trans.Rollback();
+                        _dbContext.Context.Database.RollbackTransaction();
                         throw ex;
                     }
 
@@ -131,7 +132,7 @@ namespace Seed.Data.Migrations
 
                     _dbContext.Migrations.Add(new MigrationRecord()
                     {
-                        SnapshotDefine = snapshotCode,
+                        SnapshotDefine = Convert.ToBase64String(Encoding.UTF8.GetBytes(snapshotCode)),
                         MigrationTime = DateTime.Now
                     });
 

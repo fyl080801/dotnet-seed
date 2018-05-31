@@ -77,16 +77,6 @@
       "shim": {
         "deps": ["schema-form"]
       }
-    },
-
-    "SeedModules.AngularUI/modules/module": {
-      "path": "SeedModules.AngularUI/js/modules.module"
-    },
-    "SeedModules.AngularUI/modules/requires": {
-      "path": "SeedModules.AngularUI/js/modules.requires",
-      "shim": {
-        "deps": ["SeedModules.AngularUI/modules/module"]
-      }
     }
   },
   "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
