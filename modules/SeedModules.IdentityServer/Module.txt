@@ -1,5 +1,0 @@
-﻿Name: IdentityServer
-Version: 1.0
-Category: 安全认证
-Description: 启用该功能，让本租户环境具有认证服务器功能
-Dependencies: SeedModules.Mvc, SeedModules.AngularUI, SeedModules.Settings, SeedModules.Security
