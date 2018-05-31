@@ -19,7 +19,8 @@ namespace SeedModules.AngularUI.Rendering
             IPluginManager pluginManager,
             IViewOptionLoader viewOptionLoader,
             IHostingEnvironment hostingEnvironment,
-            ILogger<IViewOptionsBuilder> logger) : base(hostingEnvironment)
+            IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
+            ILogger<IViewOptionsBuilder> logger) : base(hostingEnvironment, routeReferenceProviders, logger)
         {
             _pluginManager = pluginManager;
             _viewOptionLoader = viewOptionLoader;

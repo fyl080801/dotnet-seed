@@ -22,7 +22,6 @@ namespace SeedModules.AngularUI.Rendering
         readonly IMemoryCache _memoryCache;
         readonly IEngineFeaturesManager _engineFeaturesManager;
         readonly IHostingEnvironment _hostingEnvironment;
-        readonly ISiteService _siteService;
         readonly ILogger _logger;
 
         public PluginViewOptionBuilder(
@@ -30,14 +29,13 @@ namespace SeedModules.AngularUI.Rendering
             IMemoryCache memoryCache,
             IEngineFeaturesManager engineFeaturesManager,
             IHostingEnvironment hostingEnvironment,
-            ISiteService siteService,
-            ILogger<IViewOptionsBuilder> logger) : base(hostingEnvironment)
+            IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
+            ILogger<IViewOptionsBuilder> logger) : base(hostingEnvironment, routeReferenceProviders, logger)
         {
             _viewOptionsLoader = viewOptionsLoader;
             _memoryCache = memoryCache;
             _engineFeaturesManager = engineFeaturesManager;
             _hostingEnvironment = hostingEnvironment;
-            _siteService = siteService;
             _logger = logger;
         }
 
@@ -61,20 +59,7 @@ namespace SeedModules.AngularUI.Rendering
 
         protected override async Task<IEnumerable<JObject>> GetViewOptionsAsync(RouteData routeData)
         {
-            var routeReference = _siteService.GetSiteInfoAsync()
-                .GetAwaiter()
-                .GetResult()
-                .As<IEnumerable<RouteViewReference>>("RouteReferences")
-                .FirstOrDefault(e =>
-                {
-                    return string.Join("/", routeData.Values.Select(r => r.Value).ToArray()).Equals(e.Route);
-                });
-            var options = await (await GetPluginsAsync(routeData)).InvokeAsync(descriptor => _viewOptionsLoader.LoadAsync(descriptor), _logger);
-            if (routeReference != null && routeReference.References != null)
-            {
-                options = options.Concat(new[] { new JObject { { "requires", new JArray { routeReference.References } } } });
-            }
-            return options;
+            return await (await GetPluginsAsync(routeData)).InvokeAsync(descriptor => _viewOptionsLoader.LoadAsync(descriptor), _logger);
         }
 
         private Task<IEnumerable<IPluginInfo>> GetPluginsAsync(RouteData routeData)

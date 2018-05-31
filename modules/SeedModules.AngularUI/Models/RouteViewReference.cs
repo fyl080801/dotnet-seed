@@ -7,17 +7,20 @@ namespace SeedModules.AngularUI.Models
 {
     public class RouteViewReference
     {
+        public RouteViewReference() { }
+
+        public RouteViewReference(string route, params string[] require)
+        {
+            Route = route;
+
+            if (require != null)
+            {
+                References = require;
+            }
+        }
+
         public string Route { get; set; }
 
-        public RouteViewTypes Type { get; set; }
-
         public IEnumerable<string> References { get; set; } = new HashSet<string>();
-    }
-
-    public enum RouteViewTypes
-    {
-        Attach = 0,
-        Add = 1,
-        Remove = -1
     }
 }
