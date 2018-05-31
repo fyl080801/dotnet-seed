@@ -2,14 +2,16 @@ using System.Collections.Generic;
 using SeedModules.AngularUI.Models;
 using SeedModules.AngularUI.Rendering;
 
-namespace SeedModules.Setup
+namespace SeedModules.Saas
 {
     public class RouteReferences : IRouteReferenceProvider
     {
         public IEnumerable<RouteViewReference> GetViewReferences()
         {
             return new[] {
-                new RouteViewReference("SeedModules.Setup/Home/Index", "SeedModules.Setup/modules/module")
+                new RouteViewReference(
+                    "SeedModules.Admin/Home/Index",
+                    "SeedModules.Saas/modules/module"),
             };
         }
     }

@@ -1,15 +1,8 @@
-﻿using Seed.Modules;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
-using SeedModules.AngularUI.Rendering;
-using SeedModules.AngularUI.Extensions;
-using SeedModules.Project.Services;
-using SeedModules.AngularUI.Projects;
-using SeedModules.Project.Extensions;
+using Microsoft.Extensions.DependencyInjection;
+using Seed.Modules;
+using System;
 
 namespace SeedModules.AngularUI
 {
@@ -17,7 +10,7 @@ namespace SeedModules.AngularUI
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddProjectExecutionStep<RouteSettingStep>();
+
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

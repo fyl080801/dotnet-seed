@@ -1,10 +1,4 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.FileProviders;
-using Newtonsoft.Json;
 using Seed.Plugins.Feature;
 using SeedModules.Project.Services;
 
@@ -31,7 +25,7 @@ namespace SeedModules.Features.Internal
 
         public void Disabled(IFeatureInfo feature)
         {
-            ExecuteProjects(feature, ".disabled.json");
+            //ExecuteProjects(feature, ".disabled.json");
         }
 
         public void Disabling(IFeatureInfo feature)
@@ -41,7 +35,7 @@ namespace SeedModules.Features.Internal
 
         public void Enabled(IFeatureInfo feature)
         {
-            ExecuteProjects(feature, ".enabled.json");
+            //ExecuteProjects(feature, ".enabled.json");
         }
 
         public void Enabling(IFeatureInfo feature)
@@ -51,7 +45,7 @@ namespace SeedModules.Features.Internal
 
         public void Installed(IFeatureInfo feature)
         {
-            ExecuteProjects(feature, ".installed.json");
+            //ExecuteProjects(feature, ".installed.json");
         }
 
         public void Installing(IFeatureInfo feature)
@@ -61,7 +55,7 @@ namespace SeedModules.Features.Internal
 
         public void Uninstalled(IFeatureInfo feature)
         {
-            ExecuteProjects(feature, ".uninstalled.json");
+            //ExecuteProjects(feature, ".uninstalled.json");
         }
 
         public void Uninstalling(IFeatureInfo feature)
@@ -69,21 +63,21 @@ namespace SeedModules.Features.Internal
 
         }
 
-        private void ExecuteProjects(IFeatureInfo feature, string stateString)
-        {
-            var projectPath = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(feature.Plugin.Path)
-                .FirstOrDefault(x => x.IsDirectory && x.Name.Equals("FeatureProjects", StringComparison.CurrentCultureIgnoreCase));
+        //private void ExecuteProjects(IFeatureInfo feature, string stateString)
+        //{
+        //    var projectPath = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(feature.Plugin.Path)
+        //        .FirstOrDefault(x => x.IsDirectory && x.Name.Equals("FeatureProjects", StringComparison.CurrentCultureIgnoreCase));
 
-            if (projectPath != null)
-            {
-                _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(feature.Plugin.Path + "\\FeatureProjects")
-                    .Where(x => !x.IsDirectory && x.Name.EndsWith(feature.Id + stateString))
-                    .ToList()
-                    .ForEach(file =>
-                    {
-                        _projectExecutor.ExecuteAsync(Guid.NewGuid().ToString("n"), _projectReader.ReadDescriptor(file), null).Wait();
-                    });
-            }
-        }
+        //    if (projectPath != null)
+        //    {
+        //        _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(feature.Plugin.Path + "\\FeatureProjects")
+        //            .Where(x => !x.IsDirectory && x.Name.EndsWith(feature.Id + stateString))
+        //            .ToList()
+        //            .ForEach(file =>
+        //            {
+        //                _projectExecutor.ExecuteAsync(Guid.NewGuid().ToString("n"), _projectReader.ReadDescriptor(file), null).Wait();
+        //            });
+        //    }
+        //}
     }
 }

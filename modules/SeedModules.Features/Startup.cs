@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
 using Seed.Plugins.Feature;
+using SeedModules.AngularUI.Rendering;
+using SeedModules.Features;
 using SeedModules.Features.Internal;
 
 namespace SeedModules.Saas
@@ -9,6 +11,7 @@ namespace SeedModules.Saas
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRouteReferenceProvider, RouteReferences>();
             services.AddScoped<IFeatureEventHandler, FeatureUpdater>();
         }
     }

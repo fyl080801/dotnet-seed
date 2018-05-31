@@ -17,25 +17,7 @@
         "Area": "SeedModules.Admin",
         "Controller": "Home",
         "Action": "Index"
-      },
-      "RouteReferences": [
-        {
-          "Route": "SeedModules.Admin/Home/Index",
-          "References": [
-            "rcss!SeedModules.Admin/css/seed-admin.css",
-            "SeedModules.Admin/modules/admin/module",
-            "SeedModules.Features/modules/module",
-            "SeedModules.Saas/modules/module"
-          ]
-        },
-        {
-          "Route": "SeedModules.Admin/Home/Login",
-          "References": [
-            "rcss!SeedModules.Admin/css/seed-admin.css",
-            "SeedModules.Admin/modules/login/module"
-          ]
-        }
-      ]
+      }
     }
   ]
 }

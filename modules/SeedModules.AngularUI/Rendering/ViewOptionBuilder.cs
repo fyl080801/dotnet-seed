@@ -32,7 +32,7 @@ namespace SeedModules.AngularUI.Rendering
 
             var requireOptions = Enumerable.Empty<JObject>();
             var requires = await (await _routeReferenceProviders.InvokeAsync(pro => Task.FromResult(pro.GetViewReferences()), _logger))
-                .Where(e => e.Route == string.Join("/", routeData.Values.Select(r => r.Value).ToArray()))
+                .Where(e => e.Route.Split('/').Intersect(routeData.Values.Select(r => r.Value).ToArray()).Count() == e.Route.Split('/').Length)
                 .InvokeAsync(route => Task.FromResult(route.References), _logger);
 
             if (requires.Count() > 0)

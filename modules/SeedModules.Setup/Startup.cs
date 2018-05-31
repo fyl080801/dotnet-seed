@@ -18,6 +18,7 @@ namespace SeedModules.Setup
             services.AddViewOptions<SetupViewOptionBuilder>();
             services.AddScoped<ISetupService, SetupService>();
             services.AddScoped<ISiteSettingsBuilder, SetupSiteSettingsBuilder>();
+            services.AddScoped<IRouteReferenceProvider, RouteReferences>();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

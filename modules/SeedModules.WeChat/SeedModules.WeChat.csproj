@@ -8,8 +8,6 @@
     <PackageAssetFiles Remove="Content\modules\module.ts" />
     <PackageAssetFiles Remove="Content\modules\options.dist.json" />
     <PackageAssetFiles Remove="Content\modules\requires.ts" />
-    <PackageAssetFiles Remove="FeatureProjects\SeedModules.WeChat.disabled.json" />
-    <PackageAssetFiles Remove="FeatureProjects\SeedModules.WeChat.enabled.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,12 +16,6 @@
 
   <ItemGroup>
     <None Update="Content\modules\options.dist.json">
-      <PackagePath>assets\$(PackageId)\</PackagePath>
-    </None>
-    <None Update="FeatureProjects\SeedModules.WeChat.disabled.json">
-      <PackagePath>assets\$(PackageId)\</PackagePath>
-    </None>
-    <None Update="FeatureProjects\SeedModules.WeChat.enabled.json">
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
   </ItemGroup>
