@@ -45,6 +45,7 @@ namespace SeedModules.Security.Roles
                 rolesToExamine.Add("Authenticated");
 
                 // 加入当前用户所属于的角色
+                // 角色权限在系统里通过Claim体现,找当前用户会话的中类型是角色权限的Claim
                 rolesToExamine.AddRange(context.User.Claims.Where(e => e.Type == ClaimTypes.Role).Select(e => e.Value).ToArray());
             }
 
@@ -62,9 +63,7 @@ namespace SeedModules.Security.Roles
                             continue;
                         }
 
-                        string permissionName = claim.Value;
-
-                        if (grantingNames.Contains(permissionName))
+                        if (grantingNames.Contains(claim.Value))
                         {
                             context.Succeed(requirement);
                             return;

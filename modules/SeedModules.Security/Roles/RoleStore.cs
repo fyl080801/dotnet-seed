@@ -1,5 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Seed.Data;
+using Seed.Environment.Caching;
+using Seed.Environment.Engine.Extensions;
 using Seed.Security;
 using Seed.Security.Services;
 using SeedModules.Security.Domain;
@@ -17,22 +22,116 @@ namespace SeedModules.Security.Roles
         private const string Key = "RolesManager.Roles";
 
         readonly IDbContext _dbContext;
-        //readonly ISignal _signal;
-        //readonly IMemoryCache _memoryCache;
+        readonly ISignal _signal;
+        readonly IMemoryCache _memoryCache;
         readonly IServiceProvider _serviceProvider;
+        readonly ILogger _logger;
 
         public RoleStore(
             IDbContext dbContext,
-            //ISignal signal,
-            //IMemoryCache memoryCache,
-            IServiceProvider serviceProvider)
+            ISignal signal,
+            IMemoryCache memoryCache,
+            IServiceProvider serviceProvider,
+            ILogger<RoleStore> logger)
         {
             _dbContext = dbContext;
-            //_signal = signal;
-            //_memoryCache = memoryCache;
+            _signal = signal;
+            _memoryCache = memoryCache;
             _serviceProvider = serviceProvider;
+            _logger = logger;
         }
 
+        public void Dispose()
+        {
+
+        }
+
+        public Task<IdentityResult> CreateAsync(IRole role, CancellationToken cancellationToken)
+        {
+            _dbContext.Set<Role>().Add((Role)role);
+            _dbContext.SaveChanges();
+            ReleaseRoles();
+            return Task.FromResult(IdentityResult.Success);
+        }
+
+        public async Task<IdentityResult> DeleteAsync(IRole role, CancellationToken cancellationToken)
+        {
+            var set = _dbContext.Set<Role>();
+            var oldrole = set.Find(((Role)role).Id);
+            set.Remove(oldrole);
+
+            var roleRemovedEventHandlers = _serviceProvider.GetRequiredService<IEnumerable<IRoleRemovedEventHandler>>();
+            await roleRemovedEventHandlers.InvokeAsync(x => x.RoleRemovedAsync(oldrole.Rolename), _logger);
+
+            _dbContext.SaveChanges();
+            ReleaseRoles();
+            return IdentityResult.Success;
+        }
+
+        public async Task<IRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
+        {
+            return (await GetRolesAsync()).FirstOrDefault(r => GetRoleIdAsync(r, cancellationToken).GetAwaiter().GetResult() == roleId);
+        }
+
+        public async Task<IRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
+        {
+            return (await GetRolesAsync()).FirstOrDefault(r => GetNormalizedRoleNameAsync(r, cancellationToken).GetAwaiter().GetResult() == normalizedRoleName);
+        }
+
+        public Task<string> GetNormalizedRoleNameAsync(IRole role, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(((Role)role).NormalizedRolename);
+        }
+
+        public Task<string> GetRoleIdAsync(IRole role, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(((Role)role).Id.ToString());
+        }
+
+        public Task<string> GetRoleNameAsync(IRole role, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(role.Rolename);
+        }
+
+        public async Task<IEnumerable<string>> GetRoleNamesAsync()
+        {
+            return (await GetRolesAsync()).Select(e => e.Rolename).ToArray();
+        }
+
+        public Task SetNormalizedRoleNameAsync(IRole role, string normalizedName, CancellationToken cancellationToken)
+        {
+            ((Role)role).NormalizedRolename = normalizedName;
+            return Task.CompletedTask;
+        }
+
+        public Task SetRoleNameAsync(IRole role, string roleName, CancellationToken cancellationToken)
+        {
+            ((Role)role).Rolename = roleName;
+            return Task.CompletedTask;
+        }
+
+        public Task<IdentityResult> UpdateAsync(IRole role, CancellationToken cancellationToken)
+        {
+            _dbContext.Context.Update((Role)role);
+            _dbContext.SaveChanges();
+            ReleaseRoles();
+            return Task.FromResult(IdentityResult.Success);
+        }
+
+        public async Task<IEnumerable<IRole>> GetRolesAsync()
+        {
+            // 同一租户环境下角色数据进行缓存
+            return await _memoryCache.GetOrCreateAsync(Key, async (entry) =>
+            {
+                var roles = await Task.FromResult(_dbContext.Set<Role>().Select(e => (IRole)e).ToArray().AsEnumerable());
+
+                entry.ExpirationTokens.Add(_signal.GetToken(Key));
+
+                return roles;
+            });
+        }
+
+        //
         public Task AddClaimAsync(IRole role, Claim claim, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (role == null)
@@ -50,39 +149,6 @@ namespace SeedModules.Security.Roles
             return Task.CompletedTask;
         }
 
-        public Task<IdentityResult> CreateAsync(IRole role, CancellationToken cancellationToken)
-        {
-            _dbContext.Set<Role>().Add((Role)role);
-            _dbContext.SaveChanges();
-            return Task.FromResult(IdentityResult.Success);
-        }
-
-        public Task<IdentityResult> DeleteAsync(IRole role, CancellationToken cancellationToken)
-        {
-            var set = _dbContext.Set<Role>();
-            var oldrole = set.Find(((Role)role).Id);
-            set.Remove(oldrole);
-            _dbContext.SaveChanges();
-            return Task.FromResult(IdentityResult.Success);
-        }
-
-        public void Dispose()
-        {
-
-        }
-
-        public Task<IRole> FindByIdAsync(string roleId, CancellationToken cancellationToken)
-        {
-            var role = _dbContext.Set<Role>().Find(Convert.ToInt32(roleId));
-            return Task.FromResult<IRole>(role);
-        }
-
-        public Task<IRole> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
-        {
-            var exrole = _dbContext.Set<Role>().FirstOrDefault(e => e.NormalizedRolename == normalizedRoleName);
-            return Task.FromResult<IRole>(exrole);
-        }
-
         public async Task<IList<Claim>> GetClaimsAsync(IRole role, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (role == null)
@@ -94,33 +160,6 @@ namespace SeedModules.Security.Roles
             var claims = _dbContext.Set<RoleClaim>().Where(e => e.RoleId == int.Parse(roleId));
 
             return claims.Select(x => x.ToClaim()).ToList();
-        }
-
-        // public Task<IEnumerable<IRole>> GetFullRolesAsync()
-        // {
-        //     var result = _dbContext.Set<Role>().ToArray();
-        //     return Task.FromResult<IEnumerable<IRole>>(result);
-        // }
-
-        public Task<string> GetNormalizedRoleNameAsync(IRole role, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(((Role)role).NormalizedRolename);
-        }
-
-        public Task<string> GetRoleIdAsync(IRole role, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(((Role)role).Id.ToString());
-        }
-
-        public Task<string> GetRoleNameAsync(IRole role, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(role.Rolename);
-        }
-
-        public Task<IEnumerable<string>> GetRoleNamesAsync()
-        {
-            var result = _dbContext.Set<Role>().Select(e => e.Rolename).ToArray();
-            return Task.FromResult<IEnumerable<string>>(result);
         }
 
         public Task RemoveClaimAsync(IRole role, Claim claim, CancellationToken cancellationToken = default(CancellationToken))
@@ -140,41 +179,9 @@ namespace SeedModules.Security.Roles
             return Task.CompletedTask;
         }
 
-        public Task SetNormalizedRoleNameAsync(IRole role, string normalizedName, CancellationToken cancellationToken)
+        private void ReleaseRoles()
         {
-            ((Role)role).NormalizedRolename = normalizedName;
-            return Task.CompletedTask;
+            _memoryCache.Remove(Key);
         }
-
-        public Task SetRoleNameAsync(IRole role, string roleName, CancellationToken cancellationToken)
-        {
-            ((Role)role).Rolename = roleName;
-            return Task.CompletedTask;
-        }
-
-        public Task<IdentityResult> UpdateAsync(IRole role, CancellationToken cancellationToken)
-        {
-            _dbContext.Context.Update((Role)role);
-            _dbContext.SaveChanges();
-            return Task.FromResult(IdentityResult.Success);
-        }
-
-        public Task<IEnumerable<IRole>> GetRolesAsync()
-        {
-            return Task.FromResult(_dbContext.Set<Role>().Select(e => (IRole)e).ToArray().AsEnumerable());
-            // return _memoryCache.GetOrCreateAsync(Key, async (entry) =>
-            // {
-            //     var roles = _dbContext.Set<Role>().Select(e => (IRole)e).ToArray().AsEnumerable();
-
-            //     entry.ExpirationTokens.Add(_signal.GetToken(Key));
-
-            //     return await Task.FromResult(roles);
-            // });
-        }
-
-        // private void UpdateRoles(IEnumerable<IRole> roles)
-        // {
-        //     _memoryCache.Set(Key, roles);
-        // }
     }
 }

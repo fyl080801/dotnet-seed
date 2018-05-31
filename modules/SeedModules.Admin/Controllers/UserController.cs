@@ -69,7 +69,7 @@ namespace SeedModules.Admin.Controllers
 
             if (!ModelState.IsValid) throw this.Exception(ModelState);
 
-            await _userService.ChangeNameAsync(result, model.FirstName, model.LastName, (key, message) =>
+            await _userService.ChangeNameAsync(result, model.FirstName ?? string.Empty, model.LastName ?? string.Empty, (key, message) =>
             {
                 ModelState.AddModelError(key, message);
             });
