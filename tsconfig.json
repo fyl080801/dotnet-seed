@@ -10,7 +10,8 @@
       "SeedModules.AngularUI/*": ["SeedModules.AngularUI/Content/*"],
       "SeedModules.Admin/*": ["SeedModules.Admin/Content/*"],
       "SeedModules.Features/*": ["SeedModules.Features/Content/*"],
-      "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"]
+      "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"],
+      "SeedModules.PageBuilder/*": ["SeedModules.PageBuilder/Content/*"]
     }
   },
   "exclude": ["node_modules", "src", "targets"]

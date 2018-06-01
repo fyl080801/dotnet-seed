@@ -1,0 +1,46 @@
+<div ng-controller="SeedModules.PageBuilder/modules/components/builder/page as page">
+    <form role="form" class="form-inline" style="margin-bottom: 20px">
+        <div trigger-input ng-model="keyword" mark="'关键字...'" callback="page.keywordCallback()"></div>
+    </form>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div>
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-edit"></i>
+                                编辑
+                            </button>
+                            <button class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                预览
+                            </button>
+                            <button class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-oil"></i>
+                                数据源
+                            </button>
+                            <button class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-flash"></i>
+                                行为
+                            </button>
+                            <button class="btn btn-default btn-xs">
+                                <i class="glyphicon glyphicon-lock"></i>
+                                权限
+                            </button>
+                            <button class="btn btn-danger btn-xs">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </button>
+                        </div>
+                        <h4 class="list-group-item-heading">
+                            <i class="glyphicon glyphicon-tasks text-success"></i>
+                            <a href="">页面名称
+                            </a>
+                        </h4>
+                        <p class="list-group-item-text text-muted text-ellipsis">说明</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

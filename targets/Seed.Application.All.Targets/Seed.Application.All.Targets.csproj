@@ -13,6 +13,7 @@
     <ProjectReference Include="..\..\modules\SeedModules.Mvc\SeedModules.Mvc.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.OAuth\SeedModules.OAuth.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.OpenId\SeedModules.OpenId.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.PageBuilder\SeedModules.PageBuilder.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Router\SeedModules.Router.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Saas\SeedModules.Saas.csproj" />
