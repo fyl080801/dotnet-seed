@@ -40,7 +40,10 @@ namespace Seed.Data.Extensions
                         });
                         break;
                     case "MySql":
-                        optionBuilder.UseMySQL(engineSettings.ConnectionString);
+                        optionBuilder.UseMySql(engineSettings.ConnectionString, builder =>
+                        {
+
+                        });
                         break;
                     default:
                         throw new ArgumentException("未知数据访问提供程序: " + engineSettings.DatabaseProvider);
