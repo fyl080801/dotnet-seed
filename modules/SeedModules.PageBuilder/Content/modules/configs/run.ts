@@ -13,6 +13,17 @@ class ConfigRouteClass {
         'SeedModules.PageBuilder/modules/requires'
       ]
     });
+
+    $stateProvider.state('admin.pagebuilder_serversettings', {
+      url: '/pagebuilder_serversettings',
+      title: '服务设置',
+      templateUrl:
+        '/SeedModules.PageBuilder/modules/components/server/settings.html',
+      requires: [
+        'SeedModules.AngularUI/modules/requires',
+        'SeedModules.PageBuilder/modules/requires'
+      ]
+    });
   }
 }
 
@@ -25,8 +36,14 @@ class RunClass {
       order: 5,
       children: [
         {
+          text: '服务设置',
+          itemClicked: evt => {
+            $state.go('admin.pagebuilder_serversettings');
+          }
+        },
+        {
           text: '页面管理',
-          itemClicked: function(evt) {
+          itemClicked: evt => {
             $state.go('admin.pagebuilder_page');
           }
         },

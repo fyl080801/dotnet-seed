@@ -12,6 +12,15 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                     'SeedModules.PageBuilder/modules/requires'
                 ]
             });
+            $stateProvider.state('admin.pagebuilder_serversettings', {
+                url: '/pagebuilder_serversettings',
+                title: '服务设置',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/server/settings.html',
+                requires: [
+                    'SeedModules.AngularUI/modules/requires',
+                    'SeedModules.PageBuilder/modules/requires'
+                ]
+            });
         }
         ConfigRouteClass.$inject = ['$stateProvider'];
         return ConfigRouteClass;
@@ -23,6 +32,12 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                 icon: 'fab fa-fort-awesome fa-fw',
                 order: 5,
                 children: [
+                    {
+                        text: '服务设置',
+                        itemClicked: function (evt) {
+                            $state.go('admin.pagebuilder_serversettings');
+                        }
+                    },
                     {
                         text: '页面管理',
                         itemClicked: function (evt) {
