@@ -50,11 +50,6 @@ define(['SeedModules.Saas/modules/module'], function(module) {
           required: true
         },
         // mysql
-        // mySqlConnectionString: {
-        //   title: '连接字符串',
-        //   type: 'string',
-        //   required: true
-        // },
         mysql_Server: {
           title: '服务地址',
           type: 'string',

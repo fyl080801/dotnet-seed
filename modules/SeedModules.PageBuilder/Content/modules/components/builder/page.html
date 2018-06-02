@@ -1,6 +1,12 @@
 <div ng-controller="SeedModules.PageBuilder/modules/components/builder/page as page">
     <form role="form" class="form-inline" style="margin-bottom: 20px">
-        <div trigger-input ng-model="keyword" mark="'关键字...'" callback="page.keywordCallback()"></div>
+        <div trigger-input ng-model="search.keyword" mark="'关键字...'" callback="page.keywordCallback()"></div>
+        <div class="pull-right">
+            <button class="btn btn-primary">
+                <i class="glyphicon glyphicon-plus"></i>
+                添加
+            </button>
+        </div>
     </form>
     <div class="row">
         <div class="col-md-6">
@@ -8,27 +14,31 @@
                 <div class="panel-body">
                     <div>
                         <div class="pull-right">
-                            <button class="btn btn-default btn-xs">
-                                <i class="glyphicon glyphicon-edit"></i>
-                                编辑
-                            </button>
-                            <button class="btn btn-default btn-xs">
-                                <i class="glyphicon glyphicon-eye-open"></i>
-                                预览
-                            </button>
-                            <button class="btn btn-default btn-xs">
-                                <i class="glyphicon glyphicon-oil"></i>
-                                数据源
-                            </button>
-                            <button class="btn btn-default btn-xs">
-                                <i class="glyphicon glyphicon-flash"></i>
-                                行为
-                            </button>
-                            <button class="btn btn-default btn-xs">
-                                <i class="glyphicon glyphicon-lock"></i>
-                                权限
-                            </button>
-                            <button class="btn btn-danger btn-xs">
+                            <div class="btn-group btn-group-xs">
+                                <button class="btn btn-default">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                    编辑
+                                </button>
+                                <button class="btn btn-default">
+                                    <i class="glyphicon glyphicon-eye-open"></i>
+                                    预览
+                                </button>
+                            </div>
+                            <div class="btn-group btn-group-xs">
+                                <button class="btn btn-default">
+                                    <i class="glyphicon glyphicon-oil"></i>
+                                    数据源
+                                </button>
+                                <button class="btn btn-default">
+                                    <i class="glyphicon glyphicon-flash"></i>
+                                    行为
+                                </button>
+                                <button class="btn btn-default">
+                                    <i class="glyphicon glyphicon-lock"></i>
+                                    权限
+                                </button>
+                            </div>
+                            <button class="btn btn-danger btn-xs" ng-click="page.drop()">
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
                         </div>

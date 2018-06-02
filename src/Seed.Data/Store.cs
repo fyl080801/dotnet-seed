@@ -31,10 +31,10 @@ namespace Seed.Data
             return new ModuleDbContext(_dbContextOptionsBuilder.Options, _settings, typeConfigs);
         }
 
-        public Task InitializeAsync(IServiceProvider service)
+        public async Task InitializeAsync(IServiceProvider service)
         {
-            CreateDbContext().Context.Database.Migrate();
-            return service.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
+            await CreateDbContext().Context.Database.MigrateAsync();
+            await service.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Seed.Data.Extensions
 
             services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");
             services.TryAddDataProvider(name: "MySql Database", provider: "MySql");
+            services.TryAddDataProvider(name: "Sqlite", provider: "Sqlite");
 
             services.AddSingleton<IStore>(sp =>
             {
@@ -37,6 +38,12 @@ namespace Seed.Data.Extensions
                         optionBuilder.UseSqlServer(engineSettings.ConnectionString, builder =>
                         {
                             builder.UseRowNumberForPaging(true);
+                        });
+                        break;
+                    case "Sqlite":
+                        optionBuilder.UseSqlite(engineSettings.ConnectionString, builder =>
+                        {
+
                         });
                         break;
                     case "MySql":

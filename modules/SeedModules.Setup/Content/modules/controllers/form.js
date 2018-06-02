@@ -19,6 +19,8 @@ define(['SeedModules.Setup/modules/module'], function(module) {
 
       $scope.mssql = {};
 
+      $scope.sqlite = {};
+
       $scope.data = {
         Name: 'seed',
         TablePrefix: 'seed',
@@ -84,6 +86,10 @@ define(['SeedModules.Setup/modules/module'], function(module) {
 
             break;
           }
+          case 'Sqlite': {
+            $scope.data.ConnectionString = $scope.sqlite.Connection;
+            break;
+          }
           default:
             $scope.data.ConnectionString = '';
             break;
@@ -121,6 +127,10 @@ define(['SeedModules.Setup/modules/module'], function(module) {
         {
           Provider: 'MySql',
           Name: 'MySql Database'
+        },
+        {
+          Provider: 'Sqlite',
+          Name: 'Sqlite'
         }
       ];
 

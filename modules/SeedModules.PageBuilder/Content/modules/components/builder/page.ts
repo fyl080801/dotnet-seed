@@ -1,14 +1,21 @@
 //import mod = require('SeedModules.PageBuilder/modules/module');
 
 interface IPageScope extends ng.IScope {
-  keyword: string;
+  search: {};
 }
 
 class PageController {
   keywordCallback() {}
 
-  static $inject = ['$scope'];
-  constructor(private $scope: ng.IScope) {}
+  drop() {
+    this.popupService.confirm('是否删除？').ok(() => {});
+  }
+
+  static $inject = ['$scope', 'app/services/popupService'];
+  constructor(
+    private $scope: ng.IScope,
+    private popupService: app.services.IPopupService
+  ) {}
 }
 
 export = PageController;

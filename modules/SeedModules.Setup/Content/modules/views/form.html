@@ -171,6 +171,20 @@
                     </div>
                 </fieldset>
             </div>
+
+            <div ng-show="data.DatabaseProvider==='Sqlite'">
+                <fieldset class="form-group col-md-12" ng-class="{ 'has-error': form.sqlite_Connection.$invalid }">
+                    <div>
+                        <label>连接字符串：</label>
+                        <span class="text-danger pull-right" ng-show="form.sqlite_Connection.$invalid">*连接字符串是必填的</span>
+                    </div>
+                    <div>
+                        <input class="form-control" name="sqlite_Connection" placeholder="输入连接字符串" ng-model="sqlite.Connection" ng-required="data.DatabaseProvider==='Sqlite'"
+                        />
+                    </div>
+                </fieldset>
+            </div>
+
         </div>
         <h6>
             <i class="glyphicon glyphicon-chevron-right"></i> 用户信息
