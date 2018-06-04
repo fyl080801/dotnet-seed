@@ -1,6 +1,11 @@
+import mod = require('SeedModules.PageBuilder/modules/module');
+
 class SettingsController {
   static $inject = ['$scope'];
   constructor(private $scope) {}
 }
 
-export = SettingsController;
+mod.controller(
+  'SeedModules.PageBuilder/modules/components/server/settings',
+  SettingsController
+);

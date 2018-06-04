@@ -1,4 +1,4 @@
-//import mod = require('SeedModules.PageBuilder/modules/module');
+import mod = require('SeedModules.PageBuilder/modules/module');
 
 interface IPageScope extends ng.IScope {
   search: {};
@@ -18,4 +18,7 @@ class PageController {
   ) {}
 }
 
-export = PageController;
+mod.controller(
+  'SeedModules.PageBuilder/modules/components/builder/page',
+  PageController
+);

@@ -1,5 +1,6 @@
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module"], function (require, exports, mod) {
     "use strict";
+    exports.__esModule = true;
     var PageController = (function () {
         function PageController($scope, popupService) {
             this.$scope = $scope;
@@ -12,6 +13,6 @@ define(["require", "exports"], function (require, exports) {
         PageController.$inject = ['$scope', 'app/services/popupService'];
         return PageController;
     }());
-    return PageController;
+    mod.controller('SeedModules.PageBuilder/modules/components/builder/page', PageController);
 });
 //# sourceMappingURL=page.js.map
