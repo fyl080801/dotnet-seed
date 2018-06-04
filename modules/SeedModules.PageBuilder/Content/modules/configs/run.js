@@ -12,6 +12,15 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                     'SeedModules.PageBuilder/modules/requires'
                 ]
             });
+            $stateProvider.state('admin.pagebuilder_pageform', {
+                url: '/pagebuilder_pageform/{id}',
+                title: '页面编辑',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/builder/pageForm.html',
+                requires: [
+                    'SeedModules.AngularUI/modules/requires',
+                    'SeedModules.PageBuilder/modules/requires'
+                ]
+            });
             $stateProvider.state('admin.pagebuilder_serversettings', {
                 url: '/pagebuilder_serversettings',
                 title: '服务设置',

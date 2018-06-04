@@ -1,0 +1,35 @@
+<div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm as pageForm">
+    <div style="margin-bottom: 20px">
+        <button class="btn btn-default" ng-click="pageForm.back()">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            返回
+        </button>
+        <div class="pull-right">
+            <button class="btn btn-default" ng-click="pageForm.preview()">
+                <i class="glyphicon glyphicon-eye-open"></i>
+                预览
+            </button>
+            <div class="btn-group">
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-oil"></i>
+                    数据源
+                </button>
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-flash"></i>
+                    行为
+                </button>
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    权限
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="seed-container" style="top: 130px">
+        <div class="panel panel-default seed-container" style="margin: 0 15px 15px">
+            <div class="seed-container" style="width: 260px"></div>
+            <div class="seed-container" style="margin-left: 260px; margin-right: 260px; border-left: solid 1px #ddd; border-right: solid 1px #ddd"></div>
+            <div class="seed-container" style="width: 260px; left: auto"></div>
+        </div>
+    </div>
+</div>

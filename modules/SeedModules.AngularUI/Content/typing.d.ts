@@ -1,4 +1,4 @@
-/// <reference path="../node_modules/@types/angular/index.d.ts" />
+/// <reference path="../../../node_modules/@types/angular/index.d.ts" />
 
 export as namespace app;
 
