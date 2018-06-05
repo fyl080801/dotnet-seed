@@ -6,7 +6,9 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "modules/**/*.map": true
+    "modules/**/*.map": true,
+    "**/bin": true,
+    "**/obj": true
   },
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

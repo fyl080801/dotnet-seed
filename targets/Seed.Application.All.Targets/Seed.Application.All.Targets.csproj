@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\modules\SeedModules.Security\SeedModules.Security.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Settings\SeedModules.Settings.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.SqlBuilder\SeedModules.SqlBuilder.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.WeChat\SeedModules.WeChat.csproj" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" />
   </ItemGroup>

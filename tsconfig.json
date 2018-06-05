@@ -12,7 +12,8 @@
       "SeedModules.Features/*": ["SeedModules.Features/Content/*"],
       "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"],
       "SeedModules.PageBuilder/*": ["SeedModules.PageBuilder/Content/*"],
-      "SeedModules.Saas/*": ["SeedModules.Saas/Content/*"]
+      "SeedModules.Saas/*": ["SeedModules.Saas/Content/*"],
+      "SeedModules.SqlBuilder/*": ["SeedModules.SqlBuilder/Content/*"]
     }
   },
   "exclude": ["node_modules", "src", "targets"]
