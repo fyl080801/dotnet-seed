@@ -28,7 +28,6 @@ namespace SeedModules.SqlBuilder.Domain
 
         public DateTime LastModify { get; set; } = DateTime.Now;
 
-
         [ForeignKey("PathId")]
         public virtual SqlBuilderPath Path { get; set; }
 

@@ -1,7 +1,7 @@
 import angular = require('angular');
 import mod = require('SeedModules.AngularUI/modules/module');
 
-let defaults: modules.factories.INgTableColumn = {
+let defaults: AngularUI.factories.INgTableColumn = {
   class: function() {
     return '';
   },

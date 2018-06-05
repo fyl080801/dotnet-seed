@@ -5,10 +5,6 @@
             返回
         </button>
         <div class="pull-right">
-            <button class="btn btn-default" ng-click="pageForm.preview()">
-                <i class="glyphicon glyphicon-eye-open"></i>
-                预览
-            </button>
             <div class="btn-group">
                 <button class="btn btn-default">
                     <i class="glyphicon glyphicon-oil"></i>
@@ -26,10 +22,27 @@
         </div>
     </div>
     <div class="seed-container" style="top: 130px">
-        <div class="panel panel-default seed-container" style="margin: 0 15px 15px">
-            <div class="seed-container" style="width: 260px"></div>
-            <div class="seed-container" style="margin-left: 260px; margin-right: 260px; border-left: solid 1px #ddd; border-right: solid 1px #ddd"></div>
-            <div class="seed-container" style="width: 260px; left: auto"></div>
+        <div class="panel panel-default seed-container pb-container">
+            <div pb-toolbox class="seed-container tools"></div>
+            <div class="seed-container area">
+                <div class="navbar navbar-default navbar-static-top">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav nav navbar-right">
+                            <li>
+                                <a href="">
+                                    <i class="glyphicon glyphicon-edit"></i> 设计
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="glyphicon glyphicon-eye-open"></i> 预览
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="seed-container property"></div>
         </div>
     </div>
 </div>

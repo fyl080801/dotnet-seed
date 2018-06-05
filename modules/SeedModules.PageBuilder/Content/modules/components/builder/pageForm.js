@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/module"], function (require, exports, mod) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod) {
     "use strict";
     exports.__esModule = true;
     var PageFormClass = (function () {
@@ -7,12 +7,6 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
             this.$state = $state;
             this.$modal = $modal;
         }
-        PageFormClass.prototype.preview = function () {
-            this.$modal.open({
-                templateUrl: '/SeedModules.PageBuilder/modules/components/builder/preview.html',
-                size: 'lg'
-            });
-        };
         PageFormClass.prototype.back = function () {
             this.$state.go('admin.pagebuilder_page');
         };

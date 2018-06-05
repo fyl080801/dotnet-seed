@@ -1,14 +1,7 @@
 import mod = require('SeedModules.PageBuilder/modules/module');
+import 'rcss!/SeedModules.PageBuilder/css/page-builder.css';
 
 class PageFormClass {
-  preview() {
-    this.$modal.open({
-      templateUrl:
-        '/SeedModules.PageBuilder/modules/components/builder/preview.html',
-      size: 'lg'
-    });
-  }
-
   back() {
     this.$state.go('admin.pagebuilder_page');
   }

@@ -1,10 +1,10 @@
 /// <reference path="../../../../node_modules/@types/angular/index.d.ts" />
 
-export as namespace modules;
+export as namespace AngularUI;
 
-export = modules;
+export = AngularUI;
 
-declare namespace modules {
+declare namespace AngularUI {
   export namespace factories {
     export interface INgTableColumn {
       class(): string;

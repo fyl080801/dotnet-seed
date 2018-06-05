@@ -1,0 +1,21 @@
+.pb-container {
+  margin: 0 15px 15px;
+}
+
+.pb-container .tools {
+  width: 260px;
+  padding: 5px;
+  overflow: auto;
+}
+
+.pb-container .area {
+  margin-left: 260px;
+  margin-right: 260px;
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+}
+
+.pb-container .property {
+  width: 260px;
+  left: auto;
+}
