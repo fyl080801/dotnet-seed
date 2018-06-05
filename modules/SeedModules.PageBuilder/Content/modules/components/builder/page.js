@@ -7,9 +7,13 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
             this.$state = $state;
             this.$modal = $modal;
             this.popupService = popupService;
+            $scope.search = {
+                keyword: ''
+            };
+            $scope.pages = [];
         }
         PageController.prototype.keywordCallback = function () { };
-        PageController.prototype.preview = function () {
+        PageController.prototype.preview = function (id) {
             this.$modal.open({
                 templateUrl: '/SeedModules.PageBuilder/modules/components/builder/preview.html',
                 size: 'lg'
@@ -17,6 +21,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
         };
         PageController.prototype.add = function () {
             this.$state.go('admin.pagebuilder_pageform');
+        };
+        PageController.prototype.edit = function (id) {
+            this.$state.go('admin.pagebuilder_pageform', { id: id });
         };
         PageController.prototype.drop = function () {
             this.popupService.confirm('是否删除？').ok(function () { });

@@ -1,26 +1,19 @@
 <div class="panel-group" id="{{pbtools.getId()}}" role="tablist" aria-multiselectable="true">
-    <div class="panel panel-default" role="tab">
+    <div class="panel panel-default" role="tab" ng-repeat="(key, value) in tools">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#{{pbtools.getId()}}" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    布局
+                <a role="button" data-toggle="collapse" data-parent="#{{pbtools.getId()}}" href="#{{pbtools.getCategoryId($id)}}" aria-expanded="true"
+                    aria-controls="{{pbtools.getCategoryId($id)}}">
+                    {{key}}
                 </a>
             </h4>
         </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel">
-            <div class="panel-body"></div>
+        <div id="{{pbtools.getCategoryId($id)}}" class="list-group panel-collapse collapse in" role="tabpanel">
+            <a href="" class="list-group-item">Cras justo odio</a>
+            <a href="" class="list-group-item">Dapibus ac facilisis in</a>
+            <a href="" class="list-group-item">Morbi leo risus</a>
+            <a href="" class="list-group-item">Porta ac consectetur ac</a>
+            <a href="" class="list-group-item">Vestibulum at eros</a>
         </div>
     </div>
-    <!-- <div class="panel panel-default">
-        <div class="panel-heading">
-            表单元素
-        </div>
-        <div class="panel-body"></div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            高级控件
-        </div>
-        <div class="panel-body"></div>
-    </div> -->
 </div>

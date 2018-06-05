@@ -8,24 +8,24 @@
             </button>
         </div>
     </form>
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row" ng-controller="SeedModules.PageBuilder/modules/controllers/pageCommon as pageCommon">
+        <div class="col-md-6" ng-repeat="pg in pages">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div>
                         <div class="pull-right">
                             <div class="btn-group btn-group-xs">
-                                <button class="btn btn-default">
+                                <button class="btn btn-default" ng-click="page.edit(pg.id)">
                                     <i class="glyphicon glyphicon-edit"></i>
                                     编辑
                                 </button>
-                                <button class="btn btn-default">
+                                <button class="btn btn-default" ng-click="page.prewiew(pg.id)">
                                     <i class="glyphicon glyphicon-eye-open"></i>
                                     预览
                                 </button>
                             </div>
                             <div class="btn-group btn-group-xs">
-                                <button class="btn btn-default">
+                                <button class="btn btn-default" ng-click="pageCommon.datasource(pg.id)">
                                     <i class="glyphicon glyphicon-oil"></i>
                                     数据源
                                 </button>

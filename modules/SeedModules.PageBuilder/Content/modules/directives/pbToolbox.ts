@@ -1,8 +1,16 @@
 import mod = require('SeedModules.PageBuilder/modules/module');
 
+interface IToolsScope extends ng.IScope {
+  tools: any;
+}
+
 class PbToolboxController {
   getId() {
     return 'pbtools_' + this.$scope.$id;
+  }
+
+  getCategoryId(id) {
+    return 'ptools_cate_' + id;
   }
 
   static $inject = [
@@ -10,10 +18,10 @@ class PbToolboxController {
     'SeedModules.PageBuilder/modules/providers/toolsBuilder'
   ];
   constructor(
-    private $scope: ng.IScope,
+    private $scope: IToolsScope,
     private toolsBuilder: PageBuilder.services.IToolsBuilderService
   ) {
-    console.log(toolsBuilder);
+    $scope.tools = toolsBuilder.getTools();
   }
 }
 

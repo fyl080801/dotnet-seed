@@ -5,10 +5,13 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
         function PbToolboxController($scope, toolsBuilder) {
             this.$scope = $scope;
             this.toolsBuilder = toolsBuilder;
-            console.log(toolsBuilder);
+            $scope.tools = toolsBuilder.getTools();
         }
         PbToolboxController.prototype.getId = function () {
             return 'pbtools_' + this.$scope.$id;
+        };
+        PbToolboxController.prototype.getCategoryId = function (id) {
+            return 'ptools_cate_' + id;
         };
         PbToolboxController.$inject = [
             '$scope',
