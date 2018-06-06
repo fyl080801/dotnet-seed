@@ -19,30 +19,67 @@
                     权限
                 </button>
             </div>
+            <button class="btn btn-primary">
+                <i class="glyphicon glyphicon-floppy-disk"></i>
+                保存
+            </button>
         </div>
     </div>
     <div class="seed-container" style="top: 130px">
         <div class="panel panel-default seed-container pb-container">
             <div pb-toolbox class="seed-container tools"></div>
             <div class="seed-container area">
-                <div class="navbar navbar-default navbar-static-top">
+                <div class="navbar navbar-default navbar-xs navbar-static-top">
                     <div class="container-fluid">
                         <ul class="navbar-nav nav navbar-right">
-                            <li>
-                                <a href="">
+                            <li class="active">
+                                <a href="#pb_des" aria-controls="pb_des" role="tab" data-toggle="tab">
                                     <i class="glyphicon glyphicon-edit"></i> 设计
                                 </a>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="#pb_pre" aria-controls="pb_pre" role="tab" data-toggle="tab">
                                     <i class="glyphicon glyphicon-eye-open"></i> 预览
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
+                <div class="tab-content seed-container" style="margin-top: 40px">
+                    <!--设计-->
+                    <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="pb_des">
+                        设计
+                    </div>
+                    <!--预览-->
+                    <div role="tabpanel" class="tab-pane seed-container" style="overflow: auto" id="pb_pre">
+                        预览
+                    </div>
+                </div>
             </div>
-            <div class="seed-container property"></div>
+            <div class="seed-container property">
+                <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
+                    <li class="text-center active">
+                        <a href="#cus_info" aria-controls="cus_info" role="tab" data-toggle="tab">
+                            控件
+                        </a>
+                    </li>
+                    <li class="text-center">
+                        <a href="#cus_tkg" aria-controls="cus_tkg" role="tab" data-toggle="tab">
+                            表单
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content seed-container" style="margin-top: 40px">
+                    <!--控件-->
+                    <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="cus_info">
+                        控件
+                    </div>
+                    <!--表单-->
+                    <div role="tabpanel" class="tab-pane seed-container" style="overflow: auto" id="cus_tkg">
+                        表单
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

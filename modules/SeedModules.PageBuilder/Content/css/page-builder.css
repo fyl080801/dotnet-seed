@@ -3,13 +3,13 @@
 }
 
 .pb-container .tools {
-  width: 260px;
+  width: 200px;
   padding: 5px;
   overflow: auto;
 }
 
 .pb-container .area {
-  margin-left: 260px;
+  margin-left: 200px;
   margin-right: 260px;
   border-left: solid 1px #ddd;
   border-right: solid 1px #ddd;

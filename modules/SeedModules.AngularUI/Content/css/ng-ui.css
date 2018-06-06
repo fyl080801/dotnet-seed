@@ -98,6 +98,10 @@ html {
   background-color: #62c6ad;
 }
 
+.navbar-xs {
+  min-height: 40px;
+}
+
 .navbar-skyblue {
   color: #fff;
   background-color: #62c6ad;
@@ -345,6 +349,7 @@ html {
 /* nav-swiper */
 
 .nav-swiper {
+  margin-top: 1px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -361,6 +366,7 @@ html {
 .nav-swiper.nav-justified {
   width: 100%;
   border-bottom: none;
+  margin-top: 0;
 }
 
 .nav-swiper.nav-justified > li {
@@ -368,11 +374,14 @@ html {
 }
 
 .nav-swiper.nav-justified > li > a {
-  line-height: 1.4;
   margin-right: 0;
 }
 
 @media (min-width: 768px) {
+  .navbar-xs .navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   .nav-swiper.nav-justified > li {
     display: table-cell;
     width: 1%;
