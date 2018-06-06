@@ -6,9 +6,20 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "rcss!/S
             this.$scope = $scope;
             this.$state = $state;
             this.$modal = $modal;
+            $scope.pagename = '';
+            $scope.form = [];
+            $scope.model = {};
+            $scope.schema = {
+                type: 'object',
+                properties: {}
+            };
+            $scope.options = {};
         }
         PageFormClass.prototype.back = function () {
             this.$state.go('admin.pagebuilder_page');
+        };
+        PageFormClass.prototype.refresh = function () {
+            this.$scope.$broadcast('schemaFormRedraw');
         };
         PageFormClass.$inject = ['$scope', '$state', '$modal'];
         return PageFormClass;

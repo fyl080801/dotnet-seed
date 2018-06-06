@@ -1,19 +1,18 @@
-<div class="panel-group" id="{{pbtools.getId()}}" role="tablist" aria-multiselectable="true">
+<div class="panel-group" id="{{vm.getId()}}" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default" role="tab" ng-repeat="(key, value) in tools">
         <div class="panel-heading">
             <h4 class="panel-title">
-                <a role="button" data-toggle="collapse" data-parent="#{{pbtools.getId()}}" href="#{{pbtools.getCategoryId($id)}}" aria-expanded="true"
-                    aria-controls="{{pbtools.getCategoryId($id)}}">
+                <a role="button" data-toggle="collapse" data-parent="#{{vm.getId()}}" href="#{{vm.getCategoryId($id)}}" aria-expanded="true"
+                    aria-controls="{{vm.getCategoryId($id)}}">
                     {{key}}
                 </a>
             </h4>
         </div>
-        <div id="{{pbtools.getCategoryId($id)}}" class="list-group panel-collapse collapse in" role="tabpanel">
-            <a href="" class="list-group-item">Cras justo odio</a>
-            <a href="" class="list-group-item">Dapibus ac facilisis in</a>
-            <a href="" class="list-group-item">Morbi leo risus</a>
-            <a href="" class="list-group-item">Porta ac consectetur ac</a>
-            <a href="" class="list-group-item">Vestibulum at eros</a>
+        <div id="{{vm.getCategoryId($id)}}" class="list-group panel-collapse collapse in" role="tabpanel">
+            <a href="" class="list-group-item" ng-repeat="val in value track by $index">
+                <i ng-class="vm.getIcon(val)"></i>
+                {{val.name}}
+            </a>
         </div>
     </div>
 </div>

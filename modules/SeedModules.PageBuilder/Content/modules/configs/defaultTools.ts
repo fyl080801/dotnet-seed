@@ -3,7 +3,24 @@ import boot = require('SeedModules.PageBuilder/modules/boot');
 let defaultTools = {
   布局: [
     {
-      name: '行'
+      name: '行',
+      icon: '',
+      type: 'row'
+    },
+    {
+      name: '面板',
+      icon: '',
+      type: 'panel'
+    },
+    {
+      name: '工具栏',
+      icon: '',
+      type: 'tools'
+    },
+    {
+      name: '选项卡',
+      icon: '',
+      type: 'tabs'
     }
   ]
 };

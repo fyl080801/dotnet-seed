@@ -1,0 +1,12 @@
+{
+  "configs": {
+    "angular-jsoneditor": {
+      "path": "SeedModules.PageBuilder/js/angular-jsoneditor",
+      "shim": {
+        "deps": [
+          "angular"
+        ]
+      }
+    }
+  }
+}

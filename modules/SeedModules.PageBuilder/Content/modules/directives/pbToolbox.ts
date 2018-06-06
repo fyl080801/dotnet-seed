@@ -13,6 +13,10 @@ class PbToolboxController {
     return 'ptools_cate_' + id;
   }
 
+  getIcon(tool) {
+    return tool.icon ? tool.icon : 'fas fa-file';
+  }
+
   static $inject = [
     '$scope',
     'SeedModules.PageBuilder/modules/providers/toolsBuilder'
@@ -30,7 +34,7 @@ function createPbToolbox(): ng.IDirective {
     replace: false,
     templateUrl: '/SeedModules.PageBuilder/modules/directives/pbToolbox.html',
     controller: PbToolboxController,
-    controllerAs: 'pbtools'
+    controllerAs: 'vm'
   };
 }
 

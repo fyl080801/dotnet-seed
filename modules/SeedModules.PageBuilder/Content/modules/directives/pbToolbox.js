@@ -13,6 +13,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
         PbToolboxController.prototype.getCategoryId = function (id) {
             return 'ptools_cate_' + id;
         };
+        PbToolboxController.prototype.getIcon = function (tool) {
+            return tool.icon ? tool.icon : 'fas fa-file';
+        };
         PbToolboxController.$inject = [
             '$scope',
             'SeedModules.PageBuilder/modules/providers/toolsBuilder'
@@ -24,7 +27,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
             replace: false,
             templateUrl: '/SeedModules.PageBuilder/modules/directives/pbToolbox.html',
             controller: PbToolboxController,
-            controllerAs: 'pbtools'
+            controllerAs: 'vm'
         };
     }
     mod.directive('pbToolbox', createPbToolbox);

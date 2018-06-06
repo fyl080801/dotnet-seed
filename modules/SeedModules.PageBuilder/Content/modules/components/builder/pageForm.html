@@ -1,10 +1,18 @@
 <div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm as pageForm">
     <div style="margin-bottom: 20px">
-        <button class="btn btn-default" ng-click="pageForm.back()">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            返回
-        </button>
+        <form class="form-inline pull-left" name="theform">
+            <button class="btn btn-default" ng-click="pageForm.back()">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                返回
+            </button>
+            <div class="form-group" ng-class="{'has-error':theform.pagename.$invalid}">
+                <input type="text" name="pagename" ng-model="pagename" class="form-control" placeholder="页面名称" required>
+            </div>
+        </form>
         <div class="pull-right">
+            <button class="btn btn-default" ng-click="pageForm.refresh()">
+                刷新
+            </button>
             <div class="btn-group" ng-controller="SeedModules.PageBuilder/modules/controllers/pageCommon as pageCommon">
                 <button class="btn btn-default">
                     <i class="glyphicon glyphicon-oil"></i>
@@ -19,7 +27,7 @@
                     权限
                 </button>
             </div>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" ng-disabled="theform.$invalid">
                 <i class="glyphicon glyphicon-floppy-disk"></i>
                 保存
             </button>
@@ -48,11 +56,12 @@
                 <div class="tab-content seed-container" style="margin-top: 40px">
                     <!--设计-->
                     <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="pb_des">
-                        设计
+                        <!-- <div pb-designer pb-form="form"></div> -->
+                        <!-- <angular-jsoneditor ng-model="form" options="options" style="width: 100%;"></angular-jsoneditor> -->
                     </div>
                     <!--预览-->
-                    <div role="tabpanel" class="tab-pane seed-container" style="overflow: auto" id="pb_pre">
-                        预览
+                    <div role="tabpanel" class="tab-pane seed-container" style="padding: 15px; overflow: auto" id="pb_pre">
+                        <form name="theForm" sf-schema="schema" sf-form="form" sf-options="options" sf-model="model"></form>
                     </div>
                 </div>
             </div>
