@@ -1,11 +1,13 @@
 import mod = require('SeedModules.PageBuilder/modules/module');
 import 'rcss!/SeedModules.PageBuilder/css/page-builder.css';
+import { SchemaTypes } from 'SeedModules.PageBuilder/modules/configs/enums/schemaTypes';
+import { DefaultFormTypes } from 'SeedModules.PageBuilder/modules/configs/enums/defaultFormTypes';
 
 interface IPageFormScope extends ng.IScope {
   pagename: string;
-  form: Array<any>;
-  schema: any;
-  options: any;
+  form: Array<PageBuilder.SchemaForm.fields.IField | string>;
+  schema: PageBuilder.SchemaForm.ISchema;
+  options: PageBuilder.SchemaForm.IOptions;
   model: any;
 }
 
@@ -25,10 +27,19 @@ class PageFormClass {
     private $modal: ng.ui.bootstrap.IModalService
   ) {
     $scope.pagename = '';
-    $scope.form = [];
+    $scope.form = [
+      {
+        key: 'aaa',
+        type: DefaultFormTypes.text,
+        title: 'aaaa'
+      },
+      {
+        key: ''
+      }
+    ];
     $scope.model = {};
     $scope.schema = {
-      type: 'object',
+      type: SchemaTypes.object,
       properties: {}
     };
     $scope.options = {};

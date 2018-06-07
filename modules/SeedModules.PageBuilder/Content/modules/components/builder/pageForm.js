@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/module", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedModules.PageBuilder/modules/configs/enums/schemaTypes", "SeedModules.PageBuilder/modules/configs/enums/defaultFormTypes", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod, schemaTypes_1, defaultFormTypes_1) {
     "use strict";
     exports.__esModule = true;
     var PageFormClass = (function () {
@@ -7,10 +7,19 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "rcss!/S
             this.$state = $state;
             this.$modal = $modal;
             $scope.pagename = '';
-            $scope.form = [];
+            $scope.form = [
+                {
+                    key: 'aaa',
+                    type: defaultFormTypes_1.DefaultFormTypes.text,
+                    title: 'aaaa'
+                },
+                {
+                    key: ''
+                }
+            ];
             $scope.model = {};
             $scope.schema = {
-                type: 'object',
+                type: schemaTypes_1.SchemaTypes.object,
                 properties: {}
             };
             $scope.options = {};
