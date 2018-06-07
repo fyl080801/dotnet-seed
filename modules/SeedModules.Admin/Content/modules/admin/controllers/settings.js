@@ -1,4 +1,4 @@
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "SeedModules.Admin/modules/admin/module"], function (require, exports, mod) {
     "use strict";
     exports.__esModule = true;
     var SettingsController = (function () {
@@ -14,6 +14,6 @@ define(["require", "exports"], function (require, exports) {
         ];
         return SettingsController;
     }());
-    exports.SettingsController = SettingsController;
+    mod.controller('SeedModules.Admin/modules/admin/controllers/settings', SettingsController);
 });
 //# sourceMappingURL=settings.js.map

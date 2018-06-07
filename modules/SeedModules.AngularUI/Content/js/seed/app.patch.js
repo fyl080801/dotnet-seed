@@ -2232,11 +2232,14 @@ define('respond', [], function () {
     return;
 });
 define('app/patch', [
+    'require',
+    'exports',
     'es5-shim',
     'es5-sham',
     'html5shiv',
     'json2',
     'respond'
-], function () {
+], function (require, exports) {
     'use strict';
+    exports.__esModule = true;
 });

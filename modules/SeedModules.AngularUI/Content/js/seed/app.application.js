@@ -8442,8 +8442,14 @@
 define('angular-base', [], function () {
     return;
 });
-define('angular', ['angular-base'], function () {
-    return window.angular;
+define('angular', [
+    'require',
+    'exports',
+    'angular-base'
+], function (require, exports) {
+    'use strict';
+    var ng = window['angular'];
+    return ng;
 });
 define('rcss', [], function () {
     if (typeof window == 'undefined')
@@ -16792,6 +16798,8 @@ define('angular-cookies', [], function () {
     return;
 });
 define('app/boot', [
+    'require',
+    'exports',
     'angular',
     'rcss',
     'jquery',
@@ -16800,15 +16808,20 @@ define('app/boot', [
     'angular-ui-router',
     'angular-sanitize',
     'angular-cookies'
-], function (angular) {
+], function (require, exports, angular) {
     'use strict';
     return angular.module('app.boot', [
         'ui.router',
         'ui.bootstrap'
     ]);
 });
-define('app/configs/appConfig', ['app/boot'], function (boot) {
+define('app/configs/appConfig', [
+    'require',
+    'exports',
+    'app/boot'
+], function (require, exports, boot) {
     'use strict';
+    exports.__esModule = true;
     boot.config([
         '$provide',
         function ($provide) {
@@ -16822,9 +16835,11 @@ define('app/configs/appConfig', ['app/boot'], function (boot) {
 });
 define('app/configs/dependencyLoader', [
     'require',
+    'exports',
     'app/boot'
-], function (require, boot) {
+], function (require, exports, boot) {
     'use strict';
+    exports.__esModule = true;
     boot.config([
         '$stateProvider',
         function ($stateProvider) {
@@ -16833,61 +16848,74 @@ define('app/configs/dependencyLoader', [
                 var lazyArray = config.requires ? config.requires : config.dependencies ? config.dependencies : [];
                 if (lazyArray.length > 0) {
                     var resolve = config.resolve || {};
-                    resolve.$deps = resolveDependencies(lazyArray);
+                    resolve.$deps = [
+                        '$q',
+                        function ($q) {
+                            var defer = $q.defer();
+                            require(typeof lazyArray === 'string' ? [lazyArray] : lazyArray, function () {
+                                defer.resolve(arguments);
+                            });
+                            return defer.promise;
+                        }
+                    ];
                     config.resolve = resolve;
                 }
                 return stateFn(state, config);
             };
-            function resolveDependencies(dependencies) {
-                if (typeof dependencies === 'string') {
-                    dependencies = [dependencies];
-                }
-                return [
-                    '$q',
-                    function ($q) {
-                        var defer = $q.defer();
-                        require(dependencies, function () {
-                            defer.resolve(arguments);
-                        });
-                        return defer.promise;
-                    }
-                ];
-            }
         }
     ]);
 });
-define('app/configs/appEnvironment', ['app/boot'], function (boot) {
+define('app/configs/appEnvironment', [
+    'require',
+    'exports',
+    'app/boot'
+], function (require, exports, boot) {
     'use strict';
-    boot.config([
-        '$provide',
-        function ($provide) {
-            $provide.constant('$appEnvironment', {
-                ajaxState: {
-                    loading: false,
-                    url: null,
-                    method: null,
-                    data: null
-                },
-                theme: null
-            });
+    exports.__esModule = true;
+    var AjaxState = function () {
+        function AjaxState() {
+            this.loading = false;
         }
-    ]);
+        return AjaxState;
+    }();
+    var AppEnvironment = function () {
+        function AppEnvironment() {
+            this.ajaxState = new AjaxState();
+        }
+        return AppEnvironment;
+    }();
+    var AppEnvironmentConfig = function () {
+        function AppEnvironmentConfig($provide) {
+            $provide.constant('$appEnvironment', new AppEnvironment());
+        }
+        return AppEnvironmentConfig;
+    }();
+    AppEnvironmentConfig.$inject = ['$provide'];
+    boot.config(AppEnvironmentConfig);
 });
-define('app/configs/rootScope', ['app/boot'], function (boot) {
+define('app/configs/rootScope', [
+    'require',
+    'exports',
+    'app/boot'
+], function (require, exports, boot) {
     'use strict';
-    boot.config([
-        '$provide',
-        function ($provide) {
-            $provide.decorator('$rootScope', [
+    exports.__esModule = true;
+    var ConfigClass = function () {
+        function ConfigClass($provide) {
+            ConfigClass.decorator.$inject = [
                 '$delegate',
-                '$appEnvironment',
-                function ($delegate, $appEnvironment) {
-                    $delegate.$appEnvironment = $appEnvironment;
-                    return $delegate;
-                }
-            ]);
+                '$appEnvironment'
+            ];
+            $provide.decorator('$rootScope', ConfigClass.decorator);
         }
-    ]);
+        ConfigClass.decorator = function ($delegate, $appEnvironment) {
+            $delegate.$appEnvironment = $appEnvironment;
+            return $delegate;
+        };
+        return ConfigClass;
+    }();
+    ConfigClass.$inject = ['$provide'];
+    boot.config(ConfigClass);
 });
 define('app/configs/modal', ['app/boot'], function (boot) {
     'use strict';
@@ -16934,11 +16962,15 @@ define('app/configs/modal', ['app/boot'], function (boot) {
         }
     ]);
 });
-define('app/configs/http', ['app/boot'], function (boot) {
+define('app/configs/http', [
+    'require',
+    'exports',
+    'app/boot'
+], function (require, exports, boot) {
     'use strict';
-    boot.config([
-        '$httpProvider',
-        function ($httpProvider) {
+    exports.__esModule = true;
+    var HttpConfig = function () {
+        function HttpConfig($httpProvider) {
             $httpProvider.defaults.headers.get = !$httpProvider.defaults.headers.get ? {} : $httpProvider.defaults.headers.get;
             $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
             $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
@@ -16946,15 +16978,20 @@ define('app/configs/http', ['app/boot'], function (boot) {
             $httpProvider.interceptors.push('app/factories/httpState');
             jQuery.support.cors = true;
         }
-    ]);
+        return HttpConfig;
+    }();
+    HttpConfig.$inject = ['$httpProvider'];
+    boot.config(HttpConfig);
 });
-define('app/configs/run', ['app/boot'], function (boot) {
+define('app/configs/route', [
+    'require',
+    'exports',
+    'app/boot'
+], function (require, exports, boot) {
     'use strict';
-    boot.run([
-        '$rootScope',
-        '$state',
-        '$stateParams',
-        function ($rootScope, $state, $stateParams) {
+    exports.__esModule = true;
+    var RouteRun = function () {
+        function RouteRun($rootScope, $state, $stateParams) {
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -16965,10 +17002,17 @@ define('app/configs/run', ['app/boot'], function (boot) {
             });
             $state.back = function () {
                 if ($rootScope.$previous)
-                    $state.go($rootScope.$previous.name, $rootScope.$previousParams);
+                    return $state.go($rootScope.$previous.name, $rootScope.$previousParams);
             };
         }
-    ]);
+        return RouteRun;
+    }();
+    RouteRun.$inject = [
+        '$rootScope',
+        '$state',
+        '$stateParams'
+    ];
+    boot.run(RouteRun);
 });
 define('app/factories/httpState', ['app/boot'], function (boot) {
     'use strict';
@@ -17243,6 +17287,121 @@ define('app/services/popupService', ['app/boot'], function (boot) {
         }
     ]);
 });
+define('app/services/treeUtility', [
+    'require',
+    'exports',
+    'app/boot',
+    'angular'
+], function (require, exports, boot, angular) {
+    'use strict';
+    exports.__esModule = true;
+    var TreeContext = function () {
+        function TreeContext(defer) {
+            this.defer = defer;
+            this.result = this.defer.promise;
+        }
+        TreeContext.prototype.onEach = function (fn) {
+            this.eachCallback = fn;
+            return this;
+        };
+        return TreeContext;
+    }();
+    var TreeConvertContext = function () {
+        function TreeConvertContext(defer) {
+            this.defer = defer;
+            this._key = 'id';
+            this._parentKey = 'parentId';
+            this.result = this.defer.promise;
+        }
+        TreeConvertContext.prototype.key = function (name) {
+            if (name) {
+                this._key = name;
+                return this;
+            }
+            return this._key;
+        };
+        TreeConvertContext.prototype.parentKey = function (name) {
+            if (name) {
+                this._parentKey = name;
+                return this;
+            }
+            return this._parentKey;
+        };
+        TreeConvertContext.prototype.onEach = function (fn) {
+            this.eachCallback = fn;
+            return this;
+        };
+        return TreeConvertContext;
+    }();
+    var TreeUtility = function () {
+        function TreeUtility($q, $timeout) {
+            this.$q = $q;
+            this.$timeout = $timeout;
+        }
+        TreeUtility.prototype.convertToTree = function (data, context) {
+            var map = {};
+            data.forEach(function (item, idx, arr) {
+                var current = arr[idx];
+                map[current[context.key()]] = {
+                    $data: current,
+                    $key: current[context.key()]
+                };
+            });
+            var root = {
+                $data: null,
+                $key: null,
+                $children: []
+            };
+            for (var key in map) {
+                var current = map[key];
+                var parent_1 = map[current.$data[context.parentKey()]];
+                if (parent_1) {
+                    current.$parent = parent_1;
+                    (parent_1.$children || (parent_1.$children = [])).push(current);
+                } else {
+                    current.$parent = root;
+                    root.$children.push(current);
+                }
+                (context.eachCallback || angular.noop)(current);
+            }
+            return root;
+        };
+        TreeUtility.prototype.doEachTree = function (root, context) {
+            var self = this;
+            root.$children.forEach(function (item) {
+                (context.eachCallback || angular.noop)(item);
+                if (item.$children) {
+                    self.doEachTree(item, context);
+                }
+            });
+        };
+        TreeUtility.prototype.toTree = function (data) {
+            var self = this;
+            var defer = this.$q.defer();
+            var context = new TreeConvertContext(defer);
+            this.$timeout(function () {
+                defer.resolve(self.convertToTree(data, context));
+            });
+            return context;
+        };
+        TreeUtility.prototype.eachTree = function (root) {
+            var self = this;
+            var defer = this.$q.defer();
+            var context = new TreeContext(defer);
+            this.$timeout(function () {
+                self.doEachTree(root, context);
+                defer.resolve(root);
+            });
+            return context;
+        };
+        TreeUtility.$inject = [
+            '$q',
+            '$timeout'
+        ];
+        return TreeUtility;
+    }();
+    boot.service('app/services/treeUtility', TreeUtility);
+});
 define('app/directives/title', ['app/boot'], function (boot) {
     'use strict';
     boot.directive('title', [
@@ -17312,6 +17471,8 @@ define('app/directives/equals', ['app/boot'], function (boot) {
         }]);
 });
 define('app/application', [
+    'require',
+    'exports',
     'angular',
     'app/configs/appConfig',
     'app/configs/dependencyLoader',
@@ -17319,16 +17480,17 @@ define('app/application', [
     'app/configs/rootScope',
     'app/configs/modal',
     'app/configs/http',
-    'app/configs/run',
+    'app/configs/route',
     'app/factories/httpState',
     'app/factories/httpDataHandler',
     'app/services/ajaxService',
     'app/services/httpService',
     'app/services/popupService',
+    'app/services/treeUtility',
     'app/directives/title',
     'app/directives/theme',
     'app/directives/equals'
-], function (angular) {
+], function (require, exports, angular) {
     'use strict';
     var application = angular.module('app.application', ['app.boot']);
     var fn = angular.module;

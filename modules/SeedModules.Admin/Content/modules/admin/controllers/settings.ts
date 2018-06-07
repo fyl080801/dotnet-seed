@@ -1,11 +1,11 @@
-import { schemaFormParamsFactory } from 'SeedModules.AngularUI/modules/factories/schemaFormParams';
+import mod = require('SeedModules.Admin/modules/admin/module');
 
 interface ISettingsScope extends ng.IScope {
   formParams;
   form: Array<any>;
 }
 
-export class SettingsController {
+class SettingsController {
   static $inject = [
     '$scope',
     'SeedModules.AngularUI/modules/factories/schemaFormParams'
@@ -15,3 +15,8 @@ export class SettingsController {
     $scope.form = [];
   }
 }
+
+mod.controller(
+  'SeedModules.Admin/modules/admin/controllers/settings',
+  SettingsController
+);
