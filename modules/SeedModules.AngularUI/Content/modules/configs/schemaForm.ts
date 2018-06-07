@@ -3,7 +3,7 @@ import angular = require('angular');
 
 class SchemaFormClass {
   constructor(
-    schemaFormDecoratorsProvider,
+    schemaFormDecoratorsProvider: AngularUI.SchemaForm.ISchemaFormDecoratorsProvider,
     schemaFormProvider,
     sfBuilderProvider,
     sfPathProvider

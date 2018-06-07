@@ -7,6 +7,7 @@ import 'SeedModules.AngularUI/modules/configs/ngTableTemplates';
 import 'SeedModules.AngularUI/modules/configs/schemaForm';
 import 'SeedModules.AngularUI/modules/configs/form/simplecolor';
 import 'SeedModules.AngularUI/modules/configs/form/switchField';
+import 'SeedModules.AngularUI/modules/configs/form/row';
 import 'SeedModules.AngularUI/modules/providers/ngTableDefaultGetData';
 import schemaFormDefaults = require('SeedModules.AngularUI/modules/configs/schemaFormDefaults');
 

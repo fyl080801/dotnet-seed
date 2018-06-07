@@ -1,44 +1,29 @@
-define([
-  'SeedModules.AngularUI/modules/configs',
-  'schema-form-bootstrap'
-], function(configs) {
-  'use strict';
-
-  angular.module('schemaForm').config([
-    'schemaFormDecoratorsProvider',
-    'schemaFormProvider',
-    'sfBuilderProvider',
-    'sfPathProvider',
-    function(
-      schemaFormDecoratorsProvider,
-      schemaFormProvider,
-      sfBuilderProvider,
-      sfPathProvider
-    ) {
-      var base = '/SeedModules.AngularUI/modules/templates/';
-
-      var switchField = function(name, schema, options) {
-        if (schema.type === 'boolean' && schema.format == 'html') {
-          var f = schemaFormProvider.stdFormObj(name, schema, options);
-          f.key = options.path;
-          f.type = 'switch';
-          options.lookup[sfPathProvider.stringify(options.path)] = f;
-          return f;
+define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules.AngularUI/modules/configs/form/extendFormFields"], function (require, exports, boot, extendFormFields_1) {
+    "use strict";
+    exports.__esModule = true;
+    var SwitchFieldConfig = (function () {
+        function SwitchFieldConfig(schemaFormDecoratorsProvider, schemaFormProvider, sfPathProvider) {
+            var base = '/SeedModules.AngularUI/modules/templates/';
+            var switchField = function (name, schema, options) {
+                if (schema.type === 'boolean' && schema.format == 'html') {
+                    var f = schemaFormProvider.stdFormObj(name, schema, options);
+                    f.key = options.path;
+                    f.type = extendFormFields_1.ExtendFormFields["switch"];
+                    options.lookup[sfPathProvider.stringify(options.path)] = f;
+                    return f;
+                }
+            };
+            schemaFormProvider.defaults.boolean.push(switchField);
+            schemaFormDecoratorsProvider.addMapping('bootstrapDecorator', extendFormFields_1.ExtendFormFields["switch"], base + 'switchField.html');
+            schemaFormDecoratorsProvider.createDirective(extendFormFields_1.ExtendFormFields["switch"], base + 'switchField.html');
         }
-      };
-
-      schemaFormProvider.defaults.boolean.push(switchField);
-
-      schemaFormDecoratorsProvider.addMapping(
-        'bootstrapDecorator',
-        'switch',
-        base + 'switchField.html'
-      );
-
-      schemaFormDecoratorsProvider.createDirective(
-        'switch',
-        base + 'switchField.html'
-      );
-    }
-  ]);
+        SwitchFieldConfig.$inject = [
+            'schemaFormDecoratorsProvider',
+            'schemaFormProvider',
+            'sfPathProvider'
+        ];
+        return SwitchFieldConfig;
+    }());
+    boot.config(SwitchFieldConfig);
 });
+//# sourceMappingURL=switchField.js.map

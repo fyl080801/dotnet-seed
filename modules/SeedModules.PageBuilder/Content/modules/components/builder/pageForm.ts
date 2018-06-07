@@ -2,12 +2,13 @@ import mod = require('SeedModules.PageBuilder/modules/module');
 import 'rcss!/SeedModules.PageBuilder/css/page-builder.css';
 import { SchemaTypes } from 'SeedModules.PageBuilder/modules/configs/enums/schemaTypes';
 import { DefaultFormTypes } from 'SeedModules.PageBuilder/modules/configs/enums/defaultFormTypes';
+import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/form/extendFormFields';
 
 interface IPageFormScope extends ng.IScope {
   pagename: string;
-  form: Array<PageBuilder.SchemaForm.fields.IField | string>;
-  schema: PageBuilder.SchemaForm.ISchema;
-  options: PageBuilder.SchemaForm.IOptions;
+  form: Array<AngularUI.SchemaForm.fields.FieldTypes | string>;
+  schema: AngularUI.SchemaForm.ISchema;
+  options: AngularUI.SchemaForm.IOptions;
   model: any;
 }
 
@@ -28,19 +29,28 @@ class PageFormClass {
   ) {
     $scope.pagename = '';
     $scope.form = [
-      {
-        key: 'aaa',
-        type: DefaultFormTypes.text,
-        title: 'aaaa'
-      },
-      {
-        key: ''
-      }
+      // {
+      //   type: ExtendFormFields.row,
+      //   columns: [
+      //     {
+      //       flex: '6',
+      //       items: [
+      //         {
+      //           key: ['aaa'],
+      //           type: DefaultFormTypes.text,
+      //           title: 'aaaa'
+      //         }
+      //       ]
+      //     }
+      //   ]
+      // }
     ];
     $scope.model = {};
     $scope.schema = {
       type: SchemaTypes.object,
-      properties: {}
+      properties: {
+        //aaa: { type: 'string' }
+      }
     };
     $scope.options = {};
   }
