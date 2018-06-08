@@ -40,7 +40,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               showLoading: false
             })
             .get()
-            .then(function(result) {
+            .result.then(function(result) {
               utility
                 .toTree(result)
                 .key('id')
@@ -70,7 +70,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               requestService
                 .url('/api/mindplus/workitem')
                 .post(data)
-                .then(function(result) {
+                .result.then(function(result) {
                   $scope.load();
                 });
             });

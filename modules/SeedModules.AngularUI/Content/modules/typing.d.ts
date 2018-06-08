@@ -5,6 +5,12 @@ export as namespace AngularUI;
 export = AngularUI;
 
 declare namespace AngularUI {
+  export namespace configs {
+    export interface ISeedAppConfig extends app.IAppConfig {
+      siteSettings: any;
+    }
+  }
+
   export namespace factories {
     export interface INgTableColumn {
       class(): string;
@@ -14,6 +20,33 @@ declare namespace AngularUI {
       show(): boolean;
       title(): string;
       titleAlt(): string;
+    }
+  }
+
+  export namespace services {
+    export interface IRequestService {
+      url(url: string): IWebApiContext;
+    }
+
+    export interface IWebApiContext extends IWebApi {
+      options(options: IRequestOptions): IWebApi;
+    }
+
+    export interface IRequestOptions extends ng.IRequestConfig {
+      showLoading?: boolean;
+    }
+
+    export interface IWebApi {
+      get<TOutput>(): IRequestContext<TOutput>;
+      post<TOutput>(data?: any): IRequestContext<TOutput>;
+      put<TOutput>(data?: any): IRequestContext<TOutput>;
+      patch<TOutput>(data?: any): IRequestContext<TOutput>;
+      drop<TOutput>(): IRequestContext<TOutput>;
+    }
+
+    export interface IRequestContext<TOutput> {
+      cancel();
+      result: ng.IPromise<TOutput>;
     }
   }
 

@@ -4,8 +4,8 @@ class LoginController {
   login() {
     this.requestService
       .url('/api/account/login?ReturnUrl=' + this.$location.search().ReturnUrl)
-      .post(this.$scope.data)
-      .then(function(result) {
+      .post<any>(this.$scope.data)
+      .result.then(result => {
         if (result.success) {
           window.location = result.returnUrl;
         }
@@ -21,7 +21,7 @@ class LoginController {
   constructor(
     private $scope,
     private $location: ng.ILocationService,
-    private requestService
+    private requestService: AngularUI.services.IRequestService
   ) {
     $scope.data = {};
   }

@@ -308,7 +308,7 @@ define(['SeedModules.Saas/modules/module'], function(module) {
             requestService
               .url('/api/tenant/info')
               .post(data)
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.tableParams.reload();
               });
           });

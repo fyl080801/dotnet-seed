@@ -20,7 +20,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               .url('/api/mindplus/workitem/' + scope.workItem.id + '/content')
               .options({ showLoading: false })
               .get()
-              .then(function(result) {
+              .result.then(function(result) {
                 if (result.content && result.content !== '') {
                   scope.status = 'show';
                 } else {

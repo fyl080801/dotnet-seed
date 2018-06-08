@@ -45,7 +45,7 @@ define(['SeedModules.MindPlus/modules/mind/module'], function(module) {
             showLoading: false
           })
           .get()
-          .then(function(result) {
+          .result.then(function(result) {
             $scope.mind = result;
             $scope.minderInstance.getRoot().setText(result.name);
             $scope.minderInstance.refresh();

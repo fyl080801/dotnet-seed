@@ -58,7 +58,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               showLoading: false
             })
             .get()
-            .then(function(result) {
+            .result.then(function(result) {
               $scope.workitems = result;
             });
         };
@@ -79,7 +79,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               requestService
                 .url('/api/mindplus/workitem')
                 .post(data)
-                .then(function(result) {
+                .result.then(function(result) {
                   $scope.loadWorkItems();
                 });
             });
@@ -90,7 +90,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             .url('/api/mindplus/works/' + $stateParams.id + '/status')
             .options({ showLoading: false })
             .get()
-            .then(function(result) {
+            .result.then(function(result) {
               $scope.status = result;
             });
         };
@@ -117,7 +117,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               requestService
                 .url('/api/mindplus/works/' + $stateParams.id + '/status')
                 .post(data)
-                .then(function(result) {
+                .result.then(function(result) {
                   $scope.loadStatus();
                 });
             });
@@ -146,7 +146,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               requestService
                 .url('/api/mindplus/works/status')
                 .put(data)
-                .then(function(result) {
+                .result.then(function(result) {
                   $scope.loadStatus();
                 });
             });
@@ -157,7 +157,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             requestService
               .url('/api/mindplus/works/status/' + item.id)
               .drop()
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.loadStatus();
               });
           });

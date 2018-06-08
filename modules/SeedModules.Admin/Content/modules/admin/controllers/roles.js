@@ -70,7 +70,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
             showLoading: false
           })
           .get()
-          .then(function(result) {
+          .result.then(function(result) {
             $scope.roles = result;
           });
       };
@@ -99,7 +99,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
             requestService
               .url('/api/admin/roles')
               .post(data)
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.loadRoles();
               });
           });
@@ -110,7 +110,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
           requestService
             .url('/api/admin/roles/' + $scope.currentRole.id)
             .drop()
-            .then(function(result) {
+            .result.then(function(result) {
               $scope.currentRole = null;
               $scope.loadRoles();
             });
@@ -143,7 +143,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
                   (data.displayName || '')
               )
               .patch()
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.loadRoles();
               });
           });
@@ -175,7 +175,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
               .post({
                 members: postdata
               })
-              .then(function(result) {
+              .result.then(function(result) {
                 if ($scope.tableParams) {
                   $scope.tableParams.reload();
                 }
@@ -206,7 +206,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
             .patch({
               members: postdata
             })
-            .then(function(result) {
+            .result.then(function(result) {
               if ($scope.tableParams) {
                 $scope.tableParams.reload();
               }
@@ -237,7 +237,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
           .url('/api/admin/roles/' + role.id + '/permission')
           .options({ showLoading: false })
           .get()
-          .then(function(result) {
+          .result.then(function(result) {
             $scope.permissions = result.permissions;
             $scope.roleEnables = result.enables;
           });

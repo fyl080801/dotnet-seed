@@ -12,7 +12,7 @@ define(['SeedModules.InPathTest/modules/module'], function(module) {
         requestService
           .url('/api/account/login?ReturnUrl=' + $location.search().ReturnUrl)
           .post($scope.data)
-          .then(function(result) {
+          .result.then(function(result) {
             window.location = result.returnUrl;
           });
       };

@@ -21,7 +21,7 @@ define(['SeedModules.AngularUI/modules/module'], function(module) {
           .url(urlString)
           .options(requestOptions)
           .post($.extend({}, requestOptions.data))
-          .then(
+          .result.then(
             function(result) {
               if (result && result.total) params.total(result.total);
               return result.list;

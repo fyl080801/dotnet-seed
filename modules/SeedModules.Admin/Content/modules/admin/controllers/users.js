@@ -114,9 +114,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
         }
       ];
 
-      $scope.keywordCallback = function() {
-        
-      };
+      $scope.keywordCallback = function() {};
 
       $scope.create = function() {
         $modal
@@ -133,7 +131,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
             requestService
               .url('/api/admin/users')
               .post(data)
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.tableParams.reload();
               });
           });
@@ -167,7 +165,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
             requestService
               .url('/api/admin/users/password/' + row.id)
               .patch(data)
-              .then(function(result) {
+              .result.then(function(result) {
                 popupService.information('重置成功');
               });
           });
@@ -178,7 +176,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
           requestService
             .url('/api/admin/users/' + row.id)
             .drop()
-            .then(function(result) {
+            .result.then(function(result) {
               $scope.tableParams.reload();
             });
         });

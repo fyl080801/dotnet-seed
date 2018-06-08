@@ -1,7 +1,7 @@
 <div ng-controller="SeedModules.Features/modules/controllers/features" ng-init="load()">
     <div class="navbar navbar-default">
         <div class="navbar-header navbar-form">
-            <div trigger-input ng-model="keyword" mark="'关键字...'" callback="keywordCallback()"></div>
+            <div trigger-input ng-model="keyword" mark="'关键字...'" callback="load()" canceling="cancelLoad()"></div>
         </div>
         <div class="container-fluid">
             <div class="navbar-form navbar-right">

@@ -46,7 +46,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               )
               .options({ showLoading: false })
               .patch()
-              .then(function() {});
+              .result.then(function() {});
           };
 
           item.titleKeyDown = function(target) {
@@ -142,7 +142,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               )
               .options({ showLoading: false })
               .patch()
-              .then(function() {
+              .result.then(function() {
                 arr[preIndex].children = arr[preIndex].children || [];
                 arr.splice(itemIndex, 1);
                 item.$parent = arr[preIndex];
@@ -197,7 +197,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               .url('/api/mindplus/workitem/parents')
               .options({ showLoading: false })
               .patch(changes)
-              .then(function() {
+              .result.then(function() {
                 if (afters.length > 0) {
                   item.children = item.children || [];
                   for (var i in afters) {

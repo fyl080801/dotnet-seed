@@ -42,7 +42,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               showLoading: false
             })
             .get()
-            .then(function(result) {
+            .result.then(function(result) {
               for (var idx in result) {
                 result[idx].children = result[idx].isFolder ? [] : null;
               }

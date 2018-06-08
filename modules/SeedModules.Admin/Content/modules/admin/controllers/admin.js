@@ -71,7 +71,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
               dataOnly: true
             })
             .post()
-            .then(function() {
+            .result.then(function() {
               $window.location.reload();
             });
         });
@@ -94,7 +94,7 @@ define(['SeedModules.Admin/modules/admin/module'], function(module) {
             requestService
               .url('/api/admin/users/password')
               .patch(data)
-              .then(function() {
+              .result.then(function() {
                 popupService.information('修改成功');
               });
           });

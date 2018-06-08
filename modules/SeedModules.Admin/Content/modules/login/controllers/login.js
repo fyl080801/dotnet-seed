@@ -12,7 +12,7 @@ define(["require", "exports", "SeedModules.Admin/modules/login/module"], functio
             this.requestService
                 .url('/api/account/login?ReturnUrl=' + this.$location.search().ReturnUrl)
                 .post(this.$scope.data)
-                .then(function (result) {
+                .result.then(function (result) {
                 if (result.success) {
                     window.location = result.returnUrl;
                 }

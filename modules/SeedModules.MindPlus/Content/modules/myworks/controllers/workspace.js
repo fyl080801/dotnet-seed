@@ -89,7 +89,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
               showLoading: false
             })
             .get()
-            .then(function(result) {
+            .result.then(function(result) {
               $scope.current = result;
               $appEnvironment.currentWork = result;
             });

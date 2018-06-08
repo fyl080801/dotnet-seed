@@ -17014,79 +17014,75 @@ define('app/configs/route', [
     ];
     boot.run(RouteRun);
 });
-define('app/factories/httpState', ['app/boot'], function (boot) {
+define('app/factories/httpState', [
+    'require',
+    'exports',
+    'app/boot'
+], function (require, exports, boot) {
     'use strict';
-    boot.factory('app/factories/httpState', [
-        '$q',
-        '$appEnvironment',
-        function ($q, $appEnvironment) {
-            return {
-                request: function (configs) {
-                    $appEnvironment.ajaxState = {
-                        loading: true,
-                        url: configs.url,
-                        method: configs.method,
-                        data: configs.data
-                    };
-                    return configs;
-                },
-                requestError: function (err) {
-                    $appEnvironment.ajaxState = {
-                        loading: false,
-                        url: null,
-                        method: null,
-                        data: null
-                    };
-                    return err;
-                },
-                response: function (response) {
-                    $appEnvironment.ajaxState = {
-                        loading: false,
-                        url: null,
-                        method: null,
-                        data: null
-                    };
-                    return response;
-                },
-                responseError: function (err) {
-                    $appEnvironment.ajaxState = {
-                        loading: false,
-                        url: null,
-                        method: null,
-                        data: null
-                    };
-                    return err;
-                }
-            };
-        }
-    ]);
+    exports.__esModule = true;
+    function factory($appEnvironment) {
+        return {
+            request: function (config) {
+                $appEnvironment.ajaxState.loading = true;
+                $appEnvironment.ajaxState.url = config.url;
+                $appEnvironment.ajaxState.method = config.method;
+                $appEnvironment.ajaxState.data = config.data;
+                return config;
+            },
+            requestError: function (rejection) {
+                $appEnvironment.ajaxState.loading = false;
+                $appEnvironment.ajaxState.url = null;
+                $appEnvironment.ajaxState.method = null;
+                $appEnvironment.ajaxState.data = null;
+                return rejection;
+            },
+            response: function (response) {
+                $appEnvironment.ajaxState.loading = false;
+                $appEnvironment.ajaxState.url = null;
+                $appEnvironment.ajaxState.method = null;
+                $appEnvironment.ajaxState.data = null;
+                return response;
+            },
+            responseError: function (rejection) {
+                $appEnvironment.ajaxState.loading = false;
+                $appEnvironment.ajaxState.url = null;
+                $appEnvironment.ajaxState.method = null;
+                $appEnvironment.ajaxState.data = null;
+                return rejection;
+            }
+        };
+    }
+    factory.$inject = ['$appEnvironment'];
+    boot.factory('app/factories/httpState', factory);
 });
-define('app/factories/httpDataHandler', ['app/boot'], function (boot) {
+define('app/factories/httpDataHandler', [
+    'require',
+    'exports',
+    'app/boot',
+    'angular'
+], function (require, exports, boot, angular) {
     'use strict';
-    boot.factory('app/factories/httpDataHandler', [
-        '$modal',
-        function ($modal) {
-            var handler = {
-                doResponse: function (response, defered) {
-                    response.data = response.data ? response.data : {};
-                    if (response.data && response.data.success === false) {
-                        handler.doError(response, defered);
-                    } else {
-                        defered.resolve(response.data);
-                    }
-                },
-                doError: function (response, defered) {
-                    response.data = response.data ? response.data : {};
-                    $modal.open({
-                        templateUrl: 'templates/modal/Error.html',
-                        data: { text: response.data.message }
-                    });
-                    defered.reject(response.data);
+    exports.__esModule = true;
+    function factory(popupService) {
+        return {
+            doResponse: function (response, defer) {
+                response.data = angular.extend({ success: false }, response.data);
+                if (response.data.success) {
+                    defer.resolve(response.data.data);
+                } else {
+                    this.doError(response, defer);
                 }
-            };
-            return handler;
-        }
-    ]);
+            },
+            doError: function (response, defer) {
+                response.data = angular.extend({ success: false }, response.data);
+                popupService.error(response.data.message);
+                defer.reject(response.data);
+            }
+        };
+    }
+    factory.$inject = ['app/services/popupService'];
+    boot.factory('app/factories/httpDataHandler', factory);
 });
 define('app/services/ajaxService', ['app/boot'], function (boot) {
     'use strict';
@@ -17149,143 +17145,189 @@ define('app/services/ajaxService', ['app/boot'], function (boot) {
         }
     ]);
 });
-define('app/services/httpService', ['app/boot'], function (boot) {
+define('app/services/httpService', [
+    'require',
+    'exports',
+    'app/boot'
+], function (require, exports, boot) {
     'use strict';
-    boot.service('app/services/httpService', [
-        '$http',
-        '$q',
-        '$modal',
-        '$appConfig',
-        'app/factories/httpDataHandler',
-        function ($http, $q, $modal, $appConfig, httpDataHandler) {
-            var me = this;
-            this.resolveUrl = function (url) {
-                return url.indexOf('http://') === 0 || url.indexOf('https://') === 0 ? url : $appConfig.serverUrl + url;
-            };
-            this.get = function (url) {
-                var defer = $q.defer();
-                var cancelDefer = $q.defer();
-                $http({
-                    method: 'get',
-                    url: me.resolveUrl(url),
-                    withCredentials: false,
-                    timeout: cancelDefer.promise
-                }).then(function (response) {
-                    httpDataHandler.doResponse(response, defer);
-                }, function (response) {
-                    httpDataHandler.doError(response, defer);
-                });
-                defer.promise.cancel = function () {
-                    cancelDefer.resolve();
-                };
-                return defer.promise;
-            };
-            this.post = function (url, params) {
-                var defer = $q.defer();
-                var cancelDefer = $q.defer();
-                $http({
-                    method: 'post',
-                    data: params,
-                    url: me.resolveUrl(url),
-                    withCredentials: false,
-                    timeout: cancelDefer.promise,
-                    headers: { 'Content-Type': 'application/json;charset=UTF-8' }
-                }).then(function (response) {
-                    httpDataHandler.doResponse(response, defer);
-                }, function (response) {
-                    httpDataHandler.doError(response, defer);
-                });
-                defer.promise.cancel = function () {
-                    cancelDefer.resolve();
-                };
-                return defer.promise;
-            };
-            this.jsonp = function (url, params) {
-                var defer = $q.defer();
-                var cancelDefer = $q.defer();
-                $http({
-                    method: 'jsonp',
-                    data: params,
-                    url: me.resolveUrl(url),
-                    withCredentials: false,
-                    timeout: cancelDefer.promise
-                }).then(function (response) {
-                    httpDataHandler.doResponse(response, defer);
-                }, function (response) {
-                    httpDataHandler.doError(response, defer);
-                });
-                defer.promise.cancel = function () {
-                    cancelDefer.resolve();
-                };
-                return defer.promise;
-            };
+    exports.__esModule = true;
+    var RequestPromise = function () {
+        function RequestPromise(defer) {
+            this.defer = defer;
         }
-    ]);
+        RequestPromise.prototype.cancel = function () {
+            this.defer.resolve();
+        };
+        RequestPromise.prototype.then = function (successCallback, errorCallback, notifyCallback) {
+            return this.defer.promise.then(successCallback, errorCallback, notifyCallback);
+        };
+        RequestPromise.prototype['catch'] = function (onRejected) {
+            return this.defer.promise['catch'](onRejected);
+        };
+        RequestPromise.prototype['finally'] = function (finallyCallback) {
+            return this.defer.promise['finally'](finallyCallback);
+        };
+        return RequestPromise;
+    }();
+    var HttpService = function () {
+        function HttpService($http, $q, $appConfig, httpDataHandler) {
+            this.$http = $http;
+            this.$q = $q;
+            this.$appConfig = $appConfig;
+            this.httpDataHandler = httpDataHandler;
+        }
+        HttpService.prototype.get = function (url) {
+            var defer = this.$q.defer();
+            var promise = new RequestPromise(defer);
+            var self = this;
+            this.$http({
+                method: 'get',
+                url: this.resolveUrl(url),
+                withCredentials: false,
+                timeout: promise
+            }).then(function (response) {
+                self.httpDataHandler.doResponse(response, defer);
+            })['catch'](function (response) {
+                self.httpDataHandler.doError(response, defer);
+            });
+            return promise;
+        };
+        HttpService.prototype.post = function (url, param) {
+            var defer = this.$q.defer();
+            var promise = new RequestPromise(defer);
+            var self = this;
+            this.$http({
+                method: 'post',
+                data: param,
+                url: this.resolveUrl(url),
+                withCredentials: false,
+                timeout: promise,
+                headers: { 'Content-Type': 'application/json;charset=UTF-8' }
+            }).then(function (response) {
+                self.httpDataHandler.doResponse(response, defer);
+            })['catch'](function (response) {
+                self.httpDataHandler.doError(response, defer);
+            });
+            return promise;
+        };
+        HttpService.prototype.resolveUrl = function (url) {
+            return url.indexOf('http://') === 0 || url.indexOf('https://') === 0 ? url : this.$appConfig.serverUrl + url;
+        };
+        HttpService.$inject = [
+            '$http',
+            '$q',
+            '$appConfig',
+            'app/factories/httpDataHandler'
+        ];
+        return HttpService;
+    }();
+    boot.service('app/services/httpService', HttpService);
 });
-define('app/services/popupService', ['app/boot'], function (boot) {
+define('app/configs/enums/size', [
+    'require',
+    'exports'
+], function (require, exports) {
     'use strict';
-    var informationTemplate = '<div><div class="modal-header"><h4 class="modal-title"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;消息</h4></div><div class="modal-body"><p ng-if="$data.text">{{$data.text}}</p><ul ng-if="$data.contents"><li ng-repeat="content in $data.contents track by $index">{{content}}</li></ul></div><div class="modal-footer"><button class="btn btn-primary" type="button" ng-click="$close()"><i class="glyphicon glyphicon-ok-sign"></i>&nbsp;确定</button></div></div>';
-    var errorTemplate = '<div><div class="modal-header"><h4 class="modal-title"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;错误</h4></div><div class="modal-body"><p ng-if="$data.text">{{$data.text}}</p><ul ng-if="$data.contents"><li ng-repeat="content in $data.contents track by $index">{{content}}</li></ul></div><div class="modal-footer"><button class="btn btn-primary" type="button" ng-click="$close()"><i class="glyphicon glyphicon-ok-sign"></i>&nbsp;确定</button></div></div>';
-    var confirmTemplate = '<div><div class="modal-header"><h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;确认</h4></div><div class="modal-body clearfix"><p ng-if="$data.text">{{$data.text}}</p><ul ng-if="$data.contents"><li ng-repeat="content in $data.contents track by $index">{{content}}</li></ul></div><div class="modal-footer"><button class="btn btn-primary" type="button" ng-click="$close(true)"><i class="glyphicon glyphicon-ok-sign"></i>&nbsp;确定</button><button class="btn btn-default" type="button" ng-click="$dismiss()"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;取消</button></div></div>';
-    boot.service('app/services/popupService', [
-        '$modal',
-        '$q',
-        function ($modal, $q) {
-            this.information = function (text, size) {
-                var defered = $q.defer();
-                $modal.open({
-                    template: informationTemplate,
-                    size: size ? size : 'sm',
-                    data: { text: text ? text : '操作成功' }
-                }).result.then(function (result) {
-                    defered.resolve();
-                });
-                return defered.promise;
-            };
-            this.confirm = function (text, size) {
-                var defered = $q.defer();
-                defered.promise.ok = function (fn) {
-                    defered.promise.then(fn);
-                    return defered.promise;
-                };
-                defered.promise.cancel = function (fn) {
-                    defered.promise['catch'](fn);
-                    return defered.promise;
-                };
-                $modal.open({
-                    template: confirmTemplate,
-                    size: size ? size : 'sm',
-                    data: { text: text ? text : '是否确认操作\uFF1F' }
-                }).result.then(function (result) {
-                    if (result === true) {
-                        defered.resolve(result);
-                    } else {
-                        defered.reject(result);
-                    }
-                });
-                return defered.promise;
-            };
-            this.error = function (text, size) {
-                var defered = $q.defer();
-                var _data = {};
-                if (text === null || text === undefined) {
-                    _data.text = '发生错误';
-                } else if (Object.prototype.toString.call(text) === '[object Array]') {
-                    _data.contents = text;
+    exports.__esModule = true;
+    var Size;
+    (function (Size) {
+        Size['sm'] = 'sm';
+        Size['nm'] = '';
+        Size['lg'] = 'lg';
+    }(Size = exports.Size || (exports.Size = {})));
+});
+define('app/services/popupService', [
+    'require',
+    'exports',
+    'app/boot',
+    'angular',
+    'app/configs/enums/size'
+], function (require, exports, boot, angular, size_1) {
+    'use strict';
+    exports.__esModule = true;
+    var ConfirmPromise = function () {
+        function ConfirmPromise(defer) {
+            this.defer = defer;
+        }
+        ConfirmPromise.prototype.ok = function (callback) {
+            this.defer.promise.then(callback || angular.noop);
+            return this;
+        };
+        ConfirmPromise.prototype.cancel = function (callback) {
+            this.defer.promise['catch'](callback || angular.noop);
+            return this;
+        };
+        return ConfirmPromise;
+    }();
+    var PopupService = function () {
+        function PopupService($modal, $q, $rootScope) {
+            this.$modal = $modal;
+            this.$q = $q;
+            this.$rootScope = $rootScope;
+        }
+        PopupService.prototype.confirm = function (text, size) {
+            var defer = this.$q.defer();
+            var promise = new ConfirmPromise(defer);
+            this.$modal.open({
+                templateUrl: 'app/templates/popup/confirm.html',
+                size: size ? size : size_1.Size.sm,
+                scope: angular.extend(this.$rootScope.$new(), { $data: { text: text ? text : '是否确认操作\uFF1F' } })
+            }).result.then(function (result) {
+                if (result === true) {
+                    defer.resolve(result);
                 } else {
-                    _data.text = text;
+                    defer.reject(result);
                 }
-                $modal.open({
-                    template: errorTemplate,
-                    size: size ? size : 'sm',
-                    data: _data
-                }).result.then(function (result) {
-                    defered.resolve(result);
-                });
-                return defered.promise;
-            };
+            });
+            return promise;
+        };
+        PopupService.prototype.error = function (text, size) {
+            var defered = this.$q.defer();
+            var _data = {};
+            if (text === null || text === undefined) {
+                _data = angular.extend(_data, { text: '发生错误' });
+            } else if (typeof text !== 'string') {
+                _data = angular.extend(_data, { contents: text });
+            } else {
+                _data = angular.extend(_data, { text: text });
+            }
+            this.$modal.open({
+                templateUrl: 'app/templates/popup/error.html',
+                size: size ? size : size_1.Size.sm,
+                scope: angular.extend(this.$rootScope.$new(), { $data: _data })
+            }).result.then(function (result) {
+                defered.resolve(result);
+            });
+            return defered.promise;
+        };
+        PopupService.prototype.information = function (text, size) {
+            var defered = this.$q.defer();
+            this.$modal.open({
+                templateUrl: 'app/templates/popup/information.html',
+                size: size ? size : size_1.Size.sm,
+                scope: angular.extend(this.$rootScope.$new(), { $data: { text: text ? text : '操作成功' } })
+            }).result.then(function (data) {
+                defered.resolve();
+            });
+            return defered.promise;
+        };
+        PopupService.$inject = [
+            '$modal',
+            '$q',
+            '$rootScope'
+        ];
+        return PopupService;
+    }();
+    boot.run([
+        '$templateCache',
+        function ($templateCache) {
+            $templateCache.put('app/templates/popup/information.html', '<div><div class="modal-header"><h4 class="modal-title"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;消息</h4></div><div class="modal-body"><p ng-if="$data.text">{{$data.text}}</p><ul ng-if="$data.contents"><li ng-repeat="content in $data.contents track by $index">{{content}}</li></ul></div><div class="modal-footer"><button class="btn btn-primary" type="button" ng-click="$close()"><i class="glyphicon glyphicon-ok-sign"></i>&nbsp;确定</button></div></div>');
+            $templateCache.put('app/templates/popup/error.html', '<div><div class="modal-header"><h4 class="modal-title"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;错误</h4></div><div class="modal-body"><p ng-if="$data.text">{{$data.text}}</p><ul ng-if="$data.contents"><li ng-repeat="content in $data.contents track by $index">{{content}}</li></ul></div><div class="modal-footer"><button class="btn btn-primary" type="button" ng-click="$close()"><i class="glyphicon glyphicon-ok-sign"></i>&nbsp;确定</button></div></div>');
+            $templateCache.put('app/templates/popup/confirm.html', '<div><div class="modal-header"><h4 class="modal-title"><span class="glyphicon glyphicon-question-sign"></span>&nbsp;确认</h4></div><div class="modal-body clearfix"><p ng-if="$data.text">{{$data.text}}</p><ul ng-if="$data.contents"><li ng-repeat="content in $data.contents track by $index">{{content}}</li></ul></div><div class="modal-footer"><button class="btn btn-primary" type="button" ng-click="$close(true)"><i class="glyphicon glyphicon-ok-sign"></i>&nbsp;确定</button><button class="btn btn-default" type="button" ng-click="$dismiss()"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;取消</button></div></div>');
         }
     ]);
+    boot.service('app/services/popupService', PopupService);
 });
 define('app/services/treeUtility', [
     'require',

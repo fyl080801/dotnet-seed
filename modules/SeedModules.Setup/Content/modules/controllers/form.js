@@ -137,7 +137,7 @@ define(['SeedModules.Setup/modules/module'], function(module) {
       requestService
         .url('/api/setup')
         .get()
-        .then(function(result) {
+        .result.then(function(result) {
           $scope.data.Name = result.name ? result.name : $scope.data.Name;
           $scope.data.TablePrefix = result.tablePrefix
             ? result.tablePrefix

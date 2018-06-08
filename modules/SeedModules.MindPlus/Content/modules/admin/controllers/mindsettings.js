@@ -14,7 +14,7 @@ define(['SeedModules.MindPlus/modules/admin/module'], function(module) {
             .url('/api/mindplus/document/settings')
             .options({ showLoading: false })
             .get()
-            .then(function(result) {
+            .result.then(function(result) {
               $scope.settings = result;
             });
         };
@@ -23,7 +23,7 @@ define(['SeedModules.MindPlus/modules/admin/module'], function(module) {
           requestService
             .url('/api/mindplus/document/settings')
             .put($scope.settings)
-            .then(function(result) {});
+            .result.then(function(result) {});
         };
       }
     ]

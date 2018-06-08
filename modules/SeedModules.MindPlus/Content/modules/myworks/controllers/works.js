@@ -67,7 +67,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             requestService
               .url('/api/mindplus/works')
               .post(data)
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.tableParams.reload();
               });
           });
@@ -91,7 +91,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             requestService
               .url('/api/mindplus/works')
               .post(data)
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.tableParams.reload();
               });
           });
@@ -104,7 +104,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             showLoading: false
           })
           .get()
-          .then(function(result) {
+          .result.then(function(result) {
             $state.go('home.works', { parentid: result.parentId });
           });
       };

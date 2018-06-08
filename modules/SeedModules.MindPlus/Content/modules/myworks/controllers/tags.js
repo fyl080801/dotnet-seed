@@ -48,7 +48,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             showLoading: false
           })
           .post({})
-          .then(function(result) {
+          .result.then(function(result) {
             $scope.list = result;
           });
       };
@@ -56,7 +56,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       $scope.create = function() {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '新建标签',
@@ -69,7 +70,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             requestService
               .url('/api/mindplus/tags')
               .post($.extend(data, { mindWorkId: $stateParams.id }))
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.load();
               });
           });
@@ -78,7 +79,8 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
       $scope.edit = function(row) {
         $modal
           .open({
-            templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+            templateUrl:
+              '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
             size: 'sm',
             data: {
               title: '编辑标签',
@@ -91,7 +93,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
             requestService
               .url('/api/mindplus/tags/' + row.id)
               .put($.extend(data, { mindWorkId: $stateParams.id }))
-              .then(function(result) {
+              .result.then(function(result) {
                 $scope.load();
               });
           });
@@ -102,7 +104,7 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function(module) {
           requestService
             .url('/api/mindplus/tags/' + row.id)
             .drop()
-            .then(function(result) {
+            .result.then(function(result) {
               $scope.load();
             });
         });

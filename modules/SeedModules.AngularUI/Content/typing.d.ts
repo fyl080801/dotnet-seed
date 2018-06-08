@@ -5,12 +5,6 @@ export as namespace app;
 export = app;
 
 declare namespace app {
-  export enum Size {
-    sm = 'sm',
-    nm = '',
-    lg = 'lg'
-  }
-
   /**
    *
    */
@@ -37,10 +31,6 @@ declare namespace app {
   }
 
   export namespace configs {
-    export interface IExtendScope extends ng.IScope {
-      $data: any;
-    }
-
     /**
      *
      */
@@ -77,7 +67,6 @@ declare namespace app {
       $stateParams: ng.ui.IStateParamsService;
       $previous: ng.ui.IState;
       $previousParams: ng.ui.IStateParamsService;
-      $new(isolate?: boolean, parent?: ng.IScope): IExtendScope;
     }
   }
 
@@ -87,43 +76,17 @@ declare namespace app {
      */
     export interface IHttpDataHandler {
       doResponse<TOutput>(
-        response: ng.IHttpResponse<services.IResponseContext<TOutput>>,
-        defered: ng.IDeferred<TOutput>
+        response: ng.IHttpResponse<app.services.IResponseContext<TOutput>>,
+        defer: ng.IDeferred<TOutput>
       );
-      doError<TOutput>(response, defered: ng.IDeferred<TOutput>);
-    }
-
-    /**
-     *
-     */
-    export interface IDelayConfigs {
-      callback?: (() => void) | (() => ng.IDeferred<any>);
-      canceling?: (() => void);
-      timeout?: number;
-    }
-
-    export interface IDelayTimerFactory {
-      $new(configs: app.factories.IDelayConfigs): IDelayTimer;
-    }
-
-    /**
-     * 延时执行
-     */
-    interface IDelayTimer {
-      invoke();
-      cancel();
-      options(configs: IDelayConfigs): IDelayTimer;
+      doError<TOutput>(
+        response: ng.IHttpResponse<app.services.IResponseContext<TOutput>>,
+        defer: ng.IDeferred<TOutput>
+      );
     }
   }
 
   export namespace services {
-    /**
-     *
-     */
-    export interface IPopupPromise {
-      options(param: ng.ui.bootstrap.IModalSettings): IPopupPromise;
-    }
-
     /**
      *
      */
@@ -135,9 +98,8 @@ declare namespace app {
     /**
      *
      */
-    export interface IRequestContext<T> {
+    export interface IRequestPromise<T> extends ng.IPromise<T> {
       cancel(): void;
-      result: angular.IPromise<T>;
     }
 
     /**
@@ -146,6 +108,7 @@ declare namespace app {
     export interface IResponseContext<T> {
       success: boolean;
       data?: T;
+      message: string;
     }
 
     /**
@@ -153,32 +116,45 @@ declare namespace app {
      */
     export interface IRequestDefered {
       options(opt: ng.IRequestConfig): IRequestDefered;
-      post<TInput, TOutput>(param: TInput): IRequestContext<TOutput>;
-      get<TOutput>(): IRequestContext<TOutput>;
+      post<TInput, TOutput>(param: TInput): IRequestPromise<TOutput>;
+      get<TOutput>(): IRequestPromise<TOutput>;
     }
 
     /**
      *
      */
     export interface IHttpService {
-      resolveUrl(url: string): string;
-      get<TOutput>(url: string): app.services.IRequestContext<TOutput>;
+      get<TOutput>(url: string): app.services.IRequestPromise<TOutput>;
       post<TInput, TOutput>(
         url: string,
         param: TInput
-      ): app.services.IRequestContext<TOutput>;
-      url(url: string): IRequestDefered;
+      ): app.services.IRequestPromise<TOutput>;
     }
 
     /**
      *
      */
     export interface IPopupService {
-      information(text: string, size?: Size): ng.IPromise<any>;
+      /**
+       *
+       * @param text
+       * @param size
+       */
+      information(text: string, size?: string): ng.IPromise<any>;
 
-      confirm(text: string, size?: Size): IConfirmPromise;
+      /**
+       *
+       * @param text
+       * @param size
+       */
+      confirm(text: string, size?: string): IConfirmPromise;
 
-      error(text: string, size?: Size): ng.IPromise<any>;
+      /**
+       *
+       * @param text
+       * @param size
+       */
+      error(text: string | Array<any>, size?: string): ng.IPromise<any>;
     }
 
     export interface ITreeItem<T> {
