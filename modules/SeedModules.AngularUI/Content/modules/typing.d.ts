@@ -53,7 +53,11 @@ declare namespace AngularUI {
 
     export interface ISchemaFormDecoratorsProvider extends ng.IServiceProvider {
       createDecorator(name: string, templates: { [type: string]: string });
-      defineDecorator(name: string, fields: { [type: string]: IFieldMap });
+      defineDecorator(
+        name: string,
+        fields: { [type: string]: IFieldMap },
+        builders?: Array<any>
+      );
       createDirective(type: string, templateUrl: string, transclude?: boolean);
       createDirectives(templates: { [type: string]: string });
       decorator(name): IFieldMap[];
@@ -98,7 +102,7 @@ declare namespace AngularUI {
     }
 
     export namespace fields {
-      export type FieldTypes = IField | IButton | ISection | IRow;
+      export type FieldTypes = IField | IButton | ISection | IRow | IPanel;
 
       export interface IField {
         key?: string | Array<string>; // The dot notatin to the attribute on the model
@@ -130,6 +134,10 @@ declare namespace AngularUI {
       export interface IButton extends IField {
         icon?: string;
         onClick?: string | (() => any);
+      }
+
+      export interface IPanel extends IField {
+        theme: string;
       }
 
       export interface IRow extends IField {

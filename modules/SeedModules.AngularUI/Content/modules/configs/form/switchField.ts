@@ -1,5 +1,5 @@
 import boot = require('SeedModules.AngularUI/modules/boot');
-import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/form/extendFormFields';
+import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/enums/extendFormFields';
 
 class SwitchFieldConfig {
   static $inject = [

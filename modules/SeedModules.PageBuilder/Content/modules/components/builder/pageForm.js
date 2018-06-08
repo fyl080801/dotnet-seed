@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedModules.PageBuilder/modules/configs/enums/schemaTypes", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod, schemaTypes_1) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedModules.AngularUI/modules/configs/enums/schemaTypes", "SeedModules.AngularUI/modules/configs/enums/defaultFormTypes", "SeedModules.AngularUI/modules/configs/enums/extendFormFields", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod, schemaTypes_1, defaultFormTypes_1, extendFormFields_1) {
     "use strict";
     exports.__esModule = true;
     var PageFormClass = (function () {
@@ -7,7 +7,20 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
             this.$state = $state;
             this.$modal = $modal;
             $scope.pagename = '';
-            $scope.form = [];
+            $scope.form = [
+                {
+                    type: extendFormFields_1.ExtendFormFields.panel,
+                    title: 'aaaaaaaaa',
+                    theme: 'success',
+                    items: [
+                        {
+                            key: 'aaa',
+                            type: defaultFormTypes_1.DefaultFormTypes.text,
+                            title: 'aaaa'
+                        }
+                    ]
+                }
+            ];
             $scope.model = {};
             $scope.schema = {
                 type: schemaTypes_1.SchemaTypes.object,

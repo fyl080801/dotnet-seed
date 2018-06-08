@@ -1,8 +1,8 @@
 import mod = require('SeedModules.PageBuilder/modules/module');
 import 'rcss!/SeedModules.PageBuilder/css/page-builder.css';
-import { SchemaTypes } from 'SeedModules.PageBuilder/modules/configs/enums/schemaTypes';
-import { DefaultFormTypes } from 'SeedModules.PageBuilder/modules/configs/enums/defaultFormTypes';
-import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/form/extendFormFields';
+import { SchemaTypes } from 'SeedModules.AngularUI/modules/configs/enums/schemaTypes';
+import { DefaultFormTypes } from 'SeedModules.AngularUI/modules/configs/enums/defaultFormTypes';
+import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/enums/extendFormFields';
 
 interface IPageFormScope extends ng.IScope {
   pagename: string;
@@ -29,21 +29,18 @@ class PageFormClass {
   ) {
     $scope.pagename = '';
     $scope.form = [
-      // {
-      //   type: ExtendFormFields.row,
-      //   columns: [
-      //     {
-      //       flex: '6',
-      //       items: [
-      //         {
-      //           key: ['aaa'],
-      //           type: DefaultFormTypes.text,
-      //           title: 'aaaa'
-      //         }
-      //       ]
-      //     }
-      //   ]
-      // }
+      {
+        type: ExtendFormFields.panel,
+        title: 'aaaaaaaaa',
+        theme: 'success',
+        items: [
+          {
+            key: 'aaa',
+            type: DefaultFormTypes.text,
+            title: 'aaaa'
+          }
+        ]
+      }
     ];
     $scope.model = {};
     $scope.schema = {

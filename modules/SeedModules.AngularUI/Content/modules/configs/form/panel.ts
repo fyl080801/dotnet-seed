@@ -4,23 +4,16 @@ import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/enums/ex
 
 var base = '/SeedModules.AngularUI/modules/templates/form/';
 
-class RowConfig {
-  static $inject = [
-    'schemaFormDecoratorsProvider',
-    'schemaFormProvider',
-    'sfPathProvider',
-    'sfBuilderProvider'
-  ];
+class PanelConfig {
+  static $inject = ['schemaFormDecoratorsProvider', 'sfBuilderProvider'];
   constructor(
     schemaFormDecoratorsProvider: AngularUI.SchemaForm.ISchemaFormDecoratorsProvider,
-    schemaFormProvider: AngularUI.SchemaForm.ISchemaFormProvider,
-    sfPathProvider: AngularUI.SchemaForm.ISfPathProvider,
     sfBuilderProvider: AngularUI.SchemaForm.ISfBuilderProvider
   ) {
     schemaFormDecoratorsProvider.defineAddOn(
       'bootstrapDecorator',
-      ExtendFormFields.row,
-      base + 'row.html',
+      ExtendFormFields.panel,
+      base + 'panel.html',
       [
         sfBuilderProvider.builders.sfField,
         sfBuilderProvider.builders.ngModelOptions,
@@ -31,12 +24,12 @@ class RowConfig {
   }
 }
 
-boot.config(RowConfig).run([
+boot.config(PanelConfig).run([
   '$templateCache',
   ($templateCache: ng.ITemplateCacheService) => {
     $templateCache.put(
-      '/SeedModules.AngularUI/modules/templates/form/row.html',
-      '<div class="row" sf-field-transclude="columns"></div>'
+      base + 'panel.html',
+      '<div class="schema-form-panel panel panel-{{form.theme}} {{form.htmlClass}}"><div class="panel-heading"><span ng-bind="form.title"></span></div><div class="panel-body" sf-field-transclude="items"></div></div>'
     );
   }
 ]);

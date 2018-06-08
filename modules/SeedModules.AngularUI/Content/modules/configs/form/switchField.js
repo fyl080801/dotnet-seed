@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules.AngularUI/modules/configs/form/extendFormFields"], function (require, exports, boot, extendFormFields_1) {
+define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules.AngularUI/modules/configs/enums/extendFormFields"], function (require, exports, boot, extendFormFields_1) {
     "use strict";
     exports.__esModule = true;
     var SwitchFieldConfig = (function () {
