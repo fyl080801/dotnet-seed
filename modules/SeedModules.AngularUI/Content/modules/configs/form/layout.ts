@@ -17,16 +17,25 @@ class RowConfig {
     sfPathProvider: AngularUI.SchemaForm.ISfPathProvider,
     sfBuilderProvider: AngularUI.SchemaForm.ISfBuilderProvider
   ) {
+    var layoutDefaults = [
+      sfBuilderProvider.builders.sfField,
+      sfBuilderProvider.builders.ngModelOptions,
+      sfBuilderProvider.builders.condition,
+      sfBuilderProvider.builders.transclusion
+    ];
+
     schemaFormDecoratorsProvider.defineAddOn(
       'bootstrapDecorator',
       ExtendFormFields.row,
       base + 'row.html',
-      [
-        sfBuilderProvider.builders.sfField,
-        sfBuilderProvider.builders.ngModelOptions,
-        sfBuilderProvider.builders.condition,
-        sfBuilderProvider.builders.transclusion
-      ]
+      layoutDefaults
+    );
+
+    schemaFormDecoratorsProvider.defineAddOn(
+      'bootstrapDecorator',
+      ExtendFormFields.column,
+      base + 'column.html',
+      layoutDefaults
     );
   }
 }
@@ -35,8 +44,13 @@ boot.config(RowConfig).run([
   '$templateCache',
   ($templateCache: ng.ITemplateCacheService) => {
     $templateCache.put(
-      '/SeedModules.AngularUI/modules/templates/form/row.html',
+      base + 'row.html',
       '<div class="row" sf-field-transclude="columns"></div>'
+    );
+
+    $templateCache.put(
+      base + 'column.html',
+      '<div class="col-md-{{form.flex}} col-lg-{{form.flex}} col-sm-{{form.flex}} col-xs-{{flex}}" sf-field-transclude="items"></div>'
     );
   }
 ]);

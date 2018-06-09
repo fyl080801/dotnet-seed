@@ -14,12 +14,9 @@ namespace Seed.Data.Extensions
 
         public static T As<T>(this IJEntity entity, string name)
         {
-            if (entity.Properties.TryGetValue(name, out JToken value))
-            {
-                return value.ToObject<T>();
-            }
-
-            return default(T);
+            return entity.Properties.TryGetValue(name, out JToken value)
+                ? value.ToObject<T>()
+                : default(T);
         }
 
         public static IJEntity Put<T>(this IJEntity entity, T aspect) where T : new()
@@ -35,16 +32,9 @@ namespace Seed.Data.Extensions
 
         public static IJEntity Alter<TAspect>(this IJEntity entity, string name, Action<TAspect> action) where TAspect : new()
         {
-            TAspect obj;
-
-            if (!entity.Properties.TryGetValue(name, out JToken value))
-            {
-                obj = new TAspect();
-            }
-            else
-            {
-                obj = value.ToObject<TAspect>();
-            }
+            TAspect obj = entity.Properties.TryGetValue(name, out JToken value)
+                ? value.ToObject<TAspect>()
+                : new TAspect();
 
             action?.Invoke(obj);
 

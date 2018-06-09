@@ -14,9 +14,36 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
                     theme: 'success',
                     items: [
                         {
-                            key: 'aaa',
+                            type: extendFormFields_1.ExtendFormFields.row,
+                            columns: [
+                                {
+                                    type: extendFormFields_1.ExtendFormFields.column,
+                                    flex: 6,
+                                    items: [
+                                        {
+                                            key: 'lastName',
+                                            type: defaultFormTypes_1.DefaultFormTypes.text,
+                                            title: '姓'
+                                        }
+                                    ]
+                                },
+                                {
+                                    type: extendFormFields_1.ExtendFormFields.column,
+                                    flex: 6,
+                                    items: [
+                                        {
+                                            key: 'firstName',
+                                            type: defaultFormTypes_1.DefaultFormTypes.text,
+                                            title: '名'
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            key: 'description',
                             type: defaultFormTypes_1.DefaultFormTypes.text,
-                            title: 'aaaa'
+                            title: '描述'
                         }
                     ]
                 }

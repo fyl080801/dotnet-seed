@@ -105,7 +105,7 @@ declare namespace AngularUI {
         name: string,
         type: string,
         url: string,
-        builder: Function | Array<Function>
+        builder?: Function | Array<Function>
       );
     }
 
@@ -135,7 +135,13 @@ declare namespace AngularUI {
     }
 
     export namespace fields {
-      export type FieldTypes = IField | IButton | ISection | IRow | IPanel;
+      export type FieldTypes =
+        | IField
+        | IButton
+        | ISection
+        | IRow
+        | IColumn
+        | IPanel;
 
       export interface IField {
         key?: string | Array<string>; // The dot notatin to the attribute on the model
@@ -170,11 +176,16 @@ declare namespace AngularUI {
       }
 
       export interface IPanel extends IField {
+        icon?: string;
         theme: string;
       }
 
       export interface IRow extends IField {
-        columns: Array<IField>;
+        columns: Array<IColumn>;
+      }
+
+      export interface IColumn extends IField {
+        flex?: number;
       }
     }
   }

@@ -35,9 +35,36 @@ class PageFormClass {
         theme: 'success',
         items: [
           {
-            key: 'aaa',
+            type: ExtendFormFields.row,
+            columns: [
+              {
+                type: ExtendFormFields.column,
+                flex: 6,
+                items: [
+                  {
+                    key: 'lastName',
+                    type: DefaultFormTypes.text,
+                    title: '姓'
+                  }
+                ]
+              },
+              {
+                type: ExtendFormFields.column,
+                flex: 6,
+                items: [
+                  {
+                    key: 'firstName',
+                    type: DefaultFormTypes.text,
+                    title: '名'
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            key: 'description',
             type: DefaultFormTypes.text,
-            title: 'aaaa'
+            title: '描述'
           }
         ]
       }

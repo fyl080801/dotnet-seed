@@ -17,7 +17,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
     boot.config(PanelConfig).run([
         '$templateCache',
         function ($templateCache) {
-            $templateCache.put(base + 'panel.html', '<div class="schema-form-panel panel panel-{{form.theme}} {{form.htmlClass}}"><div class="panel-heading"><span ng-bind="form.title"></span></div><div class="panel-body" sf-field-transclude="items"></div></div>');
+            $templateCache.put(base + 'panel.html', '<div class="schema-form-panel panel panel-{{form.theme}} {{form.htmlClass}}"><div ng-if="!form.notitle" class="panel-heading"><span ng-bind="form.title"></span></div><div class="panel-body" sf-field-transclude="items"></div></div>');
         }
     ]);
 });

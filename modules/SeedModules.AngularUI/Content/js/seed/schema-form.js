@@ -2084,7 +2084,7 @@ angular.module('schemaForm').directive('sfField',
             if (form.key) {
               // It looks better with dot notation.
               scope.$on(
-                'schemaForm.error.' + form.key.join('.'),
+                'schemaForm.error.' + (form.key.join ? form.key.join('.') : form.key),
                 function(event, error, validationMessage, validity) {
                   if (validationMessage === true || validationMessage === false) {
                     validity = validationMessage;

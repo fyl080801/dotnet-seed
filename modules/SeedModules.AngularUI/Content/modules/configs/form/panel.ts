@@ -29,7 +29,7 @@ boot.config(PanelConfig).run([
   ($templateCache: ng.ITemplateCacheService) => {
     $templateCache.put(
       base + 'panel.html',
-      '<div class="schema-form-panel panel panel-{{form.theme}} {{form.htmlClass}}"><div class="panel-heading"><span ng-bind="form.title"></span></div><div class="panel-body" sf-field-transclude="items"></div></div>'
+      '<div class="schema-form-panel panel panel-{{form.theme}} {{form.htmlClass}}"><div ng-if="!form.notitle" class="panel-heading"><span ng-bind="form.title"></span></div><div class="panel-body" sf-field-transclude="items"></div></div>'
     );
   }
 ]);

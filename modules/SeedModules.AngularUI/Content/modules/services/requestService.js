@@ -78,10 +78,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
             this.$appConfig = $appConfig;
             this.httpDataHandler = httpDataHandler;
             this.url = url;
-            this.api = new WebApi(this.$q, this.$http, this.$modal, this.$appConfig, this.httpDataHandler, {
-                method: 'GET',
-                url: url
-            });
+            this.options({ method: 'GET', url: url });
         }
         WebApiContext.prototype.get = function () {
             return this.api.get();

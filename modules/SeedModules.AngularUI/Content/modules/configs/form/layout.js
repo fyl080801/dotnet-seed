@@ -4,12 +4,14 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
     var base = '/SeedModules.AngularUI/modules/templates/form/';
     var RowConfig = (function () {
         function RowConfig(schemaFormDecoratorsProvider, schemaFormProvider, sfPathProvider, sfBuilderProvider) {
-            schemaFormDecoratorsProvider.defineAddOn('bootstrapDecorator', extendFormFields_1.ExtendFormFields.row, base + 'row.html', [
+            var layoutDefaults = [
                 sfBuilderProvider.builders.sfField,
                 sfBuilderProvider.builders.ngModelOptions,
                 sfBuilderProvider.builders.condition,
                 sfBuilderProvider.builders.transclusion
-            ]);
+            ];
+            schemaFormDecoratorsProvider.defineAddOn('bootstrapDecorator', extendFormFields_1.ExtendFormFields.row, base + 'row.html', layoutDefaults);
+            schemaFormDecoratorsProvider.defineAddOn('bootstrapDecorator', extendFormFields_1.ExtendFormFields.column, base + 'column.html', layoutDefaults);
         }
         RowConfig.$inject = [
             'schemaFormDecoratorsProvider',
@@ -22,8 +24,9 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
     boot.config(RowConfig).run([
         '$templateCache',
         function ($templateCache) {
-            $templateCache.put('/SeedModules.AngularUI/modules/templates/form/row.html', '<div class="row" sf-field-transclude="columns"></div>');
+            $templateCache.put(base + 'row.html', '<div class="row" sf-field-transclude="columns"></div>');
+            $templateCache.put(base + 'column.html', '<div class="col-md-{{form.flex}} col-lg-{{form.flex}} col-sm-{{form.flex}} col-xs-{{flex}}" sf-field-transclude="items"></div>');
         }
     ]);
 });
-//# sourceMappingURL=row.js.map
+//# sourceMappingURL=layout.js.map
