@@ -1,17 +1,15 @@
 <div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm as pageForm">
     <div style="margin-bottom: 20px">
-        <form class="form-inline pull-left" name="theform">
+        <div class="pull-left">
             <button class="btn btn-default" ng-click="pageForm.back()">
                 <i class="glyphicon glyphicon-chevron-left"></i>
                 返回
             </button>
-            <div class="form-group" ng-class="{'has-error':theform.pagename.$invalid}">
-                <input type="text" name="pagename" ng-model="pagename" class="form-control" placeholder="页面名称" required>
-            </div>
-        </form>
+        </div>
         <div class="pull-right">
-            <button class="btn btn-default" ng-click="pageForm.refresh()">
-                刷新
+            <button class="btn btn-default" ng-click="pageForm.preview()">
+                <i class="glyphicon glyphicon-eye-open"></i>
+                预览
             </button>
             <div class="btn-group" ng-controller="SeedModules.PageBuilder/modules/controllers/pageCommon as pageCommon">
                 <button class="btn btn-default">
@@ -27,7 +25,7 @@
                     权限
                 </button>
             </div>
-            <button class="btn btn-primary" ng-disabled="theform.$invalid">
+            <button class="btn btn-primary" ng-disabled="pageform.$invalid">
                 <i class="glyphicon glyphicon-floppy-disk"></i>
                 保存
             </button>
@@ -37,33 +35,7 @@
         <div class="panel panel-default seed-container pb-container">
             <div pb-toolbox class="seed-container tools"></div>
             <div class="seed-container area">
-                <div class="navbar navbar-default navbar-xs navbar-static-top">
-                    <div class="container-fluid">
-                        <ul class="navbar-nav nav navbar-right">
-                            <li class="active">
-                                <a href="#pb_des" aria-controls="pb_des" role="tab" data-toggle="tab">
-                                    <i class="glyphicon glyphicon-edit"></i> 设计
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#pb_pre" aria-controls="pb_pre" role="tab" data-toggle="tab">
-                                    <i class="glyphicon glyphicon-eye-open"></i> 预览
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="tab-content seed-container" style="margin-top: 40px">
-                    <!--设计-->
-                    <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="pb_des">
-                        <!-- <div pb-designer pb-form="form"></div> -->
-                        <!-- <angular-jsoneditor ng-model="form" options="options" style="width: 100%;"></angular-jsoneditor> -->
-                    </div>
-                    <!--预览-->
-                    <div role="tabpanel" class="tab-pane seed-container panel-body" style="overflow: auto" id="pb_pre">
-                        <form name="theForm" sf-schema="schema" sf-form="form" sf-options="options" sf-model="model"></form>
-                    </div>
-                </div>
+
             </div>
             <div class="seed-container property">
                 <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
@@ -79,13 +51,17 @@
                     </li>
                 </ul>
                 <div class="tab-content seed-container" style="margin-top: 40px">
-                    <!--控件-->
                     <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="cus_info">
                         控件
                     </div>
-                    <!--表单-->
                     <div role="tabpanel" class="tab-pane seed-container" style="overflow: auto" id="cus_tkg">
-                        表单
+                        <!-- <form role="form" name="pageform" class="panel-body">
+                            <div class="form-group" ng-class="{'has-error':pageform.pagename.$invalid}">
+                                <label>页面名称</label>
+                                <input type="text" name="pagename" ng-model="pagename" class="form-control" placeholder="页面名称" required>
+                            </div>
+                        </form> -->
+                        <form name="pageform" class="panel-body" sf-schema="form.schema" sf-form="form.form" sf-options="form.options" sf-model="form.model"></form>
                     </div>
                 </div>
             </div>

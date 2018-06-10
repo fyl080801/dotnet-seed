@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/components/builder/page", "SeedModules.PageBuilder/modules/components/server/settings", "SeedModules.PageBuilder/modules/components/builder/pageForm", "SeedModules.PageBuilder/modules/directives/pbToolbox", "SeedModules.PageBuilder/modules/directives/pbDesigner", "SeedModules.PageBuilder/modules/controllers/pageCommon"], function (require, exports) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/components/builder/page", "SeedModules.PageBuilder/modules/components/server/settings", "SeedModules.PageBuilder/modules/components/builder/pageForm", "SeedModules.PageBuilder/modules/components/builder/preview", "SeedModules.PageBuilder/modules/directives/pbToolbox", "SeedModules.PageBuilder/modules/directives/pbDesigner", "SeedModules.PageBuilder/modules/controllers/pageCommon"], function (require, exports) {
     "use strict";
     exports.__esModule = true;
 });
