@@ -36,7 +36,7 @@ class PageFormClass {
         items: [
           {
             type: ExtendFormFields.row,
-            columns: [
+            items: [
               {
                 type: ExtendFormFields.column,
                 flex: 6,

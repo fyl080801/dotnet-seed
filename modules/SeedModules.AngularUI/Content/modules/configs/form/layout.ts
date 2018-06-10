@@ -45,7 +45,7 @@ boot.config(RowConfig).run([
   ($templateCache: ng.ITemplateCacheService) => {
     $templateCache.put(
       base + 'row.html',
-      '<div class="row" sf-field-transclude="columns"></div>'
+      '<div class="row" sf-field-transclude="items"></div>'
     );
 
     $templateCache.put(

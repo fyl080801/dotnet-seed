@@ -24,7 +24,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
     boot.config(RowConfig).run([
         '$templateCache',
         function ($templateCache) {
-            $templateCache.put(base + 'row.html', '<div class="row" sf-field-transclude="columns"></div>');
+            $templateCache.put(base + 'row.html', '<div class="row" sf-field-transclude="items"></div>');
             $templateCache.put(base + 'column.html', '<div class="col-md-{{form.flex}} col-lg-{{form.flex}} col-sm-{{form.flex}} col-xs-{{flex}}" sf-field-transclude="items"></div>');
         }
     ]);

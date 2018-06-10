@@ -15,7 +15,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
                     items: [
                         {
                             type: extendFormFields_1.ExtendFormFields.row,
-                            columns: [
+                            items: [
                                 {
                                     type: extendFormFields_1.ExtendFormFields.column,
                                     flex: 6,
