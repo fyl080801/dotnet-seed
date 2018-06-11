@@ -9,6 +9,7 @@ import 'SeedModules.AngularUI/modules/configs/form/simplecolor';
 import 'SeedModules.AngularUI/modules/configs/form/switchField';
 import 'SeedModules.AngularUI/modules/configs/form/layout';
 import 'SeedModules.AngularUI/modules/configs/form/panel';
+import 'SeedModules.AngularUI/modules/configs/form/table';
 import 'SeedModules.AngularUI/modules/providers/ngTableDefaultGetData';
 import 'SeedModules.AngularUI/modules/configs/schemaFormDefaults';
 

@@ -33,12 +33,19 @@ class PageFormClass {
     });
   }
 
-  static $inject = ['$scope', '$rootScope', '$state', '$modal'];
+  static $inject = [
+    '$scope',
+    '$rootScope',
+    '$state',
+    '$modal',
+    'SeedModules.AngularUI/modules/factories/ngTableParams'
+  ];
   constructor(
     private $scope: IPageFormScope,
     private $rootScope: ng.IRootScopeService,
     private $state: ng.ui.IStateService,
-    private $modal: ng.ui.bootstrap.IModalService
+    private $modal: ng.ui.bootstrap.IModalService,
+    private ngTableParams
   ) {
     // 设计器
     $scope.editor = {
@@ -49,36 +56,41 @@ class PageFormClass {
           theme: 'success',
           items: [
             {
-              type: ExtendFormFields.row,
+              type: ExtendFormFields.container,
               items: [
                 {
-                  type: ExtendFormFields.column,
-                  flex: 6,
+                  type: ExtendFormFields.row,
                   items: [
                     {
-                      key: 'source1.lastName',
-                      type: DefaultFormTypes.text,
-                      title: '姓'
+                      type: ExtendFormFields.column,
+                      flex: 6,
+                      items: [
+                        {
+                          key: 'source1.lastName',
+                          type: DefaultFormTypes.text,
+                          title: '姓'
+                        }
+                      ]
+                    },
+                    {
+                      type: ExtendFormFields.column,
+                      flex: 6,
+                      items: [
+                        {
+                          key: 'source1.firstName',
+                          type: DefaultFormTypes.text,
+                          title: '名'
+                        }
+                      ]
                     }
                   ]
                 },
                 {
-                  type: ExtendFormFields.column,
-                  flex: 6,
-                  items: [
-                    {
-                      key: 'source1.firstName',
-                      type: DefaultFormTypes.text,
-                      title: '名'
-                    }
-                  ]
+                  key: 'source1.description',
+                  type: DefaultFormTypes.text,
+                  title: '描述'
                 }
               ]
-            },
-            {
-              key: 'source1.description',
-              type: DefaultFormTypes.text,
-              title: '描述'
             }
           ]
         },
@@ -88,9 +100,36 @@ class PageFormClass {
           theme: 'info',
           items: [
             {
-              key: 'category',
-              type: 'select',
-              title: '分类'
+              type: DefaultFormTypes.section,
+              items: [
+                {
+                  key: 'category',
+                  type: 'select',
+                  title: '分类'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: ExtendFormFields.panel,
+          title: '表格',
+          theme: 'default',
+          items: [
+            {
+              type: ExtendFormFields.navbar,
+              theme: 'default',
+              htmlClass: 'navbar-static-top',
+              items: []
+            },
+            {
+              type: ExtendFormFields.table,
+              tableParams: new ngTableParams(),
+              tableColumns: [
+                { field: 'name', title: '姓名' },
+                { field: 'tel', title: '电话' },
+                { field: 'mail', title: '邮箱' }
+              ]
             }
           ]
         }

@@ -1,3 +1,4 @@
+import mod = require('SeedModules.AngularUI/modules/module');
 import angular = require('angular');
 
 export interface ISchemaFormParams {
@@ -95,3 +96,8 @@ export function schemaFormParamsFactory(schemaFormDefaults) {
 schemaFormParamsFactory.$inject = [
   'SeedModules.AngularUI/modules/configs/schemaFormDefaults'
 ];
+
+mod.factory(
+  'SeedModules.AngularUI/modules/factories/schemaFormParams',
+  schemaFormParamsFactory
+);

@@ -19,15 +19,8 @@ class PanelConfig {
 
     schemaFormDecoratorsProvider.defineAddOn(
       'bootstrapDecorator',
-      ExtendFormFields.panel,
-      base + 'panel.html',
-      defaultBuilders
-    );
-
-    schemaFormDecoratorsProvider.defineAddOn(
-      'bootstrapDecorator',
-      ExtendFormFields.container,
-      base + 'container.html',
+      ExtendFormFields.table,
+      base + 'table.html',
       defaultBuilders
     );
   }
@@ -37,13 +30,8 @@ boot.config(PanelConfig).run([
   '$templateCache',
   ($templateCache: ng.ITemplateCacheService) => {
     $templateCache.put(
-      base + 'panel.html',
-      '<div class="schema-form-panel panel panel-{{form.theme}} {{form.htmlClass}}"><div ng-if="!form.notitle" class="panel-heading"><span ng-bind="form.title"></span></div><div sf-field-transclude="items"></div></div>'
-    );
-
-    $templateCache.put(
-      base + 'container.html',
-      '<div class="panel-body {{form.htmlClass}}" sf-field-transclude="items"></div>'
+      base + 'table.html',
+      '<table class="table" ng-table-dynamic="form.tableParams with form.tableColumns"><tr ng-repeat="row in $data"><td ng-repeat="col in $columns">{{row[col.field]}}</td></tr></table>'
     );
   }
 ]);

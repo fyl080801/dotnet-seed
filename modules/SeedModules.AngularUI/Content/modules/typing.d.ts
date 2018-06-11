@@ -141,7 +141,9 @@ declare namespace AngularUI {
         | ISection
         | IRow
         | IColumn
-        | IPanel;
+        | IPanel
+        | ITable
+        | INavbar;
 
       export interface IField {
         key?: string | Array<string>; // The dot notatin to the attribute on the model
@@ -186,6 +188,15 @@ declare namespace AngularUI {
 
       export interface IColumn extends IField {
         flex?: number;
+      }
+
+      export interface ITable extends IField {
+        tableParams?: any;
+        tableColumns?: any[];
+      }
+
+      export interface INavbar extends IField {
+        theme?: string;
       }
     }
   }

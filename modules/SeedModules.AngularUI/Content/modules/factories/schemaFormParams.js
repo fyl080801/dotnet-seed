@@ -1,4 +1,4 @@
-define(["require", "exports", "angular"], function (require, exports, angular) {
+define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"], function (require, exports, mod, angular) {
     "use strict";
     exports.__esModule = true;
     function schemaFormParamsFactory(schemaFormDefaults) {
@@ -73,5 +73,6 @@ define(["require", "exports", "angular"], function (require, exports, angular) {
     schemaFormParamsFactory.$inject = [
         'SeedModules.AngularUI/modules/configs/schemaFormDefaults'
     ];
+    mod.factory('SeedModules.AngularUI/modules/factories/schemaFormParams', schemaFormParamsFactory);
 });
 //# sourceMappingURL=schemaFormParams.js.map

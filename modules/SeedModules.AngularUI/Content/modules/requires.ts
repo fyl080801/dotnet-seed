@@ -1,10 +1,9 @@
-import mod = require('SeedModules.AngularUI/modules/module');
 import 'SeedModules.AngularUI/modules/factories/ngTableColumn';
 import 'SeedModules.AngularUI/modules/factories/ngTableEventsChannel';
 import 'SeedModules.AngularUI/modules/factories/ngTableGetDataBcShim';
 import 'SeedModules.AngularUI/modules/factories/ngTableParams';
 import 'SeedModules.AngularUI/modules/factories/ngTableRequest';
-import { schemaFormParamsFactory } from 'SeedModules.AngularUI/modules/factories/schemaFormParams';
+import 'SeedModules.AngularUI/modules/factories/schemaFormParams';
 import 'SeedModules.AngularUI/modules/factories/delayTimer';
 import 'SeedModules.AngularUI/modules/services/requestService';
 import 'SeedModules.AngularUI/modules/services/utility';
@@ -25,8 +24,3 @@ import 'SeedModules.AngularUI/modules/directives/scrollspy';
 import 'SeedModules.AngularUI/modules/filters/booleanText';
 import 'SeedModules.AngularUI/modules/controllers/ngTable';
 import 'SeedModules.AngularUI/modules/controllers/ngTableSorterRow';
-
-mod.factory(
-  'SeedModules.AngularUI/modules/factories/schemaFormParams',
-  schemaFormParamsFactory
-);
