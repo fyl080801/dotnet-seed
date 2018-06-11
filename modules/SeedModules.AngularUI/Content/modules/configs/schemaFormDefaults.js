@@ -1,5 +1,6 @@
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "SeedModules.AngularUI/modules/boot"], function (require, exports, boot) {
     "use strict";
+    exports.__esModule = true;
     var schemaFormDefaults = {
         schema: {},
         options: {
@@ -15,6 +16,6 @@ define(["require", "exports"], function (require, exports) {
             }
         }
     };
-    return schemaFormDefaults;
+    boot.value('SeedModules.AngularUI/modules/configs/schemaFormDefaults', schemaFormDefaults);
 });
 //# sourceMappingURL=schemaFormDefaults.js.map

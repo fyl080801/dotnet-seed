@@ -16,4 +16,7 @@ var schemaFormDefaults = {
   }
 };
 
-export = schemaFormDefaults;
+boot.value(
+  'SeedModules.AngularUI/modules/configs/schemaFormDefaults',
+  schemaFormDefaults
+);

@@ -1,5 +1,6 @@
-define(["require", "exports"], function (require, exports) {
+define(["require", "exports", "SeedModules.AngularUI/modules/boot"], function (require, exports, boot) {
     "use strict";
+    exports.__esModule = true;
     var settings = JSON.parse(document.getElementById('seed-ui').getAttribute('data-site'));
     var ngTableDefaults = {
         options: {},
@@ -11,6 +12,6 @@ define(["require", "exports"], function (require, exports) {
             counts: settings.pageCounts.split(/[,?]/)
         }
     };
-    return ngTableDefaults;
+    boot.value('SeedModules.AngularUI/modules/configs/ngTableDefaults', ngTableDefaults);
 });
 //# sourceMappingURL=ngTableDefaults.js.map

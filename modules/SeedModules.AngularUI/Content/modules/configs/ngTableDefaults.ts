@@ -15,4 +15,7 @@ var ngTableDefaults = {
   }
 };
 
-export = ngTableDefaults;
+boot.value(
+  'SeedModules.AngularUI/modules/configs/ngTableDefaults',
+  ngTableDefaults
+);
