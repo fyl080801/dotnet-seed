@@ -77,6 +77,12 @@
       "shim": {
         "deps": ["schema-form"]
       }
+    },
+    "angular-ui-tree": {
+      "path": "SeedModules.AngularUI/js/seed/angular-ui-tree",
+      "shim": {
+        "deps": ["angular"]
+      }
     }
   },
   "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],

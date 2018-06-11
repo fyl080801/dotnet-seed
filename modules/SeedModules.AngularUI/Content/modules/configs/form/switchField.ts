@@ -12,7 +12,7 @@ class SwitchFieldConfig {
     schemaFormProvider: AngularUI.SchemaForm.ISchemaFormProvider,
     sfPathProvider: AngularUI.SchemaForm.ISfPathProvider
   ) {
-    var base = '/SeedModules.AngularUI/modules/templates/';
+    var base = '/SeedModules.AngularUI/modules/templates/form/';
 
     var switchField = (name, schema, options) => {
       if (schema.type === 'boolean' && schema.format == 'html') {

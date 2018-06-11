@@ -3,7 +3,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
     exports.__esModule = true;
     var SwitchFieldConfig = (function () {
         function SwitchFieldConfig(schemaFormDecoratorsProvider, schemaFormProvider, sfPathProvider) {
-            var base = '/SeedModules.AngularUI/modules/templates/';
+            var base = '/SeedModules.AngularUI/modules/templates/form/';
             var switchField = function (name, schema, options) {
                 if (schema.type === 'boolean' && schema.format == 'html') {
                     var f = schemaFormProvider.stdFormObj(name, schema, options);
