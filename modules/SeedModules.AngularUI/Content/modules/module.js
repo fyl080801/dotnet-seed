@@ -9,6 +9,14 @@ define(["require", "exports", "angular", "SeedModules.AngularUI/modules/configs/
         RouteClass.$inject = ['$provide', '$appConfig'];
         return RouteClass;
     }());
+    angular.module('template/modal/window.html', []).run([
+        '$templateCache',
+        function ($templateCache) {
+            $templateCache.put('template/modal/window.html', '<div tabindex="-1" role="dialog" class="modal fade" ng-class="{in: animate}" ng-style="{\'z-index\': 1050 + index*10, display: \'block\'}" ng-click="close($event)">\n' +
+                '    <div class="modal-dialog modal-{{size}}"><div class="modal-content" modal-transclude></div></div>\n' +
+                '</div>');
+        }
+    ]);
     return angular
         .module('modules.angularui', [
         'modules.angularui.configs',

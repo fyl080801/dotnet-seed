@@ -97,7 +97,8 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
         PageFormClass.prototype.preview = function () {
             this.$modal.open({
                 templateUrl: '/SeedModules.PageBuilder/modules/components/builder/preview.html',
-                size: 'lg',
+                size: 'full',
+                windowClass: 'right',
                 scope: this.$scope
             });
         };

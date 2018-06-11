@@ -27,7 +27,8 @@ class PageFormClass {
     this.$modal.open({
       templateUrl:
         '/SeedModules.PageBuilder/modules/components/builder/preview.html',
-      size: 'lg',
+      size: 'full',
+      windowClass: 'right',
       scope: this.$scope
     });
   }
