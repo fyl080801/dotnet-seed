@@ -146,6 +146,10 @@ declare namespace AngularUI {
         | INavbar;
 
       export interface IField {
+        /**
+         * 别名
+         */
+        alias?: string;
         key?: string | Array<string>; // The dot notatin to the attribute on the model
         type?: string; // Type of field
         title?: string; // Title of field, taken from schema if available

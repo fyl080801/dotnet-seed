@@ -7,13 +7,31 @@ export = PageBuilder;
 declare namespace PageBuilder {
   export namespace providers {
     export interface IToolsBuilderProvider extends ng.IServiceProvider {
-      addTool(category: string, name: string, tool: any);
+      addTool(category: string, tool: PageBuilder.services.ITool);
+      getTool(category: string, name: string): PageBuilder.services.ITool;
+      addToolField(
+        category: string,
+        form: AngularUI.SchemaForm.fields.FieldTypes
+      );
     }
   }
 
   export namespace services {
+    export interface ITool {
+      type: string;
+      name: string;
+      icon?: string;
+      haveItems?: boolean;
+      fields?: Array<IToolField | string>;
+    }
+
+    export interface IToolField {
+      name: string;
+      defaultValue?: any;
+    }
+
     export interface IToolsBuilderService {
-      getTools(): any;
+      getTools(): { [category: string]: PageBuilder.services.ITool[] };
     }
   }
 }

@@ -1,13 +1,13 @@
-<div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm as pageForm">
+<div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm as pg">
     <div style="margin-bottom: 20px">
         <div class="pull-left">
-            <button class="btn btn-default" ng-click="pageForm.back()">
+            <button class="btn btn-default" ng-click="pg.back()">
                 <i class="glyphicon glyphicon-chevron-left"></i>
                 返回
             </button>
         </div>
         <div class="pull-right">
-            <button class="btn btn-default" ng-click="pageForm.preview()">
+            <button class="btn btn-default" ng-click="pg.preview()">
                 <i class="glyphicon glyphicon-eye-open"></i>
                 预览
             </button>
@@ -33,11 +33,11 @@
     </div>
     <div class="seed-container" style="top: 130px">
         <div class="panel panel-default seed-container pb-container">
-            <div pb-toolbox class="seed-container tools"></div>
+            <!-- <div pb-toolbox class="seed-container tools"></div> -->
             <div class="seed-container area panel-body">
                 <div ui-tree>
-                    <ol ui-tree-nodes="" ng-model="editor.form">
-                        <li ng-repeat="item in editor.form" ui-tree-node ng-include="'formnode.html'"></li>
+                    <ol ui-tree-nodes="" class="panel-group" ng-model="editor.form">
+                        <li ng-repeat="item in editor.form" ui-tree-node ng-include="'/SeedModules.PageBuilder/modules/templates/formnode.html'"></li>
                     </ol>
                 </div>
             </div>
@@ -66,10 +66,3 @@
         </div>
     </div>
 </div>
-<script type="text/ng-template" id="formnode.html">
-    <i ui-tree-handle class="glyphicon glyphicon-move"></i>
-    <a href="">{{item.title||item.type}}</a>
-    <ol ui-tree-nodes="" ng-model="item.items" ng-if="item.items">
-        <li ng-repeat="item in item.items" ui-tree-node ng-include="'formnode.html'"></li>
-    </ol>
-</script>
