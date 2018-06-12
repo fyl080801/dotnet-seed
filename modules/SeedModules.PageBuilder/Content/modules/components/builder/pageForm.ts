@@ -4,6 +4,7 @@ import { SchemaTypes } from 'SeedModules.AngularUI/modules/configs/enums/schemaT
 import { DefaultFormTypes } from 'SeedModules.AngularUI/modules/configs/enums/defaultFormTypes';
 import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/enums/extendFormFields';
 import 'rcss!/SeedModules.PageBuilder/css/page-builder.css';
+import 'rcss!/SeedModules.AngularUI/css/angular-ui-tree.css';
 
 interface ISchemaInfo {
   form: Array<AngularUI.SchemaForm.fields.FieldTypes | string>;

@@ -13,6 +13,7 @@
   margin-right: 320px;
   border-left: solid 1px #ddd;
   border-right: solid 1px #ddd;
+  overflow: auto;
 }
 
 .pb-container .property {

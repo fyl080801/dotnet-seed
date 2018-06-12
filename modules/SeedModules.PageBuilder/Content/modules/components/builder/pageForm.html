@@ -34,8 +34,12 @@
     <div class="seed-container" style="top: 130px">
         <div class="panel panel-default seed-container pb-container">
             <div pb-toolbox class="seed-container tools"></div>
-            <div class="seed-container area">
-
+            <div class="seed-container area panel-body">
+                <div ui-tree>
+                    <ol ui-tree-nodes="" ng-model="editor.form">
+                        <li ng-repeat="item in editor.form" ui-tree-node ng-include="'formnode.html'"></li>
+                    </ol>
+                </div>
             </div>
             <div class="seed-container property">
                 <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
@@ -52,15 +56,9 @@
                 </ul>
                 <div class="tab-content seed-container" style="margin-top: 40px">
                     <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="cus_info">
-                        控件
+                        <form name="pageform" class="panel-body" sf-schema="field.schema" sf-form="field.form" sf-options="field.options" sf-model="field.model"></form>
                     </div>
                     <div role="tabpanel" class="tab-pane seed-container" style="overflow: auto" id="cus_tkg">
-                        <!-- <form role="form" name="pageform" class="panel-body">
-                            <div class="form-group" ng-class="{'has-error':pageform.pagename.$invalid}">
-                                <label>页面名称</label>
-                                <input type="text" name="pagename" ng-model="pagename" class="form-control" placeholder="页面名称" required>
-                            </div>
-                        </form> -->
                         <form name="pageform" class="panel-body" sf-schema="form.schema" sf-form="form.form" sf-options="form.options" sf-model="form.model"></form>
                     </div>
                 </div>
@@ -68,3 +66,10 @@
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="formnode.html">
+    <i ui-tree-handle class="glyphicon glyphicon-move"></i>
+    <a href="">{{item.title||item.type}}</a>
+    <ol ui-tree-nodes="" ng-model="item.items" ng-if="item.items">
+        <li ng-repeat="item in item.items" ui-tree-node ng-include="'formnode.html'"></li>
+    </ol>
+</script>

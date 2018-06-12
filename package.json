@@ -24,9 +24,9 @@
     "@types/popper.js": "^1.11.0",
     "@types/requirejs": "^2.1.31",
     "amd-optimize": "^0.6.1",
-    "gulp": "3.9.1",
-    "gulp-cli": "^2.0.1",
+    "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^2.2.1",
+    "gulp-cli": "^2.0.1",
     "gulp-concat": "^2.6.0",
     "gulp-cssmin": "^0.1.7",
     "gulp-htmlmin": "^4.0.0",
@@ -46,5 +46,6 @@
     "rimraf": "^2.5.2",
     "sog-gulp-rev-collector": "0.0.1",
     "typescript": "^2.9.1"
-  }
+  },
+  "dependencies": {}
 }
