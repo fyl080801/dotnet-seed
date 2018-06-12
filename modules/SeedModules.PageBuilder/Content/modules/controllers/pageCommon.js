@@ -4,6 +4,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
     var PageCommonController = (function () {
         function PageCommonController($scope) {
             this.$scope = $scope;
+            $scope.pageCommon = this;
         }
         PageCommonController.prototype.datasource = function (id) { };
         PageCommonController.$inject = ['$scope'];

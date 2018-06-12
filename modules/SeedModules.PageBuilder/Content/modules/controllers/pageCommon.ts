@@ -4,7 +4,9 @@ class PageCommonController {
   datasource(id) {}
 
   static $inject = ['$scope'];
-  constructor(private $scope) {}
+  constructor(private $scope) {
+    $scope.pageCommon = this;
+  }
 }
 
 mod.controller(

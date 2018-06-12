@@ -1,4 +1,4 @@
-<div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm as pg">
+<div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm">
     <div style="margin-bottom: 20px">
         <div class="pull-left">
             <button class="btn btn-default" ng-click="pg.back()">
@@ -11,7 +11,7 @@
                 <i class="glyphicon glyphicon-eye-open"></i>
                 预览
             </button>
-            <div class="btn-group" ng-controller="SeedModules.PageBuilder/modules/controllers/pageCommon as pageCommon">
+            <div class="btn-group" ng-controller="SeedModules.PageBuilder/modules/controllers/pageCommon">
                 <button class="btn btn-default">
                     <i class="glyphicon glyphicon-oil"></i>
                     数据源
@@ -34,9 +34,40 @@
     <div class="seed-container" style="top: 130px">
         <div class="panel panel-default seed-container pb-container">
             <!-- <div pb-toolbox class="seed-container tools"></div> -->
-            <div class="seed-container area panel-body">
-                <div ui-tree>
-                    <ol ui-tree-nodes="" class="panel-group" ng-model="editor.form">
+            <div class="seed-container tools">
+                <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
+                    <li class="text-center active">
+                        <a href="#cus_ctrls" aria-controls="cus_ctrls" role="tab" data-toggle="tab">
+                            控件库
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content seed-container" style="margin-top: 40px">
+                    <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="cus_ctrls">
+                    </div>
+                </div>
+            </div>
+            <div class="seed-container area">
+                <div class="navbar navbar-default navbar-xs navbar-static-top">
+                    <div class="navbar-header">
+                        <ul class="navbar-nav nav">
+                            <li>
+                                <a href="" ng-click="pg.expandAll()">
+                                    <i class="far fa-plus-square"></i>
+                                    全部展开
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="pg.collapseAll()">
+                                    <i class="far fa-minus-square"></i>
+                                    全部折叠
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div ui-tree class="seed-container panel-body" style="margin-top: 40px; overflow: auto;">
+                    <ol ui-tree-nodes class="panel-group" ng-model="editor.form">
                         <li ng-repeat="item in editor.form" ui-tree-node ng-include="'/SeedModules.PageBuilder/modules/templates/formnode.html'"></li>
                     </ol>
                 </div>

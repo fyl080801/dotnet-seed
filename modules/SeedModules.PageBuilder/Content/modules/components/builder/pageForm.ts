@@ -17,9 +17,18 @@ interface IPageFormScope extends ng.IScope {
   editor: ISchemaInfo;
   form: ISchemaInfo;
   field: ISchemaInfo;
+  pg: PageFormClass;
 }
 
 class PageFormClass {
+  collapseAll() {
+    this.$scope.$broadcast('angular-ui-tree:collapse-all');
+  }
+
+  expandAll() {
+    this.$scope.$broadcast('angular-ui-tree:expand-all');
+  }
+
   nodeToggle(scope) {
     scope.toggle();
   }
@@ -52,6 +61,8 @@ class PageFormClass {
     private $modal: ng.ui.bootstrap.IModalService,
     private ngTableParams
   ) {
+    $scope.pg = this;
+
     // 设计器
     $scope.editor = {
       form: [

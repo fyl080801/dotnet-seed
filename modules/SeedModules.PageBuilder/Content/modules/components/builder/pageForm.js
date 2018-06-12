@@ -8,6 +8,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
             this.$state = $state;
             this.$modal = $modal;
             this.ngTableParams = ngTableParams;
+            $scope.pg = this;
             $scope.editor = {
                 form: [
                     {
@@ -133,6 +134,12 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
                 options: {}
             };
         }
+        PageFormClass.prototype.collapseAll = function () {
+            this.$scope.$broadcast('angular-ui-tree:collapse-all');
+        };
+        PageFormClass.prototype.expandAll = function () {
+            this.$scope.$broadcast('angular-ui-tree:expand-all');
+        };
         PageFormClass.prototype.nodeToggle = function (scope) {
             scope.toggle();
         };
