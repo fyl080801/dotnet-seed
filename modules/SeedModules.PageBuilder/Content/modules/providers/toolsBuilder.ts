@@ -100,11 +100,17 @@ class ConfigToolsClass {
       key: 'placeholder'
     });
 
+    toolsBuilderProvider.addToolField('数据', {
+      type: DefaultFormTypes.checkbox,
+      title: '字段',
+      key: 'key'
+    });
+
     // 控件
     toolsBuilderProvider.addTool('布局', {
       type: ExtendFormFields.row,
       name: '行',
-      haveItems: true,
+      container: true,
       fields: [
         {
           name: 'alias',
@@ -115,7 +121,7 @@ class ConfigToolsClass {
     toolsBuilderProvider.addTool('布局', {
       type: ExtendFormFields.column,
       name: '列',
-      haveItems: true,
+      container: true,
       fields: [
         {
           name: 'alias',
@@ -126,7 +132,7 @@ class ConfigToolsClass {
     toolsBuilderProvider.addTool('布局', {
       type: ExtendFormFields.container,
       name: '容器',
-      haveItems: true,
+      container: true,
       fields: [
         {
           name: 'alias',
@@ -137,7 +143,7 @@ class ConfigToolsClass {
     toolsBuilderProvider.addTool('布局', {
       type: ExtendFormFields.panel,
       name: '面板',
-      haveItems: true,
+      container: true,
       fields: [
         {
           name: 'alias',
@@ -149,11 +155,51 @@ class ConfigToolsClass {
     toolsBuilderProvider.addTool('布局', {
       type: DefaultFormTypes.section,
       name: '节点',
-      haveItems: true,
+      container: true,
       fields: [
         {
           name: 'alias',
           defaultValue: '节点'
+        }
+      ]
+    });
+
+    toolsBuilderProvider.addTool('常规', {
+      type: DefaultFormTypes.text,
+      name: '文本输入',
+      container: false,
+      fields: [
+        {
+          name: 'alias',
+          defaultValue: '文本输入'
+        },
+        'title',
+        'required',
+        'readonly',
+        'placeholder',
+        'key',
+        {
+          name: 'key',
+          defaultValue: 'key'
+        }
+      ]
+    });
+    toolsBuilderProvider.addTool('常规', {
+      type: DefaultFormTypes.textarea,
+      name: '文本域',
+      container: false,
+      fields: [
+        {
+          name: 'alias',
+          defaultValue: '文本域'
+        },
+        'title',
+        'required',
+        'readonly',
+        'placeholder',
+        {
+          name: 'key',
+          defaultValue: 'key'
         }
       ]
     });

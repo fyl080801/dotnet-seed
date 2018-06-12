@@ -205,4 +205,13 @@ declare namespace AngularUI {
       }
     }
   }
+
+  export namespace tree {
+    export interface ITreeNodeEvent {
+      dest: Object;
+      elements: Object;
+      pos: Object;
+      source: Object;
+    }
+  }
 }

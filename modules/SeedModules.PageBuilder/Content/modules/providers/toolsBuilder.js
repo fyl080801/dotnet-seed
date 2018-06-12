@@ -80,10 +80,15 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
                 title: '水印',
                 key: 'placeholder'
             });
+            toolsBuilderProvider.addToolField('数据', {
+                type: defaultFormTypes_1.DefaultFormTypes.checkbox,
+                title: '字段',
+                key: 'key'
+            });
             toolsBuilderProvider.addTool('布局', {
                 type: extendFormFields_1.ExtendFormFields.row,
                 name: '行',
-                haveItems: true,
+                container: true,
                 fields: [
                     {
                         name: 'alias',
@@ -94,7 +99,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             toolsBuilderProvider.addTool('布局', {
                 type: extendFormFields_1.ExtendFormFields.column,
                 name: '列',
-                haveItems: true,
+                container: true,
                 fields: [
                     {
                         name: 'alias',
@@ -105,7 +110,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             toolsBuilderProvider.addTool('布局', {
                 type: extendFormFields_1.ExtendFormFields.container,
                 name: '容器',
-                haveItems: true,
+                container: true,
                 fields: [
                     {
                         name: 'alias',
@@ -116,7 +121,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             toolsBuilderProvider.addTool('布局', {
                 type: extendFormFields_1.ExtendFormFields.panel,
                 name: '面板',
-                haveItems: true,
+                container: true,
                 fields: [
                     {
                         name: 'alias',
@@ -128,11 +133,50 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             toolsBuilderProvider.addTool('布局', {
                 type: defaultFormTypes_1.DefaultFormTypes.section,
                 name: '节点',
-                haveItems: true,
+                container: true,
                 fields: [
                     {
                         name: 'alias',
                         defaultValue: '节点'
+                    }
+                ]
+            });
+            toolsBuilderProvider.addTool('常规', {
+                type: defaultFormTypes_1.DefaultFormTypes.text,
+                name: '文本输入',
+                container: false,
+                fields: [
+                    {
+                        name: 'alias',
+                        defaultValue: '文本输入'
+                    },
+                    'title',
+                    'required',
+                    'readonly',
+                    'placeholder',
+                    'key',
+                    {
+                        name: 'key',
+                        defaultValue: 'key'
+                    }
+                ]
+            });
+            toolsBuilderProvider.addTool('常规', {
+                type: defaultFormTypes_1.DefaultFormTypes.textarea,
+                name: '文本域',
+                container: false,
+                fields: [
+                    {
+                        name: 'alias',
+                        defaultValue: '文本域'
+                    },
+                    'title',
+                    'required',
+                    'readonly',
+                    'placeholder',
+                    {
+                        name: 'key',
+                        defaultValue: 'key'
                     }
                 ]
             });

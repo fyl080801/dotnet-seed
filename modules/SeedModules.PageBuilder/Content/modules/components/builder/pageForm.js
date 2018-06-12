@@ -1,12 +1,13 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedModules.AngularUI/modules/configs/enums/schemaTypes", "SeedModules.AngularUI/modules/configs/enums/defaultFormTypes", "SeedModules.AngularUI/modules/configs/enums/extendFormFields", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod, schemaTypes_1, defaultFormTypes_1, extendFormFields_1) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular", "SeedModules.AngularUI/modules/configs/enums/schemaTypes", "SeedModules.AngularUI/modules/configs/enums/defaultFormTypes", "SeedModules.AngularUI/modules/configs/enums/extendFormFields", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod, angular, schemaTypes_1, defaultFormTypes_1, extendFormFields_1) {
     "use strict";
     exports.__esModule = true;
     var PageFormClass = (function () {
-        function PageFormClass($scope, $rootScope, $state, $modal, ngTableParams) {
+        function PageFormClass($scope, $rootScope, $state, $modal, toolsBuilder, ngTableParams) {
             this.$scope = $scope;
             this.$rootScope = $rootScope;
             this.$state = $state;
             this.$modal = $modal;
+            this.toolsBuilder = toolsBuilder;
             this.ngTableParams = ngTableParams;
             $scope.pg = this;
             $scope.editor = {
@@ -104,7 +105,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
                 options: {},
                 model: {}
             };
-            this.$scope.form = {
+            $scope.form = {
                 form: [
                     {
                         key: 'pagename',
@@ -124,7 +125,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
                 options: {},
                 model: {}
             };
-            this.$scope.field = {
+            $scope.field = {
                 form: [],
                 schema: {
                     type: 'object',
@@ -133,6 +134,23 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
                 model: {},
                 options: {}
             };
+            $scope.toolsConfigs = {
+                accept: function (source, destination, destinationIndex) {
+                    return false;
+                },
+                beforeDrop: function (eventInfo) {
+                    console.log(eventInfo.dest);
+                    return false;
+                }
+            };
+            $scope.tools = [];
+            var tools = toolsBuilder.getTools();
+            angular.forEach(tools, function (tool, idx) {
+                $scope.tools.push({
+                    category: idx,
+                    items: tool
+                });
+            });
         }
         PageFormClass.prototype.collapseAll = function () {
             this.$scope.$broadcast('angular-ui-tree:collapse-all');
@@ -159,6 +177,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
             '$rootScope',
             '$state',
             '$modal',
+            'SeedModules.PageBuilder/modules/providers/toolsBuilder',
             'SeedModules.AngularUI/modules/factories/ngTableParams'
         ];
         return PageFormClass;

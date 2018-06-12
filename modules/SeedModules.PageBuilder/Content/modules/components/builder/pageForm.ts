@@ -17,6 +17,9 @@ interface IPageFormScope extends ng.IScope {
   editor: ISchemaInfo;
   form: ISchemaInfo;
   field: ISchemaInfo;
+  tools: any[];
+  toolsConfigs;
+  formConfigs;
   pg: PageFormClass;
 }
 
@@ -52,6 +55,7 @@ class PageFormClass {
     '$rootScope',
     '$state',
     '$modal',
+    'SeedModules.PageBuilder/modules/providers/toolsBuilder',
     'SeedModules.AngularUI/modules/factories/ngTableParams'
   ];
   constructor(
@@ -59,6 +63,7 @@ class PageFormClass {
     private $rootScope: ng.IRootScopeService,
     private $state: ng.ui.IStateService,
     private $modal: ng.ui.bootstrap.IModalService,
+    private toolsBuilder: PageBuilder.services.IToolsBuilderService,
     private ngTableParams
   ) {
     $scope.pg = this;
@@ -161,7 +166,7 @@ class PageFormClass {
     };
 
     // 页面属性
-    this.$scope.form = {
+    $scope.form = {
       form: [
         {
           key: 'pagename',
@@ -182,7 +187,7 @@ class PageFormClass {
       model: {}
     };
 
-    this.$scope.field = {
+    $scope.field = {
       form: [],
       schema: {
         type: 'object',
@@ -191,6 +196,29 @@ class PageFormClass {
       model: {},
       options: {}
     };
+
+    // 设计器选项
+    $scope.toolsConfigs = {
+      accept: (source, destination, destinationIndex: number) => {
+        return false;
+      },
+      beforeDrop: (eventInfo: AngularUI.tree.ITreeNodeEvent) => {
+        console.log(eventInfo.dest);
+
+        return false;
+      }
+    };
+
+    // 构建工具箱
+    $scope.tools = [];
+
+    var tools = toolsBuilder.getTools();
+    angular.forEach(tools, (tool, idx) => {
+      $scope.tools.push({
+        category: idx,
+        items: tool
+      });
+    });
   }
 }
 

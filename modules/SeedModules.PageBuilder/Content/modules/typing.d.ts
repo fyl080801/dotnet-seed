@@ -21,7 +21,7 @@ declare namespace PageBuilder {
       type: string;
       name: string;
       icon?: string;
-      haveItems?: boolean;
+      container?: boolean;
       fields?: Array<IToolField | string>;
     }
 
