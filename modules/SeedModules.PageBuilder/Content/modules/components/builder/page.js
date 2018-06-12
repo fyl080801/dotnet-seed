@@ -7,6 +7,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
             this.$state = $state;
             this.$modal = $modal;
             this.popupService = popupService;
+            $scope.page = this;
             $scope.search = {
                 keyword: ''
             };

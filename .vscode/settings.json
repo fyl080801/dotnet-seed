@@ -8,7 +8,11 @@
     "**/.DS_Store": true,
     "modules/**/*.map": true,
     "**/bin": true,
-    "**/obj": true
+    "**/obj": true,
+    // 都用typescript就不用管理js了
+    "modules/SeedModules.Features/Content/modules/**/*.js": true,
+    "modules/SeedModules.PageBuilder/Content/modules/**/*.js": true,
+    "modules/SeedModules.SqlBuilder/Content/modules/**/*.js": true
   },
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

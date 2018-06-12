@@ -1,47 +1,51 @@
-define(['SeedModules.Features/modules/module'], function(module) {
-  'use strict';
-
-  module.controller('SeedModules.Features/modules/controllers/features', [
-    '$scope',
-    'SeedModules.AngularUI/modules/services/requestService',
-    'SeedModules.AngularUI/modules/factories/ngTableParams',
-    function($scope, requestService, ngTableParams) {
-      $scope.keyword = '';
-      $scope.list = [];
-
-      $scope.setEnable = function(feature, enabled) {
-        if (enabled !== undefined) {
-          feature.enabled = enabled;
+define(["require", "exports", "SeedModules.Features/modules/module"], function (require, exports, mod) {
+    "use strict";
+    exports.__esModule = true;
+    var FeaturesController = (function () {
+        function FeaturesController($scope, requestService) {
+            this.$scope = $scope;
+            this.requestService = requestService;
+            $scope.keyword = '';
+            $scope.list = [];
+            $scope.features = this;
         }
-        requestService
-          .url('/api/features/' + feature.descriptor.id)
-          .patch({
-            enabled: feature.enabled
-          })
-          .then(function(result) {
-            $scope.load();
-          });
-      };
-
-      var requesting;
-      $scope.load = function() {
-        requesting = requestService
-          .url('/api/features?keyword=' + $scope.keyword)
-          .options({
-            showLoading: false
-          })
-          .get();
-
-        requesting.result.then(function(result) {
-          $scope.list = result.list;
-        });
-      };
-
-      $scope.cancelLoad = function() {
-        if (requesting) {
-          requesting.cancel();
-        }
-      };
-    }
-  ]);
+        FeaturesController.prototype.setEnable = function (feature, enabled) {
+            var self = this;
+            if (enabled !== undefined) {
+                feature.enabled = enabled;
+            }
+            this.requestService
+                .url('/api/features/' + feature.descriptor.id)
+                .patch({
+                enabled: feature.enabled
+            })
+                .result.then(function (result) {
+                self.load();
+            });
+        };
+        FeaturesController.prototype.load = function () {
+            var self = this;
+            this.$scope.requesting = this.requestService
+                .url('/api/features?keyword=' + this.$scope.keyword)
+                .options({
+                showLoading: false
+            })
+                .get();
+            this.$scope.requesting.result.then(function (result) {
+                self.$scope.list = result.list;
+            });
+        };
+        FeaturesController.prototype.cancelLoad = function () {
+            if (this.$scope.requesting) {
+                this.$scope.requesting.cancel();
+            }
+        };
+        FeaturesController.$inject = [
+            '$scope',
+            'SeedModules.AngularUI/modules/services/requestService'
+        ];
+        return FeaturesController;
+    }());
+    mod.controller('SeedModules.Features/modules/controllers/features', FeaturesController);
 });
+//# sourceMappingURL=features.js.map

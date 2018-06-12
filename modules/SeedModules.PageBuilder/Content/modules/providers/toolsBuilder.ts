@@ -161,6 +161,10 @@ class ConfigToolsClass {
 }
 
 boot
+  .constant('SeedModules.PageBuilder/modules/configs/defaultTools', {})
+  .constant('SeedModules.PageBuilder/modules/configs/defaultToolFields', {
+    基本: []
+  })
   .provider(
     'SeedModules.PageBuilder/modules/providers/toolsBuilder',
     ToolsBuilderProvider

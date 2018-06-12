@@ -40,15 +40,18 @@ class WebApi implements AngularUI.services.IWebApi {
     var configs: AngularUI.services.IRequestOptions = angular.extend(
       {
         showLoading: true,
-        dataOnly: false
+        configs: {
+          dataOnly: false
+        }
       },
       this.options
     );
 
-    configs.method = method;
-    configs.url = this.$appConfig.siteSettings.prefix + this.options.url;
-    configs.data = data;
-    configs.timeout = defer.promise;
+    configs.configs.method = method;
+    configs.configs.url =
+      this.$appConfig.siteSettings.prefix + this.options.configs.url;
+    configs.configs.data = data;
+    configs.configs.timeout = defer.promise;
 
     var loading = configs.showLoading
       ? this.$modal.open({
@@ -57,7 +60,7 @@ class WebApi implements AngularUI.services.IWebApi {
         })
       : null;
 
-    this.$http<app.services.IResponseContext<TOutput>>(configs)
+    this.$http<app.services.IResponseContext<TOutput>>(configs.configs)
       .then(response => {
         if (response.status >= 400) {
           self.httpDataHandler.doError(response, defer);
@@ -110,7 +113,7 @@ class WebApiContext implements AngularUI.services.IWebApiContext {
       this.$modal,
       this.$appConfig,
       this.httpDataHandler,
-      angular.extend(options, { url: this.url })
+      angular.extend(options, { configs: { url: this.url } })
     );
     return this;
   }
@@ -125,7 +128,7 @@ class WebApiContext implements AngularUI.services.IWebApiContext {
     private httpDataHandler: app.factories.IHttpDataHandler,
     private url: string
   ) {
-    this.options({ method: 'GET', url: url });
+    this.options({ configs: { method: 'GET', url: url } });
   }
 }
 

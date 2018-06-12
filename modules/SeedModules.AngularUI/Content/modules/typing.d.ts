@@ -32,7 +32,8 @@ declare namespace AngularUI {
       options(options: IRequestOptions): IWebApi;
     }
 
-    export interface IRequestOptions extends ng.IRequestConfig {
+    export interface IRequestOptions {
+      configs?: ng.IRequestConfig;
       showLoading?: boolean;
     }
 

@@ -3,6 +3,7 @@ import mod = require('SeedModules.PageBuilder/modules/module');
 interface IPageScope extends ng.IScope {
   search: {};
   pages: Array<any>;
+  page: PageController;
 }
 
 class PageController {
@@ -35,6 +36,7 @@ class PageController {
     private $modal: ng.ui.bootstrap.IModalService,
     private popupService: app.services.IPopupService
   ) {
+    $scope.page = this;
     $scope.search = {
       keyword: ''
     };

@@ -1,7 +1,7 @@
-<div ng-controller="SeedModules.Features/modules/controllers/features" ng-init="load()">
+<div ng-controller="SeedModules.Features/modules/controllers/features" ng-init="features.load()">
     <div class="navbar navbar-default">
         <div class="navbar-header navbar-form">
-            <div trigger-input ng-model="keyword" mark="'关键字...'" callback="load()" canceling="cancelLoad()"></div>
+            <div trigger-input ng-model="keyword" mark="'关键字...'" callback="features.load()" canceling="features.cancelLoad()"></div>
         </div>
         <div class="container-fluid">
             <div class="navbar-form navbar-right">
@@ -27,11 +27,10 @@
                     <div class="panel-body">
                         <div>
                             <div class="btn-group pull-right" ng-show="fea.descriptor.plugin.descriptor.allowedManage">
-                                <button class="btn" ng-class="{'btn-danger active':!fea.enabled, 'btn-default':fea.enabled}" ng-disabled="!fea.enabled" ng-click="setEnable(fea, false)">禁用</button>
-                                <button class="btn" ng-class="{'btn-success active':fea.enabled, 'btn-default':!fea.enabled}" ng-disabled="fea.enabled" ng-click="setEnable(fea, true)">启用</button>
+                                <button class="btn" ng-class="{'btn-danger active':!fea.enabled, 'btn-default':fea.enabled}" ng-disabled="!fea.enabled" ng-click="features.setEnable(fea, false)">禁用</button>
+                                <button class="btn" ng-class="{'btn-success active':fea.enabled, 'btn-default':!fea.enabled}" ng-disabled="fea.enabled" ng-click="features.setEnable(fea, true)">启用</button>
                             </div>
                             <h4 class="list-group-item-heading">
-                                <!-- <input type="checkbox"> -->
                                 <a href="">{{fea.descriptor.name}}</a>
                             </h4>
                             <p class="list-group-item-text text-muted text-ellipsis">{{fea.descriptor.description||'无说明'}}</p>
@@ -41,13 +40,4 @@
             </div>
         </div>
     </div>
-    <!-- <table ng-table="tableParams" class="table table-striped">
-        <tr ng-repeat="row in list">
-            <td title="'#'">
-                <input type="checkbox">
-            </td>
-            <td title="'test1'" sortable="true">{{row.id}}</td>
-            <td title="'test2'">{{row.text}}</td>
-        </tr>
-    </table> -->
 </div>
