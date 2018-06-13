@@ -17,9 +17,11 @@ interface IPageFormScope extends ng.IScope {
   editor: ISchemaInfo;
   form: ISchemaInfo;
   field: ISchemaInfo;
-  tools: any[];
-  toolsConfigs;
-  formConfigs;
+  tools: {
+    category: string;
+    items: PageBuilder.services.ITool[];
+  }[];
+  toolsConfigs: AngularUI.tree.ITreeConfig<PageBuilder.services.ITool>;
   pg: PageFormClass;
 }
 
@@ -199,12 +201,33 @@ class PageFormClass {
 
     // 设计器选项
     $scope.toolsConfigs = {
-      accept: (source, destination, destinationIndex: number) => {
-        return false;
-      },
-      beforeDrop: (eventInfo: AngularUI.tree.ITreeNodeEvent) => {
-        console.log(eventInfo.dest);
-
+      beforeDrop: (
+        eventInfo: AngularUI.tree.IEventInfo<PageBuilder.services.ITool>
+      ) => {
+        var selectedTool = null;
+        angular.forEach($scope.tools, tool => {
+          var selected = $.grep(tool.items, (t, i) => {
+            return eventInfo.dest.nodesScope.$nodeScope
+              ? t.type === eventInfo.source.nodeScope.item.type
+              : false;
+          });
+          if (selected.length > 0) {
+            selectedTool = selected[0];
+            return false;
+          }
+        });
+        if (selectedTool) {
+          var destTool: AngularUI.SchemaForm.fields.FieldTypes = {
+            type: selectedTool.type,
+            items: selectedTool.container ? [] : undefined,
+            key: selectedTool.type
+          };
+          eventInfo.dest.nodesScope.$modelValue.splice(
+            eventInfo.dest.index,
+            0,
+            destTool
+          );
+        }
         return false;
       }
     };

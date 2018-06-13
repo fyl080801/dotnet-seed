@@ -207,11 +207,91 @@ declare namespace AngularUI {
   }
 
   export namespace tree {
-    export interface ITreeNodeEvent {
-      dest: Object;
+    export interface ITreeConfig<TItem> {
+      accept?(
+        source: ITreeNodeScope<TItem>,
+        destination: ITreeNodesScope<TItem>,
+        destinationIndex: number
+      ): boolean;
+      beforeDrop?(eventInfo: IEventInfo<TItem>): boolean;
+    }
+
+    export interface IPosition {
+      dirAx: number;
+      dirX: number;
+      dirY: number;
+      distAxX: number;
+      distAxY: number;
+      distX: number;
+      distY: number;
+      lastDirX: number;
+      lastDirY: number;
+      lastX: number;
+      lastY: number;
+      moving: boolean;
+      nowX: number;
+      nowY: number;
+      offsetX: number;
+      offsetY: number;
+      startX: number;
+      startY: number;
+    }
+
+    interface IEventSourceInfo<TItem> {
+      cloneModel: any;
+      index: number;
+      nodeScope: ITreeNodeScope<TItem>;
+      nodesScope: ITreeNodesScope<TItem>;
+    }
+
+    export interface ITreeScope extends ng.IScope {}
+
+    export interface ITreeNodeScope<TItem> extends ng.IScope {
+      $childNodesScope: ITreeNodesScope<TItem>;
+      $element: JQLite;
+      $even: boolean;
+      $first: boolean;
+      $handleScope: any;
+      $index: number;
+      $last: boolean;
+      $middle: boolean;
+      $modelValue: any;
+      $odd: boolean;
+      $parentNodeScope?: ITreeNodeScope<TItem>;
+      $parentNodesScope?: ITreeNodesScope<TItem>;
+      $treeScope: ITreeScope;
+      $type: string;
+      collapsed: boolean;
+      expandOnHove: boolean;
+      item: TItem;
+      scrollContainer?: any;
+      sourceOnly: boolean;
+    }
+
+    export interface ITreeNodesScope<TItem> extends ng.IScope {
+      $element: JQLite;
+      $modelValue: any[];
+      $nodeScope: ITreeNodeScope<TItem>;
+      $nodesMap: any;
+      $treeScope: ITreeScope;
+      $type: string;
+      cloneEnabled: boolean;
+      maxDepth: number;
+      nodropEnabled: boolean;
+    }
+
+    interface IParentTreeNodeScope<TItem> extends ITreeNodesScope<TItem> {
+      isParent(nodeScope: ITreeNodeScope<TItem>): boolean;
+    }
+
+    export interface IEventInfo<TItem> {
+      dest: {
+        index: number;
+        nodesScope: IParentTreeNodeScope<TItem>;
+      };
       elements: Object;
-      pos: Object;
-      source: Object;
+      pos: IPosition;
+      source: IEventSourceInfo<TItem>;
     }
   }
 }

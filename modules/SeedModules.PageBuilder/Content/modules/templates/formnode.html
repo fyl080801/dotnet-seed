@@ -15,6 +15,6 @@
         </span>
     </div>
 </div>
-<ol ui-tree-nodes class="panel-group" ng-model="item.items" ng-class="{hidden: collapsed}" ng-if="item.items">
+<ol ui-tree-nodes class="panel-group" ng-model="item.items" ng-class="{hidden: collapsed}" ng-if="item.items!==undefined">
     <li ng-repeat="item in item.items" ui-tree-node ng-include="'/SeedModules.PageBuilder/modules/templates/formnode.html'"></li>
 </ol>

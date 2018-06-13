@@ -135,11 +135,27 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 options: {}
             };
             $scope.toolsConfigs = {
-                accept: function (source, destination, destinationIndex) {
-                    return false;
-                },
                 beforeDrop: function (eventInfo) {
-                    console.log(eventInfo.dest);
+                    var selectedTool = null;
+                    angular.forEach($scope.tools, function (tool) {
+                        var selected = $.grep(tool.items, function (t, i) {
+                            return eventInfo.dest.nodesScope.$nodeScope
+                                ? t.type === eventInfo.source.nodeScope.item.type
+                                : false;
+                        });
+                        if (selected.length > 0) {
+                            selectedTool = selected[0];
+                            return false;
+                        }
+                    });
+                    if (selectedTool) {
+                        var destTool = {
+                            type: selectedTool.type,
+                            items: selectedTool.container ? [] : undefined,
+                            key: selectedTool.type
+                        };
+                        eventInfo.dest.nodesScope.$modelValue.splice(eventInfo.dest.index, 0, destTool);
+                    }
                     return false;
                 }
             };
