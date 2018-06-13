@@ -47,11 +47,11 @@ export class DefaultToolFieldsConfig {
       title: '字段',
       key: 'key'
     });
-    toolsBuilderProvider.addToolField('数据', 'condition', {
-      type: DefaultFormTypes.text,
-      title: '简单表达式',
-      key: 'condition'
-    });
+    // toolsBuilderProvider.addToolField('数据', 'condition', {
+    //   type: DefaultFormTypes.text,
+    //   title: '简单表达式',
+    //   key: 'condition'
+    // });
     toolsBuilderProvider.addToolField('数据', 'textRange', {
       type: DefaultFormTypes.section,
       title: '字符长度',

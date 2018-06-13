@@ -39,11 +39,6 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/defau
                 title: '字段',
                 key: 'key'
             });
-            toolsBuilderProvider.addToolField('数据', 'condition', {
-                type: defaultFormTypes_1.DefaultFormTypes.text,
-                title: '简单表达式',
-                key: 'condition'
-            });
             toolsBuilderProvider.addToolField('数据', 'textRange', {
                 type: defaultFormTypes_1.DefaultFormTypes.section,
                 title: '字符长度',
