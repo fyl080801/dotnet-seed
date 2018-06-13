@@ -26,6 +26,37 @@ interface IPageFormScope extends ng.IScope {
 }
 
 class PageFormClass {
+  dropTool(
+    scope: AngularUI.tree.ITreeNodeScope<AngularUI.SchemaForm.fields.FieldTypes>
+  ) {
+    scope.remove();
+  }
+
+  editField(
+    scope: AngularUI.tree.ITreeNodeScope<AngularUI.SchemaForm.fields.FieldTypes>
+  ) {
+    var form = this.toolsBuilder.getToolForm(scope.item['type']);
+    var formDefine = [];
+    angular.forEach(form, (fields, category) => {
+      formDefine.push({
+        type: DefaultFormTypes.section,
+        items: fields
+      });
+    });
+
+    this.$scope.field = {
+      form: formDefine,
+      schema: {
+        type: 'object',
+        properties: {
+          key: {}
+        }
+      },
+      model: scope.item,
+      options: {}
+    };
+  }
+
   collapseAll() {
     this.$scope.$broadcast('angular-ui-tree:collapse-all');
   }
@@ -38,10 +69,6 @@ class PageFormClass {
     scope.toggle();
   }
 
-  back() {
-    this.$state.go('admin.pagebuilder_page');
-  }
-
   preview() {
     this.$modal.open({
       templateUrl:
@@ -50,6 +77,10 @@ class PageFormClass {
       windowClass: 'right',
       scope: this.$scope
     });
+  }
+
+  back() {
+    this.$state.go('admin.pagebuilder_page');
   }
 
   static $inject = [
@@ -204,18 +235,21 @@ class PageFormClass {
       beforeDrop: (
         eventInfo: AngularUI.tree.IEventInfo<PageBuilder.services.ITool>
       ) => {
-        var selectedTool = null;
-        angular.forEach($scope.tools, tool => {
-          var selected = $.grep(tool.items, (t, i) => {
-            return eventInfo.dest.nodesScope.$nodeScope
-              ? t.type === eventInfo.source.nodeScope.item.type
-              : false;
-          });
-          if (selected.length > 0) {
-            selectedTool = selected[0];
-            return false;
-          }
-        });
+        // 判断当前目标是否不是工具箱
+        if (
+          eventInfo.dest.nodesScope.$treeScope.$id ===
+          eventInfo.source.nodesScope.$treeScope.$id
+        )
+          return false;
+
+        // 找到工具箱控件
+        var selectedTool = toolsBuilder.getTool(
+          eventInfo.dest.nodesScope && eventInfo.source.nodeScope.item
+            ? eventInfo.source.nodeScope.item.type
+            : null
+        );
+
+        // 实际将控件添加到设计器
         if (selectedTool) {
           var destTool: AngularUI.SchemaForm.fields.FieldTypes = {
             type: selectedTool.type,

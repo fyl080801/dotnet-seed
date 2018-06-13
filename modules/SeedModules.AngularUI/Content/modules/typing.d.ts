@@ -266,6 +266,10 @@ declare namespace AngularUI {
       item: TItem;
       scrollContainer?: any;
       sourceOnly: boolean;
+      remove();
+      toggle();
+      collapse();
+      expand();
     }
 
     export interface ITreeNodesScope<TItem> extends ng.IScope {

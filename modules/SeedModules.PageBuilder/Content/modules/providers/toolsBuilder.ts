@@ -3,13 +3,65 @@ import angular = require('angular');
 import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/enums/extendFormFields';
 import { DefaultFormTypes } from 'SeedModules.AngularUI/modules/configs/enums/defaultFormTypes';
 
-class ToolsService implements PageBuilder.services.IToolsBuilderService {
-  constructor(
-    private defaultTools: { [category: string]: PageBuilder.services.ITool[] }
-  ) {}
-  getTools(): { [category: string]: PageBuilder.services.ITool[] } {
+class ToolsBuilderService implements PageBuilder.services.IToolsBuilderService {
+  getToolForm(type: string): PageBuilder.services.ToolFieldCollection {
+    var self = this;
+    var tool = this.getTool(type);
+    if (!tool) return null;
+
+    var form: PageBuilder.services.ToolFieldCollection = {};
+    angular.forEach(self.defaultToolFields, (fields, category) => {
+      form[category] = form[category] || [];
+
+      angular.forEach(fields, field => {
+        angular.forEach(tool.fields, tf => {
+          var current = null;
+          if (typeof tf === 'string') {
+            current = tf === field['key'] ? field : null;
+          } else {
+            current = tf.name === field['key'] ? field : null;
+          }
+
+          if (current) {
+            form[category].push(current);
+          }
+        });
+      });
+    });
+    return form;
+  }
+
+  getTool(type: string): PageBuilder.services.ITool {
+    var tools = this.getTools();
+    var selectedTool = null;
+    angular.forEach(
+      tools,
+      (tool: PageBuilder.services.ITool[], category: string) => {
+        var selected = $.grep(
+          tool,
+          (t: PageBuilder.services.ITool, i: number) => {
+            return type && type.length > 0 ? t.type === type : false;
+          }
+        );
+        if (selected.length > 0) {
+          selectedTool = selected[0];
+          return false;
+        }
+      }
+    );
+    return selectedTool;
+  }
+
+  getTools(): PageBuilder.services.ToolsCollection {
     return this.defaultTools;
   }
+
+  constructor(
+    private defaultTools: PageBuilder.services.ToolsCollection,
+    private defaultToolFields: {
+      [name: string]: AngularUI.SchemaForm.fields.FieldTypes[];
+    }
+  ) {}
 }
 
 class ToolsBuilderProvider
@@ -57,12 +109,15 @@ class ToolsBuilderProvider
     'SeedModules.PageBuilder/modules/configs/defaultToolFields'
   ];
   constructor(
-    private defaultTools: { [category: string]: PageBuilder.services.ITool[] },
+    private defaultTools: PageBuilder.services.ToolsCollection,
     private defaultToolFields: {
       [name: string]: AngularUI.SchemaForm.fields.FieldTypes[];
     }
   ) {
-    this.service = new ToolsService(this.defaultTools);
+    this.service = new ToolsBuilderService(
+      this.defaultTools,
+      this.defaultToolFields
+    );
   }
 }
 
@@ -101,7 +156,7 @@ class ConfigToolsClass {
     });
 
     toolsBuilderProvider.addToolField('数据', {
-      type: DefaultFormTypes.checkbox,
+      type: DefaultFormTypes.text,
       title: '字段',
       key: 'key'
     });
@@ -153,6 +208,17 @@ class ConfigToolsClass {
       ]
     });
     toolsBuilderProvider.addTool('布局', {
+      type: ExtendFormFields.navbar,
+      name: '导航栏',
+      container: true,
+      fields: [
+        {
+          name: 'alias',
+          defaultValue: '导航栏'
+        }
+      ]
+    });
+    toolsBuilderProvider.addTool('布局', {
       type: DefaultFormTypes.section,
       name: '节点',
       container: true,
@@ -177,7 +243,6 @@ class ConfigToolsClass {
         'required',
         'readonly',
         'placeholder',
-        'key',
         {
           name: 'key',
           defaultValue: 'key'

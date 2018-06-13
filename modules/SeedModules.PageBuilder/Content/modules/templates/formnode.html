@@ -6,10 +6,10 @@
         }"></span>
         <span ui-tree-handle ng-bind="item.alias||item.title||item.type"></span>
         <span class="pull-right">
-            <button class="btn btn-default btn-xs">
+            <button class="btn btn-default btn-xs" ng-click="pg.editField(this)">
                 <i class="glyphicon glyphicon-edit"></i>
             </button>
-            <button class="btn btn-danger btn-xs">
+            <button class="btn btn-danger btn-xs" ng-click="pg.dropTool(this)">
                 <i class="glyphicon glyphicon-remove"></i>
             </button>
         </span>

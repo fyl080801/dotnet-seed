@@ -1,20 +1,60 @@
 define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular", "SeedModules.AngularUI/modules/configs/enums/extendFormFields", "SeedModules.AngularUI/modules/configs/enums/defaultFormTypes"], function (require, exports, boot, angular, extendFormFields_1, defaultFormTypes_1) {
     "use strict";
     exports.__esModule = true;
-    var ToolsService = (function () {
-        function ToolsService(defaultTools) {
+    var ToolsBuilderService = (function () {
+        function ToolsBuilderService(defaultTools, defaultToolFields) {
             this.defaultTools = defaultTools;
+            this.defaultToolFields = defaultToolFields;
         }
-        ToolsService.prototype.getTools = function () {
+        ToolsBuilderService.prototype.getToolForm = function (type) {
+            var self = this;
+            var tool = this.getTool(type);
+            if (!tool)
+                return null;
+            var form = {};
+            angular.forEach(self.defaultToolFields, function (fields, category) {
+                form[category] = form[category] || [];
+                angular.forEach(fields, function (field) {
+                    angular.forEach(tool.fields, function (tf) {
+                        var current = null;
+                        if (typeof tf === 'string') {
+                            current = tf === field['key'] ? field : null;
+                        }
+                        else {
+                            current = tf.name === field['key'] ? field : null;
+                        }
+                        if (current) {
+                            form[category].push(current);
+                        }
+                    });
+                });
+            });
+            return form;
+        };
+        ToolsBuilderService.prototype.getTool = function (type) {
+            var tools = this.getTools();
+            var selectedTool = null;
+            angular.forEach(tools, function (tool, category) {
+                var selected = $.grep(tool, function (t, i) {
+                    return type && type.length > 0 ? t.type === type : false;
+                });
+                if (selected.length > 0) {
+                    selectedTool = selected[0];
+                    return false;
+                }
+            });
+            return selectedTool;
+        };
+        ToolsBuilderService.prototype.getTools = function () {
             return this.defaultTools;
         };
-        return ToolsService;
+        return ToolsBuilderService;
     }());
     var ToolsBuilderProvider = (function () {
         function ToolsBuilderProvider(defaultTools, defaultToolFields) {
             this.defaultTools = defaultTools;
             this.defaultToolFields = defaultToolFields;
-            this.service = new ToolsService(this.defaultTools);
+            this.service = new ToolsBuilderService(this.defaultTools, this.defaultToolFields);
         }
         ToolsBuilderProvider.prototype.addToolField = function (category, form) {
             this.defaultToolFields[category] = this.defaultToolFields[category]
@@ -81,7 +121,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
                 key: 'placeholder'
             });
             toolsBuilderProvider.addToolField('数据', {
-                type: defaultFormTypes_1.DefaultFormTypes.checkbox,
+                type: defaultFormTypes_1.DefaultFormTypes.text,
                 title: '字段',
                 key: 'key'
             });
@@ -131,6 +171,17 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
                 ]
             });
             toolsBuilderProvider.addTool('布局', {
+                type: extendFormFields_1.ExtendFormFields.navbar,
+                name: '导航栏',
+                container: true,
+                fields: [
+                    {
+                        name: 'alias',
+                        defaultValue: '导航栏'
+                    }
+                ]
+            });
+            toolsBuilderProvider.addTool('布局', {
                 type: defaultFormTypes_1.DefaultFormTypes.section,
                 name: '节点',
                 container: true,
@@ -154,7 +205,6 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
                     'required',
                     'readonly',
                     'placeholder',
-                    'key',
                     {
                         name: 'key',
                         defaultValue: 'key'

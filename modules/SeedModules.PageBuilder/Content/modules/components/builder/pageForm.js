@@ -136,18 +136,12 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             };
             $scope.toolsConfigs = {
                 beforeDrop: function (eventInfo) {
-                    var selectedTool = null;
-                    angular.forEach($scope.tools, function (tool) {
-                        var selected = $.grep(tool.items, function (t, i) {
-                            return eventInfo.dest.nodesScope.$nodeScope
-                                ? t.type === eventInfo.source.nodeScope.item.type
-                                : false;
-                        });
-                        if (selected.length > 0) {
-                            selectedTool = selected[0];
-                            return false;
-                        }
-                    });
+                    if (eventInfo.dest.nodesScope.$treeScope.$id ===
+                        eventInfo.source.nodesScope.$treeScope.$id)
+                        return false;
+                    var selectedTool = toolsBuilder.getTool(eventInfo.dest.nodesScope && eventInfo.source.nodeScope.item
+                        ? eventInfo.source.nodeScope.item.type
+                        : null);
                     if (selectedTool) {
                         var destTool = {
                             type: selectedTool.type,
@@ -168,6 +162,30 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 });
             });
         }
+        PageFormClass.prototype.dropTool = function (scope) {
+            scope.remove();
+        };
+        PageFormClass.prototype.editField = function (scope) {
+            var form = this.toolsBuilder.getToolForm(scope.item['type']);
+            var formDefine = [];
+            angular.forEach(form, function (fields, category) {
+                formDefine.push({
+                    type: defaultFormTypes_1.DefaultFormTypes.section,
+                    items: fields
+                });
+            });
+            this.$scope.field = {
+                form: formDefine,
+                schema: {
+                    type: 'object',
+                    properties: {
+                        key: {}
+                    }
+                },
+                model: scope.item,
+                options: {}
+            };
+        };
         PageFormClass.prototype.collapseAll = function () {
             this.$scope.$broadcast('angular-ui-tree:collapse-all');
         };
@@ -177,9 +195,6 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
         PageFormClass.prototype.nodeToggle = function (scope) {
             scope.toggle();
         };
-        PageFormClass.prototype.back = function () {
-            this.$state.go('admin.pagebuilder_page');
-        };
         PageFormClass.prototype.preview = function () {
             this.$modal.open({
                 templateUrl: '/SeedModules.PageBuilder/modules/components/builder/preview.html',
@@ -187,6 +202,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 windowClass: 'right',
                 scope: this.$scope
             });
+        };
+        PageFormClass.prototype.back = function () {
+            this.$state.go('admin.pagebuilder_page');
         };
         PageFormClass.$inject = [
             '$scope',

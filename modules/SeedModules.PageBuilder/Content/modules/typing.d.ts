@@ -22,7 +22,7 @@ declare namespace PageBuilder {
       name: string;
       icon?: string;
       container?: boolean;
-      fields?: Array<IToolField | string>;
+      fields: Array<IToolField | string>;
     }
 
     export interface IToolField {
@@ -30,8 +30,18 @@ declare namespace PageBuilder {
       defaultValue?: any;
     }
 
+    export type ToolsCollection = {
+      [category: string]: PageBuilder.services.ITool[];
+    };
+
+    export type ToolFieldCollection = {
+      [name: string]: AngularUI.SchemaForm.fields.FieldTypes[];
+    };
+
     export interface IToolsBuilderService {
-      getTools(): { [category: string]: PageBuilder.services.ITool[] };
+      getTools(): ToolsCollection;
+      getTool(type: string): PageBuilder.services.ITool;
+      getToolForm(type: string): PageBuilder.services.ToolFieldCollection;
     }
   }
 }
