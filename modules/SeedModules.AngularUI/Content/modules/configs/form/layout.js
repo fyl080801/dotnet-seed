@@ -28,6 +28,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
             $templateCache.put(base + 'row.html', '<div class="row" sf-field-transclude="items"></div>');
             $templateCache.put(base + 'column.html', '<div class="col-md-{{form.flex}} col-lg-{{form.flex}} col-sm-{{form.flex}} col-xs-{{flex}}" sf-field-transclude="items"></div>');
             $templateCache.put(base + 'navbar.html', '<div class="navbar navbar-{{form.theme}} {{form.htmlClass}}" style="margin: 0" sf-field-transclude="items"></div>');
+            $templateCache.put('decorators/bootstrap/tabs.html', '<div ng-init="selected = { tab: 0 }" class="schema-form-tabs {{form.htmlClass}}"><ul class="nav nav-tabs"><li ng-repeat="tab in form.tabs" ng-disabled="form.readonly" ng-click="$event.preventDefault() || (selected.tab = $index)" ng-class="{active: selected.tab === $index}"><a href="#"> <i ng-if="tab.titleIcon && tab.titleIcon.length>0" class="{{tab.titleIcon}}"></i> {{ tab.title }}</a></li></ul><div class="tab-content {{form.fieldHtmlClass}}"></div></div>');
         }
     ]);
 });

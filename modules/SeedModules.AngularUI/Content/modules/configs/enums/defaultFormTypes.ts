@@ -17,6 +17,8 @@ export enum DefaultFormTypes {
   help = 'help',
   template = 'template',
   tab = 'tab',
+  tabs = 'tabs',
   array = 'array',
-  tabarray = 'tabarray'
+  tabarray = 'tabarray',
+  subforms = 'subforms'
 }

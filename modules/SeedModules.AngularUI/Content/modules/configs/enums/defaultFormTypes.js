@@ -21,8 +21,10 @@ define(["require", "exports"], function (require, exports) {
         DefaultFormTypes["help"] = "help";
         DefaultFormTypes["template"] = "template";
         DefaultFormTypes["tab"] = "tab";
+        DefaultFormTypes["tabs"] = "tabs";
         DefaultFormTypes["array"] = "array";
         DefaultFormTypes["tabarray"] = "tabarray";
+        DefaultFormTypes["subforms"] = "subforms";
     })(DefaultFormTypes = exports.DefaultFormTypes || (exports.DefaultFormTypes = {}));
 });
 //# sourceMappingURL=defaultFormTypes.js.map

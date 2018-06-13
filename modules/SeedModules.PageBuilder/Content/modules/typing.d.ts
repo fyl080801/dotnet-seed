@@ -22,7 +22,7 @@ declare namespace PageBuilder {
       type: string;
       name: string;
       icon?: string;
-      container?: boolean;
+      container?: boolean | string;
       fields: Array<string>;
     }
 

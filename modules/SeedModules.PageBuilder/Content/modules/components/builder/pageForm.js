@@ -144,9 +144,19 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                     if (selectedTool) {
                         var destTool = {
                             type: selectedTool.type,
-                            items: selectedTool.container ? [] : undefined,
+                            container: selectedTool.container,
                             key: selectedTool.type
                         };
+                        if (typeof selectedTool.container === 'string' &&
+                            selectedTool.container.length > 0) {
+                            destTool.container = selectedTool.container;
+                            destTool[destTool.container] = [];
+                        }
+                        else if (typeof selectedTool.container === 'boolean' &&
+                            selectedTool.container === true) {
+                            destTool.container = 'items';
+                            destTool['items'] = [];
+                        }
                         eventInfo.dest.nodesScope.$modelValue.splice(eventInfo.dest.index, 0, destTool);
                     }
                     return false;
@@ -169,7 +179,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             var formDefine = [];
             angular.forEach(form, function (fields, category) {
                 var categoryPanel = {
-                    type: defaultFormTypes_1.DefaultFormTypes.section,
+                    type: defaultFormTypes_1.DefaultFormTypes.fieldset,
                     items: []
                 };
                 angular.forEach(fields, function (field, name) {
@@ -195,6 +205,11 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
         };
         PageFormClass.prototype.nodeToggle = function (scope) {
             scope.toggle();
+        };
+        PageFormClass.prototype.initTool = function (item) {
+            if (item.items !== undefined) {
+                item.container = 'items';
+            }
         };
         PageFormClass.prototype.viewCode = function () {
             this.$modal.open({

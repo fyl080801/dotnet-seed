@@ -54,7 +54,10 @@
                                     </div>
                                     <div id="tb_{{group.category}}" class="list-group panel-collapse collapse in" ui-tree-nodes ng-model="group.items" style="padding: 0">
                                         <div ui-tree-node ng-repeat="item in group.items track by $index">
-                                            <a ui-tree-handle class="list-group-item">{{item.name}}</a>
+                                            <a ui-tree-handle class="list-group-item">
+                                                <i class="{{item.icon}}"></i>
+                                                {{item.name}}
+                                            </a>
                                         </div>
                                     </div>
                                 </li>

@@ -146,6 +146,7 @@ declare namespace AngularUI {
         | IField
         | IButton
         | ISection
+        | ITabs
         | IRow
         | IColumn
         | IPanel
@@ -178,11 +179,16 @@ declare namespace AngularUI {
         destroyStrategy?: string; // One of "null", "empty" , "remove", or 'retain'. Changes model on $destroy event. default is "remove".
         dataType?: string;
         required?: boolean;
+        container?: boolean | string;
       }
 
       export interface ISection {
         items: FieldTypes[];
         htmlClass?: string;
+      }
+
+      export interface ITabs {
+        tabs?: FieldTypes[];
       }
 
       export interface IButton extends IField {

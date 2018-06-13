@@ -39,7 +39,7 @@ class PageFormClass {
     var formDefine = [];
     angular.forEach(form, (fields, category) => {
       var categoryPanel = {
-        type: DefaultFormTypes.section,
+        type: DefaultFormTypes.fieldset,
         items: []
       };
       angular.forEach(fields, (field, name) => {
@@ -69,6 +69,12 @@ class PageFormClass {
 
   nodeToggle(scope) {
     scope.toggle();
+  }
+
+  initTool(item) {
+    if (item.items !== undefined) {
+      item.container = 'items';
+    }
   }
 
   viewCode() {
@@ -265,9 +271,24 @@ class PageFormClass {
         if (selectedTool) {
           var destTool: AngularUI.SchemaForm.fields.FieldTypes = {
             type: selectedTool.type,
-            items: selectedTool.container ? [] : undefined,
+            container: selectedTool.container,
             key: selectedTool.type
           };
+
+          if (
+            typeof selectedTool.container === 'string' &&
+            selectedTool.container.length > 0
+          ) {
+            destTool.container = selectedTool.container;
+            destTool[destTool.container] = [];
+          } else if (
+            typeof selectedTool.container === 'boolean' &&
+            selectedTool.container === true
+          ) {
+            destTool.container = 'items';
+            destTool['items'] = [];
+          }
+
           eventInfo.dest.nodesScope.$modelValue.splice(
             eventInfo.dest.index,
             0,
