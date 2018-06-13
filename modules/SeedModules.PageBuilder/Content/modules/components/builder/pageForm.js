@@ -117,8 +117,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                     type: schemaTypes_1.SchemaTypes.object,
                     properties: {
                         pagename: {
-                            type: 'string',
-                            required: true
+                            type: 'string'
                         }
                     }
                 },
@@ -169,18 +168,20 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             var form = this.toolsBuilder.getToolForm(scope.item['type']);
             var formDefine = [];
             angular.forEach(form, function (fields, category) {
-                formDefine.push({
+                var categoryPanel = {
                     type: defaultFormTypes_1.DefaultFormTypes.section,
-                    items: fields
+                    items: []
+                };
+                angular.forEach(fields, function (field, name) {
+                    categoryPanel.items.push(angular.extend({ schema: {} }, field));
                 });
+                formDefine.push(categoryPanel);
             });
             this.$scope.field = {
                 form: formDefine,
                 schema: {
                     type: 'object',
-                    properties: {
-                        key: {}
-                    }
+                    properties: { key: { type: 'string' } }
                 },
                 model: scope.item,
                 options: {}
@@ -194,6 +195,15 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
         };
         PageFormClass.prototype.nodeToggle = function (scope) {
             scope.toggle();
+        };
+        PageFormClass.prototype.viewCode = function () {
+            this.$modal.open({
+                template: '<div><textarea style="width: 100%; height: 400px" ng-model="$data"></textarea></div>',
+                scope: angular.extend(this.$rootScope.$new(), {
+                    $data: JSON.stringify(this.$scope.editor)
+                }),
+                size: 'lg'
+            });
         };
         PageFormClass.prototype.preview = function () {
             this.$modal.open({

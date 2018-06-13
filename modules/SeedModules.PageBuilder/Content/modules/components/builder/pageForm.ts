@@ -7,7 +7,7 @@ import 'rcss!/SeedModules.PageBuilder/css/page-builder.css';
 
 interface ISchemaInfo {
   form: Array<AngularUI.SchemaForm.fields.FieldTypes | string>;
-  schema: AngularUI.SchemaForm.ISchema;
+  schema?: AngularUI.SchemaForm.ISchema;
   options: AngularUI.SchemaForm.IOptions;
   model: any;
 }
@@ -38,19 +38,21 @@ class PageFormClass {
     var form = this.toolsBuilder.getToolForm(scope.item['type']);
     var formDefine = [];
     angular.forEach(form, (fields, category) => {
-      formDefine.push({
+      var categoryPanel = {
         type: DefaultFormTypes.section,
-        items: fields
+        items: []
+      };
+      angular.forEach(fields, (field, name) => {
+        categoryPanel.items.push(angular.extend({ schema: {} }, field));
       });
+      formDefine.push(categoryPanel);
     });
 
     this.$scope.field = {
       form: formDefine,
       schema: {
         type: 'object',
-        properties: {
-          key: {}
-        }
+        properties: { key: { type: 'string' } }
       },
       model: scope.item,
       options: {}
@@ -67,6 +69,17 @@ class PageFormClass {
 
   nodeToggle(scope) {
     scope.toggle();
+  }
+
+  viewCode() {
+    this.$modal.open({
+      template:
+        '<div><textarea style="width: 100%; height: 400px" ng-model="$data"></textarea></div>',
+      scope: angular.extend(this.$rootScope.$new(), {
+        $data: JSON.stringify(this.$scope.editor)
+      }),
+      size: 'lg'
+    });
   }
 
   preview() {
@@ -211,8 +224,7 @@ class PageFormClass {
         type: SchemaTypes.object,
         properties: {
           pagename: {
-            type: 'string',
-            required: true
+            type: 'string'
           }
         }
       },

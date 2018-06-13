@@ -11,6 +11,7 @@ declare namespace PageBuilder {
       getTool(category: string, name: string): PageBuilder.services.ITool;
       addToolField(
         category: string,
+        name: string,
         form: AngularUI.SchemaForm.fields.FieldTypes
       );
     }
@@ -22,7 +23,7 @@ declare namespace PageBuilder {
       name: string;
       icon?: string;
       container?: boolean;
-      fields: Array<IToolField | string>;
+      fields: Array<string>;
     }
 
     export interface IToolField {
@@ -35,7 +36,7 @@ declare namespace PageBuilder {
     };
 
     export type ToolFieldCollection = {
-      [name: string]: AngularUI.SchemaForm.fields.FieldTypes[];
+      [name: string]: { [key: string]: AngularUI.SchemaForm.fields.FieldTypes };
     };
 
     export interface IToolsBuilderService {

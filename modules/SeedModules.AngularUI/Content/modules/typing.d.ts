@@ -117,7 +117,13 @@ declare namespace AngularUI {
 
     export interface ISchema {
       type: string;
-      properties: { [key: string]: any };
+      properties: { [key: string]: IProperty };
+      required?: string[];
+    }
+
+    export interface IProperty {
+      type: string;
+      title?: string;
     }
 
     export interface IPristine {
@@ -170,6 +176,8 @@ declare namespace AngularUI {
         copyValueTo?: Array<string>; // Copy values to these schema keys.
         condition?: string; // Show or hide field depending on an angular expression
         destroyStrategy?: string; // One of "null", "empty" , "remove", or 'retain'. Changes model on $destroy event. default is "remove".
+        dataType?: string;
+        required?: boolean;
       }
 
       export interface ISection {
