@@ -18,10 +18,7 @@ define(["require", "exports", "angular", "app/application", "SeedModules.Angular
         }
     ]);
     return angular
-        .module('modules.angularui', [
-        'modules.angularui.configs',
-        'modules.angularui.boot'
-    ])
+        .module('modules.angularui', ['modules.angularui.boot'])
         .config(RouteClass);
 });
 //# sourceMappingURL=module.js.map

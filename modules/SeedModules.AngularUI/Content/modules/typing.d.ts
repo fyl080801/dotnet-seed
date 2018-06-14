@@ -33,8 +33,9 @@ declare namespace AngularUI {
     }
 
     export interface IRequestOptions {
-      configs?: ng.IRequestConfig;
+      dataOnly?: boolean;
       showLoading?: boolean;
+      url?: string;
     }
 
     export interface IWebApi {

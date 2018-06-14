@@ -38,24 +38,20 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
         WebApi.prototype.resolveHttp = function (method, data) {
             var defer = this.$q.defer();
             var self = this;
-            var configs = angular.extend({
-                showLoading: true,
-                configs: {
-                    dataOnly: false
-                }
-            }, this.options);
-            configs.configs.method = method;
-            configs.configs.url =
-                this.$appConfig.siteSettings.prefix + this.options.configs.url;
-            configs.configs.data = data;
-            configs.configs.timeout = defer.promise;
-            var loading = configs.showLoading
+            this.options.url = this.$appConfig.siteSettings.prefix + this.options.url;
+            var configs = {
+                method: method,
+                url: '',
+                data: data,
+                timeout: defer.promise
+            };
+            var loading = this.options.showLoading
                 ? this.$modal.open({
                     templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
                     size: 'sm'
                 })
                 : null;
-            this.$http(configs.configs)
+            this.$http(angular.extend(configs, this.options))
                 .then(function (response) {
                 if (response.status >= 400) {
                     self.httpDataHandler.doError(response, defer);
@@ -81,7 +77,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
             this.$appConfig = $appConfig;
             this.httpDataHandler = httpDataHandler;
             this.url = url;
-            this.options({ configs: { method: 'GET', url: url } });
+            this.options({ url: url });
         }
         WebApiContext.prototype.get = function () {
             return this.api.get();
@@ -99,7 +95,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
             return this.api.drop();
         };
         WebApiContext.prototype.options = function (options) {
-            this.api = new WebApi(this.$q, this.$http, this.$modal, this.$appConfig, this.httpDataHandler, angular.extend(options, { configs: { url: this.url } }));
+            this.api = new WebApi(this.$q, this.$http, this.$modal, this.$appConfig, this.httpDataHandler, angular.extend(options, { url: this.url }));
             return this;
         };
         return WebApiContext;

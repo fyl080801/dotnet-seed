@@ -38,8 +38,5 @@ angular.module('template/modal/window.html', []).run([
 ]);
 
 export = angular
-  .module('modules.angularui', [
-    'modules.angularui.configs',
-    'modules.angularui.boot'
-  ])
+  .module('modules.angularui', ['modules.angularui.boot'])
   .config(RouteClass);
