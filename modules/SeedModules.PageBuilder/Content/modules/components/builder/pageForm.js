@@ -58,7 +58,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                         source1: {
                             type: 'object',
                             properties: {
-                                fname: { type: 'string', required: false },
+                                fname: { type: 'string', required: true },
                                 lname: { type: 'string' }
                             }
                         }
