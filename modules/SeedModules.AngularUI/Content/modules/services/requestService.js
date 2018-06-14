@@ -38,20 +38,19 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
         WebApi.prototype.resolveHttp = function (method, data) {
             var defer = this.$q.defer();
             var self = this;
-            this.options.url = this.$appConfig.siteSettings.prefix + this.options.url;
-            var configs = {
+            var configs = angular.extend({
                 method: method,
-                url: '',
                 data: data,
                 timeout: defer.promise
-            };
+            }, this.options);
+            configs.url = this.$appConfig.siteSettings.prefix + this.options.url;
             var loading = this.options.showLoading
                 ? this.$modal.open({
                     templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
                     size: 'sm'
                 })
                 : null;
-            this.$http(angular.extend(configs, this.options))
+            this.$http(configs)
                 .then(function (response) {
                 if (response.status >= 400) {
                     self.httpDataHandler.doError(response, defer);

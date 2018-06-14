@@ -37,14 +37,16 @@ class WebApi implements AngularUI.services.IWebApi {
     var defer = this.$q.defer<TOutput>();
     var self = this;
 
-    this.options.url = this.$appConfig.siteSettings.prefix + this.options.url;
+    var configs = angular.extend(
+      {
+        method: method,
+        data: data,
+        timeout: defer.promise
+      },
+      this.options
+    );
 
-    var configs: ng.IRequestConfig = {
-      method: method,
-      url: '',
-      data: data,
-      timeout: defer.promise
-    };
+    configs.url = this.$appConfig.siteSettings.prefix + this.options.url;
 
     var loading = this.options.showLoading
       ? this.$modal.open({
@@ -53,9 +55,7 @@ class WebApi implements AngularUI.services.IWebApi {
         })
       : null;
 
-    this.$http<app.services.IResponseContext<TOutput>>(
-      angular.extend(configs, this.options)
-    )
+    this.$http<app.services.IResponseContext<TOutput>>(configs)
       .then(response => {
         if (response.status >= 400) {
           self.httpDataHandler.doError(response, defer);
