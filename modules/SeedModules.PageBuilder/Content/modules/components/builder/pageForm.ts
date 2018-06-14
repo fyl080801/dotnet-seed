@@ -139,7 +139,7 @@ class PageFormClass {
                       flex: 6,
                       items: [
                         {
-                          key: 'source1.lastName',
+                          key: 'source1.lname',
                           type: DefaultFormTypes.text,
                           title: '姓'
                         }
@@ -150,58 +150,14 @@ class PageFormClass {
                       flex: 6,
                       items: [
                         {
-                          key: 'source1.firstName',
+                          key: 'source1.fname',
                           type: DefaultFormTypes.text,
                           title: '名'
                         }
                       ]
                     }
                   ]
-                },
-                {
-                  key: 'source1.description',
-                  type: DefaultFormTypes.text,
-                  title: '描述'
                 }
-              ]
-            }
-          ]
-        },
-        {
-          type: ExtendFormFields.panel,
-          title: '面板2',
-          theme: 'info',
-          items: [
-            {
-              type: DefaultFormTypes.section,
-              items: [
-                {
-                  key: 'category',
-                  type: 'select',
-                  title: '分类'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          type: ExtendFormFields.panel,
-          title: '表格',
-          theme: 'default',
-          items: [
-            {
-              type: ExtendFormFields.navbar,
-              theme: 'default',
-              htmlClass: 'navbar-static-top',
-              items: []
-            },
-            {
-              type: ExtendFormFields.table,
-              tableParams: new ngTableParams(),
-              tableColumns: [
-                { field: 'name', title: '姓名' },
-                { field: 'tel', title: '电话' },
-                { field: 'mail', title: '邮箱' }
               ]
             }
           ]
@@ -210,7 +166,13 @@ class PageFormClass {
       schema: {
         type: SchemaTypes.object,
         properties: {
-          source1: { type: 'object' }
+          source1: {
+            type: 'object',
+            properties: {
+              fname: { type: 'string', required: false },
+              lname: { type: 'string' }
+            }
+          }
         }
       },
       options: {},

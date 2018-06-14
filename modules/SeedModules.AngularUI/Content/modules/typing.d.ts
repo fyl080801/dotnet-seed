@@ -118,7 +118,7 @@ declare namespace AngularUI {
 
     export interface ISchema {
       type: string;
-      properties: { [key: string]: IProperty };
+      properties: { [key: string]: ISchema | IProperty };
       required?: string[];
     }
 

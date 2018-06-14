@@ -28,7 +28,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                                                 flex: 6,
                                                 items: [
                                                     {
-                                                        key: 'source1.lastName',
+                                                        key: 'source1.lname',
                                                         type: defaultFormTypes_1.DefaultFormTypes.text,
                                                         title: '姓'
                                                     }
@@ -39,58 +39,14 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                                                 flex: 6,
                                                 items: [
                                                     {
-                                                        key: 'source1.firstName',
+                                                        key: 'source1.fname',
                                                         type: defaultFormTypes_1.DefaultFormTypes.text,
                                                         title: '名'
                                                     }
                                                 ]
                                             }
                                         ]
-                                    },
-                                    {
-                                        key: 'source1.description',
-                                        type: defaultFormTypes_1.DefaultFormTypes.text,
-                                        title: '描述'
                                     }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        type: extendFormFields_1.ExtendFormFields.panel,
-                        title: '面板2',
-                        theme: 'info',
-                        items: [
-                            {
-                                type: defaultFormTypes_1.DefaultFormTypes.section,
-                                items: [
-                                    {
-                                        key: 'category',
-                                        type: 'select',
-                                        title: '分类'
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        type: extendFormFields_1.ExtendFormFields.panel,
-                        title: '表格',
-                        theme: 'default',
-                        items: [
-                            {
-                                type: extendFormFields_1.ExtendFormFields.navbar,
-                                theme: 'default',
-                                htmlClass: 'navbar-static-top',
-                                items: []
-                            },
-                            {
-                                type: extendFormFields_1.ExtendFormFields.table,
-                                tableParams: new ngTableParams(),
-                                tableColumns: [
-                                    { field: 'name', title: '姓名' },
-                                    { field: 'tel', title: '电话' },
-                                    { field: 'mail', title: '邮箱' }
                                 ]
                             }
                         ]
@@ -99,7 +55,13 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 schema: {
                     type: schemaTypes_1.SchemaTypes.object,
                     properties: {
-                        source1: { type: 'object' }
+                        source1: {
+                            type: 'object',
+                            properties: {
+                                fname: { type: 'string', required: false },
+                                lname: { type: 'string' }
+                            }
+                        }
                     }
                 },
                 options: {},
