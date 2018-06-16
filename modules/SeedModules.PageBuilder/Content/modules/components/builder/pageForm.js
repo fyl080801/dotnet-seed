@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular", "SeedModules.AngularUI/modules/configs/enums/schemaTypes", "SeedModules.AngularUI/modules/configs/enums/defaultFormTypes", "SeedModules.AngularUI/modules/configs/enums/extendFormFields", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod, angular, schemaTypes_1, defaultFormTypes_1, extendFormFields_1) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular", "SeedModules.AngularUI/modules/configs/enums/schemaTypes", "SeedModules.AngularUI/modules/configs/enums/defaultFormTypes", "rcss!/SeedModules.PageBuilder/css/page-builder.css"], function (require, exports, mod, angular, schemaTypes_1, defaultFormTypes_1) {
     "use strict";
     exports.__esModule = true;
     var PageFormClass = (function () {
@@ -10,63 +10,6 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             this.toolsBuilder = toolsBuilder;
             this.ngTableParams = ngTableParams;
             $scope.pg = this;
-            $scope.editor = {
-                form: [
-                    {
-                        type: extendFormFields_1.ExtendFormFields.panel,
-                        title: 'aaaaaaaaa',
-                        theme: 'success',
-                        items: [
-                            {
-                                type: extendFormFields_1.ExtendFormFields.container,
-                                items: [
-                                    {
-                                        type: extendFormFields_1.ExtendFormFields.row,
-                                        items: [
-                                            {
-                                                type: extendFormFields_1.ExtendFormFields.column,
-                                                flex: 6,
-                                                items: [
-                                                    {
-                                                        key: 'source1.lname',
-                                                        type: defaultFormTypes_1.DefaultFormTypes.text,
-                                                        title: '姓'
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                type: extendFormFields_1.ExtendFormFields.column,
-                                                flex: 6,
-                                                items: [
-                                                    {
-                                                        key: 'source1.fname',
-                                                        type: defaultFormTypes_1.DefaultFormTypes.text,
-                                                        title: '名'
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                schema: {
-                    type: schemaTypes_1.SchemaTypes.object,
-                    properties: {
-                        source1: {
-                            type: 'object',
-                            properties: {
-                                fname: { type: 'string', required: true },
-                                lname: { type: 'string' }
-                            }
-                        }
-                    }
-                },
-                options: {},
-                model: {}
-            };
             $scope.form = {
                 form: [
                     {
@@ -86,58 +29,38 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 options: {},
                 model: {}
             };
+            $scope.editor = {
+                form: [],
+                schema: {},
+                options: {},
+                model: {}
+            };
             $scope.field = {
                 form: [],
-                schema: {
-                    type: 'object',
-                    properties: {}
-                },
+                schema: {},
                 model: {},
                 options: {}
             };
-            $scope.toolsConfigs = {
-                beforeDrop: function (eventInfo) {
-                    if (eventInfo.dest.nodesScope.$treeScope.$id ===
-                        eventInfo.source.nodesScope.$treeScope.$id)
-                        return false;
-                    var selectedTool = toolsBuilder.getTool(eventInfo.dest.nodesScope && eventInfo.source.nodeScope.item
-                        ? eventInfo.source.nodeScope.item.type
-                        : null);
-                    if (selectedTool) {
-                        var destTool = {
-                            type: selectedTool.type,
-                            container: selectedTool.container,
-                            key: selectedTool.type
-                        };
-                        if (typeof selectedTool.container === 'string' &&
-                            selectedTool.container.length > 0) {
-                            destTool.container = selectedTool.container;
-                            destTool[destTool.container] = [];
-                        }
-                        else if (typeof selectedTool.container === 'boolean' &&
-                            selectedTool.container === true) {
-                            destTool.container = 'items';
-                            destTool['items'] = [];
-                        }
-                        eventInfo.dest.nodesScope.$modelValue.splice(eventInfo.dest.index, 0, destTool);
-                    }
-                    return false;
-                }
-            };
-            $scope.tools = [];
-            var tools = toolsBuilder.getTools();
-            angular.forEach(tools, function (tool, idx) {
-                $scope.tools.push({
-                    category: idx,
-                    items: tool
-                });
-            });
         }
         PageFormClass.prototype.dropTool = function (scope) {
             scope.remove();
+            if (scope.$modelValue.key) {
+                if (scope.$modelValue.key && typeof scope.$modelValue.key === 'string') {
+                    scope.$modelValue.key = scope.$modelValue.key.split('.');
+                }
+                var formProperty = this.$scope.editor.schema.properties;
+                for (var i = 0; i < scope.$modelValue.key.length; i++) {
+                    if (i === scope.$modelValue.key.length - 1) {
+                        delete formProperty[scope.$modelValue.key[i]];
+                    }
+                    else {
+                        formProperty = formProperty[scope.$modelValue.key[i]].properties;
+                    }
+                }
+            }
         };
         PageFormClass.prototype.editField = function (scope) {
-            var form = this.toolsBuilder.getToolForm(scope.item['type']);
+            var form = this.toolsBuilder.getControlProperties(scope.item['type']);
             var formDefine = [];
             angular.forEach(form, function (fields, category) {
                 var categoryPanel = {
@@ -185,8 +108,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
         PageFormClass.prototype.preview = function () {
             this.$modal.open({
                 templateUrl: '/SeedModules.PageBuilder/modules/components/builder/preview.html',
-                size: 'full',
-                windowClass: 'right',
+                size: 'lg',
                 scope: this.$scope
             });
         };

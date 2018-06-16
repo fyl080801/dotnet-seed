@@ -6,24 +6,28 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             this.defaultTools = defaultTools;
             this.defaultToolFields = defaultToolFields;
         }
-        ToolsBuilderService.prototype.getToolForm = function (type) {
+        ToolsBuilderService.prototype.getControlProperties = function (type) {
             var self = this;
-            var tool = this.getTool(type);
+            var tool = this.getControl(type);
             if (!tool)
                 return null;
             var form = {};
             angular.forEach(self.defaultToolFields, function (fields, category) {
                 form[category] = form[category] || {};
-                angular.forEach(tool.fields, function (field, idx) {
-                    if (fields[field]) {
+                angular.forEach(tool.fields, function (field) {
+                    if (typeof field === 'string' && fields[field]) {
                         form[category][field] = fields[field];
+                    }
+                    else {
+                        var controlField = field;
+                        form[category][controlField.name] = fields[controlField.name];
                     }
                 });
             });
             return form;
         };
-        ToolsBuilderService.prototype.getTool = function (type) {
-            var tools = this.getTools();
+        ToolsBuilderService.prototype.getControl = function (type) {
+            var tools = this.getControls();
             var selectedTool = null;
             angular.forEach(tools, function (tool, category) {
                 var selected = $.grep(tool, function (t, i) {
@@ -36,7 +40,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             });
             return selectedTool;
         };
-        ToolsBuilderService.prototype.getTools = function () {
+        ToolsBuilderService.prototype.getControls = function () {
             return this.defaultTools;
         };
         return ToolsBuilderService;
@@ -47,11 +51,11 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             this.defaultToolFields = defaultToolFields;
             this.service = new ToolsBuilderService(this.defaultTools, this.defaultToolFields);
         }
-        ToolsBuilderProvider.prototype.addToolField = function (category, name, form) {
+        ToolsBuilderProvider.prototype.addControlProperty = function (category, name, form) {
             this.defaultToolFields[category] = this.defaultToolFields[category] || {};
             this.defaultToolFields[category][name] = form;
         };
-        ToolsBuilderProvider.prototype.getTool = function (category, name) {
+        ToolsBuilderProvider.prototype.getControl = function (category, name) {
             if (!this.defaultTools[category])
                 return null;
             var existed = $.grep(this.defaultTools[category], function (item, idx) {
@@ -59,7 +63,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
             });
             return existed && existed.length > 0 ? existed[0] : null;
         };
-        ToolsBuilderProvider.prototype.addTool = function (category, tool) {
+        ToolsBuilderProvider.prototype.addControl = function (category, tool) {
             this.defaultTools[category] = this.defaultTools[category]
                 ? this.defaultTools[category]
                 : [];

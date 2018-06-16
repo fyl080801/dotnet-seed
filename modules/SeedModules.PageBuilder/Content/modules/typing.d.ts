@@ -6,10 +6,10 @@ export = PageBuilder;
 
 declare namespace PageBuilder {
   export namespace providers {
-    export interface IToolsBuilderProvider extends ng.IServiceProvider {
-      addTool(category: string, tool: PageBuilder.services.ITool);
-      getTool(category: string, name: string): PageBuilder.services.ITool;
-      addToolField(
+    export interface IControlBuilderProvider extends ng.IServiceProvider {
+      addControl(category: string, control: PageBuilder.services.IControl);
+      getControl(category: string, name: string): PageBuilder.services.IControl;
+      addControlProperty(
         category: string,
         name: string,
         form: AngularUI.SchemaForm.fields.FieldTypes
@@ -18,31 +18,36 @@ declare namespace PageBuilder {
   }
 
   export namespace services {
-    export interface ITool {
+    export interface IControl {
       type: string;
       name: string;
       icon?: string;
       container?: boolean | string;
-      fields: Array<string>;
+      fields: Array<string | IControlField>;
+      onAdded?(form: AngularUI.SchemaForm.fields.FieldTypes);
     }
 
-    export interface IToolField {
+    export interface IControlField {
       name: string;
       defaultValue?: any;
     }
 
-    export type ToolsCollection = {
-      [category: string]: PageBuilder.services.ITool[];
+    export type ControlCollection = {
+      [category: string]: PageBuilder.services.IControl[];
     };
 
-    export type ToolFieldCollection = {
-      [name: string]: { [key: string]: AngularUI.SchemaForm.fields.FieldTypes };
+    export type ControlPropertyCollection = {
+      [category: string]: {
+        [control: string]: AngularUI.SchemaForm.fields.FieldTypes;
+      };
     };
 
-    export interface IToolsBuilderService {
-      getTools(): ToolsCollection;
-      getTool(type: string): PageBuilder.services.ITool;
-      getToolForm(type: string): PageBuilder.services.ToolFieldCollection;
+    export interface IControlBuilderService {
+      getControls(): ControlCollection;
+      getControl(type: string): PageBuilder.services.IControl;
+      getControlProperties(
+        type: string
+      ): PageBuilder.services.ControlPropertyCollection;
     }
   }
 }

@@ -117,14 +117,11 @@ declare namespace AngularUI {
     }
 
     export interface ISchema {
-      type: string;
-      properties: { [key: string]: ISchema | IProperty };
-      required?: string[];
-    }
-
-    export interface IProperty {
-      type: string;
+      type?: string;
       title?: string;
+      properties?: { [key: string]: ISchema };
+      items?: Array<ISchema>;
+      required?: boolean | string[];
     }
 
     export interface IPristine {
@@ -140,6 +137,13 @@ declare namespace AngularUI {
       destroyStrategy?: string;
       pristine?: IPristine;
       validateOnRender?: boolean;
+    }
+
+    export interface ISchemaForm {
+      schema: ISchema;
+      form: fields.FieldTypes[];
+      options?: IOptions;
+      model?: any;
     }
 
     export namespace fields {
@@ -178,8 +182,6 @@ declare namespace AngularUI {
         copyValueTo?: Array<string>; // Copy values to these schema keys.
         condition?: string; // Show or hide field depending on an angular expression
         destroyStrategy?: string; // One of "null", "empty" , "remove", or 'retain'. Changes model on $destroy event. default is "remove".
-        dataType?: string;
-        required?: boolean;
         container?: boolean | string;
       }
 

@@ -5,23 +5,10 @@ import { DefaultFormTypes } from 'SeedModules.AngularUI/modules/configs/enums/de
 import { ExtendFormFields } from 'SeedModules.AngularUI/modules/configs/enums/extendFormFields';
 import 'rcss!/SeedModules.PageBuilder/css/page-builder.css';
 
-interface ISchemaInfo {
-  form: Array<AngularUI.SchemaForm.fields.FieldTypes | string>;
-  schema?: AngularUI.SchemaForm.ISchema;
-  options: AngularUI.SchemaForm.IOptions;
-  model: any;
-}
-
 interface IPageFormScope extends ng.IScope {
-  pagename: string;
-  editor: ISchemaInfo;
-  form: ISchemaInfo;
-  field: ISchemaInfo;
-  tools: {
-    category: string;
-    items: PageBuilder.services.ITool[];
-  }[];
-  toolsConfigs: AngularUI.tree.ITreeConfig<PageBuilder.services.ITool>;
+  editor: AngularUI.SchemaForm.ISchemaForm;
+  form: AngularUI.SchemaForm.ISchemaForm;
+  field: AngularUI.SchemaForm.ISchemaForm;
   pg: PageFormClass;
 }
 
@@ -30,12 +17,25 @@ class PageFormClass {
     scope: AngularUI.tree.ITreeNodeScope<AngularUI.SchemaForm.fields.FieldTypes>
   ) {
     scope.remove();
+    if (scope.$modelValue.key) {
+      if (scope.$modelValue.key && typeof scope.$modelValue.key === 'string') {
+        scope.$modelValue.key = scope.$modelValue.key.split('.');
+      }
+      var formProperty = this.$scope.editor.schema.properties;
+      for (var i = 0; i < scope.$modelValue.key.length; i++) {
+        if (i === scope.$modelValue.key.length - 1) {
+          delete formProperty[scope.$modelValue.key[i]];
+        } else {
+          formProperty = formProperty[scope.$modelValue.key[i]].properties;
+        }
+      }
+    }
   }
 
   editField(
     scope: AngularUI.tree.ITreeNodeScope<AngularUI.SchemaForm.fields.FieldTypes>
   ) {
-    var form = this.toolsBuilder.getToolForm(scope.item['type']);
+    var form = this.toolsBuilder.getControlProperties(scope.item['type']);
     var formDefine = [];
     angular.forEach(form, (fields, category) => {
       var categoryPanel = {
@@ -92,8 +92,7 @@ class PageFormClass {
     this.$modal.open({
       templateUrl:
         '/SeedModules.PageBuilder/modules/components/builder/preview.html',
-      size: 'full',
-      windowClass: 'right',
+      size: 'lg',
       scope: this.$scope
     });
   }
@@ -115,69 +114,10 @@ class PageFormClass {
     private $rootScope: ng.IRootScopeService,
     private $state: ng.ui.IStateService,
     private $modal: ng.ui.bootstrap.IModalService,
-    private toolsBuilder: PageBuilder.services.IToolsBuilderService,
+    private toolsBuilder: PageBuilder.services.IControlBuilderService,
     private ngTableParams
   ) {
     $scope.pg = this;
-
-    // 设计器
-    $scope.editor = {
-      form: [
-        {
-          type: ExtendFormFields.panel,
-          title: 'aaaaaaaaa',
-          theme: 'success',
-          items: [
-            {
-              type: ExtendFormFields.container,
-              items: [
-                {
-                  type: ExtendFormFields.row,
-                  items: [
-                    {
-                      type: ExtendFormFields.column,
-                      flex: 6,
-                      items: [
-                        {
-                          key: 'source1.lname',
-                          type: DefaultFormTypes.text,
-                          title: '姓'
-                        }
-                      ]
-                    },
-                    {
-                      type: ExtendFormFields.column,
-                      flex: 6,
-                      items: [
-                        {
-                          key: 'source1.fname',
-                          type: DefaultFormTypes.text,
-                          title: '名'
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ],
-      schema: {
-        type: SchemaTypes.object,
-        properties: {
-          source1: {
-            type: 'object',
-            properties: {
-              fname: { type: 'string', required: true },
-              lname: { type: 'string' }
-            }
-          }
-        }
-      },
-      options: {},
-      model: {}
-    };
 
     // 页面属性
     $scope.form = {
@@ -200,77 +140,21 @@ class PageFormClass {
       model: {}
     };
 
+    // 设计器
+    $scope.editor = {
+      form: [],
+      schema: {},
+      options: {},
+      model: {}
+    };
+
+    // 字段
     $scope.field = {
       form: [],
-      schema: {
-        type: 'object',
-        properties: {}
-      },
+      schema: {},
       model: {},
       options: {}
     };
-
-    // 设计器选项
-    $scope.toolsConfigs = {
-      beforeDrop: (
-        eventInfo: AngularUI.tree.IEventInfo<PageBuilder.services.ITool>
-      ) => {
-        // 判断当前目标是否不是工具箱
-        if (
-          eventInfo.dest.nodesScope.$treeScope.$id ===
-          eventInfo.source.nodesScope.$treeScope.$id
-        )
-          return false;
-
-        // 找到工具箱控件
-        var selectedTool = toolsBuilder.getTool(
-          eventInfo.dest.nodesScope && eventInfo.source.nodeScope.item
-            ? eventInfo.source.nodeScope.item.type
-            : null
-        );
-
-        // 实际将控件添加到设计器
-        if (selectedTool) {
-          var destTool: AngularUI.SchemaForm.fields.FieldTypes = {
-            type: selectedTool.type,
-            container: selectedTool.container,
-            key: selectedTool.type
-          };
-
-          if (
-            typeof selectedTool.container === 'string' &&
-            selectedTool.container.length > 0
-          ) {
-            destTool.container = selectedTool.container;
-            destTool[destTool.container] = [];
-          } else if (
-            typeof selectedTool.container === 'boolean' &&
-            selectedTool.container === true
-          ) {
-            destTool.container = 'items';
-            destTool['items'] = [];
-          }
-
-          eventInfo.dest.nodesScope.$modelValue.splice(
-            eventInfo.dest.index,
-            0,
-            destTool
-          );
-        }
-        return false;
-      }
-    };
-
-    // 构建工具箱
-    $scope.tools = [];
-
-    var tools = toolsBuilder.getTools();
-    angular.forEach(tools, (tool, idx) => {
-      $scope.tools.push({
-        category: idx,
-        items: tool
-      });
-    });
   }
 }
 

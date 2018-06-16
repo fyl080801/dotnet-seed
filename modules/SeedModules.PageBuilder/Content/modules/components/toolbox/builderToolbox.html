@@ -1,0 +1,32 @@
+<div>
+    <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
+        <li class="text-center active">
+            <a href="#cus_ctrls" aria-controls="cus_ctrls" role="tab" data-toggle="tab">
+                控件库
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content seed-container" style="margin-top: 40px">
+        <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="cus_ctrls">
+            <div ui-tree="toolsConfigs" style="padding: 5px">
+                <ol ui-tree-nodes class="panel-group" ng-model="tools">
+                    <li class="panel panel-default" ng-repeat="(groupKey, groupValue) in tools">
+                        <div class="panel-heading">
+                            <a role="button" data-toggle="collapse" data-parent="#cate_{{groupKey}}" href="#tb_{{groupKey}}" aria-expanded="true" aria-controls="tb_{{group.category}}">
+                                {{groupKey}}
+                            </a>
+                        </div>
+                        <div id="tb_{{groupKey}}" class="list-group panel-collapse collapse in" ui-tree-nodes ng-model="groupValue" style="padding: 0">
+                            <div ui-tree-node ng-repeat="item in groupValue track by $index">
+                                <a ui-tree-handle class="list-group-item">
+                                    <i class="{{item.icon}}"></i>
+                                    {{item.name}}
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@
     <div class="panel-heading">
         <span ng-if="item[item.container]!==undefined && item[item.container].length > 0" class="glyphicon" ng-click="pg.nodeToggle(this)"
             ng-class="{ 'far fa-plus-square': collapsed, 'far fa-minus-square': !collapsed }"></span>
-        <span ui-tree-handle ng-bind="item.alias||item.title||item.type"></span>
+        <span ui-tree-handle ng-bind="item.title||item.type"></span>
         <span class="pull-right">
             <button class="btn btn-default btn-xs" ng-click="pg.editField(this)">
                 <i class="glyphicon glyphicon-edit"></i>

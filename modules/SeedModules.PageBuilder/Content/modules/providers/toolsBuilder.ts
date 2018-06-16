@@ -3,34 +3,40 @@ import angular = require('angular');
 import { DefaultToolsConfig } from 'SeedModules.PageBuilder/modules/providers/defaultTools';
 import { DefaultToolFieldsConfig } from 'SeedModules.PageBuilder/modules/providers/defaultToolFields';
 
-class ToolsBuilderService implements PageBuilder.services.IToolsBuilderService {
-  getToolForm(type: string): PageBuilder.services.ToolFieldCollection {
+class ToolsBuilderService
+  implements PageBuilder.services.IControlBuilderService {
+  getControlProperties(
+    type: string
+  ): PageBuilder.services.ControlPropertyCollection {
     var self = this;
-    var tool = this.getTool(type);
+    var tool = this.getControl(type);
     if (!tool) return null;
 
-    var form: PageBuilder.services.ToolFieldCollection = {};
+    var form: PageBuilder.services.ControlPropertyCollection = {};
     angular.forEach(self.defaultToolFields, (fields, category) => {
       form[category] = form[category] || {};
 
-      angular.forEach(tool.fields, (field, idx) => {
-        if (fields[field]) {
+      angular.forEach(tool.fields, field => {
+        if (typeof field === 'string' && fields[field]) {
           form[category][field] = fields[field];
+        } else {
+          var controlField = <PageBuilder.services.IControlField>field;
+          form[category][controlField.name] = fields[controlField.name];
         }
       });
     });
     return form;
   }
 
-  getTool(type: string): PageBuilder.services.ITool {
-    var tools = this.getTools();
+  getControl(type: string): PageBuilder.services.IControl {
+    var tools = this.getControls();
     var selectedTool = null;
     angular.forEach(
       tools,
-      (tool: PageBuilder.services.ITool[], category: string) => {
+      (tool: PageBuilder.services.IControl[], category: string) => {
         var selected = $.grep(
           tool,
-          (t: PageBuilder.services.ITool, i: number) => {
+          (t: PageBuilder.services.IControl, i: number) => {
             return type && type.length > 0 ? t.type === type : false;
           }
         );
@@ -43,19 +49,19 @@ class ToolsBuilderService implements PageBuilder.services.IToolsBuilderService {
     return selectedTool;
   }
 
-  getTools(): PageBuilder.services.ToolsCollection {
+  getControls(): PageBuilder.services.ControlCollection {
     return this.defaultTools;
   }
 
   constructor(
-    private defaultTools: PageBuilder.services.ToolsCollection,
-    private defaultToolFields: PageBuilder.services.ToolFieldCollection
+    private defaultTools: PageBuilder.services.ControlCollection,
+    private defaultToolFields: PageBuilder.services.ControlPropertyCollection
   ) {}
 }
 
 class ToolsBuilderProvider
-  implements PageBuilder.providers.IToolsBuilderProvider {
-  addToolField(
+  implements PageBuilder.providers.IControlBuilderProvider {
+  addControlProperty(
     category: string,
     name: string,
     form: AngularUI.SchemaForm.fields.FieldTypes
@@ -64,7 +70,7 @@ class ToolsBuilderProvider
     this.defaultToolFields[category][name] = form;
   }
 
-  getTool(category: string, name: string): PageBuilder.services.ITool {
+  getControl(category: string, name: string): PageBuilder.services.IControl {
     if (!this.defaultTools[category]) return null;
 
     var existed = $.grep(this.defaultTools[category], (item, idx) => {
@@ -74,7 +80,7 @@ class ToolsBuilderProvider
     return existed && existed.length > 0 ? existed[0] : null;
   }
 
-  addTool(category: string, tool: PageBuilder.services.ITool) {
+  addControl(category: string, tool: PageBuilder.services.IControl) {
     this.defaultTools[category] = this.defaultTools[category]
       ? this.defaultTools[category]
       : [];
@@ -95,15 +101,15 @@ class ToolsBuilderProvider
     return this.service;
   }
 
-  private service: PageBuilder.services.IToolsBuilderService;
+  private service: PageBuilder.services.IControlBuilderService;
 
   static $inject = [
     'SeedModules.PageBuilder/modules/configs/defaultTools',
     'SeedModules.PageBuilder/modules/configs/defaultToolFields'
   ];
   constructor(
-    private defaultTools: PageBuilder.services.ToolsCollection,
-    private defaultToolFields: PageBuilder.services.ToolFieldCollection
+    private defaultTools: PageBuilder.services.ControlCollection,
+    private defaultToolFields: PageBuilder.services.ControlPropertyCollection
   ) {
     this.service = new ToolsBuilderService(
       this.defaultTools,
@@ -117,7 +123,7 @@ class ConfigToolsClass {
     'SeedModules.PageBuilder/modules/providers/toolsBuilderProvider'
   ];
   constructor(
-    toolsBuilderProvider: PageBuilder.providers.IToolsBuilderProvider
+    toolsBuilderProvider: PageBuilder.providers.IControlBuilderProvider
   ) {}
 }
 
