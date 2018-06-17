@@ -184,6 +184,7 @@ declare namespace AngularUI {
         condition?: string; // Show or hide field depending on an angular expression
         destroyStrategy?: string; // One of "null", "empty" , "remove", or 'retain'. Changes model on $destroy event. default is "remove".
         container?: boolean | string;
+        required?: boolean;
       }
 
       export interface ISection {

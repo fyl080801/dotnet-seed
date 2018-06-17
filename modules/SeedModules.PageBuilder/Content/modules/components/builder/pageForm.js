@@ -16,17 +16,14 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                         key: 'pagename',
                         title: '页面名称',
                         placeholder: '输入页面名称',
-                        onChange: function (a, b) {
-                            console.log(b);
-                        }
+                        required: true
                     }
                 ],
                 schema: {
                     type: schemaTypes_1.SchemaTypes.object,
                     properties: {
                         pagename: {
-                            type: 'string',
-                            required: true
+                            type: 'string'
                         }
                     }
                 },

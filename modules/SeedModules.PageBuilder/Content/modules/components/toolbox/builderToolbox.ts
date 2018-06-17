@@ -95,6 +95,7 @@ class BuilderToolboxController {
             $scope.editor.schema.type = 'object';
             $scope.editor.schema.properties =
               $scope.editor.schema.properties || {};
+            // 是否必填必须给property一个类型属性，可通过form对象的required属性控制
             $scope.editor.schema.properties[destTool.key] = {
               type: 'string'
             };

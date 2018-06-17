@@ -57,13 +57,6 @@ class PageFormClass {
         items: []
       };
       angular.forEach(fields, (field, name) => {
-        // if (name === 'required') {
-        //   field['onChange'] = (modalValue, form) => {
-        //     this.$scope.editor.schema.properties[
-        //       scope.item['key']
-        //     ].required = modalValue;
-        //   };
-        // }
         categoryPanel.items.push(angular.extend({ schema: {} }, field));
       });
       fieldSchema.form.push(categoryPanel);
@@ -139,17 +132,15 @@ class PageFormClass {
           key: 'pagename',
           title: '页面名称',
           placeholder: '输入页面名称',
-          onChange: (a, b) => {
-            console.log(b);
-          }
+          required: true
         }
       ],
       schema: {
         type: SchemaTypes.object,
         properties: {
           pagename: {
-            type: 'string',
-            required: true
+            // 必须定义一个type
+            type: 'string'
           }
         }
       },
