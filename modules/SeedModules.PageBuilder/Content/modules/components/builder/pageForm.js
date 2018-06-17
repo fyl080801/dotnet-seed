@@ -15,14 +15,18 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                     {
                         key: 'pagename',
                         title: '页面名称',
-                        placeholder: '输入页面名称'
+                        placeholder: '输入页面名称',
+                        onChange: function (a, b) {
+                            console.log(b);
+                        }
                     }
                 ],
                 schema: {
                     type: schemaTypes_1.SchemaTypes.object,
                     properties: {
                         pagename: {
-                            type: 'string'
+                            type: 'string',
+                            required: true
                         }
                     }
                 },
@@ -42,7 +46,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 options: {}
             };
         }
-        PageFormClass.prototype.dropTool = function (scope) {
+        PageFormClass.prototype.dropControl = function (scope) {
             scope.remove();
             if (scope.$modelValue.key) {
                 if (scope.$modelValue.key && typeof scope.$modelValue.key === 'string') {
@@ -59,9 +63,23 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 }
             }
         };
-        PageFormClass.prototype.editField = function (scope) {
+        PageFormClass.prototype.editControl = function (scope) {
+            var self = this;
             var form = this.toolsBuilder.getControlProperties(scope.item['type']);
-            var formDefine = [];
+            var fieldSchema = {
+                $id: scope.$id,
+                form: [],
+                schema: {
+                    type: 'object',
+                    properties: {
+                        schema: {
+                            type: 'object'
+                        }
+                    }
+                },
+                model: scope.item,
+                options: {}
+            };
             angular.forEach(form, function (fields, category) {
                 var categoryPanel = {
                     type: defaultFormTypes_1.DefaultFormTypes.fieldset,
@@ -70,17 +88,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                 angular.forEach(fields, function (field, name) {
                     categoryPanel.items.push(angular.extend({ schema: {} }, field));
                 });
-                formDefine.push(categoryPanel);
+                fieldSchema.form.push(categoryPanel);
             });
-            this.$scope.field = {
-                form: formDefine,
-                schema: {
-                    type: 'object',
-                    properties: { key: { type: 'string' } }
-                },
-                model: scope.item,
-                options: {}
-            };
+            this.$scope.field = fieldSchema;
         };
         PageFormClass.prototype.collapseAll = function () {
             this.$scope.$broadcast('angular-ui-tree:collapse-all');
@@ -91,7 +101,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
         PageFormClass.prototype.nodeToggle = function (scope) {
             scope.toggle();
         };
-        PageFormClass.prototype.initTool = function (item) {
+        PageFormClass.prototype.initControl = function (item) {
             if (item.items !== undefined) {
                 item.container = 'items';
             }

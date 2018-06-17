@@ -13,7 +13,7 @@ interface IPageFormScope extends ng.IScope {
 }
 
 class PageFormClass {
-  dropTool(
+  dropControl(
     scope: AngularUI.tree.ITreeNodeScope<AngularUI.SchemaForm.fields.FieldTypes>
   ) {
     scope.remove();
@@ -32,31 +32,44 @@ class PageFormClass {
     }
   }
 
-  editField(
+  editControl(
     scope: AngularUI.tree.ITreeNodeScope<AngularUI.SchemaForm.fields.FieldTypes>
   ) {
+    var self = this;
     var form = this.toolsBuilder.getControlProperties(scope.item['type']);
-    var formDefine = [];
+    var fieldSchema: AngularUI.SchemaForm.ISchemaForm = {
+      $id: scope.$id,
+      form: [],
+      schema: {
+        type: 'object',
+        properties: {
+          schema: {
+            type: 'object'
+          }
+        }
+      },
+      model: scope.item,
+      options: {}
+    };
     angular.forEach(form, (fields, category) => {
       var categoryPanel = {
         type: DefaultFormTypes.fieldset,
         items: []
       };
       angular.forEach(fields, (field, name) => {
+        // if (name === 'required') {
+        //   field['onChange'] = (modalValue, form) => {
+        //     this.$scope.editor.schema.properties[
+        //       scope.item['key']
+        //     ].required = modalValue;
+        //   };
+        // }
         categoryPanel.items.push(angular.extend({ schema: {} }, field));
       });
-      formDefine.push(categoryPanel);
+      fieldSchema.form.push(categoryPanel);
     });
 
-    this.$scope.field = {
-      form: formDefine,
-      schema: {
-        type: 'object',
-        properties: { key: { type: 'string' } }
-      },
-      model: scope.item,
-      options: {}
-    };
+    this.$scope.field = fieldSchema;
   }
 
   collapseAll() {
@@ -71,7 +84,7 @@ class PageFormClass {
     scope.toggle();
   }
 
-  initTool(item) {
+  initControl(item) {
     if (item.items !== undefined) {
       item.container = 'items';
     }
@@ -125,14 +138,18 @@ class PageFormClass {
         {
           key: 'pagename',
           title: '页面名称',
-          placeholder: '输入页面名称'
+          placeholder: '输入页面名称',
+          onChange: (a, b) => {
+            console.log(b);
+          }
         }
       ],
       schema: {
         type: SchemaTypes.object,
         properties: {
           pagename: {
-            type: 'string'
+            type: 'string',
+            required: true
           }
         }
       },

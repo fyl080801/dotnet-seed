@@ -17,6 +17,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
                     if (selectedTool) {
                         var destTool = {
                             type: selectedTool.type,
+                            title: selectedTool.name,
                             container: selectedTool.container
                                 ? selectedTool.container
                                 : undefined
@@ -35,7 +36,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
                             $scope.editor.schema.type = 'object';
                             $scope.editor.schema.properties =
                                 $scope.editor.schema.properties || {};
-                            $scope.editor.schema.properties[destTool.key] = {};
+                            $scope.editor.schema.properties[destTool.key] = {
+                                type: 'string'
+                            };
                         }
                         eventInfo.dest.nodesScope.$modelValue.splice(eventInfo.dest.index, 0, destTool);
                     }

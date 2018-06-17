@@ -72,6 +72,7 @@ class BuilderToolboxController {
         if (selectedTool) {
           var destTool: AngularUI.SchemaForm.fields.FieldTypes = {
             type: selectedTool.type,
+            title: selectedTool.name,
             container: selectedTool.container
               ? selectedTool.container
               : undefined
@@ -94,7 +95,9 @@ class BuilderToolboxController {
             $scope.editor.schema.type = 'object';
             $scope.editor.schema.properties =
               $scope.editor.schema.properties || {};
-            $scope.editor.schema.properties[destTool.key] = {};
+            $scope.editor.schema.properties[destTool.key] = {
+              type: 'string'
+            };
           }
 
           eventInfo.dest.nodesScope.$modelValue.splice(

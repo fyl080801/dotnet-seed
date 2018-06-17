@@ -18,6 +18,11 @@ export class DefaultToolFieldsConfig {
       title: '标题',
       key: 'title'
     });
+    toolsBuilderProvider.addControlProperty('基本', 'description', {
+      type: 'textarea',
+      title: '描述',
+      key: 'description'
+    });
     toolsBuilderProvider.addControlProperty('基本', 'notitle', {
       type: DefaultFormTypes.checkbox,
       title: '隐藏标题',
@@ -33,7 +38,7 @@ export class DefaultToolFieldsConfig {
     toolsBuilderProvider.addControlProperty('验证', 'required', {
       type: DefaultFormTypes.checkbox,
       title: '必填',
-      key: 'schema["required"]'
+      key: 'required'
     });
     toolsBuilderProvider.addControlProperty('验证', 'textRange', {
       type: DefaultFormTypes.section,

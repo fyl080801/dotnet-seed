@@ -13,6 +13,11 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/defau
                 title: '标题',
                 key: 'title'
             });
+            toolsBuilderProvider.addControlProperty('基本', 'description', {
+                type: 'textarea',
+                title: '描述',
+                key: 'description'
+            });
             toolsBuilderProvider.addControlProperty('基本', 'notitle', {
                 type: defaultFormTypes_1.DefaultFormTypes.checkbox,
                 title: '隐藏标题',
@@ -26,7 +31,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/defau
             toolsBuilderProvider.addControlProperty('验证', 'required', {
                 type: defaultFormTypes_1.DefaultFormTypes.checkbox,
                 title: '必填',
-                key: 'schema["required"]'
+                key: 'required'
             });
             toolsBuilderProvider.addControlProperty('验证', 'textRange', {
                 type: defaultFormTypes_1.DefaultFormTypes.section,

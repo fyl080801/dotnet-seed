@@ -71,6 +71,7 @@ export class DefaultToolsConfig {
       container: false,
       fields: [
         'title',
+        'description',
         'notitle',
         'required',
         'readonly',
@@ -84,6 +85,7 @@ export class DefaultToolsConfig {
       container: false,
       fields: [
         'title',
+        'description',
         'notitle',
         'required',
         'readonly',
@@ -96,7 +98,7 @@ export class DefaultToolsConfig {
       name: '选择框',
       icon: 'fas fa-check-square',
       container: false,
-      fields: ['title', 'required', 'readonly']
+      fields: ['title', 'description', 'notitle', 'required', 'readonly']
     });
   }
 }

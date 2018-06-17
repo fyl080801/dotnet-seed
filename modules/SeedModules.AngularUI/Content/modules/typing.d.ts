@@ -140,6 +140,7 @@ declare namespace AngularUI {
     }
 
     export interface ISchemaForm {
+      $id?: number;
       schema: ISchema;
       form: fields.FieldTypes[];
       options?: IOptions;

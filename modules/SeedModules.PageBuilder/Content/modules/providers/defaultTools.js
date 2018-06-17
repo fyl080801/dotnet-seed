@@ -63,6 +63,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/exten
                 container: false,
                 fields: [
                     'title',
+                    'description',
                     'notitle',
                     'required',
                     'readonly',
@@ -76,6 +77,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/exten
                 container: false,
                 fields: [
                     'title',
+                    'description',
                     'notitle',
                     'required',
                     'readonly',
@@ -88,7 +90,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/exten
                 name: '选择框',
                 icon: 'fas fa-check-square',
                 container: false,
-                fields: ['title', 'required', 'readonly']
+                fields: ['title', 'description', 'notitle', 'required', 'readonly']
             });
         }
         DefaultToolsConfig.$inject = [
