@@ -26,7 +26,7 @@
 .sidebar {
   width: 220px;
   height: 100%;
-  background: #263238;
+  background: #273240;
   transition: all 0.3s;
   position: absolute;
   top: 0;
@@ -57,7 +57,7 @@
   padding-left: 18px;
   line-height: 49px;
   max-height: 49px;
-  color: #abb1b7;
+  color: #cdcdcd;
   transition: all 0.3s;
 }
 
@@ -75,7 +75,7 @@
 
 .sidebar-item ul {
   display: none;
-  background: rgba(0, 0, 0, 0.1);
+  background-color: #1e2631;
 }
 
 .sidebar-item.sidebar-show ul {
@@ -88,7 +88,7 @@
   left: 0px;
   width: 2px;
   height: 49px;
-  background: #34a0ce;
+  background: #2dc3e8;
   opacity: 0;
   transition: all 0.3s;
 }
@@ -150,7 +150,7 @@
   left: 55px;
   width: 180px;
   z-index: 1025;
-  background: #3c474c;
+  background: #273240;
   overflow: hidden;
   border-radius: 0 4px 4px 0;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);

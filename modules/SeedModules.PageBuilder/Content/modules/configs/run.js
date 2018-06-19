@@ -21,10 +21,19 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                     'SeedModules.PageBuilder/modules/requires'
                 ]
             });
-            $stateProvider.state('admin.pagebuilder_serversettings', {
-                url: '/pagebuilder_serversettings',
-                title: '服务设置',
-                templateUrl: '/SeedModules.PageBuilder/modules/components/server/settings.html',
+            $stateProvider.state('admin.pagebuilder_datasource', {
+                url: '/pagebuilder_datasource',
+                title: '数据源管理',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/datasource/list.html',
+                requires: [
+                    'SeedModules.AngularUI/modules/requires',
+                    'SeedModules.PageBuilder/modules/requires'
+                ]
+            });
+            $stateProvider.state('admin.pagebuilder_dsform', {
+                url: '/pagebuilder_dsform',
+                title: '数据源编辑',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/datasource/form.html',
                 requires: [
                     'SeedModules.AngularUI/modules/requires',
                     'SeedModules.PageBuilder/modules/requires'
@@ -42,19 +51,16 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                 order: 5,
                 children: [
                     {
-                        text: '服务设置',
-                        itemClicked: function (evt) {
-                            $state.go('admin.pagebuilder_serversettings');
-                        }
-                    },
-                    {
                         text: '页面管理',
                         itemClicked: function (evt) {
                             $state.go('admin.pagebuilder_page');
                         }
                     },
                     {
-                        text: '数据源'
+                        text: '数据源管理',
+                        itemClicked: function (evt) {
+                            $state.go('admin.pagebuilder_datasource');
+                        }
                     }
                 ]
             });

@@ -1,5 +1,3 @@
-define(['app/application'], function(application) {
-  'use strict';
-
-  return angular.module('modules.saas.configs', []);
-});
+import angular = require('angular');
+import 'app/application';
+export = angular.module('modules.saas.configs', []);

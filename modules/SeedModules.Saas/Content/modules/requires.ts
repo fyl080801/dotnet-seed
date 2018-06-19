@@ -1,9 +1,4 @@
-define([
-  'SeedModules.Saas/modules/controllers/tenants',
-  'SeedModules.Saas/modules/controllers/projects',
-  'SeedModules.Saas/modules/controllers/datasources',
-  'SeedModules.Saas/modules/filters/tenantState'
-], function() {
-  'use strict';
-
-});
+import 'SeedModules.Saas/modules/controllers/tenants';
+import 'SeedModules.Saas/modules/controllers/projects';
+import 'SeedModules.Saas/modules/controllers/datasources';
+import 'SeedModules.Saas/modules/filters/tenantState';

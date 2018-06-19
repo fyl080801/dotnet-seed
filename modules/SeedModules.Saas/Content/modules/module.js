@@ -1,12 +1,7 @@
-define(['app/application', 'SeedModules.Saas/modules/configs/menus'], function (application) {
-    'use strict';
-    application.requires.push('modules.saas');
-    return angular
-        .module('modules.saas', ['ui.router', 'modules.saas.configs'])
-        .config([
-        '$stateProvider',
-        '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+define(["require", "exports", "angular", "app/application", "SeedModules.Saas/modules/configs/menus"], function (require, exports, angular) {
+    "use strict";
+    var ConfigClass = (function () {
+        function ConfigClass($stateProvider, $urlRouterProvider) {
             $stateProvider.state('admin.datasources', {
                 url: '/datasources',
                 title: '数据源',
@@ -35,6 +30,11 @@ define(['app/application', 'SeedModules.Saas/modules/configs/menus'], function (
                 ]
             });
         }
-    ]);
+        ConfigClass.$inject = ['$stateProvider', '$urlRouterProvider'];
+        return ConfigClass;
+    }());
+    return angular
+        .module('modules.saas', ['ui.router', 'modules.saas.configs'])
+        .config(ConfigClass);
 });
 //# sourceMappingURL=module.js.map

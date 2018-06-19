@@ -25,11 +25,23 @@ class ConfigRouteClass {
       ]
     });
 
-    $stateProvider.state('admin.pagebuilder_serversettings', {
-      url: '/pagebuilder_serversettings',
-      title: '服务设置',
+    $stateProvider.state('admin.pagebuilder_datasource', {
+      url: '/pagebuilder_datasource',
+      title: '数据源管理',
       templateUrl:
-        '/SeedModules.PageBuilder/modules/components/server/settings.html',
+        '/SeedModules.PageBuilder/modules/components/datasource/list.html',
+      requires: [
+        'SeedModules.AngularUI/modules/requires',
+        'SeedModules.PageBuilder/modules/requires'
+      ]
+    });
+
+    //pagebuilder_dsform
+    $stateProvider.state('admin.pagebuilder_dsform', {
+      url: '/pagebuilder_dsform',
+      title: '数据源编辑',
+      templateUrl:
+        '/SeedModules.PageBuilder/modules/components/datasource/form.html',
       requires: [
         'SeedModules.AngularUI/modules/requires',
         'SeedModules.PageBuilder/modules/requires'
@@ -46,12 +58,12 @@ class RunClass {
       icon: 'fab fa-fort-awesome fa-fw',
       order: 5,
       children: [
-        {
-          text: '服务设置',
-          itemClicked: evt => {
-            $state.go('admin.pagebuilder_serversettings');
-          }
-        },
+        // {
+        //   text: '服务设置',
+        //   itemClicked: evt => {
+        //     $state.go('admin.pagebuilder_serversettings');
+        //   }
+        // },
         {
           text: '页面管理',
           itemClicked: evt => {
@@ -59,7 +71,10 @@ class RunClass {
           }
         },
         {
-          text: '数据源'
+          text: '数据源管理',
+          itemClicked: evt => {
+            $state.go('admin.pagebuilder_datasource');
+          }
         }
       ]
     });
