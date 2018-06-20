@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Seed.Data.Migrations;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Extensions;
@@ -49,7 +50,8 @@ namespace Seed.Data.Extensions
                     case "MySql":
                         optionBuilder.UseMySql(engineSettings.ConnectionString, builder =>
                         {
-
+                            builder.CharSetBehavior(CharSetBehavior.AppendToAllColumns);
+                            builder.UnicodeCharSet(CharSet.Utf8mb4);
                         });
                         break;
                     default:
