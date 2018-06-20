@@ -1,8 +1,9 @@
-define(['SeedModules.AngularUI/modules/module'], function (module) {
-    'use strict';
-    module.controller('SeedModules.AngularUI/modules/controllers/ngTableSorterRow', [
-        '$scope',
-        function ($scope) {
+define(["require", "exports", "SeedModules.AngularUI/modules/module"], function (require, exports, mod) {
+    "use strict";
+    exports.__esModule = true;
+    var NgTableSorterRowController = (function () {
+        function NgTableSorterRowController($scope) {
+            this.$scope = $scope;
             $scope.sortBy = sortBy;
             function sortBy($column, event) {
                 var parsedSortable = $column.sortable && $column.sortable();
@@ -21,6 +22,9 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
                 });
             }
         }
-    ]);
+        NgTableSorterRowController.$inject = ['$scope'];
+        return NgTableSorterRowController;
+    }());
+    mod.controller('SeedModules.AngularUI/modules/controllers/ngTableSorterRow', NgTableSorterRowController);
 });
 //# sourceMappingURL=ngTableSorterRow.js.map

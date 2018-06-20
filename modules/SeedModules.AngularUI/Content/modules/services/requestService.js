@@ -36,8 +36,8 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
             return new RequestContext(this.resolveHttp('DELETE'));
         };
         WebApi.prototype.resolveHttp = function (method, data) {
+            var _this = this;
             var defer = this.$q.defer();
-            var self = this;
             var configs = angular.extend({
                 method: method,
                 data: data,
@@ -53,13 +53,13 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
             this.$http(configs)
                 .then(function (response) {
                 if (response.status >= 400) {
-                    self.httpDataHandler.doError(response, defer);
+                    _this.httpDataHandler.doError(response, defer);
                 }
                 else {
-                    self.httpDataHandler.doResponse(response, defer);
+                    _this.httpDataHandler.doResponse(response, defer);
                 }
             })["catch"](function (response) {
-                self.httpDataHandler.doError(response, defer);
+                _this.httpDataHandler.doError(response, defer);
             })["finally"](function () {
                 if (loading)
                     loading.close();

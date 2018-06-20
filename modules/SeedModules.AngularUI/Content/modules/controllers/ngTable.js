@@ -109,9 +109,9 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
             }
         };
         NgTableController.prototype.buildColumns = function (columns) {
-            var self = this;
+            var _this = this;
             return columns.map(function (col) {
-                return self.ngTableColumn.buildColumn(col, self.$scope);
+                return _this.ngTableColumn.buildColumn(col, _this.$scope);
             });
         };
         NgTableController.prototype.parseNgTableDynamicExpr = function (attr) {
@@ -127,23 +127,23 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
             }
         };
         NgTableController.prototype.setupBindingsToInternalScope = function (tableParamsExpr) {
-            var self = this;
+            var _this = this;
             var tableParamsGetter = this.$parse(tableParamsExpr);
             this.$scope.$watch(tableParamsGetter, function (params) {
                 if (angular.isUndefined(params)) {
                     return;
                 }
-                self.$scope.paramsModel = tableParamsGetter;
-                self.$scope.params = params;
+                _this.$scope.paramsModel = tableParamsGetter;
+                _this.$scope.params = params;
             }, false);
             if (this.$attrs.showFilter) {
                 this.$scope.$parent.$watch(this.$attrs.showFilter, function (value) {
-                    self.$scope.show_filter = value;
+                    _this.$scope.show_filter = value;
                 });
             }
             if (this.$attrs.disableFilter) {
                 this.$scope.$parent.$watch(this.$attrs.disableFilter, function (value) {
-                    self.$scope.$filterRow.disabled = value;
+                    _this.$scope.$filterRow.disabled = value;
                 });
             }
         };

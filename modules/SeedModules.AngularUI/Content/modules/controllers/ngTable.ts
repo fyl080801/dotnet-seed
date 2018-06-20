@@ -39,9 +39,8 @@ export class NgTableController {
   }
 
   buildColumns(columns) {
-    var self = this;
     return columns.map(col => {
-      return self.ngTableColumn.buildColumn(col, self.$scope);
+      return this.ngTableColumn.buildColumn(col, this.$scope);
     });
   }
 
@@ -65,7 +64,6 @@ export class NgTableController {
     // note: is REALLY important to watch for a change to the ngTableParams *reference* rather than
     // $watch for value equivalence. This is because ngTableParams references the current page of data as
     // a field and it's important not to watch this
-    var self = this;
     var tableParamsGetter = this.$parse(tableParamsExpr);
     this.$scope.$watch(
       tableParamsGetter,
@@ -73,20 +71,20 @@ export class NgTableController {
         if (angular.isUndefined(params)) {
           return;
         }
-        self.$scope.paramsModel = tableParamsGetter;
-        self.$scope.params = params;
+        this.$scope.paramsModel = tableParamsGetter;
+        this.$scope.params = params;
       },
       false
     );
 
     if (this.$attrs.showFilter) {
       this.$scope.$parent.$watch(this.$attrs.showFilter, value => {
-        self.$scope.show_filter = value;
+        this.$scope.show_filter = value;
       });
     }
     if (this.$attrs.disableFilter) {
       this.$scope.$parent.$watch(this.$attrs.disableFilter, value => {
-        self.$scope.$filterRow.disabled = value;
+        this.$scope.$filterRow.disabled = value;
       });
     }
   }
@@ -125,9 +123,9 @@ export class NgTableController {
     }
     $scope.params.settings().$scope = $scope;
 
-    var delayFilter = (function() {
+    var delayFilter = (() => {
       var timer = 0;
-      return function(callback, ms) {
+      return (callback, ms) => {
         $timeout.cancel(timer);
         timer = $timeout(callback, ms);
       };
@@ -143,7 +141,7 @@ export class NgTableController {
       var currentParams = $scope.params;
 
       if (currentParams.hasFilterChanges()) {
-        var applyFilter = function() {
+        var applyFilter = () => {
           currentParams.page(1);
           currentParams.reload();
         };
@@ -163,7 +161,7 @@ export class NgTableController {
     // and potentially cause an error if the items in that array has circular references
     $scope.$watch(
       'params',
-      function(newParams, oldParams) {
+      (newParams, oldParams) => {
         if (newParams === oldParams || !newParams) {
           return;
         }

@@ -35,8 +35,6 @@ class WebApi implements AngularUI.services.IWebApi {
 
   private resolveHttp<TOutput>(method: string, data?: any) {
     var defer = this.$q.defer<TOutput>();
-    var self = this;
-
     var configs = angular.extend(
       {
         method: method,
@@ -58,13 +56,13 @@ class WebApi implements AngularUI.services.IWebApi {
     this.$http<app.services.IResponseContext<TOutput>>(configs)
       .then(response => {
         if (response.status >= 400) {
-          self.httpDataHandler.doError(response, defer);
+          this.httpDataHandler.doError(response, defer);
         } else {
-          self.httpDataHandler.doResponse(response, defer);
+          this.httpDataHandler.doResponse(response, defer);
         }
       })
       .catch(response => {
-        self.httpDataHandler.doError(response, defer);
+        this.httpDataHandler.doError(response, defer);
       })
       .finally(() => {
         if (loading) loading.close();
