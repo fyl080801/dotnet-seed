@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
-using OpenIddict;
-using OpenIddict.Models;
+using OpenIddict.EntityFrameworkCore.Models;
+using OpenIddict.Server;
 using Seed.Data;
 using Seed.Modules;
 using SeedModules.OpenId.Projects;
@@ -24,27 +24,37 @@ namespace SeedModules.OpenId
             services.AddProjectExecutionStep<OpenIdApplicationStep>();
 
             services.AddScoped<IEntityTypeConfigurationProvider, EntityTypeConfigurations>();
+            services.AddOpenIddict(builder =>
+            {
+                builder.AddCore(config =>
+                {
+                    config.SetDefaultApplicationEntity<OpenIddictApplication>();
+                    config.SetDefaultAuthorizationEntity<OpenIddictAuthorization>();
+                    config.SetDefaultScopeEntity<OpenIddictScope>();
+                    config.SetDefaultTokenEntity<OpenIddictToken>();
+                    config.AddApplicationStore<OpenIdApplicationStore>();
+                    config.AddAuthorizationStore<OpenIdAuthorizationStore>();
+                    config.AddScopeStore<OpenIdScopeStore>();
+                    config.AddTokenStore<OpenIdTokenStore>();
+                });
+            });
 
-            services.AddOpenIddict<OpenIddictApplication, OpenIddictAuthorization, OpenIddictScope, OpenIddictToken>()
-                .AddApplicationStore<OpenIdApplicationStore>()
-                .AddAuthorizationStore<OpenIdAuthorizationStore>()
-                .AddScopeStore<OpenIdScopeStore>()
-                .AddTokenStore<OpenIdTokenStore>();
-
-            services.TryAddScoped<OpenIddictHandler>();
-            services.TryAddScoped<OpenIddictProvider<OpenIddictApplication, OpenIddictAuthorization, OpenIddictScope, OpenIddictToken>>();
+            services.AddScoped<OpenIdConnectServerHandler>();
+            services.AddScoped<OpenIdConnectServerProvider>();
+            //services.TryAddScoped<OpenIddictHandler>();
+            //services.TryAddScoped<OpenIddictProvider<OpenIddictApplication, OpenIddictAuthorization, OpenIddictScope, OpenIddictToken>>();
 
             services.TryAddEnumerable(new[]
             {
                 ServiceDescriptor.Transient<IConfigureOptions<AuthenticationOptions>,OpenIdConfiguration>(),
-                ServiceDescriptor.Transient<IConfigureOptions<OpenIddictOptions>, OpenIdConfiguration>(),
+                ServiceDescriptor.Transient<IConfigureOptions<OpenIddictServerOptions>, OpenIdConfiguration>(),
                 ServiceDescriptor.Transient<IConfigureOptions<JwtBearerOptions>, OpenIdConfiguration>(),
                 ServiceDescriptor.Transient<IConfigureOptions<OAuthValidationOptions>, OpenIdConfiguration>(),
 
                 ServiceDescriptor.Transient<IPostConfigureOptions<JwtBearerOptions>, JwtBearerPostConfigureOptions>(),
                 ServiceDescriptor.Transient<IPostConfigureOptions<OAuthValidationOptions>, OAuthValidationInitializer>(),
-                ServiceDescriptor.Transient<IPostConfigureOptions<OpenIddictOptions>, OpenIddictInitializer>(),
-                ServiceDescriptor.Transient<IPostConfigureOptions<OpenIddictOptions>, OpenIdConnectServerInitializer>()
+                //ServiceDescriptor.Transient<IPostConfigureOptions<OpenIddictServerOptions>,>(),
+                ServiceDescriptor.Transient<IPostConfigureOptions<OpenIddictServerOptions>, OpenIdConnectServerInitializer>()
             });
         }
     }
