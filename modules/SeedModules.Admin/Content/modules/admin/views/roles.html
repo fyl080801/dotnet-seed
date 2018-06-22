@@ -1,11 +1,11 @@
 <div class="row" ng-controller="SeedModules.Admin/modules/admin/controllers/roles">
     <div class="col-md-3">
-        <div class="panel panel-default" ng-init="loadRoles()">
+        <div class="panel panel-default" ng-init="vm.loadRoles()">
             <div class="panel-heading">
                 <strong>角色列表</strong>
             </div>
             <div class="list-group">
-                <a href="" class="list-group-item" ng-class="{'active': currentRole&&currentRole.id===role.id}" ng-click="selectRole(role)"
+                <a href="" class="list-group-item" ng-class="{'active': currentRole&&currentRole.id===role.id}" ng-click="vm.selectRole(role)"
                     ng-repeat="role in roles">
                     <span ng-bind="role.rolename" ng-if="!role.displayName||role.displayName===''"></span>
                     <span ng-bind="role.displayName" ng-if="role.displayName&&role.displayName!==''"></span>
@@ -82,7 +82,7 @@
                         </colgroup>
                         <tr ng-repeat="row in $data">
                             <td header="'table-checkbox.html'">
-                                <input type="checkbox" ng-model="checked[row.id]" ng-change="onCheck()">
+                                <input type="checkbox" ng-model="checked[row.id]" ng-change="vm.onCheck()">
                             </td>
                             <td title="'用户名'">{{row.username}}</td>
                             <td title="'姓名'">{{row.lastName}}&nbsp;{{row.firstName}}</td>
@@ -103,7 +103,7 @@
                     </div>
                     <div class="container-fluid">
                         <div class="navbar-form navbar-right">
-                            <button class="btn btn-primary" ng-click="saveRolePermission()">
+                            <button class="btn btn-primary" ng-click="vm.saveRolePermission()">
                                 <i class="glyphicon glyphicon-floppy-disk"></i>
                                 保存
                             </button>
@@ -116,14 +116,14 @@
                             <td title="'功能'">
                                 <div class="form-group col-md-12">
                                     <label>
-                                        <input type="checkbox" ng-click="changeAllPermission(key)" ng-checked="isAllPermission(key)"> {{key}}
+                                        <input type="checkbox" ng-click="vm.changeAllPermission(key)" ng-checked="vm.isAllPermission(key)"> {{key}}
                                     </label>
                                 </div>
                             </td>
                             <td title="'权限'">
                                 <div class="form-group col-md-3" ng-repeat="per in val">
                                     <label>
-                                        <input type="checkbox" ng-click="permissionChanged(per)" ng-checked="hasPermission(per)"> {{per.description}}
+                                        <input type="checkbox" ng-click="vm.permissionChanged(per)" ng-checked="vm.hasPermission(per)"> {{per.description}}
                                     </label>
                                 </div>
                             </td>
@@ -137,5 +137,5 @@
 </div>
 
 <script type="text/ng-template" id="table-checkbox.html">
-    <input type="checkbox" ng-model="checkedAll" ng-click="checkAll()">
+    <input type="checkbox" ng-model="checkedAll" ng-click="vm.checkAll()">
 </script>
