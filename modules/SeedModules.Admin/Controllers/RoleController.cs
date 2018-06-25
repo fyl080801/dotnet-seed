@@ -115,8 +115,9 @@ namespace SeedModules.Admin.Controllers
 
             if (role == null) throw this.Exception("找不到角色");
 
-            _dbContext.Set<Role>().Find(int.Parse(id)).DisplayName = name;
-            _dbContext.SaveChanges();
+            ((Role)role).DisplayName = name;
+
+            await _roleManager.UpdateAsync(role);
         }
 
         [HttpPost("{id}/members/query"), HandleResult]
