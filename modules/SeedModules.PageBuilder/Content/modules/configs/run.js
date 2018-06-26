@@ -3,6 +3,15 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
     exports.__esModule = true;
     var ConfigRouteClass = (function () {
         function ConfigRouteClass($stateProvider) {
+            $stateProvider.state('admin.pagebuilder_db', {
+                url: '/pagebuilder_db',
+                title: '数据库',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/database/master.html',
+                requires: [
+                    'SeedModules.AngularUI/modules/requires',
+                    'SeedModules.PageBuilder/modules/requires'
+                ]
+            });
             $stateProvider.state('admin.pagebuilder_page', {
                 url: '/pagebuilder_page',
                 title: '页面管理',
@@ -50,6 +59,12 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                 icon: 'fab fa-fort-awesome fa-fw',
                 order: 5,
                 children: [
+                    {
+                        text: '数据库',
+                        itemClicked: function (evt) {
+                            $state.go('admin.pagebuilder_db');
+                        }
+                    },
                     {
                         text: '页面管理',
                         itemClicked: function (evt) {
