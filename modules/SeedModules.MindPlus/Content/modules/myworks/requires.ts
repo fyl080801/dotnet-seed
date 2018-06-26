@@ -1,20 +1,15 @@
-define([
-  'SeedModules.MindPlus/modules/myworks/directives/sidebar',
-  'SeedModules.MindPlus/modules/myworks/directives/workItemContent',
-  'SeedModules.MindPlus/modules/myworks/controllers/home',
-  'SeedModules.MindPlus/modules/myworks/controllers/mymind',
-  'SeedModules.MindPlus/modules/myworks/controllers/works',
-  'SeedModules.MindPlus/modules/myworks/controllers/trash',
-  'SeedModules.MindPlus/modules/myworks/controllers/workspace',
-  'SeedModules.MindPlus/modules/myworks/controllers/workItem',
-  'SeedModules.MindPlus/modules/myworks/controllers/workItems',
-  'SeedModules.MindPlus/modules/myworks/controllers/settings',
-  'SeedModules.MindPlus/modules/myworks/controllers/tags',
-  'SeedModules.MindPlus/modules/myworks/components/work/work',
-  'SeedModules.MindPlus/modules/myworks/components/workitem/master',
-  'SeedModules.MindPlus/modules/myworks/components/workitem/document',
-  'SeedModules.MindPlus/modules/myworks/components/workitem/board'
-], function() {
-  'use strict';
-
-});
+import 'SeedModules.MindPlus/modules/myworks/directives/sidebar';
+import 'SeedModules.MindPlus/modules/myworks/directives/workItemContent';
+import 'SeedModules.MindPlus/modules/myworks/controllers/home';
+import 'SeedModules.MindPlus/modules/myworks/controllers/mymind';
+import 'SeedModules.MindPlus/modules/myworks/controllers/works';
+import 'SeedModules.MindPlus/modules/myworks/controllers/trash';
+import 'SeedModules.MindPlus/modules/myworks/controllers/workspace';
+import 'SeedModules.MindPlus/modules/myworks/controllers/workItem';
+import 'SeedModules.MindPlus/modules/myworks/controllers/workItems';
+import 'SeedModules.MindPlus/modules/myworks/controllers/settings';
+import 'SeedModules.MindPlus/modules/myworks/controllers/tags';
+import 'SeedModules.MindPlus/modules/myworks/components/work/work';
+import 'SeedModules.MindPlus/modules/myworks/components/workitem/master';
+import 'SeedModules.MindPlus/modules/myworks/components/workitem/document';
+import 'SeedModules.MindPlus/modules/myworks/components/workitem/board';

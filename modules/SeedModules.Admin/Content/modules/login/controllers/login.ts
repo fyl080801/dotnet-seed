@@ -12,6 +12,11 @@ class LoginController {
       });
   }
 
+  enterlogin($event: KeyboardEvent, form: ng.IFormController) {
+    if ($event.keyCode !== 13 || form.$invalid) return;
+    this.login();
+  }
+
   static $inject = [
     '$scope',
     '$location',

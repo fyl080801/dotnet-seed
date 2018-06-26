@@ -44,7 +44,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
                 timeout: defer.promise
             }, this.options);
             configs.url = this.$appConfig.siteSettings.prefix + this.options.url;
-            var loading = this.options.showLoading
+            var loading = this.options.showLoading !== false
                 ? this.$modal.open({
                     templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
                     size: 'sm'

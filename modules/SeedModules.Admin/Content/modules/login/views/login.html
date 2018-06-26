@@ -14,7 +14,7 @@
     </div>
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
-            <form name="loginform" class="modal-body">
+            <form name="loginform" class="modal-body" ng-keyup="vm.enterlogin($event, loginform)">
                 <div class="form-group">
                     <label>用户名</label>
                     <input class="form-control" name="Username" ng-model="data.Username" required>

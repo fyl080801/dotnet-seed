@@ -18,6 +18,11 @@ define(["require", "exports", "SeedModules.Admin/modules/login/module"], functio
                 }
             });
         };
+        LoginController.prototype.enterlogin = function ($event, form) {
+            if ($event.keyCode !== 13 || form.$invalid)
+                return;
+            this.login();
+        };
         LoginController.$inject = [
             '$scope',
             '$location',

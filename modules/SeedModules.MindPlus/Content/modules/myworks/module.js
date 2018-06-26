@@ -1,10 +1,7 @@
-define(['app/application'], function (application) {
-    'use strict';
-    application.requires.push('modules.mindPlus.myworks');
-    return angular.module('modules.mindPlus.myworks', ['ui.router']).config([
-        '$stateProvider',
-        '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+define(["require", "exports", "angular", "app/application"], function (require, exports, angular) {
+    "use strict";
+    var ConfigClass = (function () {
+        function ConfigClass($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/home/dashboard');
             $stateProvider.state('home', {
                 url: '/home',
@@ -125,6 +122,11 @@ define(['app/application'], function (application) {
                 ]
             });
         }
-    ]);
+        ConfigClass.$inject = ['$stateProvider', '$urlRouterProvider'];
+        return ConfigClass;
+    }());
+    return angular
+        .module('modules.mindPlus.myworks', ['ui.router'])
+        .config(ConfigClass);
 });
 //# sourceMappingURL=module.js.map

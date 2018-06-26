@@ -46,12 +46,13 @@ class WebApi implements AngularUI.services.IWebApi {
 
     configs.url = this.$appConfig.siteSettings.prefix + this.options.url;
 
-    var loading = this.options.showLoading
-      ? this.$modal.open({
-          templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
-          size: 'sm'
-        })
-      : null;
+    var loading =
+      this.options.showLoading !== false
+        ? this.$modal.open({
+            templateUrl: '/SeedModules.AngularUI/modules/views/Loading.html',
+            size: 'sm'
+          })
+        : null;
 
     this.$http<app.services.IResponseContext<TOutput>>(configs)
       .then(response => {
