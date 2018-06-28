@@ -1,22 +1,33 @@
-define(['app/application'], function(application) {
-  'use strict';
+import angular = require('angular');
+import 'app/application';
+import 'angular-ui-router';
+import 'schema-form-bootstrap';
 
-  application.requires.push('modules.mindPlus.portals');
+class ConfigClass {
+  static $inject = ['$stateProvider', '$urlRouterProvider'];
+  constructor(
+    $stateProvider: app.configs.IRequireStateProvider,
+    $urlRouterProvider: ng.ui.IUrlRouterProvider
+  ) {
+    $urlRouterProvider.otherwise('/');
 
-  return angular.module('modules.mindPlus.portals', ['ui.router']).config([
-    '$stateProvider',
-    '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/');
+    $stateProvider.state('mindPlus', {
+      url: '/',
+      templateUrl: '/SeedModules.MindPlus/modules/portals/views/index.html',
+      requires: ['SeedModules.MindPlus/modules/portals/requires']
+    });
 
-      $stateProvider.state('mindPlus', {
-        url: '/',
-        templateUrl: '/SeedModules.MindPlus/modules/portals/views/index.html',
-        requires: [
-          'SeedModules.AngularUI/modules/requires',
-          'SeedModules.MindPlus/modules/portals/requires'
-        ]
-      });
-    }
-  ]);
-});
+    $stateProvider.state('mindRegister', {
+      url: '/register',
+      templateUrl: '/SeedModules.MindPlus/modules/portals/views/register.html',
+      requires: [
+        'SeedModules.AngularUI/modules/requires',
+        'SeedModules.MindPlus/modules/portals/requires'
+      ]
+    });
+  }
+}
+
+export = angular
+  .module('modules.mindPlus.portals', ['ui.router', 'schemaForm'])
+  .config(ConfigClass);
