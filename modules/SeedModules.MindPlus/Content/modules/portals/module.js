@@ -16,6 +16,14 @@ define(["require", "exports", "angular", "app/application", "angular-ui-router",
                     'SeedModules.MindPlus/modules/portals/requires'
                 ]
             });
+            $stateProvider.state('mindLogin', {
+                url: '/mdlogin',
+                templateUrl: '/SeedModules.MindPlus/modules/portals/views/login.html',
+                requires: [
+                    'SeedModules.AngularUI/modules/requires',
+                    'SeedModules.MindPlus/modules/portals/requires'
+                ]
+            });
         }
         ConfigClass.$inject = ['$stateProvider', '$urlRouterProvider'];
         return ConfigClass;

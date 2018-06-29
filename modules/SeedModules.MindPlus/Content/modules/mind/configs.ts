@@ -1,5 +1,3 @@
-define(['app/application'], function(application) {
-  'use strict';
+import angular = require('angular');
 
-  return angular.module('modules.mindPlus.mind.configs', []);
-});
+export = angular.module('modules.mindPlus.mind.configs', []);

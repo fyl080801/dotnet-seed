@@ -25,6 +25,15 @@ class ConfigClass {
         'SeedModules.MindPlus/modules/portals/requires'
       ]
     });
+
+    $stateProvider.state('mindLogin', {
+      url: '/mdlogin',
+      templateUrl: '/SeedModules.MindPlus/modules/portals/views/login.html',
+      requires: [
+        'SeedModules.AngularUI/modules/requires',
+        'SeedModules.MindPlus/modules/portals/requires'
+      ]
+    });
   }
 }
 
