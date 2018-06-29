@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.Admin/modules/admin/module", "angular"], function (require, exports, mod, angular) {
+define(["require", "exports", "SeedModules.Admin/modules/admin/module", "angular", "jquery"], function (require, exports, mod, angular, $) {
     "use strict";
     exports.__esModule = true;
     var RolesController = (function () {

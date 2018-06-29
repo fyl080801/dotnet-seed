@@ -14,11 +14,24 @@ var gulp = require('gulp'),
   revCollector = require('sog-gulp-rev-collector'),
   fs = require('fs');
 
+var less = require('gulp-less');
+
 var options = minimist(process.argv.slice(2), {
   string: 'src',
   default: {
     src: process.env.NODE_ENV || path.join(process.cwd(), 'src/Seed/modules')
   }
+});
+
+gulp.task('watch', function() {
+  gulp.watch('modules/**/*.less', ['doless']);
+});
+
+gulp.task('doless', function() {
+  return gulp
+    .src('modules/**/*.less')
+    .pipe(less())
+    .pipe(gulp.dest('modules'));
 });
 
 gulp.task('build', function() {

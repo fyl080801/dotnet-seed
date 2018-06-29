@@ -1,5 +1,6 @@
 import mod = require('SeedModules.Admin/modules/admin/module');
 import angular = require('angular');
+import $ = require('jquery');
 
 class RolesController {
   checkAll() {

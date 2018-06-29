@@ -12,10 +12,10 @@ class SidebarController {
         navItemShow.removeClass('sidebar-show');
         navItem.children('ul').removeAttr('style');
         $element.addClass('sidebar-mini');
-        navContent.addClass('sidebar-min');
+        navContent.addClass('sidebar-mini');
       } else {
         $element.removeClass('sidebar-mini');
-        navContent.removeClass('sidebar-min');
+        navContent.removeClass('sidebar-mini');
       }
     };
 

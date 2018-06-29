@@ -1,0 +1,185 @@
+body {
+  background-color: #fff;
+}
+
+.seed-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .seed-content {
+    top: 50px;
+    overflow: auto;
+  }
+}
+
+.seed-bg {
+  background-color: white;
+}
+
+/* sidebar */
+
+.sidebar {
+  width: 220px;
+  height: 100%;
+  background: #273240;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+
+    span {
+      margin-left: 15px;
+    }
+  }
+
+  a {
+    display: block;
+    overflow: hidden;
+    padding-left: 18px;
+    line-height: 49px;
+    max-height: 49px;
+    color: #cdcdcd;
+    transition: all 0.3s;
+  }
+}
+
+.sidebar-content {
+  margin-left: 220px;
+  transition: all 0.3s;
+}
+
+.sidebar-item {
+  position: relative;
+
+  &.sidebar-show {
+    border-bottom: none;
+
+    ul {
+      display: block;
+    }
+  }
+
+  ul {
+    display: none;
+    background-color: #1e2631;
+  }
+
+  > a {
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0px;
+      width: 2px;
+      height: 49px;
+      background: #2dc3e8;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+  }
+}
+
+.sidebar-show {
+  .sidebar-more {
+    transform: rotate(90deg);
+  }
+}
+
+.sidebar-more {
+  float: right;
+  margin-right: 20px;
+  margin-top: 18px;
+  transition: transform 0.3s;
+}
+
+.sidebar-top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/*---------------------*/
+
+.sidebar-show,
+.sidebar-item > a:hover {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-show > a:before,
+.sidebar-item > a:hover:before {
+  opacity: 1;
+}
+
+.sidebar-item li:hover a {
+  color: #fff;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* sidebar-mini */
+
+.sidebar-mini {
+  &.sidebar {
+    width: 55px;
+
+    .sidebar-item {
+      ul {
+        position: absolute;
+        top: 0px;
+        left: 55px;
+        width: 180px;
+        z-index: 1025;
+        background: #273240;
+        overflow: hidden;
+        border-radius: 0 4px 4px 0;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+      }
+
+      > a span {
+        display: none;
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+
+        .sidebar-item a {
+          color: #fff;
+        }
+
+        a:before {
+          opacity: 1;
+        }
+
+        ul {
+          display: block;
+        }
+      }
+    }
+
+    .sidebar-more {
+      margin-right: -20px;
+    }
+  }
+
+  &.sidebar-content {
+    margin-left: 55px;
+  }
+}
+
+.navbar-blank {
+  background-color: transparent;
+  border-color: #e7e7e7;
+}

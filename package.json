@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "cacslibrary 的 .net core 版",
   "scripts": {
-    "start": "tsc --watch -p tsconfig.json"
+    "tsc-watch": "tsc --watch -p tsconfig.json",
+    "gulp-watch": "gulp watch",
+    "start": "concurrently \"npm run tsc-watch\" \"npm run gulp-watch\""
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
     "gulp-typescript": "^4.0.2",
     "gulp-uglify": "^1.5.3",
     "gulp-webserver": "^0.9.1",
+    "concurrently": "^3.5.1",
     "minimatch": "^3.0.4",
     "minimist": "^1.2.0",
     "npm": "^6.1.0",
@@ -47,5 +50,8 @@
     "rimraf": "^2.5.2",
     "sog-gulp-rev-collector": "0.0.1",
     "typescript": "^2.9.2"
+  },
+  "dependencies": {
+    "watcher-lessc": "^0.2.0"
   }
 }

@@ -11,11 +11,11 @@ namespace SeedModules.Admin
             return new[] {
                 new RouteViewReference(
                     "SeedModules.Admin/Home/Index",
-                    "rcss!SeedModules.Admin/css/seed-admin.css",
+                    "rcss!SeedModules.Admin/less/seed-admin.css",
                     "SeedModules.Admin/modules/admin/module"),
                 new RouteViewReference(
                     "SeedModules.Admin/Home/Login",
-                    "rcss!SeedModules.Admin/css/seed-admin.css",
+                    "rcss!SeedModules.Admin/less/seed-admin.css",
                     "SeedModules.Admin/modules/login/module")
             };
         }
