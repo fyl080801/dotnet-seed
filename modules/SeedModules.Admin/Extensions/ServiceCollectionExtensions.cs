@@ -41,58 +41,14 @@ namespace SeedModules.Admin.Extensions
 
         public static IServiceCollection AddAuthenticationServices(
             this IServiceCollection services,
-            IDataProtectionProvider dataProtectionProvider,
             string tenantName,
             string prefix)
         {
             services.AddSecurity();
-
-            new IdentityBuilder(typeof(IUser), typeof(IRole), services).AddDefaultTokenProviders();
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-            })
-            .AddCookie(IdentityConstants.ApplicationScheme)
-            .AddCookie(IdentityConstants.ExternalScheme)
-            .AddCookie(IdentityConstants.TwoFactorRememberMeScheme)
-            .AddCookie(IdentityConstants.TwoFactorUserIdScheme);
+            services.AddIdentity<IUser, IRole>().AddDefaultTokenProviders();
 
             // 需要在 tenant 的服务中注册
             services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
-
-            // services.AddAuthentication(options =>
-            // {
-            //     options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
-            //     options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-            //     options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-            // })
-            // .AddCookie(IdentityConstants.ApplicationScheme, options =>
-            // {
-            //     options.LoginPath = new PathString(LoginPath);
-            //     options.Events = new CookieAuthenticationEvents
-            //     {
-            //         OnValidatePrincipal = async context =>
-            //         {
-            //             await SecurityStampValidator.ValidatePrincipalAsync(context);
-            //         }
-            //     };
-            // })
-            // .AddCookie(IdentityConstants.ExternalScheme, options =>
-            // {
-            //     options.Cookie.Name = IdentityConstants.ExternalScheme;
-            //     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-            // })
-            // .AddCookie(IdentityConstants.TwoFactorRememberMeScheme, options =>
-            // {
-            //     options.Cookie.Name = IdentityConstants.TwoFactorRememberMeScheme;
-            // })
-            // .AddCookie(IdentityConstants.TwoFactorUserIdScheme, IdentityConstants.TwoFactorUserIdScheme, options =>
-            // {
-            //     options.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
-            //     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-            // });
 
             services.TryAddScoped<IUserValidator<IUser>, UserValidator<IUser>>();
             services.TryAddScoped<IPasswordValidator<IUser>, PasswordValidator<IUser>>();
@@ -105,7 +61,9 @@ namespace SeedModules.Admin.Extensions
             services.TryAddScoped<UserManager<IUser>>();
             services.TryAddScoped<SignInManager<IUser>>();
 
+            services.TryAddScoped<UserStore>();
             services.TryAddScoped<IUserStore<IUser>, UserStore>();
+            services.TryAddScoped<IUserRoleStore<IUser>, UserStore>();
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -113,19 +71,6 @@ namespace SeedModules.Admin.Extensions
                 options.Cookie.Path = prefix;
                 options.LoginPath = new PathString(LoginPath);
                 options.AccessDeniedPath = new PathString(LoginPath);
-                options.DataProtectionProvider = dataProtectionProvider;
-            })
-            .ConfigureExternalCookie(options =>
-            {
-                options.DataProtectionProvider = dataProtectionProvider;
-            })
-            .Configure<CookieAuthenticationOptions>(IdentityConstants.TwoFactorRememberMeScheme, options =>
-            {
-                options.DataProtectionProvider = dataProtectionProvider;
-            })
-            .Configure<CookieAuthenticationOptions>(IdentityConstants.TwoFactorUserIdScheme, options =>
-            {
-                options.DataProtectionProvider = dataProtectionProvider;
             })
             .Configure<IdentityOptions>(options =>
             {

@@ -15,19 +15,17 @@ namespace SeedModules.Admin
     {
         readonly string _tenantName;
         readonly string _prefix;
-        readonly IDataProtectionProvider _dataProtectionProvider;
 
-        public Startup(EngineSettings engineSettings, IDataProtectionProvider dataProtectionProvider)
+        public Startup(EngineSettings engineSettings)
         {
             _tenantName = engineSettings.Name;
             _prefix = "/" + engineSettings.RequestUrlPrefix;
-            _dataProtectionProvider = dataProtectionProvider.CreateProtector(_tenantName);
         }
 
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddRoleServices();
-            services.AddAuthenticationServices(_dataProtectionProvider, _tenantName, _prefix);
+            services.AddAuthenticationServices(_tenantName, _prefix);
             services.AddScoped<ISiteSettingsBuilder, SiteSettingsBuilder>();
             services.AddScoped<IRouteReferenceProvider, RouteReferences>();
         }
