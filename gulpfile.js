@@ -104,9 +104,7 @@ gulp.task('tsc', function() {
     .src()
     .pipe(sourcemaps.init())
     .pipe(tsProject())
-    .pipe(
-      sourcemaps.write('.', { includeContent: false, sourceRoot: '../modules' })
-    )
+    .pipe(sourcemaps.write('.', { includeContent: false }))
     .pipe(gulp.dest('modules'));
 });
 
