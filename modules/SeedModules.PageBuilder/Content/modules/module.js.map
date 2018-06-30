@@ -1,1 +1,1 @@
-{"version":3,"file":"module.js","sourceRoot":"","sources":["module.ts"],"names":[],"mappings":";;IAKA,OAAS,OAAO,CAAC,MAAM,CAAC,qBAAqB,EAAE,CAAC,0BAA0B,CAAC,CAAC,CAAC"}
+{"version":3,"sources":["SeedModules.PageBuilder/Content/modules/module.ts"],"names":[],"mappings":";;IAKA,OAAS,OAAO,CAAC,MAAM,CAAC,qBAAqB,EAAE,CAAC,0BAA0B,CAAC,CAAC,CAAC","file":"module.js","sourceRoot":"../../../../modules"}

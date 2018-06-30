@@ -21,4 +21,5 @@ define(["require", "exports", "SeedModules.MindPlus/modules/mind/module", "angul
         }
     ]);
 });
+
 //# sourceMappingURL=minderInstance.js.map

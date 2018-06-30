@@ -14,4 +14,5 @@ define(['SeedModules.MindPlus/modules/admin/configs'], function (configs) {
         }
     ]);
 });
+
 //# sourceMappingURL=menus.js.map

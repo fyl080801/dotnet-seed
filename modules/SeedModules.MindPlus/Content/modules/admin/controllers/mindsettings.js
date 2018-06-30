@@ -23,4 +23,5 @@ define(['SeedModules.MindPlus/modules/admin/module'], function (module) {
         }
     ]);
 });
+
 //# sourceMappingURL=mindsettings.js.map

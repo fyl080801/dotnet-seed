@@ -17,4 +17,5 @@ define(["require", "exports", "angular", "app/application", "angular-ui-router"]
     }());
     return angular.module('modules.login', ['ui.router']).config(ModuleClass);
 });
+
 //# sourceMappingURL=module.js.map

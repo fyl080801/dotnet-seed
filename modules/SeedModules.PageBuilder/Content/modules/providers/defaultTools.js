@@ -100,4 +100,5 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/exten
     }());
     exports.DefaultToolsConfig = DefaultToolsConfig;
 });
+
 //# sourceMappingURL=defaultTools.js.map

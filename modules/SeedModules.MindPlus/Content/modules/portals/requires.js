@@ -2,4 +2,5 @@ define(["require", "exports", "SeedModules.MindPlus/modules/portals/controllers/
     "use strict";
     exports.__esModule = true;
 });
+
 //# sourceMappingURL=requires.js.map

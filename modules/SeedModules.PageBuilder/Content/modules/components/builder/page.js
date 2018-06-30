@@ -34,4 +34,5 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
     }());
     mod.controller('SeedModules.PageBuilder/modules/components/builder/page', PageController);
 });
+
 //# sourceMappingURL=page.js.map

@@ -68,4 +68,5 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function (module) {
         }
     ]);
 });
+
 //# sourceMappingURL=home.js.map

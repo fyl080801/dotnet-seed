@@ -87,4 +87,5 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
     }
     mod.directive('builderToolbox', directive);
 });
+
 //# sourceMappingURL=builderToolbox.js.map

@@ -32,4 +32,5 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
         }
     ]);
 });
+
 //# sourceMappingURL=triggerInput.js.map

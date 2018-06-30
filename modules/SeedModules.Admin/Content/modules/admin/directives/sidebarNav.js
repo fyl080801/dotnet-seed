@@ -56,4 +56,5 @@ define(["require", "exports", "SeedModules.Admin/modules/admin/module", "angular
     }
     mod.directive('sidebarNav', directive);
 });
+
 //# sourceMappingURL=sidebarNav.js.map

@@ -35,4 +35,5 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function (module) {
         }
     ]);
 });
+
 //# sourceMappingURL=workItemContent.js.map

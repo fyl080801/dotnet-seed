@@ -29,4 +29,5 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot"], function (r
     }());
     boot.provider('SeedModules.AngularUI/modules/providers/ngTableDefaultGetData', NgTableDefaultGetDataProvider);
 });
+
 //# sourceMappingURL=ngTableDefaultGetData.js.map

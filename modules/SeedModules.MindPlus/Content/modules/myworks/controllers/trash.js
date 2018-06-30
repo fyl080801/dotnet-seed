@@ -5,4 +5,5 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function (module) {
         function ($scope) { }
     ]);
 });
+
 //# sourceMappingURL=trash.js.map

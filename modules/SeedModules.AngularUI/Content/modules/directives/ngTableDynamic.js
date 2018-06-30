@@ -48,4 +48,5 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular",
     ngTableDynamicDirective.$inject = ['$parse'];
     mod.directive('ngTableDynamic', ngTableDynamicDirective);
 });
+
 //# sourceMappingURL=ngTableDynamic.js.map

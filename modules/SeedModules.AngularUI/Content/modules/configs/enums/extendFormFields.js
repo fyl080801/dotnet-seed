@@ -12,4 +12,5 @@ define(["require", "exports"], function (require, exports) {
         ExtendFormFields["navbar"] = "navbar";
     })(ExtendFormFields = exports.ExtendFormFields || (exports.ExtendFormFields = {}));
 });
+
 //# sourceMappingURL=extendFormFields.js.map

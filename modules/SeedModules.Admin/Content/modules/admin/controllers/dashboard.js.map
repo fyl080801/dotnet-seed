@@ -1,1 +1,1 @@
-{"version":3,"file":"dashboard.js","sourceRoot":"","sources":["dashboard.ts"],"names":[],"mappings":";;;IAEA,GAAG,CAAC,UAAU,CAAC,uDAAuD,EAAE;QACtE,QAAQ;QACR,UAAS,MAAM,IAAG,CAAC;KACpB,CAAC,CAAC"}
+{"version":3,"sources":["SeedModules.Admin/Content/modules/admin/controllers/dashboard.ts"],"names":[],"mappings":";;;IAEA,GAAG,CAAC,UAAU,CAAC,uDAAuD,EAAE;QACtE,QAAQ;QACR,UAAS,MAAM,IAAG,CAAC;KACpB,CAAC,CAAC","file":"dashboard.js","sourceRoot":"../../../../../../modules"}

@@ -6,4 +6,5 @@ define(["require", "exports", "angular", "angular-ui-router", "schema-form-boots
     ]);
     return instance;
 });
+
 //# sourceMappingURL=boot.js.map

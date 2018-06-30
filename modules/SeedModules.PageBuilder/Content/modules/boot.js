@@ -2,4 +2,5 @@ define(["require", "exports", "angular", "schema-form-bootstrap"], function (req
     "use strict";
     return angular.module('modules.pagebuilder.boot', ['schemaForm']);
 });
+
 //# sourceMappingURL=boot.js.map

@@ -39,4 +39,5 @@
         });
     });
 })(eval('(' + document.getElementById('seed-ui').getAttribute('data-options') + ')'));
+
 //# sourceMappingURL=startup.js.map

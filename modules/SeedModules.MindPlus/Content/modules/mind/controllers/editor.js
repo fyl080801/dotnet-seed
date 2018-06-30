@@ -61,4 +61,5 @@ define(['SeedModules.MindPlus/modules/mind/module'], function (module) {
         }
     ]);
 });
+
 //# sourceMappingURL=editor.js.map

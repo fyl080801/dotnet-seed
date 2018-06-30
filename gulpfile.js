@@ -14,6 +14,7 @@ var gulp = require('gulp'),
   revCollector = require('sog-gulp-rev-collector'),
   fs = require('fs'),
   less = require('gulp-less'),
+  sourcemaps = require('gulp-sourcemaps'),
   ts = require('gulp-typescript');
 
 var options = minimist(process.argv.slice(2), {
@@ -101,7 +102,11 @@ gulp.task('tsc', function() {
   var tsProject = ts.createProject('tsconfig.json');
   tsProject
     .src()
+    .pipe(sourcemaps.init())
     .pipe(tsProject())
+    .pipe(
+      sourcemaps.write('.', { includeContent: false, sourceRoot: '../modules' })
+    )
     .pipe(gulp.dest('modules'));
 });
 

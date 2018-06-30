@@ -13,4 +13,5 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
         }
     ]);
 });
+
 //# sourceMappingURL=ngTableSorterRow.js.map

@@ -6,4 +6,5 @@ define(["require", "exports"], function (require, exports) {
         SchemaTypes["object"] = "object";
     })(SchemaTypes = exports.SchemaTypes || (exports.SchemaTypes = {}));
 });
+
 //# sourceMappingURL=schemaTypes.js.map

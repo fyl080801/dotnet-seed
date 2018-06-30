@@ -49,4 +49,5 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
         }
     ]);
 });
+
 //# sourceMappingURL=ngTableRequest.js.map

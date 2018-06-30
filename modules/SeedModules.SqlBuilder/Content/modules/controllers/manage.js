@@ -10,4 +10,5 @@ define(["require", "exports", "SeedModules.SqlBuilder/modules/module"], function
     }());
     mod.controller('SeedModules.SqlBuilder/modules/controllers/manage', ManageClass);
 });
+
 //# sourceMappingURL=manage.js.map
