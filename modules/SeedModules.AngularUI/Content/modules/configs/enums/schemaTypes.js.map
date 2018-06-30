@@ -1,1 +1,1 @@
-{"version":3,"sources":["SeedModules.AngularUI/Content/modules/configs/enums/schemaTypes.ts"],"names":[],"mappings":";;;IAAA,IAAY,WAEX;IAFD,WAAY,WAAW;QACrB,gCAAiB,CAAA;IACnB,CAAC,EAFW,WAAW,GAAX,mBAAW,KAAX,mBAAW,QAEtB","file":"schemaTypes.js","sourceRoot":"../../../../../../modules"}
+{"version":3,"sources":["SeedModules.AngularUI/Content/modules/configs/enums/schemaTypes.ts"],"names":[],"mappings":";;;IAAA,IAAY,WAEX;IAFD,WAAY,WAAW;QACrB,gCAAiB,CAAA;IACnB,CAAC,EAFW,WAAW,GAAX,mBAAW,KAAX,mBAAW,QAEtB","file":"schemaTypes.js"}

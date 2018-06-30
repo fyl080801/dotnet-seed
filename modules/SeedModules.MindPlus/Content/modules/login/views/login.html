@@ -1,7 +1,7 @@
-<div ng-controller="SeedModules.MindPlus/modules/portals/controllers/login">
+<div ng-controller="SeedModules.MindPlus/modules/login/controllers/login">
     <div class="modal-dialog modal-sm" role="document">
         <div class="text-center">
-            <a href="#/" style="text-decoration: none">
+            <a tenant-href="/SeedModules.MindPlus/Home/Index" style="text-decoration: none">
                 <h1>Mind+</h1>
             </a>
         </div>
@@ -21,7 +21,7 @@
                 </li>
             </ul>
             <div class="tab-content container-fluid" style="padding-top: 10px">
-                <form id="perform" name="perform" class="modal-body tab-pane active">
+                <form id="perform" name="perform" class="modal-body tab-pane active" ng-keyup="vm.enterlogin($event, perform)">
                     <div class="form-group">
                         <input class="form-control" name="Username" ng-model="data.Username" placeholder="用户名/手机号/邮箱" required>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="panel-body">
                         <p class="text-center">
                             还没有账号？
-                            <a href="#/register">立即注册</a>
+                            <a tenant-href="/SeedModules.MindPlus/Home/Index#/register">立即注册</a>
                         </p>
                     </div>
                     <div class="split-line">

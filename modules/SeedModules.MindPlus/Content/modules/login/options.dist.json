@@ -1,0 +1,10 @@
+{
+  "configs": {
+    "SeedModules.MindPlus/modules/login/module": {
+      "path": "SeedModules.MindPlus/js/modules.login.module"
+    },
+    "SeedModules.MindPlus/modules/login/requires": {
+      "path": "SeedModules.MindPlus/js/modules.login.requires"
+    }
+  }
+}

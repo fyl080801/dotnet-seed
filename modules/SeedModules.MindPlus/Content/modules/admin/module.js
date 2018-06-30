@@ -1,9 +1,5 @@
-define([
-    'app/application',
-    'SeedModules.MindPlus/modules/admin/configs/menus'
-], function (application) {
-    'use strict';
-    application.requires.push('modules.mindPlus.admin');
+define(["require", "exports", "angular", "app/application", "SeedModules.MindPlus/modules/admin/configs/menus"], function (require, exports, angular) {
+    "use strict";
     return angular
         .module('modules.mindPlus.admin', [
         'ui.router',

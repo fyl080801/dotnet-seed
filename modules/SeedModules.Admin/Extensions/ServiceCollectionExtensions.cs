@@ -67,7 +67,7 @@ namespace SeedModules.Admin.Extensions
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.Cookie.Name = "seed_" + tenantName;
+                options.Cookie.Name = $"seed_{tenantName}";
                 options.Cookie.Path = prefix;
                 options.LoginPath = new PathString(LoginPath);
                 options.AccessDeniedPath = new PathString(LoginPath);

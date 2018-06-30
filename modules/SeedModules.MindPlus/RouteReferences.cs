@@ -26,13 +26,17 @@ namespace SeedModules.MindPlus
             "rcss!SeedModules.MindPlus/js/color-picker/color-picker.min.css",
             "SeedModules.MindPlus/modules/mind/module");
 
+        static RouteViewReference MindPlus_Home_Login = new RouteViewReference("SeedModules.MindPlus/Home/Login",
+            "SeedModules.MindPlus/modules/login/module");
+
         public IEnumerable<RouteViewReference> GetViewReferences()
         {
             return new[] {
                 Admin_Home_Index,
                 MindPlus_Home_Index,
                 MindPlus_Home_Works,
-                MindPlus_Home_Mind
+                MindPlus_Home_Mind,
+                MindPlus_Home_Login
             };
         }
     }

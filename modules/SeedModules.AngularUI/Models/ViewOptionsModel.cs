@@ -9,6 +9,6 @@ namespace SeedModules.AngularUI.Models
 
         public string SiteSettings { get; set; }
 
-        public IList<string> Scripts { get; set; } = new List<string>();
+        public IEnumerable<string> Scripts { get; set; } = new List<string>();
     }
 }

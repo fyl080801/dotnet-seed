@@ -1,1 +1,1 @@
-{"version":3,"sources":["SeedModules.Admin/Content/modules/admin/boot.ts"],"names":[],"mappings":";;IAIA,IAAI,QAAQ,GAAe,OAAO,CAAC,MAAM,CAAC,oBAAoB,EAAE;QAC9D,WAAW;QACX,YAAY;KACb,CAAC,CAAC;IAEH,OAAS,QAAQ,CAAC","file":"boot.js","sourceRoot":"../../../../../modules"}
+{"version":3,"sources":["SeedModules.Admin/Content/modules/admin/boot.ts"],"names":[],"mappings":";;IAIA,IAAI,QAAQ,GAAe,OAAO,CAAC,MAAM,CAAC,oBAAoB,EAAE;QAC9D,WAAW;QACX,YAAY;KACb,CAAC,CAAC;IAEH,OAAS,QAAQ,CAAC","file":"boot.js"}

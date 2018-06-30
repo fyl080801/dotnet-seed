@@ -1,14 +1,13 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine;
-using Seed.Modules.Site;
 using Seed.Mvc.Filters;
 using Seed.Security.Permissions;
+using SeedModules.AngularUI.Extensions;
 using SeedModules.AngularUI.Models;
 using SeedModules.AngularUI.Rendering;
+using System.Linq;
 
 namespace SeedModules.Admin.Controllers
 {
@@ -28,11 +27,7 @@ namespace SeedModules.Admin.Controllers
         [GenerateAntiforgeryTokenCookie]
         public IActionResult Login(string returnUrl = null)
         {
-            return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
-            {
-                Options = _optionsBuilder.Build(RouteData).Result,
-                SiteSettings = _siteSettingsBuilder.Build().ToString()
-            });
+            return this.UI();
         }
 
         [Authorize]
@@ -45,7 +40,7 @@ namespace SeedModules.Admin.Controllers
                 SiteSettings = _siteSettingsBuilder.Build().ToString()
             };
             model.Properties.Add("Permissions", new JArray(User.Claims.Where(e => e.Type == PermissionInfo.ClaimType).Select(e => e.Value).ToArray()));
-            return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", model);
+            return this.UI(model);
         }
     }
 }

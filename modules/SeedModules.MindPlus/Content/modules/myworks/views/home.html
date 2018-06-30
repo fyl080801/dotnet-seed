@@ -12,7 +12,7 @@
                 </div>
             </div>
         </div>
-        <div ng-tree class="sidemenu" tree-data="menus" item-clicked="menuClicked($item)" single-expand="true" item-init="isMenuActive($item)"
+        <div ng-tree class="sidemenu" tree-data="menus" item-clicked="vm.menuClicked($item)" single-expand="true" item-init="isMenuActive($item)"
             root-template-url="'/SeedModules.MindPlus/modules/myworks/templates/menuRoot.html'"></div>
     </div>
     <div class="sidebar-content mind-container">
@@ -32,13 +32,13 @@
                     <li>
                         <div class="navbar-form" ng-show="globalSearching">
                             <div class="form-group has-feedback">
-                                <input class="form-control" placeholder="全文检索..." ng-blur="blurSearch()">
+                                <input class="form-control" placeholder="全文检索..." ng-blur="vm.blurSearch()">
                                 <div class="form-control-feedback text-muted">
                                     <i class="glyphicon glyphicon-search"></i>
                                 </div>
                             </div>
                         </div>
-                        <a href="" ng-show="!globalSearching" ng-click="focusSearch()">
+                        <a href="" ng-show="!globalSearching" ng-click="vm.focusSearch()">
                             <i class="glyphicon glyphicon-search"></i>
                         </a>
                     </li>
@@ -54,7 +54,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="">退出</a>
+                                <a href="" ng-click="vm.logout()">退出</a>
                             </li>
                         </ul>
                     </li>

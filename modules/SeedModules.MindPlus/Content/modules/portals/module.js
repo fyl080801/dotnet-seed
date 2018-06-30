@@ -6,7 +6,10 @@ define(["require", "exports", "angular", "app/application", "angular-ui-router",
             $stateProvider.state('mindPlus', {
                 url: '/',
                 templateUrl: '/SeedModules.MindPlus/modules/portals/views/index.html',
-                requires: ['SeedModules.MindPlus/modules/portals/requires']
+                requires: [
+                    'SeedModules.AngularUI/modules/requires',
+                    'SeedModules.MindPlus/modules/portals/requires'
+                ]
             });
             $stateProvider.state('mindRegister', {
                 url: '/register',

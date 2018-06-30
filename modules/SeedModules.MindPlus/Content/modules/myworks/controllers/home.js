@@ -1,10 +1,15 @@
-define(['SeedModules.MindPlus/modules/myworks/module'], function (module) {
-    'use strict';
-    module.controller('SeedModules.MindPlus/modules/myworks/controllers/home', [
-        '$scope',
-        '$state',
-        'SeedModules.AngularUI/modules/services/utility',
-        function ($scope, $state, utility) {
+define(["require", "exports", "SeedModules.MindPlus/modules/myworks/module"], function (require, exports, mod) {
+    "use strict";
+    exports.__esModule = true;
+    var Controller = (function () {
+        function Controller($scope, $state, $window, utility, popupService, requestService) {
+            this.$scope = $scope;
+            this.$state = $state;
+            this.$window = $window;
+            this.utility = utility;
+            this.popupService = popupService;
+            this.requestService = requestService;
+            $scope.vm = this;
             $scope.globalSearching = false;
             $scope.menus = [
                 {
@@ -55,18 +60,42 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function (module) {
                     state: 'home.trash'
                 }
             ];
-            $scope.menuClicked = function (item) {
-                if (item.state)
-                    $state.go(item.state, item.stateParamse || {});
-            };
-            $scope.blurSearch = function () {
-                $scope.globalSearching = false;
-            };
-            $scope.focusSearch = function () {
-                $scope.globalSearching = true;
-            };
         }
-    ]);
+        Controller.prototype.menuClicked = function (item) {
+            if (item.state)
+                this.$state.go(item.state, item.stateParamse || {});
+        };
+        Controller.prototype.blurSearch = function () {
+            this.$scope.globalSearching = false;
+        };
+        Controller.prototype.focusSearch = function () {
+            this.$scope.globalSearching = true;
+        };
+        Controller.prototype.logout = function () {
+            var _this = this;
+            this.popupService.confirm('是否退出？').ok(function () {
+                _this.requestService
+                    .url('/api/account/logout')
+                    .options({
+                    dataOnly: true
+                })
+                    .post()
+                    .result.then(function () {
+                    _this.$window.location.reload();
+                });
+            });
+        };
+        Controller.$inject = [
+            '$scope',
+            '$state',
+            '$window',
+            'SeedModules.AngularUI/modules/services/utility',
+            'app/services/popupService',
+            'SeedModules.AngularUI/modules/services/requestService'
+        ];
+        return Controller;
+    }());
+    mod.controller('SeedModules.MindPlus/modules/myworks/controllers/home', Controller);
 });
 
 //# sourceMappingURL=home.js.map

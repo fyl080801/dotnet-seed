@@ -8,21 +8,18 @@ namespace SeedModules.MindPlus.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        const string LoginPath = "/SeedModules.MindPlus/Home/Index/#/mdlogin";
+        const string LoginPath = "/SeedModules.MindPlus/Home/Login";
 
         public static IServiceCollection AddMindAuthenticationServices(this IServiceCollection services,
             IDataProtectionProvider dataProtectionProvider,
             string tenantName,
             string prefix)
         {
-            services.AddAuthenticationCore(options =>
+            services
+            .ConfigureApplicationCookie(options =>
             {
-                
+                options.LoginPath = LoginPath;
             });
-            // .ConfigureApplicationCookie(options =>
-            // {
-            //     options.LoginPath = LoginPath;
-            // });
             // .AddCookie("mindplus", "mindplus", options =>
             // {
             //     options.Cookie.Name = "seed_" + tenantName;
