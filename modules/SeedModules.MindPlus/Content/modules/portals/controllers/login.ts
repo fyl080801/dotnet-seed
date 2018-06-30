@@ -2,7 +2,7 @@ import mod = require('SeedModules.MindPlus/modules/portals/module');
 
 class Controller {
   login() {}
-  
+
   static $inject = ['$scope'];
   constructor(private $scope) {
     $scope.vm = this;

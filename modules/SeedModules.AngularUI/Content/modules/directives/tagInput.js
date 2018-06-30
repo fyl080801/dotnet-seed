@@ -44,4 +44,3 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
         }
     ]);
 });
-//# sourceMappingURL=tagInput.js.map

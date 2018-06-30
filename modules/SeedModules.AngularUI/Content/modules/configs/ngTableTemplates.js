@@ -13,4 +13,3 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot"], function (r
     }());
     boot.run(RunClass);
 });
-//# sourceMappingURL=ngTableTemplates.js.map

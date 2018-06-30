@@ -48,4 +48,3 @@ define(["require", "exports", "SeedModules.MindPlus/modules/portals/module", "Se
     }());
     mod.controller('SeedModules.MindPlus/modules/portals/controllers/register', ControllerClass);
 });
-//# sourceMappingURL=register.js.map

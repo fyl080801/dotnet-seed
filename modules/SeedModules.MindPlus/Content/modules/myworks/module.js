@@ -129,4 +129,3 @@ define(["require", "exports", "angular", "app/application"], function (require, 
         .module('modules.mindPlus.myworks', ['ui.router'])
         .config(ConfigClass);
 });
-//# sourceMappingURL=module.js.map

@@ -42,4 +42,3 @@ define(["require", "exports", "SeedModules.Admin/modules/admin/module"], functio
     }
     mod.directive('sidebar', directive);
 });
-//# sourceMappingURL=sidebar.js.map

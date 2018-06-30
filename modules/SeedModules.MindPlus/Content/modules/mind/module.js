@@ -19,4 +19,3 @@ define(["require", "exports", "angular", "app/application"], function (require, 
         }
     ]);
 });
-//# sourceMappingURL=module.js.map

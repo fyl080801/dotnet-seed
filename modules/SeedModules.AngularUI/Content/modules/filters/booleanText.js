@@ -19,4 +19,3 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module"], function 
         }
     ]);
 });
-//# sourceMappingURL=booleanText.js.map

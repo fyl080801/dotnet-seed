@@ -27,4 +27,3 @@ define(["require", "exports", "SeedModules.MindPlus/modules/portals/module"], fu
     }());
     mod.controller('SeedModules.MindPlus/modules/portals/controllers/index', ControllerClass);
 });
-//# sourceMappingURL=index.js.map

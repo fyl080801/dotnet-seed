@@ -121,4 +121,3 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
     }());
     mod.service('SeedModules.AngularUI/modules/services/requestService', RequestService);
 });
-//# sourceMappingURL=requestService.js.map

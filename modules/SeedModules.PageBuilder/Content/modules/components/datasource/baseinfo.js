@@ -53,4 +53,3 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
     }());
     mod.controller('SeedModules.PageBuilder/modules/components/datasource/baseinfo', ControllerClass);
 });
-//# sourceMappingURL=baseinfo.js.map

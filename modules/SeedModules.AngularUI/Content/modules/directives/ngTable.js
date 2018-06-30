@@ -74,4 +74,3 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular",
     ngTableDirective.$inject = ['$q', '$parse'];
     mod.directive('ngTable', ngTableDirective);
 });
-//# sourceMappingURL=ngTable.js.map

@@ -26,4 +26,3 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
     }());
     boot.config(SwitchFieldConfig);
 });
-//# sourceMappingURL=switchField.js.map

@@ -6,4 +6,3 @@ define(["require", "exports", "SeedModules.Admin/modules/admin/module"], functio
         function ($scope) { }
     ]);
 });
-//# sourceMappingURL=dashboard.js.map

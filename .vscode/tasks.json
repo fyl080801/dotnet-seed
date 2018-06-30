@@ -15,8 +15,8 @@
       "problemMatcher": ["$tsc-watch"]
     },
     {
-      "type": "npm",
-      "script": "start",
+      "type": "gulp",
+      "task": "watch",
       "problemMatcher": []
     }
   ]

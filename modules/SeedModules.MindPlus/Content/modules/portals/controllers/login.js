@@ -13,4 +13,3 @@ define(["require", "exports", "SeedModules.MindPlus/modules/portals/module"], fu
     }());
     mod.controller('SeedModules.MindPlus/modules/portals/controllers/login', Controller);
 });
-//# sourceMappingURL=login.js.map

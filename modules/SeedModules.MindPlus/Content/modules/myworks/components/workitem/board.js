@@ -8,4 +8,3 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function (module) {
         function ($scope, $state, $stateParams, requestService) { }
     ]);
 });
-//# sourceMappingURL=board.js.map

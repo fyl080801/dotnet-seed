@@ -134,4 +134,3 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
     }());
     mod.controller('SeedModules.PageBuilder/modules/components/builder/pageForm', PageFormClass);
 });
-//# sourceMappingURL=pageForm.js.map

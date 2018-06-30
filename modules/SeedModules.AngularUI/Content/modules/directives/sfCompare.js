@@ -23,4 +23,3 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
         }
     ]);
 });
-//# sourceMappingURL=sfCompare.js.map

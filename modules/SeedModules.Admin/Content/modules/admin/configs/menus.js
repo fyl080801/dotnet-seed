@@ -32,4 +32,3 @@ define(['SeedModules.Admin/modules/admin/boot'], function (configs) {
         }
     ]);
 });
-//# sourceMappingURL=menus.js.map

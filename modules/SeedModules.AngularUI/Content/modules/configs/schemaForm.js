@@ -33,4 +33,3 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "angular"], 
     SchemaFormRun.$inject = ['$templateCache'];
     boot.config(SchemaFormClass).run(SchemaFormRun);
 });
-//# sourceMappingURL=schemaForm.js.map
