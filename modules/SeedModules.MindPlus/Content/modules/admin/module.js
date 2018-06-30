@@ -24,3 +24,4 @@ define([
         }
     ]);
 });
+//# sourceMappingURL=module.js.map

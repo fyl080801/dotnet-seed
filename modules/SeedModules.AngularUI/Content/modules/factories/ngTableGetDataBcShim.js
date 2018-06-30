@@ -17,3 +17,4 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
         }
     ]);
 });
+//# sourceMappingURL=ngTableGetDataBcShim.js.map

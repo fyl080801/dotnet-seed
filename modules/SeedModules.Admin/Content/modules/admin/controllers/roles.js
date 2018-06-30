@@ -299,3 +299,4 @@ define(["require", "exports", "SeedModules.Admin/modules/admin/module", "angular
     }());
     mod.controller('SeedModules.Admin/modules/admin/controllers/roles', RolesController);
 });
+//# sourceMappingURL=roles.js.map

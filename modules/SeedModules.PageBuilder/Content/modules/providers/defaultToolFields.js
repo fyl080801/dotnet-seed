@@ -90,3 +90,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/defau
     }());
     exports.DefaultToolFieldsConfig = DefaultToolFieldsConfig;
 });
+//# sourceMappingURL=defaultToolFields.js.map

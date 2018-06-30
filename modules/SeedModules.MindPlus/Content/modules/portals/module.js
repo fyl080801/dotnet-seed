@@ -32,3 +32,4 @@ define(["require", "exports", "angular", "app/application", "angular-ui-router",
         .module('modules.mindPlus.portals', ['ui.router', 'schemaForm'])
         .config(ConfigClass);
 });
+//# sourceMappingURL=module.js.map

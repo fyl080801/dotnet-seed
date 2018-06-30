@@ -48,3 +48,4 @@ define(["require", "exports", "SeedModules.Features/modules/module"], function (
     }());
     mod.controller('SeedModules.Features/modules/controllers/features', FeaturesController);
 });
+//# sourceMappingURL=features.js.map

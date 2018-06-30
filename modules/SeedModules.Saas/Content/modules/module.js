@@ -37,3 +37,4 @@ define(["require", "exports", "angular", "app/application", "SeedModules.Saas/mo
         .module('modules.saas', ['ui.router', 'modules.saas.configs'])
         .config(ConfigClass);
 });
+//# sourceMappingURL=module.js.map

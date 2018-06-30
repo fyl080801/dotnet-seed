@@ -5,3 +5,4 @@ define(['SeedModules.Saas/modules/module'], function (module) {
         function ($scope) { }
     ]);
 });
+//# sourceMappingURL=projects.js.map

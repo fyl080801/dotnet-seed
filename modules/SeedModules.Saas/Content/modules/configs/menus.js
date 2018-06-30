@@ -27,3 +27,4 @@ define(["require", "exports", "SeedModules.Saas/modules/configs"], function (req
     }());
     configs.run(MenusRunClass);
 });
+//# sourceMappingURL=menus.js.map

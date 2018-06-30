@@ -49,40 +49,50 @@ namespace SeedModules.Admin.Extensions
 
             new IdentityBuilder(typeof(IUser), typeof(IRole), services).AddDefaultTokenProviders();
 
-            // 需要在 tenant 的服务中注册
-            services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
                 options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
-                options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
             })
-            .AddCookie(IdentityConstants.ApplicationScheme, options =>
-            {
-                options.LoginPath = new PathString(LoginPath);
-                options.Events = new CookieAuthenticationEvents
-                {
-                    OnValidatePrincipal = async context =>
-                    {
-                        await SecurityStampValidator.ValidatePrincipalAsync(context);
-                    }
-                };
-            })
-            .AddCookie(IdentityConstants.ExternalScheme, options =>
-            {
-                options.Cookie.Name = IdentityConstants.ExternalScheme;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-            })
-            .AddCookie(IdentityConstants.TwoFactorRememberMeScheme, options =>
-            {
-                options.Cookie.Name = IdentityConstants.TwoFactorRememberMeScheme;
-            })
-            .AddCookie(IdentityConstants.TwoFactorUserIdScheme, IdentityConstants.TwoFactorUserIdScheme, options =>
-            {
-                options.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-            });
+            .AddCookie(IdentityConstants.ApplicationScheme)
+            .AddCookie(IdentityConstants.ExternalScheme)
+            .AddCookie(IdentityConstants.TwoFactorRememberMeScheme)
+            .AddCookie(IdentityConstants.TwoFactorUserIdScheme);
+
+            // 需要在 tenant 的服务中注册
+            services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
+
+            // services.AddAuthentication(options =>
+            // {
+            //     options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+            //     options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+            //     options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+            // })
+            // .AddCookie(IdentityConstants.ApplicationScheme, options =>
+            // {
+            //     options.LoginPath = new PathString(LoginPath);
+            //     options.Events = new CookieAuthenticationEvents
+            //     {
+            //         OnValidatePrincipal = async context =>
+            //         {
+            //             await SecurityStampValidator.ValidatePrincipalAsync(context);
+            //         }
+            //     };
+            // })
+            // .AddCookie(IdentityConstants.ExternalScheme, options =>
+            // {
+            //     options.Cookie.Name = IdentityConstants.ExternalScheme;
+            //     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            // })
+            // .AddCookie(IdentityConstants.TwoFactorRememberMeScheme, options =>
+            // {
+            //     options.Cookie.Name = IdentityConstants.TwoFactorRememberMeScheme;
+            // })
+            // .AddCookie(IdentityConstants.TwoFactorUserIdScheme, IdentityConstants.TwoFactorUserIdScheme, options =>
+            // {
+            //     options.Cookie.Name = IdentityConstants.TwoFactorUserIdScheme;
+            //     options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            // });
 
             services.TryAddScoped<IUserValidator<IUser>, UserValidator<IUser>>();
             services.TryAddScoped<IPasswordValidator<IUser>, PasswordValidator<IUser>>();
@@ -100,7 +110,7 @@ namespace SeedModules.Admin.Extensions
             services.ConfigureApplicationCookie(options =>
             {
                 options.Cookie.Name = "seed_" + tenantName;
-                options.Cookie.Path = new PathString(prefix);
+                options.Cookie.Path = prefix;
                 options.LoginPath = new PathString(LoginPath);
                 options.AccessDeniedPath = new PathString(LoginPath);
                 options.DataProtectionProvider = dataProtectionProvider;

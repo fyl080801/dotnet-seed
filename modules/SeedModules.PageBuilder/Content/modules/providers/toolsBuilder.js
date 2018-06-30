@@ -104,3 +104,4 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot", "angular",
         .config(defaultToolFields_1.DefaultToolFieldsConfig)
         .config(defaultTools_1.DefaultToolsConfig);
 });
+//# sourceMappingURL=toolsBuilder.js.map

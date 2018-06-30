@@ -30,12 +30,14 @@ namespace SeedModules.MindPlus.Controllers
             });
         }
 
+        [Authorize]
         public IActionResult Works()
         {
             return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
                 Options = _optionsBuilder.Build(RouteData).Result,
                 SiteSettings = _siteSettingsBuilder.Build().ToString(),
+                // 如果是以amd规范引入的话html编辑器不生效
                 Scripts = new List<string>() {
                     "/SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min.js",
                     "/SeedModules.MindPlus/js/wysihtml/parser_rules/advanced_and_extended.js"

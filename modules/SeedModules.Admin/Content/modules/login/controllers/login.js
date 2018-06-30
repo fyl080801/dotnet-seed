@@ -32,3 +32,4 @@ define(["require", "exports", "SeedModules.Admin/modules/login/module"], functio
     }());
     mod.controller('SeedModules.Admin/modules/login/controllers/login', LoginController);
 });
+//# sourceMappingURL=login.js.map

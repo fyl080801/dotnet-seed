@@ -56,3 +56,4 @@ define(["require", "exports", "SeedModules.MindPlus/modules/myworks/module"], fu
     }());
     mod.controller('SeedModules.MindPlus/modules/myworks/components/workitem/document', ControllerClass);
 });
+//# sourceMappingURL=document.js.map
