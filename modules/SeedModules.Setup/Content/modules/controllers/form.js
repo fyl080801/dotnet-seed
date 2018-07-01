@@ -130,5 +130,4 @@ define(['SeedModules.Setup/modules/module'], function (module) {
         }
     ]);
 });
-
 //# sourceMappingURL=form.js.map

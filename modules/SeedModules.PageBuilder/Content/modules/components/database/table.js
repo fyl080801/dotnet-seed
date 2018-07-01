@@ -10,5 +10,4 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
     }());
     mod.controller('SeedModules.PageBuilder/modules/components/database/table', ControllerClass);
 });
-
 //# sourceMappingURL=table.js.map

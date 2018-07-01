@@ -11,5 +11,4 @@ define(["require", "exports"], function (require, exports) {
         DataTypes["array"] = "array";
     })(DataTypes = exports.DataTypes || (exports.DataTypes = {}));
 });
-
 //# sourceMappingURL=dataTypes.js.map

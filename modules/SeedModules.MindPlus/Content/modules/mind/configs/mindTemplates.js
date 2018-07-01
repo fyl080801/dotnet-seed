@@ -7,5 +7,4 @@ define(['SeedModules.MindPlus/modules/mind/configs'], function (configs) {
         }
     ]);
 });
-
 //# sourceMappingURL=mindTemplates.js.map

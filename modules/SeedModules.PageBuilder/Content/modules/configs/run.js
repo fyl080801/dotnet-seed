@@ -48,6 +48,15 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                     'SeedModules.PageBuilder/modules/requires'
                 ]
             });
+            $stateProvider.state('admin.pagebuilder_threetest', {
+                url: '/pagebuilder_threetest',
+                title: '三维测试',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/three/page.html',
+                requires: [
+                    'SeedModules.AngularUI/modules/requires',
+                    'SeedModules.PageBuilder/modules/requires'
+                ]
+            });
         }
         ConfigRouteClass.$inject = ['$stateProvider'];
         return ConfigRouteClass;
@@ -76,6 +85,12 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                         itemClicked: function (evt) {
                             $state.go('admin.pagebuilder_datasource');
                         }
+                    },
+                    {
+                        text: '三维测试',
+                        itemClicked: function (evt) {
+                            $state.go('admin.pagebuilder_threetest');
+                        }
                     }
                 ]
             });
@@ -85,5 +100,4 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
     }());
     boot.config(ConfigRouteClass).run(RunClass);
 });
-
 //# sourceMappingURL=run.js.map

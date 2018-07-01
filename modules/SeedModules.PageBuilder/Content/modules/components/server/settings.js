@@ -10,5 +10,4 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
     }());
     mod.controller('SeedModules.PageBuilder/modules/components/server/settings', SettingsController);
 });
-
 //# sourceMappingURL=settings.js.map

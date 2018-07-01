@@ -27,5 +27,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module"], function 
     }());
     mod.controller('SeedModules.AngularUI/modules/controllers/ngTableSorterRow', NgTableSorterRowController);
 });
-
 //# sourceMappingURL=ngTableSorterRow.js.map

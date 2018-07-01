@@ -1,1 +1,1 @@
-{"version":3,"sources":["SeedModules.PageBuilder/Content/modules/boot.ts"],"names":[],"mappings":";;IAGA,OAAS,OAAO,CAAC,MAAM,CAAC,0BAA0B,EAAE,CAAC,YAAY,CAAC,CAAC,CAAC","file":"boot.js"}
+{"version":3,"file":"boot.js","sourceRoot":"","sources":["boot.ts"],"names":[],"mappings":";;IAGA,OAAS,OAAO,CAAC,MAAM,CAAC,0BAA0B,EAAE,CAAC,YAAY,CAAC,CAAC,CAAC"}

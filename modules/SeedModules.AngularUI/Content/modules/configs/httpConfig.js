@@ -34,5 +34,4 @@ define(['SeedModules.AngularUI/modules/boot'], function (boot) {
         }
     ]);
 });
-
 //# sourceMappingURL=httpConfig.js.map

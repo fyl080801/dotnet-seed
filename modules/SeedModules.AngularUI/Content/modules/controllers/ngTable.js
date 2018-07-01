@@ -163,5 +163,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
     exports.NgTableController = NgTableController;
     mod.controller('SeedModules.AngularUI/modules/controllers/ngTable', NgTableController);
 });
-
 //# sourceMappingURL=ngTable.js.map

@@ -14,8 +14,8 @@ var gulp = require('gulp'),
   revCollector = require('sog-gulp-rev-collector'),
   fs = require('fs'),
   less = require('gulp-less'),
-  sourcemaps = require('gulp-sourcemaps'),
-  ts = require('gulp-typescript');
+  typescript = require('gulp-typescript'),
+  tsc = require('gulp-tsc');
 
 var options = minimist(process.argv.slice(2), {
   string: 'src',
@@ -99,19 +99,17 @@ gulp.task('lessc', function() {
 
 //
 gulp.task('tsc', function() {
-  var tsProject = ts.createProject('tsconfig.json');
+  var tsProject = typescript.createProject('tsconfig.json');
   tsProject
     .src()
-    .pipe(sourcemaps.init())
     .pipe(tsProject())
-    .pipe(sourcemaps.write('.', { includeContent: false }))
     .pipe(gulp.dest('modules'));
 });
 
 //
 gulp.task('watch', function() {
   gulp.watch('modules/**/*.less', ['lessc']);
-  gulp.watch('modules/**/*.ts', ['tsc']);
+  //gulp.watch('modules/**/*.ts', ['tsc']);
 });
 
 //

@@ -17,5 +17,4 @@ define(['app/application', 'SeedModules.AngularUI/modules/module'], function (ap
         }
     ]);
 });
-
 //# sourceMappingURL=module.js.map

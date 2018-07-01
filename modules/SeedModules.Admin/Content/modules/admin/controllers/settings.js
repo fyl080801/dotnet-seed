@@ -16,5 +16,4 @@ define(["require", "exports", "SeedModules.Admin/modules/admin/module"], functio
     }());
     mod.controller('SeedModules.Admin/modules/admin/controllers/settings', SettingsController);
 });
-
 //# sourceMappingURL=settings.js.map

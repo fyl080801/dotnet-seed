@@ -25,5 +25,4 @@ define([
         }
     ]);
 });
-
 //# sourceMappingURL=simplecolor.js.map

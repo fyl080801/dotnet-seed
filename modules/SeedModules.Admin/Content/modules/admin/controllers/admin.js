@@ -87,5 +87,4 @@ define(["require", "exports", "SeedModules.Admin/modules/admin/module"], functio
         }
     ]);
 });
-
 //# sourceMappingURL=admin.js.map

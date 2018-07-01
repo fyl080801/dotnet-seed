@@ -8,4 +8,5 @@ import 'SeedModules.PageBuilder/modules/components/datasource/form';
 import 'SeedModules.PageBuilder/modules/components/datasource/baseinfo';
 import 'SeedModules.PageBuilder/modules/components/datasource/fields';
 import 'SeedModules.PageBuilder/modules/components/database/table';
+import 'SeedModules.PageBuilder/modules/components/three/page';
 import 'SeedModules.PageBuilder/modules/controllers/pageCommon';

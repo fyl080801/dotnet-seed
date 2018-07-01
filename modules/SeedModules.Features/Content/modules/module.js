@@ -34,5 +34,4 @@ define(["require", "exports", "angular", "app/application"], function (require, 
         .config(ConfigClass)
         .run(RunClass);
 });
-
 //# sourceMappingURL=module.js.map

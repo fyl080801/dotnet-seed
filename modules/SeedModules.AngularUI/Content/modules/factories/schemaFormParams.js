@@ -75,5 +75,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
     ];
     mod.factory('SeedModules.AngularUI/modules/factories/schemaFormParams', schemaFormParamsFactory);
 });
-
 //# sourceMappingURL=schemaFormParams.js.map

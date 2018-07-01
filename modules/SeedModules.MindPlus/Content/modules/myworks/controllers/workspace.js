@@ -81,5 +81,4 @@ define(['SeedModules.MindPlus/modules/myworks/module'], function (module) {
         }
     ]);
 });
-
 //# sourceMappingURL=workspace.js.map

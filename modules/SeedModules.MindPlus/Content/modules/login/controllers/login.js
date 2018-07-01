@@ -33,5 +33,4 @@ define(["require", "exports", "SeedModules.MindPlus/modules/login/module"], func
     }());
     mod.controller('SeedModules.MindPlus/modules/login/controllers/login', Controller);
 });
-
 //# sourceMappingURL=login.js.map

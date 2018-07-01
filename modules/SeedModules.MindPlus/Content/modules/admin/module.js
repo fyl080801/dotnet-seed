@@ -20,5 +20,4 @@ define(["require", "exports", "angular", "app/application", "SeedModules.MindPlu
         }
     ]);
 });
-
 //# sourceMappingURL=module.js.map

@@ -14,5 +14,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot"], function (r
     };
     boot.value('SeedModules.AngularUI/modules/configs/ngTableDefaults', ngTableDefaults);
 });
-
 //# sourceMappingURL=ngTableDefaults.js.map

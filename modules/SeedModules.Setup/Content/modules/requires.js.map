@@ -1,1 +1,1 @@
-{"version":3,"sources":["SeedModules.Setup/Content/modules/requires.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,CAAC,4CAA4C,CAAC,EAAE;IACrD,YAAY,CAAC;AAEf,CAAC,CAAC,CAAC","file":"requires.js"}
+{"version":3,"file":"requires.js","sourceRoot":"","sources":["requires.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,CAAC,4CAA4C,CAAC,EAAE;IACrD,YAAY,CAAC;AAEf,CAAC,CAAC,CAAC"}

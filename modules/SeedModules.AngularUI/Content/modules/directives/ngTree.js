@@ -82,5 +82,4 @@ define(['SeedModules.AngularUI/modules/module'], function (module) {
         }
     ]);
 });
-
 //# sourceMappingURL=ngTree.js.map

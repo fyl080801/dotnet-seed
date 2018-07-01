@@ -58,6 +58,18 @@ class ConfigRouteClass {
         'SeedModules.PageBuilder/modules/requires'
       ]
     });
+
+    //pagebuilder_dsform
+    $stateProvider.state('admin.pagebuilder_threetest', {
+      url: '/pagebuilder_threetest',
+      title: '三维测试',
+      templateUrl:
+        '/SeedModules.PageBuilder/modules/components/three/page.html',
+      requires: [
+        'SeedModules.AngularUI/modules/requires',
+        'SeedModules.PageBuilder/modules/requires'
+      ]
+    });
   }
 }
 
@@ -85,6 +97,12 @@ class RunClass {
           text: '数据源管理',
           itemClicked: evt => {
             $state.go('admin.pagebuilder_datasource');
+          }
+        },
+        {
+          text: '三维测试',
+          itemClicked: evt => {
+            $state.go('admin.pagebuilder_threetest');
           }
         }
       ]

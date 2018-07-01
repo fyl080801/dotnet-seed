@@ -97,5 +97,4 @@ define(["require", "exports", "SeedModules.MindPlus/modules/myworks/module"], fu
     }());
     mod.controller('SeedModules.MindPlus/modules/myworks/controllers/home', Controller);
 });
-
 //# sourceMappingURL=home.js.map

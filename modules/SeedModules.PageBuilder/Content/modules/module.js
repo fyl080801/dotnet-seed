@@ -2,5 +2,4 @@ define(["require", "exports", "angular", "app/application", "SeedModules.PageBui
     "use strict";
     return angular.module('modules.pagebuilder', ['modules.pagebuilder.boot']);
 });
-
 //# sourceMappingURL=module.js.map

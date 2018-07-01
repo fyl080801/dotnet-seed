@@ -13,5 +13,4 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
     }());
     mod.controller('SeedModules.PageBuilder/modules/components/builder/preview', PreviewController);
 });
-
 //# sourceMappingURL=preview.js.map

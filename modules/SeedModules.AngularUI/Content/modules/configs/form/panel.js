@@ -24,5 +24,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/boot", "SeedModules
         }
     ]);
 });
-
 //# sourceMappingURL=panel.js.map

@@ -3,10 +3,11 @@
     "angular-jsoneditor": {
       "path": "SeedModules.PageBuilder/js/angular-jsoneditor",
       "shim": {
-        "deps": [
-          "angular"
-        ]
+        "deps": ["angular"]
       }
+    },
+    "three": {
+      "path": "SeedModules.PageBuilder/js/three.min"
     }
   }
 }

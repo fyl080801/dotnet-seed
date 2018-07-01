@@ -61,5 +61,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
     ngTableEventsChannelFactory.$inject = ['$rootScope'];
     mod.factory('SeedModules.AngularUI/modules/factories/ngTableEventsChannel', ngTableEventsChannelFactory);
 });
-
 //# sourceMappingURL=ngTableEventsChannel.js.map

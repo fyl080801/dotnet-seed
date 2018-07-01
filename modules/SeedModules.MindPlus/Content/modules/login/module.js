@@ -18,5 +18,4 @@ define(["require", "exports", "angular", "app/application"], function (require, 
     }());
     return angular.module('modules.mindPlus.login', ['ui.router']).config(Config);
 });
-
 //# sourceMappingURL=module.js.map

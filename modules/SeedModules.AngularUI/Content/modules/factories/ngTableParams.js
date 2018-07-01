@@ -391,5 +391,4 @@ define(["require", "exports", "SeedModules.AngularUI/modules/module", "angular"]
     ];
     mod.factory('SeedModules.AngularUI/modules/factories/ngTableParams', ngTableParamsFactory);
 });
-
 //# sourceMappingURL=ngTableParams.js.map
