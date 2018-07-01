@@ -8,6 +8,12 @@
     },
     "three": {
       "path": "SeedModules.PageBuilder/js/three.min"
+    },
+    "three-pointerlock": {
+      "path": "SeedModules.PageBuilder/js/PointerLockControls",
+      "shim": {
+        "deps": ["three"]
+      }
     }
   }
 }
