@@ -5,18 +5,28 @@
       "label": "build",
       "command": "dotnet",
       "type": "process",
-      "args": ["build", "${workspaceFolder}/src/Seed/Seed.csproj"],
+      "args": [
+        "build",
+        "${workspaceFolder}/src/Seed/Seed.csproj"
+      ],
       "problemMatcher": "$msCompile"
     },
     {
       "type": "typescript",
       "tsconfig": "tsconfig.json",
       "option": "watch",
-      "problemMatcher": ["$tsc-watch"]
+      "problemMatcher": [
+        "$tsc-watch"
+      ]
     },
     {
       "type": "gulp",
       "task": "watch",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "start",
       "problemMatcher": []
     }
   ]

@@ -62,7 +62,7 @@ class PointerLockControls implements IPointerLockControls {
 
     document.addEventListener('mousemove', this._onMouseMove, false);
 
-    this.enabled = true;
+    this.enabled = false;
 
     this.getDirection = (() => {
       // assumes the camera itself is not rotated
@@ -92,90 +92,44 @@ interface IThreeScope extends ng.IScope {
   cube: THREE.Mesh;
   vm: Controller;
 
-  focued: boolean;
-
-  lon: number;
-  lat: number;
-  phi: number;
-  theta: number;
-
-  onPointerDownPointerX: number;
-  onPointerDownPointerY: number;
-  onPointerDownLon: number;
-  onPointerDownLat: number;
+  controlsEnabled: boolean;
 }
 
 class Controller {
-  // focus() {
-  //   this.$scope.focued = true;
-  // }
+  lockpointer() {
+    var element = document.body;
+    var havePointerLock =
+      'pointerLockElement' in document ||
+      'mozPointerLockElement' in document ||
+      'webkitPointerLockElement' in document;
+    if (havePointerLock) {
+      element.requestPointerLock =
+        element.requestPointerLock ||
+        element['mozRequestPointerLock'] ||
+        element['webkitRequestPointerLock'];
+      element.requestPointerLock();
 
-  // blur() {
-  //   this.$scope.focued = false;
-  // }
-
-  mousedown($event: MouseEvent) {
-    $event.preventDefault();
-
-    this.$scope.focued = true;
-
-    this.$scope.onPointerDownPointerX = $event.clientX;
-    this.$scope.onPointerDownPointerY = $event.clientY;
-
-    this.$scope.onPointerDownLon = this.$scope.lon;
-    this.$scope.onPointerDownLat = this.$scope.lat;
-  }
-
-  mouseup($event) {
-    this.$scope.focued = false;
-  }
-
-  mousemove($event: MouseEvent) {
-    if (!this.$scope.focued) return;
-
-    this.$scope.lon =
-      (this.$scope.onPointerDownPointerX - $event.clientX) * 0.1 +
-      this.$scope.onPointerDownLon;
-    this.$scope.lat =
-      ($event.clientY - this.$scope.onPointerDownPointerY) * 0.1 +
-      this.$scope.onPointerDownLat;
+      this.controls.enabled = true;
+      this.$scope.controlsEnabled = true;
+    }
   }
 
   keydown($event: KeyboardEvent) {
     switch ($event.keyCode) {
-      case 65: // A
-        this.$scope.camera.position.x -= 0.1;
-        break;
-      case 68: // D
-        this.$scope.camera.position.x += 0.1;
-        break;
-      case 87: // W
-        this.$scope.camera.position.z -= 0.1;
-        break;
-      case 83: // S
-        this.$scope.camera.position.z += 0.1;
-        break;
       case 27:
-        this.$element.blur();
+        this.controls.enabled = false;
+        this.$scope.controlsEnabled = false;
         break;
       default:
         break;
     }
   }
 
+  private controls: PointerLockControls;
+
   static $inject = ['$scope', '$element'];
   constructor(private $scope: IThreeScope, private $element: JQLite) {
     $scope.vm = this;
-
-    $scope.lon = 0;
-    $scope.lat = 0;
-    $scope.phi = 0;
-    $scope.theta = 0;
-
-    $scope.onPointerDownPointerX = 0;
-    $scope.onPointerDownPointerY = 0;
-    $scope.onPointerDownLon = 0;
-    $scope.onPointerDownLat = 0;
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(
@@ -186,7 +140,7 @@ class Controller {
     );
 
     //
-    var controlsEnabled = true;
+    $scope.controlsEnabled = false;
 
     var moveForward = false;
     var moveBackward = false;
@@ -255,8 +209,29 @@ class Controller {
       }
     };
 
+    var pointerlockchange = event => {
+      if (
+        document.pointerLockElement === document.body ||
+        document['mozPointerLockElement'] === document.body ||
+        document['webkitPointerLockElement'] === document.body
+      ) {
+        $scope.controlsEnabled = true;
+        controls.enabled = true;
+      } else {
+        controls.enabled = false;
+        $scope.controlsEnabled = false;
+      }
+    };
+
     document.addEventListener('keydown', onKeyDown, false);
     document.addEventListener('keyup', onKeyUp, false);
+    document.addEventListener('pointerlockchange', pointerlockchange, false);
+    document.addEventListener('mozpointerlockchange', pointerlockchange, false);
+    document.addEventListener(
+      'webkitpointerlockchange',
+      pointerlockchange,
+      false
+    );
 
     raycaster = new THREE.Raycaster(
       new THREE.Vector3(),
@@ -329,8 +304,9 @@ class Controller {
 
     var controls = new PointerLockControls(camera);
     scene.add(controls.getObject());
+    this.controls = controls;
 
-    controls.enabled = true;
+    // controls.enabled = true;
 
     // controls.movementSpeed = 100; //设置移动的速度
     // controls.rollSpeed = Math.PI / 6; //设置旋转速度
@@ -343,18 +319,7 @@ class Controller {
     }
 
     function update() {
-      // $scope.lat = Math.max(-85, Math.min(85, $scope.lat));
-      // $scope.phi = THREE.Math.degToRad(90 - $scope.lat);
-      // $scope.theta = THREE.Math.degToRad($scope.lon);
-
-      // camera.position.x = Math.sin($scope.phi) * Math.cos($scope.theta);
-      // camera.position.y = Math.cos($scope.phi);
-      // camera.position.z = Math.sin($scope.phi) * Math.sin($scope.theta);
-
-      // camera.lookAt(camera.position);
-      //console.log(camera.position);
-
-      if (controlsEnabled === true) {
+      if ($scope.controlsEnabled === true) {
         raycaster.ray.origin.copy(controls.getObject().position);
         raycaster.ray.origin.y -= 10;
 

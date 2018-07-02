@@ -21,7 +21,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "three"]
                 _this._pitchObject.rotation.x = Math.max(-_this._PI_2, Math.min(_this._PI_2, _this._pitchObject.rotation.x));
             };
             document.addEventListener('mousemove', this._onMouseMove, false);
-            this.enabled = true;
+            this.enabled = false;
             this.getDirection = (function () {
                 var direction = new THREE.Vector3(0, 0, -1);
                 var rotation = new THREE.Euler(0, 0, 0, 'YXZ');
@@ -49,17 +49,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "three"]
             this.$scope = $scope;
             this.$element = $element;
             $scope.vm = this;
-            $scope.lon = 0;
-            $scope.lat = 0;
-            $scope.phi = 0;
-            $scope.theta = 0;
-            $scope.onPointerDownPointerX = 0;
-            $scope.onPointerDownPointerY = 0;
-            $scope.onPointerDownLon = 0;
-            $scope.onPointerDownLat = 0;
             var scene = new THREE.Scene();
             var camera = new THREE.PerspectiveCamera(75, $element.innerWidth() / 600, 0.1, 1000);
-            var controlsEnabled = true;
+            $scope.controlsEnabled = false;
             var moveForward = false;
             var moveBackward = false;
             var moveLeft = false;
@@ -117,8 +109,23 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "three"]
                         break;
                 }
             };
+            var pointerlockchange = function (event) {
+                if (document.pointerLockElement === document.body ||
+                    document['mozPointerLockElement'] === document.body ||
+                    document['webkitPointerLockElement'] === document.body) {
+                    $scope.controlsEnabled = true;
+                    controls.enabled = true;
+                }
+                else {
+                    controls.enabled = false;
+                    $scope.controlsEnabled = false;
+                }
+            };
             document.addEventListener('keydown', onKeyDown, false);
             document.addEventListener('keyup', onKeyUp, false);
+            document.addEventListener('pointerlockchange', pointerlockchange, false);
+            document.addEventListener('mozpointerlockchange', pointerlockchange, false);
+            document.addEventListener('webkitpointerlockchange', pointerlockchange, false);
             raycaster = new THREE.Raycaster(new THREE.Vector3(), new THREE.Vector3(0, -1, 0), 0, 10);
             var floorGeometry = new THREE.PlaneBufferGeometry(2000, 2000, 100, 100);
             floorGeometry.rotateX(-Math.PI / 2);
@@ -157,13 +164,13 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "three"]
             $scope.cube = cube;
             var controls = new PointerLockControls(camera);
             scene.add(controls.getObject());
-            controls.enabled = true;
+            this.controls = controls;
             function render() {
                 requestAnimationFrame(render);
                 update();
             }
             function update() {
-                if (controlsEnabled === true) {
+                if ($scope.controlsEnabled === true) {
                     raycaster.ray.origin.copy(controls.getObject().position);
                     raycaster.ray.origin.y -= 10;
                     var intersections = raycaster.intersectObjects(objects);
@@ -198,43 +205,26 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "three"]
             }
             render();
         }
-        Controller.prototype.mousedown = function ($event) {
-            $event.preventDefault();
-            this.$scope.focued = true;
-            this.$scope.onPointerDownPointerX = $event.clientX;
-            this.$scope.onPointerDownPointerY = $event.clientY;
-            this.$scope.onPointerDownLon = this.$scope.lon;
-            this.$scope.onPointerDownLat = this.$scope.lat;
-        };
-        Controller.prototype.mouseup = function ($event) {
-            this.$scope.focued = false;
-        };
-        Controller.prototype.mousemove = function ($event) {
-            if (!this.$scope.focued)
-                return;
-            this.$scope.lon =
-                (this.$scope.onPointerDownPointerX - $event.clientX) * 0.1 +
-                    this.$scope.onPointerDownLon;
-            this.$scope.lat =
-                ($event.clientY - this.$scope.onPointerDownPointerY) * 0.1 +
-                    this.$scope.onPointerDownLat;
+        Controller.prototype.lockpointer = function () {
+            var element = document.body;
+            var havePointerLock = 'pointerLockElement' in document ||
+                'mozPointerLockElement' in document ||
+                'webkitPointerLockElement' in document;
+            if (havePointerLock) {
+                element.requestPointerLock =
+                    element.requestPointerLock ||
+                        element['mozRequestPointerLock'] ||
+                        element['webkitRequestPointerLock'];
+                element.requestPointerLock();
+                this.controls.enabled = true;
+                this.$scope.controlsEnabled = true;
+            }
         };
         Controller.prototype.keydown = function ($event) {
             switch ($event.keyCode) {
-                case 65:
-                    this.$scope.camera.position.x -= 0.1;
-                    break;
-                case 68:
-                    this.$scope.camera.position.x += 0.1;
-                    break;
-                case 87:
-                    this.$scope.camera.position.z -= 0.1;
-                    break;
-                case 83:
-                    this.$scope.camera.position.z += 0.1;
-                    break;
                 case 27:
-                    this.$element.blur();
+                    this.controls.enabled = false;
+                    this.$scope.controlsEnabled = false;
                     break;
                 default:
                     break;
