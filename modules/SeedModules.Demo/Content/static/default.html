@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<!--[if lte IE 8]><html lang="zh-cn" data-html-type="no-js lte-ie8"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="zh-cn" data-html-type="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script>
+        window.options = {
+            configs: {
+                // patch
+                'es5-shim': 'js/app.patch',
+                'es5-sham': {
+                    path: 'js/app.patch',
+                    shim: {
+                        deps: ['es5-shim']
+                    }
+                },
+                html5shiv: 'js/app.patch',
+                json2: 'js/app.patch',
+                respond: 'js/app.patch',
+                // app
+                'rcss': {
+                    path: 'js/app.application'
+                },
+                'angular-base': {
+                    path: 'js/app.application'
+                },
+                'angular': {
+                    path: 'js/app.application',
+                    shim: { deps: ['angular-base'] }
+                },
+                'angular-ui-router': {
+                    path: 'js/app.application',
+                    shim: { deps: ['angular'] }
+                },
+                'angular-ui-bootstrap': {
+                    path: 'js/app.application',
+                    shim: { deps: ['angular'] }
+                },
+                'angular-sanitize': {
+                    path: 'js/app.application'
+                },
+                'angular-cookies': {
+                    path: 'js/app.application'
+                },
+                'bootstrap': {
+                    path: 'js/app.application',
+                    shim: { deps: ['jquery'] }
+                },
+                'jquery': 'js/app.application',
+
+                // extends
+                // 'jexcel': {
+                //     path: '/node_modules/jexcel/dist/js/jexcel'
+                // },
+                'jquery.jexcel': {
+                    path: 'js/jquery.jexcel',
+                    shim: {
+                        deps: ['jquery']
+                    }
+                },
+
+                // application
+                'app/application': {
+                    path: 'js/app.application',
+                    shim: {
+                        deps: [
+                            'angular-ui-router',
+                            'angular-ui-bootstrap'
+                        ]
+                    }
+                },
+                'modules/sample/module': {
+                    path: 'js/modules.sample',
+                    shim: {
+                        deps: ['app/application']
+                    }
+                },
+                'modules/sample/requires': {
+                    path: 'js/requires.sample',
+                    shim: {
+                        deps: ['modules/sample/module']
+                    }
+                }
+            },
+            patchs: [
+                'es5-shim',
+                'es5-sham',
+                'html5shiv',
+                'json2',
+                'respond'
+            ],
+            requires: ['rcss!css/sample.css', 'rcss!css/jquery.jexcel.css', 'modules/sample/module']
+        };
+    </script>
+    <script id="app" src="js/require.js" data-main="startup.js" data-args="v=0.0.2" data-debug="true"></script>
+    <title>Document</title>
+</head>
+
+<body ui-view>
+
+</body>
+
+</html>

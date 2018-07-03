@@ -8,6 +8,7 @@
     <ProjectReference Include="..\..\modules\SeedModules.Admin\SeedModules.Admin.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Common\SeedModules.Common.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.Demo\SeedModules.Demo.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Features\SeedModules.Features.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.MindPlus\SeedModules.MindPlus.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Mvc\SeedModules.Mvc.csproj" />

@@ -41,6 +41,20 @@ namespace SeedModules.AngularUI.Rendering
             }
             requireOptions.ToList().ForEach(options.Merge);
 
+            // 已发布的不进行脚本调试
+            if (_hostingEnvironment.IsProduction())
+            {
+                foreach (var child in options["configs"].Children())
+                {
+                    var nodeName = ((JProperty)child).Name;
+                    var currentNode = options["configs"][nodeName];
+                    if (currentNode["noDebug"] == null || currentNode["noDebug"].ToObject<bool>() == false)
+                    {
+                        options["configs"][nodeName]["path"] = options["configs"][nodeName]["path"] + ".min";
+                    }
+                }
+            }
+
             return options.ToString();
         }
 

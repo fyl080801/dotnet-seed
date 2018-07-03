@@ -1,0 +1,3 @@
+﻿Name: 功能演示
+Version: 1.0
+Dependencies: SeedModules.AngularUI
