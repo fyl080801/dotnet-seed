@@ -6,7 +6,8 @@
     baseUrl: '/SeedModules.AngularUI/../',
     paths: {},
     shim: {},
-    map: options.map
+    map: options.map,
+    waitSeconds: 0
   };
   var references = options['configs'];
   var requires = [];
