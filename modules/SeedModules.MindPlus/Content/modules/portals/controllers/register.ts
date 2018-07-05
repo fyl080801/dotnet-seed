@@ -9,8 +9,16 @@ interface ICurrentScope extends ng.IScope {
 }
 
 class ControllerClass {
-  static $inject = ['$scope', '$appConfig'];
-  constructor(private $scope: ICurrentScope, private $appConfig) {
+  regist() {
+    this.popupService.information('我就晚上有时间，辣么多功能得一点点来呀');
+  }
+
+  static $inject = ['$scope', '$appConfig', 'app/services/popupService'];
+  constructor(
+    private $scope: ICurrentScope,
+    private $appConfig,
+    private popupService: app.services.IPopupService
+  ) {
     $scope.vm = this;
     $scope.sfform = {
       form: [

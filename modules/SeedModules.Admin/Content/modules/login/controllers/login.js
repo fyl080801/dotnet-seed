@@ -2,10 +2,12 @@ define(["require", "exports", "SeedModules.Admin/modules/login/module"], functio
     "use strict";
     exports.__esModule = true;
     var LoginController = (function () {
-        function LoginController($scope, $location, requestService) {
+        function LoginController($scope, $location, requestService, popupService) {
             this.$scope = $scope;
             this.$location = $location;
             this.requestService = requestService;
+            this.popupService = popupService;
+            $scope.vm = this;
             $scope.data = {};
         }
         LoginController.prototype.login = function () {
@@ -23,10 +25,14 @@ define(["require", "exports", "SeedModules.Admin/modules/login/module"], functio
                 return;
             this.login();
         };
+        LoginController.prototype.buildinginfo = function () {
+            this.popupService.information('我就晚上有时间，辣么多功能得一点点来呀');
+        };
         LoginController.$inject = [
             '$scope',
             '$location',
-            'SeedModules.AngularUI/modules/services/requestService'
+            'SeedModules.AngularUI/modules/services/requestService',
+            'app/services/popupService'
         ];
         return LoginController;
     }());

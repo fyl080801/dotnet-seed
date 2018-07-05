@@ -17,17 +17,24 @@ class LoginController {
     this.login();
   }
 
+  buildinginfo() {
+    this.popupService.information('我就晚上有时间，辣么多功能得一点点来呀');
+  }
+
   static $inject = [
     '$scope',
     '$location',
-    'SeedModules.AngularUI/modules/services/requestService'
+    'SeedModules.AngularUI/modules/services/requestService',
+    'app/services/popupService'
   ];
 
   constructor(
     private $scope,
     private $location: ng.ILocationService,
-    private requestService: AngularUI.services.IRequestService
+    private requestService: AngularUI.services.IRequestService,
+    private popupService: app.services.IPopupService
   ) {
+    $scope.vm = this;
     $scope.data = {};
   }
 }

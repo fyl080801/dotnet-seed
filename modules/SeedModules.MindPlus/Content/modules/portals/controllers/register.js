@@ -2,9 +2,10 @@ define(["require", "exports", "SeedModules.MindPlus/modules/portals/module", "Se
     "use strict";
     exports.__esModule = true;
     var ControllerClass = (function () {
-        function ControllerClass($scope, $appConfig) {
+        function ControllerClass($scope, $appConfig, popupService) {
             this.$scope = $scope;
             this.$appConfig = $appConfig;
+            this.popupService = popupService;
             $scope.vm = this;
             $scope.sfform = {
                 form: [
@@ -43,7 +44,10 @@ define(["require", "exports", "SeedModules.MindPlus/modules/portals/module", "Se
                 }
             };
         }
-        ControllerClass.$inject = ['$scope', '$appConfig'];
+        ControllerClass.prototype.regist = function () {
+            this.popupService.information('我就晚上有时间，辣么多功能得一点点来呀');
+        };
+        ControllerClass.$inject = ['$scope', '$appConfig', 'app/services/popupService'];
         return ControllerClass;
     }());
     mod.controller('SeedModules.MindPlus/modules/portals/controllers/register', ControllerClass);

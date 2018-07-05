@@ -1,4 +1,4 @@
-<div class="container" ng-controller="SeedModules.Admin/modules/login/controllers/login as vm">
+<div class="container" ng-controller="SeedModules.Admin/modules/login/controllers/login">
     <form style="display:none">
         <input type="password" />
     </form>
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <div>
                         <label>密码</label>
-                        <a href="" class="pull-right" tabindex="-1">忘记密码？</a>
+                        <a href="" class="pull-right" tabindex="-1" ng-click="vm.buildinginfo()">忘记密码？</a>
                     </div>
                     <input type="password" name="Password" tabindex="-1" style="width: 0; height: 0; float: left; visibility: hidden" />
                     <input type="password" class="form-control" name="Password" ng-model="data.Password" autocomplete="new-password" required>
@@ -40,7 +40,7 @@
         <div class="panel panel-default" style="background-color: #F9F9F9">
             <div class="panel-body text-center">
                 还没有注册企业？
-                <a href="">立即注册</a>
+                <a href="" ng-click="vm.buildinginfo()">立即注册</a>
             </div>
         </div>
     </div>
