@@ -19,14 +19,13 @@ namespace SeedModules.Settings.Domain
         [StringLength(50)]
         public string SuperUser { get; set; }
 
+        [StringLength(255)]
+        public string PageHash { get; set; }
+
         public RouteValueDictionary HomeRoute { get; set; }
 
         public int PageSize { get; set; } = 10;
 
         public string PageCounts { get; set; } = "10,25,50";
-
-        // public int MaxPageSize { get; set; } = 100;
-
-        // public int MaxPagedCount { get; set; } = 5;
     }
 }

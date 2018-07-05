@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine.Extensions;
+using Seed.Modules.Site;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,9 +12,19 @@ namespace SeedModules.AngularUI.Rendering
 {
     public abstract class ViewOptionBuilder : IViewOptionsBuilder
     {
+        readonly ISiteService _siteService;
         readonly IHostingEnvironment _hostingEnvironment;
         readonly IEnumerable<IRouteReferenceProvider> _routeReferenceProviders;
         readonly ILogger _logger;
+
+        public ViewOptionBuilder(
+            ISiteService siteService,
+            IHostingEnvironment hostingEnvironment,
+            IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
+            ILogger<IViewOptionsBuilder> logger) : this(hostingEnvironment, routeReferenceProviders, logger)
+        {
+            _siteService = siteService;
+        }
 
         public ViewOptionBuilder(
             IHostingEnvironment hostingEnvironment,
@@ -28,6 +39,11 @@ namespace SeedModules.AngularUI.Rendering
         public virtual async Task<string> Build(RouteData routeData)
         {
             var options = new JObject();
+            if (_siteService != null)
+            {
+                options["hash"] = (await _siteService.GetSiteInfoAsync()).PageHash ?? string.Empty;
+            }
+
             (await GetViewOptionsAsync(routeData)).ToList().ForEach(options.Merge);
 
             var requireOptions = Enumerable.Empty<JObject>();

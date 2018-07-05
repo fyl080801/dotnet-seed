@@ -21,6 +21,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
 }
 .sidebar ul {
   margin: 0;
@@ -47,6 +48,7 @@
 .sidebar-content {
   margin-left: 220px;
   transition: all 0.3s;
+  overflow: hidden;
 }
 .sidebar-item {
   position: relative;

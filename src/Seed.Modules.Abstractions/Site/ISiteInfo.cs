@@ -17,6 +17,8 @@ namespace Seed.Modules.Site
 
         string SuperUser { get; set; }
 
+        string PageHash { get; set; }
+
         //string SiteSalt { get; set; }
 
         //string Culture { get; set; }

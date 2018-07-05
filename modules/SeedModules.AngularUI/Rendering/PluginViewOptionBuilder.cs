@@ -25,12 +25,13 @@ namespace SeedModules.AngularUI.Rendering
         readonly ILogger _logger;
 
         public PluginViewOptionBuilder(
+            ISiteService siteService,
             IViewOptionLoader viewOptionsLoader,
             IMemoryCache memoryCache,
             IEngineFeaturesManager engineFeaturesManager,
             IHostingEnvironment hostingEnvironment,
             IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
-            ILogger<IViewOptionsBuilder> logger) : base(hostingEnvironment, routeReferenceProviders, logger)
+            ILogger<IViewOptionsBuilder> logger) : base(siteService, hostingEnvironment, routeReferenceProviders, logger)
         {
             _viewOptionsLoader = viewOptionsLoader;
             _memoryCache = memoryCache;
