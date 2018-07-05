@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Seed.Environment.Logging;
+using Seed.Environment.Hosting;
 using System;
 using System.IO;
 using System.Threading;
@@ -16,16 +18,12 @@ namespace Seed
 
         public static IWebHost Build(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("hosting.json", optional: true)
-                .Build();
-
             return WebHost.CreateDefaultBuilder(args)
                 .UseIISIntegration()
                 .UseKestrel()
-                .UseConfiguration(config)
+                .UseArgs(args)
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseNLogWeb()
                 .UseStartup<Startup>()
                 .Build();
         }

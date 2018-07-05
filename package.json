@@ -5,7 +5,7 @@
   "scripts": {
     "tsc-watch": "tsc --watch -p tsconfig.json",
     "gulp-watch": "gulp watch",
-    "start": "concurrently \"tsc --watch -p tsconfig.json\" \"gulp watch\""
+    "start": "concurrently \"npm run tsc-watch\" \"gulp watch\""
   },
   "repository": {
     "type": "git",
