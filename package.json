@@ -19,7 +19,7 @@
   "homepage": "https://github.com/fyl080801/dotnet-seed#readme",
   "devDependencies": {
     "@ryancavanaugh/angular-ui-tree": "^2.8.15-alpha",
-    "@types/angular": "^1.6.47",
+    "@types/angular": "^1.6.48",
     "@types/angular-ui-bootstrap": "^0.13.46",
     "@types/angular-ui-router": "^1.1.40",
     "@types/jquery": "^3.3.4",
@@ -44,7 +44,7 @@
     "gulp-typescript": "^4.0.2",
     "gulp-uglify": "^1.5.3",
     "gulp-webserver": "^0.9.1",
-    "less": "^3.0.4",
+    "less": "^3.5.2",
     "less-watch-compiler": "^1.11.3",
     "minimatch": "^3.0.4",
     "minimist": "^1.2.0",

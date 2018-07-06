@@ -20,11 +20,6 @@
       ]
     },
     {
-      "type": "gulp",
-      "task": "watch",
-      "problemMatcher": []
-    },
-    {
       "type": "npm",
       "script": "start",
       "problemMatcher": []
