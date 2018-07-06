@@ -1,8 +1,11 @@
 import mod = require('SeedModules.MindPlus/modules/myworks/module');
+import { exec, init } from 'pell';
+import 'rcss!/SeedModules.MindPlus/js/pell/pell.min.css';
 
 class ControllerClass {
   static $inject = [
     '$scope',
+    '$element',
     '$timeout',
     'app/services/popupService',
     'SeedModules.AngularUI/modules/services/utility',
@@ -10,20 +13,42 @@ class ControllerClass {
   ];
   constructor(
     private $scope,
+    private $element: JQLite,
     private $timeout: ng.ITimeoutService,
     private popupService: app.services.IPopupService,
     private utility,
     private requestService: AngularUI.services.IRequestService
   ) {
-    $scope.worktree = [];
+    init({
+      element: $element.find('[pell-area]').get(0),
+      defaultParagraphSeparator: 'div',
+      styleWithCSS: false,
+      onChange: (html: string) => {},
+      actions: [
+        // 'bold',
+        // {
+        //   name: 'custom',
+        //   icon: 'C',
+        //   title: 'Custom Action',
+        //   result: () => console.log('YOLO')
+        // },
+        // 'underline'
+      ],
+      classes: {
+        actionbar: 'pell-actionbar',
+        button: 'pell-button',
+        content: 'pell-content',
+        selected: 'pell-button-selected'
+      }
+    });
 
+    //#region nouse
+    //$scope.worktree = [];
     // $scope.initWorkItem = function(item) {
     //   item.contentShow = false;
-
     //   item.editWorkItemContent = function(target) {
     //     console.log(target);
     //   };
-
     //   item.endEdit = function(target) {
     //     target.$item.$titleEditing = false;
     //     requestService
@@ -37,17 +62,14 @@ class ControllerClass {
     //       .patch()
     //       .result.then(function() {});
     //   };
-
     //   item.titleKeyDown = function(target) {
     //     if (target.$event.keyCode === 13) {
     //       item.endEdit(target);
     //     }
     //   };
-
     //   item.deleteWorkItem = function(target) {
     //     popupService.confirm('是否删除？').ok(function() {});
     //   };
-
     //   item.levelUp = function(cur) {
     //     if (cur.$parent) {
     //       if (!cur.$parent.$parent) {
@@ -57,7 +79,6 @@ class ControllerClass {
     //       }
     //     }
     //   };
-
     //   item.levelDown = function(cur) {
     //     if (!cur.$parent) {
     //       setItemLevelDown($scope.worktree, cur);
@@ -66,53 +87,47 @@ class ControllerClass {
     //     }
     //   };
     // };
-
-    $scope.editTitle = function(item) {
-      item.$titleEditing = true;
-    };
-
-    $scope.$on('expandWorkItem', function(e, all) {
-      utility
-        .eachTree($scope.worktree)
-        .children('children')
-        .onEach(function(item) {
-          item.showContent = all
-            ? true
-            : !item.children || item.children.length <= 0;
-        });
-    });
-
-    $scope.$on('reduceWorkItem', function(e) {
-      utility
-        .eachTree($scope.worktree)
-        .children('children')
-        .onEach(function(item) {
-          item.showContent = false;
-        });
-    });
-
-    $scope.$watch(
-      function() {
-        return $scope.workitems;
-      },
-      function(val) {
-        utility
-          .toTree(val)
-          .key('id')
-          .parentKey('parentId')
-          .onEach(function(idx, item) {
-            item.$$isExpand = true;
-          })
-          .then(function(tree) {
-            $scope.worktree = tree;
-          });
-      }
-    );
-
+    // $scope.editTitle = function(item) {
+    //   item.$titleEditing = true;
+    // };
+    // $scope.$on('expandWorkItem', function(e, all) {
+    //   utility
+    //     .eachTree($scope.worktree)
+    //     .children('children')
+    //     .onEach(function(item) {
+    //       item.showContent = all
+    //         ? true
+    //         : !item.children || item.children.length <= 0;
+    //     });
+    // });
+    // $scope.$on('reduceWorkItem', function(e) {
+    //   utility
+    //     .eachTree($scope.worktree)
+    //     .children('children')
+    //     .onEach(function(item) {
+    //       item.showContent = false;
+    //     });
+    // });
+    // $scope.$watch(
+    //   function() {
+    //     return $scope.workitems;
+    //   },
+    //   function(val) {
+    //     utility
+    //       .toTree(val)
+    //       .key('id')
+    //       .parentKey('parentId')
+    //       .onEach(function(idx, item) {
+    //         item.$$isExpand = true;
+    //       })
+    //       .then(function(tree) {
+    //         $scope.worktree = tree;
+    //       });
+    //   }
+    // );
     // function setItemLevelDown(arr, item) {
     //   var preIndex = -1;
     //   var itemIndex = -1;
-
     //   for (var i in arr) {
     //     if (item.id === arr[i].id) {
     //       itemIndex = parseInt(i);
@@ -120,7 +135,6 @@ class ControllerClass {
     //       break;
     //     }
     //   }
-
     //   if (preIndex >= 0 && itemIndex >= 0) {
     //     requestService
     //       .url(
@@ -140,13 +154,11 @@ class ControllerClass {
     //       });
     //   }
     // }
-
     // function setItemLevelUp(arr, item) {
     //   var itemIndex = -1;
     //   var parentIndex = -1;
     //   var afters = [];
     //   var afterlength = 0;
-
     //   for (var i in item.$parent.children) {
     //     if (item.id === item.$parent.children[i].id) {
     //       itemIndex = parseInt(i);
@@ -157,14 +169,12 @@ class ControllerClass {
     //       break;
     //     }
     //   }
-
     //   for (var m in arr) {
     //     if (item.$parent.id === arr[m].id) {
     //       parentIndex = parseInt(m);
     //       break;
     //     }
     //   }
-
     //   if (itemIndex >= 0) {
     //     var changes = [
     //       {
@@ -191,7 +201,6 @@ class ControllerClass {
     //           }
     //           item.$parent.children.splice(itemIndex + 1, afterlength);
     //         }
-
     //         item.$parent.children.splice(itemIndex, 1);
     //         item.parentId = item.$parent.$parent
     //           ? item.$parent.$parent.id
@@ -201,6 +210,7 @@ class ControllerClass {
     //       });
     //   }
     // }
+    //#endregion
   }
 }
 

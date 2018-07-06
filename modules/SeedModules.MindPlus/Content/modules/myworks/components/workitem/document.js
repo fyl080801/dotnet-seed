@@ -1,52 +1,31 @@
-define(["require", "exports", "SeedModules.MindPlus/modules/myworks/module"], function (require, exports, mod) {
+define(["require", "exports", "SeedModules.MindPlus/modules/myworks/module", "pell", "rcss!/SeedModules.MindPlus/js/pell/pell.min.css"], function (require, exports, mod, pell_1) {
     "use strict";
     exports.__esModule = true;
     var ControllerClass = (function () {
-        function ControllerClass($scope, $timeout, popupService, utility, requestService) {
+        function ControllerClass($scope, $element, $timeout, popupService, utility, requestService) {
             this.$scope = $scope;
+            this.$element = $element;
             this.$timeout = $timeout;
             this.popupService = popupService;
             this.utility = utility;
             this.requestService = requestService;
-            $scope.worktree = [];
-            $scope.editTitle = function (item) {
-                item.$titleEditing = true;
-            };
-            $scope.$on('expandWorkItem', function (e, all) {
-                utility
-                    .eachTree($scope.worktree)
-                    .children('children')
-                    .onEach(function (item) {
-                    item.showContent = all
-                        ? true
-                        : !item.children || item.children.length <= 0;
-                });
-            });
-            $scope.$on('reduceWorkItem', function (e) {
-                utility
-                    .eachTree($scope.worktree)
-                    .children('children')
-                    .onEach(function (item) {
-                    item.showContent = false;
-                });
-            });
-            $scope.$watch(function () {
-                return $scope.workitems;
-            }, function (val) {
-                utility
-                    .toTree(val)
-                    .key('id')
-                    .parentKey('parentId')
-                    .onEach(function (idx, item) {
-                    item.$$isExpand = true;
-                })
-                    .then(function (tree) {
-                    $scope.worktree = tree;
-                });
+            pell_1.init({
+                element: $element.find('[pell-area]').get(0),
+                defaultParagraphSeparator: 'div',
+                styleWithCSS: false,
+                onChange: function (html) { },
+                actions: [],
+                classes: {
+                    actionbar: 'pell-actionbar',
+                    button: 'pell-button',
+                    content: 'pell-content',
+                    selected: 'pell-button-selected'
+                }
             });
         }
         ControllerClass.$inject = [
             '$scope',
+            '$element',
             '$timeout',
             'app/services/popupService',
             'SeedModules.AngularUI/modules/services/utility',

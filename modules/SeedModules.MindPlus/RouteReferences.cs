@@ -15,11 +15,11 @@ namespace SeedModules.MindPlus
             "SeedModules.MindPlus/modules/portals/module");
 
         static RouteViewReference MindPlus_Home_Works = new RouteViewReference("SeedModules.MindPlus/Home/Works",
-            "rcss!SeedModules.MindPlus/css/mindplus.css",
+            "rcss!SeedModules.MindPlus/css/_module.css",
             "SeedModules.MindPlus/modules/myworks/module");
 
         static RouteViewReference MindPlus_Home_Mind = new RouteViewReference("SeedModules.MindPlus/Home/Mind",
-            "rcss!SeedModules.MindPlus/css/mindplus.css",
+            "rcss!SeedModules.MindPlus/css/_module.css",
             "rcss!SeedModules.MindPlus/css/kityminder.core.css",
             "rcss!SeedModules.MindPlus/js/kityminder/kityminder.editor.min.css",
             "rcss!SeedModules.MindPlus/js/hotbox/hotbox.css",

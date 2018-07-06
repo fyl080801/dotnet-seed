@@ -92,7 +92,7 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
 //
 gulp.task('lessc', function() {
   gulp
-    .src('modules/**/*.less') //*表示所有的scss文件
+    .src('modules/**/_module.less') //*表示所有的scss文件
     .pipe(less())
     .pipe(gulp.dest('modules'));
 });

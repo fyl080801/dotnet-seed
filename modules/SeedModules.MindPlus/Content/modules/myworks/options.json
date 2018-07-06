@@ -22,6 +22,9 @@
     "wysihtml-advanced": {
       "path": "SeedModules.MindPlus/js/parser_rules/advanced_and_extended",
       "noDebug": true
+    },
+    "pell": {
+      "path": "SeedModules.MindPlus/js/pell/pell"
     }
   }
 }
