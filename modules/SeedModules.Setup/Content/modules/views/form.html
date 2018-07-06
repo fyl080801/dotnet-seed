@@ -1,4 +1,4 @@
-<div class="container" ng-controller="SeedModules.Setup/modules/controllers/form as me">
+<div class="container" ng-controller="SeedModules.Setup/modules/controllers/form">
     <div class="well well-lg">
         <h1>安装系统</h1>
         <hr>
@@ -52,7 +52,7 @@
                 <div>
                     <select class="form-control" name="DatabaseProvider" ng-model="data.DatabaseProvider" ng-init="data.DatabaseProvider='SqlConnection'"
                         required>
-                        <option ng-repeat="item in me.databaseProviders" value="{{item.Provider}}">{{item.Name}}</option>
+                        <option ng-repeat="item in databaseProviders" value="{{item.Provider}}">{{item.Name}}</option>
                     </select>
                 </div>
             </fieldset>
@@ -66,7 +66,7 @@
                 </div>
             </fieldset>
 
-            <div ng-show="data.DatabaseProvider==='SqlConnection'" ng-init="initMsSql()">
+            <div ng-show="data.DatabaseProvider==='SqlConnection'" ng-init="me.initMsSql()">
                 <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mssql_Server.$invalid }">
                     <div>
                         <label>服务地址：</label>
@@ -109,7 +109,7 @@
                 </fieldset>
             </div>
 
-            <div ng-show="data.DatabaseProvider==='MySql'" ng-init="initMySql()">
+            <div ng-show="data.DatabaseProvider==='MySql'" ng-init="me.initMySql()">
                 <fieldset class="form-group col-md-6" ng-class="{ 'has-error': form.mysql_Server.$invalid }">
                     <div>
                         <label>服务地址：</label>
@@ -172,7 +172,7 @@
                 </fieldset>
             </div>
 
-            <div ng-show="data.DatabaseProvider==='Sqlite'">
+            <!-- <div ng-show="data.DatabaseProvider==='Sqlite'">
                 <fieldset class="form-group col-md-12" ng-class="{ 'has-error': form.sqlite_Connection.$invalid }">
                     <div>
                         <label>连接字符串：</label>
@@ -183,7 +183,7 @@
                         />
                     </div>
                 </fieldset>
-            </div>
+            </div> -->
 
         </div>
         <h6>

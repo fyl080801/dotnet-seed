@@ -1,24 +1,23 @@
-define(['app/application', 'SeedModules.AngularUI/modules/module'], function(
-  application
-) {
-  'use strict';
+import angular = require('angular');
+import 'app/application';
 
-  application.requires.push('modules.setup');
+class Config {
+  static $inject = ['$stateProvider', '$urlRouterProvider'];
+  constructor(
+    $stateProvider: app.configs.IRequireStateProvider,
+    $urlRouterProvider: ng.ui.IUrlRouterProvider
+  ) {
+    $urlRouterProvider.otherwise('/setup');
 
-  return angular.module('modules.setup', ['ui.router']).config([
-    '$stateProvider',
-    '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/setup');
+    $stateProvider.state('setup', {
+      url: '/setup',
+      templateUrl: 'SeedModules.Setup/modules/views/form.html',
+      requires: [
+        'SeedModules.AngularUI/modules/requires',
+        'SeedModules.Setup/modules/requires'
+      ]
+    });
+  }
+}
 
-      $stateProvider.state('setup', {
-        url: '/setup',
-        templateUrl: 'SeedModules.Setup/modules/views/form.html',
-        requires: [
-          'SeedModules.AngularUI/modules/requires',
-          'SeedModules.Setup/modules/requires'
-        ]
-      });
-    }
-  ]);
-});
+export = angular.module('modules.setup', ['ui.router']).config(Config);

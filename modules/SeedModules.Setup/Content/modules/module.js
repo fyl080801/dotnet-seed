@@ -1,10 +1,7 @@
-define(['app/application', 'SeedModules.AngularUI/modules/module'], function (application) {
-    'use strict';
-    application.requires.push('modules.setup');
-    return angular.module('modules.setup', ['ui.router']).config([
-        '$stateProvider',
-        '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+define(["require", "exports", "angular", "app/application"], function (require, exports, angular) {
+    "use strict";
+    var Config = (function () {
+        function Config($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/setup');
             $stateProvider.state('setup', {
                 url: '/setup',
@@ -15,6 +12,9 @@ define(['app/application', 'SeedModules.AngularUI/modules/module'], function (ap
                 ]
             });
         }
-    ]);
+        Config.$inject = ['$stateProvider', '$urlRouterProvider'];
+        return Config;
+    }());
+    return angular.module('modules.setup', ['ui.router']).config(Config);
 });
 //# sourceMappingURL=module.js.map

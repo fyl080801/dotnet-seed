@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Seed.Environment.Logging;
 using Seed.Environment.Hosting;
-using System;
+using Seed.Environment.Logging;
 using System.IO;
-using System.Threading;
 
 namespace Seed
 {

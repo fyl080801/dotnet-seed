@@ -8,6 +8,7 @@
     "baseUrl": "modules",
     "paths": {
       "SeedModules.AngularUI/*": ["SeedModules.AngularUI/Content/*"],
+      "SeedModules.Setup/*": ["SeedModules.Setup/Content/*"],
       "SeedModules.Admin/*": ["SeedModules.Admin/Content/*"],
       "SeedModules.Features/*": ["SeedModules.Features/Content/*"],
       "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"],

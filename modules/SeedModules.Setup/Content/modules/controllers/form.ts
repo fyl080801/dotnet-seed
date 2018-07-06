@@ -1,149 +1,153 @@
-define(['SeedModules.Setup/modules/module'], function(module) {
-  'use strict';
+import mod = require('SeedModules.Setup/modules/module');
 
-  module.controller('SeedModules.Setup/modules/controllers/form', [
+class Controller {
+  selectProject() {
+    this.$scope.projectFile.open();
+  }
+
+  initMsSql() {
+    this.$scope.mssql.Server = '.';
+    this.$scope.mssql.Username = 'sa';
+    this.$scope.mssql.Database = 'seeddb';
+    this.$scope.mssql.Password = 'qazwsxedc';
+  }
+
+  initMySql() {
+    this.$scope.mysql.Server = 'localhost';
+    this.$scope.mysql.Username = 'root';
+    this.$scope.mysql.Database = 'seeddb';
+    this.$scope.mysql.Password = '!QAZ2wsx';
+    this.$scope.mysql.Port = 3306;
+  }
+
+  install() {
+    switch (this.$scope.data.DatabaseProvider) {
+      case 'SqlConnection':
+        this.$scope.data.ConnectionString =
+          'Data Source=' +
+          this.$scope.mssql.Server +
+          ';Initial Catalog=' +
+          this.$scope.mssql.Database +
+          ';User ID=' +
+          this.$scope.mssql.Username +
+          ';Password=' +
+          this.$scope.mssql.Password +
+          ';';
+        break;
+      case 'MySql': {
+        this.$scope.data.ConnectionString =
+          'server=' +
+          this.$scope.mysql.Server +
+          ';database=' +
+          this.$scope.mysql.Database +
+          ';uid=' +
+          this.$scope.mysql.Username +
+          ';pwd=' +
+          this.$scope.mysql.Password +
+          ';';
+
+        if (this.$scope.mysql.Port && this.$scope.mysql.Port !== '') {
+          this.$scope.data.ConnectionString =
+            this.$scope.data.ConnectionString +
+            'port=' +
+            this.$scope.mysql.Port +
+            ';';
+        }
+
+        if (!this.$scope.mysql.Ssl) {
+          this.$scope.data.ConnectionString =
+            this.$scope.data.ConnectionString + 'SslMode=none;';
+        }
+
+        break;
+      }
+      // case 'Sqlite': {
+      //   $scope.data.ConnectionString = $scope.sqlite.Connection;
+      //   break;
+      // }
+      default:
+        this.$scope.data.ConnectionString = '';
+        break;
+    }
+
+    this.$scope.setupForm
+      .submit({
+        data: {
+          DatabaseProvider: this.$scope.data.DatabaseProvider,
+          ConnectionString: this.$scope.data.ConnectionString
+        }
+      })
+      .then(result => {
+        this.$location.url('/');
+        this.$window.location.reload();
+      });
+  }
+
+  static $inject = [
     '$scope',
     '$modal',
     '$location',
     '$window',
     'app/services/popupService',
-    'SeedModules.AngularUI/modules/services/requestService',
-    function($scope, $modal, $location, $window, popupService, requestService) {
-      $scope.setupForm = {
-        url: '/api/setup'
-      };
+    'SeedModules.AngularUI/modules/services/requestService'
+  ];
+  constructor(
+    private $scope,
+    private $modal,
+    private $location: ng.ILocationService,
+    private $window: ng.IWindowService,
+    private popupService: app.services.IPopupService,
+    private requestService: AngularUI.services.IRequestService
+  ) {
+    $scope.me = this;
 
-      $scope.projectFile = {};
+    $scope.setupForm = {
+      url: '/api/setup'
+    };
 
-      $scope.mysql = {};
+    $scope.projectFile = {};
 
-      $scope.mssql = {};
+    $scope.mysql = {};
 
-      $scope.sqlite = {};
+    $scope.mssql = {};
 
-      $scope.data = {
-        Name: 'seed',
-        TablePrefix: 'seed',
-        UserName: 'admin',
-        Email: 'fyl080801@hotmail.com',
-        Password: '!QAZ2wsx',
-        PasswordConfirmation: '!QAZ2wsx'
-      };
+    $scope.sqlite = {};
 
-      $scope.initMsSql = function() {
-        $scope.mssql.Server = '.';
-        $scope.mssql.Username = 'sa';
-        $scope.mssql.Database = 'seeddb';
-        $scope.mssql.Password = 'qazwsxedc';
-      };
+    $scope.data = {
+      Name: 'seed',
+      TablePrefix: 'seed',
+      UserName: 'admin',
+      Email: 'fyl080801@hotmail.com',
+      Password: '!QAZ2wsx',
+      PasswordConfirmation: '!QAZ2wsx'
+    };
 
-      $scope.initMySql = function() {
-        $scope.mysql.Server = 'localhost';
-        $scope.mysql.Username = 'root';
-        $scope.mysql.Database = 'seeddb';
-        $scope.mysql.Password = '!QAZ2wsx';
-        $scope.mysql.Port = 3306;
-      };
+    $scope.databaseProviders = [
+      {
+        Provider: 'SqlConnection',
+        Name: 'Microsoft SQLServer'
+      },
+      {
+        Provider: 'MySql',
+        Name: 'MySql Database'
+      }
+      // {
+      //   Provider: 'Sqlite',
+      //   Name: 'Sqlite'
+      // }
+    ];
 
-      $scope.install = function() {
-        switch ($scope.data.DatabaseProvider) {
-          case 'SqlConnection':
-            $scope.data.ConnectionString =
-              'Data Source=' +
-              $scope.mssql.Server +
-              ';Initial Catalog=' +
-              $scope.mssql.Database +
-              ';User ID=' +
-              $scope.mssql.Username +
-              ';Password=' +
-              $scope.mssql.Password +
-              ';';
-            break;
-          case 'MySql': {
-            $scope.data.ConnectionString =
-              'server=' +
-              $scope.mysql.Server +
-              ';database=' +
-              $scope.mysql.Database +
-              ';uid=' +
-              $scope.mysql.Username +
-              ';pwd=' +
-              $scope.mysql.Password +
-              ';';
+    requestService
+      .url('/api/setup')
+      .get<any>()
+      .result.then(result => {
+        $scope.data.Name = result.name ? result.name : $scope.data.Name;
+        $scope.data.TablePrefix = result.tablePrefix
+          ? result.tablePrefix
+          : $scope.data.TablePrefix;
+        $scope.data.TenantCreated = result.tenantCreated;
+      });
+  }
+}
 
-            if ($scope.mysql.Port && $scope.mysql.Port !== '') {
-              $scope.data.ConnectionString =
-                $scope.data.ConnectionString +
-                'port=' +
-                $scope.mysql.Port +
-                ';';
-            }
-
-            if (!$scope.mysql.Ssl) {
-              $scope.data.ConnectionString =
-                $scope.data.ConnectionString + 'SslMode=none;';
-            }
-
-            break;
-          }
-          case 'Sqlite': {
-            $scope.data.ConnectionString = $scope.sqlite.Connection;
-            break;
-          }
-          default:
-            $scope.data.ConnectionString = '';
-            break;
-        }
-
-        $scope.setupForm
-          .submit({
-            data: {
-              DatabaseProvider: $scope.data.DatabaseProvider,
-              ConnectionString: $scope.data.ConnectionString
-            }
-          })
-          .then(function(result) {
-            $location.url('/');
-            $window.location.reload();
-          });
-      };
-
-      this.selectProject = function() {
-        $scope.projectFile.open();
-      };
-
-      this.purposes = [
-        {
-          Id: '1',
-          Name: '管理系统'
-        }
-      ];
-
-      this.databaseProviders = [
-        {
-          Provider: 'SqlConnection',
-          Name: 'Microsoft SQLServer'
-        },
-        {
-          Provider: 'MySql',
-          Name: 'MySql Database'
-        },
-        {
-          Provider: 'Sqlite',
-          Name: 'Sqlite'
-        }
-      ];
-
-      requestService
-        .url('/api/setup')
-        .get()
-        .result.then(function(result) {
-          $scope.data.Name = result.name ? result.name : $scope.data.Name;
-          $scope.data.TablePrefix = result.tablePrefix
-            ? result.tablePrefix
-            : $scope.data.TablePrefix;
-          $scope.data.TenantCreated = result.tenantCreated;
-        });
-    }
-  ]);
-});
+mod.controller('SeedModules.Setup/modules/controllers/form', Controller);
