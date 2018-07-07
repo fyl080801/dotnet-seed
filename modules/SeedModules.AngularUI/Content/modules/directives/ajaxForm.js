@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.AngularUI/modules/module", "jquery-form"], function (require, exports, mod) {
+define(["require", "exports", "SeedModules.AngularUI/modules/module", "SeedModules.AngularUI/js/jquery-form/jquery.form.min"], function (require, exports, mod) {
     "use strict";
     exports.__esModule = true;
     function ajaxFormDirective($q, $modal, $appConfig, httpDataHandler) {

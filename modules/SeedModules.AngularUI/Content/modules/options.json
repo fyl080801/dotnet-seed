@@ -83,6 +83,11 @@
       "shim": {
         "deps": ["angular"]
       }
+    },
+    "SeedModules.AngularUI/js/jquery-form/jquery.form.min": {
+      "shim": {
+        "deps": ["jquery"]
+      }
     }
   },
   "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],

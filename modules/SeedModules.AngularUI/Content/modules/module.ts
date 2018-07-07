@@ -1,5 +1,4 @@
 import angular = require('angular');
-import 'app/application';
 import 'SeedModules.AngularUI/modules/configs/httpConfig';
 import 'SeedModules.AngularUI/modules/configs/location';
 import 'SeedModules.AngularUI/modules/configs/ngTableDefaults';

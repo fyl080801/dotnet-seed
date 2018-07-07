@@ -1,4 +1,4 @@
-define(["require", "exports", "angular", "app/application"], function (require, exports, angular) {
+define(["require", "exports", "angular"], function (require, exports, angular) {
     "use strict";
     var Config = (function () {
         function Config($stateProvider, $urlRouterProvider) {

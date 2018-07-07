@@ -1,5 +1,5 @@
 import mod = require('SeedModules.AngularUI/modules/module');
-import 'jquery-form';
+import 'SeedModules.AngularUI/js/jquery-form/jquery.form.min';
 
 interface IAjaxFormScope extends ng.IScope {
   ajaxForm;

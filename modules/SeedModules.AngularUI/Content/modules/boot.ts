@@ -1,8 +1,6 @@
 import angular = require('angular');
-import 'app/application';
 import 'angular-ui-router';
 import 'schema-form-bootstrap';
-// import 'angular-ui-tree';
 // import 'SeedModules.AngularUI/js/seed/tv4';
 // import 'SeedModules.AngularUI/js/seed/ObjectPath';
 // import 'SeedModules.AngularUI/js/seed/schema-form';
