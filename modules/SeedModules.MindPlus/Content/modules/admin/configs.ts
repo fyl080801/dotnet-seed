@@ -1,4 +1,4 @@
-define(['app/application'], function(application) {
+define(['app/application'], function() {
   'use strict';
 
   return angular.module('modules.mindPlus.admin.configs', []);

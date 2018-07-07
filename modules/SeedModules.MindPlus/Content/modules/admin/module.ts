@@ -1,5 +1,4 @@
 import angular = require('angular');
-import 'app/application';
 import 'SeedModules.MindPlus/modules/admin/configs/menus';
 
 export = angular

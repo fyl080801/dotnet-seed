@@ -1,5 +1,4 @@
-﻿import 'app/application';
-import angular = require('angular');
+﻿import angular = require('angular');
+import 'app/application';
 
 export = angular.module('modules.wechat', []);
-

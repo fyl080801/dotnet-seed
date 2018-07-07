@@ -1,4 +1,4 @@
-define(["require", "exports", "angular", "schema-form-bootstrap"], function (require, exports, angular) {
+define(["require", "exports", "angular", "app/application", "schema-form-bootstrap"], function (require, exports, angular) {
     "use strict";
     return angular.module('modules.pagebuilder.boot', ['schemaForm']);
 });

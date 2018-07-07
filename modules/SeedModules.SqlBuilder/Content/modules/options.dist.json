@@ -1,7 +1,10 @@
 {
   "configs": {
     "SeedModules.SqlBuilder/modules/module": {
-      "path": "SeedModules.SqlBuilder/js/modules.module"
+      "path": "SeedModules.SqlBuilder/js/modules.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
     },
     "SeedModules.SqlBuilder/modules/requires": {
       "path": "SeedModules.SqlBuilder/js/modules.requires"
