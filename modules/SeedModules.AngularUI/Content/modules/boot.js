@@ -1,4 +1,4 @@
-define(["require", "exports", "angular", "angular-ui-router", "schema-form-bootstrap", "angular-ui-tree"], function (require, exports, angular) {
+define(["require", "exports", "angular", "app/application", "angular-ui-router", "schema-form-bootstrap", "SeedModules.AngularUI/js/seed/angular-ui-tree"], function (require, exports, angular) {
     "use strict";
     return angular.module('modules.angularui.boot', [
         'ui.bootstrap',

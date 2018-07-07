@@ -17538,6 +17538,7 @@ define('app/application', [
     'app/directives/equals'
 ], function (require, exports, angular) {
     'use strict';
+    window['angular'] = angular;
     var application = angular.module('app.application', ['app.boot']);
     var fn = angular.module;
     angular.module = function (name, requires, configFn) {

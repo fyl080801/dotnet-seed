@@ -51,6 +51,7 @@ var getAllFiles = function(dir, ext) {
   return files;
 };
 
+// 从模块定义文件中生成 amd-option
 var resolveConfigs = function(modulePaths, moduleOptions, ext) {
   getAllFiles(moduleOptions.baseUrl, ext).map(function(fullname) {
     var option = JSON.parse(fs.readFileSync(fullname));
@@ -68,24 +69,43 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
         .replace(moduleOptions.baseUrl, '')
         .replace(path.join('Content/', ''), '')
         .replace(/\\/g, '/');
+
+      var moduleName = moduleprefix.substring(0, moduleprefix.indexOf('/'));
+
       if (
         name !== moduleprefix + '/requires' &&
         name !== moduleprefix + '/module'
+        // &&
+        // ((option.include && option.include.indexOf(name) < 0) ||
+        //   !options.include)
       ) {
         moduleOptions.paths[name] = '../../../modules/build';
         moduleOptions.exclude.push(name);
       }
+
+      // 如果是已包含的模块需要映射路径 /Content
+      if (
+        (option.include && option.include.indexOf(name) >= 0) ||
+        (!option.configs[name].path || option.configs[name].path.length <= 0)
+      ) {
+        if (option.configs[name].path && option.configs[name].path.length > 0)
+          moduleOptions.paths[name] = option.configs[name].path.replace(
+            moduleName,
+            moduleName + '/Content'
+          );
+        moduleOptions.include.push(name);
+      }
     }
 
-    getAllFiles(uipath, '.js').map(function(fullname) {
-      moduleOptions.paths[
-        fullname
-          .replace(moduleOptions.baseUrl, '')
-          .replace(path.join('Content/', ''), '')
-          .replace('.js', '')
-          .replace(/\\/g, '/')
-      ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
-    });
+    // getAllFiles(uipath, '.js').map(function(fullname) {
+    //   moduleOptions.paths[
+    //     fullname
+    //       .replace(moduleOptions.baseUrl, '')
+    //       .replace(path.join('Content/', ''), '')
+    //       .replace('.js', '')
+    //       .replace(/\\/g, '/')
+    //   ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
+    // });
   });
 };
 
@@ -121,12 +141,32 @@ gulp.task('build', function() {
       removeCombined: true,
       fileExclusionRegExp: /^\./,
       paths: {},
-      exclude: []
+      exclude: [],
+      include: []
     };
 
   // 获取所有UI定义
   resolveConfigs(modulePaths, moduleOptions, 'options.json');
   resolveConfigs(modulePaths, moduleOptions, 'options.dist.json');
+
+  // 直接把模块目录下所有的js路径都映射了
+  getAllFiles(moduleOptions.baseUrl, '.js').map(function(fullname) {
+    moduleOptions.paths[
+      fullname
+        .replace(moduleOptions.baseUrl, '')
+        .replace(path.join('Content/', ''), '')
+        .replace('.js', '')
+        .replace(/\\/g, '/')
+    ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
+  });
+
+  // 去掉排除模块和包含模块的差集部分（包含的模块不要排除）
+  for (var i = moduleOptions.exclude.length - 1; i >= 0; i--) {
+    if (moduleOptions.include.indexOf(moduleOptions.exclude[i]) >= 0) {
+      moduleOptions.exclude.splice(i, 1);
+    }
+  }
+  moduleOptions.include = [];
 
   requiresOptions = JSON.parse(JSON.stringify(moduleOptions));
 

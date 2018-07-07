@@ -64,9 +64,9 @@ namespace SeedModules.AngularUI.Rendering
                 {
                     var nodeName = ((JProperty)child).Name;
                     var currentNode = options["configs"][nodeName];
-                    if (currentNode["noDebug"] == null || currentNode["noDebug"].ToObject<bool>() == false)
+                    if (currentNode["path"] != null && (currentNode["noDebug"] == null || currentNode["noDebug"].ToObject<bool>() == false))
                     {
-                        options["configs"][nodeName]["path"] = options["configs"][nodeName]["path"] + ".min";
+                        options["configs"][nodeName]["path"] = currentNode["path"] + ".min";
                     }
                 }
             }
