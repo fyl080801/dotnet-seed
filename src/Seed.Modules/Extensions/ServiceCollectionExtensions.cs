@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -38,9 +40,9 @@ namespace Seed.Modules.Extensions
 
                 AddStaticFiles(builder);
 
-                //AddAntiForgery(builder);
-                //AddAuthentication(builder);
-                //AddDataProtection(builder);
+                AddAntiForgery(builder);
+                AddAuthentication(builder);
+                AddDataProtection(builder);
 
                 services.AddSingleton(services);
             }
@@ -113,60 +115,59 @@ namespace Seed.Modules.Extensions
             });
         }
 
-        //private static void AddAntiForgery(SeedBuilder builder)
-        //{
-        //    builder.ApplicationServices.AddAntiforgery();
+        private static void AddAntiForgery(SeedBuilder builder)
+        {
+            builder.ApplicationServices.AddAntiforgery();
 
-        //    builder.ConfigureServices((services, serviceProvider) =>
-        //    {
-        //        var settings = serviceProvider.GetRequiredService<EngineSettings>();
+            builder.ConfigureServices((services, serviceProvider) =>
+            {
+                var settings = serviceProvider.GetRequiredService<EngineSettings>();
 
-        //        var tenantName = settings.Name;
-        //        var tenantPrefix = "/" + settings.RequestUrlPrefix;
+                var tenantName = settings.Name;
+                var tenantPrefix = "/" + settings.RequestUrlPrefix;
 
-        //        services.AddAntiforgery(options =>
-        //        {
-        //            options.Cookie.Name = "orchantiforgery_" + tenantName;
-        //            options.Cookie.Path = tenantPrefix;
-        //        });
-        //    });
-        //}
+                services.AddAntiforgery(options =>
+                {
+                    options.Cookie.Name = "seedforgery_" + tenantName;
+                    options.Cookie.Path = tenantPrefix;
+                });
+            });
+        }
 
-        //private static void AddAuthentication(SeedBuilder builder)
-        //{
-        //    builder.ApplicationServices.AddAuthentication();
+        private static void AddAuthentication(SeedBuilder builder)
+        {
+            builder.ApplicationServices.AddAuthentication();
 
-        //    builder.ConfigureServices(services =>
-        //    {
-        //        services.AddAuthentication();
+            builder.ConfigureServices(services =>
+            {
+                services.AddAuthentication();
+                services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
 
-        //        services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
+            })
+            .Configure(app =>
+            {
+                app.UseAuthentication();
+            });
+        }
 
-        //    })
-        //    .Configure(app =>
-        //    {
-        //        app.UseAuthentication();
-        //    });
-        //}
+        private static void AddDataProtection(SeedBuilder builder)
+        {
+            builder.ConfigureServices((services, serviceProvider) =>
+            {
+                var settings = serviceProvider.GetRequiredService<EngineSettings>();
+                var options = serviceProvider.GetRequiredService<IOptions<EngineOptions>>();
 
-        //private static void AddDataProtection(SeedBuilder builder)
-        //{
-        //    builder.ConfigureServices((services, serviceProvider) =>
-        //    {
-        //        var settings = serviceProvider.GetRequiredService<EngineSettings>();
-        //        var options = serviceProvider.GetRequiredService<IOptions<EngineOptions>>();
+                var directory = Directory.CreateDirectory(Path.Combine(
+                options.Value.ApplicationDataPath,
+                options.Value.ContainerName,
+                settings.Name, "DataProtection-Keys"));
 
-        //        var directory = Directory.CreateDirectory(Path.Combine(
-        //        options.Value.ApplicationDataPath,
-        //        options.Value.ContainerName,
-        //        settings.Name, "DataProtection-Keys"));
-
-        //        services.Add(new ServiceCollection()
-        //            .AddDataProtection()
-        //            .PersistKeysToFileSystem(directory)
-        //            .SetApplicationName(settings.Name)
-        //            .Services);
-        //    });
-        //}
+                services.Add(new ServiceCollection()
+                    .AddDataProtection()
+                    .PersistKeysToFileSystem(directory)
+                    .SetApplicationName(settings.Name)
+                    .Services);
+            });
+        }
     }
 }

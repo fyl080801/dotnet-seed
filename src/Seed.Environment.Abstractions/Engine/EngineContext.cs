@@ -1,127 +1,192 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine.Builder;
+using Seed.Modules;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading;
 
 namespace Seed.Environment.Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class EngineContext : IDisposable
     {
-        bool _disposed = false;
-        int _refCount = 0;
-        bool _released = false;
+        private bool _disposed = false;
+        private volatile int _refCount = 0;
+        private bool _released = false;
+        private List<WeakReference<EngineContext>> _dependents;
 
         public EngineSettings Settings { get; set; }
-
         public EngineSchema Schema { get; set; }
-
         public IServiceProvider ServiceProvider { get; set; }
 
-        /// <summary>
-        /// 是否活动
-        /// </summary>
         public bool IsActivated { get; set; }
 
-        /// <summary>
-        /// 是否释放
-        /// </summary>
-        public bool Released
+        public IServiceScope EnterServiceScope()
         {
-            get { return _released; }
-        }
-
-        /// <summary>
-        /// 活动请求数
-        /// </summary>
-        public int ActiveRequests
-        {
-            get { return _refCount; }
-        }
-
-        /// <summary>
-        /// 创建 Engine 请求的作用域
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>
-        /// 已释放或已清理的不可创建作用域
-        /// </remarks>
-        public IServiceScope EntryServiceScope()
-        {
-            if (_disposed) throw new InvalidOperationException("context disposed");
-
-            if (_released) throw new InvalidOperationException("context released");
-
-            return ServiceProvider.CreateScope();
-        }
-
-        /// <summary>
-        /// 接收到请求后执行
-        /// </summary>
-        public void RequestStarted()
-        {
-            Interlocked.Increment(ref _refCount);
-        }
-
-        /// <summary>
-        /// 请求结束后执行
-        /// </summary>
-        public void RequestEnded()
-        {
-            var refCount = Interlocked.Decrement(ref _refCount);
-
-            if (_released && refCount == 0)
+            if (_disposed)
             {
-                Dispose();
+                throw new InvalidOperationException("环境已经回收");
+            }
+
+            if (_released)
+            {
+                throw new InvalidOperationException("环境已经释放");
+            }
+
+            return new ServiceScopeWrapper(this);
+        }
+
+        public bool Released => _released;
+
+        public int ActiveScopes => _refCount;
+
+        public void Release()
+        {
+            if (_released == true)
+            {
+                return;
+            }
+
+            _released = true;
+
+            lock (this)
+            {
+                if (_dependents == null)
+                {
+                    return;
+                }
+
+                foreach (var dependent in _dependents)
+                {
+                    if (dependent.TryGetTarget(out var engineContext))
+                    {
+                        engineContext.Release();
+                    }
+                }
+
+                if (_refCount == 0)
+                {
+                    Dispose();
+                }
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Release()
+        public void AddDependentEngine(EngineContext engineContext)
         {
-            _released = true;
+            lock (this)
+            {
+                if (_dependents == null)
+                {
+                    _dependents = new List<WeakReference<EngineContext>>();
+                }
+
+                _dependents.RemoveAll(x => !x.TryGetTarget(out var engine) || engine.Settings.Name == engineContext.Settings.Name);
+
+                _dependents.Add(new WeakReference<EngineContext>(engineContext));
+            }
         }
 
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!_disposed)
+            if (_disposed)
             {
-                if (disposing)
-                {
-
-                }
-
-                if (ServiceProvider != null)
-                {
-                    (ServiceProvider as IDisposable)?.Dispose();
-                    ServiceProvider = null;
-                }
-
-                IsActivated = false;
-
-                Settings = null;
-
-                Schema = null;
-
-                _disposed = true;
+                return;
             }
+
+            if (ServiceProvider != null)
+            {
+                (ServiceProvider as IDisposable)?.Dispose();
+                ServiceProvider = null;
+            }
+
+            IsActivated = false;
+            Settings = null;
+            Schema = null;
+
+            _disposed = true;
+
+            GC.SuppressFinalize(this);
         }
 
         ~EngineContext()
         {
-            Dispose(false);
+            Dispose();
+        }
+
+        internal class ServiceScopeWrapper : IServiceScope
+        {
+            private readonly EngineContext _engineContext;
+            private readonly IServiceScope _serviceScope;
+            private readonly IServiceProvider _existingServices;
+            private readonly HttpContext _httpContext;
+
+            public ServiceScopeWrapper(EngineContext engineContext)
+            {
+                // Prevent the context from being released until the end of the scope
+                Interlocked.Increment(ref engineContext._refCount);
+
+                _engineContext = engineContext;
+                _serviceScope = engineContext.ServiceProvider.CreateScope();
+                ServiceProvider = _serviceScope.ServiceProvider;
+
+                var httpContextAccessor = ServiceProvider.GetRequiredService<IHttpContextAccessor>();
+
+                if (httpContextAccessor.HttpContext == null)
+                {
+                    httpContextAccessor.HttpContext = new DefaultHttpContext();
+                }
+
+                _httpContext = httpContextAccessor.HttpContext;
+                _existingServices = _httpContext.RequestServices;
+                _httpContext.RequestServices = ServiceProvider;
+            }
+
+            public IServiceProvider ServiceProvider { get; }
+
+            private bool ScopeReleased()
+            {
+                var refCount = Interlocked.Decrement(ref _engineContext._refCount);
+
+                if (_engineContext._released && refCount == 0)
+                {
+                    var tenantEvents = _serviceScope.ServiceProvider.GetServices<IModuleTenantEvents>();
+
+                    foreach (var tenantEvent in tenantEvents)
+                    {
+                        tenantEvent.TerminatingAsync().GetAwaiter().GetResult();
+                    }
+
+                    foreach (var tenantEvent in tenantEvents.Reverse())
+                    {
+                        tenantEvent.TerminatedAsync().GetAwaiter().GetResult();
+                    }
+
+                    return true;
+                }
+
+                return false;
+            }
+
+            public void Dispose()
+            {
+                var disposeEngineContext = ScopeReleased();
+
+                _httpContext.RequestServices = _existingServices;
+                _serviceScope.Dispose();
+
+                GC.SuppressFinalize(this);
+
+                if (disposeEngineContext)
+                {
+                    _engineContext.Dispose();
+                }
+            }
+
+            ~ServiceScopeWrapper()
+            {
+                Dispose();
+            }
         }
     }
 }

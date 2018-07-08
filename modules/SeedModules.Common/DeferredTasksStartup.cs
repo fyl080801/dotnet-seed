@@ -12,7 +12,7 @@ namespace SeedModules.Common
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            app.UseDeferredTasks();
+            //app.UseDeferredTasks();
         }
     }
 }

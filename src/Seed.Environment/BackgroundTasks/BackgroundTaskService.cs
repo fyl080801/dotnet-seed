@@ -65,7 +65,7 @@ namespace Seed.Environment.BackgroundTasks
             {
                 var taskName = task.GetType().FullName;
 
-                using (var scope = engineContext.EntryServiceScope())
+                using (var scope = engineContext.EnterServiceScope())
                 {
                     try
                     {

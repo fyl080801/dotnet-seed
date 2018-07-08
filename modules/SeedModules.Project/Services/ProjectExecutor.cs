@@ -144,7 +144,7 @@ namespace SeedModules.Project.Services
         private async Task ExecuteStepAsync(ProjectExecutionContext projectStep)
         {
             var engineContext = _host.GetOrCreateContext(_engineSettings);
-            using (var scope = engineContext.EntryServiceScope())
+            using (var scope = engineContext.EnterServiceScope())
             {
                 if (!engineContext.IsActivated)
                 {
@@ -191,7 +191,7 @@ namespace SeedModules.Project.Services
             }
 
             engineContext = _host.GetOrCreateContext(_engineSettings);
-            using (var scope = engineContext.EntryServiceScope())
+            using (var scope = engineContext.EnterServiceScope())
             {
                 var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
 

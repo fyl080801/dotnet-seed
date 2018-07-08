@@ -35,7 +35,7 @@ namespace Seed.Modules.DeferredTasks
 
                     if (!engineContext.Released)
                     {
-                        using (var scope = engineContext.EntryServiceScope())
+                        using (var scope = engineContext.EnterServiceScope())
                         {
                             await deferredTaskEngine.ExecuteTasksAsync(new DeferredTaskContext(scope.ServiceProvider));
                         }

@@ -17,17 +17,17 @@ namespace Seed.Mvc.Extensions
 {
     public static class ModuleServiceCollectionExtnsions
     {
-        public static ModuleServiceCollection AddMvcModules(this ModuleServiceCollection moduleServices, IServiceProvider applicationServices)
+        public static ModuleServiceCollection AddMvc(this ModuleServiceCollection moduleServices, IServiceProvider applicationServices)
         {
             moduleServices.Configure(services =>
             {
-                services.AddMvcModules(applicationServices);
+                services.AddMvc(applicationServices);
             });
 
             return moduleServices;
         }
 
-        public static IServiceCollection AddMvcModules(this IServiceCollection services, IServiceProvider applicationServices)
+        public static IServiceCollection AddMvc(this IServiceCollection services, IServiceProvider applicationServices)
         {
             services.TryAddSingleton(new ApplicationPartManager());
 

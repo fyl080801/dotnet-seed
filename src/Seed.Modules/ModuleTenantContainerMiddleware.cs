@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
+using Seed.Modules.DeferredTasks;
 using Seed.Modules.Extensions;
 using System;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Seed.Modules
@@ -15,74 +19,89 @@ namespace Seed.Modules
     /// </remarks>
     public class ModuleTenantContainerMiddleware
     {
-        readonly RequestDelegate _next;
-        readonly IEngineHost _engineHost;
-        readonly IRunningEngineTable _runningEngineTable;
+        private readonly RequestDelegate _next;
+        private readonly IEngineHost _host;
+        private readonly IRunningEngineTable _runningEngineTable;
+        private readonly ConcurrentDictionary<string, SemaphoreSlim> _semaphores = new ConcurrentDictionary<string, SemaphoreSlim>();
 
         public ModuleTenantContainerMiddleware(
-           RequestDelegate next,
-           IEngineHost engineHost,
-           IRunningEngineTable runningEngineTable)
+            RequestDelegate next,
+            IEngineHost orchardHost,
+            IRunningEngineTable runningEngineTable)
         {
             _next = next;
-            _engineHost = engineHost;
+            _host = orchardHost;
             _runningEngineTable = runningEngineTable;
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
-            _engineHost.Initialize();
+            _host.Initialize();
 
-            var engineSetting = _runningEngineTable.Match(httpContext);
+            var engineSettings = _runningEngineTable.Match(httpContext);
 
-            httpContext.Features.Set(engineSetting);
-
-            if (engineSetting != null)
+            if (engineSettings != null)
             {
-                var engineContext = _engineHost.GetOrCreateContext(engineSetting);
+                var engineContext = _host.GetOrCreateContext(engineSettings);
 
-                // 先把默认的 ServiceProvider 存起来
-                var existingRequestServices = httpContext.RequestServices;
-                var scope = engineContext.EntryServiceScope();
-
-                try
+                var hasPendingTasks = false;
+                using (var scope = engineContext.EnterServiceScope())
                 {
-                    // 将 Engine 的 ServiceProvider 作为请求的 RequestServices
-                    httpContext.RequestServices = scope.ServiceProvider;
+                    httpContext.Features.Set(engineContext);
 
                     if (!engineContext.IsActivated)
                     {
-                        lock (engineContext)
+                        var semaphore = _semaphores.GetOrAdd(engineSettings.Name, (name) => new SemaphoreSlim(1));
+
+                        await semaphore.WaitAsync();
+
+                        try
                         {
                             if (!engineContext.IsActivated)
                             {
-                                var tenantEvents = scope.ServiceProvider.GetServices<IModuleTenantEvents>();
-
-                                foreach (var tenantEvent in tenantEvents)
+                                using (var activatingScope = engineContext.EnterServiceScope())
                                 {
-                                    tenantEvent.ActivatingAsync().Wait();
+
+                                    var tenantEvents = activatingScope.ServiceProvider.GetServices<IModuleTenantEvents>();
+
+                                    foreach (var tenantEvent in tenantEvents)
+                                    {
+                                        await tenantEvent.ActivatingAsync();
+                                    }
+
+                                    httpContext.Items["BuildPipeline"] = true;
+
+                                    foreach (var tenantEvent in tenantEvents.Reverse())
+                                    {
+                                        await tenantEvent.ActivatedAsync();
+                                    }
                                 }
 
-                                httpContext.Items["BuildPipeline"] = true;
                                 engineContext.IsActivated = true;
-
-                                foreach (var tenantEvent in tenantEvents)
-                                {
-                                    tenantEvent.ActivatedAsync().Wait();
-                                }
                             }
+                        }
+                        finally
+                        {
+                            semaphore.Release();
+                            _semaphores.TryRemove(engineSettings.Name, out semaphore);
                         }
                     }
 
-                    engineContext.RequestStarted();
                     await _next.Invoke(httpContext);
+                    var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
+                    hasPendingTasks = deferredTaskEngine?.HasPendingTasks ?? false;
                 }
-                finally
+
+                if (hasPendingTasks)
                 {
-                    // 释放 ServiceProvider 后还原原有的 ServiceProvider
-                    (httpContext.RequestServices as IDisposable)?.Dispose();
-                    engineContext.RequestEnded();
-                    httpContext.RequestServices = existingRequestServices;
+                    engineContext = _host.GetOrCreateContext(engineSettings);
+
+                    using (var scope = engineContext.EnterServiceScope())
+                    {
+                        var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
+                        var context = new DeferredTaskContext(scope.ServiceProvider);
+                        await deferredTaskEngine.ExecuteTasksAsync(context);
+                    }
                 }
             }
         }

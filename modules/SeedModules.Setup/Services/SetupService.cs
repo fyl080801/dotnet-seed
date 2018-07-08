@@ -75,7 +75,7 @@ namespace SeedModules.Setup.Services
 
             using (var engineContext = await _engineContextFactory.CreateDescribedContextAsync(engineSettings, engineDescriptor))
             {
-                using (var scope = engineContext.EntryServiceScope())
+                using (var scope = engineContext.EnterServiceScope())
                 {
                     // 初始化数据库
                     try
@@ -105,7 +105,7 @@ namespace SeedModules.Setup.Services
                 // 用于前台检测执行状态和状态执行回溯
                 executionId = Guid.NewGuid().ToString("n");
 
-                using (var scope = engineContext.EntryServiceScope())
+                using (var scope = engineContext.EnterServiceScope())
                 {
                     await scope.ServiceProvider.GetService<IProjectExecutor>()
                         .ExecuteAsync(executionId, context.Project, new
@@ -124,7 +124,7 @@ namespace SeedModules.Setup.Services
             // 安装事件
             using (var engineContext = await _engineHost.CreateContextAsync(engineSettings))
             {
-                using (var scope = engineContext.EntryServiceScope())
+                using (var scope = engineContext.EnterServiceScope())
                 {
                     var hasErrors = false;
 

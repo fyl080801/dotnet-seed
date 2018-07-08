@@ -19,7 +19,6 @@ namespace Seed
                 .UseIISIntegration()
                 .UseKestrel()
                 .UseArgs(args)
-                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseNLogWeb()
                 .UseStartup<Startup>()
                 .Build();
