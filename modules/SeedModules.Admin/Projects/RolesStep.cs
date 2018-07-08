@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Seed.Plugins.Feature;
+using Seed.Plugins;
 using Seed.Security;
 using Seed.Security.Permissions;
 using SeedModules.Project.Models;

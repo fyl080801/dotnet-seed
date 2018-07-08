@@ -1,44 +1,20 @@
-﻿using Seed.Plugins.Feature;
-using Seed.Plugins.Loader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Seed.Plugins.Features;
+using Seed.Plugins.Loaders;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Seed.Plugins
 {
-    /// <summary>
-    /// 插件管理接口
-    /// </summary>
     public interface IPluginManager
     {
-        IPluginInfo GetPlugin(string id);
-
+        IPluginInfo GetPlugin(string pluginId);
         IEnumerable<IPluginInfo> GetPlugins();
-
+        Task<PluginEntry> LoadPluginAsync(IPluginInfo pluginInfo);
         IEnumerable<IFeatureInfo> GetFeatures();
-
-        IEnumerable<IFeatureInfo> GetFeatures(string[] featureIds);
-
-        /// <summary>
-        /// 获取功能的依赖项
-        /// </summary>
-        /// <param name="featureId"></param>
-        /// <returns></returns>
-        IEnumerable<IFeatureInfo> GetDependencyFeatures(string featureId);
-
-        /// <summary>
-        /// 获取被功能依赖的项
-        /// </summary>
-        /// <param name="featureId"></param>
-        /// <returns></returns>
+        IEnumerable<IFeatureInfo> GetFeatures(string[] featureIdsToLoad);
         IEnumerable<IFeatureInfo> GetFeatureDependencies(string featureId);
-
-        Task<PluginEntry> GetPluginEntryAsync(IPluginInfo plugin);
-
-        Task<IEnumerable<FeatureEntry>> GetFeaturesAsync();
-
-        Task<IEnumerable<FeatureEntry>> GetFeaturesAsync(string[] featureIds);
+        IEnumerable<IFeatureInfo> GetDependentFeatures(string featureId);
+        Task<IEnumerable<FeatureEntry>> LoadFeaturesAsync();
+        Task<IEnumerable<FeatureEntry>> LoadFeaturesAsync(string[] featureIdsToLoad);
     }
 }

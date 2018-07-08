@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Seed.Plugins.Descriptors;
-using Seed.Plugins.Feature;
-using Seed.Plugins.Loader;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using Seed.Modules;
+using Seed.Plugins.Features;
+using Seed.Plugins.Loaders;
+using Seed.Plugins.Manifests;
+using Seed.Plugins.Utility;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -16,128 +16,120 @@ namespace Seed.Plugins
 {
     public class PluginManager : IPluginManager
     {
-        static object _locker = new object();
+        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IEnumerable<IPluginDependencyStrategy> _pluginDependencyStrategies;
+        private readonly IEnumerable<IPluginPriorityStrategy> _pluginPriorityStrategies;
+        private readonly ITypeFeatureProvider _typeFeatureProvider;
+        private readonly IFeaturesProvider _featuresProvider;
 
-        bool _initialized = false;
-
-        readonly PluginExpanderOptions _pluginExpanderOptions;
-        readonly DescriptorOptions _descriptorOptions;
-        readonly IHostingEnvironment _hostingEnvironment;
-        readonly IPluginProvider _pluginProvider;
-        readonly IDescriptorProvider _descriptorProvider;
-        readonly IEnumerable<IPluginLoader> _pluginLoaders;
-        readonly ITypeFeatureProvider _typeFeatureProvider;//ok
-        readonly IEnumerable<IPluginDependencyStrategy> _pluginDependencyStrategies;
-        readonly IEnumerable<IPluginPriorityStrategy> _pluginPriorityStrategies;
-
-        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _dependencyFeatures
-            = new ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>>();
+        private IDictionary<string, PluginEntry> _plugins;
+        private IEnumerable<IPluginInfo> _pluginInfos;
+        private IDictionary<string, FeatureEntry> _features;
+        private IFeatureInfo[] _featureInfos;
 
         private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _featureDependencies
             = new ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>>();
 
-        private IDictionary<string, PluginEntry> _plugins;
-        private IDictionary<string, FeatureEntry> _features;
-        private IFeatureInfo[] _orderedFeatures;
+        private ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>> _dependentFeatures
+            = new ConcurrentDictionary<string, Lazy<IEnumerable<IFeatureInfo>>>();
+
+        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetDependentFeaturesFunc =
+            new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
+                (currentFeature, fs) => fs
+                    .Where(f => f.Dependencies.Any(dep => dep == currentFeature.Id))
+                    .ToArray());
+
+        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetFeatureDependenciesFunc =
+            new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
+                (currentFeature, fs) => fs
+                    .Where(f => currentFeature.Dependencies.Any(dep => dep == f.Id))
+                    .ToArray());
+
+        private bool _isInitialized = false;
+        private static object InitializationSyncLock = new object();
 
         public PluginManager(
-            IOptions<PluginExpanderOptions> pluginExpanderOptionsAccessor,
-            IOptions<DescriptorOptions> descriptorOptionsAccessor,
             IHostingEnvironment hostingEnvironment,
-            IPluginProvider pluginProvider,
-            IEnumerable<IPluginLoader> pluginLoaders,
-            IDescriptorProvider descriptorProvider,
-            ITypeFeatureProvider typeFeatureProvider,
             IEnumerable<IPluginDependencyStrategy> pluginDependencyStrategies,
-            IEnumerable<IPluginPriorityStrategy> pluginPriorityStrategies)
+            IEnumerable<IPluginPriorityStrategy> pluginPriorityStrategies,
+            ITypeFeatureProvider typeFeatureProvider,
+            IFeaturesProvider featuresProvider,
+            ILogger<PluginManager> logger)
         {
-            _pluginExpanderOptions = pluginExpanderOptionsAccessor.Value;
-            _descriptorOptions = descriptorOptionsAccessor.Value;
             _hostingEnvironment = hostingEnvironment;
-            _pluginProvider = pluginProvider;
-            _descriptorProvider = descriptorProvider;
-            _pluginLoaders = pluginLoaders;
-            _typeFeatureProvider = typeFeatureProvider;
             _pluginDependencyStrategies = pluginDependencyStrategies;
             _pluginPriorityStrategies = pluginPriorityStrategies;
+            _typeFeatureProvider = typeFeatureProvider;
+            _featuresProvider = featuresProvider;
+            L = logger;
         }
 
-        public IEnumerable<IFeatureInfo> GetFeatures()
-        {
-            ExecuteInitialized();
+        public ILogger L { get; set; }
 
-            return _orderedFeatures;
+        public IPluginInfo GetPlugin(string pluginId)
+        {
+            EnsureInitialized();
+
+            if (!String.IsNullOrEmpty(pluginId) && _plugins.TryGetValue(pluginId, out PluginEntry plugin))
+            {
+                return plugin.PluginInfo;
+            }
+
+            return new NotFoundPluginInfo(pluginId);
+        }
+
+        public IEnumerable<IPluginInfo> GetPlugins()
+        {
+            EnsureInitialized();
+
+            return _pluginInfos;
         }
 
         public IEnumerable<IFeatureInfo> GetFeatures(string[] featureIdsToLoad)
         {
-            ExecuteInitialized();
+            EnsureInitialized();
 
-            var featuresWithDependencies = featureIdsToLoad
-                .SelectMany(id => GetDependencyFeatures(id))
+            var allDependencies = featureIdsToLoad
+                .SelectMany(featureId => GetFeatureDependencies(featureId))
                 .Distinct();
 
-            return _orderedFeatures.Where(e => featuresWithDependencies.Any(f => f.Id == e.Id));
+            return _featureInfos
+                .Where(f => allDependencies.Any(d => d.Id == f.Id));
         }
 
-        public Task<IEnumerable<FeatureEntry>> GetFeaturesAsync()
+        public Task<PluginEntry> LoadPluginAsync(IPluginInfo extensionInfo)
         {
-            var featuresIds = GetFeatures().Select(f => f.Id).ToList();
+            EnsureInitialized();
 
-            var loadedFeatures = _features.Values
-                .OrderBy(f => featuresIds.IndexOf(f.FeatureInfo.Id));
-
-            return Task.FromResult<IEnumerable<FeatureEntry>>(loadedFeatures);
-        }
-
-        public Task<IEnumerable<FeatureEntry>> GetFeaturesAsync(string[] featureIdsToLoad)
-        {
-            ExecuteInitialized();
-
-            var featuresIds = GetFeatures(featureIdsToLoad).Select(f => f.Id).ToList();
-
-            var loadedFeatures = _features.Values
-                .Where(f => featuresIds.Contains(f.FeatureInfo.Id))
-                .OrderBy(f => featuresIds.IndexOf(f.FeatureInfo.Id));
-
-            return Task.FromResult<IEnumerable<FeatureEntry>>(loadedFeatures);
-        }
-
-        public IEnumerable<IFeatureInfo> GetDependencyFeatures(string featureId)
-        {
-            ExecuteInitialized();
-
-            return _dependencyFeatures.GetOrAdd(featureId, (key) => new Lazy<IEnumerable<IFeatureInfo>>(() =>
+            if (_plugins.TryGetValue(extensionInfo.Id, out PluginEntry extension))
             {
-                if (!_features.ContainsKey(key))
-                {
-                    return Enumerable.Empty<IFeatureInfo>();
-                }
+                return Task.FromResult(extension);
+            }
 
-                var feature = _features[key].FeatureInfo;
+            return Task.FromResult<PluginEntry>(null);
+        }
 
-                var dependencies = new HashSet<IFeatureInfo>() { feature };
-                var stack = new Stack<IFeatureInfo[]>();
+        public Task<IEnumerable<FeatureEntry>> LoadFeaturesAsync()
+        {
+            EnsureInitialized();
+            return Task.FromResult<IEnumerable<FeatureEntry>>(_features.Values);
+        }
 
-                stack.Push(GetDependencyFeaturesFunc(feature, _orderedFeatures));
+        public Task<IEnumerable<FeatureEntry>> LoadFeaturesAsync(string[] featureIdsToLoad)
+        {
+            EnsureInitialized();
 
-                while (stack.Count > 0)
-                {
-                    var next = stack.Pop();
-                    foreach (var dependency in next.Where(dependency => !dependencies.Contains(dependency)))
-                    {
-                        dependencies.Add(dependency);
-                        stack.Push(GetDependencyFeaturesFunc(dependency, _orderedFeatures));
-                    }
-                }
+            var features = GetFeatures(featureIdsToLoad).Select(f => f.Id).ToList();
 
-                return dependencies.Reverse();
-            })).Value;
+            var loadedFeatures = _features.Values
+                .Where(f => features.Contains(f.FeatureInfo.Id));
+
+            return Task.FromResult(loadedFeatures);
         }
 
         public IEnumerable<IFeatureInfo> GetFeatureDependencies(string featureId)
         {
-            ExecuteInitialized();
+            EnsureInitialized();
 
             return _featureDependencies.GetOrAdd(featureId, (key) => new Lazy<IEnumerable<IFeatureInfo>>(() =>
             {
@@ -147,116 +139,154 @@ namespace Seed.Plugins
                 }
 
                 var feature = _features[key].FeatureInfo;
-                var dependencies = new HashSet<IFeatureInfo>() { feature };
-                var stack = new Stack<IFeatureInfo[]>();
 
-                stack.Push(GetFeatureDependenciesFunc(feature, _orderedFeatures));
-
-                while (stack.Count > 0)
-                {
-                    var next = stack.Pop();
-                    foreach (var dependency in next.Where(dependency => !dependencies.Contains(dependency)))
-                    {
-                        dependencies.Add(dependency);
-                        stack.Push(GetDependencyFeaturesFunc(dependency, _orderedFeatures));
-                    }
-                }
-
-                return dependencies.Reverse();
+                return GetFeatureDependencies(feature, _featureInfos);
             })).Value;
         }
 
-        public IPluginInfo GetPlugin(string id)
+        public IEnumerable<IFeatureInfo> GetDependentFeatures(string featureId)
         {
-            ExecuteInitialized();
+            EnsureInitialized();
 
-            if (_plugins.TryGetValue(id, out PluginEntry plugin))
+            return _dependentFeatures.GetOrAdd(featureId, (key) => new Lazy<IEnumerable<IFeatureInfo>>(() =>
             {
-                return plugin.PluginInfo;
-            }
-
-            return new NullPluginInfo(id);
-        }
-
-        public IEnumerable<IPluginInfo> GetPlugins()
-        {
-            ExecuteInitialized();
-
-            return _plugins.Values.Select(p => p.PluginInfo);
-        }
-
-        public Task<PluginEntry> GetPluginEntryAsync(IPluginInfo plugin)
-        {
-            ExecuteInitialized();
-
-            if (_plugins.TryGetValue(plugin.Id, out PluginEntry entry))
-            {
-                return Task.FromResult(entry);
-            }
-            return Task.FromResult<PluginEntry>(null);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        private void ExecuteInitialized()
-        {
-            if (_initialized) return;
-            lock (_locker)
-            {
-                if (_initialized) return;
-
-                var plugins = GetCurrentPlugins();
-                var loadedPlugins = new ConcurrentDictionary<string, PluginEntry>();
-                Parallel.ForEach(plugins, (plugin) =>
+                if (!_features.ContainsKey(key))
                 {
-                    if (!plugin.Exists) return;
+                    return Enumerable.Empty<IFeatureInfo>();
+                }
 
-                    var entry = new PluginEntry();
+                var feature = _features[key].FeatureInfo;
 
-                    foreach (var pluginLoader in _pluginLoaders)
+                return GetDependentFeatures(feature, _featureInfos);
+            })).Value;
+        }
+
+        private IEnumerable<IFeatureInfo> GetFeatureDependencies(IFeatureInfo feature, IFeatureInfo[] features)
+        {
+            var dependencies = new HashSet<IFeatureInfo>() { feature };
+            var stack = new Stack<IFeatureInfo[]>();
+
+            stack.Push(GetFeatureDependenciesFunc(feature, features));
+
+            while (stack.Count > 0)
+            {
+                var next = stack.Pop();
+                foreach (var dependency in next.Where(dependency => !dependencies.Contains(dependency)))
+                {
+                    dependencies.Add(dependency);
+                    stack.Push(GetFeatureDependenciesFunc(dependency, features));
+                }
+            }
+
+            return _featureInfos.Where(f => dependencies.Any(d => d.Id == f.Id));
+        }
+
+        private IEnumerable<IFeatureInfo> GetDependentFeatures(IFeatureInfo feature, IFeatureInfo[] features)
+        {
+            var dependencies = new HashSet<IFeatureInfo>() { feature };
+            var stack = new Stack<IFeatureInfo[]>();
+
+            stack.Push(GetDependentFeaturesFunc(feature, features));
+
+            while (stack.Count > 0)
+            {
+                var next = stack.Pop();
+                foreach (var dependency in next.Where(dependency => !dependencies.Contains(dependency)))
+                {
+                    dependencies.Add(dependency);
+                    stack.Push(GetDependentFeaturesFunc(dependency, features));
+                }
+            }
+
+            return _featureInfos.Where(f => dependencies.Any(d => d.Id == f.Id));
+        }
+
+        public IEnumerable<IFeatureInfo> GetFeatures()
+        {
+            EnsureInitialized();
+
+            return _featureInfos;
+        }
+
+        private static string GetSourceFeatureNameForType(Type type, string pluginId)
+        {
+            var attribute = type.GetCustomAttributes<FeatureAttribute>(false).FirstOrDefault();
+
+            return attribute?.FeatureName ?? pluginId;
+        }
+
+        private void EnsureInitialized()
+        {
+            if (_isInitialized)
+            {
+                return;
+            }
+
+            lock (InitializationSyncLock)
+            {
+                if (_isInitialized)
+                {
+                    return;
+                }
+
+                var moduleNames = _hostingEnvironment.GetApplication().ModuleNames;
+                var loadedPlugins = new ConcurrentDictionary<string, PluginEntry>();
+
+                Parallel.ForEach(moduleNames, new ParallelOptions { MaxDegreeOfParallelism = 8 }, (name) =>
+                {
+                    var module = _hostingEnvironment.GetModule(name);
+
+                    if (!module.ModuleInfo.Exists)
                     {
-                        var currentLoadResult = pluginLoader.Load(plugin);
-
-                        if (currentLoadResult == null) continue;
-
-                        if (entry.PluginInfo == null)
-                        {
-                            entry = currentLoadResult;
-                        }
-                        else
-                        {
-                            entry.Exports = entry.Exports.Concat(currentLoadResult.Exports).Distinct();
-                        }
-
-                        entry.HasError = currentLoadResult.HasError;
+                        return;
                     }
+                    var manifestInfo = new ManifestInfo(module.ModuleInfo);
 
-                    loadedPlugins.TryAdd(plugin.Id, entry);
+                    var pluginInfo = new PluginInfo(module.SubPath, manifestInfo, (mi, ei) =>
+                    {
+                        return _featuresProvider.GetFeatures(ei, mi);
+                    });
+
+                    var entry = new PluginEntry
+                    {
+                        PluginInfo = pluginInfo,
+                        Assembly = module.Assembly,
+                        ExportedTypes = module.Assembly.ExportedTypes
+                    };
+
+                    loadedPlugins.TryAdd(module.Name, entry);
                 });
 
                 var loadedFeatures = new Dictionary<string, FeatureEntry>();
-                var typesInPlugin = loadedPlugins.SelectMany(plugin => plugin.Value.Exports
-                    .Where(IsComponentType)
+
+                var allTypesByExtension = loadedPlugins.SelectMany(extension =>
+                    extension.Value.ExportedTypes.Where(IsComponentType)
                     .Select(type => new
                     {
-                        PluginEntry = plugin.Value,
+                        PluginEntry = extension.Value,
                         Type = type
-                    }))
-                    .ToArray();
-                var typesInFeature = typesInPlugin
-                    .GroupBy(pluginType => GetFeatureNameForType(pluginType.Type, pluginType.PluginEntry.PluginInfo.Id))
-                    .ToDictionary(group => group.Key, group => group.Select(g => g.Type).ToArray());
+                    })).ToArray();
 
-                foreach (var loadedPlugin in loadedPlugins)
+                var typesByFeature = allTypesByExtension
+                    .GroupBy(typeByExtension => GetSourceFeatureNameForType(
+                        typeByExtension.Type,
+                        typeByExtension.PluginEntry.PluginInfo.Id))
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group.Select(typesByExtension => typesByExtension.Type).ToArray());
+
+                foreach (var loadedExtension in loadedPlugins)
                 {
-                    var plugin = loadedPlugin.Value;
+                    var plugin = loadedExtension.Value;
 
                     foreach (var feature in plugin.PluginInfo.Features)
                     {
-                        if (typesInFeature.TryGetValue(feature.Id, out var featureTypes))
+                        if (typesByFeature.TryGetValue(feature.Id, out var featureTypes))
                         {
-                            featureTypes.ToList().ForEach(f => _typeFeatureProvider.TryAdd(f, feature));
+                            foreach (var type in featureTypes)
+                            {
+                                _typeFeatureProvider.TryAdd(type, feature);
+                            }
                         }
                         else
                         {
@@ -267,82 +297,39 @@ namespace Seed.Plugins
                     }
                 };
 
-                _plugins = loadedPlugins;
+                _featureInfos = Order(loadedFeatures.Values.Select(f => f.FeatureInfo));
+                _features = _featureInfos.ToDictionary(f => f.Id, f => loadedFeatures[f.Id]);
 
-                _features = loadedFeatures;
-                _orderedFeatures = OrderFeatures(loadedFeatures.Values.Select(x => x.FeatureInfo));
-                _initialized = true;
+                _pluginInfos = _featureInfos.Where(f => f.Id == f.Plugin.Features.First().Id)
+                    .Select(f => f.Plugin);
+
+                _plugins = _pluginInfos.ToDictionary(e => e.Id, e => loadedPlugins[e.Id]);
+
+                _isInitialized = true;
             }
-        }
-
-        private ICollection<IPluginInfo> GetCurrentPlugins()
-        {
-            var pathOptions = _pluginExpanderOptions.Options;
-            var pluginSet = new HashSet<IPluginInfo>();
-
-            if (pathOptions.Count <= 0) return pluginSet;
-
-            foreach (var options in pathOptions)
-            {
-                foreach (var path in _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(options.Path).Where(e => e.IsDirectory))
-                {
-                    var descriptorsOption = _descriptorOptions.Options.FirstOrDefault(e => File.Exists(Path.Combine(path.PhysicalPath, e.DescriptorFileName)));
-
-                    if (descriptorsOption == null) continue;
-
-                    var descriptorPath = Path.Combine(options.Path, path.Name);
-                    var descriptorFilePath = Path.Combine(descriptorPath, descriptorsOption.DescriptorFileName);
-                    var configurationBuilder = _descriptorProvider.GetConfigurationBuilder(new ConfigurationBuilder(), descriptorFilePath);
-
-                    if (configurationBuilder.Sources.Count <= 0) continue;
-
-                    pluginSet.Add(_pluginProvider.GetPluginInfo(new DescriptorInfo(configurationBuilder.Build(), descriptorsOption.TypeName), descriptorPath));
-                }
-            }
-
-            return pluginSet;
         }
 
         private bool IsComponentType(Type type)
         {
-            var typeInfo = type.GetTypeInfo();
-            return typeInfo.IsClass && typeInfo.IsPublic && !typeInfo.IsAbstract;
+            return type.IsClass && !type.IsAbstract && type.IsPublic;
         }
 
-        private string GetFeatureNameForType(Type type, string pluginId)
+        private IFeatureInfo[] Order(IEnumerable<IFeatureInfo> featuresToOrder)
         {
-            var attribute = type.GetTypeInfo().GetCustomAttributes<FeatureAttribute>(false).FirstOrDefault();
-
-            return attribute?.FeatureName ?? pluginId;
-        }
-
-        private IFeatureInfo[] OrderFeatures(IEnumerable<IFeatureInfo> orders)
-        {
-            return orders
+            return featuresToOrder
                 .OrderBy(x => x.Id)
-                .Distinct()
-                .OrderByStrategies(HasDependency, GetPriority)
+                .OrderByDependenciesAndPriorities(HasDependency, GetPriority)
                 .ToArray();
         }
 
-        private bool HasDependency(IFeatureInfo source, IFeatureInfo objective)
+        private bool HasDependency(IFeatureInfo f1, IFeatureInfo f2)
         {
-            return _pluginDependencyStrategies.Any(s => s.HasDependency(source, objective));
+            return _pluginDependencyStrategies.Any(s => s.HasDependency(f1, f2));
         }
 
         private int GetPriority(IFeatureInfo feature)
         {
             return _pluginPriorityStrategies.Sum(s => s.GetPriority(feature));
         }
-
-        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetFeatureDependenciesFunc =
-            new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
-                (currentFeature, fs) => fs
-                    .Where(f => f.Dependencies.Any(dep => dep == currentFeature.Id)).OrderBy(x => x.Id).ToArray());
-
-        private static Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]> GetDependencyFeaturesFunc =
-            new Func<IFeatureInfo, IFeatureInfo[], IFeatureInfo[]>(
-                (currentFeature, fs) => fs
-                    .Where(f => currentFeature.Dependencies.Any(dep => dep == f.Id)).OrderByDescending(x => x.Id).ToArray());
     }
 }

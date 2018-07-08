@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
-using Seed.Plugins.Feature;
 using SeedModules.AngularUI.Extensions;
 using SeedModules.AngularUI.Rendering;
 using SeedModules.Setup.Rendering;

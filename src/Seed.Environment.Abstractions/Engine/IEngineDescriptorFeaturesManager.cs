@@ -1,5 +1,5 @@
 ﻿using Seed.Environment.Engine.Descriptors;
-using Seed.Plugins.Feature;
+using Seed.Plugins.Features;
 using System;
 using System.Collections.Generic;
 using System.Linq;

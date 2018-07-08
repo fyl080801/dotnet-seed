@@ -26,9 +26,9 @@ namespace SeedModules.Project.Services
             _projectReader = projectReader;
         }
 
-        public Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync()
+        public async Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync()
         {
-            return ProjectHarvester.HarvestProjectsAsync("Projects", _projectOptions.Value, _hostingEnvironment, _projectReader);
+            return await ProjectHarvester.HarvestProjectsAsync("Projects", _hostingEnvironment);
         }
     }
 }

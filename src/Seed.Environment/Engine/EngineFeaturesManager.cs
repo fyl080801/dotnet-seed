@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Seed.Plugins.Feature;
 using Seed.Plugins;
 using Seed.Environment.Engine.Descriptors;
+using Seed.Plugins.Features;
 
 namespace Seed.Environment.Engine
 {

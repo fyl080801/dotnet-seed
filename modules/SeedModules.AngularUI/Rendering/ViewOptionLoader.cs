@@ -22,7 +22,7 @@ namespace SeedModules.AngularUI.Rendering
         {
             var options = new List<JObject>();
 
-            var optionDirectory = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.Path)
+            var optionDirectory = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.SubPath)
                 .Where(e => e.IsDirectory);
             var optionFiles = optionDirectory.SelectMany(e => Directory.GetFiles(e.PhysicalPath, "options.json", SearchOption.AllDirectories));
 

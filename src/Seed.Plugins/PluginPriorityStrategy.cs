@@ -1,4 +1,4 @@
-﻿using Seed.Plugins.Feature;
+﻿using Seed.Plugins.Features;
 
 namespace Seed.Plugins
 {

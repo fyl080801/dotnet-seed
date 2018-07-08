@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,13 +7,18 @@ using Seed.Environment.Engine.Extensions;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
-using Seed.Plugins.Feature;
+using Seed.Plugins;
 using Seed.Security;
 using Seed.Security.Extensions;
 using Seed.Security.Permissions;
 using Seed.Security.Services;
 using SeedModules.Admin.Models;
 using SeedModules.Security.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SeedModules.Admin.Controllers
 {

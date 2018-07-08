@@ -53,7 +53,7 @@ namespace Seed.Mvc.Extensions
                 .AddJsonFormatters();
 
             AddModuleFrameworkParts(applicationServices, builder.PartManager);
-            AddModuleRazorViewEngine(builder, applicationServices);
+            //AddModuleRazorViewEngine(builder, applicationServices);
             AddMvcModuleCoreServices(services);
 
             return services;
@@ -64,26 +64,26 @@ namespace Seed.Mvc.Extensions
             manager.ApplicationParts.Add(new EngineFeatureApplicationPart(services.GetRequiredService<IHttpContextAccessor>()));
         }
 
-        internal static IMvcCoreBuilder AddModuleRazorViewEngine(this IMvcCoreBuilder builder, IServiceProvider services)
-        {
-            var env = services.GetRequiredService<IHostingEnvironment>();
-            var pluginHosts = services.GetService<IOptions<PluginExpanderOptions>>().Value.Options.Select(e => e.Path).ToArray();
+        //internal static IMvcCoreBuilder AddModuleRazorViewEngine(this IMvcCoreBuilder builder, IServiceProvider services)
+        //{
+        //    var env = services.GetRequiredService<IHostingEnvironment>();
+        //    var pluginHosts = services.GetService<IOptions<PluginExpanderOptions>>().Value.Options.Select(e => e.Path).ToArray();
 
-            return builder.AddRazorViewEngine(options =>
-            {
-                options.ViewLocationExpanders.Add(new CompositeViewLocationExpanderProvider());
-                IFileProvider moduleFileProvider;
-                if (env.IsDevelopment())
-                {
-                    moduleFileProvider = new ModuleProjectRazorFileProvider(env.ContentRootPath, pluginHosts);
-                }
-                else
-                {
-                    moduleFileProvider = new ModuleRazorFileProvider(env.ContentRootPath, pluginHosts);
-                }
-                options.FileProviders.Insert(0, moduleFileProvider);
-            });
-        }
+        //    return builder.AddRazorViewEngine(options =>
+        //    {
+        //        options.ViewLocationExpanders.Add(new CompositeViewLocationExpanderProvider());
+        //        IFileProvider moduleFileProvider;
+        //        if (env.IsDevelopment())
+        //        {
+        //            moduleFileProvider = new ModuleProjectRazorFileProvider(env.ContentRootPath, pluginHosts);
+        //        }
+        //        else
+        //        {
+        //            moduleFileProvider = new ModuleRazorFileProvider(env.ContentRootPath, pluginHosts);
+        //        }
+        //        options.FileProviders.Insert(0, moduleFileProvider);
+        //    });
+        //}
 
         internal static void AddMvcModuleCoreServices(IServiceCollection services)
         {

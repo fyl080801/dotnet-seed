@@ -1,9 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules;
-using Seed.Plugins.Feature;
+using Seed.Plugins;
+using Seed.Plugins.Features;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -12,31 +15,52 @@ namespace Seed.Environment.Engine.Builder
 {
     public class EngineContainerFactory : IEngineContainerFactory
     {
-        readonly IServiceProvider _serviceProvider;
-        readonly IServiceCollection _applicationServices;
+        private readonly IFeatureInfo _applicationFeature;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly ILogger _logger;
+        private readonly ILoggerFactory _loggerFactory;
+        private readonly IServiceCollection _applicationServices;
 
-        public EngineContainerFactory(IServiceProvider serviceProvider, IServiceCollection applicationServices)
+        public EngineContainerFactory(
+            IHostingEnvironment hostingEnvironment,
+            IPluginManager pluginManager,
+            IServiceProvider serviceProvider,
+            ILoggerFactory loggerFactory,
+            ILogger<EngineContainerFactory> logger,
+            IServiceCollection applicationServices)
         {
-            _serviceProvider = serviceProvider;
+            _applicationFeature = pluginManager.GetFeatures().FirstOrDefault(
+                f => f.Id == hostingEnvironment.ApplicationName);
+
             _applicationServices = applicationServices;
+            _serviceProvider = serviceProvider;
+            _loggerFactory = loggerFactory;
+            _logger = logger;
         }
 
-        public IServiceProvider CreateContainer(EngineSettings settings, EngineSchema schema)
+        public void AddCoreServices(IServiceCollection services)
         {
-            IServiceCollection tenantServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
+            services.TryAddScoped<IEngineStateUpdater, EngineStateUpdater>();
+            services.TryAddScoped<IEngineStateManager, NullEngineStateManager>();
+            services.AddScoped<IEngineDescriptorManagerEventHandler, EngineStateCoordinator>();
+        }
+
+        public IServiceProvider CreateContainer(EngineSettings settings, EngineSchema blueprint)
+        {
+            var tenantServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
 
             tenantServiceCollection.AddSingleton(settings);
-            tenantServiceCollection.AddSingleton(schema.Descriptor);
-            tenantServiceCollection.AddSingleton(schema);
+            tenantServiceCollection.AddSingleton(blueprint.Descriptor);
+            tenantServiceCollection.AddSingleton(blueprint);
 
             AddCoreServices(tenantServiceCollection);
 
-            IServiceCollection moduleServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
+            var moduleServiceCollection = _serviceProvider.CreateChildContainer(_applicationServices);
 
-            foreach (var dependency in schema.Dependencies.Where(t => typeof(IStartup).IsAssignableFrom(t.Key)))
+            foreach (var dependency in blueprint.Dependencies.Where(t => typeof(Modules.IStartup).IsAssignableFrom(t.Key)))
             {
-                moduleServiceCollection.AddSingleton(typeof(IStartup), dependency.Key);
-                tenantServiceCollection.AddSingleton(typeof(IStartup), dependency.Key);
+                moduleServiceCollection.AddSingleton(typeof(Modules.IStartup), dependency.Key);
+                tenantServiceCollection.AddSingleton(typeof(Modules.IStartup), dependency.Key);
             }
 
             var configuration = new ConfigurationBuilder().AddInMemoryCollection().Build();
@@ -49,25 +73,23 @@ namespace Seed.Environment.Engine.Builder
 
             var featureAwareServiceCollection = new FeatureAwareServiceCollection(tenantServiceCollection);
 
-            var startups = moduleServiceProvider.GetServices<IStartup>();
+            var startups = moduleServiceProvider.GetServices<Modules.IStartup>();
 
             startups = startups.OrderBy(s => s.Order);
 
             foreach (var startup in startups)
             {
-                var feature = schema.Dependencies.FirstOrDefault(x => x.Key == startup.GetType()).Value.FeatureInfo;
-                featureAwareServiceCollection.SetCurrentFeature(feature);
+                var feature = blueprint.Dependencies.FirstOrDefault(x => x.Key == startup.GetType()).Value?.FeatureInfo;
 
+                featureAwareServiceCollection.SetCurrentFeature(feature ?? _applicationFeature);
                 startup.ConfigureServices(featureAwareServiceCollection);
             }
 
             (moduleServiceProvider as IDisposable).Dispose();
 
-            var applicationServiceDescriptors = _applicationServices.Where(x => x.Lifetime == ServiceLifetime.Singleton);
+            var shellServiceProvider = tenantServiceCollection.BuildServiceProvider(true);
 
-            var engineServiceProvider = tenantServiceCollection.BuildServiceProvider(true);
-
-            var typeFeatureProvider = engineServiceProvider.GetRequiredService<ITypeFeatureProvider>();
+            var typeFeatureProvider = shellServiceProvider.GetRequiredService<ITypeFeatureProvider>();
 
             foreach (var featureServiceCollection in featureAwareServiceCollection.FeatureCollections)
             {
@@ -88,14 +110,7 @@ namespace Seed.Environment.Engine.Builder
                 }
             }
 
-            return engineServiceProvider;
-        }
-
-        private void AddCoreServices(IServiceCollection services)
-        {
-            services.TryAddScoped<IEngineStateUpdater, EngineStateUpdater>();
-            services.TryAddScoped<IEngineStateManager, NullEngineStateManager>();
-            services.AddScoped<IEngineDescriptorManagerEventHandler, EngineStateCoordinator>();
+            return shellServiceProvider;
         }
     }
 }

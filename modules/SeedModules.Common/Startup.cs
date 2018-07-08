@@ -4,8 +4,6 @@ using Seed.Environment.Caching.Extensions;
 using Seed.Environment.Engine.Data;
 using Seed.Modules;
 using Seed.Modules.Extensions;
-using Seed.Plugins.Extensions;
-using Seed.Plugins.Feature;
 using SeedModules.Common.Projects;
 using SeedModules.Project.Extensions;
 

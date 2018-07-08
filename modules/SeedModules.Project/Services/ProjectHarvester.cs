@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Seed.Environment.Engine.Extensions;
 using Seed.Plugins;
@@ -14,52 +13,65 @@ namespace SeedModules.Project.Services
 {
     public class ProjectHarvester : IProjectHarvester
     {
-        readonly IPluginManager _pluginManager;
-        readonly IHostingEnvironment _hostingEnvironment;
-        readonly IOptions<ProjectHarvestingOptions> _projectOptions;
-        readonly IProjectReader _projectReader;
-
-        ILogger _logger;
+        private readonly IPluginManager _pluginManager;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
         public ProjectHarvester(
-            IPluginManager pluginManager,
+            IPluginManager extensionManager,
             IHostingEnvironment hostingEnvironment,
-            IOptions<ProjectHarvestingOptions> projectOptions,
-            IProjectReader projectReader,
             ILogger<ProjectHarvester> logger)
         {
-            _pluginManager = pluginManager;
+            _pluginManager = extensionManager;
             _hostingEnvironment = hostingEnvironment;
-            _projectOptions = projectOptions;
-            _projectReader = projectReader;
-            _logger = logger;
+
+            Logger = logger;
         }
+
+        public ILogger Logger { get; set; }
 
         public Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync()
         {
-            return _pluginManager.GetPlugins().InvokeAsync(descriptor => HarvestProjects(descriptor), _logger);
+            return _pluginManager.GetPlugins().InvokeAsync(descriptor => HarvestProjectss(descriptor), Logger);
         }
 
-        private Task<IEnumerable<ProjectDescriptor>> HarvestProjects(IPluginInfo plugin)
+        private Task<IEnumerable<ProjectDescriptor>> HarvestProjectss(IPluginInfo extension)
         {
-            var folderSubPath = Path.Combine(plugin.Path, "Projects");
-            return HarvestProjectsAsync(folderSubPath, _projectOptions.Value, _hostingEnvironment, _projectReader);
+            var folderSubPath = Path.Combine(extension.SubPath, "Projects");
+            return HarvestProjectsAsync(folderSubPath, _hostingEnvironment);
         }
 
-        public static Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync(string path, ProjectHarvestingOptions options, IHostingEnvironment hostingEnvironment, IProjectReader projectReader)
+        public static Task<IEnumerable<ProjectDescriptor>> HarvestProjectsAsync(string path, IHostingEnvironment hostingEnvironment)
         {
-            var projectContainerFileInfo = hostingEnvironment
+            var recipeContainerFileInfo = hostingEnvironment
                 .ContentRootFileProvider
                 .GetFileInfo(path);
 
             var projectDescriptors = new List<ProjectDescriptor>();
 
             var projectFiles = hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(path)
-                .Where(x => !x.IsDirectory && x.Name.EndsWith(".project.json"));
+                .Where(x => !x.IsDirectory && x.Name.EndsWith(".projects.json"));
 
             if (projectFiles.Any())
             {
-                projectDescriptors.AddRange(projectFiles.Select(projectReader.ReadDescriptor));
+                projectDescriptors.AddRange(projectFiles.Select(projectFile =>
+                {
+                    using (var stream = projectFile.CreateReadStream())
+                    {
+                        using (var reader = new StreamReader(stream))
+                        {
+                            using (var jsonReader = new JsonTextReader(reader))
+                            {
+                                var serializer = new JsonSerializer();
+                                var recipeDescriptor = serializer.Deserialize<ProjectDescriptor>(jsonReader);
+                                recipeDescriptor.FileProvider = hostingEnvironment.ContentRootFileProvider;
+                                recipeDescriptor.BasePath = path;
+                                recipeDescriptor.ProjectFileInfo = projectFile;
+
+                                return recipeDescriptor;
+                            }
+                        }
+                    }
+                }));
             }
 
             return Task.FromResult<IEnumerable<ProjectDescriptor>>(projectDescriptors);

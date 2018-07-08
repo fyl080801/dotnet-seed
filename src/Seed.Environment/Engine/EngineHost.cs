@@ -110,10 +110,8 @@ namespace Seed.Environment.Engine
 
         private async Task CreateAndRegisterEnginesAsync()
         {
-            var features = _pluginManager.GetFeaturesAsync();
+            var features = _pluginManager.GetFeatures();
             var allSettings = _engineSettingsManager.LoadSettings().Where(CanCreateEngine).ToArray();
-
-            features.Wait();
 
             if (allSettings.Length <= 0)
             {

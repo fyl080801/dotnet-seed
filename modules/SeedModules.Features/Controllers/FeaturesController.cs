@@ -1,16 +1,12 @@
+using Microsoft.AspNetCore.Mvc;
+using Seed.Environment.Engine;
+using Seed.Mvc.Extensions;
+using Seed.Mvc.Filters;
+using Seed.Plugins;
+using SeedModules.Features.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Seed.Environment.Engine;
-using Seed.Modules.Exceptions;
-using Seed.Mvc.Extensions;
-using Seed.Mvc.Filters;
-using Seed.Mvc.Models;
-using Seed.Plugins;
-using Seed.Plugins.Feature;
-using SeedModules.Features.Models;
 
 namespace SeedModules.Features.Controllers
 {
@@ -40,7 +36,7 @@ namespace SeedModules.Features.Controllers
                 {
                     Descriptor = moduleFeatureInfo,
                     Enabled = enabledFeatures.Contains(moduleFeatureInfo),
-                    Dependencies = _pluginManager.GetDependencyFeatures(moduleFeatureInfo.Id).Where(d => d.Id != moduleFeatureInfo.Id).ToList()
+                    Dependencies = _pluginManager.GetDependentFeatures(moduleFeatureInfo.Id).Where(d => d.Id != moduleFeatureInfo.Id).ToList()
                 });
             }
             var query = moduleFeatures.AsQueryable();

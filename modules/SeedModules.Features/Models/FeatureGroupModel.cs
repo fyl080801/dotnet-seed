@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Seed.Plugins.Feature;
 
 namespace SeedModules.Features.Models
 {

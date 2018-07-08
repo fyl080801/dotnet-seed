@@ -1,7 +1,8 @@
-﻿using Seed.Environment.Engine.Descriptors;
+﻿using Microsoft.Extensions.Logging;
+using Seed.Environment.Engine.Descriptors;
 using Seed.Modules;
 using Seed.Plugins;
-using Seed.Plugins.Feature;
+using Seed.Plugins.Features;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +12,31 @@ namespace Seed.Environment.Engine.Builder
 {
     public class CompositionStrategy : ICompositionStrategy
     {
-        readonly IPluginManager _pluginManager;
-        readonly ITypeFeatureProvider _typeFeatureProvider;
+        private readonly IPluginManager _pluginManager;
+        private readonly ILogger _logger;
 
-        public CompositionStrategy(
-            IPluginManager pluginManager,
-            ITypeFeatureProvider typeFeatureProvider)
+        public CompositionStrategy(IPluginManager pluginManager, ILogger<CompositionStrategy> logger)
         {
             _pluginManager = pluginManager;
-            _typeFeatureProvider = typeFeatureProvider;
+            _logger = logger;
         }
 
         public async Task<EngineSchema> ComposeAsync(EngineSettings settings, EngineDescriptor descriptor)
         {
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                _logger.LogDebug("Composing schema");
+            }
+
             var featureNames = descriptor.Features.Select(x => x.Id).ToArray();
 
-            var features = await _pluginManager.GetFeaturesAsync(featureNames);
+            var features = await _pluginManager.LoadFeaturesAsync(featureNames);
 
             var entries = new Dictionary<Type, FeatureEntry>();
 
             foreach (var feature in features)
             {
-                foreach (var exportedType in feature.Exports)
+                foreach (var exportedType in feature.ExportedTypes)
                 {
                     var requiredFeatures = RequireFeaturesAttribute.GetRequiredFeatureNamesForType(exportedType);
 
@@ -50,6 +54,10 @@ namespace Seed.Environment.Engine.Builder
                 Dependencies = entries
             };
 
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                _logger.LogDebug("Done composing schema");
+            }
             return result;
         }
     }

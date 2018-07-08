@@ -192,19 +192,20 @@ namespace Seed.Data.Migrations
         {
             var providers = new List<IEntityTypeConfigurationProvider>();
             var providerType = typeof(IEntityTypeConfigurationProvider);
-            _pluginManager.GetFeatures(features.ToArray())
-                .Select(e => e.Plugin)
-                .Distinct()
-                .Select(e =>
-                    _pluginManager.GetPluginEntryAsync(e).Result.Exports
-                        .Where(pro => providerType.IsAssignableFrom(pro))
-                        .Select(pro => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, pro) as IEntityTypeConfigurationProvider)
-                        .ToList())
-                .ToList()
-                .ForEach(list =>
-                {
-                    providers = providers.Concat(list).ToList();
-                });
+            //_pluginManager.GetFeatures(features.ToArray())
+            //    .Select(e => e.Plugin)
+            //    .Distinct()
+            //    .Select(e =>
+
+            //        _pluginManager.GetPluginEntryAsync(e).Result.Exports
+            //            .Where(pro => providerType.IsAssignableFrom(pro))
+            //            .Select(pro => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, pro) as IEntityTypeConfigurationProvider)
+            //            .ToList())
+            //    .ToList()
+            //    .ForEach(list =>
+            //    {
+            //        providers = providers.Concat(list).ToList();
+            //    });
 
             return providers.InvokeAsync(e => e.GetEntityTypeConfigurationsAsync(), _logger).GetAwaiter().GetResult();
         }

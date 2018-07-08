@@ -1,13 +1,13 @@
-﻿using Seed.Plugins.Feature;
-using System.Linq;
+﻿using System.Linq;
+using Seed.Plugins.Features;
 
 namespace Seed.Plugins
 {
     public class PluginDependencyStrategy : IPluginDependencyStrategy
     {
-        public bool HasDependency(IFeatureInfo source, IFeatureInfo objective)
+        public bool HasDependency(IFeatureInfo observer, IFeatureInfo subject)
         {
-            return source.Dependencies.Contains(objective.Id);
+            return observer.Dependencies.Contains(subject.Id);
         }
     }
 }

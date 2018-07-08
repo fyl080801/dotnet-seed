@@ -1,36 +1,29 @@
-﻿using Microsoft.Extensions.FileProviders;
-using Seed.Plugins.Descriptors;
-using Seed.Plugins.Feature;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using Seed.Plugins.Features;
+using Seed.Plugins.Manifests;
 
 namespace Seed.Plugins
 {
     public class InternalPluginInfo : IPluginInfo
     {
-        readonly IFileInfo _fileInfo;
-        readonly string _path;
-        readonly IDescriptorInfo _descriptorInfo;
-        readonly IEnumerable<IFeatureInfo> _features;
-
-        public InternalPluginInfo(string path)
+        public InternalPluginInfo(string subPath)
         {
-            _path = path;
-            _fileInfo = new NotFoundFileInfo(path);
-            _descriptorInfo = new NullDescriptorInfo(path);
-            _features = Enumerable.Empty<IFeatureInfo>();
+            Id = Path.GetFileName(subPath);
+            SubPath = subPath;
+            Manifest = new NotFoundManifestInfo(subPath);
+            Features = Enumerable.Empty<IFeatureInfo>();
         }
 
-        public string Id => _fileInfo.Name;
+        public string Id { get; }
 
-        public IFileInfo PluginFileInfo => _fileInfo;
+        public string SubPath { get; }
 
-        public string Path => _path;
+        public IManifestInfo Manifest { get; }
 
-        public IDescriptorInfo Descriptor => _descriptorInfo;
+        public IEnumerable<IFeatureInfo> Features { get; }
 
-        public IEnumerable<IFeatureInfo> Features => _features;
-
-        public bool Exists => _fileInfo.Exists && _descriptorInfo.Exists;
+        public bool Exists => Manifest.Exists;
     }
 }

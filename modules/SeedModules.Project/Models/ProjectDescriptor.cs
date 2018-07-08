@@ -26,6 +26,10 @@ namespace SeedModules.Project.Models
 
         public string[] Tags { get; set; }
 
+        public string BasePath { get; set; }
+
         public IFileInfo ProjectFileInfo { get; set; }
+
+        public IFileProvider FileProvider { get; set; }
     }
 }

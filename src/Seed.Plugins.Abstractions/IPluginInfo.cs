@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.FileProviders;
-using Seed.Plugins.Descriptors;
-using Seed.Plugins.Feature;
 using System.Collections.Generic;
+using Seed.Plugins.Features;
 
 namespace Seed.Plugins
 {
@@ -9,14 +7,12 @@ namespace Seed.Plugins
     {
         string Id { get; }
 
-        string Path { get; }
+        string SubPath { get; }
 
         bool Exists { get; }
 
-        IFileInfo PluginFileInfo { get; }
+        IManifestInfo Manifest { get; }
 
         IEnumerable<IFeatureInfo> Features { get; }
-
-        IDescriptorInfo Descriptor { get; }
     }
 }

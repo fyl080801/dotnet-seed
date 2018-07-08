@@ -13,7 +13,7 @@ using Seed.Environment.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Builder;
 using Seed.Modules.DeferredTasks;
-using Seed.Plugins.Extensions;
+using Seed.Plugins;
 using System;
 using System.Collections.Generic;
 using System.IO;

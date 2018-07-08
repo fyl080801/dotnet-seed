@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine.Descriptors;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,59 +8,81 @@ namespace Seed.Environment.Engine.Builder
 {
     public class EngineContextFactory : IEngineContextFactory
     {
-        readonly ICompositionStrategy _compositionStrategy;
-        readonly IEngineContainerFactory _engineContainerFactory;
-        readonly IEnumerable<EngineFeature> _engineFeatures;
+        private readonly ICompositionStrategy _compositionStrategy;
+        private readonly IEngineContainerFactory _engineContainerFactory;
+        private readonly IEnumerable<EngineFeature> _engineFeatures;
+        private readonly ILogger _logger;
 
         public EngineContextFactory(
             ICompositionStrategy compositionStrategy,
             IEngineContainerFactory engineContainerFactory,
-            IEnumerable<EngineFeature> engineFeatures)
+            IEnumerable<EngineFeature> engineFeatures,
+            ILogger<EngineContextFactory> logger)
         {
             _compositionStrategy = compositionStrategy;
             _engineContainerFactory = engineContainerFactory;
             _engineFeatures = engineFeatures;
+            _logger = logger;
         }
 
-        public async Task<EngineContext> CreateContextAsync(EngineSettings settings)
+        async Task<EngineContext> IEngineContextFactory.CreateContextAsync(EngineSettings settings)
         {
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Creating engine context for tenant '{TenantName}'", settings.Name);
+            }
+
             var describedContext = await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
 
             EngineDescriptor currentDescriptor;
             using (var scope = describedContext.EnterServiceScope())
             {
-                var descriptorManager = scope.ServiceProvider.GetService<IEngineDescriptorManager>();
-                currentDescriptor = await descriptorManager.GetEngineDescriptorAsync();
+                var engineDescriptorManager = scope.ServiceProvider.GetService<IEngineDescriptorManager>();
+                currentDescriptor = await engineDescriptorManager.GetEngineDescriptorAsync();
             }
 
-            return currentDescriptor != null
-                ? await CreateDescribedContextAsync(settings, currentDescriptor)
-                : describedContext;
+            if (currentDescriptor != null)
+            {
+                return await CreateDescribedContextAsync(settings, currentDescriptor);
+            }
+
+            return describedContext;
         }
 
-        public async Task<EngineContext> CreateDescribedContextAsync(EngineSettings settings, EngineDescriptor descriptor)
+        async Task<EngineContext> IEngineContextFactory.CreateSetupContextAsync(EngineSettings settings)
         {
-            var schema = await _compositionStrategy.ComposeAsync(settings, descriptor);
-            var provider = _engineContainerFactory.CreateContainer(settings, schema);
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                _logger.LogDebug("No engine settings available. Creating engine context for setup");
+            }
+            var descriptor = MinimumEngineDescriptor();
 
-            return new EngineContext()
+            return await CreateDescribedContextAsync(settings, descriptor);
+        }
+
+        public async Task<EngineContext> CreateDescribedContextAsync(EngineSettings settings, EngineDescriptor engineDescriptor)
+        {
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
+                _logger.LogDebug("Creating described context for tenant '{TenantName}'", settings.Name);
+            }
+
+            var blueprint = await _compositionStrategy.ComposeAsync(settings, engineDescriptor);
+            var provider = _engineContainerFactory.CreateContainer(settings, blueprint);
+
+            return new EngineContext
             {
                 Settings = settings,
-                Schema = schema,
+                Schema = blueprint,
                 ServiceProvider = provider
             };
-        }
-
-        public async Task<EngineContext> CreateSetupContextAsync(EngineSettings settings)
-        {
-            return await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
         }
 
         private EngineDescriptor MinimumEngineDescriptor()
         {
             return new EngineDescriptor
             {
-                SerialNumber = 0,
+                SerialNumber = -1,
                 Features = new List<EngineFeature>(_engineFeatures),
                 Parameters = new List<EngineParameter>()
             };
