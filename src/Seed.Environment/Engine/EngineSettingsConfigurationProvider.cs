@@ -26,7 +26,7 @@ namespace Seed.Environment.Engine
         public void AddSource(IConfigurationBuilder builder)
         {
             foreach (var tenant in _hostingEnvironment.ContentRootFileProvider
-                .GetDirectoryContents(Path.Combine(_optionsAccessor.Value.RootContainerName, _optionsAccessor.Value.ContainerName)))
+                .GetDirectoryContents(Path.Combine(_optionsAccessor.Value.ContainerName, _optionsAccessor.Value.ContainerName)))
             {
                 builder
                     .AddYamlFile(ObtainSettingsPath(tenant.PhysicalPath));
@@ -35,7 +35,7 @@ namespace Seed.Environment.Engine
 
         public void SaveToSource(string name, IDictionary<string, string> configuration)
         {
-            var settingsFile = ObtainSettingsPath(Path.Combine(_optionsAccessor.Value.RootContainerName, _optionsAccessor.Value.ContainerName, name));
+            var settingsFile = ObtainSettingsPath(Path.Combine(_optionsAccessor.Value.ContainerName, _optionsAccessor.Value.ContainerName, name));
 
             var configurationProvider = new YamlConfigurationProvider(new YamlConfigurationSource
             {

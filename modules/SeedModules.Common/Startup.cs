@@ -15,12 +15,12 @@ namespace SeedModules.Common
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddDeferredTasks();
-            services.AddDataAccess();
-            services.AddPluginManager();
-            services.AddEngineDescriptorStorage();
+            //services.AddDeferredTasks();
+            //services.AddDataAccess();
+            //services.AddPluginManager();
+            //services.AddEngineDescriptorStorage();
 
-            services.AddCaching();
+            //services.AddCaching();
 
             services.AddProjectExecutionStep<FeatureStep>();
         }
