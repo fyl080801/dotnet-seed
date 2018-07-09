@@ -1,4 +1,0 @@
-﻿Name: 项目
-Version: 1.0
-Category: 基础模块
-AllowManage: false

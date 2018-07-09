@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json.Linq;
-using Seed.Modules.Site;
+using Seed.Mvc.Settings;
 using SeedModules.Project.Models;
 using SeedModules.Project.Services;
 using System;

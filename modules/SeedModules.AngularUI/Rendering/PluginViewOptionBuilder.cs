@@ -6,13 +6,13 @@ using Newtonsoft.Json.Linq;
 using Seed.Data.Extensions;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Extensions;
-using Seed.Modules.Site;
 using Seed.Environment.Plugins;
 using SeedModules.AngularUI.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Seed.Mvc.Settings;
 
 namespace SeedModules.AngularUI.Rendering
 {

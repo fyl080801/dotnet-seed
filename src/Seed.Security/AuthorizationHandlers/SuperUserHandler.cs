@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Seed.Modules.Site;
+using Seed.Mvc.Settings;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

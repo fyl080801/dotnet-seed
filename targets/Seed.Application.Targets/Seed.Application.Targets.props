@@ -1,65 +1,41 @@
-﻿<Project 
+﻿<Project
   xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <!--
     Defines msbuild tasks on a Bundle package to copy all modules assets (projects and packages) to the "modules" folder.
   -->
-  <Target Name="ExecuteModuleGulp" AfterTargets="CopyPackageAssets">
-    <Message Text="压缩模块脚本文件: $(MSBuildProjectName)" Importance="high" />
-    <Exec Command="gulp build --src $(MSBuildProjectDirectory)/modules" />
-  </Target>
-  <Target Name="CopyPackageAssets" AfterTargets="Build" Condition="'$(IgnorePackageAssets)' != 'true'">
+  <Target Name="PublishRazorPagesFiles" BeforeTargets="BeforePublish">
     <ItemGroup>
-      <ModuleProjectReferences Include="@(_MSBuildProjectReferenceExistent)" Condition="Exists('%(RootDir)%(Directory)Module.txt')" />
-    </ItemGroup>
-    <!-- <Message Text="压缩脚本" Importance="high" /><MSBuild Targets="ExecuteModuleGulp" BuildInParallel="$(BuildInParallel)" Properties="ApplicationDirectory=$(MSBuildProjectDirectory)" Projects="@(ModuleProjectReferences)" Condition="'@(ModuleProjectReferences)' != ''" ContinueOnError="true"></MSBuild> -->
-    <Message Text="复制项目文件" Importance="high" />
-    <Copy SourceFiles="@(PackageAssetFiles)" DestinationFolder="modules\%(RecursiveDir)" ContinueOnError="true" />
-    <MSBuild Targets="CopyPackageAssetFiles" BuildInParallel="$(BuildInParallel)" Properties="ApplicationDirectory=$(MSBuildProjectDirectory)" Projects="@(ModuleProjectReferences)" Condition="'@(ModuleProjectReferences)' != ''" ContinueOnError="true"></MSBuild>
-    <ItemGroup>
-      <ModuleProjectRazorFiles Include="%(ModuleProjectReferences.RootDir)%(Directory)**\*.cshtml">
-        <ProjectName>%(Filename)</ProjectName>
-      </ModuleProjectRazorFiles>
-      <ModuleProjectRazorFilesMapping Include="%(ModuleProjectRazorFiles.FullPath)|\modules\%(ModuleProjectRazorFiles.ProjectName)\%(RecursiveDir)%(Filename)%(Extension)"></ModuleProjectRazorFilesMapping>
-    </ItemGroup>
-    <Message Text="生成模块视图文件映射" Condition="'@(ModuleProjectRazorFilesMapping)' != ''" Importance="high" />
-    <WriteLinesToFile File="obj\ModuleProjectRazorFiles.map" Lines="@(ModuleProjectRazorFilesMapping)" Condition="'@(ModuleProjectRazorFilesMapping)' != ''" Overwrite="true" Encoding="utf-8" ContinueOnError="true" />
-    <ItemGroup>
-      <ModuleProjectContentFiles Include="%(ModuleProjectReferences.RootDir)%(Directory)Content\**\*">
-        <ProjectName>%(Filename)</ProjectName>
-      </ModuleProjectContentFiles>
-      <ModuleProjectContentFilesMapping Include="%(ModuleProjectContentFiles.FullPath)|\modules\%(ModuleProjectContentFiles.ProjectName)\Content\%(RecursiveDir)%(Filename)%(Extension)"></ModuleProjectContentFilesMapping>
-    </ItemGroup>
-    <Message Text="生成模块内容文件映射" Condition="'@(ModuleProjectContentFilesMapping)' != ''" Importance="high" />
-    <WriteLinesToFile File="obj\ModuleProjectContentFiles.map" Lines="@(ModuleProjectContentFilesMapping)" Condition="'@(ModuleProjectContentFilesMapping)' != ''" Overwrite="true" Encoding="utf-8" ContinueOnError="true" />
-    <CreateItem Include="@(Content)" Condition="'%(Extension)'=='.cshtml'">
-      <Output TaskParameter="Include" ItemName="MvcContentRazorFiles"/>
-    </CreateItem>
-    <ItemGroup Condition="'@(MvcRazorFilesToCompile)' == ''">
-      <MvcRazorFilesToCompile Include="@(MvcContentRazorFiles);modules\**\*.cshtml" />
+      <RazorPagesFiles Include="Pages\**\*.cshtml" />
+      <ResolvedFileToPublish Include="@(RazorPagesFiles)" RelativePath="%(RazorPagesFiles.Identity)" />
     </ItemGroup>
   </Target>
-  <Target Name="CleanPackageAssets" AfterTargets="Clean" Condition="'$(IgnorePackageAssets)' != 'true' And Exists('modules')">
+
+  <Target Name="ResolveModuleProjectReferences" AfterTargets="AfterResolveReferences">
+    <MSBuild
+      Targets="GetModuleProject"
+      BuildInParallel="$(BuildInParallel)"
+      Projects="@(_MSBuildProjectReferenceExistent)"
+      Condition="'@(_MSBuildProjectReferenceExistent)' != ''"
+      SkipNonexistentTargets="true"
+      ContinueOnError="true">
+
+      <Output ItemName="ModuleProjects" TaskParameter="TargetOutputs" />
+    </MSBuild>
+
     <ItemGroup>
-      <AllPackageAssetFiles Include="modules\**" />
+      <ModuleProjectReferences Include="@(ModuleProjects)" />
     </ItemGroup>
-    <Delete Files="@(AllPackageAssetFiles)" ContinueOnError="true" />
-    <RemoveDir Directories="modules\%(AllPackageAssetFiles.RecursiveDir)" ContinueOnError="true" />
+
+    <ItemGroup>
+      <ModuleProjectNames Include="%(ModuleProjectReferences.FileName)" />
+      <ModuleNames Include="@(ModulePackageNames);@(ModuleProjectNames)" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AssemblyAttribute Include="Seed.Modules.Manifest.ModuleNameAttribute">
+        <_Parameter1>%(ModuleNames.Identity)</_Parameter1>
+      </AssemblyAttribute>
+    </ItemGroup>
   </Target>
-  <!--
-    Defines msbuild props and items on a Bundle package to publish all modules assets (projects and packages).
-  -->
-  <PropertyGroup>
-    <MvcRazorExcludeViewFilesFromPublish>false</MvcRazorExcludeViewFilesFromPublish>
-  </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="modules\**" />
-    <Content Remove="modules\**" />
-    <EmbeddedResource Remove="modules\**" />
-    <None Remove="modules\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResolvedFileToPublish Include="modules\**">
-      <RelativePath>modules\%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
-    </ResolvedFileToPublish>
-  </ItemGroup>
+
 </Project>

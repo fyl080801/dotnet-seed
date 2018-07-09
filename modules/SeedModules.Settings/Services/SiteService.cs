@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Primitives;
 using Seed.Data;
 using Seed.Environment.Caching;
-using Seed.Modules.Site;
+using Seed.Mvc.Settings;
 using SeedModules.Settings.Domain;
 using System;
 using System.Linq;

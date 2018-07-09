@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine.Extensions;
-using Seed.Modules.Site;
+using Seed.Mvc.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

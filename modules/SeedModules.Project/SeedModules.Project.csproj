@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Manifest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Data.Abstractions\Seed.Data.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Environment\Seed.Environment.csproj" />

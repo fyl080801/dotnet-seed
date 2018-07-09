@@ -1,28 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IgnorePackageAssets>true</IgnorePackageAssets>
   </PropertyGroup>
-  <Target Name="CopyPackageAssetFiles" />
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\SeedModules.Admin\SeedModules.Admin.csproj" />
+    <None Include="Seed.Application.Cms.Targets.targets" Pack="true">
+      <PackagePath>build\netstandard2.0\Seed.Application.All.Targets.targets</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Common\SeedModules.Common.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Demo\SeedModules.Demo.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Features\SeedModules.Features.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.MindPlus\SeedModules.MindPlus.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Mvc\SeedModules.Mvc.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.OAuth\SeedModules.OAuth.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.OpenId\SeedModules.OpenId.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.PageBuilder\SeedModules.PageBuilder.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Router\SeedModules.Router.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Saas\SeedModules.Saas.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Security\SeedModules.Security.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Settings\SeedModules.Settings.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.SqlBuilder\SeedModules.SqlBuilder.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.WeChat\SeedModules.WeChat.csproj" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" />
   </ItemGroup>
 </Project>

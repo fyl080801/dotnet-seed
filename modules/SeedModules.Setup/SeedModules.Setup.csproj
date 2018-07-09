@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Manifest.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Data.Abstractions\Seed.Data.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Modules\Seed.Modules.csproj" />
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />

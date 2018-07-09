@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Routing;
 using Seed.Data;
-using Seed.Modules.Site;
+using Seed.Mvc.Settings;
 using System.ComponentModel.DataAnnotations;
 
 namespace SeedModules.Settings.Domain

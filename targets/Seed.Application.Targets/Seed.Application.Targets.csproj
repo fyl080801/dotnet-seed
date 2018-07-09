@@ -1,7 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <Target Name="CopyPackageAssetFiles" />
-  <Target Name="ExecuteModuleGulp" />
+  <ItemGroup>
+    <None Include="Seed.Application.Targets.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\Seed.Application.Targets.targets</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Seed.Modules\Seed.Modules.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,5 +1,5 @@
 ﻿using Seed.Modules.Setup.Events;
-using Seed.Modules.Site;
+using Seed.Mvc.Settings;
 using System;
 using System.Threading.Tasks;
 

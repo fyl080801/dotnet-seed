@@ -1,14 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <Target Name="CopyPackageAssetFiles" />
   <ItemGroup>
     <None Include="Seed.Module.Targets.props" Pack="true">
       <PackagePath>build\$(TargetFramework)\Seed.Module.Targets.props</PackagePath>
     </None>
-    <None Include="Module.Build.props" Pack="true">
-      <PackagePath>build\$(TargetFramework)\Module.Build.props</PackagePath>
+    <None Include="Seed.Module.Targets.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\Seed.Module.Targets.targets</PackagePath>
+    </None>
+    <None Include="Package.Build.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\Package.Build.props</PackagePath>
     </None>
   </ItemGroup>
   <ItemGroup>
