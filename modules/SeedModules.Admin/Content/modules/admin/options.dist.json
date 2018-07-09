@@ -1,7 +1,10 @@
 {
   "configs": {
     "SeedModules.Admin/modules/admin/module": {
-      "path": "SeedModules.Admin/js/modules.admin.module"
+      "path": "SeedModules.Admin/js/modules.admin.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
     },
     "SeedModules.Admin/modules/admin/requires": {
       "path": "SeedModules.Admin/js/modules.admin.requires"

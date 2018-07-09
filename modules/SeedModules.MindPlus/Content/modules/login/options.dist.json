@@ -1,7 +1,10 @@
 {
   "configs": {
     "SeedModules.MindPlus/modules/login/module": {
-      "path": "SeedModules.MindPlus/js/modules.login.module"
+      "path": "SeedModules.MindPlus/js/modules.login.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
     },
     "SeedModules.MindPlus/modules/login/requires": {
       "path": "SeedModules.MindPlus/js/modules.login.requires"

@@ -1,4 +1,4 @@
-define(["require", "exports", "angular", "app/application", "SeedModules.MindPlus/modules/admin/configs/menus"], function (require, exports, angular) {
+define(["require", "exports", "angular", "SeedModules.MindPlus/modules/admin/configs/menus"], function (require, exports, angular) {
     "use strict";
     return angular
         .module('modules.mindPlus.admin', [

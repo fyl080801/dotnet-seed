@@ -1,4 +1,4 @@
-define(["require", "exports", "angular", "app/application", "SeedModules.Saas/modules/configs/menus"], function (require, exports, angular) {
+define(["require", "exports", "angular", "SeedModules.Saas/modules/configs/menus"], function (require, exports, angular) {
     "use strict";
     var ConfigClass = (function () {
         function ConfigClass($stateProvider, $urlRouterProvider) {

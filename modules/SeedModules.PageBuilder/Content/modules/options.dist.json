@@ -1,7 +1,10 @@
 {
   "configs": {
     "SeedModules.PageBuilder/modules/module": {
-      "path": "SeedModules.PageBuilder/js/modules.module"
+      "path": "SeedModules.PageBuilder/js/modules.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
     },
     "SeedModules.PageBuilder/modules/requires": {
       "path": "SeedModules.PageBuilder/js/modules.requires"

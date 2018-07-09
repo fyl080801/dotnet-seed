@@ -1,5 +1,4 @@
 import angular = require('angular');
-import 'app/application';
 import 'SeedModules.Saas/modules/configs/menus';
 
 class ConfigClass {

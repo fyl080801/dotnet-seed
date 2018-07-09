@@ -1,4 +1,4 @@
-define(["require", "exports", "angular", "app/application", "SeedModules.PageBuilder/modules/providers/toolsBuilder", "SeedModules.PageBuilder/modules/configs/run"], function (require, exports, angular) {
+define(["require", "exports", "angular", "SeedModules.PageBuilder/modules/providers/toolsBuilder", "SeedModules.PageBuilder/modules/configs/run"], function (require, exports, angular) {
     "use strict";
     return angular.module('modules.pagebuilder', ['modules.pagebuilder.boot']);
 });

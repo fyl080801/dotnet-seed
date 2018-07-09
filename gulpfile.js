@@ -75,9 +75,6 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
       if (
         name !== moduleprefix + '/requires' &&
         name !== moduleprefix + '/module'
-        // &&
-        // ((option.include && option.include.indexOf(name) < 0) ||
-        //   !options.include)
       ) {
         moduleOptions.paths[name] = '../../../modules/build';
         moduleOptions.exclude.push(name);
@@ -96,23 +93,13 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
         moduleOptions.include.push(name);
       }
     }
-
-    // getAllFiles(uipath, '.js').map(function(fullname) {
-    //   moduleOptions.paths[
-    //     fullname
-    //       .replace(moduleOptions.baseUrl, '')
-    //       .replace(path.join('Content/', ''), '')
-    //       .replace('.js', '')
-    //       .replace(/\\/g, '/')
-    //   ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
-    // });
   });
 };
 
 //
 gulp.task('lessc', function() {
   gulp
-    .src('modules/**/_module.less') //*表示所有的scss文件
+    .src('modules/**/module.less') //*表示所有的scss文件
     .pipe(less())
     .pipe(gulp.dest('modules'));
 });

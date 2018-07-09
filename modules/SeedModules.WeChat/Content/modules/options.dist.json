@@ -1,7 +1,10 @@
 {
   "configs": {
     "SeedModules.Admin/modules/login/module": {
-      "path": "SeedModules.WeChat/js/modules.module"
+      "path": "SeedModules.WeChat/js/modules.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
     },
     "SeedModules.Admin/modules/login/requires": {
       "path": "SeedModules.WeChat/js/modules.requires"
