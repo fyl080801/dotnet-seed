@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Seed.Environment.Engine;
-using Seed.Plugins.Features;
+using Seed.Environment.Plugins.Features;
 using SeedModules.Project.Services;
 
 namespace SeedModules.Features.Internal

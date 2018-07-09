@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
 using Seed.Environment.Engine.Descriptors;
 using Seed.Mvc.FileProviders;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;

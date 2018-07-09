@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Seed.Environment.Engine;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using SeedModules.Features.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,7 +83,7 @@ namespace SeedModules.Features.Controllers
 
         private bool IsFeatureAllowed(IPluginInfo plugin)
         {
-            return plugin.Descriptor.AllowedManage;
+            return true;//plugin.Manifest.AllowedManage;
         }
     }
 }

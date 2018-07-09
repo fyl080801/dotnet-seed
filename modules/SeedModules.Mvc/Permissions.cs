@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using Seed.Security.Permissions;
 
 namespace SeedModules.Mvc

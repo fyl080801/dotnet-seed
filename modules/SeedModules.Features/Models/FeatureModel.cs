@@ -1,4 +1,4 @@
-using Seed.Plugins.Features;
+using Seed.Environment.Plugins.Features;
 using System.Collections.Generic;
 
 namespace SeedModules.Features.Models

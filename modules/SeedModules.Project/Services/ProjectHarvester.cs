@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Seed.Environment.Engine.Extensions;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using SeedModules.Project.Models;
 using System.Collections.Generic;
 using System.IO;

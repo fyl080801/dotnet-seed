@@ -8,7 +8,6 @@
     <ProjectReference Include="..\..\src\Seed.Data\Seed.Data.csproj" />
     <ProjectReference Include="..\..\src\Seed.Modules\Seed.Modules.csproj" />
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
-    <ProjectReference Include="..\..\src\Seed.Plugins\Seed.Plugins.csproj" />
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
     <ProjectReference Include="..\SeedModules.Project\SeedModules.Project.csproj" />
   </ItemGroup>

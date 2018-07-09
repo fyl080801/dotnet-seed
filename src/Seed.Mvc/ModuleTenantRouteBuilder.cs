@@ -32,32 +32,5 @@ namespace Seed.Mvc
 
             builder.Routes.Insert(0, AttributeRouting.CreateAttributeMegaRoute(builder.ServiceProvider));
         }
-
-        //readonly IServiceProvider _serviceProvider;
-
-        //public ModuleTenantRouteBuilder(IServiceProvider serviceProvider)
-        //{
-        //    _serviceProvider = serviceProvider;
-        //}
-
-        //public IRouteBuilder Build()
-        //{
-        //    return new RouteBuilder(new ApplicationBuilder(_serviceProvider))
-        //    {
-        //        DefaultHandler = _serviceProvider.GetRequiredService<MvcRouteHandler>()
-        //    };
-        //}
-
-        //public void Configure(IRouteBuilder builder)
-        //{
-        //    builder.Routes.Add(new Route(
-        //        builder.DefaultHandler,
-        //        "Default", "{area:exists}/{controller}/{action}/{id?}",
-        //        null,
-        //        null,
-        //        null,
-        //        _serviceProvider.GetService<IInlineConstraintResolver>()));
-        //    builder.Routes.Insert(0, AttributeRouting.CreateAttributeMegaRoute(_serviceProvider));
-        //}
     }
 }

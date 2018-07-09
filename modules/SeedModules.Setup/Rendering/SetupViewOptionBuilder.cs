@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Site;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using SeedModules.AngularUI.Rendering;
 
 namespace SeedModules.Setup.Rendering

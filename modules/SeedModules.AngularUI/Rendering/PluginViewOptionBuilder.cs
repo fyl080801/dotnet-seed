@@ -7,7 +7,7 @@ using Seed.Data.Extensions;
 using Seed.Environment.Engine;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Site;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using SeedModules.AngularUI.Models;
 using System.Collections.Generic;
 using System.Linq;

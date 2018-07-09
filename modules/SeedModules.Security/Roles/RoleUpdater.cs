@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Seed.Environment.Engine;
-using Seed.Plugins;
-using Seed.Plugins.Features;
+using Seed.Environment.Plugins;
+using Seed.Environment.Plugins.Features;
 using Seed.Security;
 using Seed.Security.Permissions;
 using SeedModules.Security.Domain;

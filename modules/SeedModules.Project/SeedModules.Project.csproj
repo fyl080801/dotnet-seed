@@ -8,7 +8,6 @@
     <ProjectReference Include="..\..\src\Seed.Data.Abstractions\Seed.Data.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Environment\Seed.Environment.csproj" />
-    <ProjectReference Include="..\..\src\Seed.Plugins.Abstractions\Seed.Plugins.Abstractions.csproj" />
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
   </ItemGroup>
 

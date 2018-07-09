@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Seed.Environment\Seed.Environment.csproj" />
     <ProjectReference Include="..\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
-    <ProjectReference Include="..\Seed.Plugins\Seed.Plugins.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@ using Seed.Environment.Engine.Extensions;
 using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using Seed.Security;
 using Seed.Security.Extensions;
 using Seed.Security.Permissions;

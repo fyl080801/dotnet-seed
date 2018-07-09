@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine.Descriptors;
 using Seed.Modules;
-using Seed.Plugins;
-using Seed.Plugins.Features;
+using Seed.Environment.Plugins;
+using Seed.Environment.Plugins.Features;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using SeedModules.Project.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;

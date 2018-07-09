@@ -13,7 +13,7 @@ using Seed.Environment.Engine.Descriptors;
 using Seed.Environment.Engine.Extensions;
 using Seed.Modules.Builder;
 using Seed.Modules.DeferredTasks;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -128,6 +128,7 @@ namespace Seed.Modules.Extensions
 
                 services.AddAntiforgery(options =>
                 {
+                    options.HeaderName = "X-XSRF-TOKEN";
                     options.Cookie.Name = "seedforgery_" + tenantName;
                     options.Cookie.Path = tenantPrefix;
                 });

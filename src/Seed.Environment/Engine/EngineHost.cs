@@ -1,6 +1,6 @@
 ﻿using Seed.Environment.Engine.Builder;
 using Seed.Environment.Engine.Descriptors;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;

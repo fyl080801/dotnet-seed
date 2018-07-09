@@ -1,6 +1,6 @@
 ﻿using Seed.Data;
 using Seed.Environment.Engine;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using SeedModules.Project.Models;
 using SeedModules.Project.Services;
 using System;

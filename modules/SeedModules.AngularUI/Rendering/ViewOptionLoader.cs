@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

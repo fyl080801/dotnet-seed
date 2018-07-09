@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Seed.Plugins;
+using Seed.Environment.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Text;

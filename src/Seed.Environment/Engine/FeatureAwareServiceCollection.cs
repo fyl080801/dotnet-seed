@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Seed.Plugins.Features;
+using Seed.Environment.Plugins.Features;
 using System;
 using System.Collections;
 using System.Collections.Generic;
