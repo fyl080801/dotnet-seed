@@ -1,24 +1,15 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Seed.Environment.Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public interface IEngineSettingsManager
     {
-        /// <summary>
-        /// 获取所有 Engine 设置
-        /// </summary>
-        /// <returns></returns>
+        EngineSettings GetSettings(string name);
+
         IEnumerable<EngineSettings> LoadSettings();
 
-        /// <summary>
-        /// 保存一个Engine 设置
-        /// </summary>
-        /// <param name="settings">设置</param>
         void SaveSettings(EngineSettings settings);
+
+        bool TryGetSettings(string name, out EngineSettings settings);
     }
 }

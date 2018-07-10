@@ -10,22 +10,14 @@ namespace Seed.Modules.Extensions
     {
         public static EngineSettings Match(this IRunningEngineTable table, HttpContext httpContext)
         {
-            try
+            if (httpContext == null)
             {
-                var httpRequest = httpContext.Request;
-                if (httpRequest == null)
-                {
-                    return null;
-                }
-
-                var host = httpRequest.Headers["Host"].ToString();
-
-                return table.Match(host ?? string.Empty, httpRequest.Path);
+                throw new ArgumentNullException(nameof(httpContext));
             }
-            catch (Exception)
-            {
-                return null;
-            }
+
+            var httpRequest = httpContext.Request;
+
+            return table.Match(httpRequest.Host.ToString(), httpRequest.Path, true);
         }
     }
 }

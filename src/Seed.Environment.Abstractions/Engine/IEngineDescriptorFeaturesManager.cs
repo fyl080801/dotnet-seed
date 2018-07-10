@@ -1,12 +1,9 @@
-﻿using Seed.Environment.Engine.Descriptors;
+﻿using Seed.Environment.Engine.Descriptor.Models;
 using Seed.Environment.Plugins.Features;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Seed
+namespace Seed.Environment.Engine
 {
     public delegate void FeatureDependencyNotificationHandler(string messageFormat, IFeatureInfo feature, IEnumerable<IFeatureInfo> features);
 

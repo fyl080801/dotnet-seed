@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Seed.Environment.Engine;
+using Seed.Environment.Engine.Models;
 using Seed.Modules;
 using System;
 using System.Threading.Tasks;

@@ -1,12 +1,16 @@
-﻿using Seed.Environment.Engine;
-using System;
+using Seed.Environment.Engine.Models;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Seed.Environment.Engine
 {
     public class SingleEngineSettingsManager : IEngineSettingsManager
     {
+        public EngineSettings GetSettings(string name)
+        {
+            return LoadSettings().First();
+        }
+
         public IEnumerable<EngineSettings> LoadSettings()
         {
             yield return new EngineSettings
@@ -16,9 +20,14 @@ namespace Seed.Environment.Engine
             };
         }
 
-        public void SaveSettings(EngineSettings settings)
+        public void SaveSettings(EngineSettings engineSettings)
         {
+        }
 
+        public bool TryGetSettings(string name, out EngineSettings settings)
+        {
+            settings = LoadSettings().First();
+            return true;
         }
     }
 }

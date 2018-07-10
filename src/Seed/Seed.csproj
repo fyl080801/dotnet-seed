@@ -6,11 +6,8 @@
     <TypeScriptToolsVersion>2.8</TypeScriptToolsVersion>
   </PropertyGroup>
 
-  <Import Project="..\..\targets\Seed.Application.Targets\Seed.Application.Targets.props" />
-  
   <ItemGroup>
     <Folder Include="wwwroot\" />
-    <Folder Include="Packages\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,5 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\targets\Seed.Application.All.Targets\Seed.Application.All.Targets.csproj" />
   </ItemGroup>
+
+  <Import Project="..\..\targets\Seed.Application.All.Targets\Seed.Application.All.Targets.targets" />
+  <Import Project="..\..\targets\Seed.Application.Targets\Seed.Application.Targets.targets" />
 
 </Project>

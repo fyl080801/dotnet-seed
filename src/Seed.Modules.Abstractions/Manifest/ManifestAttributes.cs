@@ -12,8 +12,6 @@ namespace Seed.Modules.Manifest
         {
         }
 
-        //public virtual string Type => "Module";
-
         public new bool Exists => Id != null;
 
         public new string Id { get; internal set; }
@@ -56,19 +54,10 @@ namespace Seed.Modules.Manifest
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = false, Inherited = false)]
     public class ModuleMarkerAttribute : ModuleAttribute
     {
-        //private string _type;
-        //public ModuleMarkerAttribute(string name, string type)
-        //{
-        //    Name = name;
-        //    _type = type;
-        //}
-
         public ModuleMarkerAttribute(string name)
         {
             Name = name;
         }
-
-        //public override string Type => _type;
     }
 
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true, Inherited = false)]

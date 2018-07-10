@@ -1,36 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Seed.Data;
-using Seed.Environment.Engine.Descriptors;
-using Seed.Environment.Engine.Extensions;
+using Seed.Environment.Engine.Descriptor;
+using Seed.Environment.Engine.Descriptor.Models;
+using Seed.Modules.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Seed.Environment.Engine.Data
 {
     public class EngineDescriptorManager : IEngineDescriptorManager
     {
-        readonly EngineSettings _engineSettings;
-        readonly IEnumerable<IEngineDescriptorManagerEventHandler> _engineDescriptorManagerEventHandlers;
-        readonly IDbContext _dbContext;
-        readonly DbSet<EngineDescriptor> _engineDescriptorSet;
-        readonly ILogger _logger;
-
-        EngineDescriptor _engineDescriptor;
+        private readonly EngineSettings _engineSettings;
+        private readonly IEnumerable<EngineFeature> _alwaysEnabledFeatures;
+        private readonly IEnumerable<IEngineDescriptorManagerEventHandler> _engineDescriptorManagerEventHandlers;
+        private readonly IDbContext _db;
+        private readonly ILogger _logger;
+        private EngineDescriptor _engineDescriptor;
 
         public EngineDescriptorManager(
             EngineSettings engineSettings,
+            IEnumerable<EngineFeature> engineFeatures,
             IEnumerable<IEngineDescriptorManagerEventHandler> engineDescriptorManagerEventHandlers,
-            IDbContext dbContext,
+            IDbContext db,
             ILogger<EngineDescriptorManager> logger)
         {
             _engineSettings = engineSettings;
+            _alwaysEnabledFeatures = engineFeatures.Where(f => f.AlwaysEnabled).ToArray();
             _engineDescriptorManagerEventHandlers = engineDescriptorManagerEventHandlers;
-            _dbContext = dbContext;
-            _engineDescriptorSet = dbContext.Set<EngineDescriptor>();
+            _db = db;
             _logger = logger;
         }
 
@@ -38,7 +37,13 @@ namespace Seed.Environment.Engine.Data
         {
             if (_engineDescriptor == null)
             {
-                _engineDescriptor = await Task.FromResult(_engineDescriptorSet.FirstOrDefault());
+                _engineDescriptor = await Task.FromResult(_db.Set<EngineDescriptor>().FirstOrDefault());
+
+                if (_engineDescriptor != null)
+                {
+                    _engineDescriptor.Features = _alwaysEnabledFeatures.Concat(
+                        _engineDescriptor.Features).Distinct().ToList();
+                }
             }
 
             return _engineDescriptor;
@@ -50,7 +55,12 @@ namespace Seed.Environment.Engine.Data
             var serialNumber = engineDescriptorRecord == null ? 0 : engineDescriptorRecord.SerialNumber;
             if (priorSerialNumber != serialNumber)
             {
-                throw new InvalidOperationException("错误的序列号");
+                throw new InvalidOperationException("Invalid serial number for engine descriptor");
+            }
+
+            if (_logger.IsEnabled(LogLevel.Information))
+            {
+                _logger.LogInformation("Updating engine descriptor for tenant '{TenantName}' ...", _engineSettings.Name);
             }
 
             if (engineDescriptorRecord == null)
@@ -65,16 +75,12 @@ namespace Seed.Environment.Engine.Data
             engineDescriptorRecord.Features = enabledFeatures.ToList();
             engineDescriptorRecord.Parameters = parameters.ToList();
 
-            if (engineDescriptorRecord.Id <= 0)
+            if (_logger.IsEnabled(LogLevel.Information))
             {
-                _engineDescriptorSet.Add(engineDescriptorRecord);
-            }
-            else
-            {
-                _engineDescriptorSet.Update(engineDescriptorRecord);
+                _logger.LogInformation("Engine descriptor updated for tenant '{TenantName}'.", _engineSettings.Name);
             }
 
-            _dbContext.SaveChanges();
+            _db.SaveChanges();
 
             _engineDescriptor = engineDescriptorRecord;
 

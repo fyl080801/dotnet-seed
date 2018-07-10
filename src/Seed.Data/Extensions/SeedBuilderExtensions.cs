@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Seed.Data.Migrations;
 using Seed.Environment.Engine;
-using Seed.Environment.Engine.Extensions;
 using Seed.Modules;
 using Seed.Modules.Builder;
+using Seed.Modules.Exceptions;
 using System;
 using System.Linq;
 
@@ -23,7 +23,6 @@ namespace Seed.Data.Extensions
 
                 services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");
                 services.TryAddDataProvider(name: "MySql Database", provider: "MySql");
-                //services.TryAddDataProvider(name: "Sqlite", provider: "Sqlite");
 
                 services.AddSingleton<IStore>(sp =>
                 {

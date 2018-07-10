@@ -2,7 +2,7 @@
 using Seed.Data.Extensions;
 using Seed.Environment.BackgroundTasks;
 using Seed.Environment.Caching.Extensions;
-using Seed.Environment.Engine.Extensions;
+using Seed.Environment.Engine.Data;
 using Seed.Modules.Builder;
 using Seed.Modules.Extensions;
 using Seed.Mvc.Extensions;
@@ -22,7 +22,7 @@ namespace Seed.Application.All.Targets
             var builder = services.AddSeed()
                 .AddMvc()
                 .AddSetupFeatures("SeedModules.Setup")
-                .WithFeatures("SeedModules.AngularUI", "SeedModules.Settings", "SeedModules.Security", "SeedModules.Project")
+                .WithFeatures("SeedModules.AngularUI", "SeedModules.Settings", "SeedModules.Project")
                 .AddDataAccess()
                 .AddEngineStorage()
                 .AddBackgroundTasks()

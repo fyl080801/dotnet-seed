@@ -1,120 +1,79 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using Seed.Environment.Engine.Models;
 
 namespace Seed.Environment.Engine
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public class EngineSettings
     {
-        TenantStates _states;
+        private TenantStates _tenantState;
 
-        readonly IDictionary<string, string> _values;
+        public EngineSettings() : this(new Dictionary<string, string>()) { }
 
-        public EngineSettings()
-            : this(new Dictionary<string, string>())
-        { }
-
-        public EngineSettings(IDictionary<string, string> values)
+        public EngineSettings(IDictionary<string, string> configuration)
         {
-            _values = values;
+            Configuration = new Dictionary<string, string>(configuration);
 
-            if (!_values.ContainsKey("State") || !Enum.TryParse(_values["State"], true, out _states))
+            if (!configuration.ContainsKey("State") || !Enum.TryParse(configuration["State"], true, out _tenantState))
             {
-                _states = TenantStates.Invalid;
+                _tenantState = TenantStates.Invalid;
             }
         }
 
-        /// <summary>
-        /// 获取设置项值
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
         public string this[string key]
         {
             get
             {
                 string retVal;
-                return _values.TryGetValue(key, out retVal) ? retVal : null;
+                return Configuration.TryGetValue(key, out retVal) ? retVal : null;
             }
-            set { _values[key] = value; }
+            set { Configuration[key] = value; }
         }
 
-        public IDictionary<string, string> Configuration
-        {
-            get { return _values; }
-        }
+        public IDictionary<string, string> Configuration { get; }
 
-        public IEnumerable<string> Keys
-        {
-            get { return _values.Keys; }
-        }
-
-        /// <summary>
-        /// 名称
-        /// </summary>
         public string Name
         {
             get { return this["Name"] ?? ""; }
             set { this["Name"] = value; }
         }
 
-        /// <summary>
-        /// 接收请求的 URL
-        /// </summary>
         public string RequestUrlHost
         {
             get { return this["RequestUrlHost"]; }
             set { this["RequestUrlHost"] = value; }
         }
 
-        /// <summary>
-        /// URL 前缀
-        /// </summary>
         public string RequestUrlPrefix
         {
             get { return this["RequestUrlPrefix"]; }
-            set { _values["RequestUrlPrefix"] = value; }
+            set { Configuration["RequestUrlPrefix"] = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public string DatabaseProvider
         {
             get { return this["DatabaseProvider"]; }
-            set { _values["DatabaseProvider"] = value; }
+            set { Configuration["DatabaseProvider"] = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public string TablePrefix
         {
             get { return this["TablePrefix"]; }
-            set { _values["TablePrefix"] = value; }
+            set { Configuration["TablePrefix"] = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public string ConnectionString
         {
             get { return this["ConnectionString"]; }
-            set { _values["ConnectionString"] = value; }
+            set { Configuration["ConnectionString"] = value; }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
         public TenantStates State
         {
-            get { return _states; }
+            get => _tenantState;
             set
             {
-                _states = value;
+                _tenantState = value;
                 this["State"] = value.ToString();
             }
         }

@@ -2,13 +2,11 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using Seed.Environment.Engine;
-using Seed.Environment.Engine.Descriptors;
-using Seed.Environment.Engine.Extensions;
+using Seed.Environment.Engine.Descriptor;
+using Seed.Environment.Engine.Descriptor.Models;
+using Seed.Environment.Engine.Descriptor.Settings;
 using Seed.Modules.Builder;
 using Seed.Modules.DeferredTasks;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Seed.Modules.Extensions
 {

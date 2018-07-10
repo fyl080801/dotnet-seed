@@ -31,7 +31,7 @@ namespace Seed.Modules.DeferredTasks
                 {
                     (httpContext.RequestServices as IDisposable).Dispose();
 
-                    var engineContext = _engineHost.GetOrCreateContext(engineSettings);
+                    var engineContext = _engineHost.GetOrCreateEngineContext(engineSettings);
 
                     if (!engineContext.Released)
                     {

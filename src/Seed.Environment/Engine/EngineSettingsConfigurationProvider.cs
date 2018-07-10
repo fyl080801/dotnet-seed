@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Seed.Yaml;
@@ -25,17 +25,34 @@ namespace Seed.Environment.Engine
 
         public void AddSource(IConfigurationBuilder builder)
         {
-            foreach (var tenant in _hostingEnvironment.ContentRootFileProvider
-                .GetDirectoryContents(Path.Combine(_optionsAccessor.Value.ContainerName, _optionsAccessor.Value.ContainerName)))
+            var tenantSettingsPath = Path.Combine(
+                        _optionsAccessor.Value.ApplicationDataPath,
+                        _optionsAccessor.Value.ContainerName);
+
+            if (!Directory.Exists(tenantSettingsPath))
             {
-                builder
-                    .AddYamlFile(ObtainSettingsPath(tenant.PhysicalPath));
+                return;
+            }
+
+            var tenants = Directory.GetDirectories(tenantSettingsPath);
+
+            foreach (var tenant in tenants)
+            {
+                var filePath = GetSettingsFilePath(tenant);
+
+                if (File.Exists(filePath))
+                {
+                    builder.AddYamlFile(filePath);
+                }
             }
         }
 
         public void SaveToSource(string name, IDictionary<string, string> configuration)
         {
-            var settingsFile = ObtainSettingsPath(Path.Combine(_optionsAccessor.Value.ContainerName, _optionsAccessor.Value.ContainerName, name));
+            var settingsFile = GetSettingsFilePath(Path.Combine(
+                        _optionsAccessor.Value.ApplicationDataPath,
+                        _optionsAccessor.Value.ContainerName,
+                        name));
 
             var configurationProvider = new YamlConfigurationProvider(new YamlConfigurationSource
             {
@@ -60,6 +77,6 @@ namespace Seed.Environment.Engine
             return (value ?? "~");
         }
 
-        private string ObtainSettingsPath(string tenantPath) => Path.Combine(tenantPath, "Settings.txt");
+        private string GetSettingsFilePath(string tenantFolderPath) => Path.Combine(tenantFolderPath, "Settings.txt");
     }
 }

@@ -15,10 +15,6 @@ namespace Seed.Modules
     {
         public IList<string> RequiredFeatureNames { get; }
 
-        /// <summary>
-        /// 标记一个类型并声明特性
-        /// </summary>
-        /// <param name="featureName"></param>
         public RequireFeaturesAttribute(string featureName)
         {
             RequiredFeatureNames = new string[] { featureName };
@@ -46,7 +42,7 @@ namespace Seed.Modules
         /// <returns></returns>
         public static IList<string> GetRequiredFeatureNamesForType(Type type)
         {
-            var attribute = type.GetTypeInfo().GetCustomAttributes<RequireFeaturesAttribute>(false).FirstOrDefault();
+            var attribute = type.GetCustomAttributes<RequireFeaturesAttribute>(false).FirstOrDefault();
 
             return attribute?.RequiredFeatureNames ?? Array.Empty<string>();
         }

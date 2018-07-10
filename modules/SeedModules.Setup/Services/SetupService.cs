@@ -2,10 +2,12 @@
 using Microsoft.Extensions.Logging;
 using Seed.Data;
 using Seed.Environment.Engine;
-using Seed.Environment.Engine.Builder;
-using Seed.Environment.Engine.Descriptors;
-using Seed.Environment.Engine.Extensions;
+using Seed.Environment.Engine.Builders;
+using Seed.Environment.Engine.Descriptor;
+using Seed.Environment.Engine.Descriptor.Models;
+using Seed.Environment.Engine.Models;
 using Seed.Modules.DeferredTasks;
+using Seed.Modules.Exceptions;
 using Seed.Modules.Setup.Events;
 using SeedModules.Project.Services;
 using System;
@@ -122,7 +124,7 @@ namespace SeedModules.Setup.Services
             }
 
             // 安装事件
-            using (var engineContext = await _engineHost.CreateContextAsync(engineSettings))
+            using (var engineContext = await _engineHost.CreateEngineContextAsync(engineSettings))
             {
                 using (var scope = engineContext.EnterServiceScope())
                 {
@@ -151,7 +153,7 @@ namespace SeedModules.Setup.Services
             }
 
             engineSettings.State = TenantStates.Running;
-            _engineHost.UpdateSettings(engineSettings);
+            _engineHost.UpdateEngineSettings(engineSettings);
 
             return executionId;
         }

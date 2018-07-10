@@ -6,6 +6,6 @@
     Website = "",
     Version = "1.0.0",
     Description = "",
-    Dependencies = new[] { "SeedModules.Project" },
+    Dependencies = new[] { "SeedModules.AngularUI" },
     Category = "基础模块"
 )]

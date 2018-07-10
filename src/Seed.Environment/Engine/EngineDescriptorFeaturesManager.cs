@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.Logging;
-using Seed.Environment.Engine.Descriptors;
+using Microsoft.Extensions.Logging;
+using Seed.Environment.Engine.Descriptor;
+using Seed.Environment.Engine.Descriptor.Models;
 using Seed.Environment.Plugins;
 using Seed.Environment.Plugins.Features;
 using System.Collections.Generic;

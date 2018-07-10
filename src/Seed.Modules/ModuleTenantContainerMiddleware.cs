@@ -26,11 +26,11 @@ namespace Seed.Modules
 
         public ModuleTenantContainerMiddleware(
             RequestDelegate next,
-            IEngineHost orchardHost,
+            IEngineHost host,
             IRunningEngineTable runningEngineTable)
         {
             _next = next;
-            _host = orchardHost;
+            _host = host;
             _runningEngineTable = runningEngineTable;
         }
 
@@ -42,7 +42,7 @@ namespace Seed.Modules
 
             if (engineSettings != null)
             {
-                var engineContext = _host.GetOrCreateContext(engineSettings);
+                var engineContext = _host.GetOrCreateEngineContext(engineSettings);
 
                 var hasPendingTasks = false;
                 using (var scope = engineContext.EnterServiceScope())
@@ -94,7 +94,7 @@ namespace Seed.Modules
 
                 if (hasPendingTasks)
                 {
-                    engineContext = _host.GetOrCreateContext(engineSettings);
+                    engineContext = _host.GetOrCreateEngineContext(engineSettings);
 
                     using (var scope = engineContext.EnterServiceScope())
                     {

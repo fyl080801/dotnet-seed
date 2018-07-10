@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc.Razor.Internal;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Caching.Memory;
-using Seed.Environment.Engine.Descriptors;
-using Seed.Mvc.FileProviders;
+using Seed.Environment.Engine.Descriptor.Models;
 using Seed.Environment.Plugins;
+using Seed.Mvc.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.Linq;

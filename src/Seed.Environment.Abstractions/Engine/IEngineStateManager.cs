@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Seed.Environment.Engine.State;
 
 namespace Seed.Environment.Engine
 {
@@ -9,8 +7,8 @@ namespace Seed.Environment.Engine
     {
         Task<EngineState> GetEngineStateAsync();
 
-        Task UpdateEnabledStateAsync(EngineFeatureState featureState, EngineFeatureState.State value);
+        Task UpdateEnabledStateAsync(EngineFeatureState featureState, EngineFeatureState.States value);
 
-        Task UpdateInstalledStateAsync(EngineFeatureState featureState, EngineFeatureState.State value);
+        Task UpdateInstalledStateAsync(EngineFeatureState featureState, EngineFeatureState.States value);
     }
 }

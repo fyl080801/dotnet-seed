@@ -1,8 +1,6 @@
-﻿using Seed.Environment.Engine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace Seed.Environment.Engine
@@ -38,39 +36,6 @@ namespace Seed.Environment.Engine
             }
         }
 
-        public EngineSettings Match(string host, string appRelativeCurrentExecutionFilePath)
-        {
-            _lock.EnterReadLock();
-            try
-            {
-                if (TryMatchInternal(host, appRelativeCurrentExecutionFilePath, out EngineSettings result))
-                {
-                    return result;
-                }
-
-                if (_hasStarMapping && TryMatchStarMapping(host, appRelativeCurrentExecutionFilePath, out result))
-                {
-                    return result;
-                }
-
-                if (DefaultIsCatchAll())
-                {
-                    return _default;
-                }
-
-                if (TryMatchInternal("", "/", out result))
-                {
-                    return result;
-                }
-
-                return null;
-            }
-            finally
-            {
-                _lock.ExitReadLock();
-            }
-        }
-
         public void Remove(EngineSettings settings)
         {
             _lock.EnterWriteLock();
@@ -93,22 +58,57 @@ namespace Seed.Environment.Engine
             }
         }
 
-        private bool TryMatchInternal(string host, string appRelativePath, out EngineSettings result)
+        public EngineSettings Match(string host, string appRelativePath, bool fallbackToDefault = true)
         {
-            var hostAndPrefix = GetHostAndPrefix(host, appRelativePath);
-
-            if (!_enginesByHostAndPrefix.TryGetValue(hostAndPrefix, out result))
+            _lock.EnterReadLock();
+            try
             {
-                var hostAndNoPrefix = GetHostAndPrefix(host, "/");
-
-                if (!_enginesByHostAndPrefix.TryGetValue(hostAndNoPrefix, out result))
+                if (TryMatchInternal(host, appRelativePath, fallbackToDefault, out EngineSettings result))
                 {
-                    var noHostAndPrefix = GetHostAndPrefix("", appRelativePath);
+                    return result;
+                }
 
-                    if (!_enginesByHostAndPrefix.TryGetValue(noHostAndPrefix, out result))
+                if (_hasStarMapping && TryMatchStarMapping(host, appRelativePath, fallbackToDefault, out result))
+                {
+                    return result;
+                }
+
+                if (fallbackToDefault && DefaultIsCatchAll())
+                {
+                    return _default;
+                }
+
+                if (fallbackToDefault && TryMatchInternal("", "/", fallbackToDefault, out result))
+                {
+                    return result;
+                }
+
+                return null;
+            }
+            finally
+            {
+                _lock.ExitReadLock();
+            }
+        }
+
+        private bool TryMatchInternal(string host, string appRelativePath, bool fallbackToDefault, out EngineSettings result)
+        {
+            var hasPort = host.Contains(':');
+
+            if (!hasPort || !_enginesByHostAndPrefix.TryGetValue(GetHostAndPrefix(host, appRelativePath, true), out result))
+            {
+                if (!_enginesByHostAndPrefix.TryGetValue(GetHostAndPrefix(host, appRelativePath, false), out result))
+                {
+                    if (!hasPort || !_enginesByHostAndPrefix.TryGetValue(GetHostAndPrefix(host, "/", true), out result))
                     {
-                        result = null;
-                        return false;
+                        if (!_enginesByHostAndPrefix.TryGetValue(GetHostAndPrefix(host, "/", false), out result))
+                        {
+                            if (!_enginesByHostAndPrefix.TryGetValue(GetHostAndPrefix("", appRelativePath, false), out result))
+                            {
+                                result = null;
+                                return false;
+                            }
+                        }
                     }
                 }
             }
@@ -116,9 +116,9 @@ namespace Seed.Environment.Engine
             return true;
         }
 
-        private bool TryMatchStarMapping(string host, string appRelativePath, out EngineSettings result)
+        private bool TryMatchStarMapping(string host, string appRelativePath, bool fallbackToDefault, out EngineSettings result)
         {
-            if (TryMatchInternal("*." + host, appRelativePath, out result))
+            if (TryMatchInternal("*." + host, appRelativePath, fallbackToDefault, out result))
             {
                 return true;
             }
@@ -127,7 +127,7 @@ namespace Seed.Environment.Engine
 
             while (-1 != (index = host.IndexOf('.', index + 1)))
             {
-                if (TryMatchInternal("*" + host.Substring(index), appRelativePath, out result))
+                if (TryMatchInternal("*" + host.Substring(index), appRelativePath, fallbackToDefault, out result))
                 {
                     return true;
                 }
@@ -137,15 +137,18 @@ namespace Seed.Environment.Engine
             return false;
         }
 
-        private string GetHostAndPrefix(string host, string appRelativePath)
+        private string GetHostAndPrefix(string host, string appRelativePath, bool includePort)
         {
-            var hostLength = host.IndexOf(':');
-            if (hostLength != -1)
+            if (!includePort)
             {
-                host = host.Substring(0, hostLength);
+                var hostLength = host.IndexOf(':');
+                if (hostLength != -1)
+                {
+                    host = host.Substring(0, hostLength);
+                }
             }
 
-            var firstSegmentIndex = appRelativePath.IndexOf('/', 1);
+            var firstSegmentIndex = appRelativePath.Length > 0 ? appRelativePath.IndexOf('/', 1) : -1;
             if (firstSegmentIndex > -1)
             {
                 return host + appRelativePath.Substring(0, firstSegmentIndex);
@@ -157,17 +160,17 @@ namespace Seed.Environment.Engine
 
         }
 
-        private string[] GetAllHostsAndPrefix(EngineSettings settings)
+        private string[] GetAllHostsAndPrefix(EngineSettings engineSettings)
         {
-            if (string.IsNullOrWhiteSpace(settings.RequestUrlHost))
+            if (string.IsNullOrWhiteSpace(engineSettings.RequestUrlHost))
             {
-                return new string[] { "/" + settings.RequestUrlPrefix };
+                return new string[] { "/" + engineSettings.RequestUrlPrefix };
             }
 
-            return settings
+            return engineSettings
                 .RequestUrlHost
                 .Split(new[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(ruh => ruh + "/" + settings.RequestUrlPrefix ?? "")
+                .Select(ruh => ruh + "/" + engineSettings.RequestUrlPrefix ?? "")
                 .ToArray();
         }
 

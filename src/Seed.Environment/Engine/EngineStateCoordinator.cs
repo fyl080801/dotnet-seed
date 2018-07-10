@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Seed.Environment.Engine.Descriptors;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Seed.Environment.Engine.Descriptor.Models;
+using Seed.Environment.Engine.State;
 using Seed.Modules.DeferredTasks;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,19 +10,23 @@ namespace Seed.Environment.Engine
 {
     public class EngineStateCoordinator : IEngineDescriptorManagerEventHandler
     {
-        readonly EngineSettings _settings;
-        readonly IEngineStateManager _stateManager;
-        readonly IDeferredTaskEngine _deferredTaskEngine;
+        private readonly EngineSettings _settings;
+        private readonly IEngineStateManager _stateManager;
+        private readonly IDeferredTaskEngine _deferredTaskEngine;
 
         public EngineStateCoordinator(
             EngineSettings settings,
+            IEngineStateManager stateManager,
             IDeferredTaskEngine deferredTaskEngine,
-            IEngineStateManager stateManager)
+            ILogger<EngineStateCoordinator> logger)
         {
             _deferredTaskEngine = deferredTaskEngine;
             _settings = settings;
             _stateManager = stateManager;
+            Logger = logger;
         }
+
+        public ILogger Logger { get; set; }
 
         async Task IEngineDescriptorManagerEventHandler.Changed(EngineDescriptor descriptor, string tenant)
         {
@@ -38,11 +44,11 @@ namespace Seed.Environment.Engine
                 }
                 if (!featureState.IsInstalled)
                 {
-                    await _stateManager.UpdateInstalledStateAsync(featureState, EngineFeatureState.State.Rising);
+                    await _stateManager.UpdateInstalledStateAsync(featureState, EngineFeatureState.States.Rising);
                 }
                 if (!featureState.IsEnabled)
                 {
-                    await _stateManager.UpdateEnabledStateAsync(featureState, EngineFeatureState.State.Rising);
+                    await _stateManager.UpdateEnabledStateAsync(featureState, EngineFeatureState.States.Rising);
                 }
             }
             foreach (var featureState in engineState.Features)
@@ -54,7 +60,7 @@ namespace Seed.Environment.Engine
                 }
                 if (!featureState.IsDisabled)
                 {
-                    await _stateManager.UpdateEnabledStateAsync(featureState, EngineFeatureState.State.Falling);
+                    await _stateManager.UpdateEnabledStateAsync(featureState, EngineFeatureState.States.Falling);
                 }
             }
 
@@ -71,13 +77,18 @@ namespace Seed.Environment.Engine
 
                 while (engineState.Features.Any(FeatureIsChanging))
                 {
-                    var descriptor = new EngineDescriptor()
+                    var descriptor = new EngineDescriptor
                     {
                         Features = engineState.Features
                             .Where(FeatureShouldBeLoadedForStateChangeNotifications)
                             .Select(x => new EngineFeature { Id = x.Id })
                             .ToArray()
                     };
+
+                    if (Logger.IsEnabled(LogLevel.Information))
+                    {
+                        Logger.LogInformation("Adding pending task 'ApplyChanges' for tenant '{TenantName}'", _settings.Name);
+                    }
 
                     await engineStateUpdater.ApplyChanges();
                 }
@@ -86,13 +97,13 @@ namespace Seed.Environment.Engine
 
         private static bool FeatureIsChanging(EngineFeatureState engineFeatureState)
         {
-            if (engineFeatureState.EnableState == EngineFeatureState.State.Rising ||
-                engineFeatureState.EnableState == EngineFeatureState.State.Falling)
+            if (engineFeatureState.EnableState == EngineFeatureState.States.Rising ||
+                engineFeatureState.EnableState == EngineFeatureState.States.Falling)
             {
                 return true;
             }
-            if (engineFeatureState.InstallState == EngineFeatureState.State.Rising ||
-                engineFeatureState.InstallState == EngineFeatureState.State.Falling)
+            if (engineFeatureState.InstallState == EngineFeatureState.States.Rising ||
+                engineFeatureState.InstallState == EngineFeatureState.States.Falling)
             {
                 return true;
             }
@@ -101,7 +112,7 @@ namespace Seed.Environment.Engine
 
         private static bool FeatureShouldBeLoadedForStateChangeNotifications(EngineFeatureState engineFeatureState)
         {
-            return FeatureIsChanging(engineFeatureState) || engineFeatureState.EnableState == EngineFeatureState.State.Up;
+            return FeatureIsChanging(engineFeatureState) || engineFeatureState.EnableState == EngineFeatureState.States.Up;
         }
     }
 }

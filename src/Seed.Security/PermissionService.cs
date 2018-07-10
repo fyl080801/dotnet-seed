@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Seed.Environment.Caching;
-using Seed.Environment.Engine.Extensions;
+using Seed.Modules.Exceptions;
 using Seed.Security.Extensions;
 using Seed.Security.Permissions;
 using System.Collections.Generic;

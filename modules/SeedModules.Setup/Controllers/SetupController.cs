@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Seed.Environment.Engine;
+using Seed.Environment.Engine.Models;
+using Seed.Mvc.Extensions;
+using Seed.Mvc.Filters;
+using SeedModules.Project.Models;
+using SeedModules.Project.Services;
 using SeedModules.Setup.Services;
 using SeedModules.Setup.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SeedModules.Project.Services;
-using SeedModules.Project.Models;
-using Seed.Mvc.Extensions;
-using Seed.Mvc.Filters;
 
 namespace SeedModules.Setup.Controllers
 {

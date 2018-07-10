@@ -16,8 +16,8 @@ namespace Seed
         public static IWebHost Build(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
-                .UseIISIntegration()
-                .UseKestrel()
+                //.UseIISIntegration()
+                //.UseKestrel()
                 .UseArgs(args)
                 .UseNLogWeb()
                 .UseStartup<Startup>()

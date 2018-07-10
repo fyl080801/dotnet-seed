@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.Extensions.DependencyInjection;
-using Seed.Environment.Engine.Descriptors;
+using Seed.Environment.Engine.Descriptor.Models;
 using Seed.Environment.Plugins;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine;
+using Seed.Environment.Engine.Builders;
+using Seed.Environment.Engine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,7 +59,7 @@ namespace Seed.Environment.BackgroundTasks
 
         private async void DoWorkAsync(object group)
         {
-            EngineContext engineContext = _host.GetOrCreateContext(_engineSettings);
+            EngineContext engineContext = _host.GetOrCreateEngineContext(_engineSettings);
 
             var groupName = group as string ?? "";
 

@@ -5,9 +5,9 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine;
-using Seed.Environment.Engine.Extensions;
 using Seed.Modules;
 using Seed.Modules.DeferredTasks;
+using Seed.Modules.Exceptions;
 using SeedModules.Project.Domain;
 using SeedModules.Project.Events;
 using SeedModules.Project.Models;
@@ -143,7 +143,7 @@ namespace SeedModules.Project.Services
 
         private async Task ExecuteStepAsync(ProjectExecutionContext projectStep)
         {
-            var engineContext = _host.GetOrCreateContext(_engineSettings);
+            var engineContext = _host.GetOrCreateEngineContext(_engineSettings);
             using (var scope = engineContext.EnterServiceScope())
             {
                 if (!engineContext.IsActivated)
@@ -190,7 +190,7 @@ namespace SeedModules.Project.Services
                 }
             }
 
-            engineContext = _host.GetOrCreateContext(_engineSettings);
+            engineContext = _host.GetOrCreateEngineContext(_engineSettings);
             using (var scope = engineContext.EnterServiceScope())
             {
                 var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();

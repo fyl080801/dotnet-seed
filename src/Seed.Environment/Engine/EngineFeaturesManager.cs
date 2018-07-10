@@ -1,11 +1,9 @@
-﻿using System;
+using Seed.Environment.Engine.Descriptor.Models;
+using Seed.Environment.Plugins;
+using Seed.Environment.Plugins.Features;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Seed.Environment.Plugins;
-using Seed.Environment.Engine.Descriptors;
-using Seed.Environment.Plugins.Features;
 
 namespace Seed.Environment.Engine
 {
@@ -53,6 +51,14 @@ namespace Seed.Environment.Engine
         public Task<IEnumerable<IFeatureInfo>> DisableFeaturesAsync(IEnumerable<IFeatureInfo> features, bool force)
         {
             return _engineDescriptorFeaturesManager.DisableFeaturesAsync(_engineDescriptor, features, force);
+        }
+
+        public Task<IEnumerable<IPluginInfo>> GetEnabledPluginsAsync()
+        {
+            var enabledIds = _pluginManager.GetFeatures().Where(f => _engineDescriptor
+                .Features.Any(sf => sf.Id == f.Id)).Select(f => f.Plugin.Id).Distinct().ToArray();
+
+            return Task.FromResult(_pluginManager.GetPlugins().Where(e => enabledIds.Contains(e.Id)));
         }
     }
 }

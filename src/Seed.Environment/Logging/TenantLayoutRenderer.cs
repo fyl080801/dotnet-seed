@@ -1,9 +1,7 @@
 ﻿using NLog;
 using NLog.LayoutRenderers;
 using NLog.Web.LayoutRenderers;
-using Seed.Environment.Engine;
-using System;
-using System.Collections.Generic;
+using Seed.Environment.Engine.Builders;
 using System.Text;
 
 namespace Seed.Environment.Logging

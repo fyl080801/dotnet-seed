@@ -55,7 +55,6 @@
     <ItemGroup>
       <AssemblyAttribute Include="Seed.Modules.Manifest.ModuleMarkerAttribute">
         <_Parameter1>$(MSBuildProjectName)</_Parameter1>
-        <!--<_Parameter2>$(ModuleType)</_Parameter2>-->
       </AssemblyAttribute>
       <AssemblyAttribute Include="Seed.Modules.Manifest.ModuleAssetAttribute">
         <_Parameter1>%(ModuleAssets.Identity)</_Parameter1>
