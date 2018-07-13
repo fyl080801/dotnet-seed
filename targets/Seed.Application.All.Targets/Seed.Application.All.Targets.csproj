@@ -5,7 +5,6 @@
   </PropertyGroup>
   <Target Name="CopyPackageAssetFiles" />
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\SeedModules.Acc\SeedModules.Acc.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Admin\SeedModules.Admin.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Common\SeedModules.Common.csproj" />
