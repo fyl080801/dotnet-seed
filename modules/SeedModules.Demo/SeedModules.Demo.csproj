@@ -21,4 +21,8 @@
     <Folder Include="Content\static\modules\sample\controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.2" />
+  </ItemGroup>
+
 </Project>
