@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Razor.Compilation;
-using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
@@ -11,8 +10,6 @@ using Seed.Modules;
 using Seed.Mvc.LocationExpanders;
 using Seed.Mvc.RazorPages;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Seed.Mvc
 {
