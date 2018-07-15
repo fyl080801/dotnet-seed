@@ -55,7 +55,7 @@ namespace Seed.Environment.Engine.Builder
 
             foreach (var startup in startups)
             {
-                var feature = schema.Dependencies.FirstOrDefault(x => x.Key == startup.GetType()).Value.FeatureInfo;
+                var feature = schema.Dependencies.FirstOrDefault(x => x.Key == startup.GetType()).Value?.FeatureInfo;
                 featureAwareServiceCollection.SetCurrentFeature(feature);
 
                 startup.ConfigureServices(featureAwareServiceCollection);

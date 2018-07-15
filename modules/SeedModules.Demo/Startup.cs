@@ -11,15 +11,15 @@ namespace SeedModules.Demo
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR();
+            //services.AddSignalR();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            app.UseSignalR(config =>
-            {
-                config.MapHub<DemoHub>("/demo");
-            });
+            //app.UseSignalR(config =>
+            //{
+            //    config.MapHub<DemoHub>("/demo");
+            //});
         }
     }
 }

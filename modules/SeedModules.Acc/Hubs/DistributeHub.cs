@@ -8,6 +8,11 @@ namespace SeedModules.Acc.Hubs
 {
     public class DistributeHub : Hub
     {
+        public DistributeHub()
+        {
+            string s = "";
+        }
+
         public async Task SendData(string key, string value)
         {
             await Clients.All.SendAsync("ReceiveData", key, value);
