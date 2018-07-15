@@ -1,22 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ServerGarbageCollection>false</ServerGarbageCollection>
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
   </PropertyGroup>
+
   <ItemGroup>
     <EmbeddedResource Remove="Manifest.cs" />
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
     <ProjectReference Include="..\..\src\Seed.Environment\Seed.Environment.csproj" />
     <ProjectReference Include="..\SeedModules.Project\SeedModules.Project.csproj" />
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
   </ItemGroup>
+
   <ItemGroup>
     <None Update="Content\css\bootstrap.min.css">
       <PackagePath>assets\$(PackageId)\</PackagePath>
