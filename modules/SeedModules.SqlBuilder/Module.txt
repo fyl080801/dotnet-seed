@@ -1,4 +1,0 @@
-﻿Name: Sql查询构建工具
-Version: 1.0
-Category: 功能
-Dependencies: SeedModules.AngularUI, SeedModules.Admin

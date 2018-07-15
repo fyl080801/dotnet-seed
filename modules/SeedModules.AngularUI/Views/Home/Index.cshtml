@@ -13,8 +13,8 @@
 
     <title></title>
 
-    <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="SeedModules.AngularUI/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="SeedModules.AngularUI/css/bootstrap-theme.min.css" />
     <style>
         .view-loading {
             position: absolute;
@@ -22,15 +22,16 @@
             right: 0;
             top: 0;
             bottom: 0;
-            background-image: url('/SeedModules.AngularUI/img/loading.gif');
+            background-image: url('SeedModules.AngularUI/img/loading.gif');
             background-position: center;
             background-repeat: no-repeat;
         }
     </style>
-    @foreach (var script in Model.Scripts) {
+    @foreach (var script in Model.Scripts)
+    {
         <script src="@script"></script>
     }
-    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/startup.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
+    @Html.AngularUI("SeedModules.AngularUI/js/seed/require.min.js", "SeedModules.AngularUI/startup.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
 </head>
 <body ui-view>
     <div class="view-loading"></div>

@@ -7,7 +7,7 @@ namespace SeedModules.AngularUI.Extensions
 {
     public static class ControllerExtensions
     {
-        const string DefaultView = "~/SeedModules.AngularUI/Views/Home/Index.cshtml";
+        const string DefaultView = ".Modules/SeedModules.AngularUI/Views/Home/Index.cshtml";
 
         public static IActionResult UI(this Controller controller, ViewOptionsModel model)
         {

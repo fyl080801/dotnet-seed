@@ -1,3 +1,0 @@
-﻿Name: 路由组件
-Category: 基础模块
-AllowManage: false

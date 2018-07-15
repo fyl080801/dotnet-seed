@@ -1,4 +1,0 @@
-﻿Name: 页面编辑器
-Version: 1.0
-Category: 功能
-Dependencies: SeedModules.AngularUI, SeedModules.Admin

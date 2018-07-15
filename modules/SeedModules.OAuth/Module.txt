@@ -1,5 +1,0 @@
-﻿Name: OAuth
-Version: 1.0
-Category: 安全认证
-Description: 连接认证服务器的客户端
-Dependencies: SeedModules.Mvc, SeedModules.AngularUI, SeedModules.Settings, SeedModules.Security

@@ -22,7 +22,7 @@ namespace Seed.Application.All.Targets
             var builder = services.AddSeed()
                 .AddMvc()
                 .AddSetupFeatures("SeedModules.Setup")
-                .WithFeatures("SeedModules.AngularUI", "SeedModules.Settings", "SeedModules.Project")
+                .WithFeatures("SeedModules.AngularUI", "SeedModules.Project")
                 .AddDataAccess()
                 .AddEngineStorage()
                 .AddBackgroundTasks()

@@ -32,11 +32,9 @@ namespace Seed.Modules.Extensions
                 services.AddSingleton(builder);
 
                 AddDefaultServices(services);
-                AddShellServices(services);
-                AddExtensionServices(builder);
-
+                AddEngineServices(services);
+                AddPluginServices(builder);
                 AddStaticFiles(builder);
-
                 AddAntiForgery(builder);
                 AddAuthentication(builder);
                 AddDataProtection(builder);
@@ -51,20 +49,17 @@ namespace Seed.Modules.Extensions
         {
             services.AddLogging();
             services.AddOptions();
-
             services.AddLocalization();
             services.AddWebEncoders();
-
             services.AddRouting();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //services.AddSingleton<IClock, Clock>();
             //services.AddScoped<ILocalClock, LocalClock>();
-
             services.AddTransient<IModuleTenantRouteBuilder, ModuleTenantRouteBuilder>();
         }
 
-        private static void AddShellServices(IServiceCollection services)
+        private static void AddEngineServices(IServiceCollection services)
         {
             services.AddHostingEngineServices();
             services.AddAllFeaturesDescriptor();
@@ -75,7 +70,7 @@ namespace Seed.Modules.Extensions
             );
         }
 
-        private static void AddExtensionServices(SeedBuilder builder)
+        private static void AddPluginServices(SeedBuilder builder)
         {
             builder.ApplicationServices.AddPluginManagerHost();
 
@@ -94,9 +89,11 @@ namespace Seed.Modules.Extensions
                 IFileProvider fileProvider;
                 if (env.IsDevelopment())
                 {
-                    var fileProviders = new List<IFileProvider>();
-                    fileProviders.Add(new ModuleProjectStaticFileProvider(env));
-                    fileProviders.Add(new ModuleEmbeddedStaticFileProvider(env));
+                    var fileProviders = new List<IFileProvider>
+                    {
+                        new ModuleProjectStaticFileProvider(env),
+                        new ModuleEmbeddedStaticFileProvider(env)
+                    };
                     fileProvider = new CompositeFileProvider(fileProviders);
                 }
                 else
@@ -140,7 +137,6 @@ namespace Seed.Modules.Extensions
             {
                 services.AddAuthentication();
                 services.AddSingleton<IAuthenticationSchemeProvider, AuthenticationSchemeProvider>();
-
             })
             .Configure(app =>
             {

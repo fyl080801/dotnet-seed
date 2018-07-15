@@ -13,9 +13,9 @@
 
     <title>@ViewBag.Title</title>
 
-    <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/SeedModules.AngularUI/css/bootstrap-theme.min.css" />
-    @Html.AngularUI("/SeedModules.AngularUI/js/seed/require.min.js", "/SeedModules.AngularUI/startup.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
+    <link rel="stylesheet" href="SeedModules.AngularUI/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="SeedModules.AngularUI/css/bootstrap-theme.min.css" />
+    @Html.AngularUI("SeedModules.AngularUI/js/seed/require.min.js", "SeedModules.AngularUI/startup.js").Options(Model.Options).Settings(Model.SiteSettings).Properties(Model.Properties)
 </head>
 <body>
     @RenderBody()

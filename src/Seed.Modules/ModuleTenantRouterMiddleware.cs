@@ -48,9 +48,7 @@ namespace Seed.Modules
                 _pipelines.Remove(engineContext.Settings.Name);
             }
 
-            RequestDelegate pipeline;
-
-            if (!_pipelines.TryGetValue(engineContext.Settings.Name, out pipeline))
+            if (!_pipelines.TryGetValue(engineContext.Settings.Name, out RequestDelegate pipeline))
             {
                 lock (_pipelines)
                 {

@@ -9,12 +9,11 @@
       <PackagePath>build\netstandard2.0\Seed.Application.All.Targets.targets</PackagePath>
     </None>
   </ItemGroup>
-  
+
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Features\SeedModules.Features.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" />
-    <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" PrivateAssets="none" />
   </ItemGroup>
 </Project>

@@ -23,7 +23,7 @@ namespace SeedModules.Setup.Controllers
 
         public IActionResult Index()
         {
-            return View("~/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
+            return View(".Modules/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
                 Options = _optionsBuilder.Build(RouteData).Result,
                 SiteSettings = _siteSettingsBuilder.Build().ToString()
