@@ -7,7 +7,7 @@ namespace Seed.Environment.Engine
 {
     public class EngineOptionsSetup : IConfigureOptions<EngineOptions>
     {
-        private const string OrchardAppData = "SEED_APP_DATA";
+        private const string SeedAppData = "SEED_APP_DATA";
         private const string DefaultAppDataPath = "App_Data";
         private const string DefaultSitesPath = "Sites";
 
@@ -20,7 +20,7 @@ namespace Seed.Environment.Engine
 
         public void Configure(EngineOptions options)
         {
-            var appData = System.Environment.GetEnvironmentVariable(OrchardAppData);
+            var appData = System.Environment.GetEnvironmentVariable(SeedAppData);
 
             if (!String.IsNullOrEmpty(appData))
             {

@@ -67,7 +67,7 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
       // 模块前缀，用于判断是否是一个模块引用
       var moduleprefix = uipath
         .replace(moduleOptions.baseUrl, '')
-        .replace(path.join('Content/', ''), '')
+        .replace(path.join('wwwroot/', ''), '')
         .replace(/\\/g, '/');
 
       var moduleName = moduleprefix.substring(0, moduleprefix.indexOf('/'));
@@ -80,7 +80,7 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
         moduleOptions.exclude.push(name);
       }
 
-      // 如果是已包含的模块需要映射路径 /Content
+      // 如果是已包含的模块需要映射路径 /wwwroot
       if (
         (option.include && option.include.indexOf(name) >= 0) ||
         (!option.configs[name].path || option.configs[name].path.length <= 0)
@@ -88,7 +88,7 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
         if (option.configs[name].path && option.configs[name].path.length > 0)
           moduleOptions.paths[name] = option.configs[name].path.replace(
             moduleName,
-            moduleName + '/Content'
+            moduleName + '/wwwroot'
           );
         moduleOptions.include.push(name);
       }
@@ -141,7 +141,7 @@ gulp.task('build', function() {
     moduleOptions.paths[
       fullname
         .replace(moduleOptions.baseUrl, '')
-        .replace(path.join('Content/', ''), '')
+        .replace(path.join('wwwroot/', ''), '')
         .replace('.js', '')
         .replace(/\\/g, '/')
     ] = fullname.replace(moduleOptions.baseUrl, '').replace('.js', '');
@@ -161,7 +161,7 @@ gulp.task('build', function() {
     requiresOptions.exclude.push(
       folder
         .replace(moduleOptions.baseUrl, '')
-        .replace(path.join('Content/', ''), '')
+        .replace(path.join('wwwroot/', ''), '')
         .replace(/\\/g, '/') + '/module'
     );
   });
@@ -170,10 +170,10 @@ gulp.task('build', function() {
     var sortpath = folder.replace(moduleOptions.baseUrl, '');
     var modulename = sortpath.substring(
       0,
-      sortpath.indexOf(path.join('Content/', ''))
+      sortpath.indexOf(path.join('wwwroot/', ''))
     );
     var distname = sortpath
-      .replace(path.join(modulename, 'Content/', ''), '')
+      .replace(path.join(modulename, 'wwwroot/', ''), '')
       .replace(/\//g, '.')
       .replace(/\\/g, '.');
     var targetPath = path.join(
@@ -190,7 +190,7 @@ gulp.task('build', function() {
       .pipe(
         replace(
           requireName.replace(/\\/g, '/'),
-          requireName.replace(/\\/g, '/').replace('/Content/', '/')
+          requireName.replace(/\\/g, '/').replace('/wwwroot/', '/')
         )
       )
       .pipe(concat(distname + '.requires.js'))
@@ -210,7 +210,7 @@ gulp.task('build', function() {
       .pipe(
         replace(
           moduleName.replace(/\\/g, '/'),
-          moduleName.replace(/\\/g, '/').replace('/Content/', '/')
+          moduleName.replace(/\\/g, '/').replace('/wwwroot/', '/')
         )
       )
       .pipe(concat(distname + '.module.js'))

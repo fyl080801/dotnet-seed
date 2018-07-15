@@ -7,10 +7,12 @@ namespace Seed.Modules.FileProviders
     public class EmbeddedDirectoryInfo : IFileInfo
     {
         private string _name;
+        private Stream _stream;
 
-        public EmbeddedDirectoryInfo(string name)
+        public EmbeddedDirectoryInfo(string name, Stream stream)
         {
             _name = name;
+            _stream = stream;
         }
 
         public bool Exists => true;
@@ -27,7 +29,7 @@ namespace Seed.Modules.FileProviders
 
         public Stream CreateReadStream()
         {
-            throw new InvalidOperationException("还不能创建一个对目录读取的流");
+            return _stream;
         }
     }
 }

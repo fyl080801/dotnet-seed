@@ -8,17 +8,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Seed.Modules
 {
     public class ModuleEmbeddedFileProvider : IFileProvider
     {
+        private readonly Assembly _assembly;
         private readonly IHostingEnvironment _environment;
 
         public ModuleEmbeddedFileProvider(IHostingEnvironment hostingEnvironment)
         {
             _environment = hostingEnvironment;
+            _assembly = Application.Assembly;
         }
 
         private Application Application => _environment.GetApplication();
@@ -36,12 +39,11 @@ namespace Seed.Modules
 
             if (folder == "")
             {
-                entries.Add(new EmbeddedDirectoryInfo(Application.ModulesPath));
+                entries.Add(new EmbeddedDirectoryInfo(Application.ModulesPath, _assembly.GetManifestResourceStream(Application.ModulesPath)));
             }
             else if (folder == Application.ModulesPath)
             {
-                entries.AddRange(Application.ModuleNames
-                    .Select(n => new EmbeddedDirectoryInfo(n)));
+                entries.AddRange(Application.ModuleNames.Select(n => new EmbeddedDirectoryInfo(n, _assembly.GetManifestResourceStream(n))));
             }
             else if (folder == Application.ModulePath)
             {
@@ -52,8 +54,7 @@ namespace Seed.Modules
                 var tokenizer = new StringTokenizer(folder, new char[] { '/' });
                 if (tokenizer.Any(s => s == "Pages" || s == "Views"))
                 {
-                    var folderSubPath = folder.Substring(Application.ModuleRoot.Length);
-                    return new PhysicalDirectoryContents(Application.Root + folderSubPath);
+                    return new PhysicalDirectoryContents(Application.Root + folder.Substring(Application.ModuleRoot.Length));
                 }
             }
             else if (folder.StartsWith(Application.ModulesRoot, StringComparison.Ordinal))
@@ -81,7 +82,7 @@ namespace Seed.Modules
                     }
                 }
 
-                entries.AddRange(folders.Select(f => new EmbeddedDirectoryInfo(f)));
+                entries.AddRange(folders.Select(f => new EmbeddedDirectoryInfo(f, _assembly.GetManifestResourceStream(f))));
             }
 
             return new EmbeddedDirectoryContents(entries);
@@ -98,8 +99,7 @@ namespace Seed.Modules
 
             if (path.StartsWith(Application.ModuleRoot, StringComparison.Ordinal))
             {
-                var fileSubPath = path.Substring(Application.ModuleRoot.Length);
-                return new PhysicalFileInfo(new FileInfo(Application.Root + fileSubPath));
+                return new PhysicalFileInfo(new FileInfo(Application.Root + path.Substring(Application.ModuleRoot.Length)));
             }
             else if (path.StartsWith(Application.ModulesRoot, StringComparison.Ordinal))
             {
@@ -109,8 +109,7 @@ namespace Seed.Modules
                 if (index != -1)
                 {
                     var module = path.Substring(0, index);
-                    var fileSubPath = path.Substring(index + 1);
-                    return _environment.GetModule(module).GetFileInfo(fileSubPath);
+                    return _environment.GetModule(module).GetFileInfo(path.Substring(index + 1));
                 }
             }
 

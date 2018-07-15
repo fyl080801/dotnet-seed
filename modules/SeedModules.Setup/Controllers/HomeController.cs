@@ -2,6 +2,7 @@
 using Seed.Environment.Engine;
 using SeedModules.AngularUI.Models;
 using SeedModules.AngularUI.Rendering;
+using SeedModules.AngularUI.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,6 +29,7 @@ namespace SeedModules.Setup.Controllers
                 Options = _optionsBuilder.Build(RouteData).Result,
                 SiteSettings = _siteSettingsBuilder.Build().ToString()
             });
+            //return this.UI();
         }
     }
 }

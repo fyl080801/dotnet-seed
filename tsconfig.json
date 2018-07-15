@@ -7,14 +7,14 @@
     "sourceMap": true,
     "baseUrl": "modules",
     "paths": {
-      "SeedModules.AngularUI/*": ["SeedModules.AngularUI/Content/*"],
-      "SeedModules.Setup/*": ["SeedModules.Setup/Content/*"],
-      "SeedModules.Admin/*": ["SeedModules.Admin/Content/*"],
-      "SeedModules.Features/*": ["SeedModules.Features/Content/*"],
-      "SeedModules.MindPlus/*": ["SeedModules.MindPlus/Content/*"],
-      "SeedModules.PageBuilder/*": ["SeedModules.PageBuilder/Content/*"],
-      "SeedModules.Saas/*": ["SeedModules.Saas/Content/*"],
-      "SeedModules.SqlBuilder/*": ["SeedModules.SqlBuilder/Content/*"]
+      "SeedModules.AngularUI/*": ["SeedModules.AngularUI/wwwroot/*"],
+      "SeedModules.Setup/*": ["SeedModules.Setup/wwwroot/*"],
+      "SeedModules.Admin/*": ["SeedModules.Admin/wwwroot/*"],
+      "SeedModules.Features/*": ["SeedModules.Features/wwwroot/*"],
+      "SeedModules.MindPlus/*": ["SeedModules.MindPlus/wwwroot/*"],
+      "SeedModules.PageBuilder/*": ["SeedModules.PageBuilder/wwwroot/*"],
+      "SeedModules.Saas/*": ["SeedModules.Saas/wwwroot/*"],
+      "SeedModules.SqlBuilder/*": ["SeedModules.SqlBuilder/wwwroot/*"]
     }
   },
   "exclude": ["node_modules", "src", "targets"]

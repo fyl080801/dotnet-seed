@@ -24,11 +24,11 @@ namespace Seed.Mvc.LocationExpanders
         public ModuleViewLocationExpanderProvider(
             IRazorViewEngineFileProviderAccessor fileProviderAccessor,
             IPluginManager pluginManager,
-            EngineDescriptor shellDescriptor,
+            EngineDescriptor engineDescriptor,
             IMemoryCache memoryCache)
         {
             _pluginManager = pluginManager;
-            _engineDescriptor = shellDescriptor;
+            _engineDescriptor = engineDescriptor;
             _memoryCache = memoryCache;
 
             if (_modulesWithComponentViews != null)

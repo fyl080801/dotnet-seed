@@ -11,11 +11,7 @@ namespace Seed.Modules
 
         public IRouteBuilder Build(IApplicationBuilder appBuilder)
         {
-            var routeBuilder = new RouteBuilder(appBuilder)
-            {
-            };
-
-            return routeBuilder;
+            return new RouteBuilder(appBuilder) { };
         }
 
         public void Configure(IRouteBuilder builder)

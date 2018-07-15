@@ -24,6 +24,7 @@ namespace Seed.Modules
         }
 
         public string ModuleAssetPath { get; }
+        
         public string ProjectAssetPath { get; }
     }
 }

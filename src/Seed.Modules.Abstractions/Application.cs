@@ -32,11 +32,17 @@ namespace Seed.Modules
         }
 
         public string Name { get; }
+
         public string Path { get; }
+
         public string Root { get; }
+
         public Assembly Assembly { get; }
+
         public IEnumerable<string> ModuleNames { get; }
+
         public string ModulePath { get; }
+
         public string ModuleRoot { get; }
     }
 }

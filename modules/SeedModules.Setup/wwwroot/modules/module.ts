@@ -1,4 +1,5 @@
 import angular = require('angular');
+import 'app/application';
 
 class Config {
   static $inject = ['$stateProvider', '$urlRouterProvider'];

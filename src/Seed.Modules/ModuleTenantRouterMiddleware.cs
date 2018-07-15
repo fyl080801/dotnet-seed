@@ -106,9 +106,7 @@ namespace Seed.Modules
 
             tenantRouteBuilder.Configure(routeBuilder);
 
-            var router = routeBuilder.Build();
-
-            appBuilder.UseRouter(router);
+            appBuilder.UseRouter(routeBuilder.Build());
         }
     }
 }

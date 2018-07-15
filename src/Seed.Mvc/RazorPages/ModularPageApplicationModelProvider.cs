@@ -32,9 +32,10 @@ namespace Seed.Mvc.RazorPages
                 if (_paths == null)
                 {
                     var extensionManager = _httpContextAccessor.HttpContext.RequestServices.GetService<IPluginManager>();
-                    var shellDescriptor = _httpContextAccessor.HttpContext.RequestServices.GetService<EngineDescriptor>();
+                    var engineDescriptor = _httpContextAccessor.HttpContext.RequestServices.GetService<EngineDescriptor>();
 
-                    _paths = extensionManager.GetFeatures().Where(f => shellDescriptor.Features.Any(sf => sf.Id == f.Id))
+                    _paths = extensionManager.GetFeatures()
+                        .Where(f => engineDescriptor.Features.Any(sf => sf.Id == f.Id))
                         .Select(f => '/' + f.Plugin.SubPath + "/Pages/").Distinct();
                 }
             }

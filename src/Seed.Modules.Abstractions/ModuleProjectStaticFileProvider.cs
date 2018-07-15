@@ -27,7 +27,6 @@ namespace Seed.Modules
                 if (_paths == null)
                 {
                     var application = environment.GetApplication();
-
                     var paths = new Dictionary<string, string>();
 
                     foreach (var name in application.ModuleNames)
