@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Connections.Internal;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
+using Seed.Data;
 using Seed.Modules;
-using SeedModules.Acc.Hubs;
 using System;
 
 namespace SeedModules.Acc
@@ -15,16 +11,21 @@ namespace SeedModules.Acc
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("acc_cors", b =>
+                {
+                    b.AllowAnyOrigin();
+                    b.AllowAnyHeader();
+                    b.AllowAnyMethod();
+                });
+            });
+            services.AddScoped<IEntityTypeConfigurationProvider, EntityTypeConfigurations>();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            var dispatcher = app.ApplicationServices.GetService<HttpConnectionManager>();
-            app.UseSignalR(configs =>
-            {
-                configs.MapHub<DistributeHub>("/signalr");
-            });
+            app.UseCors("acc_cors");
         }
     }
 }

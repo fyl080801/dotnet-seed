@@ -9,10 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
   </ItemGroup>
