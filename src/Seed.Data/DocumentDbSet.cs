@@ -151,11 +151,7 @@ namespace Seed.Data
         public override EntityEntry<TEntity> Update(TEntity entity)
         {
             var keys = _keyCollection.Select(e => e.GetValue(entity)).ToArray();
-            var document = _document.Find(keys);
-            if (document == null || document.Type != typeof(TEntity).FullName)
-            {
-                document = _document.FirstOrDefault(e => e.Type == typeof(TEntity).FullName);
-            }
+            var document = _document.FirstOrDefault(e => e.Type == typeof(TEntity).FullName);
             document.Content = JsonConvert.SerializeObject(entity);
             _document.Update(document);
             return null;
