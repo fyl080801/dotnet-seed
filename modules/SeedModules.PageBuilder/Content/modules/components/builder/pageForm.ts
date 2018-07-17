@@ -98,7 +98,8 @@ class PageFormClass {
     this.$modal.open({
       templateUrl:
         '/SeedModules.PageBuilder/modules/components/builder/preview.html',
-      size: 'lg',
+      size: '9',
+      windowClass: 'right',
       scope: this.$scope
     });
   }
