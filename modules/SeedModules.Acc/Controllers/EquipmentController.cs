@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Data;
+using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
+using Seed.Mvc.Models;
 using SeedModules.Acc.Domain;
 using SeedModules.Acc.Models;
 using System;
@@ -56,13 +58,38 @@ namespace SeedModules.Acc.Controllers
         [HttpPost, HandleResult]
         public void Add([FromBody]Equipment model)
         {
-
+            var set = _db.Set<Equipment>();
+            var count = set.Count(e => e.Code == model.Code);
+            if (count > 0)
+            {
+                throw this.Exception("编号重复");
+            }
+            set.Add(model);
+            _db.SaveChanges();
         }
 
         [HttpGet("{id}")]
         public Equipment GetById(int id)
         {
             return _db.Set<Equipment>().Find(id);
+        }
+
+        [HttpPost("query"), HandleResult]
+        public PagedResult<Equipment> List([FromBody]ListQueryModel model, [FromQuery]int page, [FromQuery]int count)
+        {
+            var set = _db.Set<Equipment>();
+            var query = set.OrderBy(e => e.Id).Select(e => new Equipment()
+            {
+                Id = e.Id,
+                CabinCode = e.CabinCode,
+                CabinName = e.CabinName,
+                CategoryCode = e.CategoryCode,
+                CategoryName = e.CategoryName,
+                Code = e.Code,
+                Name = e.Name
+            });
+
+            return new PagedResult<Equipment>(query, page, count);
         }
     }
 }
