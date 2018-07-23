@@ -68,10 +68,43 @@ namespace SeedModules.Acc.Controllers
             _db.SaveChanges();
         }
 
-        [HttpGet("{id}")]
+        [HttpPut, HandleResult]
+        public void Edit([FromBody]Equipment model)
+        {
+            var set = _db.Set<Equipment>();
+            var count = set.Count(e => e.Code == model.Code && e.Id != model.Id);
+            if (count > 0)
+            {
+                throw this.Exception("编号重复");
+            }
+            var domain = set.Find(model.Id);
+            if (domain != null)
+            {
+                domain.CabinCode = model.CabinCode;
+                domain.CabinName = model.CabinName;
+                domain.CategoryCode = model.CategoryCode;
+                domain.CategoryName = model.CategoryName;
+                domain.Code = model.Code;
+                domain.Name = model.Name;
+            }
+            _db.SaveChanges();
+        }
+
+        [HttpGet("{id}"), HandleResult]
         public Equipment GetById(int id)
         {
             return _db.Set<Equipment>().Find(id);
+        }
+
+        [HttpDelete("{id}"), HandleResult]
+        public void Delete(int id)
+        {
+            var domain = _db.Set<Equipment>().Find(id);
+            if (domain != null)
+            {
+                _db.Set<Equipment>().Remove(domain);
+                _db.SaveChanges();
+            }
         }
 
         [HttpPost("query"), HandleResult]

@@ -42,7 +42,7 @@ namespace SeedModules.Acc.Domain
         [NotMapped]
         public override JObject Properties
         {
-            get { return JObject.Parse(this.Extends); }
+            get { return string.IsNullOrEmpty(this.Extends) ? JObject.FromObject(new { }) : JObject.Parse(this.Extends); }
             set { this.Extends = value.ToString(); }
         }
     }
