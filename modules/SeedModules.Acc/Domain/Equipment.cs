@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Seed.Data;
 using System;
@@ -37,6 +38,7 @@ namespace SeedModules.Acc.Domain
         [StringLength(255)]
         public string CategoryName { get; set; }
 
+        [JsonIgnore]
         public string Extends { get; private set; }
 
         [NotMapped]
