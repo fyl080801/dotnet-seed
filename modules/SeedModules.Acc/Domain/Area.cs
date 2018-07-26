@@ -10,9 +10,9 @@ namespace SeedModules.Acc.Domain
 
         public string Name { get; set; }
 
-        public double LocationX { get; set; }
+        public double CenterLng { get; set; }
 
-        public double LocationY { get; set; }
+        public double CenterLat { get; set; }
 
         public double Zoom { get; set; }
     }

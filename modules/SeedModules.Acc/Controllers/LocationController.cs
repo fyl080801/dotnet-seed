@@ -23,7 +23,8 @@ namespace SeedModules.Acc.Controllers
         public IEnumerable<Area> List()
         {
             var location = _db.Set<Location>().FirstOrDefault();
-            return location != null ? location.Areas : new List<Area>();
+            location.Areas = location.Areas ?? new List<Area>();
+            return location != null ? location.Areas.OrderBy(e => e.Name).ToList() : new List<Area>();
         }
 
         [HttpPost("areas"), HandleResult]
@@ -33,9 +34,14 @@ namespace SeedModules.Acc.Controllers
             var location = set.FirstOrDefault();
             if (location == null)
             {
-                location = new Location();
+                location = new Location()
+                {
+                    Areas = new List<Area>()
+                };
                 _db.Set<Location>().Add(location);
             }
+
+            location.Areas = location.Areas ?? new List<Area>();
 
             var existed = location.Areas.FirstOrDefault(e => e.Code == model.Code);
             if (existed != null)
@@ -48,6 +54,8 @@ namespace SeedModules.Acc.Controllers
             }
 
             location.Areas.Add(model);
+
+            set.Update(location);
 
             _db.SaveChanges();
         }

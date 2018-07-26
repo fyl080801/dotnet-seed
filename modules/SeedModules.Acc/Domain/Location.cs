@@ -6,6 +6,6 @@ namespace SeedModules.Acc.Domain
 {
     public class Location
     {
-        public ICollection<Area> Areas { get; set; }
+        public ICollection<Area> Areas { get; set; } = new List<Area>();
     }
 }
