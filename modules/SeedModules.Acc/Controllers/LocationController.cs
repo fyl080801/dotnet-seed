@@ -22,7 +22,7 @@ namespace SeedModules.Acc.Controllers
         [HttpGet("areas"), HandleResult]
         public IEnumerable<Area> List()
         {
-            var location = _db.Set<Location>().FirstOrDefault();
+            var location = _db.Set<Location>().FirstOrDefault() ?? new Location();
             location.Areas = location.Areas ?? new List<Area>();
             return location != null ? location.Areas.OrderBy(e => e.Name).ToList() : new List<Area>();
         }
