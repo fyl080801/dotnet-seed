@@ -71,6 +71,7 @@ namespace SeedModules.Acc.Controllers
                 if (existed != null)
                 {
                     location.Areas.Remove(existed);
+                    set.Update(location);
                     _db.SaveChanges();
                 }
             }

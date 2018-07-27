@@ -108,10 +108,14 @@ namespace SeedModules.Acc.Controllers
         }
 
         [HttpPost("query"), HandleResult]
-        public PagedResult<Equipment> List([FromBody]ListQueryModel model, [FromQuery]int page, [FromQuery]int count)
+        public PagedResult<Equipment> List([FromBody]EquipmentQueryModel model, [FromQuery]int page, [FromQuery]int count)
         {
-            var set = _db.Set<Equipment>();
-            var query = set.OrderBy(e => e.Id).Select(e => new Equipment()
+            var set = _db.Set<Equipment>().AsQueryable();
+            if (!string.IsNullOrEmpty(model.CategoryCode))
+            {
+                set = set.Where(e => e.CategoryCode == model.CategoryCode);
+            }
+            var result = set.OrderBy(e => e.Id).Select(e => new Equipment()
             {
                 Id = e.Id,
                 CabinCode = e.CabinCode,
@@ -122,7 +126,31 @@ namespace SeedModules.Acc.Controllers
                 Name = e.Name
             });
 
-            return new PagedResult<Equipment>(query, page, count);
+            return new PagedResult<Equipment>(result, page, count);
+        }
+
+        [HttpGet("category/{code}"), HandleResult]
+        public IEnumerable<Equipment> ListByCategory(string code)
+        {
+            var set = _db.Set<Equipment>().AsQueryable();
+            if (!string.IsNullOrEmpty(code))
+            {
+                set = set.Where(e => e.CategoryCode == code);
+                return set.OrderBy(e => e.Name).Select(e => new Equipment()
+                {
+                    Id = e.Id,
+                    CabinCode = e.CabinCode,
+                    CabinName = e.CabinName,
+                    CategoryCode = e.CategoryCode,
+                    CategoryName = e.CategoryName,
+                    Code = e.Code,
+                    Name = e.Name
+                });
+            }
+            else
+            {
+                return new List<Equipment>();
+            }
         }
     }
 }
