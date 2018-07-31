@@ -23,7 +23,6 @@ namespace SeedModules.Acc.Controllers
             _db = db;
         }
 
-
         [HttpPost("category"), HandleResult]
         public void SaveCategory([FromBody]EquipmentCategory model)
         {
@@ -53,7 +52,6 @@ namespace SeedModules.Acc.Controllers
             var domain = _db.Set<Equipment>().Find(id);
 
         }
-
 
         [HttpPost, HandleResult]
         public void Add([FromBody]Equipment model)
