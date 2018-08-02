@@ -1,9 +1,10 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Seed.Mvc.Models
 {
-    public class PagedResult<T>
+    public class PagedResult<T> : IPagedResult<T>
     {
         public PagedResult()
         { }

@@ -12,7 +12,8 @@ namespace SeedModules.Acc
         {
             return Task.FromResult(new object[]
             {
-                new EquipmentTypeConfiguration()
+                new EquipmentTypeConfiguration(),
+                new LocationTypeConfiguration()
             }.AsEnumerable());
         }
     }

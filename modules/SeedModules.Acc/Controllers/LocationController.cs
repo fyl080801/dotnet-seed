@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Seed.Data;
 using Seed.Mvc.Filters;
+using Seed.Mvc.Models;
 using SeedModules.Acc.Domain;
-using System;
-using System.Collections.Generic;
+using SeedModules.Acc.Models;
 using System.Linq;
 
 namespace SeedModules.Acc.Controllers
@@ -19,61 +19,51 @@ namespace SeedModules.Acc.Controllers
             _db = db;
         }
 
-        [HttpGet("areas"), HandleResult]
-        public IEnumerable<Area> List()
+        [HttpPost("query"), HandleResult]
+        public IPagedResult<Location> List([FromBody]KeyedQueryModel model, [FromQuery]int page, [FromQuery]int count)
         {
-            var location = _db.Set<Location>().FirstOrDefault() ?? new Location();
-            location.Areas = location.Areas ?? new List<Area>();
-            return location != null ? location.Areas.OrderBy(e => e.Name).ToList() : new List<Area>();
+            var query = _db.Set<Location>().AsQueryable();
+            if (!string.IsNullOrEmpty(model.Keyword))
+            {
+                query = query.Where(e => e.Name.Contains(model.Keyword));
+            }
+            return new PagedResult<Location>(query, page, count);
         }
 
-        [HttpPost("areas"), HandleResult]
-        public void SaveArea([FromBody]Area model)
+        [HttpGet("{id}"), HandleResult]
+        public Location Get(int id)
+        {
+            return _db.Set<Location>().Find(id);
+        }
+
+        [HttpPut, HandleResult]
+        public Location Save([FromBody]Location model)
         {
             var set = _db.Set<Location>();
-            var location = set.FirstOrDefault();
-            if (location == null)
+            var domain = set.Find(model.Id);
+            if (domain == null)
             {
-                location = new Location()
-                {
-                    Areas = new List<Area>()
-                };
-                _db.Set<Location>().Add(location);
-            }
-
-            location.Areas = location.Areas ?? new List<Area>();
-
-            var existed = location.Areas.FirstOrDefault(e => e.Code == model.Code);
-            if (existed != null)
-            {
-                location.Areas.Remove(existed);
+                model = set.Add(model).Entity;
             }
             else
             {
-                model.Code = Guid.NewGuid().ToString();
+                domain.Description = model.Description;
+                domain.Properties = model.Properties;
+                domain.Name = model.Name;
             }
-
-            location.Areas.Add(model);
-
-            set.Update(location);
-
             _db.SaveChanges();
+            return model;
         }
 
-        [HttpDelete("areas/{id}"), HandleResult]
-        public void DeleteArea(string id)
+        [HttpDelete("{id}"), HandleResult]
+        public void Delete(int id)
         {
             var set = _db.Set<Location>();
-            var location = set.FirstOrDefault();
-            if (location != null)
+            var domain = set.Find(id);
+            if (domain != null)
             {
-                var existed = location.Areas.FirstOrDefault(e => e.Code == id);
-                if (existed != null)
-                {
-                    location.Areas.Remove(existed);
-                    set.Update(location);
-                    _db.SaveChanges();
-                }
+                set.Remove(domain);
+                _db.SaveChanges();
             }
         }
     }
