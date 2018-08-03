@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Seed.Data;
+using Seed.Mvc.Extensions;
 using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
 using SeedModules.Acc.Domain;
 using SeedModules.Acc.Models;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SeedModules.Acc.Controllers
@@ -30,6 +33,13 @@ namespace SeedModules.Acc.Controllers
             return new PagedResult<Location>(query, page, count);
         }
 
+        [HttpGet("favorite"), HandleResult]
+        public IEnumerable<Location> FavoriteList()
+        {
+            var query = _db.Set<Location>().Where(e => e.Favorite == true);
+            return query.ToArray();
+        }
+
         [HttpGet("{id}"), HandleResult]
         public Location Get(int id)
         {
@@ -53,6 +63,18 @@ namespace SeedModules.Acc.Controllers
             }
             _db.SaveChanges();
             return model;
+        }
+
+        [HttpPatch("favorite/{id}"), HandleResult]
+        public bool SetFavorite(int id)
+        {
+            var domain = _db.Set<Location>().Find(id);
+
+            if (domain == null) throw this.Exception($"找不到 {id} 的设置");
+
+            domain.Favorite = !domain.Favorite;
+            _db.SaveChanges();
+            return domain.Favorite;
         }
 
         [HttpDelete("{id}"), HandleResult]
