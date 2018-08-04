@@ -27,7 +27,6 @@ namespace Seed.Data
     {
         readonly IDbContext _dbContext;
         readonly DbSet<Document> _document;
-        readonly Type _entityType;
         readonly Type _documentType = typeof(Document);
         readonly IEnumerable<PropertyInfo> _keyCollection;
         readonly IQueryable<Document> _documentQuery;
@@ -39,15 +38,14 @@ namespace Seed.Data
         {
             _dbContext = dbContext;
             _document = dbContext.Document;
-            _entityType = typeof(TEntity);
-            var entityTypeName = _entityType.ToString();
+            var entityTypeName = ElementType.ToString();
             _documentQuery = _document.Where(e => e.Type == entityTypeName);
 
             var documentKeys = typeof(Document).GetProperties()
                 .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0)
                 .AsEnumerable();
 
-            _keyCollection = _entityType.GetProperties()
+            _keyCollection = ElementType.GetProperties()
                 .Where(e => e.GetCustomAttributes(typeof(KeyAttribute), true).Length > 0 && documentKeys.Any(x => x.Name == e.Name && x.PropertyType == e.PropertyType))
                 .AsEnumerable();
         }
@@ -57,24 +55,24 @@ namespace Seed.Data
 
         public override EntityEntry<TEntity> Attach(TEntity entity)
         {
-            throw new NotSupportedException($"未映射的实体类型 {_entityType.FullName} 不能 Attach");
+            throw new NotSupportedException($"未映射的实体类型 {ElementType.FullName} 不能 Attach");
         }
 
         public override void AttachRange(IEnumerable<TEntity> entities)
         {
-            throw new NotSupportedException($"未映射的实体类型 {_entityType.FullName} 不能 Attach");
+            throw new NotSupportedException($"未映射的实体类型 {ElementType.FullName} 不能 Attach");
         }
 
         public override void AttachRange(params TEntity[] entities)
         {
-            throw new NotSupportedException($"未映射的实体类型 {_entityType.FullName} 不能 Attach");
+            throw new NotSupportedException($"未映射的实体类型 {ElementType.FullName} 不能 Attach");
         }
 
         public override EntityEntry<TEntity> Add(TEntity entity)
         {
             var document = new Document()
             {
-                Type = _entityType.ToString(),
+                Type = ElementType.ToString(),
                 Content = JsonConvert.SerializeObject(entity)
             };
             _document.Add(document);
@@ -189,8 +187,7 @@ namespace Seed.Data
         private IQueryable<TEntity> EntityQuery
             => _entityQuery ?? (_entityQuery = GetEntityQuery());
 
-        public Type ElementType
-            => _entityType;
+        private readonly Type ElementType = typeof(TEntity);
 
         public IAsyncEnumerable<TEntity> AsyncEnumerable
             => EntityQuery.ToAsyncEnumerable();

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Seed.Environment.Engine.Descriptor.Models
 {
     public class EngineDescriptor
     {
+        [Key]
         public int Id { get; set; }
 
         public int SerialNumber { get; set; }

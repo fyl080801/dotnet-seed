@@ -6,6 +6,7 @@ using Seed.Environment.Engine.Data;
 using Seed.Modules.Builder;
 using Seed.Modules.Extensions;
 using Seed.Mvc.Extensions;
+using Seed.Project.Extensions;
 using System;
 
 namespace Seed.Application.All.Targets
@@ -21,8 +22,8 @@ namespace Seed.Application.All.Targets
         {
             var builder = services.AddSeed()
                 .AddMvc()
+                .AddProject()
                 .AddSetupFeatures("SeedModules.Setup")
-                //.WithFeatures("SeedModules.AngularUI", "SeedModules.Project")
                 .AddDataAccess()
                 .AddEngineStorage()
                 .AddBackgroundTasks()

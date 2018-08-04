@@ -1,4 +1,4 @@
-﻿using SeedModules.Project.Models;
+﻿using Seed.Project.Models;
 using System.Collections.Generic;
 
 namespace SeedModules.Setup.Services

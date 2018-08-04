@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\modules\SeedModules.Admin\SeedModules.Admin.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" PrivateAssets="none" />
-    <ProjectReference Include="..\..\modules\SeedModules.Project\SeedModules.Project.csproj" PrivateAssets="none" />
     <ProjectReference Include="..\..\modules\SeedModules.Saas\SeedModules.Saas.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" PrivateAssets="none" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" PrivateAssets="none" />

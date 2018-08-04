@@ -83,7 +83,7 @@ namespace Seed.Environment.Engine.Builders
         {
             return new EngineDescriptor
             {
-                SerialNumber = -1,
+                SerialNumber = 0,
                 Features = new List<EngineFeature>(_engineFeatures),
                 Parameters = new List<EngineParameter>()
             };

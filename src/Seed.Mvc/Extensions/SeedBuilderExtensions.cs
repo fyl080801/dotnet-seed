@@ -1,7 +1,4 @@
 ﻿using Seed.Modules.Builder;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Seed.Mvc.Extensions
 {

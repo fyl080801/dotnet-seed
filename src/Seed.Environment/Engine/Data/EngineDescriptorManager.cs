@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Seed.Data;
 using Seed.Environment.Engine.Descriptor;
@@ -16,6 +17,7 @@ namespace Seed.Environment.Engine.Data
         private readonly IEnumerable<EngineFeature> _alwaysEnabledFeatures;
         private readonly IEnumerable<IEngineDescriptorManagerEventHandler> _engineDescriptorManagerEventHandlers;
         private readonly IDbContext _db;
+        private readonly DbSet<EngineDescriptor> _engineDescriptorSet;
         private readonly ILogger _logger;
         private EngineDescriptor _engineDescriptor;
 
@@ -30,6 +32,7 @@ namespace Seed.Environment.Engine.Data
             _alwaysEnabledFeatures = engineFeatures.Where(f => f.AlwaysEnabled).ToArray();
             _engineDescriptorManagerEventHandlers = engineDescriptorManagerEventHandlers;
             _db = db;
+            _engineDescriptorSet = db.Set<EngineDescriptor>();
             _logger = logger;
         }
 
@@ -37,7 +40,7 @@ namespace Seed.Environment.Engine.Data
         {
             if (_engineDescriptor == null)
             {
-                _engineDescriptor = await Task.FromResult(_db.Set<EngineDescriptor>().FirstOrDefault());
+                _engineDescriptor = await Task.FromResult(_engineDescriptorSet.FirstOrDefault());
 
                 if (_engineDescriptor != null)
                 {
@@ -63,7 +66,9 @@ namespace Seed.Environment.Engine.Data
                 _logger.LogInformation("Updating engine descriptor for tenant '{TenantName}' ...", _engineSettings.Name);
             }
 
-            if (engineDescriptorRecord == null)
+            bool newRecord = engineDescriptorRecord == null;
+
+            if (newRecord)
             {
                 engineDescriptorRecord = new EngineDescriptor { SerialNumber = 1 };
             }
@@ -78,6 +83,15 @@ namespace Seed.Environment.Engine.Data
             if (_logger.IsEnabled(LogLevel.Information))
             {
                 _logger.LogInformation("Engine descriptor updated for tenant '{TenantName}'.", _engineSettings.Name);
+            }
+
+            if (newRecord)
+            {
+                _engineDescriptorSet.Add(engineDescriptorRecord);
+            }
+            else
+            {
+                _engineDescriptorSet.Update(engineDescriptorRecord);
             }
 
             _db.SaveChanges();

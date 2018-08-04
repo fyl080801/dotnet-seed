@@ -9,7 +9,7 @@ using Seed.Environment.Engine.Models;
 using Seed.Modules.DeferredTasks;
 using Seed.Modules.Exceptions;
 using Seed.Modules.Setup.Events;
-using SeedModules.Project.Services;
+using Seed.Project;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,7 +50,7 @@ namespace SeedModules.Setup.Services
         {
             var defaultEnables = new string[]
             {
-                "SeedModules.Project"
+                //"SeedModules.Project"
                 //"SeedModules.Security"// 先把Security引入，不然执行模块安装后事件时需要写权限数据时找不到表
             };
 
