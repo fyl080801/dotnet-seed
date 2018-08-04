@@ -50,10 +50,8 @@ namespace SeedModules.Setup.Services
         {
             var defaultEnables = new string[]
             {
-                "SeedModules.Common",
-                "SeedModules.Project",
-                "SeedModules.Settings",
-                "SeedModules.Security"// 先把Security引入，不然执行模块安装后事件时需要写权限数据时找不到表
+                "SeedModules.Project"
+                //"SeedModules.Security"// 先把Security引入，不然执行模块安装后事件时需要写权限数据时找不到表
             };
 
             context.EnabledFeatures = defaultEnables.Union(context.EnabledFeatures ?? Enumerable.Empty<string>()).Distinct().ToList();

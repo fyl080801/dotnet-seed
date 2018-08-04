@@ -15,6 +15,7 @@ namespace SeedModules.Project
             services.AddScoped<IProjectStore, ProjectStore>();
 
             services.AddProjectExecutionStep<ProjectStep>();
+            services.AddProjectExecutionStep<FeatureStep>();
 
             services.AddScoped<IEntityTypeConfigurationProvider, EntityTypeConfigurations>();
         }

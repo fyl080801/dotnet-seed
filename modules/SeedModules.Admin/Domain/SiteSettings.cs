@@ -3,7 +3,7 @@ using Seed.Data;
 using Seed.Mvc.Settings;
 using System.ComponentModel.DataAnnotations;
 
-namespace SeedModules.Settings.Domain
+namespace SeedModules.Admin.Domain
 {
     public class SiteSettings : JEntity, ISiteInfo
     {

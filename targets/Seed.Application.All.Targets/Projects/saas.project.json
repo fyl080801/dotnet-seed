@@ -5,10 +5,7 @@
       "name": "feature",
       "disable": [],
       "enable": [
-        "SeedModules.Mvc",
-        "SeedModules.Saas",
-        "SeedModules.Common",
-        "SeedModules.Router"
+        "SeedModules.Saas"
       ]
     },
     {

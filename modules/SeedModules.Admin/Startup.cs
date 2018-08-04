@@ -2,12 +2,11 @@
 using Seed.Modules;
 using Seed.Modules.Setup.Events;
 using Seed.Mvc.Settings;
-using Seed.Security.Permissions;
+using SeedModules.Admin.Projects;
+using SeedModules.Admin.Services;
 using SeedModules.Project.Extensions;
-using SeedModules.Settings.Projects;
-using SeedModules.Settings.Services;
 
-namespace SeedModules.Settings
+namespace SeedModules.Admin
 {
     public class Startup : StartupBase
     {
@@ -15,7 +14,6 @@ namespace SeedModules.Settings
         {
             services.AddScoped<ISetupEventHandler, SetupEventHandler>();
             services.AddSingleton<ISiteService, SiteService>();
-
             services.AddProjectExecutionStep<SettingsStep>();
         }
     }

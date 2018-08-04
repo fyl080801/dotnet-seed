@@ -5,12 +5,12 @@ using Microsoft.Extensions.Primitives;
 using Seed.Data;
 using Seed.Environment.Caching;
 using Seed.Mvc.Settings;
-using SeedModules.Settings.Domain;
+using SeedModules.Admin.Domain;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SeedModules.Settings.Services
+namespace SeedModules.Admin.Services
 {
     public class SiteService : ISiteService
     {

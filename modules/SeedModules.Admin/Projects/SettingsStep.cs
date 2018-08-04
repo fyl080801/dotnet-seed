@@ -6,7 +6,7 @@ using SeedModules.Project.Services;
 using System;
 using System.Threading.Tasks;
 
-namespace SeedModules.Settings.Projects
+namespace SeedModules.Admin.Projects
 {
     public class SettingsStep : IProjectStepHandler
     {

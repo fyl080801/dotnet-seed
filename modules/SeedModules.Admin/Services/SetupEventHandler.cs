@@ -3,7 +3,7 @@ using Seed.Mvc.Settings;
 using System;
 using System.Threading.Tasks;
 
-namespace SeedModules.Settings.Services
+namespace SeedModules.Admin.Services
 {
     public class SetupEventHandler : ISetupEventHandler
     {

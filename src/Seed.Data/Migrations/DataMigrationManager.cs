@@ -186,26 +186,27 @@ namespace Seed.Data.Migrations
             return _store.CreateDbContext(GetFeatureTypeConfigurations(features));
         }
 
-        private IEnumerable<object> GetFeatureTypeConfigurations(IEnumerable<string> features)
+        private async Task<IEnumerable<object>> GetFeatureTypeConfigurations(IEnumerable<string> features)
         {
             var providers = new List<IEntityTypeConfigurationProvider>();
             var providerType = typeof(IEntityTypeConfigurationProvider);
-            //_pluginManager.GetFeatures(features.ToArray())
-            //    .Select(e => e.Plugin)
-            //    .Distinct()
-            //    .Select(e =>
+            _pluginManager.GetFeatures(features.ToArray())
+                .Select(e => e.Plugin)
+                .Distinct()
+                .Select(e =>
+                {
+                    return _pluginManager.LoadPluginAsync(e).Result.ExportedTypes
+                        .Where(pro => providerType.IsAssignableFrom(pro))
+                        .Select(pro => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, pro) as IEntityTypeConfigurationProvider)
+                        .ToList();
+                })
+                .ToList()
+                .ForEach(list =>
+                {
+                    providers = providers.Concat(list).ToList();
+                });
 
-            //        _pluginManager.GetPluginEntryAsync(e).Result.Exports
-            //            .Where(pro => providerType.IsAssignableFrom(pro))
-            //            .Select(pro => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, pro) as IEntityTypeConfigurationProvider)
-            //            .ToList())
-            //    .ToList()
-            //    .ForEach(list =>
-            //    {
-            //        providers = providers.Concat(list).ToList();
-            //    });
-
-            return providers.InvokeAsync(e => e.GetEntityTypeConfigurationsAsync(), _logger).GetAwaiter().GetResult();
+            return await providers.Distinct().InvokeAsync(e => e.GetEntityTypeConfigurationsAsync(), _logger);
         }
     }
 }

@@ -1,4 +1,0 @@
-﻿Name: 系统设置
-Version: 1.0
-AllowManage: false
-Category: 基础模块
