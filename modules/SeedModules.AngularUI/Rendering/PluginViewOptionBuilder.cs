@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -28,8 +29,7 @@ namespace SeedModules.AngularUI.Rendering
             IMemoryCache memoryCache,
             IEngineFeaturesManager engineFeaturesManager,
             IHostingEnvironment hostingEnvironment,
-            IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
-            ILogger<IViewOptionsBuilder> logger) : base(siteService, hostingEnvironment, routeReferenceProviders, logger)
+            ILogger<IViewOptionsBuilder> logger) : base(siteService, hostingEnvironment, logger)
         {
             _viewOptionsLoader = viewOptionsLoader;
             _memoryCache = memoryCache;
@@ -38,18 +38,18 @@ namespace SeedModules.AngularUI.Rendering
             _logger = logger;
         }
 
-        public override async Task<string> Build(RouteData routeData)
+        public override async Task<string> Build(ControllerContext controllerContext, RouteData routeData)
         {
             if (_hostingEnvironment.IsDevelopment())
             {
-                return await base.Build(routeData);
+                return await base.Build(controllerContext, routeData);
             }
             else
             {
                 var cacheKey = BuildCacheKey(routeData);
                 if (!_memoryCache.TryGetValue(cacheKey, out string optionString))
                 {
-                    optionString = await base.Build(routeData);
+                    optionString = await base.Build(controllerContext, routeData);
                     _memoryCache.Set(cacheKey, optionString);
                 }
                 return optionString;

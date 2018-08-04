@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
-using Seed.Modules.Exceptions;
 using Seed.Mvc.Settings;
+using SeedModules.AngularUI.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,29 +17,25 @@ namespace SeedModules.AngularUI.Rendering
     {
         readonly ISiteService _siteService;
         readonly IHostingEnvironment _hostingEnvironment;
-        readonly IEnumerable<IRouteReferenceProvider> _routeReferenceProviders;
         readonly ILogger _logger;
 
         public ViewOptionBuilder(
             ISiteService siteService,
             IHostingEnvironment hostingEnvironment,
-            IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
-            ILogger<IViewOptionsBuilder> logger) : this(hostingEnvironment, routeReferenceProviders, logger)
+            ILogger<IViewOptionsBuilder> logger) : this(hostingEnvironment, logger)
         {
             _siteService = siteService;
         }
 
         public ViewOptionBuilder(
             IHostingEnvironment hostingEnvironment,
-            IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
             ILogger<IViewOptionsBuilder> logger)
         {
             _hostingEnvironment = hostingEnvironment;
-            _routeReferenceProviders = routeReferenceProviders;
             _logger = logger;
         }
 
-        public virtual async Task<string> Build(RouteData routeData)
+        public virtual async Task<string> Build(ControllerContext controllerContext, RouteData routeData)
         {
             var options = new JObject();
             if (_siteService != null)
@@ -47,13 +46,22 @@ namespace SeedModules.AngularUI.Rendering
             (await GetViewOptionsAsync(routeData)).ToList().ForEach(options.Merge);
 
             var requireOptions = Enumerable.Empty<JObject>();
-            var requires = await (await _routeReferenceProviders.InvokeAsync(pro => Task.FromResult(pro.GetViewReferences()), _logger))
-                .Where(e => e.Route.Split('/').Intersect(routeData.Values.Select(r => r.Value).ToArray()).Count() == e.Route.Split('/').Length)
-                .InvokeAsync(route => Task.FromResult(route.References), _logger);
+            var requires = new List<string>();
+
+            controllerContext.ActionDescriptor.MethodInfo.GetCustomAttributes(typeof(RouteRequiresAttribute), false)
+                .Select(e => e as RouteRequiresAttribute)
+                .ToList()
+                .ForEach(e => requires.AddRange(e.Requires));
 
             if (requires.Count() > 0)
             {
-                requireOptions = requireOptions.Concat(new[] { new JObject { { "requires", new JArray { requires } } } });
+                requireOptions = requireOptions.Concat(new[]
+                {
+                    new JObject
+                    {
+                        { "requires", new JArray { requires } }
+                    }
+                });
             }
             requireOptions.ToList().ForEach(options.Merge);
 

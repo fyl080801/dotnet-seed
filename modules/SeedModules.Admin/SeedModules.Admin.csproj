@@ -5,10 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
     <ProjectReference Include="..\..\src\Seed.Project\Seed.Project.csproj" />
+    <ProjectReference Include="..\..\src\Seed.Security\Seed.Security.csproj" />
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
     <ProjectReference Include="..\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
+    <ProjectReference Include="..\SeedModules.Security\SeedModules.Security.csproj" />
   </ItemGroup>
 
 </Project>

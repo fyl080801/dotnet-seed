@@ -29,7 +29,7 @@ namespace SeedModules.AngularUI.Extensions
             // 回头考虑在Filters里定义页面引用的脚本，这里获取
             return UI(controller, view, new ViewOptionsModel()
             {
-                Options = controller.HttpContext.RequestServices.GetService<IViewOptionsBuilder>().Build(controller.RouteData).Result,
+                Options = controller.HttpContext.RequestServices.GetService<IViewOptionsBuilder>().Build(controller.ControllerContext, controller.RouteData).Result,
                 SiteSettings = controller.HttpContext.RequestServices.GetService<ISiteSettingsBuilder>().Build().ToString(),
                 Scripts = scripts != null ? scripts : new string[0]
             });

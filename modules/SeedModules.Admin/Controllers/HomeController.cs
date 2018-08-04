@@ -1,9 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Seed.Environment.Engine;
 using Seed.Mvc.Filters;
+using Seed.Security.Permissions;
 using SeedModules.AngularUI.Extensions;
+using SeedModules.AngularUI.Filters;
 using SeedModules.AngularUI.Models;
 using SeedModules.AngularUI.Rendering;
+using System.Linq;
 
 namespace SeedModules.Admin.Controllers
 {
@@ -21,21 +26,23 @@ namespace SeedModules.Admin.Controllers
         }
 
         [GenerateAntiforgeryTokenCookie]
+        [RouteRequires("rcss!/SeedModules.Admin/less/seed-admin.css", "/SeedModules.Admin/modules/login/module")]
         public IActionResult Login(string returnUrl = null)
         {
             return this.UI();
         }
 
-        //[Authorize]
+        [Authorize]
         [GenerateAntiforgeryTokenCookie]
+        [RouteRequires("rcss!/SeedModules.Admin/less/seed-admin.css", "/SeedModules.Admin/modules/admin/module")]
         public IActionResult Index()
         {
             var model = new ViewOptionsModel()
             {
-                Options = _optionsBuilder.Build(RouteData).Result,
+                Options = _optionsBuilder.Build(ControllerContext, RouteData).Result,
                 SiteSettings = _siteSettingsBuilder.Build().ToString()
             };
-            //model.Properties.Add("Permissions", new JArray(User.Claims.Where(e => e.Type == PermissionInfo.ClaimType).Select(e => e.Value).ToArray()));
+            model.Properties.Add("Permissions", new JArray(User.Claims.Where(e => e.Type == PermissionInfo.ClaimType).Select(e => e.Value).ToArray()));
             return this.UI(model);
         }
     }

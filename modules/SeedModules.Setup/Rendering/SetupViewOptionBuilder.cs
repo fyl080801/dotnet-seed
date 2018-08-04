@@ -21,8 +21,7 @@ namespace SeedModules.Setup.Rendering
             IPluginManager pluginManager,
             IViewOptionLoader viewOptionLoader,
             IHostingEnvironment hostingEnvironment,
-            IEnumerable<IRouteReferenceProvider> routeReferenceProviders,
-            ILogger<IViewOptionsBuilder> logger) : base(pluginManager, viewOptionLoader, hostingEnvironment, routeReferenceProviders, logger)
+            ILogger<IViewOptionsBuilder> logger) : base(pluginManager, viewOptionLoader, hostingEnvironment, logger)
         {
             _pluginManager = pluginManager;
             _viewOptionLoader = viewOptionLoader;

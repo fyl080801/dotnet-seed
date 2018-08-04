@@ -15,6 +15,7 @@
     <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" PrivateAssets="none" />
     <ProjectReference Include="..\..\modules\SeedModules.Router\SeedModules.Router.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Saas\SeedModules.Saas.csproj" />
+    <ProjectReference Include="..\..\modules\SeedModules.Security\SeedModules.Security.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" PrivateAssets="none" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" PrivateAssets="none" />
   </ItemGroup>

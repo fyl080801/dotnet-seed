@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Seed.Environment.Engine;
+using SeedModules.AngularUI.Filters;
 using SeedModules.AngularUI.Models;
 using SeedModules.AngularUI.Rendering;
-using SeedModules.AngularUI.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SeedModules.Setup.Controllers
 {
@@ -22,14 +18,14 @@ namespace SeedModules.Setup.Controllers
             _siteSettingsBuilder = siteSettingsBuilder;
         }
 
+        [RouteRequires("/SeedModules.Setup/modules/module")]
         public IActionResult Index()
         {
             return View(".Modules/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()
             {
-                Options = _optionsBuilder.Build(RouteData).Result,
+                Options = _optionsBuilder.Build(ControllerContext, RouteData).Result,
                 SiteSettings = _siteSettingsBuilder.Build().ToString()
             });
-            //return this.UI();
         }
     }
 }

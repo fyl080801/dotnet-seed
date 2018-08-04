@@ -1,13 +1,13 @@
 {
   "configs": {
     "SeedModules.AngularUI/modules/module": {
-      "path": "SeedModules.AngularUI/js/modules.module",
+      "path": "/SeedModules.AngularUI/js/modules.module",
       "shim": {
-        "deps": ["app/application"]
+        "deps": [ "app/application" ]
       }
     },
     "SeedModules.AngularUI/modules/requires": {
-      "path": "SeedModules.AngularUI/js/modules.requires"
+      "path": "/SeedModules.AngularUI/js/modules.requires"
     }
   }
 }

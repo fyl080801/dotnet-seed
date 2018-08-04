@@ -1,0 +1,27 @@
+<div ng-controller="SeedModules.Admin/modules/admin/controllers/users">
+    <form role="form" class="form-inline" style="margin-bottom: 20px">
+        <div trigger-input ng-model="search.keyword" mark="'关键字...'" callback="keywordCallback()"></div>
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="create()">
+                <i class="glyphicon glyphicon-plus"></i>
+                添加
+            </button>
+        </div>
+    </form>
+    <table ng-table="tableParams" class="table table-striped table-hover">
+        <tr ng-repeat="row in $data">
+            <td title="'用户名'">{{row.username}}</td>
+            <td title="'姓名'">{{row.lastName}}&nbsp;{{row.firstName}}</td>
+            <td title="'邮箱'">{{row.email}}</td>
+            <td title="'已验证'">
+                <span class="label" ng-class="{
+                    'label-default': !row.emailConfirmed,
+                    'label-success': row.emailConfirmed}" ng-bind="row.emailConfirmed|booleanText"></span>
+            </td>
+            <td title="'操作'">
+                <a href="" class="text-primary" ng-click="resetPassword(row)">重置密码</a>
+                <a href="" class="text-danger" ng-click="drop(row)">删除</a>
+            </td>
+        </tr>
+    </table>
+</div>
