@@ -6,7 +6,7 @@ using Seed.Mvc.Settings;
 using System;
 using System.Threading.Tasks;
 
-namespace SeedModules.AngularUI.Routes
+namespace SeedModules.Router.Routes
 {
     public class HomeRoute : Route
     {

@@ -1,11 +1,11 @@
 ﻿using Seed.Modules.Manifest;
 
 [assembly: Module(
-    Name = "Admin",
+    Name = "Router",
     Author = "",
     Website = "",
     Version = "1.0.0",
     Description = "",
-    Dependencies = new[] { "SeedModules.Router" },
+    Dependencies = new[] { "SeedModules.AngularUI" },
     Category = "基础模块"
 )]
