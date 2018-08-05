@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Seed.Modules.Exceptions;
 using Seed.Mvc.Models;
 using System;
-using System.Text;
 
 namespace Seed.Mvc.Extensions
 {

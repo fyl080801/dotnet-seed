@@ -56,9 +56,9 @@ namespace Seed.Modules
                 if (isApplication)
                 {
                     ModuleInfo.Name = Application.ModuleName;
-                    ModuleInfo.Description = "Provides core features defined at the application level";
+                    ModuleInfo.Description = "平台环境本身";
                     ModuleInfo.Priority = int.MinValue.ToString();
-                    ModuleInfo.Category = "Application";
+                    ModuleInfo.Category = "基础模块";
                     ModuleInfo.DefaultTenantOnly = true;
 
                     if (features.Any())

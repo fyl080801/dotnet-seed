@@ -1,7 +1,7 @@
 ﻿using Seed.Modules.Manifest;
 
 [assembly: Module(
-    Name = "AngularUI",
+    Name = "UI基础组件",
     Author = "",
     Website = "",
     Version = "1.0.0",

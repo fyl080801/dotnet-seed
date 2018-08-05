@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Razor.Compilation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Seed.Modules;
 using Seed.Mvc.LocationExpanders;
 using Seed.Mvc.RazorPages;
@@ -51,6 +52,11 @@ namespace Seed.Mvc
             AddMvcModuleCoreServices(services);
             //AddDefaultFrameworkParts(builder.PartManager);
 
+            builder.AddJsonOptions(options =>
+            {
+                options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             builder.AddJsonFormatters();
         }
 

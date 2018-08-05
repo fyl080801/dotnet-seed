@@ -6,6 +6,6 @@
     Website = "",
     Version = "1.0.0",
     Description = "",
-    Dependencies = new[] { "SeedModules.Admin" },
+    Dependencies = new[] { "SeedModules.Admin", "SeedModules.Features" },
     Category = "基础模块"
 )]

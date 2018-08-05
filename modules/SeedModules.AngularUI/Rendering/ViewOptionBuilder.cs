@@ -2,8 +2,10 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using Seed.Modules.Exceptions;
 using Seed.Mvc.Settings;
 using SeedModules.AngularUI.Filters;
 using System;
@@ -53,13 +55,17 @@ namespace SeedModules.AngularUI.Rendering
                 .ToList()
                 .ForEach(e => requires.AddRange(e.Requires));
 
+            requires.AddRange(await (await controllerContext.HttpContext.RequestServices.GetServices<IRouteReferenceProvider>().InvokeAsync(pro => Task.FromResult(pro.GetViewReferences()), _logger))
+                .Where(e => e.Route.Split('/').Intersect(routeData.Values.Select(r => r.Value).ToArray()).Count() == e.Route.Split('/').Length)
+                .InvokeAsync(route => Task.FromResult(route.References), _logger));
+
             if (requires.Count() > 0)
             {
                 requireOptions = requireOptions.Concat(new[]
                 {
                     new JObject
                     {
-                        { "requires", new JArray { requires } }
+                        { "requires", new JArray { requires.Distinct().ToArray() } }
                     }
                 });
             }

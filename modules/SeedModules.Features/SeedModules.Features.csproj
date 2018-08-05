@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Seed.Modules.Abstractions\Seed.Modules.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Seed.Project.Abstractions\Seed.Project.Abstractions.csproj" />
+    <ProjectReference Include="..\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
+  </ItemGroup>
+
+</Project>

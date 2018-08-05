@@ -1,7 +1,7 @@
 ﻿using Seed.Modules.Manifest;
 
 [assembly: Module(
-    Name = "Router",
+    Name = "路由组件",
     Author = "",
     Website = "",
     Version = "1.0.0",

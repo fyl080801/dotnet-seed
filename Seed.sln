@@ -64,13 +64,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Admin", "module
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Saas", "modules\SeedModules.Saas\SeedModules.Saas.csproj", "{C3EBEE67-DEF2-4601-8399-4D6AE69DEC96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Project.Abstractions", "src\Seed.Project.Abstractions\Seed.Project.Abstractions.csproj", "{1D36BA84-5A29-4AB3-82E9-106EA2C6FEB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Project.Abstractions", "src\Seed.Project.Abstractions\Seed.Project.Abstractions.csproj", "{1D36BA84-5A29-4AB3-82E9-106EA2C6FEB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed.Project", "src\Seed.Project\Seed.Project.csproj", "{DCC3239B-5A61-42C4-987C-4443C2FF5296}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Project", "src\Seed.Project\Seed.Project.csproj", "{DCC3239B-5A61-42C4-987C-4443C2FF5296}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Router", "modules\SeedModules.Router\SeedModules.Router.csproj", "{516265CB-A8B7-4282-B2B9-98AF88A828EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Router", "modules\SeedModules.Router\SeedModules.Router.csproj", "{516265CB-A8B7-4282-B2B9-98AF88A828EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Security", "modules\SeedModules.Security\SeedModules.Security.csproj", "{C103C477-04EE-468F-9EE7-47077C3BCEA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Security", "modules\SeedModules.Security\SeedModules.Security.csproj", "{C103C477-04EE-468F-9EE7-47077C3BCEA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Features", "modules\SeedModules.Features\SeedModules.Features.csproj", "{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -170,6 +172,10 @@ Global
 		{C103C477-04EE-468F-9EE7-47077C3BCEA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C103C477-04EE-468F-9EE7-47077C3BCEA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C103C477-04EE-468F-9EE7-47077C3BCEA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -198,6 +204,7 @@ Global
 		{DCC3239B-5A61-42C4-987C-4443C2FF5296} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
 		{516265CB-A8B7-4282-B2B9-98AF88A828EC} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
 		{C103C477-04EE-468F-9EE7-47077C3BCEA1} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
+		{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {103E5205-1588-47A7-8F86-693367C858B2}

@@ -1,7 +1,7 @@
 ﻿using Seed.Modules.Manifest;
 
 [assembly: Module(
-    Name = "Admin",
+    Name = "管理系统",
     Author = "",
     Website = "",
     Version = "1.0.0",

@@ -1,0 +1,43 @@
+<div ng-controller="SeedModules.Features/modules/controllers/features" ng-init="features.load()">
+    <div class="navbar navbar-default">
+        <div class="navbar-header navbar-form">
+            <div trigger-input ng-model="keyword" mark="'关键字...'" callback="features.load()" canceling="features.cancelLoad()"></div>
+        </div>
+        <div class="container-fluid">
+            <div class="navbar-form navbar-right">
+                <!-- <button class="btn btn-default">
+                    <i class="fas fa-edit fa-fw"></i>
+                    批量更新
+                </button> -->
+                <button class="btn btn-primary">
+                    <i class="fas fa-upload fa-fw"></i>
+                    上传
+                </button>
+            </div>
+        </div>
+    </div>
+    <div ng-repeat="item in list">
+        <h4 class="page-header">
+            <i class="glyphicon glyphicon-chevron-right"></i>
+            {{item.category}}
+        </h4>
+        <div class="row">
+            <div class="col-md-6" ng-repeat="fea in item.features">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div>
+                            <div class="btn-group pull-right" ng-show="fea.descriptor.plugin.descriptor.allowedManage">
+                                <button class="btn" ng-class="{'btn-danger active':!fea.enabled, 'btn-default':fea.enabled}" ng-disabled="!fea.enabled" ng-click="features.setEnable(fea, false)">禁用</button>
+                                <button class="btn" ng-class="{'btn-success active':fea.enabled, 'btn-default':!fea.enabled}" ng-disabled="fea.enabled" ng-click="features.setEnable(fea, true)">启用</button>
+                            </div>
+                            <h4 class="list-group-item-heading">
+                                <a href="">{{fea.descriptor.name}}</a>
+                            </h4>
+                            <p class="list-group-item-text text-muted text-ellipsis">{{fea.descriptor.description||'无说明'}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
