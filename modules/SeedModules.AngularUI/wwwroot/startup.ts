@@ -3,7 +3,7 @@
 (function(options) {
   var configs = {
     urlArgs: 'v=' + options.hash,
-    baseUrl: 'SeedModules.AngularUI/../',
+    baseUrl: '/SeedModules.AngularUI/../',
     paths: {},
     shim: {},
     map: options.map,

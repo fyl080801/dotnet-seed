@@ -17,15 +17,15 @@
             <form name="loginform" class="modal-body" ng-keyup="vm.enterlogin($event, loginform)">
                 <div class="form-group">
                     <label>用户名</label>
-                    <input class="form-control" name="Username" ng-model="data.Username" required>
+                    <input class="form-control" name="username" ng-model="data.username" required>
                 </div>
                 <div class="form-group">
                     <div>
                         <label>密码</label>
                         <a href="" class="pull-right" tabindex="-1" ng-click="vm.buildinginfo()">忘记密码？</a>
                     </div>
-                    <input type="password" name="Password" tabindex="-1" style="width: 0; height: 0; float: left; visibility: hidden" />
-                    <input type="password" class="form-control" name="Password" ng-model="data.Password" autocomplete="new-password" required>
+                    <input type="password" name="password" tabindex="-1" style="width: 0; height: 0; float: left; visibility: hidden" />
+                    <input type="password" class="form-control" name="password" ng-model="data.password" autocomplete="new-password" required>
                 </div>
                 <!-- <div class="form-group">
                     <label>

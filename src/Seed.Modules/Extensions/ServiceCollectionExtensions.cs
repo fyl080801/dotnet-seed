@@ -111,7 +111,7 @@ namespace Seed.Modules.Extensions
 
         private static void AddAntiForgery(SeedBuilder builder)
         {
-            builder.ApplicationServices.AddAntiforgery();
+            //builder.ApplicationServices.AddAntiforgery();
 
             builder.ConfigureServices((services, serviceProvider) =>
             {

@@ -2,7 +2,7 @@
 using Seed.Security;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Users
+namespace SeedModules.Security.Users
 {
     public class UserRoleRemovedEventHandler : IRoleRemovedEventHandler
     {

@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Users.Services
+namespace SeedModules.Security.Users.Services
 {
     public interface IMembershipService
     {

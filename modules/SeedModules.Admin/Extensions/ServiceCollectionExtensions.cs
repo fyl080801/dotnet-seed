@@ -12,9 +12,9 @@ using Seed.Security.Extensions;
 using Seed.Security.Permissions;
 using Seed.Security.Services;
 using SeedModules.Admin.Projects;
-using SeedModules.Admin.Users;
-using SeedModules.Admin.Users.Services;
 using SeedModules.Security.Roles;
+using SeedModules.Security.Users;
+using SeedModules.Security.Users.Services;
 
 namespace SeedModules.Admin.Extensions
 {

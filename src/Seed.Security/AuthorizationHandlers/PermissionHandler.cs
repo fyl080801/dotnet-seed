@@ -16,6 +16,7 @@ namespace Seed.Security.AuthorizationHandlers
             {
                 context.Succeed(requirement);
             }
+
             return Task.CompletedTask;
         }
     }

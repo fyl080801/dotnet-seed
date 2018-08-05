@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Users
+namespace SeedModules.Security.Users
 {
     public class UserStore :
         IUserStore<IUser>,

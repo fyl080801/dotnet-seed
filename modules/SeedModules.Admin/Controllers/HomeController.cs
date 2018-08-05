@@ -26,7 +26,7 @@ namespace SeedModules.Admin.Controllers
         }
 
         [GenerateAntiforgeryTokenCookie]
-        [RouteRequires("rcss!/SeedModules.Admin/less/seed-admin.css", "/SeedModules.Admin/modules/login/module")]
+        [RouteRequires("rcss!SeedModules.Admin/less/seed-admin.css", "SeedModules.Admin/modules/login/module")]
         public IActionResult Login(string returnUrl = null)
         {
             return this.UI();
@@ -34,7 +34,7 @@ namespace SeedModules.Admin.Controllers
 
         [Authorize]
         [GenerateAntiforgeryTokenCookie]
-        [RouteRequires("rcss!/SeedModules.Admin/less/seed-admin.css", "/SeedModules.Admin/modules/admin/module")]
+        [RouteRequires("rcss!SeedModules.Admin/less/seed-admin.css", "SeedModules.Admin/modules/admin/module")]
         public IActionResult Index()
         {
             var model = new ViewOptionsModel()

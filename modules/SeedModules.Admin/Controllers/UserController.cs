@@ -6,8 +6,8 @@ using Seed.Mvc.Filters;
 using Seed.Mvc.Models;
 using Seed.Security;
 using SeedModules.Admin.Models;
-using SeedModules.Admin.Users.Services;
 using SeedModules.Security.Domain;
+using SeedModules.Security.Users.Services;
 using System.Linq;
 using System.Threading.Tasks;
 

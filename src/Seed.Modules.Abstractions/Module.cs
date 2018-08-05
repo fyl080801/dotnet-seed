@@ -18,6 +18,14 @@ namespace Seed.Modules
         private readonly DateTimeOffset _lastModified;
         private readonly IDictionary<string, IFileInfo> _fileInfos = new Dictionary<string, IFileInfo>();
 
+        public string Name { get; }
+        public string Root { get; }
+        public string SubPath { get; }
+        public Assembly Assembly { get; }
+        public IEnumerable<Asset> Assets { get; }
+        public IEnumerable<string> AssetPaths { get; }
+        public ModuleAttribute ModuleInfo { get; }
+
         public Module(string name, bool isApplication = false)
         {
             if (!string.IsNullOrWhiteSpace(name))
@@ -93,14 +101,6 @@ namespace Seed.Modules
                 }
             }
         }
-
-        public string Name { get; }
-        public string Root { get; }
-        public string SubPath { get; }
-        public Assembly Assembly { get; }
-        public IEnumerable<Asset> Assets { get; }
-        public IEnumerable<string> AssetPaths { get; }
-        public ModuleAttribute ModuleInfo { get; }
 
         public IFileInfo GetFileInfo(string subpath)
         {

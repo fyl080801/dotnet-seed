@@ -14,6 +14,11 @@ namespace Seed.Security.Extensions
 
         public static async Task<bool> PermissionAuthorizeAsync(this IAuthorizationService service, ClaimsPrincipal user, PermissionInfo permission, object resource)
         {
+            if (user == null)
+            {
+                return false;
+            }
+
             return (await service.AuthorizeAsync(user, resource, new PermissionRequirement(permission))).Succeeded;
         }
     }

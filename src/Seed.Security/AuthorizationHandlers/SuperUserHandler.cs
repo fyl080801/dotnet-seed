@@ -8,7 +8,7 @@ namespace Seed.Security.AuthorizationHandlers
 {
     public class SuperUserHandler : IAuthorizationHandler
     {
-        readonly ISiteService _siteService;
+        private readonly ISiteService _siteService;
 
         public SuperUserHandler(ISiteService siteService)
         {
@@ -17,13 +17,16 @@ namespace Seed.Security.AuthorizationHandlers
 
         public async Task HandleAsync(AuthorizationHandlerContext context)
         {
-            if (context?.User?.Identity?.Name == null) return;
-
-            var superuser = (await _siteService.GetSiteInfoAsync()).SuperUser;
-
-            if (context.User.Identity.Name.Equals(superuser, StringComparison.OrdinalIgnoreCase))
+            if (context?.User?.Identity?.Name == null)
             {
-                foreach (var requirement in context.PendingRequirements.OfType<PermissionRequirement>())
+                return;
+            }
+
+            var superUser = (await _siteService.GetSiteInfoAsync()).SuperUser;
+
+            if (String.Equals(context.User.Identity.Name, superUser, StringComparison.OrdinalIgnoreCase))
+            {
+                foreach (var requirement in context.Requirements.OfType<PermissionRequirement>())
                 {
                     context.Succeed(requirement);
                 }

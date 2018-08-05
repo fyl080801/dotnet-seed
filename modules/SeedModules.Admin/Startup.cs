@@ -35,7 +35,6 @@ namespace SeedModules.Admin
             services.AddRoleServices();
             services.AddAuthenticationServices(_tenantName, _prefix);
             services.AddScoped<ISiteSettingsBuilder, SiteSettingsBuilder>();
-            //services.AddScoped<IRouteReferenceProvider, RouteReferences>();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

@@ -53,16 +53,12 @@ namespace Seed.Project.Steps
 
             if (step.Disable.Any())
             {
-                var featuresToDisable = features.Where(x => step.Disable.Contains(x.Id)).ToList();
-
-                await _engineFeatureManager.DisableFeaturesAsync(featuresToDisable, true);
+                await _engineFeatureManager.DisableFeaturesAsync(features.Where(x => step.Disable.Contains(x.Id)).ToList(), true);
             }
 
             if (step.Enable.Any())
             {
-                var featuresToEnable = features.Where(x => step.Enable.Contains(x.Id)).ToList();
-
-                await _engineFeatureManager.EnableFeaturesAsync(featuresToEnable, true);
+                await _engineFeatureManager.EnableFeaturesAsync(features.Where(x => step.Enable.Contains(x.Id)).ToList(), true);
             }
         }
     }

@@ -1,9 +1,9 @@
 ﻿using Seed.Modules.Setup.Events;
-using SeedModules.Admin.Users.Services;
+using SeedModules.Security.Users.Services;
 using System;
 using System.Threading.Tasks;
 
-namespace SeedModules.Admin.Users
+namespace SeedModules.Security.Users
 {
     public class SetupEventHandler : ISetupEventHandler
     {
