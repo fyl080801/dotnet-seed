@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.targets = src\Directory.Build.targets
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Environment", "src\Seed.Environment\Seed.Environment.csproj", "{898A51AD-EE4E-4C7F-970D-B1B4F7674E1B}"
 EndProject
@@ -24,6 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{B744
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "targets", "targets", "{B78090F4-3842-4EEF-A316-12233ADF9517}"
+	ProjectSection(SolutionItems) = preProject
+		targets\Directory.Build.targets = targets\Directory.Build.targets
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed.Application.Targets", "targets\Seed.Application.Targets\Seed.Application.Targets.csproj", "{0F39304C-C5CC-4EAC-9895-8EA2ADA492C6}"
 EndProject
@@ -72,7 +78,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Router", "modul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Security", "modules\SeedModules.Security\SeedModules.Security.csproj", "{C103C477-04EE-468F-9EE7-47077C3BCEA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Features", "modules\SeedModules.Features\SeedModules.Features.csproj", "{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Features", "modules\SeedModules.Features\SeedModules.Features.csproj", "{3BB3A7EE-ECEB-4C20-B7A7-FA8D8B259E97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

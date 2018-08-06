@@ -1,7 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>1.2.1.0</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
+    <Version>1.2.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,6 +12,7 @@
     <ProjectReference Include="..\..\src\Seed.Mvc.Abstractions\Seed.Mvc.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Security.Abstractions\Seed.Security.Abstractions.csproj" />
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
+    <ProjectReference Include="..\SeedModules.Admin\SeedModules.Admin.csproj" />
     <ProjectReference Include="..\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
   </ItemGroup>
 
