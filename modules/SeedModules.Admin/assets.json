@@ -1,0 +1,34 @@
+{
+  "wwwroot/modules/admin": [
+    {
+      "type": "dist",
+      "configs": {
+        "SeedModules.Admin/modules/admin/module": {
+          "path": "SeedModules.Admin/js/modules.admin.module",
+          "shim": {
+            "deps": ["app/application"]
+          }
+        },
+        "SeedModules.Admin/modules/admin/requires": {
+          "path": "SeedModules.Admin/js/modules.admin.requires"
+        }
+      }
+    }
+  ],
+  "wwwroot/modules/login": [
+    {
+      "type": "dist",
+      "configs": {
+        "SeedModules.Admin/modules/login/module": {
+          "path": "SeedModules.Admin/js/modules.login.module",
+          "shim": {
+            "deps": ["app/application"]
+          }
+        },
+        "SeedModules.Admin/modules/login/requires": {
+          "path": "SeedModules.Admin/js/modules.login.requires"
+        }
+      }
+    }
+  ]
+}

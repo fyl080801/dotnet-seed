@@ -1,0 +1,18 @@
+{
+  "wwwroot/modules": [
+    {
+      "type": "dist",
+      "configs": {
+        "SeedModules.Saas/modules/module": {
+          "path": "SeedModules.Saas/js/modules.module",
+          "shim": {
+            "deps": ["app/application"]
+          }
+        },
+        "SeedModules.Saas/modules/requires": {
+          "path": "SeedModules.Saas/js/modules.requires"
+        }
+      }
+    }
+  ]
+}
