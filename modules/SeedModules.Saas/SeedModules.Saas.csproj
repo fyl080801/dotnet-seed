@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets.dist.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Seed.Environment.Abstractions\Seed.Environment.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Mvc.Abstractions\Seed.Mvc.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Seed.Security.Abstractions\Seed.Security.Abstractions.csproj" />

@@ -1,0 +1,30 @@
+{
+  "configs": {
+    "rangy-core": {
+      "path": "SeedModules.MindPlus/js/wysihtml/rangy/rangy-core",
+      "noDebug": true
+    },
+    "rangy-serializer": {
+      "path": "SeedModules.MindPlus/js/wysihtml/rangy/rangy-serializer",
+      "shim": {
+        "deps": ["rangy-core"]
+      },
+      "noDebug": true
+    },
+    "wysihtml": {
+      "path": "SeedModules.MindPlus/js/wysihtml/wysihtml.min",
+      "noDebug": true
+    },
+    "wysihtml-toolbar": {
+      "path": "SeedModules.MindPlus/js/wysihtml/wysihtml-toolbar.min",
+      "noDebug": true
+    },
+    "wysihtml-advanced": {
+      "path": "SeedModules.MindPlus/js/parser_rules/advanced_and_extended",
+      "noDebug": true
+    },
+    "pell": {
+      "path": "SeedModules.MindPlus/js/pell/pell"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<div class="panel panel-default" ng-init="pg.initControl(item)">
+    <div class="panel-heading">
+        <span ng-if="item[item.container]!==undefined && item[item.container].length > 0" class="glyphicon" ng-click="pg.nodeToggle(this)"
+            ng-class="{ 'far fa-plus-square': collapsed, 'far fa-minus-square': !collapsed }"></span>
+        <span ui-tree-handle ng-bind="item.title||item.type"></span>
+        <span class="pull-right">
+            <button class="btn btn-default btn-xs" ng-click="pg.editControl(this)">
+                <i class="glyphicon glyphicon-edit"></i>
+            </button>
+            <button class="btn btn-danger btn-xs" ng-click="pg.dropControl(this)">
+                <i class="glyphicon glyphicon-remove"></i>
+            </button>
+        </span>
+    </div>
+</div>
+<ol ui-tree-nodes class="panel-group" ng-model="item[item.container]" ng-class="{hidden: collapsed}" ng-if="item[item.container]!==undefined">
+    <li ng-repeat="item in item[item.container]" ui-tree-node ng-include="'/SeedModules.PageBuilder/modules/templates/formnode.html'"></li>
+</ol>

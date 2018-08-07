@@ -1,0 +1,12 @@
+import 'SeedModules.PageBuilder/modules/components/builder/page';
+import 'SeedModules.PageBuilder/modules/components/server/settings';
+import 'SeedModules.PageBuilder/modules/components/builder/pageForm';
+import 'SeedModules.PageBuilder/modules/components/builder/preview';
+import 'SeedModules.PageBuilder/modules/components/toolbox/builderToolbox';
+import 'SeedModules.PageBuilder/modules/components/datasource/list';
+import 'SeedModules.PageBuilder/modules/components/datasource/form';
+import 'SeedModules.PageBuilder/modules/components/datasource/baseinfo';
+import 'SeedModules.PageBuilder/modules/components/datasource/fields';
+import 'SeedModules.PageBuilder/modules/components/database/table';
+import 'SeedModules.PageBuilder/modules/components/three/page';
+import 'SeedModules.PageBuilder/modules/controllers/pageCommon';

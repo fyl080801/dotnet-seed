@@ -1,0 +1,93 @@
+<div ng-controller="SeedModules.PageBuilder/modules/components/builder/pageForm">
+    <div style="margin-bottom: 20px">
+        <div class="pull-left">
+            <button class="btn btn-default" ng-click="pg.back()">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                返回
+            </button>
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-default" ng-click="pg.preview()">
+                <i class="glyphicon glyphicon-eye-open"></i>
+                预览
+            </button>
+            <div class="btn-group" ng-controller="SeedModules.PageBuilder/modules/controllers/pageCommon">
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-oil"></i>
+                    数据源
+                </button>
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-flash"></i>
+                    行为
+                </button>
+                <button class="btn btn-default">
+                    <i class="glyphicon glyphicon-lock"></i>
+                    权限
+                </button>
+            </div>
+            <button class="btn btn-primary" ng-disabled="pageform.$invalid">
+                <i class="glyphicon glyphicon-floppy-disk"></i>
+                保存
+            </button>
+        </div>
+    </div>
+    <div class="seed-container" style="top: 130px">
+        <div class="panel panel-default seed-container pb-container">
+            <div builder-toolbox editor="editor" class="seed-container tools"></div>
+            <div class="seed-container area">
+                <div class="navbar navbar-default navbar-xs navbar-static-top">
+                    <div class="navbar-header">
+                        <ul class="navbar-nav nav">
+                            <li>
+                                <a href="" ng-click="pg.expandAll()">
+                                    <i class="far fa-plus-square"></i>
+                                    全部展开
+                                </a>
+                            </li>
+                            <li>
+                                <a href="" ng-click="pg.collapseAll()">
+                                    <i class="far fa-minus-square"></i>
+                                    全部折叠
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="container-fluid">
+                        <div class="navbar-form navbar-right">
+                            <button class="btn btn-default btn-xs" ng-click="pg.viewCode()">
+                                <i class="glyphicon glyphicon-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div ui-tree class="seed-container panel-body" style="margin-top: 40px; overflow: auto;">
+                    <ol ui-tree-nodes class="panel-group" ng-model="editor.form">
+                        <li ng-repeat="item in editor.form" ui-tree-node ng-include="'/SeedModules.PageBuilder/modules/templates/formnode.html'"></li>
+                    </ol>
+                </div>
+            </div>
+            <div class="seed-container property">
+                <ul class="nav nav-swiper nav-justified shadow nav-swiper-primary">
+                    <li class="text-center active">
+                        <a href="#cus_info" aria-controls="cus_info" role="tab" data-toggle="tab">
+                            控件
+                        </a>
+                    </li>
+                    <li class="text-center">
+                        <a href="#cus_tkg" aria-controls="cus_tkg" role="tab" data-toggle="tab">
+                            表单
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content seed-container" style="margin-top: 40px">
+                    <div role="tabpanel" class="tab-pane seed-container active" style="overflow: auto" id="cus_info">
+                        <form name="pageform" class="panel-body" sf-schema="field.schema" sf-form="field.form" sf-options="field.options" sf-model="field.model"></form>
+                    </div>
+                    <div role="tabpanel" class="tab-pane seed-container" style="overflow: auto" id="cus_tkg">
+                        <form name="pageform" class="panel-body" sf-schema="form.schema" sf-form="form.form" sf-options="form.options" sf-model="form.model"></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+import 'SeedModules.MindPlus/modules/myworks/directives/sidebar';
+import 'SeedModules.MindPlus/modules/myworks/directives/workItemContent';
+import 'SeedModules.MindPlus/modules/myworks/controllers/home';
+import 'SeedModules.MindPlus/modules/myworks/controllers/mymind';
+import 'SeedModules.MindPlus/modules/myworks/controllers/works';
+import 'SeedModules.MindPlus/modules/myworks/controllers/trash';
+import 'SeedModules.MindPlus/modules/myworks/controllers/workspace';
+import 'SeedModules.MindPlus/modules/myworks/controllers/workItem';
+import 'SeedModules.MindPlus/modules/myworks/controllers/workItems';
+import 'SeedModules.MindPlus/modules/myworks/controllers/settings';
+import 'SeedModules.MindPlus/modules/myworks/controllers/tags';
+import 'SeedModules.MindPlus/modules/myworks/components/work/work';
+import 'SeedModules.MindPlus/modules/myworks/components/workitem/master';
+import 'SeedModules.MindPlus/modules/myworks/components/workitem/document';
+import 'SeedModules.MindPlus/modules/myworks/components/workitem/board';

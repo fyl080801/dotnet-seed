@@ -1,0 +1,98 @@
+.sidebar {
+  width: 220px;
+  background: #273240;
+  transition: all 0.3s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.sidebar-content {
+  margin-left: 220px;
+  transition: all 0.3s;
+}
+
+.sideheader {
+  padding: 4px 28px 4px 56px;
+
+  .item-icon {
+    position: absolute;
+    margin: 0 0 0 -50px;
+  }
+}
+
+.sidemenu ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sidemenu li {
+  list-style: none;
+}
+
+.sidemenu a {
+  text-decoration: none;
+}
+
+.sidemenu a {
+  display: block;
+  padding: 15px 28px 15px 56px;
+  overflow: hidden;
+  color: #cdcdcd;
+  position: relative;
+}
+
+.sidemenu .item-icon {
+  position: absolute;
+  margin: 2px 0 0 -35px;
+}
+
+.sidemenu a > .item-fold-ico {
+  -webkit-transition: all 0.15s ease;
+  -ms-transition: all 0.15s ease;
+  -o-transition: all 0.15s ease;
+  transition: all 0.15s ease;
+  position: absolute;
+  right: 15px;
+  top: 18px;
+}
+
+.sidemenu > li > a:not(div):hover,
+.sidemenu > li.active > a {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidemenu .active > a {
+  border-left: 3px solid #2dc3e8;
+  padding-left: 53px;
+  color: #f9f9f9;
+}
+
+.subsidemenu {
+  background-color: #1e2631;
+}
+
+.subsidemenu a {
+  display: block;
+  padding: 10px 28px 10px 56px;
+  overflow: hidden;
+  color: #cdcdcd;
+  position: relative;
+}
+
+.subsidemenu > li > a:not(div):hover,
+.subsidemenu > li.active > a {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.subsidemenu > .active > a {
+  border-left: 3px solid #2dc3e8;
+  padding-left: 53px;
+  color: #f9f9f9;
+}

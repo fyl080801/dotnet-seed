@@ -1,0 +1,203 @@
+@import url('document.less');
+
+.mind-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+
+  &.mind-container-navcontent {
+    top: 50px;
+  }
+}
+
+/*  */
+.work-status-container {
+  padding-top: 20px;
+  overflow-y: hidden;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-left: 15px;
+}
+
+.work-status .navbar-header,
+.work-status .navbar-form,
+.work-status .form-group,
+.work-status .form-group > input {
+  width: 100%;
+}
+
+.work-status {
+  display: inline-block;
+  position: relative;
+  width: 28%;
+  height: 100%;
+  padding-right: 15px;
+  padding-bottom: 20px;
+
+  .navbar {
+    z-index: 0;
+  }
+
+  .panel {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.work-status-add {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* mind */
+ol.mind-ol {
+  list-style: none;
+  counter-reset: a;
+}
+
+/* content */
+.mp-workitem {
+  margin-left: 31px;
+}
+
+.mp-workitem.hide {
+  display: none;
+}
+
+/* nav */
+.mind-nav {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+.mind-nav .mind-nav-sidebar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  background-color: #f8f8f8;
+  width: 180px;
+}
+
+.mind-nav .mind-nav-content {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  margin-left: 180px;
+}
+
+.mind-nav-sidebar li.active {
+  border-left: 3px #23527c solid;
+  background-color: #eee;
+}
+
+.mind-editor-nav {
+  position: absolute;
+  top: 70px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+.mind-editor-nav > .tab-content > .panel {
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.mind-editor {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 210px;
+  left: 0;
+}
+
+.mind-editor > .panel {
+  position: absolute;
+  right: 15px;
+  bottom: 0;
+  top: 0;
+  left: 15px;
+}
+
+.mind-editor-nav .mind-editor-group {
+  float: left;
+}
+
+.mind-editor-nav .mind-editor-group:not(:last-child) {
+  border-right-color: #ddd;
+  border-right-style: solid;
+  border-right-width: 1px;
+}
+
+.mind-editor > .panel > .mind-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+}
+
+.mind-editor-group .editor-group {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+}
+
+.editor-group > .editor-group-row {
+  display: table;
+}
+
+.editor-group > .editor-group-row:first-child:not(:last-child),
+.editor-group > .btn:first-child:not(:last-child),
+.editor-group > .form-group-xs:first-child:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.editor-group-row > .form-group-xs,
+.editor-group-row > .btn,
+.editor-group-row > .btn-group {
+  float: left;
+}
+
+.editor-group-row > .form-group-xs:first-child:not(:last-child),
+.editor-group-row > .btn:first-child:not(:last-child),
+.editor-group-row > .btn-group:first-child:not(:last-child) {
+  margin-right: 5px;
+}
+
+.editor-group > .btn {
+  position: relative;
+  display: block;
+  float: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.editor-group > .editor-btn > i {
+  margin-top: 1px;
+}
+
+/* bootstrap */
+.form-group-xs .form-control {
+  height: 22px;
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
+}

@@ -1,0 +1,15 @@
+{
+  "configs": {
+    "angular-jsoneditor": {
+      "path": "SeedModules.PageBuilder/js/angular-jsoneditor",
+      "shim": {
+        "deps": [ "angular" ]
+      },
+      "noDebug": true
+    },
+    "three": {
+      "path": "SeedModules.PageBuilder/js/three.min",
+      "noDebug": true
+    }
+  }
+}

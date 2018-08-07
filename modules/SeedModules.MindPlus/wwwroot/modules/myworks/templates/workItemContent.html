@@ -1,0 +1,30 @@
+<div class="list-group" ng-if="workItem.showContent" ng-init="load()">
+    <div class="dir-workitem-new list-group-item mp-workitem" ng-if="status==='new'">
+        <div class="text-muted">
+            <a href="" ng-click="editContent()">
+                <i class="glyphicon glyphicon-pencil"></i>
+                点击进行编辑
+            </a>
+        </div>
+    </div>
+    <div class="dir-workitem-content list-group-item mp-workitem" ng-if="status==='show'"></div>
+    <div class="dir-workitem-editor list-group-item mp-workitem" ng-if="status==='editing'">
+        <div id="doc_toolbar_{{workItem.id}}">
+            <a data-wysihtml5-command="bold">bold</a>
+            <a data-wysihtml5-command="italic">italic</a>
+            <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+            <a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
+        </div>
+        <div id="doc_editor_{{workItem.id}}" data-placeholder="内容..."></div>
+        <!-- <script>
+            var editor = new wysihtml5.Editor('doc_editor_{{workItem.id}}', {
+                toolbar: 'doc_toolbar_{{workItem.id}}',
+                parserRules: wysihtml5ParserRules
+            });
+        </script> -->
+    </div>
+    <div class="dir-workitem-loading list-group-item text-center mp-workitem" ng-if="status==='loading'">
+        <i class="fas fa-circle-notch fa-spin"></i>
+        读取中...
+    </div>
+</div>
