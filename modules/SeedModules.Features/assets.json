@@ -1,18 +1,15 @@
 {
-  "wwwroot/modules": [
-    {
-      "type": "dist",
-      "configs": {
-        "SeedModules.Features/modules/module": {
-          "path": "SeedModules.Features/js/modules.module",
-          "shim": {
-            "deps": ["app/application"]
-          }
-        },
-        "SeedModules.Features/modules/requires": {
-          "path": "SeedModules.Features/js/modules.requires"
+  "modules": {
+    "wwwroot/modules": {
+      "SeedModules.Features/modules/module": {
+        "path": "SeedModules.Features/js/modules.module",
+        "shim": {
+          "deps": ["app/application"]
         }
+      },
+      "SeedModules.Features/modules/requires": {
+        "path": "SeedModules.Features/js/modules.requires"
       }
     }
-  ]
+  }
 }

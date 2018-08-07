@@ -1,120 +1,114 @@
 {
-  "wwwroot/modules": [
-    {
-      "type": "dist",
-      "configs": {
-        "SeedModules.AngularUI/modules/module": {
-          "path": "/SeedModules.AngularUI/js/modules.module",
-          "shim": {
-            "deps": ["app/application"]
-          }
-        },
-        "SeedModules.AngularUI/modules/requires": {
-          "path": "/SeedModules.AngularUI/js/modules.requires"
-        }
+  "configs": {
+    "es5-shim": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
+    "es5-sham": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch",
+      "shim": {
+        "deps": ["es5-shim"]
       }
     },
-    {
-      "type": "*",
-      "configs": {
-        "es5-shim": {
-          "path": "SeedModules.AngularUI/js/seed/app.patch"
-        },
-        "es5-sham": {
-          "path": "SeedModules.AngularUI/js/seed/app.patch",
-          "shim": {
-            "deps": ["es5-shim"]
-          }
-        },
-        "html5shiv": {
-          "path": "SeedModules.AngularUI/js/seed/app.patch"
-        },
-        "json2": {
-          "path": "SeedModules.AngularUI/js/seed/app.patch"
-        },
-        "respond": {
-          "path": "SeedModules.AngularUI/js/seed/app.patch"
-        },
+    "html5shiv": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
+    "json2": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
+    "respond": {
+      "path": "SeedModules.AngularUI/js/seed/app.patch"
+    },
 
-        "rcss": {
-          "path": "SeedModules.AngularUI/js/seed/app.application"
-        },
-        "angular-base": {
-          "path": "SeedModules.AngularUI/js/seed/app.application"
-        },
-        "angular": {
-          "path": "SeedModules.AngularUI/js/seed/app.application"
-        },
-        "angular-ui-router": {
-          "path": "SeedModules.AngularUI/js/seed/app.application",
-          "shim": { "deps": ["angular"] }
-        },
-        "angular-cookies": {
-          "path": "SeedModules.AngularUI/js/seed/app.application",
-          "shim": { "deps": ["angular"] }
-        },
-        "angular-ui-bootstrap": {
-          "path": "SeedModules.AngularUI/js/seed/app.application",
-          "shim": { "deps": ["angular"] }
-        },
-        "bootstrap": {
-          "path": "SeedModules.AngularUI/js/seed/app.application",
-          "shim": { "deps": ["jquery"] }
-        },
-        "jquery": {
-          "path": "SeedModules.AngularUI/js/seed/app.application"
-        },
+    "rcss": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
+    },
+    "angular-base": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
+    },
+    "angular": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
+    },
+    "angular-ui-router": {
+      "path": "SeedModules.AngularUI/js/seed/app.application",
+      "shim": { "deps": ["angular"] }
+    },
+    "angular-cookies": {
+      "path": "SeedModules.AngularUI/js/seed/app.application",
+      "shim": { "deps": ["angular"] }
+    },
+    "angular-ui-bootstrap": {
+      "path": "SeedModules.AngularUI/js/seed/app.application",
+      "shim": { "deps": ["angular"] }
+    },
+    "bootstrap": {
+      "path": "SeedModules.AngularUI/js/seed/app.application",
+      "shim": { "deps": ["jquery"] }
+    },
+    "jquery": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
+    },
 
-        "app/application": {
-          "path": "SeedModules.AngularUI/js/seed/app.application"
-        },
-        "jquery-form": {
-          "path": "SeedModules.AngularUI/js/jquery-form/jquery.form.min",
-          "shim": {
-            "deps": ["app/application"]
-          },
-          "noDebug": true
-        },
-        "tv4": {
-          "path": "SeedModules.AngularUI/js/seed/tv4",
-          "noDebug": true
-        },
-        "objectpath": {
-          "path": "SeedModules.AngularUI/js/seed/ObjectPath",
-          "noDebug": true
-        },
-        "schema-form": {
-          "path": "SeedModules.AngularUI/js/seed/schema-form",
-          "shim": {
-            "deps": ["tv4", "objectpath"]
-          }
-        },
-        "schema-form-bootstrap": {
-          "path": "SeedModules.AngularUI/js/seed/bootstrap-decorator",
-          "shim": {
-            "deps": ["schema-form"]
-          }
-        },
+    "app/application": {
+      "path": "SeedModules.AngularUI/js/seed/app.application"
+    },
+    "jquery-form": {
+      "path": "SeedModules.AngularUI/js/jquery-form/jquery.form.min",
+      "shim": {
+        "deps": ["app/application"]
+      },
+      "noDebug": true
+    },
+    "tv4": {
+      "path": "SeedModules.AngularUI/js/seed/tv4",
+      "noDebug": true
+    },
+    "objectpath": {
+      "path": "SeedModules.AngularUI/js/seed/ObjectPath",
+      "noDebug": true
+    },
+    "schema-form": {
+      "path": "SeedModules.AngularUI/js/seed/schema-form",
+      "shim": {
+        "deps": ["tv4", "objectpath"]
+      }
+    },
+    "schema-form-bootstrap": {
+      "path": "SeedModules.AngularUI/js/seed/bootstrap-decorator",
+      "shim": {
+        "deps": ["schema-form"]
+      }
+    },
 
-        "SeedModules.AngularUI/js/seed/angular-ui-tree": {
-          "shim": {
-            "deps": ["angular"]
-          }
-        },
-        "SeedModules.AngularUI/js/jquery-form/jquery.form.min": {
-          "shim": {
-            "deps": ["jquery"]
-          }
+    "SeedModules.AngularUI/js/seed/angular-ui-tree": {
+      "shim": {
+        "deps": ["angular"]
+      }
+    },
+    "SeedModules.AngularUI/js/jquery-form/jquery.form.min": {
+      "shim": {
+        "deps": ["jquery"]
+      }
+    }
+  },
+  "modules": {
+    "wwwroot/modules": {
+      "SeedModules.AngularUI/modules/module": {
+        "path": "SeedModules.AngularUI/js/modules.module",
+        "shim": {
+          "deps": ["app/application"]
         }
       },
-      "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
-      "requires": [
-        "app/application",
-        "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",
-        "rcss!SeedModules.AngularUI/css/ng-ui.css",
-        "SeedModules.AngularUI/modules/module"
-      ],
-      "application": "app.application"
+      "SeedModules.AngularUI/modules/requires": {
+        "path": "SeedModules.AngularUI/js/modules.requires"
+      }
     }
-  ]
+  },
+  "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
+  "requires": [
+    "app/application",
+    "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",
+    "rcss!SeedModules.AngularUI/css/ng-ui.css",
+    "SeedModules.AngularUI/modules/module"
+  ],
+  "application": "app.application"
 }
