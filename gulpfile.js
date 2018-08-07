@@ -20,7 +20,7 @@ var gulp = require('gulp'),
 var options = minimist(process.argv.slice(2), {
   string: 'src',
   default: {
-    src: process.env.NODE_ENV || path.join(process.cwd(), 'src/Seed/modules')
+    src: process.env.NODE_ENV || path.join(process.cwd(), 'modules')
   }
 });
 
@@ -76,7 +76,7 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
         name !== moduleprefix + '/requires' &&
         name !== moduleprefix + '/module'
       ) {
-        moduleOptions.paths[name] = '../../../modules/build';
+        moduleOptions.paths[name] = '../modules/build';
         moduleOptions.exclude.push(name);
       }
 

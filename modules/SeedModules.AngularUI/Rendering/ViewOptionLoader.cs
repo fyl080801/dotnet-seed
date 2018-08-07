@@ -23,31 +23,18 @@ namespace SeedModules.AngularUI.Rendering
         public async Task<IEnumerable<JObject>> LoadAsync(IPluginInfo pluginInfo)
         {
             var options = new List<JObject>();
-
-            var optionFiles = await SearchFile(pluginInfo.SubPath, new string[] { "options.json", "options.dist.json" });
-            // var optionDirectory = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.SubPath)
-            //     .Where(e => e.IsDirectory);
+            var optionFiles = await SearchFile(pluginInfo.SubPath, !_hostingEnvironment.IsDevelopment() ? new[] { "options.json", "options.dist.json" } : new[] { "options.json" });
+            //var optionDirectory = _hostingEnvironment.ContentRootFileProvider.GetDirectoryContents(pluginInfo.SubPath);
+            //.Where(e => e.IsDirectory);
             // var optionFiles = optionDirectory.SelectMany(e => Directory.GetFiles(e.PhysicalPath, "options.json", SearchOption.AllDirectories));
 
-            options.AddRange(optionFiles.Where(e => e.Name.Contains("options.json")).Select(optionFile =>
+            options.AddRange(optionFiles.Select(optionFile =>
             {
                 using (var jsonReader = new JsonTextReader(new StreamReader(optionFile.CreateReadStream())))
                 {
                     return JObject.Load(jsonReader);
                 }
             }));
-
-            if (!_hostingEnvironment.IsDevelopment())
-            {
-                // var optionDistFiles = optionDirectory.SelectMany(e => Directory.GetFiles(e.PhysicalPath, "options.dist.json", SearchOption.AllDirectories));
-                options.AddRange(optionFiles.Where(e => e.Name.Contains("options.dist.json")).Select(optionFile =>
-                {
-                    using (var jsonReader = new JsonTextReader(new StreamReader(optionFile.CreateReadStream())))
-                    {
-                        return JObject.Load(jsonReader);
-                    }
-                }));
-            }
 
             return options;
         }
