@@ -30,7 +30,7 @@ namespace Seed.Environment.Engine.Builders
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
-                _logger.LogInformation("Creating engine context for tenant '{TenantName}'", settings.Name);
+                _logger.LogInformation($"为租户 '{settings.Name}' 创建上下文环境");
             }
 
             var describedContext = await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
@@ -54,11 +54,10 @@ namespace Seed.Environment.Engine.Builders
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
-                _logger.LogDebug("No engine settings available. Creating engine context for setup");
+                _logger.LogDebug("未设置任何运行环境. 创建一个安装环境");
             }
-            var descriptor = MinimumEngineDescriptor();
 
-            return await CreateDescribedContextAsync(settings, descriptor);
+            return await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
         }
 
         public async Task<EngineContext> CreateDescribedContextAsync(EngineSettings settings, EngineDescriptor engineDescriptor)

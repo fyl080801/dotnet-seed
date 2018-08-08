@@ -58,7 +58,7 @@ namespace Seed.Environment.Engine.Data
             var serialNumber = engineDescriptorRecord == null ? 0 : engineDescriptorRecord.SerialNumber;
             if (priorSerialNumber != serialNumber)
             {
-                throw new InvalidOperationException("Invalid serial number for engine descriptor");
+                throw new InvalidOperationException("运行环境序列号错误");
             }
 
             if (_logger.IsEnabled(LogLevel.Information))
