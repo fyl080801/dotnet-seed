@@ -7,5 +7,6 @@
     Version = "1.0.0",
     Description = "",
     Dependencies = new[] { "SeedModules.Admin", "SeedModules.Features" },
+    ManageDisallowed = true,
     Category = "基础模块"
 )]

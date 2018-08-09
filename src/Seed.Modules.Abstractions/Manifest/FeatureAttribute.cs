@@ -27,5 +27,7 @@ namespace Seed.Modules.Manifest
         public string Category { get; set; }
 
         public bool DefaultTenantOnly { get; set; }
+
+        public bool ManageDisallowed { get; set; }
     }
 }

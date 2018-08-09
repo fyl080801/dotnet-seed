@@ -10,7 +10,8 @@ namespace Seed.Environment.Plugins.Features
             string description,
             IPluginInfo extension,
             string[] dependencies,
-            bool defaultTenantOnly)
+            bool defaultTenantOnly,
+            bool allowManage)
         {
             Id = id;
             Name = name;
@@ -20,15 +21,25 @@ namespace Seed.Environment.Plugins.Features
             Plugin = extension;
             Dependencies = dependencies;
             DefaultTenantOnly = defaultTenantOnly;
+            ManageDisallowed = allowManage;
         }
 
         public string Id { get; }
+
         public string Name { get; }
+
         public int Priority { get; }
+
         public string Category { get; }
+
         public string Description { get; }
+
         public bool DefaultTenantOnly { get; }
+
+        public bool ManageDisallowed { get; }
+
         public IPluginInfo Plugin { get; }
+
         public string[] Dependencies { get; }
     }
 }

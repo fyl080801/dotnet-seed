@@ -19,11 +19,17 @@ namespace Seed.Modules
         private readonly IDictionary<string, IFileInfo> _fileInfos = new Dictionary<string, IFileInfo>();
 
         public string Name { get; }
+
         public string Root { get; }
+
         public string SubPath { get; }
+
         public Assembly Assembly { get; }
+
         public IEnumerable<Asset> Assets { get; }
+
         public IEnumerable<string> AssetPaths { get; }
+
         public ModuleAttribute ModuleInfo { get; }
 
         public Module(string name, bool isApplication = false)
@@ -60,6 +66,7 @@ namespace Seed.Modules
                     ModuleInfo.Priority = int.MinValue.ToString();
                     ModuleInfo.Category = "基础模块";
                     ModuleInfo.DefaultTenantOnly = true;
+                    ModuleInfo.ManageDisallowed = true;
 
                     if (features.Any())
                     {
@@ -123,8 +130,7 @@ namespace Seed.Modules
                             return new NotFoundFileInfo(fileName);
                         }
 
-                        _fileInfos[subpath] = fileInfo = new EmbeddedResourceFileInfo(
-                            Assembly, resourcePath, fileName, _lastModified);
+                        _fileInfos[subpath] = fileInfo = new EmbeddedResourceFileInfo(Assembly, resourcePath, fileName, _lastModified);
                     }
                 }
             }

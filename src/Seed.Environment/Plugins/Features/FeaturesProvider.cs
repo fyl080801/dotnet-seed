@@ -32,8 +32,7 @@ namespace Seed.Environment.Plugins.Features
                 {
                     if (String.IsNullOrWhiteSpace(feature.Id))
                     {
-                        throw new ArgumentException(
-                            $"A feature is missing a mandatory 'Id' property in the Module '{pluginInfo.Id}'");
+                        throw new ArgumentException($"包含这个功能的Plugin没有定义Id '{pluginInfo.Id}'");
                     }
 
                     var featureId = feature.Id;
@@ -50,6 +49,7 @@ namespace Seed.Environment.Plugins.Features
                     var featureCategory = feature.Category ?? manifestInfo.ModuleInfo.Category;
                     var featureDescription = feature.Description ?? manifestInfo.ModuleInfo.Description;
                     var featureDefaultTenantOnly = feature.DefaultTenantOnly;
+                    var featureManageDisallowed = feature.ManageDisallowed;
 
                     var context = new FeatureBuildingContext
                     {
@@ -62,6 +62,7 @@ namespace Seed.Environment.Plugins.Features
                         Priority = featurePriority,
                         FeatureDependencyIds = featureDependencyIds,
                         DefaultTenantOnly = featureDefaultTenantOnly,
+                        ManageDisallowed = featureManageDisallowed
                     };
 
                     foreach (var builder in _featureBuilderEvents)
@@ -77,7 +78,8 @@ namespace Seed.Environment.Plugins.Features
                         featureDescription,
                         pluginInfo,
                         featureDependencyIds,
-                        featureDefaultTenantOnly);
+                        featureDefaultTenantOnly,
+                        featureManageDisallowed);
 
                     foreach (var builder in _featureBuilderEvents)
                     {
@@ -103,6 +105,7 @@ namespace Seed.Environment.Plugins.Features
                 var featureCategory = manifestInfo.ModuleInfo.Category;
                 var featureDescription = manifestInfo.ModuleInfo.Description;
                 var featureDefaultTenantOnly = manifestInfo.ModuleInfo.DefaultTenantOnly;
+                var featureManageDisallowed = manifestInfo.ModuleInfo.ManageDisallowed;
 
                 var context = new FeatureBuildingContext
                 {
@@ -115,6 +118,7 @@ namespace Seed.Environment.Plugins.Features
                     Priority = featurePriority,
                     FeatureDependencyIds = featureDependencyIds,
                     DefaultTenantOnly = featureDefaultTenantOnly,
+                    ManageDisallowed = featureManageDisallowed
                 };
 
                 foreach (var builder in _featureBuilderEvents)
@@ -130,7 +134,8 @@ namespace Seed.Environment.Plugins.Features
                     context.Description,
                     context.PluginInfo,
                     context.FeatureDependencyIds,
-                    context.DefaultTenantOnly);
+                    context.DefaultTenantOnly,
+                    context.ManageDisallowed);
 
                 foreach (var builder in _featureBuilderEvents)
                 {

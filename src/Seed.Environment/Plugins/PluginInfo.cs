@@ -17,9 +17,13 @@ namespace Seed.Environment.Plugins
         }
 
         public string Id => Manifest.ModuleInfo.Id;
+
         public string SubPath { get; }
+
         public IManifestInfo Manifest { get; }
+
         public IEnumerable<IFeatureInfo> Features { get; }
+
         public bool Exists => Manifest.Exists;
     }
 }

@@ -16,13 +16,16 @@ namespace SeedModules.Features.Controllers
     {
         readonly IEngineFeaturesManager _engineFeaturesManager;
         readonly IPluginManager _pluginManager;
+        readonly EngineSettings _engineSettings;
 
         public FeaturesController(
             IEngineFeaturesManager engineFeaturesManager,
-            IPluginManager pluginManager)
+            IPluginManager pluginManager,
+            EngineSettings engineSettings)
         {
             _engineFeaturesManager = engineFeaturesManager;
             _pluginManager = pluginManager;
+            _engineSettings = engineSettings;
         }
 
         [HttpGet, HandleResult]
@@ -62,7 +65,7 @@ namespace SeedModules.Features.Controllers
         {
             var feature = _pluginManager.GetFeatures().FirstOrDefault(e => e.Id == id);
 
-            if (!IsFeatureAllowed(feature))
+            if (!IsFeatureAllowed(feature, model.Enabled))
             {
                 throw this.Exception("该功能不可进行此操作");
             }
@@ -82,9 +85,10 @@ namespace SeedModules.Features.Controllers
             }
         }
 
-        private bool IsFeatureAllowed(IFeatureInfo feature)
+        private bool IsFeatureAllowed(IFeatureInfo feature, bool enable)
         {
-            return feature.DefaultTenantOnly;
+            // 不是只有默认的租户可用而且,不是只能进行启用操作
+            return (_engineSettings.Name == EngineHelper.DefaultEngineName || !feature.DefaultTenantOnly) && !feature.ManageDisallowed;
         }
     }
 }

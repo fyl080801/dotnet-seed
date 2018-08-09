@@ -14,6 +14,8 @@ namespace Seed.Environment.Plugins.Features
 
         bool DefaultTenantOnly { get; }
 
+        bool ManageDisallowed { get; }
+
         IPluginInfo Plugin { get; }
 
         string[] Dependencies { get; }

@@ -1,14 +1,12 @@
 ﻿{
-  "name": "admin",
+  "name": "mindplus",
   "steps": [
     {
       "name": "feature",
       "disable": [],
       "enable": [
-        "SeedModules.Mvc",
         "SeedModules.Admin",
         "SeedModules.Features",
-        "SeedModules.Common",
         "SeedModules.Router",
         "SeedModules.MindPlus"
       ]

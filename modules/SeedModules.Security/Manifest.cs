@@ -6,5 +6,6 @@
     Website = "",
     Version = "1.0.0",
     Description = "",
+    ManageDisallowed = true,
     Category = "基础模块"
 )]

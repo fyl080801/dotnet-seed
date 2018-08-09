@@ -12,17 +12,27 @@ namespace Seed.Environment.Plugins.Features
             Category = null;
             Description = null;
             DefaultTenantOnly = false;
+            ManageDisallowed = false;
             Plugin = pluginInfo;
             Dependencies = new string[0];
         }
 
         public string Id { get; }
+
         public string Name { get; }
+
         public int Priority { get; }
+
         public string Category { get; }
+
         public string Description { get; }
+
         public bool DefaultTenantOnly { get; }
+
+        public bool ManageDisallowed { get; }
+
         public IPluginInfo Plugin { get; }
+
         public string[] Dependencies { get; }
     }
 }
