@@ -11,3 +11,7 @@
 targets目录下某个地方有*.project.json文件是系统初始化定义，安装时选择后可建立不同功能的系统
 
 现在支持加载dll从后加载的程序集中读出模块的定义，把dll放到extensions下。没有就建一个
+
+---
+示例1：[仿某个云平台](http://www.fyl080801.top/referyun/index.html "Title") - 纯界面无后台，刷新清数据<br />
+示例2：[可组态监控系统acc](http://www.fyl080801.top/acc/index.html "Title") - 开发中
