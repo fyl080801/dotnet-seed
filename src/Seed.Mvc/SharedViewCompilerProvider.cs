@@ -105,7 +105,7 @@ namespace Seed.Mvc
 
                 foreach (var name in moduleNames)
                 {
-                    var module = _hostingEnvironment.GetModule(name);
+                    var module = _hostingEnvironment.GetModule(name.Name);
 
                     var precompiledAssemblyPath = Path.Combine(Path.GetDirectoryName(module.Assembly.Location),
                         module.Assembly.GetName().Name + ".Views.dll");

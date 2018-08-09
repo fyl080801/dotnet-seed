@@ -234,7 +234,7 @@ namespace Seed.Environment.Plugins
 
                 Parallel.ForEach(moduleNames, new ParallelOptions { MaxDegreeOfParallelism = 8 }, (name) =>
                 {
-                    var module = _hostingEnvironment.GetModule(name);
+                    var module = _hostingEnvironment.GetModule(name.Name);
 
                     if (!module.ModuleInfo.Exists)
                     {

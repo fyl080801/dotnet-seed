@@ -32,15 +32,15 @@ namespace Seed.Modules
 
         public ModuleAttribute ModuleInfo { get; }
 
-        public Module(string name, bool isApplication = false)
+        public Module(INamedModule name, bool isApplication = false)
         {
-            if (!string.IsNullOrWhiteSpace(name))
+            if (!string.IsNullOrWhiteSpace(name.Name))
             {
-                Name = name;
+                Name = name.Name;
                 SubPath = Application.ModulesRoot + Name;
                 Root = SubPath + '/';
 
-                Assembly = Assembly.Load(new AssemblyName(name));
+                Assembly = name.Assembly;
 
                 Assets = Assembly.GetCustomAttributes<ModuleAssetAttribute>()
                     .Select(a => new Asset(a.Asset)).ToArray();

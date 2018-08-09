@@ -28,16 +28,17 @@ namespace Seed.Modules
         {
             if (!_modules.TryGetValue(name, out var module))
             {
-                if (!environment.GetApplication().ModuleNames.Contains(name, StringComparer.Ordinal))
+                var namedModule = environment.GetApplication().ModuleNames.FirstOrDefault(e => e.Name.Equals(name, StringComparison.Ordinal));
+                if (namedModule == null)
                 {
-                    return new Module(string.Empty);
+                    return new Module(new NamedModule(string.Empty, null));
                 }
 
                 lock (_synLock)
                 {
                     if (!_modules.TryGetValue(name, out module))
                     {
-                        _modules[name] = module = new Module(name, name == environment.ApplicationName);
+                        _modules[name] = module = new Module(namedModule, name == environment.ApplicationName);
                     }
                 }
             }

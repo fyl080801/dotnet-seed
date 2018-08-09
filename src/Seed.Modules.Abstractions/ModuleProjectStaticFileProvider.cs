@@ -31,7 +31,7 @@ namespace Seed.Modules
 
                     foreach (var name in application.ModuleNames)
                     {
-                        var module = environment.GetModule(name);
+                        var module = environment.GetModule(name.Name);
 
                         if (module.Assembly == null || Path.GetDirectoryName(module.Assembly.Location)
                             != Path.GetDirectoryName(application.Assembly.Location))
