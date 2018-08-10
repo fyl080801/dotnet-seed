@@ -445,18 +445,154 @@ define('SeedModules.PageBuilder/modules/components/datasource/fields', [
     }();
     mod.controller('SeedModules.PageBuilder/modules/components/datasource/fields', ControllerClass);
 });
+define('SeedModules.PageBuilder/modules/configs/enums', [
+    'require',
+    'exports'
+], function (require, exports) {
+    'use strict';
+    exports.__esModule = true;
+    var BuilderDefineTypes;
+    (function (BuilderDefineTypes) {
+        BuilderDefineTypes[BuilderDefineTypes['页面'] = 0] = '页面';
+        BuilderDefineTypes[BuilderDefineTypes['表'] = 1] = '表';
+        BuilderDefineTypes[BuilderDefineTypes['数据源'] = 2] = '数据源';
+    }(BuilderDefineTypes = exports.BuilderDefineTypes || (exports.BuilderDefineTypes = {})));
+});
+define('SeedModules.PageBuilder/modules/components/database/forms', [
+    'require',
+    'exports',
+    'SeedModules.AngularUI/modules/configs/enums/defaultFormTypes'
+], function (require, exports, defaultFormTypes_1) {
+    'use strict';
+    exports.__esModule = true;
+    exports.tableform = function (schemaFormParams) {
+        return {
+            formParams: schemaFormParams.properties({
+                name: {
+                    title: '表名',
+                    type: 'string',
+                    required: true
+                },
+                description: {
+                    title: '说明',
+                    type: 'string'
+                },
+                remark: {
+                    title: '中文名',
+                    type: 'string'
+                }
+            }),
+            form: [
+                {
+                    type: defaultFormTypes_1.DefaultFormTypes.section,
+                    htmlClass: 'row',
+                    items: [
+                        {
+                            type: defaultFormTypes_1.DefaultFormTypes.section,
+                            htmlClass: 'col-md-6',
+                            items: ['name']
+                        },
+                        {
+                            type: defaultFormTypes_1.DefaultFormTypes.section,
+                            htmlClass: 'col-md-6',
+                            items: ['remark']
+                        }
+                    ]
+                },
+                {
+                    key: 'description',
+                    type: defaultFormTypes_1.DefaultFormTypes.textarea
+                }
+            ]
+        };
+    };
+});
 define('SeedModules.PageBuilder/modules/components/database/table', [
     'require',
     'exports',
-    'SeedModules.PageBuilder/modules/module'
-], function (require, exports, mod) {
+    'SeedModules.PageBuilder/modules/module',
+    'angular',
+    'SeedModules.PageBuilder/modules/configs/enums',
+    'SeedModules.PageBuilder/modules/components/database/forms'
+], function (require, exports, mod, angular, enums_1, forms_1) {
     'use strict';
     exports.__esModule = true;
     var ControllerClass = function () {
-        function ControllerClass($scope) {
+        function ControllerClass($scope, $rootScope, $state, $modal, popupService, requestService, schemaFormParams) {
             this.$scope = $scope;
+            this.$rootScope = $rootScope;
+            this.$state = $state;
+            this.$modal = $modal;
+            this.popupService = popupService;
+            this.requestService = requestService;
+            this.schemaFormParams = schemaFormParams;
+            $scope.vm = this;
+            $scope.list = [];
         }
-        ControllerClass.$inject = ['$scope'];
+        ControllerClass.prototype.load = function () {
+            var _this = this;
+            this.requestService.url('/api/pagebuilder/define/' + enums_1.BuilderDefineTypes.表).get().result.then(function (result) {
+                _this.$scope.list = result;
+            });
+        };
+        ControllerClass.prototype.add = function () {
+            var _this = this;
+            this.$modal.open({
+                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                scope: angular.extend(this.$rootScope.$new(), {
+                    $data: $.extend({
+                        title: '新建表',
+                        model: {}
+                    }, forms_1.tableform(new this.schemaFormParams()))
+                }),
+                size: 'lg'
+            }).result.then(function (data) {
+                _this.requestService.url('/api/pagebuilder/define').put({
+                    type: enums_1.BuilderDefineTypes.表,
+                    properties: data
+                }).result.then(function (result) {
+                    _this.load();
+                });
+            });
+        };
+        ControllerClass.prototype.edit = function (row) {
+            var _this = this;
+            this.$modal.open({
+                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                scope: angular.extend(this.$rootScope.$new(), {
+                    $data: $.extend({
+                        title: '编辑表',
+                        model: $.extend({}, row.properties)
+                    }, forms_1.tableform(new this.schemaFormParams()))
+                }),
+                size: 'lg'
+            }).result.then(function (data) {
+                _this.requestService.url('/api/pagebuilder/define').put({
+                    id: row.id,
+                    type: enums_1.BuilderDefineTypes.表,
+                    properties: data
+                }).result.then(function (result) {
+                    _this.load();
+                });
+            });
+        };
+        ControllerClass.prototype.drop = function (row) {
+            var _this = this;
+            this.popupService.confirm('是否删除\uFF1F').ok(function () {
+                _this.requestService.url('/api/pagebuilder/define/' + row.id).drop().result.then(function (result) {
+                    _this.load();
+                });
+            });
+        };
+        ControllerClass.$inject = [
+            '$scope',
+            '$rootScope',
+            '$state',
+            '$modal',
+            'app/services/popupService',
+            'SeedModules.AngularUI/modules/services/requestService',
+            'SeedModules.AngularUI/modules/factories/schemaFormParams'
+        ];
         return ControllerClass;
     }();
     mod.controller('SeedModules.PageBuilder/modules/components/database/table', ControllerClass);

@@ -9,8 +9,8 @@ using Seed.Data;
 
 namespace SeedModules.PageBuilder.Domain
 {
-    [Table("BuilderDefine")]
-    public class BuilderDefine : JEntity
+    [Table("BuilderTemplate")]
+    public class BuilderTemplate : JEntity
     {
         [Key]
         public int Id { get; set; }
@@ -32,9 +32,9 @@ namespace SeedModules.PageBuilder.Domain
         }
     }
 
-    public class BuilderDefineTypeConfiguration : IEntityTypeConfiguration<BuilderDefine>
+    public class BuilderTemplateTypeConfiguration : IEntityTypeConfiguration<BuilderTemplate>
     {
-        public void Configure(EntityTypeBuilder<BuilderDefine> builder)
+        public void Configure(EntityTypeBuilder<BuilderTemplate> builder)
         {
 
         }

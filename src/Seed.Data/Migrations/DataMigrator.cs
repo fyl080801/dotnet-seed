@@ -31,7 +31,7 @@ namespace Seed.Data.Migrations
                     .OrderByDescending(e => e.MigrationTime)
                     .OrderByDescending(e => e.Id) // mysql下自动生成的时间日期字段时间精度为秒
                     .FirstOrDefault();
-                lastModel = lastMigration == null ? null : ((await CreateModelSnapshot(Encoding.UTF8.GetString(Convert.FromBase64String(lastMigration.SnapshotDefine))))?.Model);
+                lastModel = lastMigration == null ? null : ((await CreateModelSnapshot(context, Encoding.UTF8.GetString(Convert.FromBase64String(lastMigration.SnapshotDefine))))?.Model);
             }
             catch (DbException) { }
 
@@ -64,10 +64,10 @@ namespace Seed.Data.Migrations
                         throw ex;
                     }
 
-                    var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter(), new string[0])
+                    var snapshotCode = new DesignTimeServicesBuilder(context.GetType().Assembly, new ModuleDbOperationReporter(), new string[0])
                         .Build((DbContext)context)
                         .GetService<IMigrationsCodeGenerator>()
-                        .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, context.Context.Model);
+                        .GenerateSnapshot(ContextAssembly, context.GetType(), SnapshotName, context.Context.Model);
 
                     context.Migrations.Add(new MigrationRecord()
                     {
@@ -80,10 +80,10 @@ namespace Seed.Data.Migrations
             }
         }
 
-        private Task<ModelSnapshot> CreateModelSnapshot(string codedefine)
+        private Task<ModelSnapshot> CreateModelSnapshot(IDbContext context, string codedefine)
         {
             // 生成快照，需要存到数据库中供更新版本用
-            var references = typeof(ModuleDbContext).Assembly
+            var references = context.GetType().Assembly
                 .GetReferencedAssemblies()
                 .Select(e => MetadataReference.CreateFromFile(Assembly.Load(e).Location))
                 .Union(new MetadataReference[]
@@ -91,7 +91,7 @@ namespace Seed.Data.Migrations
                     MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location),
                     MetadataReference.CreateFromFile(Assembly.Load("System.Runtime").Location),
                     MetadataReference.CreateFromFile(typeof(Object).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(ModuleDbContext).Assembly.Location)
+                    MetadataReference.CreateFromFile(context.GetType().Assembly.Location)
                 });
 
             var compilation = CSharpCompilation.Create(ContextAssembly)

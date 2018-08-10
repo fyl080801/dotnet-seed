@@ -13,7 +13,8 @@ namespace SeedModules.PageBuilder
             return await Task.FromResult(new object[]
             {
                 new PbMigrationRecordTypeConfiguration(),
-                new BuilderDefineTypeConfiguration()
+                new BuilderDefineTypeConfiguration(),
+                new BuilderTemplateTypeConfiguration()
             });
         }
     }

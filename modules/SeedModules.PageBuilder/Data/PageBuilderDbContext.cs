@@ -1,14 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Seed.Data;
 using Seed.Environment.Engine;
+using SeedModules.PageBuilder.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Seed.Data
+namespace SeedModules.PageBuilder.Data
 {
     public class PageBuilderDbContext : DbContext, IDbContext
     {
-        readonly IEnumerable<object> _entityConfigurations;
+        readonly IEnumerable<TableModel> _tables;
         readonly EngineSettings _settings;
 
         public DbContext Context => this;
@@ -18,10 +20,10 @@ namespace Seed.Data
         public PageBuilderDbContext(
             DbContextOptions options,
             EngineSettings settings,
-            params object[] entityConfigurations)
+            params TableModel[] tables)
             : base(options)
         {
-            _entityConfigurations = entityConfigurations;
+            _tables = tables;
             _settings = settings;
         }
 
@@ -29,15 +31,15 @@ namespace Seed.Data
         {
             modelBuilder.ApplyConfiguration(new PbMigrationTypeConfiguration());
 
-            foreach (var configuration in _entityConfigurations)
+            foreach (var table in _tables)
             {
-                modelBuilder.ApplyConfiguration((dynamic)configuration);
+                modelBuilder.ApplyConfiguration(new BuilderTypeConfiguration(table));
             }
 
             modelBuilder.Model
                 .GetEntityTypes()
                 .ToList()
-                .ForEach(e => modelBuilder.Entity(e.Name).ToTable(string.Format("{0}_{1}", _settings.TablePrefix, e.Relational().TableName)));
+                .ForEach(e => modelBuilder.Entity(e.Name).ToTable($"{_settings.TablePrefix}_pb_{e.Relational().TableName}"));
 
             base.OnModelCreating(modelBuilder);
         }
