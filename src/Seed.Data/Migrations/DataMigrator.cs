@@ -22,19 +22,12 @@ namespace Seed.Data.Migrations
         const string ContextAssembly = "Seed.Data.Migration";
         const string SnapshotName = "ModuleDbSnapshot";
 
-        readonly IDbContext _context;
-
-        public DataMigrator(IDbContext context)
-        {
-            _context = context;
-        }
-
-        public async Task RunAsync()
+        public async Task RunAsync(IDbContext context)
         {
             IModel lastModel = null;
             try
             {
-                var lastMigration = _context.Migrations
+                var lastMigration = context.Migrations
                     .OrderByDescending(e => e.MigrationTime)
                     .OrderByDescending(e => e.Id) // mysql下自动生成的时间日期字段时间精度为秒
                     .FirstOrDefault();
@@ -44,45 +37,45 @@ namespace Seed.Data.Migrations
 
             // 需要从历史版本库中取出快照定义，反序列化成类型 GetDifferences(快照模型, context.Model);
             // 实际情况下要传入历史快照
-            var modelDiffer = _context.Context
+            var modelDiffer = context.Context
                 .GetInfrastructure()
                 .GetService<IMigrationsModelDiffer>();
-            var hasDiffer = modelDiffer.HasDifferences(lastModel, _context.Context.Model);
+            var hasDiffer = modelDiffer.HasDifferences(lastModel, context.Context.Model);
 
             if (hasDiffer)
             {
-                var upOperations = modelDiffer.GetDifferences(lastModel, _context.Context.Model);
+                var upOperations = modelDiffer.GetDifferences(lastModel, context.Context.Model);
 
-                using (var trans = _context.Context.Database.BeginTransaction())
+                using (var trans = context.Context.Database.BeginTransaction())
                 {
                     try
                     {
-                        _context.Context.GetInfrastructure()
+                        context.Context.GetInfrastructure()
                             .GetRequiredService<IMigrationsSqlGenerator>()
-                            .Generate(upOperations, _context.Context.Model)
+                            .Generate(upOperations, context.Context.Model)
                             .ToList()
-                            .ForEach(cmd => _context.Context.Database.ExecuteSqlCommand(cmd.CommandText));
+                            .ForEach(cmd => context.Context.Database.ExecuteSqlCommand(cmd.CommandText));
 
-                        _context.Context.Database.CommitTransaction();
+                        context.Context.Database.CommitTransaction();
                     }
                     catch (DbException ex)
                     {
-                        _context.Context.Database.RollbackTransaction();
+                        context.Context.Database.RollbackTransaction();
                         throw ex;
                     }
 
                     var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter(), new string[0])
-                        .Build((DbContext)_context)
+                        .Build((DbContext)context)
                         .GetService<IMigrationsCodeGenerator>()
-                        .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _context.Context.Model);
+                        .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, context.Context.Model);
 
-                    _context.Migrations.Add(new MigrationRecord()
+                    context.Migrations.Add(new MigrationRecord()
                     {
                         SnapshotDefine = Convert.ToBase64String(Encoding.UTF8.GetBytes(snapshotCode)),
                         MigrationTime = DateTime.Now
                     });
 
-                    await _context.Context.SaveChangesAsync(true);
+                    await context.Context.SaveChangesAsync(true);
                 }
             }
         }

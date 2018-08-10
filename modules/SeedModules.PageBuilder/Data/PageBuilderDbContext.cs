@@ -1,22 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Seed.Environment.Engine;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Seed.Data
 {
-    public class ModuleDbContext : DbContext, IDocumentDbContext
+    public class PageBuilderDbContext : DbContext, IDbContext
     {
         readonly IEnumerable<object> _entityConfigurations;
         readonly EngineSettings _settings;
 
         public DbContext Context => this;
 
-        public DbSet<Document> Document { get; set; }
-
         public DbSet<MigrationRecord> Migrations { get; set; }
 
-        public ModuleDbContext(
+        public PageBuilderDbContext(
             DbContextOptions options,
             EngineSettings settings,
             params object[] entityConfigurations)
@@ -28,7 +27,7 @@ namespace Seed.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new MigrationTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PbMigrationTypeConfiguration());
 
             foreach (var configuration in _entityConfigurations)
             {
@@ -42,12 +41,15 @@ namespace Seed.Data
 
             base.OnModelCreating(modelBuilder);
         }
+    }
 
-        public override DbSet<TEntity> Set<TEntity>()
+    // 用于可配置数据Context的数据迁移表映射
+    public class PbMigrationTypeConfiguration : IEntityTypeConfiguration<MigrationRecord>
+    {
+        public void Configure(EntityTypeBuilder<MigrationRecord> builder)
         {
-            return Model.FindEntityType(typeof(TEntity)) != null
-                ? base.Set<TEntity>()
-                : new DocumentDbSet<TEntity>(this);
+            builder.ToTable("_PageBuilderMigration")
+                .HasKey(e => e.Id);
         }
     }
 }

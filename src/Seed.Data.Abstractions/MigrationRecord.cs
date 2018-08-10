@@ -10,22 +10,12 @@ using System.Threading.Tasks;
 
 namespace Seed.Data
 {
-    [Table("_MigrationRecord")]
     public class MigrationRecord
     {
-        [Key]
         public int Id { get; set; }
 
         public string SnapshotDefine { get; set; }
 
         public DateTime MigrationTime { get; set; }
     }
-
-    //public class MigrationRecordConfiguration : IEntityTypeConfiguration<MigrationRecord>
-    //{
-    //    public void Configure(EntityTypeBuilder<MigrationRecord> builder)
-    //    {
-
-    //    }
-    //}
 }

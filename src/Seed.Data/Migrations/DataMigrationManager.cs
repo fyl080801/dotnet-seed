@@ -26,6 +26,7 @@ namespace Seed.Data.Migrations
     public class DataMigrationManager : IDataMigrationManager
     {
         readonly IStore _store;
+        readonly IDataMigrator _dataMigrator;
         readonly IPluginManager _pluginManager;
         readonly IEngineStateManager _engineStateManager;
         readonly EngineSettings _engineSettings;
@@ -35,6 +36,7 @@ namespace Seed.Data.Migrations
 
         public DataMigrationManager(
             IStore store,
+            IDataMigrator dataMigrator,
             IPluginManager pluginManager,
             IEngineStateManager engineStateManager,
             EngineSettings engineSettings,
@@ -43,6 +45,7 @@ namespace Seed.Data.Migrations
             ILogger<DataMigrationManager> logger)
         {
             _store = store;
+            _dataMigrator = dataMigrator;
             _pluginManager = pluginManager;
             _engineStateManager = engineStateManager;
             _engineSettings = engineSettings;
@@ -78,7 +81,7 @@ namespace Seed.Data.Migrations
 
         private async Task RunUpdateAsync()
         {
-            await new DataMigrator(await CreateDbContext()).RunAsync();
+            await _dataMigrator.RunAsync(await CreateDbContext());
         }
 
         private async Task<IDbContext> CreateDbContext()

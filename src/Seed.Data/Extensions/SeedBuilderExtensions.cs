@@ -20,8 +20,6 @@ namespace Seed.Data.Extensions
             {
                 services.AddScoped<IDataMigrationManager, DataMigrationManager>();
                 services.AddScoped<IModuleTenantEvents, AutoDataMigration>();
-
-                // 可能没用，先注册上
                 services.AddScoped<IDataMigrator, DataMigrator>();
 
                 services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");

@@ -4,6 +4,6 @@ namespace Seed.Data.Migrations
 {
     public interface IDataMigrator
     {
-        Task RunAsync();
+        Task RunAsync(IDbContext context);
     }
 }
