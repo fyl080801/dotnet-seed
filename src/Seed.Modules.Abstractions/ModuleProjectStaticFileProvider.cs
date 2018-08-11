@@ -29,7 +29,7 @@ namespace Seed.Modules
                     var application = environment.GetApplication();
                     var paths = new Dictionary<string, string>();
 
-                    foreach (var name in application.ModuleNames)
+                    foreach (var name in application.NamedModules)
                     {
                         var module = environment.GetModule(name.Name);
 
@@ -39,14 +39,14 @@ namespace Seed.Modules
                             continue;
                         }
 
-                        var contentRoot = Application.ModulesRoot + name + '/' + Module.WebRoot;
+                        var contentRoot = Application.ModulesRoot + name.Name + '/' + Module.WebRoot;
 
                         var assets = module.Assets.Where(a => a.ModuleAssetPath
                             .StartsWith(contentRoot, StringComparison.Ordinal)).ToArray();
 
                         foreach (var asset in assets)
                         {
-                            var requestPath = name + asset.ModuleAssetPath.Substring(contentRoot.Length - 1);
+                            var requestPath = name.Name + asset.ModuleAssetPath.Substring(contentRoot.Length - 1);
                             paths[requestPath] = asset.ProjectAssetPath;
                         }
                     }

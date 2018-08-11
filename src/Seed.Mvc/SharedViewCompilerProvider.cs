@@ -100,7 +100,7 @@ namespace Seed.Mvc
 
             if (!_hostingEnvironment.IsDevelopment())
             {
-                var moduleNames = _hostingEnvironment.GetApplication().ModuleNames;
+                var moduleNames = _hostingEnvironment.GetApplication().NamedModules;
                 var moduleFeature = new ViewsFeature();
 
                 foreach (var name in moduleNames)

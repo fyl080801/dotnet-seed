@@ -43,7 +43,7 @@ namespace Seed.Modules
             }
             else if (folder == Application.ModulesPath)
             {
-                entries.AddRange(Application.ModuleNames.Select(n => new EmbeddedDirectoryInfo(n.Name, _assembly.GetManifestResourceStream(n.Name))));
+                entries.AddRange(Application.NamedModules.Select(n => new EmbeddedDirectoryInfo(n.Name, _assembly.GetManifestResourceStream(n.Name))));
             }
             else if (folder == Application.ModulePath)
             {

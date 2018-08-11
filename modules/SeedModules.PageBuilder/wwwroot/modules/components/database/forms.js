@@ -35,10 +35,7 @@ define(["require", "exports", "SeedModules.AngularUI/modules/configs/enums/defau
                         }
                     ]
                 },
-                {
-                    key: 'description',
-                    type: defaultFormTypes_1.DefaultFormTypes.textarea
-                }
+                'description'
             ]
         };
     };

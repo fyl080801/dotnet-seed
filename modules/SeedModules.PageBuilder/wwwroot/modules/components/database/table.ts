@@ -24,6 +24,9 @@ class ControllerClass {
   ) {
     $scope.vm = this;
     $scope.list = [];
+    $scope.search = {
+      keyword: ''
+    };
   }
 
   load() {
@@ -38,15 +41,13 @@ class ControllerClass {
   add() {
     this.$modal
       .open({
-        templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+        templateUrl:
+          '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
         scope: angular.extend(this.$rootScope.$new(), {
-          $data: $.extend(
-            {
-              title: '新建表',
-              model: {}
-            },
-            tableform(new this.schemaFormParams())
-          )
+          $data: {
+            title: '编辑表',
+            model: {}
+          }
         }),
         size: 'lg'
       })
@@ -66,15 +67,13 @@ class ControllerClass {
   edit(row) {
     this.$modal
       .open({
-        templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+        templateUrl:
+          '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
         scope: angular.extend(this.$rootScope.$new(), {
-          $data: $.extend(
-            {
-              title: '编辑表',
-              model: $.extend({}, row.properties)
-            },
-            tableform(new this.schemaFormParams())
-          )
+          $data: {
+            title: '编辑表',
+            model: $.extend({}, row.properties)
+          }
         }),
         size: 'lg'
       })
@@ -101,6 +100,10 @@ class ControllerClass {
           this.load();
         });
     });
+  }
+
+  fire() {
+    alert('fired');
   }
 }
 

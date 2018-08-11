@@ -229,7 +229,7 @@ namespace Seed.Environment.Plugins
                     return;
                 }
 
-                var moduleNames = _hostingEnvironment.GetApplication().ModuleNames;
+                var moduleNames = _hostingEnvironment.GetApplication().NamedModules;
                 var loadedPlugins = new ConcurrentDictionary<string, PluginEntry>();
 
                 Parallel.ForEach(moduleNames, new ParallelOptions { MaxDegreeOfParallelism = 8 }, (name) =>

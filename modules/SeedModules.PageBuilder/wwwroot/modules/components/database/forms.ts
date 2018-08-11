@@ -35,10 +35,7 @@ export var tableform = schemaFormParams => {
           }
         ]
       },
-      {
-        key: 'description',
-        type: DefaultFormTypes.textarea
-      }
+      'description'
     ]
   };
 };

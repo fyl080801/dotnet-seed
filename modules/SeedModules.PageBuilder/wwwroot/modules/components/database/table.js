@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular", "SeedModules.PageBuilder/modules/configs/enums", "SeedModules.PageBuilder/modules/components/database/forms"], function (require, exports, mod, angular, enums_1, forms_1) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular", "SeedModules.PageBuilder/modules/configs/enums"], function (require, exports, mod, angular, enums_1) {
     "use strict";
     exports.__esModule = true;
     var ControllerClass = (function () {
@@ -12,6 +12,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             this.schemaFormParams = schemaFormParams;
             $scope.vm = this;
             $scope.list = [];
+            $scope.search = {
+                keyword: ''
+            };
         }
         ControllerClass.prototype.load = function () {
             var _this = this;
@@ -26,12 +29,12 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             var _this = this;
             this.$modal
                 .open({
-                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
                 scope: angular.extend(this.$rootScope.$new(), {
-                    $data: $.extend({
-                        title: '新建表',
+                    $data: {
+                        title: '编辑表',
                         model: {}
-                    }, forms_1.tableform(new this.schemaFormParams()))
+                    }
                 }),
                 size: 'lg'
             })
@@ -51,12 +54,12 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             var _this = this;
             this.$modal
                 .open({
-                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
                 scope: angular.extend(this.$rootScope.$new(), {
-                    $data: $.extend({
+                    $data: {
                         title: '编辑表',
                         model: $.extend({}, row.properties)
-                    }, forms_1.tableform(new this.schemaFormParams()))
+                    }
                 }),
                 size: 'lg'
             })
@@ -83,6 +86,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                     _this.load();
                 });
             });
+        };
+        ControllerClass.prototype.fire = function () {
+            alert('fired');
         };
         ControllerClass.$inject = [
             '$scope',
