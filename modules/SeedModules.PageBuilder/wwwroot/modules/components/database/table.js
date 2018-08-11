@@ -90,7 +90,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                     type: enums_1.BuilderDefineTypes.表,
                     properties: data
                 })
-                    .result.then(function (result) { });
+                    .result.then(function (result) {
+                    _this.load();
+                });
             });
         };
         ControllerClass.prototype.drop = function (row) {

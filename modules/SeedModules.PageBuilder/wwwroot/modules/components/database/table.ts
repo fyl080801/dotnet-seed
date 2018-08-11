@@ -109,7 +109,9 @@ class ControllerClass {
             type: BuilderDefineTypes.表,
             properties: data
           })
-          .result.then(result => {});
+          .result.then(result => {
+            this.load();
+          });
       });
   }
 
