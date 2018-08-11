@@ -1,14 +1,8 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Seed.Data;
-using SeedModules.PageBuilder.Models;
 using Seed.Data.Extensions;
+using SeedModules.PageBuilder.Models;
+using System.Linq;
 
 namespace SeedModules.PageBuilder.Data
 {
@@ -25,9 +19,9 @@ namespace SeedModules.PageBuilder.Data
         {
             builder.ToTable(_tableDefine.Name);
             builder.HasKey(_tableDefine.Columns.Where(e => e.PrimaryKey).Select(e => e.Name).ToArray());
-            foreach (var column in _tableDefine.Columns)
+            _tableDefine.Columns.Where(e => !e.PrimaryKey).ToList().ForEach(column =>
             {
-                var pro = builder.Property(PageBuilderDbContext.ConvertType(column.Type), column.Name)
+                var pro = builder.Property(PageBuilderDbContext.ConvertType(column), column.Name)
                     .IsRequired(column.IsRequired);
                 if (column.Type == DataTypes.String && column.MaxLength.HasValue)
                 {
@@ -37,7 +31,7 @@ namespace SeedModules.PageBuilder.Data
                 {
                     pro.HasPrecision(column.MaxLength.Value, column.Accuracy.Value);
                 }
-            }
+            });
         }
     }
 }

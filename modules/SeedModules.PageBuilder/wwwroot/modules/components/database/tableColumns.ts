@@ -42,6 +42,6 @@ class Controller {
 }
 
 mod.controller(
-  'SeedModules.PageBuilder/modules/components/database/tableForm',
+  'SeedModules.PageBuilder/modules/components/database/tableColumns',
   Controller
 );

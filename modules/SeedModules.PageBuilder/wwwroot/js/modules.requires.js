@@ -462,102 +462,9 @@ define('SeedModules.PageBuilder/modules/configs/enums', [
         DataTypes[DataTypes['字符串'] = 0] = '字符串';
         DataTypes[DataTypes['整数'] = 1] = '整数';
         DataTypes[DataTypes['小数'] = 2] = '小数';
-        DataTypes[DataTypes['日期时间'] = 3] = '日期时间';
+        DataTypes[DataTypes['浮点数'] = 3] = '浮点数';
+        DataTypes[DataTypes['日期时间'] = 4] = '日期时间';
     }(DataTypes = exports.DataTypes || (exports.DataTypes = {})));
-});
-define('SeedModules.PageBuilder/modules/components/database/table', [
-    'require',
-    'exports',
-    'SeedModules.PageBuilder/modules/module',
-    'angular',
-    'SeedModules.PageBuilder/modules/configs/enums'
-], function (require, exports, mod, angular, enums_1) {
-    'use strict';
-    exports.__esModule = true;
-    var ControllerClass = function () {
-        function ControllerClass($scope, $rootScope, $state, $modal, popupService, requestService, schemaFormParams) {
-            this.$scope = $scope;
-            this.$rootScope = $rootScope;
-            this.$state = $state;
-            this.$modal = $modal;
-            this.popupService = popupService;
-            this.requestService = requestService;
-            this.schemaFormParams = schemaFormParams;
-            $scope.vm = this;
-            $scope.list = [];
-            $scope.search = { keyword: '' };
-        }
-        ControllerClass.prototype.load = function () {
-            var _this = this;
-            this.requestService.url('/api/pagebuilder/define/' + enums_1.BuilderDefineTypes.表).get().result.then(function (result) {
-                _this.$scope.list = result;
-            });
-        };
-        ControllerClass.prototype.add = function () {
-            var _this = this;
-            this.$modal.open({
-                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
-                scope: angular.extend(this.$rootScope.$new(), {
-                    $data: {
-                        title: '编辑表',
-                        model: {}
-                    }
-                }),
-                size: 'lg'
-            }).result.then(function (data) {
-                _this.requestService.url('/api/pagebuilder/define').put({
-                    type: enums_1.BuilderDefineTypes.表,
-                    properties: data
-                }).result.then(function (result) {
-                    _this.load();
-                });
-            });
-        };
-        ControllerClass.prototype.edit = function (row) {
-            var _this = this;
-            this.$modal.open({
-                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
-                scope: angular.extend(this.$rootScope.$new(), {
-                    $data: {
-                        title: '编辑表',
-                        model: $.extend({}, row.properties)
-                    }
-                }),
-                size: 'lg'
-            }).result.then(function (data) {
-                _this.requestService.url('/api/pagebuilder/define').put({
-                    id: row.id,
-                    type: enums_1.BuilderDefineTypes.表,
-                    properties: data
-                }).result.then(function (result) {
-                    _this.load();
-                });
-            });
-        };
-        ControllerClass.prototype.drop = function (row) {
-            var _this = this;
-            this.popupService.confirm('是否删除\uFF1F').ok(function () {
-                _this.requestService.url('/api/pagebuilder/define/' + row.id).drop().result.then(function (result) {
-                    _this.load();
-                });
-            });
-        };
-        ControllerClass.prototype.fire = function () {
-            this.requestService.url('/api/pagebuilder/table/fire').patch().result.then(function (result) {
-            });
-        };
-        ControllerClass.$inject = [
-            '$scope',
-            '$rootScope',
-            '$state',
-            '$modal',
-            'app/services/popupService',
-            'SeedModules.AngularUI/modules/services/requestService',
-            'SeedModules.AngularUI/modules/factories/schemaFormParams'
-        ];
-        return ControllerClass;
-    }();
-    mod.controller('SeedModules.PageBuilder/modules/components/database/table', ControllerClass);
 });
 define('SeedModules.PageBuilder/modules/components/database/forms', [
     'require',
@@ -600,12 +507,128 @@ define('SeedModules.PageBuilder/modules/components/database/forms', [
                         }
                     ]
                 },
-                'description'
+                {
+                    key: 'description',
+                    type: defaultFormTypes_1.DefaultFormTypes.textarea
+                }
             ]
         };
     };
 });
-define('SeedModules.PageBuilder/modules/components/database/tableForm', [
+define('SeedModules.PageBuilder/modules/components/database/table', [
+    'require',
+    'exports',
+    'SeedModules.PageBuilder/modules/module',
+    'angular',
+    'SeedModules.PageBuilder/modules/configs/enums',
+    'SeedModules.PageBuilder/modules/components/database/forms'
+], function (require, exports, mod, angular, enums_1, forms_1) {
+    'use strict';
+    exports.__esModule = true;
+    var ControllerClass = function () {
+        function ControllerClass($scope, $rootScope, $state, $modal, popupService, requestService, schemaFormParams) {
+            this.$scope = $scope;
+            this.$rootScope = $rootScope;
+            this.$state = $state;
+            this.$modal = $modal;
+            this.popupService = popupService;
+            this.requestService = requestService;
+            this.schemaFormParams = schemaFormParams;
+            $scope.vm = this;
+            $scope.list = [];
+            $scope.search = { keyword: '' };
+        }
+        ControllerClass.prototype.load = function () {
+            var _this = this;
+            this.requestService.url('/api/pagebuilder/define/' + enums_1.BuilderDefineTypes.表).get().result.then(function (result) {
+                _this.$scope.list = result;
+            });
+        };
+        ControllerClass.prototype.add = function () {
+            var _this = this;
+            this.$modal.open({
+                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                scope: angular.extend(this.$rootScope.$new(), {
+                    $data: $.extend({
+                        title: '添加表',
+                        model: {}
+                    }, forms_1.tableform(new this.schemaFormParams()))
+                })
+            }).result.then(function (data) {
+                _this.requestService.url('/api/pagebuilder/define').put({
+                    type: enums_1.BuilderDefineTypes.表,
+                    properties: data
+                }).result.then(function (result) {
+                    _this.load();
+                });
+            });
+        };
+        ControllerClass.prototype.edit = function (row) {
+            var _this = this;
+            this.$modal.open({
+                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                scope: angular.extend(this.$rootScope.$new(), {
+                    $data: $.extend({
+                        title: '编辑表',
+                        model: $.extend({}, row.properties)
+                    }, forms_1.tableform(new this.schemaFormParams()))
+                })
+            }).result.then(function (data) {
+                _this.requestService.url('/api/pagebuilder/define').put({
+                    id: row.id,
+                    type: enums_1.BuilderDefineTypes.表,
+                    properties: data
+                }).result.then(function (result) {
+                    _this.load();
+                });
+            });
+        };
+        ControllerClass.prototype.columns = function (row) {
+            var _this = this;
+            this.$modal.open({
+                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableColumns.html',
+                scope: angular.extend(this.$rootScope.$new(), {
+                    $data: {
+                        title: '列管理',
+                        model: $.extend({}, row.properties)
+                    }
+                }),
+                size: 'lg'
+            }).result.then(function (data) {
+                _this.requestService.url('/api/pagebuilder/define').put({
+                    id: row.id,
+                    type: enums_1.BuilderDefineTypes.表,
+                    properties: data
+                }).result.then(function (result) {
+                });
+            });
+        };
+        ControllerClass.prototype.drop = function (row) {
+            var _this = this;
+            this.popupService.confirm('是否删除\uFF1F').ok(function () {
+                _this.requestService.url('/api/pagebuilder/define/' + row.id).drop().result.then(function (result) {
+                    _this.load();
+                });
+            });
+        };
+        ControllerClass.prototype.fire = function () {
+            this.requestService.url('/api/pagebuilder/table/fire').patch().result.then(function (result) {
+            });
+        };
+        ControllerClass.$inject = [
+            '$scope',
+            '$rootScope',
+            '$state',
+            '$modal',
+            'app/services/popupService',
+            'SeedModules.AngularUI/modules/services/requestService',
+            'SeedModules.AngularUI/modules/factories/schemaFormParams'
+        ];
+        return ControllerClass;
+    }();
+    mod.controller('SeedModules.PageBuilder/modules/components/database/table', ControllerClass);
+});
+define('SeedModules.PageBuilder/modules/components/database/tableColumns', [
     'require',
     'exports',
     'SeedModules.PageBuilder/modules/module',
@@ -643,7 +666,7 @@ define('SeedModules.PageBuilder/modules/components/database/tableForm', [
         ];
         return Controller;
     }();
-    mod.controller('SeedModules.PageBuilder/modules/components/database/tableForm', Controller);
+    mod.controller('SeedModules.PageBuilder/modules/components/database/tableColumns', Controller);
 });
 define('SeedModules.PageBuilder/modules/components/three/page', [
     'require',
@@ -913,7 +936,7 @@ define('SeedModules.PageBuilder/modules/requires', [
     'SeedModules.PageBuilder/modules/components/datasource/baseinfo',
     'SeedModules.PageBuilder/modules/components/datasource/fields',
     'SeedModules.PageBuilder/modules/components/database/table',
-    'SeedModules.PageBuilder/modules/components/database/tableForm',
+    'SeedModules.PageBuilder/modules/components/database/tableColumns',
     'SeedModules.PageBuilder/modules/components/three/page',
     'SeedModules.PageBuilder/modules/controllers/pageCommon'
 ], function (require, exports) {

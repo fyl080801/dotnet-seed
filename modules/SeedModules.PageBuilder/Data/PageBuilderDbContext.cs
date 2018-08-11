@@ -26,7 +26,7 @@ namespace SeedModules.PageBuilder.Data
             params TableModel[] tables)
             : base(options)
         {
-            _tables = tables;
+            _tables = tables.Where(e => e.Columns.Count > 0).ToArray();
             _settings = settings;
         }
 
@@ -34,10 +34,11 @@ namespace SeedModules.PageBuilder.Data
         {
             modelBuilder.ApplyConfiguration(new PbMigrationTypeConfiguration());
 
-            var dyTypes = ResolveTypeConfigurations(_tables.ToArray());
-            foreach (var table in dyTypes)
+            foreach (var model in _tables)
             {
-                modelBuilder.ApplyConfiguration((dynamic)table);
+                var domainType = ClassHelper.AddPropertyToType(ClassHelper.BuildType(model.Name), model.Columns.Select(e => new ClassHelper.CustPropertyInfo(ConvertType(e).FullName, e.Name)).ToList());
+                var configurationType = typeof(BuilderTypeConfiguration<>).MakeGenericType(domainType);
+                modelBuilder.ApplyConfiguration((dynamic)Activator.CreateInstance(configurationType, model));
             }
 
             modelBuilder.Model
@@ -48,46 +49,18 @@ namespace SeedModules.PageBuilder.Data
             base.OnModelCreating(modelBuilder);
         }
 
-        private object[] ResolveTypeConfigurations(TableModel[] models)
+        public static Type ConvertType(ColumnModel column)
         {
-            var dynamicName = new AssemblyName("SeedModules.PageBuilder.Dynamic");
-            var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(dynamicName, AssemblyBuilderAccess.RunAndCollect);
-            var moduleBuilder = assemblyBuilder.DefineDynamicModule(dynamicName.Name);
-            var result = new List<object>();
-            foreach (var model in models)
-            {
-                var typeBuilder = moduleBuilder.DefineType(model.Name);
-                foreach (var column in model.Columns)
-                {
-                    typeBuilder.DefineProperty(column.Name, PropertyAttributes.HasDefault, ConvertType(column.Type), null);
-                }
-                var entityType = typeBuilder.CreateTypeInfo().AsType();
-                var configurationType = typeof(BuilderTypeConfiguration<>).MakeGenericType(entityType);
-                var finallyTypeBuilder = moduleBuilder.DefineType(model.Name + "Configuration", TypeAttributes.Public, configurationType);
-
-                var finallyConstructor = finallyTypeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Standard, new[] { typeof(TableModel) });
-                var myConstructorIL = finallyConstructor.GetILGenerator();
-                myConstructorIL.Emit(OpCodes.Ldarg_0);
-                myConstructorIL.Emit(OpCodes.Ldarg_1);
-                myConstructorIL.Emit(OpCodes.Call, configurationType.GetConstructor(new[] { typeof(TableModel) }));
-                myConstructorIL.Emit(OpCodes.Ret);
-                var finallyType = finallyTypeBuilder.CreateTypeInfo();
-                result.Add(Activator.CreateInstance(finallyType, model));
-            }
-
-            return result.ToArray();
-        }
-
-        public static Type ConvertType(DataTypes dataType)
-        {
-            switch (dataType)
+            switch (column.Type)
             {
                 case DataTypes.Datetime:
-                    return typeof(DateTime);
+                    return column.IsRequired ? typeof(DateTime) : typeof(DateTime?);
                 case DataTypes.Decimal:
-                    return typeof(decimal);
+                    return column.IsRequired ? typeof(decimal) : typeof(decimal?);
                 case DataTypes.Int:
-                    return typeof(int);
+                    return column.IsRequired ? typeof(int) : typeof(int?);
+                case DataTypes.Double:
+                    return column.IsRequired ? typeof(double) : typeof(double?);
                 case DataTypes.String:
                     return typeof(string);
                 default:

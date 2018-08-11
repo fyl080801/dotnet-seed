@@ -21,7 +21,7 @@ namespace Seed.Data
         /// 创建一个数据库配置
         /// </summary>
         /// <returns></returns>
-        DbContextOptions CreateOptions();
+        DbContextOptions CreateOptions(bool cached = false);
 
         /// <summary>
         /// 初始化数据访问

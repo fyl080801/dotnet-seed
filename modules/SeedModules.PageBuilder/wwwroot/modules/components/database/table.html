@@ -22,19 +22,24 @@
             <div class="panel-body">
                 <div>
                     <strong>{{row.properties.remark && row.properties.remark.length>0 ? row.properties.remark : row.properties.name}}</strong>
-                    <div class="pull-right">
-                        <a href="" class="text-primary" ng-click="vm.edit(row)">
-                            <i class=" glyphicon glyphicon-edit"></i>
-                            编辑
-                        </a>
-                        <a href="" class="text-danger" ng-click="vm.delete(row)">
-                            <i class=" glyphicon glyphicon-trash"></i>
-                            删除
-                        </a>
-                    </div>
                 </div>
                 <hr>
-                <p class="text-muted">{{row.properties.description}}&nbsp;</p>
+                <div class="pull-right">
+                    <div class="btn-group">
+                        <button class="btn btn-default" ng-click="vm.edit(row)">
+                            <i class="glyphicon glyphicon-edit"></i>
+                            基本信息
+                        </button>
+                        <button class="btn btn-default" ng-click="vm.columns(row)">
+                            <i class="glyphicon glyphicon-th-list"></i>
+                            列管理
+                        </button>
+                    </div>
+                    <button class="btn btn-danger" ng-click="vm.drop(row)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                        删除
+                    </button>
+                </div>
             </div>
         </div>
     </div>

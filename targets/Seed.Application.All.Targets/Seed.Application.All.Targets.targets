@@ -2,9 +2,13 @@
 
   <ItemGroup>
     <Compile Remove="App_Data\**" />
+    <Compile Remove="extensions\**" />
     <Content Remove="App_Data\**" />
+    <Content Remove="extensions\**" />
     <EmbeddedResource Remove="App_Data\**" />
+    <EmbeddedResource Remove="extensions\**" />
     <None Remove="App_Data\**" />
+    <None Remove="extensions\**" />
   </ItemGroup>
 
   <ItemGroup>

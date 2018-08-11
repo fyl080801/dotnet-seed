@@ -24,6 +24,7 @@ namespace SeedModules.PageBuilder.Models
         String = 0,
         Int,
         Decimal,
+        Double,
         Datetime
     }
 }

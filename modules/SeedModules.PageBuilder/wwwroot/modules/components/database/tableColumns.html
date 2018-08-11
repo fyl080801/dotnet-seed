@@ -1,15 +1,12 @@
-<div ng-controller="SeedModules.PageBuilder/modules/components/database/tableForm">
+<div ng-controller="SeedModules.PageBuilder/modules/components/database/tableColumns">
     <div class="modal-header">
         <h4 class="modal-title">
             <i class="glyphicon glyphicon-edit"></i>
             {{$data.title}}
         </h4>
     </div>
-    <div class="modal-body">
-        <form name="theForm" sf-schema="$data.formParams.schema()" sf-form="$data.form" sf-options="$data.formParams.options()" sf-model="$data.model"></form>
-    </div>
     <form name="tableform">
-        <table ng-table class="table input-group-sm">
+        <table ng-table class="table input-group-sm" style="margin: 0">
             <tr ng-repeat="row in $data.model.columns">
                 <td title="'名称'" class="input-group-sm">
                     <input class="form-control" ng-model="row.name" required>
@@ -73,7 +70,7 @@
         <input ng-model="newColumn.type" required>
     </form>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="!theForm.$valid||!tableform.$valid" ng-click="$close($data.model)">
+        <button class="btn btn-primary" ng-disabled="!tableform.$valid" ng-click="$close($data.model)">
             <i class="glyphicon glyphicon-ok-sign"></i>
             确定
         </button>

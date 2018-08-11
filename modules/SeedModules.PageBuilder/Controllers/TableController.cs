@@ -11,6 +11,7 @@ using Seed.Environment.Engine;
 using Seed.Mvc.Filters;
 using SeedModules.PageBuilder.Data;
 using SeedModules.PageBuilder.Domain;
+using SeedModules.PageBuilder.Extensions;
 using SeedModules.PageBuilder.Models;
 
 namespace SeedModules.PageBuilder.Controllers
@@ -41,7 +42,10 @@ namespace SeedModules.PageBuilder.Controllers
             var tables = _db.Set<BuilderDefine>().Where(e => e.Type == BuilderDefineTypes.Table)
                 .Select(e => e.Properties.ToObject<TableModel>())
                 .ToArray();
-            await _migrator.RunAsync(new PageBuilderDbContext(_store.CreateOptions(), _settings, tables));
+            using (var copntext = _store.CreatePbDbContext(_settings, tables))
+            {
+                await _migrator.RunAsync(copntext);
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular", "SeedModules.PageBuilder/modules/configs/enums"], function (require, exports, mod, angular, enums_1) {
+define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular", "SeedModules.PageBuilder/modules/configs/enums", "SeedModules.PageBuilder/modules/components/database/forms"], function (require, exports, mod, angular, enums_1, forms_1) {
     "use strict";
     exports.__esModule = true;
     var ControllerClass = (function () {
@@ -20,6 +20,9 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             var _this = this;
             this.requestService
                 .url('/api/pagebuilder/define/' + enums_1.BuilderDefineTypes.表)
+                .options({
+                showLoading: false
+            })
                 .get()
                 .result.then(function (result) {
                 _this.$scope.list = result;
@@ -29,14 +32,13 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             var _this = this;
             this.$modal
                 .open({
-                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
+                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
                 scope: angular.extend(this.$rootScope.$new(), {
-                    $data: {
-                        title: '编辑表',
+                    $data: $.extend({
+                        title: '添加表',
                         model: {}
-                    }
-                }),
-                size: 'lg'
+                    }, forms_1.tableform(new this.schemaFormParams()))
+                })
             })
                 .result.then(function (data) {
                 _this.requestService
@@ -54,10 +56,35 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             var _this = this;
             this.$modal
                 .open({
-                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
+                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                scope: angular.extend(this.$rootScope.$new(), {
+                    $data: $.extend({
+                        title: '编辑表',
+                        model: $.extend({}, row.properties)
+                    }, forms_1.tableform(new this.schemaFormParams()))
+                })
+            })
+                .result.then(function (data) {
+                _this.requestService
+                    .url('/api/pagebuilder/define')
+                    .put({
+                    id: row.id,
+                    type: enums_1.BuilderDefineTypes.表,
+                    properties: data
+                })
+                    .result.then(function (result) {
+                    _this.load();
+                });
+            });
+        };
+        ControllerClass.prototype.columns = function (row) {
+            var _this = this;
+            this.$modal
+                .open({
+                templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableColumns.html',
                 scope: angular.extend(this.$rootScope.$new(), {
                     $data: {
-                        title: '编辑表',
+                        title: row.properties.name + ' - ' + row.properties.remark,
                         model: $.extend({}, row.properties)
                     }
                 }),
@@ -71,9 +98,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
                     type: enums_1.BuilderDefineTypes.表,
                     properties: data
                 })
-                    .result.then(function (result) {
-                    _this.load();
-                });
+                    .result.then(function (result) { });
             });
         };
         ControllerClass.prototype.drop = function (row) {

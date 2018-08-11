@@ -8,5 +8,6 @@ export enum DataTypes {
   字符串 = 0,
   整数,
   小数,
+  浮点数,
   日期时间
 }

@@ -75,15 +75,21 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/boot"], function 
                         }
                     },
                     {
+                        text: '数据源管理',
+                        itemClicked: function (evt) {
+                            $state.go('admin.pagebuilder_datasource');
+                        }
+                    },
+                    {
                         text: '页面管理',
                         itemClicked: function (evt) {
                             $state.go('admin.pagebuilder_page');
                         }
                     },
                     {
-                        text: '数据源管理',
+                        text: '服务管理',
                         itemClicked: function (evt) {
-                            $state.go('admin.pagebuilder_datasource');
+                            alert('我就一个人而且只有晚上有时间，辣么多功能不得一点点完成啊');
                         }
                     },
                     {

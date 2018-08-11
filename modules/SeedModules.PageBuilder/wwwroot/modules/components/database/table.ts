@@ -32,6 +32,9 @@ class ControllerClass {
   load() {
     this.requestService
       .url('/api/pagebuilder/define/' + BuilderDefineTypes.表)
+      .options({
+        showLoading: false
+      })
       .get()
       .result.then(result => {
         this.$scope.list = result;
@@ -41,15 +44,16 @@ class ControllerClass {
   add() {
     this.$modal
       .open({
-        templateUrl:
-          '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
+        templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
         scope: angular.extend(this.$rootScope.$new(), {
-          $data: {
-            title: '编辑表',
-            model: {}
-          }
-        }),
-        size: 'lg'
+          $data: $.extend(
+            {
+              title: '添加表',
+              model: {}
+            },
+            tableform(new this.schemaFormParams())
+          )
+        })
       })
       .result.then(data => {
         this.requestService
@@ -67,11 +71,39 @@ class ControllerClass {
   edit(row) {
     this.$modal
       .open({
+        templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+        scope: angular.extend(this.$rootScope.$new(), {
+          $data: $.extend(
+            {
+              title: '编辑表',
+              model: $.extend({}, row.properties)
+            },
+            tableform(new this.schemaFormParams())
+          )
+        })
+      })
+      .result.then(data => {
+        this.requestService
+          .url('/api/pagebuilder/define')
+          .put({
+            id: row.id,
+            type: BuilderDefineTypes.表,
+            properties: data
+          })
+          .result.then(result => {
+            this.load();
+          });
+      });
+  }
+
+  columns(row) {
+    this.$modal
+      .open({
         templateUrl:
-          '/SeedModules.PageBuilder/modules/components/database/tableForm.html',
+          '/SeedModules.PageBuilder/modules/components/database/tableColumns.html',
         scope: angular.extend(this.$rootScope.$new(), {
           $data: {
-            title: '编辑表',
+            title: row.properties.name + ' - ' + row.properties.remark,
             model: $.extend({}, row.properties)
           }
         }),
@@ -85,9 +117,7 @@ class ControllerClass {
             type: BuilderDefineTypes.表,
             properties: data
           })
-          .result.then(result => {
-            this.load();
-          });
+          .result.then(result => {});
       });
   }
 

@@ -30,6 +30,6 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "SeedMod
         ];
         return Controller;
     }());
-    mod.controller('SeedModules.PageBuilder/modules/components/database/tableForm', Controller);
+    mod.controller('SeedModules.PageBuilder/modules/components/database/tableColumns', Controller);
 });
-//# sourceMappingURL=tableForm.js.map
+//# sourceMappingURL=tableColumns.js.map
