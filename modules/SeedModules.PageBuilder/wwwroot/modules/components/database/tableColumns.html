@@ -70,7 +70,8 @@
         <input ng-model="newColumn.type" required>
     </form>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="!tableform.$valid" ng-click="$close($data.model)">
+        <button class="btn btn-primary" ng-disabled="!$data.model.columns || $data.model.columns.length===0 || !tableform.$valid"
+            ng-click="$close($data.model)">
             <i class="glyphicon glyphicon-ok-sign"></i>
             确定
         </button>

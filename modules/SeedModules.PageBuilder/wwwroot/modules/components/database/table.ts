@@ -56,15 +56,7 @@ class ControllerClass {
         })
       })
       .result.then(data => {
-        this.requestService
-          .url('/api/pagebuilder/define')
-          .put({
-            type: BuilderDefineTypes.表,
-            properties: data
-          })
-          .result.then(result => {
-            this.load();
-          });
+        this.columns({ properties: data });
       });
   }
 
@@ -104,7 +96,7 @@ class ControllerClass {
         scope: angular.extend(this.$rootScope.$new(), {
           $data: {
             title: row.properties.name + ' - ' + row.properties.remark,
-            model: $.extend({}, row.properties)
+            model: $.extend(true, {}, row.properties)
           }
         }),
         size: 'lg'
