@@ -555,12 +555,7 @@ define('SeedModules.PageBuilder/modules/components/database/table', [
                     }, forms_1.tableform(new this.schemaFormParams()))
                 })
             }).result.then(function (data) {
-                _this.requestService.url('/api/pagebuilder/define').put({
-                    type: enums_1.BuilderDefineTypes.表,
-                    properties: data
-                }).result.then(function (result) {
-                    _this.load();
-                });
+                _this.columns({ properties: data });
             });
         };
         ControllerClass.prototype.edit = function (row) {
@@ -590,7 +585,7 @@ define('SeedModules.PageBuilder/modules/components/database/table', [
                 scope: angular.extend(this.$rootScope.$new(), {
                     $data: {
                         title: row.properties.name + ' - ' + row.properties.remark,
-                        model: $.extend({}, row.properties)
+                        model: $.extend(true, {}, row.properties)
                     }
                 }),
                 size: 'lg'
