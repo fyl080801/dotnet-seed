@@ -88,7 +88,10 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module", "angular
             });
         };
         ControllerClass.prototype.fire = function () {
-            alert('fired');
+            this.requestService
+                .url('/api/pagebuilder/table/fire')
+                .patch()
+                .result.then(function (result) { });
         };
         ControllerClass.$inject = [
             '$scope',

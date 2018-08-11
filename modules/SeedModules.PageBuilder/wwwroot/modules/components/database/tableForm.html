@@ -8,26 +8,72 @@
     <div class="modal-body">
         <form name="theForm" sf-schema="$data.formParams.schema()" sf-form="$data.form" sf-options="$data.formParams.options()" sf-model="$data.model"></form>
     </div>
-    <table ng-table class="table">
-        <tr ng-repeat="row in $data.model.columns">
-            <td title="'名称'" class="input-group-sm">
-                <input class="form-control" ng-model="row.name">
-            </td>
-            <td title="'描述'">
-                <input class="form-control" ng-model="row.remark">
-            </td>
-        </tr>
-        <tr>
-            <td class="input-group-sm">
-                <input class="form-control">
-            </td>
-            <td class="input-group-sm">
-                <input class="form-control">
-            </td>
-        </tr>
-    </table>
+    <form name="tableform">
+        <table ng-table class="table input-group-sm">
+            <tr ng-repeat="row in $data.model.columns">
+                <td title="'名称'" class="input-group-sm">
+                    <input class="form-control" ng-model="row.name" required>
+                </td>
+                <td title="'类型'" class="input-group-sm">
+                    <select class="form-control" ng-model="row.type" required ng-options="key as value for (key, value) in dataTypes | itemType: 'string'"></select>
+                </td>
+                <td title="'长度'" class="input-group-sm">
+                    <input type="number" class="form-control" style="width: 80px" ng-disabled="vm.lengthDisabled(row)" ng-model="row.maxLength">
+                </td>
+                <td title="'小数位'" class="input-group-sm">
+                    <input type="number" class="form-control" style="width: 80px" ng-disabled="vm.accuracyDisabled(row)" ng-model="row.accuracy">
+                </td>
+                <td title="'主键'" class="input-group-sm">
+                    <input type="checkbox" ng-model="row.primaryKey">
+                </td>
+                <td title="'非空'" class="input-group-sm">
+                    <input type="checkbox" ng-model="row.isRequired">
+                </td>
+                <td title="'描述'" class="input-group-sm">
+                    <input class="form-control" ng-model="row.remark">
+                </td>
+                <td title="'操作'">
+                    <button class="btn btn-danger btn-sm" ng-click="vm.removeColumn($index)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="input-group-sm">
+                    <input class="form-control" ng-model="newColumn.name">
+                </td>
+                <td class="input-group-sm">
+                    <select class="form-control" ng-model="newColumn.type" ng-options="key as value for (key, value) in dataTypes | itemType: 'string'"></select>
+                </td>
+                <td class="input-group-sm">
+                    <input type="number" class="form-control" style="width: 80px" ng-disabled="vm.lengthDisabled(newColumn)" ng-model="newColumn.maxLength">
+                </td>
+                <td class="input-group-sm">
+                    <input type="number" class="form-control" style="width: 80px" ng-disabled="vm.accuracyDisabled(newColumn)" ng-model="newColumn.accuracy">
+                </td>
+                <td class="input-group-sm">
+                    <input type="checkbox" ng-model="newColumn.primaryKey">
+                </td>
+                <td class="input-group-sm">
+                    <input type="checkbox" ng-model="newColumn.isRequired">
+                </td>
+                <td class="input-group-sm">
+                    <input class="form-control" ng-model="newColumn.remark">
+                </td>
+                <td>
+                    <button class="btn btn-success btn-sm" ng-disabled="newform.$invalid" ng-click="vm.addColumn()">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <form name="newform" style="display: none">
+        <input ng-model="newColumn.name" required>
+        <input ng-model="newColumn.type" required>
+    </form>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-disabled="!theForm.$valid" ng-click="$close($data.model)">
+        <button class="btn btn-primary" ng-disabled="!theForm.$valid||!tableform.$valid" ng-click="$close($data.model)">
             <i class="glyphicon glyphicon-ok-sign"></i>
             确定
         </button>

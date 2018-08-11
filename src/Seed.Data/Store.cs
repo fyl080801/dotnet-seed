@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Data.Migrations;
 using Seed.Environment.Engine;
@@ -25,6 +26,11 @@ namespace Seed.Data
         public IDbContext CreateDbContext(params object[] typeConfigs)
         {
             return new ModuleDbContext(_dbContextOptionsBuilder.Options, _settings, typeConfigs);
+        }
+
+        public DbContextOptions CreateOptions()
+        {
+            return _dbContextOptionsBuilder.Options;
         }
 
         public async Task InitializeAsync(IServiceProvider service)

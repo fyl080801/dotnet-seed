@@ -22,5 +22,6 @@ import 'SeedModules.AngularUI/modules/directives/tagInput';
 import 'SeedModules.AngularUI/modules/directives/tenantHref';
 import 'SeedModules.AngularUI/modules/directives/scrollspy';
 import 'SeedModules.AngularUI/modules/filters/booleanText';
+import 'SeedModules.AngularUI/modules/filters/itemType';
 import 'SeedModules.AngularUI/modules/controllers/ngTable';
 import 'SeedModules.AngularUI/modules/controllers/ngTableSorterRow';

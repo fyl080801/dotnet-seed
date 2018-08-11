@@ -3,3 +3,10 @@ export enum BuilderDefineTypes {
   表,
   数据源
 }
+
+export enum DataTypes {
+  字符串 = 0,
+  整数,
+  小数,
+  日期时间
+}

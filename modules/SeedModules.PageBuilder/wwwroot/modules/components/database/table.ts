@@ -103,7 +103,10 @@ class ControllerClass {
   }
 
   fire() {
-    alert('fired');
+    this.requestService
+      .url('/api/pagebuilder/table/fire')
+      .patch()
+      .result.then(result => {});
   }
 }
 

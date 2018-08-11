@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,6 +16,12 @@ namespace Seed.Data
         /// </summary>
         /// <returns></returns>
         IDbContext CreateDbContext(params object[] typeConfigs);
+
+        /// <summary>
+        /// 创建一个数据库配置
+        /// </summary>
+        /// <returns></returns>
+        DbContextOptions CreateOptions();
 
         /// <summary>
         /// 初始化数据访问

@@ -2107,6 +2107,26 @@ define('SeedModules.AngularUI/modules/filters/booleanText', [
             };
         }]);
 });
+define('SeedModules.AngularUI/modules/filters/itemType', [
+    'require',
+    'exports',
+    'SeedModules.AngularUI/modules/module'
+], function (require, exports, mod) {
+    'use strict';
+    exports.__esModule = true;
+    function filter() {
+        return function (val, type) {
+            var result = {};
+            $.each(val, function (name, val) {
+                if (typeof val === type) {
+                    result[name] = val;
+                }
+            });
+            return result;
+        };
+    }
+    mod.filter('itemType', filter);
+});
 define('SeedModules.AngularUI/modules/controllers/ngTableSorterRow', [
     'require',
     'exports',
@@ -2163,6 +2183,7 @@ define('SeedModules.AngularUI/modules/requires', [
     'SeedModules.AngularUI/modules/directives/tenantHref',
     'SeedModules.AngularUI/modules/directives/scrollspy',
     'SeedModules.AngularUI/modules/filters/booleanText',
+    'SeedModules.AngularUI/modules/filters/itemType',
     'SeedModules.AngularUI/modules/controllers/ngTable',
     'SeedModules.AngularUI/modules/controllers/ngTableSorterRow'
 ], function (require, exports) {

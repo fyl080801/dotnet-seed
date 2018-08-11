@@ -12,9 +12,9 @@ namespace SeedModules.PageBuilder.Models
 
         public DataTypes Type { get; set; }
 
-        public bool Nullable { get; set; }
+        public bool IsRequired { get; set; }
 
-        public int? Length { get; set; }
+        public int? MaxLength { get; set; }
 
         public int? Accuracy { get; set; }
     }

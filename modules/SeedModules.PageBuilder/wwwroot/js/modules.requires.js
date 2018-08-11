@@ -457,6 +457,13 @@ define('SeedModules.PageBuilder/modules/configs/enums', [
         BuilderDefineTypes[BuilderDefineTypes['表'] = 1] = '表';
         BuilderDefineTypes[BuilderDefineTypes['数据源'] = 2] = '数据源';
     }(BuilderDefineTypes = exports.BuilderDefineTypes || (exports.BuilderDefineTypes = {})));
+    var DataTypes;
+    (function (DataTypes) {
+        DataTypes[DataTypes['字符串'] = 0] = '字符串';
+        DataTypes[DataTypes['整数'] = 1] = '整数';
+        DataTypes[DataTypes['小数'] = 2] = '小数';
+        DataTypes[DataTypes['日期时间'] = 3] = '日期时间';
+    }(DataTypes = exports.DataTypes || (exports.DataTypes = {})));
 });
 define('SeedModules.PageBuilder/modules/components/database/table', [
     'require',
@@ -535,6 +542,10 @@ define('SeedModules.PageBuilder/modules/components/database/table', [
                 });
             });
         };
+        ControllerClass.prototype.fire = function () {
+            this.requestService.url('/api/pagebuilder/table/fire').patch().result.then(function (result) {
+            });
+        };
         ControllerClass.$inject = [
             '$scope',
             '$rootScope',
@@ -598,16 +609,34 @@ define('SeedModules.PageBuilder/modules/components/database/tableForm', [
     'require',
     'exports',
     'SeedModules.PageBuilder/modules/module',
-    'SeedModules.PageBuilder/modules/components/database/forms'
-], function (require, exports, mod, forms_1) {
+    'SeedModules.PageBuilder/modules/components/database/forms',
+    'SeedModules.PageBuilder/modules/configs/enums'
+], function (require, exports, mod, forms_1, enums_1) {
     'use strict';
     exports.__esModule = true;
     var Controller = function () {
         function Controller($scope, schemaFormParams) {
             this.$scope = $scope;
             this.schemaFormParams = schemaFormParams;
+            $scope.vm = this;
+            $scope.dataTypes = enums_1.DataTypes;
             $scope.$data = $.extend($scope.$data || {}, forms_1.tableform(new schemaFormParams()));
+            $scope.newColumn = {};
         }
+        Controller.prototype.lengthDisabled = function (row) {
+            return row.type !== enums_1.DataTypes.字符串 + '' && row.type !== enums_1.DataTypes.小数 + '';
+        };
+        Controller.prototype.accuracyDisabled = function (row) {
+            return row.type !== enums_1.DataTypes.小数 + '';
+        };
+        Controller.prototype.addColumn = function () {
+            this.$scope.$data.model.columns = this.$scope.$data.model.columns || [];
+            this.$scope.$data.model.columns.push($.extend({}, this.$scope.newColumn));
+            this.$scope.newColumn = {};
+        };
+        Controller.prototype.removeColumn = function (idx) {
+            this.$scope.$data.model.columns.splice(idx, 1);
+        };
         Controller.$inject = [
             '$scope',
             'SeedModules.AngularUI/modules/factories/schemaFormParams'
