@@ -595,6 +595,7 @@ define('SeedModules.PageBuilder/modules/components/database/table', [
                     type: enums_1.BuilderDefineTypes.表,
                     properties: data
                 }).result.then(function (result) {
+                    _this.load();
                 });
             });
         };
