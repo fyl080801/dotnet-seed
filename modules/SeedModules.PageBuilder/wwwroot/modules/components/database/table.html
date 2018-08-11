@@ -1,13 +1,40 @@
-<div ng-controller="SeedModules.PageBuilder/modules/components/database/table">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">表</div>
-            </div>
+<form role="form" class="form-inline clearfix" style="margin-bottom: 20px">
+    <div class="form-group has-feedback">
+        <input class="form-control" ng-model="search.keyword" placeholder="关键字...">
+        <div class="form-control-feedback text-muted">
+            <i class="glyphicon glyphicon-search"></i>
         </div>
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">字段</div>
+    </div>
+    <div class="pull-right">
+        <button class="btn btn-primary" ng-click="vm.add()">
+            <i class="glyphicon glyphicon-plus"></i>
+            添加
+        </button>
+        <button class="btn btn-default" ng-click="vm.fire()">
+            <i class="glyphicon glyphicon-fire"></i>
+            更新数据库
+        </button>
+    </div>
+</form>
+<div class="row" ng-init="vm.load()">
+    <div class="col-md-4" ng-repeat="row in list">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div>
+                    <strong>{{row.properties.remark && row.properties.remark.length>0 ? row.properties.remark : row.properties.name}}</strong>
+                    <div class="pull-right">
+                        <a href="" class="text-primary" ng-click="vm.edit(row)">
+                            <i class=" glyphicon glyphicon-edit"></i>
+                            编辑
+                        </a>
+                        <a href="" class="text-danger" ng-click="vm.delete(row)">
+                            <i class=" glyphicon glyphicon-trash"></i>
+                            删除
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <p class="text-muted">{{row.properties.description}}&nbsp;</p>
             </div>
         </div>
     </div>

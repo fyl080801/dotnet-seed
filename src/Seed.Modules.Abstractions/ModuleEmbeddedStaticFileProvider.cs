@@ -37,7 +37,7 @@ namespace Seed.Modules
             {
                 var module = path.Substring(0, index);
 
-                if (_environment.GetApplication().ModuleNames.Count(e => e.Name.Equals(module, StringComparison.Ordinal)) > 0)
+                if (_environment.GetApplication().NamedModules.Count(e => e.Name.Equals(module, StringComparison.Ordinal)) > 0)
                 {
                     var fileSubPath = Module.WebRoot + path.Substring(index + 1);
 

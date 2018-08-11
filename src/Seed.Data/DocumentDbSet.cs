@@ -38,7 +38,7 @@ namespace Seed.Data
         public DocumentDbSet(IDbContext dbContext)
         {
             _dbContext = dbContext;
-            _document = dbContext.Document;
+            _document = ((IDocumentDbContext)dbContext).Document;
             _entityType = typeof(TEntity);
             var entityTypeName = _entityType.ToString();
             _documentQuery = _document.Where(e => e.Type == entityTypeName);

@@ -28,7 +28,7 @@ namespace Seed.Modules
         {
             if (!_modules.TryGetValue(name, out var module))
             {
-                var namedModule = environment.GetApplication().ModuleNames.FirstOrDefault(e => e.Name.Equals(name, StringComparison.Ordinal));
+                var namedModule = environment.GetApplication().NamedModules.FirstOrDefault(e => e.Name.Equals(name, StringComparison.Ordinal));
                 if (namedModule == null)
                 {
                     return new Module(new NamedModule(string.Empty, null));

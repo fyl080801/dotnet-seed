@@ -29,7 +29,7 @@ namespace Seed.Modules
 
         public Assembly Assembly { get; }
 
-        public IEnumerable<INamedModule> ModuleNames { get; }
+        public IEnumerable<INamedModule> NamedModules { get; }
 
         public string ModulePath { get; }
 
@@ -49,7 +49,7 @@ namespace Seed.Modules
             // 将应用直接引用的模块以及附加模块，在应用初始化的时候就读取程序集
             // 而不是在模块初始化时候分开读程序集
             // 因为extensions中模块不是直接引用的，所以等模块初始化的时候读程序集，无法从入口程序集里获取新附加的程序集
-            ModuleNames = Assembly.GetCustomAttributes<ModuleNameAttribute>()
+            NamedModules = Assembly.GetCustomAttributes<ModuleNameAttribute>()
                 .Where(m => !string.IsNullOrEmpty(m.Name))
                 .Select(m => new NamedModule(m.Name, Assembly.Load(new AssemblyName(m.Name)))).ToList().Concat(new[] { new NamedModule(Name, Assembly) });
 
@@ -68,7 +68,7 @@ namespace Seed.Modules
                         if (extensionAssembly.GetCustomAttributes<ModuleAttribute>().Any()
                             || extensionAssembly.GetCustomAttributes<FeatureAttribute>().Any())
                         {
-                            ModuleNames = ModuleNames.Concat(new[] { new NamedModule(extensionAssembly.GetName().Name, extensionAssembly) });
+                            NamedModules = NamedModules.Concat(new[] { new NamedModule(extensionAssembly.GetName().Name, extensionAssembly) });
                         }
                     }
                 }

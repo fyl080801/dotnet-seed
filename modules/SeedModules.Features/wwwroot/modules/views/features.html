@@ -1,21 +1,13 @@
 <div ng-controller="SeedModules.Features/modules/controllers/features" ng-init="features.load()">
-    <div class="navbar navbar-default">
-        <div class="navbar-header navbar-form">
-            <div trigger-input ng-model="keyword" mark="'关键字...'" callback="features.load()" canceling="features.cancelLoad()"></div>
+    <form role="form" class="form-inline" style="margin-bottom: 20px">
+        <div trigger-input ng-model="keyword" mark="'关键字...'" callback="features.load()" canceling="features.cancelLoad()"></div>
+        <div class="pull-right">
+            <button class="btn btn-primary">
+                <i class="fas fa-upload fa-fw"></i>
+                上传
+            </button>
         </div>
-        <div class="container-fluid">
-            <div class="navbar-form navbar-right">
-                <!-- <button class="btn btn-default">
-                    <i class="fas fa-edit fa-fw"></i>
-                    批量更新
-                </button> -->
-                <button class="btn btn-primary">
-                    <i class="fas fa-upload fa-fw"></i>
-                    上传
-                </button>
-            </div>
-        </div>
-    </div>
+    </form>
     <div ng-repeat="item in list">
         <h4 class="page-header">
             <i class="glyphicon glyphicon-chevron-right"></i>

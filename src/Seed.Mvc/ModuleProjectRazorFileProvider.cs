@@ -29,7 +29,7 @@ namespace Seed.Mvc
                     var assets = new List<Asset>();
                     var application = environment.GetApplication();
 
-                    foreach (var name in application.ModuleNames)
+                    foreach (var name in application.NamedModules)
                     {
                         var module = environment.GetModule(name.Name);
 

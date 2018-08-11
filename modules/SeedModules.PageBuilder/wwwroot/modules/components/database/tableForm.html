@@ -1,0 +1,39 @@
+<div ng-controller="SeedModules.PageBuilder/modules/components/database/tableForm">
+    <div class="modal-header">
+        <h4 class="modal-title">
+            <i class="glyphicon glyphicon-edit"></i>
+            {{$data.title}}
+        </h4>
+    </div>
+    <div class="modal-body">
+        <form name="theForm" sf-schema="$data.formParams.schema()" sf-form="$data.form" sf-options="$data.formParams.options()" sf-model="$data.model"></form>
+    </div>
+    <table ng-table class="table">
+        <tr ng-repeat="row in $data.model.columns">
+            <td title="'名称'" class="input-group-sm">
+                <input class="form-control" ng-model="row.name">
+            </td>
+            <td title="'描述'">
+                <input class="form-control" ng-model="row.remark">
+            </td>
+        </tr>
+        <tr>
+            <td class="input-group-sm">
+                <input class="form-control">
+            </td>
+            <td class="input-group-sm">
+                <input class="form-control">
+            </td>
+        </tr>
+    </table>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="!theForm.$valid" ng-click="$close($data.model)">
+            <i class="glyphicon glyphicon-ok-sign"></i>
+            确定
+        </button>
+        <button class="btn btn-default" ng-click="$dismiss()">
+            <i class="glyphicon glyphicon-remove-sign"></i>
+            取消
+        </button>
+    </div>
+</div>

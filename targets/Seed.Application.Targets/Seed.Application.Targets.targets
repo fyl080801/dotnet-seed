@@ -8,7 +8,7 @@
 
   <Target Name="ExecuteModuleGulp" AfterTargets="BeforeBuild">
     <Message Text="压缩模块脚本文件: $(MSBuildProjectName)" Importance="high" />
-    <Exec Command="gulp build --src modules" />
+    <Exec Command="gulp build --src modules" ContinueOnError="WarnAndContinue" />
   </Target>
 
 
@@ -20,13 +20,7 @@
   </Target>
 
   <Target Name="ResolveModuleProjectReferences" AfterTargets="AfterResolveReferences">
-    <MSBuild
-      Targets="GetModuleProject"
-      BuildInParallel="$(BuildInParallel)"
-      Projects="@(_MSBuildProjectReferenceExistent)"
-      Condition="'@(_MSBuildProjectReferenceExistent)' != ''"
-      SkipNonexistentTargets="true"
-      ContinueOnError="true">
+    <MSBuild Targets="GetModuleProject" BuildInParallel="$(BuildInParallel)" Projects="@(_MSBuildProjectReferenceExistent)" Condition="'@(_MSBuildProjectReferenceExistent)' != ''" SkipNonexistentTargets="true" ContinueOnError="true">
 
       <Output ItemName="ModuleProjects" TaskParameter="TargetOutputs" />
     </MSBuild>

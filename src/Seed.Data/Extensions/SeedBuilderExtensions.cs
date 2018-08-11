@@ -20,6 +20,7 @@ namespace Seed.Data.Extensions
             {
                 services.AddScoped<IDataMigrationManager, DataMigrationManager>();
                 services.AddScoped<IModuleTenantEvents, AutoDataMigration>();
+                services.AddScoped<IDataMigrator, DataMigrator>();
 
                 services.TryAddDataProvider(name: "Microsoft SQLServer", provider: "SqlConnection");
                 services.TryAddDataProvider(name: "MySql Database", provider: "MySql");

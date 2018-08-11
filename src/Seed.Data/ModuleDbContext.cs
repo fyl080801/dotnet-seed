@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Seed.Data
 {
-    public class ModuleDbContext : DbContext, IDbContext
+    public class ModuleDbContext : DbContext, IDocumentDbContext
     {
         readonly IEnumerable<object> _entityConfigurations;
         readonly EngineSettings _settings;
@@ -28,6 +28,8 @@ namespace Seed.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new MigrationTypeConfiguration());
+
             foreach (var configuration in _entityConfigurations)
             {
                 modelBuilder.ApplyConfiguration((dynamic)configuration);

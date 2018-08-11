@@ -14,45 +14,8 @@
 
     <!-- Tab panes -->
     <div class="tab-content" style="padding-top: 20px">
-        <div role="tabpanel" class="tab-pane active" id="db_table">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="list-group">
-                            <div class="list-group-item">
-                                <div class="btn-group btn-group-xs pull-right">
-                                    <button class="btn btn-danger">
-                                        <i class=" glyphicon glyphicon-trash"></i>
-                                        删除
-                                    </button>
-                                </div>
-                                <a href="">表名</a>
-                                <p class="text-muted">描述aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                            </div>
-                            <div class="list-group-item">
-                                <a href="">表名</a>
-                                <p class="text-muted">描述</p>
-                            </div>
-                            <div class="list-group-item">
-                                <a href="">表名</a>
-                                <p class="text-muted">描述</p>
-                            </div>
-                        </div>
-                        <div class="list-group">
-                            <a href="" class="text-center list-group-item">
-                                <i class="glyphicon glyphicon-plus"></i>
-                                添加
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <table class="table">
-
-                    </table>
-                </div>
-            </div>
-        </div>
+        <div role="tabpanel" class="tab-pane active" id="db_table" ng-include="'SeedModules.PageBuilder/modules/components/database/table.html'"
+            ng-controller="SeedModules.PageBuilder/modules/components/database/table"></div>
         <div role="tabpanel" class="tab-pane" id="db_views">...</div>
         <div role="tabpanel" class="tab-pane" id="db_proc">...</div>
     </div>

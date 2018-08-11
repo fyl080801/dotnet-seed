@@ -25,10 +25,8 @@ namespace Seed.Data.Migrations
 {
     public class DataMigrationManager : IDataMigrationManager
     {
-        const string ContextAssembly = "Seed.Data.Migration";
-        const string SnapshotName = "ModuleDbSnapshot";
-
         readonly IStore _store;
+        readonly IDataMigrator _dataMigrator;
         readonly IPluginManager _pluginManager;
         readonly IEngineStateManager _engineStateManager;
         readonly EngineSettings _engineSettings;
@@ -38,6 +36,7 @@ namespace Seed.Data.Migrations
 
         public DataMigrationManager(
             IStore store,
+            IDataMigrator dataMigrator,
             IPluginManager pluginManager,
             IEngineStateManager engineStateManager,
             EngineSettings engineSettings,
@@ -46,6 +45,7 @@ namespace Seed.Data.Migrations
             ILogger<DataMigrationManager> logger)
         {
             _store = store;
+            _dataMigrator = dataMigrator;
             _pluginManager = pluginManager;
             _engineStateManager = engineStateManager;
             _engineSettings = engineSettings;
@@ -81,93 +81,7 @@ namespace Seed.Data.Migrations
 
         private async Task RunUpdateAsync()
         {
-            var _dbContext = await CreateDbContext();
-
-            IModel lastModel = null;
-            try
-            {
-                var lastMigration = _dbContext.Migrations
-                    .OrderByDescending(e => e.MigrationTime)
-                    .OrderByDescending(e => e.Id) // mysql下自动生成的时间日期字段时间精度为秒
-                    .FirstOrDefault();
-                lastModel = lastMigration == null ? null : (CreateModelSnapshot(Encoding.UTF8.GetString(Convert.FromBase64String(lastMigration.SnapshotDefine))).Result?.Model);
-            }
-            catch (DbException) { }
-
-            // 需要从历史版本库中取出快照定义，反序列化成类型 GetDifferences(快照模型, context.Model);
-            // 实际情况下要传入历史快照
-            var modelDiffer = _dbContext.Context
-                .GetInfrastructure()
-                .GetService<IMigrationsModelDiffer>();
-            var hasDiffer = modelDiffer.HasDifferences(lastModel, _dbContext.Context.Model);
-
-            if (hasDiffer)
-            {
-                var upOperations = modelDiffer.GetDifferences(lastModel, _dbContext.Context.Model);
-
-                using (var trans = _dbContext.Context.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        _dbContext.Context.GetInfrastructure()
-                            .GetRequiredService<IMigrationsSqlGenerator>()
-                            .Generate(upOperations, _dbContext.Context.Model)
-                            .ToList()
-                            .ForEach(cmd => _dbContext.Context.Database.ExecuteSqlCommand(cmd.CommandText));
-
-                        _dbContext.Context.Database.CommitTransaction();
-                    }
-                    catch (DbException ex)
-                    {
-                        _dbContext.Context.Database.RollbackTransaction();
-                        throw ex;
-                    }
-
-                    var snapshotCode = new DesignTimeServicesBuilder(typeof(ModuleDbContext).Assembly, new ModuleDbOperationReporter(), new string[0])
-                        .Build((DbContext)_dbContext)
-                        .GetService<IMigrationsCodeGenerator>()
-                        .GenerateSnapshot(ContextAssembly, typeof(ModuleDbContext), SnapshotName, _dbContext.Context.Model);
-
-                    _dbContext.Migrations.Add(new MigrationRecord()
-                    {
-                        SnapshotDefine = Convert.ToBase64String(Encoding.UTF8.GetBytes(snapshotCode)),
-                        MigrationTime = DateTime.Now
-                    });
-
-                    _dbContext.Context.SaveChanges();
-                }
-            }
-        }
-
-        private Task<ModelSnapshot> CreateModelSnapshot(string codedefine)
-        {
-            // 生成快照，需要存到数据库中供更新版本用
-            var references = typeof(ModuleDbContext).Assembly
-                .GetReferencedAssemblies()
-                .Select(e => MetadataReference.CreateFromFile(Assembly.Load(e).Location))
-                .Union(new MetadataReference[]
-                {
-                    MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location),
-                    MetadataReference.CreateFromFile(Assembly.Load("System.Runtime").Location),
-                    MetadataReference.CreateFromFile(typeof(Object).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(ModuleDbContext).Assembly.Location)
-                });
-
-            var compilation = CSharpCompilation.Create(ContextAssembly)
-                .WithOptions(new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary))
-                .AddReferences(references)
-                .AddSyntaxTrees(SyntaxFactory.ParseSyntaxTree(codedefine));
-
-            return Task.Run(() =>
-            {
-                using (var stream = new MemoryStream())
-                {
-                    var compileResult = compilation.Emit(stream);
-                    return compileResult.Success
-                        ? Assembly.Load(stream.GetBuffer()).CreateInstance(ContextAssembly + "." + SnapshotName) as ModelSnapshot
-                        : null;
-                }
-            });
+            await _dataMigrator.RunAsync(await CreateDbContext());
         }
 
         private async Task<IDbContext> CreateDbContext()
