@@ -540,7 +540,7 @@ define('SeedModules.PageBuilder/modules/components/database/table', [
         }
         ControllerClass.prototype.load = function () {
             var _this = this;
-            this.requestService.url('/api/pagebuilder/define/' + enums_1.BuilderDefineTypes.表).get().result.then(function (result) {
+            this.requestService.url('/api/pagebuilder/define/' + enums_1.BuilderDefineTypes.表).options({ showLoading: false }).get().result.then(function (result) {
                 _this.$scope.list = result;
             });
         };
@@ -589,7 +589,7 @@ define('SeedModules.PageBuilder/modules/components/database/table', [
                 templateUrl: '/SeedModules.PageBuilder/modules/components/database/tableColumns.html',
                 scope: angular.extend(this.$rootScope.$new(), {
                     $data: {
-                        title: '列管理',
+                        title: row.properties.name + ' - ' + row.properties.remark,
                         model: $.extend({}, row.properties)
                     }
                 }),
