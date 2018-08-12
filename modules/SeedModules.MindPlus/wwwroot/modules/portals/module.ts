@@ -1,7 +1,7 @@
 import angular = require('angular');
 import 'app/application';
 import 'angular-ui-router';
-import 'schema-form-bootstrap';
+import 'SeedModules.AngularUI/js/seed/bootstrap-decorator';
 
 class ConfigClass {
   static $inject = ['$stateProvider', '$urlRouterProvider'];

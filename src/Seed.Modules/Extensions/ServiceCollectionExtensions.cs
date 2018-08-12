@@ -87,6 +87,7 @@ namespace Seed.Modules.Extensions
                 var env = serviceProvider.GetRequiredService<IHostingEnvironment>();
 
                 IFileProvider fileProvider;
+                // 开发环境下需要直接读取模块目录下的文件
                 if (env.IsDevelopment())
                 {
                     var fileProviders = new List<IFileProvider>

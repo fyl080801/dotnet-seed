@@ -312,7 +312,7 @@ define('SeedModules.PageBuilder/modules/components/datasource/list', [
             this.$state = $state;
             this.$modal = $modal;
             this.popupService = popupService;
-            $scope.dslist = this;
+            $scope.vm = this;
         }
         ListController.prototype.add = function () {
             this.$state.go('admin.pagebuilder_dsform');

@@ -7,7 +7,7 @@ define(["require", "exports", "SeedModules.PageBuilder/modules/module"], functio
             this.$state = $state;
             this.$modal = $modal;
             this.popupService = popupService;
-            $scope.dslist = this;
+            $scope.vm = this;
         }
         ListController.prototype.add = function () {
             this.$state.go('admin.pagebuilder_dsform');

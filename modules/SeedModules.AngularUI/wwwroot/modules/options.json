@@ -6,7 +6,7 @@
     "es5-sham": {
       "path": "SeedModules.AngularUI/js/seed/app.patch",
       "shim": {
-        "deps": [ "es5-shim" ]
+        "deps": ["es5-shim"]
       }
     },
     "html5shiv": {
@@ -30,19 +30,19 @@
     },
     "angular-ui-router": {
       "path": "SeedModules.AngularUI/js/seed/app.application",
-      "shim": { "deps": [ "angular" ] }
+      "shim": { "deps": ["angular"] }
     },
     "angular-cookies": {
       "path": "SeedModules.AngularUI/js/seed/app.application",
-      "shim": { "deps": [ "angular" ] }
+      "shim": { "deps": ["angular"] }
     },
     "angular-ui-bootstrap": {
       "path": "SeedModules.AngularUI/js/seed/app.application",
-      "shim": { "deps": [ "angular" ] }
+      "shim": { "deps": ["angular"] }
     },
     "bootstrap": {
       "path": "SeedModules.AngularUI/js/seed/app.application",
-      "shim": { "deps": [ "jquery" ] }
+      "shim": { "deps": ["jquery"] }
     },
     "jquery": {
       "path": "SeedModules.AngularUI/js/seed/app.application"
@@ -54,43 +54,40 @@
     "jquery-form": {
       "path": "SeedModules.AngularUI/js/jquery-form/jquery.form.min",
       "shim": {
-        "deps": [ "app/application" ]
+        "deps": ["app/application"]
       },
       "noDebug": true
     },
     "tv4": {
-      "path": "SeedModules.AngularUI/js/seed/tv4",
-      "noDebug": true
+      "buildPath": "SeedModules.AngularUI/js/seed/tv4"
     },
     "objectpath": {
-      "path": "SeedModules.AngularUI/js/seed/ObjectPath",
-      "noDebug": true
+      "buildPath": "SeedModules.AngularUI/js/seed/ObjectPath"
     },
-    "schema-form": {
-      "path": "SeedModules.AngularUI/js/seed/schema-form",
+    "SeedModules.AngularUI/js/seed/schema-form": {
       "shim": {
-        "deps": [ "tv4", "objectpath" ]
+        "deps": ["tv4", "objectpath"]
       }
     },
-    "schema-form-bootstrap": {
-      "path": "SeedModules.AngularUI/js/seed/bootstrap-decorator",
+    "SeedModules.AngularUI/js/seed/bootstrap-decorator": {
       "shim": {
-        "deps": [ "schema-form" ]
+        "pack": true,
+        "deps": ["SeedModules.AngularUI/js/seed/schema-form"]
       }
     },
 
     "SeedModules.AngularUI/js/seed/angular-ui-tree": {
       "shim": {
-        "deps": [ "angular" ]
+        "deps": ["angular"]
       }
     },
     "SeedModules.AngularUI/js/jquery-form/jquery.form.min": {
       "shim": {
-        "deps": [ "jquery" ]
+        "deps": ["jquery"]
       }
     }
   },
-  "patchs": [ "es5-shim", "es5-sham", "html5shiv", "json2", "respond" ],
+  "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
   "requires": [
     "app/application",
     "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",

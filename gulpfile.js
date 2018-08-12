@@ -76,7 +76,12 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
         name !== moduleprefix + '/requires' &&
         name !== moduleprefix + '/module'
       ) {
-        moduleOptions.paths[name] = '../modules/build';
+        moduleOptions.paths[name] = option.configs[name].buildPath
+          ? option.configs[name].buildPath.replace(
+              moduleName,
+              moduleName + '/wwwroot'
+            )
+          : '../modules/build';
         moduleOptions.exclude.push(name);
       }
 
@@ -91,6 +96,10 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
             moduleName + '/wwwroot'
           );
         moduleOptions.include.push(name);
+      }
+
+      if (option.configs[name].shim && option.configs[name].shim.pack) {
+        moduleOptions.shim[name] = option.configs[name].shim;
       }
     }
   });
@@ -128,6 +137,7 @@ gulp.task('build', function() {
       removeCombined: true,
       fileExclusionRegExp: /^\./,
       paths: {},
+      shim: {},
       exclude: [],
       include: []
     };

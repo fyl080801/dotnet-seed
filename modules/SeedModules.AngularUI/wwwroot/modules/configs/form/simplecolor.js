@@ -1,6 +1,6 @@
 define([
     'SeedModules.AngularUI/modules/boot',
-    'schema-form-bootstrap'
+    'SeedModules.AngularUI/js/seed/bootstrap-decorator'
 ], function (boot) {
     'use strict';
     angular.module('schemaForm').config([
