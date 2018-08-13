@@ -1,23 +1,23 @@
 import boot = require('SeedModules.PageBuilder/modules/boot');
 
 class Service implements PageBuilder.services.ISchemaSourceService {
-  constructor(private $schemaSourceTable: PageBuilder.SchemaSourceTable) {}
+  constructor(private $sourceActionTable: PageBuilder.SourceActionTable) {}
 
-  getSource(name: string) {
-    return this.$schemaSourceTable[name];
+  resolve(name: string) {
+    return this.$sourceActionTable[name];
   }
 }
 
-class Provider implements PageBuilder.providers.ISchemaSourceProvider {
+class Provider implements PageBuilder.providers.ISourceActionProvider {
   private service: PageBuilder.services.ISchemaSourceService;
 
-  static $inject = ['$schemaSourceTable'];
-  constructor(private $schemaSourceTable: PageBuilder.SchemaSourceTable) {
-    this.service = new Service($schemaSourceTable);
+  static $inject = ['$sourceActionTable'];
+  constructor(private $sourceActionTable: PageBuilder.SourceActionTable) {
+    this.service = new Service($sourceActionTable);
   }
 
-  register(name: string, source: PageBuilder.ISchemaSource) {
-    this.$schemaSourceTable[name] = source;
+  register(name: string, source: PageBuilder.ISourceAction) {
+    this.$sourceActionTable[name] = source;
   }
 
   $get() {
@@ -25,4 +25,4 @@ class Provider implements PageBuilder.providers.ISchemaSourceProvider {
   }
 }
 
-boot.constant('$schemaSourceTable', {}).provider('$schemaSource', Provider);
+boot.constant('$sourceActionTable', {}).provider('$schemaSource', Provider);

@@ -8,7 +8,7 @@ declare namespace PageBuilder {
   /**
    * 数据源列表(独立出来)
    */
-  type SchemaSourceTable = { [key: string]: ISchemaSource };
+  type SourceActionTable = { [key: string]: ISourceAction };
 
   /**
    * 数据源(独立出来)
@@ -16,15 +16,20 @@ declare namespace PageBuilder {
   interface ISchemaSource {
     data: any;
     properties: { [key: string]: AngularUI.SchemaForm.ISchema };
-    actions: Function[];
+    actions: { [key: string]: ISourceAction };
   }
+
+  /**
+   * 数据行为(独立出来)
+   */
+  interface ISourceAction {}
 
   export namespace providers {
     /**
      * 注册数据源(独立出来)
      */
-    export interface ISchemaSourceProvider extends ng.IServiceProvider {
-      register(name: string, source: ISchemaSource);
+    export interface ISourceActionProvider extends ng.IServiceProvider {
+      register(name: string, action: ISourceAction);
     }
 
     export interface IControlBuilderProvider extends ng.IServiceProvider {
@@ -43,7 +48,7 @@ declare namespace PageBuilder {
      * 获取数据源(独立出来)
      */
     export interface ISchemaSourceService {
-      getSource(name: string): ISchemaSource;
+      resolve(name: string): ISourceAction;
     }
 
     export interface IControl {

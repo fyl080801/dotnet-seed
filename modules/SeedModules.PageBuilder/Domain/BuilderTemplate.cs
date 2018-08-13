@@ -10,26 +10,15 @@ using Seed.Data;
 namespace SeedModules.PageBuilder.Domain
 {
     [Table("BuilderTemplate")]
-    public class BuilderTemplate : JEntity
+    public class BuilderTemplate
     {
         [Key]
         public int Id { get; set; }
 
-        public BuilderDefineTypes Type { get; set; }
+        [MaxLength(50)]
+        public string Name { get; set; }
 
-        [JsonIgnore]
-        public string Define { get; set; }
-
-        public DateTime LastModify { get; set; } = DateTime.Now;
-
-        public DateTime CreateTime { get; set; } = DateTime.Now;
-
-        [NotMapped]
-        public override JObject Properties
-        {
-            get { return !string.IsNullOrEmpty(this.Define) ? JObject.Parse(this.Define) : new JObject(); }
-            set { this.Define = value.ToString(); }
-        }
+        public string Description { get; set; }
     }
 
     public class BuilderTemplateTypeConfiguration : IEntityTypeConfiguration<BuilderTemplate>
