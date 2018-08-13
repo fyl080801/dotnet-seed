@@ -6,6 +6,13 @@ export = PageBuilder;
 
 declare namespace PageBuilder {
   export namespace providers {
+    /**
+     *
+     */
+    export interface ISchemaSourceProvider extends ng.IServiceProvider {
+      register(sourceType: any);
+    }
+
     export interface IControlBuilderProvider extends ng.IServiceProvider {
       addControl(category: string, control: PageBuilder.services.IControl);
       getControl(category: string, name: string): PageBuilder.services.IControl;
@@ -18,6 +25,11 @@ declare namespace PageBuilder {
   }
 
   export namespace services {
+    /**
+     *
+     */
+    export interface ISchemaSourceService {}
+
     export interface IControl {
       type: string;
       name: string;
