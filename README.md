@@ -26,7 +26,6 @@ options.dist.json - 生产环境下才会引用的前端配置
   "configs": {
     "名称": {
       "path": "", // 界面引用脚本的路径，不设置路径则引用的js会一起打包
-      "buildPath": "", // 构建时候需要打包的路径，没设置path时并且名称不是具体路径的需要设置一下，不然打包时会提示找不到模块
       "shim": {
         "pack": true // 打包时是否将shim的设置引用到打包规则中，要是不判断全都引用构建起来会非常慢
       },
@@ -34,7 +33,9 @@ options.dist.json - 生产环境下才会引用的前端配置
     }
   },
   // 如果是ie8则引用
-  "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
+  "patchs": [],
+  // 强制包含的非模块项
+  "include": ["tv4", "objectpath"],
   // 访问界面时默认引用的require模块
   "requires": [
     "app/application",

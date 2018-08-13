@@ -76,12 +76,7 @@ var resolveConfigs = function(modulePaths, moduleOptions, ext) {
         name !== moduleprefix + '/requires' &&
         name !== moduleprefix + '/module'
       ) {
-        moduleOptions.paths[name] = option.configs[name].buildPath
-          ? option.configs[name].buildPath.replace(
-              moduleName,
-              moduleName + '/wwwroot'
-            )
-          : '../modules/build';
+        moduleOptions.paths[name] = '../modules/build';
         moduleOptions.exclude.push(name);
       }
 

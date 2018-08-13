@@ -8,12 +8,12 @@ declare namespace PageBuilder {
   /**
    * 数据源列表(独立出来)
    */
-  type SourceActionTable = { [key: string]: ISourceAction };
+  export type SourceActionTable = { [key: string]: ISourceAction };
 
   /**
    * 数据源(独立出来)
    */
-  interface ISchemaSource {
+  export interface ISchemaSource {
     data: any;
     properties: { [key: string]: AngularUI.SchemaForm.ISchema };
     actions: { [key: string]: ISourceAction };
@@ -22,7 +22,9 @@ declare namespace PageBuilder {
   /**
    * 数据行为(独立出来)
    */
-  interface ISourceAction {}
+  export interface ISourceAction {
+    (source, data): ng.IPromise<any>;
+  }
 
   export namespace providers {
     /**

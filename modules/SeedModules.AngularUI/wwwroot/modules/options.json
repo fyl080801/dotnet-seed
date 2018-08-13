@@ -59,10 +59,10 @@
       "noDebug": true
     },
     "tv4": {
-      "buildPath": "SeedModules.AngularUI/js/seed/tv4"
+      "path": "SeedModules.AngularUI/js/seed/tv4"
     },
     "objectpath": {
-      "buildPath": "SeedModules.AngularUI/js/seed/ObjectPath"
+      "path": "SeedModules.AngularUI/js/seed/ObjectPath"
     },
     "SeedModules.AngularUI/js/seed/schema-form": {
       "shim": {
@@ -88,6 +88,7 @@
     }
   },
   "patchs": ["es5-shim", "es5-sham", "html5shiv", "json2", "respond"],
+  "include": ["tv4", "objectpath"],
   "requires": [
     "app/application",
     "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",
