@@ -1,13 +1,13 @@
 {
   "configs": {
     "SeedModules.MindPlus/modules/admin/module": {
-      "path": "SeedModules.MindPlus/js/modules.admin.module",
+      "path": "SeedModules.MindPlus/dist/modules.admin.module",
       "shim": {
         "deps": ["app/application"]
       }
     },
     "SeedModules.MindPlus/modules/admin/requires": {
-      "path": "SeedModules.MindPlus/js/modules.admin.requires"
+      "path": "SeedModules.MindPlus/dist/modules.admin.requires"
     }
   }
 }

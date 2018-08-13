@@ -252,3 +252,4 @@ publish
 */Seed/App_Data/
 */Seed/modules/
 */Seed/extensions/
+/modules/**/dist/
