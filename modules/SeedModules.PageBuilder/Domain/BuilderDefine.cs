@@ -29,6 +29,11 @@ namespace SeedModules.PageBuilder.Domain
         [ForeignKey("CategoryId")]
         public virtual BuilderCategory Category { get; set; }
 
+        public int? TemplateId { get; set; }
+
+        [ForeignKey("TemplateId")]
+        public virtual BuilderTemplate Template { get; set; }
+
         [NotMapped]
         public override JObject Properties
         {

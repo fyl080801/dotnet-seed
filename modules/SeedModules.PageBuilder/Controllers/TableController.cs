@@ -39,7 +39,7 @@ namespace SeedModules.PageBuilder.Controllers
         [HttpPatch("fire"), HandleResult]
         public async Task Fire()
         {
-            var tables = _db.Set<BuilderDefine>().Where(e => e.Type == BuilderDefineTypes.Table)
+            var tables = _db.Set<BuilderDefine>().Where(e => e.Type == BuilderDefineTypes.Table && !e.TemplateId.HasValue)
                 .Select(e => e.Properties.ToObject<TableModel>())
                 .ToArray();
             using (var copntext = _store.CreatePbDbContext(_settings, tables))
