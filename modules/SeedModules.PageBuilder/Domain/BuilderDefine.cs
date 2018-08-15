@@ -24,6 +24,11 @@ namespace SeedModules.PageBuilder.Domain
 
         public DateTime CreateTime { get; set; } = DateTime.Now;
 
+        public int? CategoryId { get; set; }
+
+        [ForeignKey("CategoryId")]
+        public virtual BuilderCategory Category { get; set; }
+
         [NotMapped]
         public override JObject Properties
         {
