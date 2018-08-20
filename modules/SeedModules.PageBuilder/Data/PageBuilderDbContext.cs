@@ -32,6 +32,7 @@ namespace SeedModules.PageBuilder.Data
         {
             modelBuilder.ApplyConfiguration(new PbMigrationTypeConfiguration());
 
+            // 这里回头改成先统一生成程序集再一起创建EntityTypeConfiguration的对象
             foreach (var model in _tables)
             {
                 var domainType = ClassHelper.AddPropertyToType(ClassHelper.BuildType(model.Name), model.Columns.Select(e => new ClassHelper.CustPropertyInfo(ConvertType(e).FullName, e.Name)).ToList());
