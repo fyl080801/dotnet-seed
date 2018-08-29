@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>fyl</Authors>
-    <AssemblyVersion>1.2.6.0</AssemblyVersion>
-    <FileVersion>1.2.6.0</FileVersion>
-    <Version>1.2.6</Version>
+    <AssemblyVersion>1.2.7.0</AssemblyVersion>
+    <FileVersion>1.2.7.0</FileVersion>
+    <Version>1.2.7</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.1.1" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
