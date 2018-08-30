@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Seed.Data;
 using Seed.Environment.Engine;
+using SeedModules.PageBuilder.Internals.Dynamic;
 using SeedModules.PageBuilder.Models;
 using System;
 using System.Collections.Generic;
@@ -33,9 +34,12 @@ namespace SeedModules.PageBuilder.Data
             modelBuilder.ApplyConfiguration(new PbMigrationTypeConfiguration());
 
             // 这里回头改成先统一生成程序集再一起创建EntityTypeConfiguration的对象
+            var classFactory = new ClassFactory();
             foreach (var model in _tables)
             {
-                var domainType = ClassHelper.AddPropertyToType(ClassHelper.BuildType(model.Name), model.Columns.Select(e => new ClassHelper.CustPropertyInfo(ConvertType(e).FullName, e.Name)).ToList());
+                var domainType = classFactory.GetDynamicClass(
+                    model.Name,
+                    model.Columns.Select(e => new DynamicProperty(e.Name, ConvertType(e))).ToList());
                 var configurationType = typeof(BuilderTypeConfiguration<>).MakeGenericType(domainType);
                 modelBuilder.ApplyConfiguration((dynamic)Activator.CreateInstance(configurationType, model));
             }
