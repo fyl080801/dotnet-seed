@@ -18,7 +18,7 @@ namespace SeedModules.Setup.Controllers
             _siteSettingsBuilder = siteSettingsBuilder;
         }
 
-        [RouteRequires("SeedModules.Setup/modules/module")]
+        [RouteRequires("rcss!SeedModules.AngularUI/css/bootstrap-theme.min.css", "SeedModules.Setup/modules/module")]
         public IActionResult Index()
         {
             return View(".Modules/SeedModules.AngularUI/Views/Home/Index.cshtml", new ViewOptionsModel()

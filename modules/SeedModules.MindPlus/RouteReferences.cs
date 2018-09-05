@@ -9,16 +9,20 @@ namespace SeedModules.MindPlus
     public class RouteReferences : IRouteReferenceProvider
     {
         static RouteViewReference Admin_Home_Index = new RouteViewReference("SeedModules.Admin/Home/Index",
+            "rcss!SeedModules.AngularUI/css/bootstrap-theme.min.css",
             "SeedModules.MindPlus/modules/admin/module");
 
         static RouteViewReference MindPlus_Home_Index = new RouteViewReference("SeedModules.MindPlus/Home/Index",
+            "rcss!SeedModules.AngularUI/css/bootstrap-theme.min.css",
             "SeedModules.MindPlus/modules/portals/module");
 
         static RouteViewReference MindPlus_Home_Works = new RouteViewReference("SeedModules.MindPlus/Home/Works",
+            "rcss!SeedModules.AngularUI/css/bootstrap-theme.min.css",
             "rcss!SeedModules.MindPlus/css/module.css",
             "SeedModules.MindPlus/modules/myworks/module");
 
         static RouteViewReference MindPlus_Home_Mind = new RouteViewReference("SeedModules.MindPlus/Home/Mind",
+            "rcss!SeedModules.AngularUI/css/bootstrap-theme.min.css",
             "rcss!SeedModules.MindPlus/css/module.css",
             "rcss!SeedModules.MindPlus/css/kityminder.core.css",
             "rcss!SeedModules.MindPlus/js/kityminder/kityminder.editor.min.css",
@@ -27,6 +31,7 @@ namespace SeedModules.MindPlus
             "SeedModules.MindPlus/modules/mind/module");
 
         static RouteViewReference MindPlus_Home_Login = new RouteViewReference("SeedModules.MindPlus/Home/Login",
+            "rcss!SeedModules.AngularUI/css/bootstrap-theme.min.css",
             "SeedModules.MindPlus/modules/login/module");
 
         public IEnumerable<RouteViewReference> GetViewReferences()
