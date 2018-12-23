@@ -96,8 +96,5 @@
     <None Update="Module.txt">
       <PackagePath>assets\$(PackageId)\</PackagePath>
     </None>
-    <None Update="Views\_Layout.cshtml">
-      <PackagePath>assets\$(PackageId)\</PackagePath>
-    </None>
   </ItemGroup>
 </Project>

@@ -2,9 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <IgnorePackageAssets>true</IgnorePackageAssets>
-    <AssemblyVersion>1.2.11.0</AssemblyVersion>
-    <FileVersion>1.2.11.0</FileVersion>
-    <Version>1.2.11</Version>
+    <AssemblyVersion>1.2.12.0</AssemblyVersion>
+    <FileVersion>1.2.12.0</FileVersion>
+    <Version>1.2.12</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\modules\SeedModules.Admin\SeedModules.Admin.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\..\modules\SeedModules.Arkham\SeedModules.Arkham.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Features\SeedModules.Features.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.MindPlus\SeedModules.MindPlus.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.PageBuilder\SeedModules.PageBuilder.csproj" />

@@ -80,6 +80,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.OpenId", "modul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed", "src\Seed\Seed.csproj", "{66E6F56D-DD1B-4E9B-9FB0-CBC39BAC0629}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Arkham", "modules\SeedModules.Arkham\SeedModules.Arkham.csproj", "{98986593-A151-498D-ABBC-1298AD3803EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +196,10 @@ Global
 		{66E6F56D-DD1B-4E9B-9FB0-CBC39BAC0629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66E6F56D-DD1B-4E9B-9FB0-CBC39BAC0629}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66E6F56D-DD1B-4E9B-9FB0-CBC39BAC0629}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98986593-A151-498D-ABBC-1298AD3803EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98986593-A151-498D-ABBC-1298AD3803EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98986593-A151-498D-ABBC-1298AD3803EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98986593-A151-498D-ABBC-1298AD3803EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -226,6 +232,7 @@ Global
 		{F58C152E-8D6B-471A-9A90-67058BD5631B} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
 		{7F2B1678-7393-49FD-9568-37AF9613D213} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
 		{66E6F56D-DD1B-4E9B-9FB0-CBC39BAC0629} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
+		{98986593-A151-498D-ABBC-1298AD3803EA} = {B744AE02-1693-4BB9-96C3-01DF54DFB172}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {103E5205-1588-47A7-8F86-693367C858B2}

@@ -1,0 +1,13 @@
+{
+  "configs": {
+    "SeedModules.Arkham/modules/facilities/module": {
+      "path": "SeedModules.Arkham/dist/modules.facilities.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
+    },
+    "SeedModules.Arkham/modules/facilities/requires": {
+      "path": "SeedModules.Arkham/dist/modules.facilities.requires"
+    }
+  }
+}

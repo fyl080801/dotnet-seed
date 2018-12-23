@@ -10,6 +10,7 @@
       "SeedModules.AngularUI/*": ["SeedModules.AngularUI/wwwroot/*"],
       "SeedModules.Setup/*": ["SeedModules.Setup/wwwroot/*"],
       "SeedModules.Admin/*": ["SeedModules.Admin/wwwroot/*"],
+      "SeedModules.Arkham/*": ["SeedModules.Arkham/wwwroot/*"],
       "SeedModules.Features/*": ["SeedModules.Features/wwwroot/*"],
       "SeedModules.MindPlus/*": ["SeedModules.MindPlus/wwwroot/*"],
       "SeedModules.PageBuilder/*": ["SeedModules.PageBuilder/wwwroot/*"],
