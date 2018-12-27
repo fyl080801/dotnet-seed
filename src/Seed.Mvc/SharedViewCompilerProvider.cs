@@ -27,7 +27,7 @@ namespace Seed.Mvc
         private readonly ApplicationPartManager _applicationPartManager;
         private readonly IRazorViewEngineFileProviderAccessor _fileProviderAccessor;
         private readonly CSharpCompiler _csharpCompiler;
-        private readonly RazorViewEngineOptions _viewEngineOptions;
+        // private readonly RazorViewEngineOptions _viewEngineOptions;
         private readonly ILogger<RazorViewCompiler> _logger;
         private readonly Func<IViewCompiler> _createCompiler;
 
@@ -42,7 +42,7 @@ namespace Seed.Mvc
             RazorProjectEngine razorProjectEngine,
             IRazorViewEngineFileProviderAccessor fileProviderAccessor,
             CSharpCompiler csharpCompiler,
-            IOptions<RazorViewEngineOptions> viewEngineOptionsAccessor,
+            // IOptions<RazorViewEngineOptions> viewEngineOptionsAccessor,
             ILoggerFactory loggerFactory)
         {
             _hostingEnvironment = hostingEnvironment;
@@ -51,7 +51,7 @@ namespace Seed.Mvc
             _razorProjectEngine = razorProjectEngine;
             _fileProviderAccessor = fileProviderAccessor;
             _csharpCompiler = csharpCompiler;
-            _viewEngineOptions = viewEngineOptionsAccessor.Value;
+            // _viewEngineOptions = viewEngineOptionsAccessor.Value;
 
             _logger = loggerFactory.CreateLogger<RazorViewCompiler>();
             _createCompiler = CreateCompiler;
@@ -141,7 +141,7 @@ namespace Seed.Mvc
                 _fileProviderAccessor.FileProvider,
                 _razorProjectEngine,
                 _csharpCompiler,
-                _viewEngineOptions.CompilationCallback,
+                // _viewEngineOptions.CompilationCallback,
                 feature.ViewDescriptors,
                 _logger);
         }

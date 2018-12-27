@@ -30,7 +30,7 @@ namespace Seed.Mvc
         private readonly ConcurrentDictionary<string, string> _normalizedPathCache;
         private readonly IFileProvider _fileProvider;
         private readonly RazorProjectEngine _projectEngine;
-        private readonly Action<RoslynCompilationContext> _compilationCallback;
+        // private readonly Action<RoslynCompilationContext> _compilationCallback;
         private readonly ILogger _logger;
         private readonly CSharpCompiler _csharpCompiler;
         private readonly static IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
@@ -39,7 +39,7 @@ namespace Seed.Mvc
             IFileProvider fileProvider,
             RazorProjectEngine projectEngine,
             CSharpCompiler csharpCompiler,
-            Action<RoslynCompilationContext> compilationCallback,
+            // Action<RoslynCompilationContext> compilationCallback,
             IList<CompiledViewDescriptor> precompiledViews,
             ILogger logger)
         {
@@ -51,7 +51,7 @@ namespace Seed.Mvc
             _fileProvider = fileProvider ?? throw new ArgumentNullException(nameof(fileProvider));
             _projectEngine = projectEngine ?? throw new ArgumentNullException(nameof(projectEngine));
             _csharpCompiler = csharpCompiler ?? throw new ArgumentNullException(nameof(csharpCompiler));
-            _compilationCallback = compilationCallback ?? throw new ArgumentNullException(nameof(compilationCallback));
+            // _compilationCallback = compilationCallback ?? throw new ArgumentNullException(nameof(compilationCallback));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
             _normalizedPathCache = new ConcurrentDictionary<string, string>(StringComparer.Ordinal);
@@ -332,7 +332,7 @@ namespace Seed.Mvc
             compilation = ExpressionRewriter.Rewrite(compilation);
 
             var compilationContext = new RoslynCompilationContext(compilation);
-            _compilationCallback(compilationContext);
+            // _compilationCallback(compilationContext);
             compilation = compilationContext.Compilation;
             return compilation;
         }

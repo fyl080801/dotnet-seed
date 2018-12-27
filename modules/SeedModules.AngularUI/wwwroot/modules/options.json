@@ -91,7 +91,7 @@
   "include": ["tv4", "objectpath"],
   "requires": [
     "app/application",
-    "rcss!SeedModules.AngularUI/css/fontawesome-all.min.css",
+    "rcss!SeedModules.AngularUI/css/all.min.css",
     "rcss!SeedModules.AngularUI/css/ng-ui.css",
     "SeedModules.AngularUI/modules/module"
   ],

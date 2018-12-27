@@ -4,7 +4,7 @@ define(["require", "exports", "angular", "app/application"], function (require, 
         function Config($stateProvider) {
             $stateProvider.state('admin.arkhamhome', {
                 url: '/arkhamhome',
-                title: '文档服务管理',
+                title: '病案管理',
                 templateUrl: '/SeedModules.Arkham/modules/facilities/views/home.html',
                 requires: ['SeedModules.AngularUI/modules/requires', 'SeedModules.Arkham/modules/facilities/requires']
             });
@@ -16,7 +16,7 @@ define(["require", "exports", "angular", "app/application"], function (require, 
         function Run($state, nav) {
             nav.add({
                 text: '心理健康',
-                icon: 'fas fa-cubes fa-fw',
+                icon: 'fas fa-brain fa-fw',
                 order: 50,
                 children: [
                     {
