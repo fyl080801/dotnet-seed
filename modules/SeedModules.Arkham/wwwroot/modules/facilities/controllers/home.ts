@@ -1,4 +1,5 @@
 import mod = require('SeedModules.Arkham/modules/facilities/module');
+import medicalForm = require('../components/forms/medicalForm');
 
 class Controller {
   static $inject = [
@@ -28,13 +29,25 @@ class Controller {
     };
 
     $scope.tableParams = new ngTableRequest({
-      // url: '/api/admin/users/query',
+      url: '/api/admin/users/query'
       // showLoading: false,
       // data: $scope.search
     }).ngTableParams();
   }
 
-  create() {}
+  create() {
+    this.$modal
+      .open({
+        templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+        size: 'lg',
+        data: {
+          title: '新建病案',
+          formParams: new this.schemaFormParams().properties(medicalForm.default.medicalSchema),
+          form: medicalForm.default.medicalForm
+        }
+      })
+      .result.then(function(data) {});
+  }
 
   keywordCallback() {}
 }

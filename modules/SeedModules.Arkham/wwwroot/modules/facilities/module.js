@@ -8,6 +8,12 @@ define(["require", "exports", "angular", "app/application"], function (require, 
                 templateUrl: '/SeedModules.Arkham/modules/facilities/views/home.html',
                 requires: ['SeedModules.AngularUI/modules/requires', 'SeedModules.Arkham/modules/facilities/requires']
             });
+            $stateProvider.state('admin.arkhampatient', {
+                url: '/arkhampatient',
+                title: '患者管理',
+                templateUrl: '/SeedModules.Arkham/modules/facilities/views/patient.html',
+                requires: ['SeedModules.AngularUI/modules/requires', 'SeedModules.Arkham/modules/facilities/requires']
+            });
         }
         Config.$inject = ['$stateProvider'];
         return Config;
@@ -27,7 +33,9 @@ define(["require", "exports", "angular", "app/application"], function (require, 
                     },
                     {
                         text: '患者管理',
-                        itemClicked: function (evt) { }
+                        itemClicked: function (evt) {
+                            $state.go('admin.arkhampatient');
+                        }
                     }
                 ]
             });

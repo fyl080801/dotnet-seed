@@ -10,6 +10,13 @@ class Config {
       templateUrl: '/SeedModules.Arkham/modules/facilities/views/home.html',
       requires: ['SeedModules.AngularUI/modules/requires', 'SeedModules.Arkham/modules/facilities/requires']
     });
+
+    $stateProvider.state('admin.arkhampatient', {
+      url: '/arkhampatient',
+      title: '患者管理',
+      templateUrl: '/SeedModules.Arkham/modules/facilities/views/patient.html',
+      requires: ['SeedModules.AngularUI/modules/requires', 'SeedModules.Arkham/modules/facilities/requires']
+    });
   }
 }
 
@@ -29,7 +36,9 @@ class Run {
         },
         {
           text: '患者管理',
-          itemClicked: evt => {}
+          itemClicked: evt => {
+            $state.go('admin.arkhampatient');
+          }
         }
       ]
     });

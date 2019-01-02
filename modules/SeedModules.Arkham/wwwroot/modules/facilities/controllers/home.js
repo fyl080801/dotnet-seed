@@ -1,4 +1,4 @@
-define(["require", "exports", "SeedModules.Arkham/modules/facilities/module"], function (require, exports, mod) {
+define(["require", "exports", "SeedModules.Arkham/modules/facilities/module", "../components/forms/medicalForm"], function (require, exports, mod, medicalForm) {
     "use strict";
     exports.__esModule = true;
     var Controller = (function () {
@@ -15,9 +15,23 @@ define(["require", "exports", "SeedModules.Arkham/modules/facilities/module"], f
             $scope.search = {
                 keyword: ''
             };
-            $scope.tableParams = new ngTableRequest({}).ngTableParams();
+            $scope.tableParams = new ngTableRequest({
+                url: '/api/admin/users/query'
+            }).ngTableParams();
         }
-        Controller.prototype.create = function () { };
+        Controller.prototype.create = function () {
+            this.$modal
+                .open({
+                templateUrl: '/SeedModules.AngularUI/modules/views/schemaConfirm.html',
+                size: 'lg',
+                data: {
+                    title: '新建病案',
+                    formParams: new this.schemaFormParams().properties(medicalForm["default"].medicalSchema),
+                    form: medicalForm["default"].medicalForm
+                }
+            })
+                .result.then(function (data) { });
+        };
         Controller.prototype.keywordCallback = function () { };
         Controller.$inject = [
             '$scope',

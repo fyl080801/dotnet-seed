@@ -1,4 +1,4 @@
-<div controller="SeedModules.Arkham/modules/facilities/controllers/home">
+<div ng-controller="SeedModules.Arkham/modules/facilities/controllers/home">
   <form role="form" class="form-inline" style="margin-bottom: 20px">
     <div class="pull-right">
       <button class="btn btn-primary" ng-click="$controller.create()">
@@ -12,7 +12,7 @@
       callback="$controller.keywordCallback()"
     ></div>
   </form>
-  <table ng-table="tableParams" class="table table-striped table-hover">
+  <table class="table table-striped table-hover">
     <tr ng-repeat="row in $data">
       <td title="'病案Id'"></td>
       <td title="'患者姓名'"></td>
