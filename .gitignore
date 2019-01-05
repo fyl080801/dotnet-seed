@@ -241,7 +241,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /package-lock.json
-.DS_Store
 
 # reference
 lib
@@ -254,3 +253,4 @@ publish
 */Seed/modules/
 */Seed/extensions/
 /modules/**/dist/
+.DS_Store
