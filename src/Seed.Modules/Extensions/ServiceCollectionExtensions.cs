@@ -110,6 +110,14 @@ namespace Seed.Modules.Extensions
             });
         }
 
+        private static void AddTenantCookie(SeedBuilder builder)
+        {
+            builder.ConfigureServices((service, serviceProvider) =>
+            {
+
+            });
+        }
+
         private static void AddAntiForgery(SeedBuilder builder)
         {
             //builder.ApplicationServices.AddAntiforgery();

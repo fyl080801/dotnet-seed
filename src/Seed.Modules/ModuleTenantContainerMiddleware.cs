@@ -48,6 +48,9 @@ namespace Seed.Modules
                 using (var scope = engineContext.EnterServiceScope())
                 {
                     httpContext.Features.Set(engineContext);
+                    // 把租户前缀加到 cookie 里
+                    httpContext.Response.Cookies.Append("tenant_prefix", engineSettings.RequestUrlPrefix ?? "");
+                    httpContext.Response.Cookies.Append("tenant_host", engineSettings.RequestUrlHost ?? "");
 
                     if (!engineContext.IsActivated)
                     {
