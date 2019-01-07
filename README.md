@@ -13,7 +13,7 @@ targets 目录下某个地方有\*.project.json 文件是系统初始化定义�
 
 ## 单页应用打包规则
 
-options.json - 前端打包呈现配置
+options.json - 前端打包呈现配置  
 options.dist.json - 生产环境下才会引用的前端配置
 
 ```json
