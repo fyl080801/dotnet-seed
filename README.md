@@ -50,4 +50,4 @@ options.dist.json - 生产环境下才会引用的前端配置
 示例 2：[可组态监控系统 acc](http://www.fyl080801.top/acc/index.html 'Title') - 开发中  
 示例 3：[项目管理系统](http://www.fyl080801.top/mind) - 没做完  
 
-所有功能需要登录的话，用户名 admin 密码就是那个最常用的
+所有功能需要登录的话，用户名 admin 密码就是那个最常用的三个数
