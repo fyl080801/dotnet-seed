@@ -1,7 +1,5 @@
 # dotnet-seed
 
----
-
 ## 功能介绍
 
 基于.net core 的多租户云平台框架(企业即租户，服务即租户)  
@@ -12,8 +10,6 @@ targets 目录下某个地方有\*.project.json 文件是系统初始化定义�
 现在业务定制器模块支持根据配置自动建表了  
 targets 目录下某个地方有\*.project.json 文件是系统初始化定义，安装时选择后可建立不同功能的系统  
 现在支持加载 dll 从后加载的程序集中读出模块的定义，把 dll 放到 extensions 目录下。没有就建一个  
-
----
 
 ## 单页应用打包规则
 
@@ -48,10 +44,8 @@ options.dist.json - 生产环境下才会引用的前端配置
 }
 ```
 
----
-
 ## 示例
 
-示例 1：[仿某个云平台](http://www.fyl080801.top/referyun/index.html 'Title') - 纯界面无后台，刷新清数据
-示例 2：[可组态监控系统 acc](http://www.fyl080801.top/acc/index.html 'Title') - 开发中
+示例 1：[仿某个云平台](http://www.fyl080801.top/referyun/index.html 'Title') - 纯界面无后台，刷新清数据  
+示例 2：[可组态监控系统 acc](http://www.fyl080801.top/acc/index.html 'Title') - 开发中  
 示例 3：[项目管理系统](http://www.fyl080801.top/mind) - 没做完，用户名 admin 密码就是那个最常用的
