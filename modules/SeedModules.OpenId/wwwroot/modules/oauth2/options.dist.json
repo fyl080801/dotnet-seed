@@ -1,0 +1,13 @@
+{
+  "configs": {
+    "SeedModules.OpenId/modules/oauth2/module": {
+      "path": "SeedModules.OpenId/dist/modules.oauth2.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
+    },
+    "SeedModules.OpenId/modules/oauth2/requires": {
+      "path": "SeedModules.OpenId/dist/modules.oauth2.requires"
+    }
+  }
+}

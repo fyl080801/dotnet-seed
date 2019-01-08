@@ -15,7 +15,8 @@
       "SeedModules.MindPlus/*": ["SeedModules.MindPlus/wwwroot/*"],
       "SeedModules.PageBuilder/*": ["SeedModules.PageBuilder/wwwroot/*"],
       "SeedModules.Saas/*": ["SeedModules.Saas/wwwroot/*"],
-      "SeedModules.SqlBuilder/*": ["SeedModules.SqlBuilder/wwwroot/*"]
+      "SeedModules.SqlBuilder/*": ["SeedModules.SqlBuilder/wwwroot/*"],
+      "SeedModules.OpenId/*": ["SeedModules.OpenId/wwwroot/*"]
     }
   },
   "exclude": ["node_modules", "src", "targets"]

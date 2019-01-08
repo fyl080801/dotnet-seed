@@ -23,7 +23,7 @@ namespace SeedModules.OpenId.Services
 
         public void Configure(AuthenticationOptions options)
         {
-
+            
         }
 
         public void Configure(string name, JwtBearerOptions options)
