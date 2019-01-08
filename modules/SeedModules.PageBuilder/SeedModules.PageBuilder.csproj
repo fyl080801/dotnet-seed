@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.1.0" />
     <PackageReference Include="S2fx.LinqToQuerystring.Core" Version="0.7.2" />
-    <PackageReference Include="SqlKata.Execution" Version="1.1.3" />
+    <PackageReference Include="SqlKata.Execution" Version="1.1.6" />
     <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
   </ItemGroup>
 

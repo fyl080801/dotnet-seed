@@ -17,11 +17,11 @@ namespace SeedModules.OpenId.Domain
                 .IsUnique();
 
             builder.Property(scope => scope.ConcurrencyToken)
-                .IsConcurrencyToken();
+                    .IsConcurrencyToken();
 
             builder.Property(scope => scope.Name)
-                .HasMaxLength(255)
-                .IsRequired();
+                    .HasMaxLength(255)
+                    .IsRequired();
 
             builder.ToTable("OpenIdScopes");
         }
