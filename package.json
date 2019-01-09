@@ -27,6 +27,7 @@
     "@types/requirejs": "^2.1.31",
     "@types/three": "^0.92.11",
     "amd-optimize": "^0.6.1",
+    "codelyzer": "^4.5.0",
     "concurrently": "^3.5.1",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^2.2.1",
@@ -54,6 +55,7 @@
     "pump": "^3.0.0",
     "rimraf": "^2.5.2",
     "sog-gulp-rev-collector": "0.0.1",
+    "tslint": "^5.12.0",
     "typescript": "^2.9.2"
   },
   "dependencies": {

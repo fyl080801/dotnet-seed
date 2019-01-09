@@ -10,6 +10,7 @@ using OpenIddict.Server;
 using Seed.Data;
 using Seed.Modules;
 using Seed.Project.Extensions;
+using SeedModules.AngularUI.Rendering;
 using SeedModules.OpenId.Projects;
 using SeedModules.OpenId.Services;
 using SeedModules.OpenId.Stores;
@@ -24,6 +25,8 @@ namespace SeedModules.OpenId
             services.AddProjectExecutionStep<OpenIdApplicationStep>();
 
             services.AddScoped<IEntityTypeConfigurationProvider, EntityTypeConfigurations>();
+            services.AddScoped<IRouteReferenceProvider, RouteReferences>();
+
             services.AddOpenIddict(builder =>
             {
                 builder.AddCore(config =>

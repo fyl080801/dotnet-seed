@@ -1,3 +1,27 @@
-<div ng-controller="SeedModules.OpenId/modules/oauth2/controllers/index">
-  oauth
+<div class="container" ng-controller="SeedModules.OpenId/modules/oauth2/controllers/index">
+  <form style="display:none"><input type="password" /></form>
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="text-center"><h1>应用授权</h1></div>
+  </div>
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <form name="authform" class="modal-body">
+        <div class="page-btn"><button type="button" class="btn btn-success btn-group-justified">授 权</button></div>
+        <div><button type="button" class="btn btn-default btn-group-justified">取 消</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="panel panel-default" style="background-color: #F9F9F9">
+      <div class="panel-body text-center"><a href="">授权协议</a> | <a href="">授权协议</a></div>
+    </div>
+  </div>
 </div>
+<style>
+  body {
+    background-color: #f9f9f9;
+  }
+  .page-btn {
+    margin-bottom: 10px;
+  }
+</style>

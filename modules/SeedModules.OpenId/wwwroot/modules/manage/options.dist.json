@@ -1,0 +1,13 @@
+{
+  "configs": {
+    "SeedModules.OpenId/modules/manage/module": {
+      "path": "SeedModules.OpenId/dist/modules.manage.module",
+      "shim": {
+        "deps": ["app/application"]
+      }
+    },
+    "SeedModules.OpenId/modules/manage/requires": {
+      "path": "SeedModules.OpenId/dist/modules.manage.requires"
+    }
+  }
+}
