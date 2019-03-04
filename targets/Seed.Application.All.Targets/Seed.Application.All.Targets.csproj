@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <None Include="Seed.Application.All.Targets.targets" Pack="true">
-      <PackagePath>build\netstandard2.0\Seed.Application.All.Targets.targets</PackagePath>
+      <PackagePath>build\$(TargetFramework)\Seed.Application.All.Targets.targets</PackagePath>
     </None>
   </ItemGroup>
 

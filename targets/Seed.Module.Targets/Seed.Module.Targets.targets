@@ -24,7 +24,14 @@
     <None Remove="**\*.cshtml" />
     <None Update="@(None)" CopyToPublishDirectory="Never" />
     <EmbeddedResource Update="@(EmbeddedResource)" CopyToPublishDirectory="Never" />
+    <FrontendDirectory Include="$(MSBuildProjectDirectory)\wwwroot" />
   </ItemGroup>
+
+  <!-- npm install -->
+  <Target Name="ExecuteModuleGulp" AfterTargets="BeforeBuild" Condition="Exists(@(FrontendDirectory))">
+    <Message Text="构建前端: $(MSBuildProjectName)" Importance="high" />
+    <Exec Command="npm install" ContinueOnError="WarnAndContinue" WorkingDirectory="@(FrontendDirectory)" />
+  </Target>
 
   <Target Name="EmbeddModuleAssets" AfterTargets="AfterResolveReferences">
     <RemoveDuplicates Inputs="@(EmbeddedResource)">
@@ -32,14 +39,8 @@
     </RemoveDuplicates>
 
     <ItemGroup>
-    
-      <ModuleAssets
-        Include=".Modules\$(MSBuildProjectName)\%(ModuleAssetFiles.RelativeDir)%(Filename)%(Extension)|%(ModuleAssetFiles.FullPath)"
-        Condition="'%(ModuleAssetFiles.Link)' == '' and '%(ModuleAssetFiles.Filename)' != ''"/>
-
-      <ModuleAssets
-        Include=".Modules\$(MSBuildProjectName)\%(ModuleAssetFiles.Link)|%(ModuleAssetFiles.FullPath)"
-        Condition="'%(ModuleAssetFiles.Link)' != '' and '%(ModuleAssetFiles.Filename)' != ''" />
+      <ModuleAssets Include=".Modules\$(MSBuildProjectName)\%(ModuleAssetFiles.RelativeDir)%(Filename)%(Extension)|%(ModuleAssetFiles.FullPath)" Condition="'%(ModuleAssetFiles.Link)' == '' and '%(ModuleAssetFiles.Filename)' != ''"/>
+      <ModuleAssets Include=".Modules\$(MSBuildProjectName)\%(ModuleAssetFiles.Link)|%(ModuleAssetFiles.FullPath)" Condition="'%(ModuleAssetFiles.Link)' != '' and '%(ModuleAssetFiles.Filename)' != ''" />
     </ItemGroup>
 
     <ItemGroup>
