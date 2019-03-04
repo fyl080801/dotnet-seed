@@ -14,15 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\modules\SeedModules.Admin\SeedModules.Admin.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.AngularUI\SeedModules.AngularUI.csproj" PrivateAssets="none" />
-    <ProjectReference Include="..\..\modules\SeedModules.Arkham\SeedModules.Arkham.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Features\SeedModules.Features.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.MindPlus\SeedModules.MindPlus.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.OpenId\SeedModules.OpenId.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.PageBuilder\SeedModules.PageBuilder.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Router\SeedModules.Router.csproj" />
-    <ProjectReference Include="..\..\modules\SeedModules.Saas\SeedModules.Saas.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Security\SeedModules.Security.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" PrivateAssets="none" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" PrivateAssets="none" />

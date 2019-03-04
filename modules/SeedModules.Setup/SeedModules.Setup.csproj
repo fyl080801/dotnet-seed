@@ -14,7 +14,6 @@
     <ProjectReference Include="..\..\src\Seed.Mvc\Seed.Mvc.csproj" />
     <ProjectReference Include="..\..\src\Seed.Project\Seed.Project.csproj" />
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
-    <ProjectReference Include="..\SeedModules.AngularUI\SeedModules.AngularUI.csproj" />
   </ItemGroup>
 
 </Project>

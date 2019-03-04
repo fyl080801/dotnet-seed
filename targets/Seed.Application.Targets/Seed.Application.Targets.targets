@@ -5,12 +5,12 @@
     Application that references it will embedd in its assembly a list of the referenced modules.
   -->
 
-
+  <!-- 
   <Target Name="ExecuteModuleGulp" AfterTargets="BeforeBuild">
     <Message Text="压缩模块脚本文件: $(MSBuildProjectName)" Importance="high" />
-    <Exec Command="gulp build --src modules" ContinueOnError="WarnAndContinue" />
+    <Exec Command="gulp build -src modules" ContinueOnError="WarnAndContinue" />
   </Target>
-
+  -->
 
   <Target Name="PublishRazorPagesFiles" BeforeTargets="BeforePublish">
     <ItemGroup>
