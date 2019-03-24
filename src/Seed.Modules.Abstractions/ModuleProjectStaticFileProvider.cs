@@ -18,8 +18,10 @@ namespace Seed.Modules
         private static Dictionary<string, string> _paths;
         private static object _synLock = new object();
 
-        public ModuleProjectStaticFileProvider(IHostingEnvironment environment)
+        public ModuleProjectStaticFileProvider(IHostingEnvironment environment, string staticPath = null)
         {
+            staticPath = string.IsNullOrEmpty(staticPath) ? Module.WebRoot : staticPath;
+
             if (_paths != null)
             {
                 return;
@@ -42,7 +44,8 @@ namespace Seed.Modules
                             continue;
                         }
 
-                        var contentRoot = Application.ModulesRoot + name.Name + '/' + Module.WebRoot;
+                        // 用到模块中的 WebRoot 定义
+                        var contentRoot = Application.ModulesRoot + name.Name + '/' + staticPath;
 
                         var assets = module.Assets.Where(a => a.ModuleAssetPath
                             .StartsWith(contentRoot, StringComparison.Ordinal)).ToArray();

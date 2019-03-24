@@ -56,10 +56,12 @@ namespace Seed.Modules
                     {
                         pipeline = BuildTenantPipeline(engineContext.ServiceProvider, httpContext.RequestServices);
 
+                        // 如果是有spa，则会导致不断运行webpack
                         if (engineContext.Settings.State == TenantStates.Running)
                         {
                             _pipelines.Add(engineContext.Settings.Name, pipeline);
                         }
+                        // _pipelines.Add(engineContext.Settings.Name, pipeline);
                     }
                 }
             }

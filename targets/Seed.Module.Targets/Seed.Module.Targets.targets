@@ -11,6 +11,7 @@
     <ModuleDefaultAssetExcludes>$(ModuleDefaultAssetExcludes);**\*$(DefaultLanguageSourceExtension);**\*.resx</ModuleDefaultAssetExcludes>
     <ModuleNoneExcludes>$(BaseIntermediateOutputPath)**\*.props;$(BaseIntermediateOutputPath)**\*.targets</ModuleNoneExcludes>
     <ModuleNoneIncludes>$(ModuleAssetExcludes)</ModuleNoneIncludes>
+    <FrontendDirectory>$(MSBuildProjectDirectory)\ClientApp\</FrontendDirectory>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(AppDesignerFolder)' != ''">
@@ -18,7 +19,6 @@
     <ModuleNoneExcludes>$(ModuleNoneExcludes);$(AppDesignerFolder)\**\*$(DefaultLanguageSourceExtension)</ModuleNoneExcludes>
     <ModuleNoneExcludes>$(ModuleNoneExcludes);$(AppDesignerFolder)\**\*.resx</ModuleNoneExcludes>
     <ModuleNoneIncludes>$(ModuleNoneIncludes);$(AppDesignerFolder)\**</ModuleNoneIncludes>
-    <FrontendDirectory>$(MSBuildProjectDirectory)\ClientApp\</FrontendDirectory>
   </PropertyGroup>
 
   <ItemGroup>

@@ -14,10 +14,12 @@ namespace Seed.Modules
     public class ModuleEmbeddedStaticFileProvider : IFileProvider
     {
         private readonly IHostingEnvironment _environment;
+        private readonly string _staticPath;
 
-        public ModuleEmbeddedStaticFileProvider(IHostingEnvironment environment)
+        public ModuleEmbeddedStaticFileProvider(IHostingEnvironment environment, string staticPath = null)
         {
             _environment = environment;
+            _staticPath = string.IsNullOrEmpty(staticPath) ? Module.WebRoot : staticPath;
         }
 
         public IDirectoryContents GetDirectoryContents(string subpath)
@@ -42,15 +44,14 @@ namespace Seed.Modules
 
                 if (_environment.GetApplication().NamedModules.Count(e => e.Name.Equals(module, StringComparison.Ordinal)) > 0)
                 {
-                    var fileSubPath = Module.WebRoot + path.Substring(index + 1);
+                    // 用到模块中的 WebRoot 定义
+                    var fileSubPath = _staticPath + path.Substring(index + 1);
 
-                    if (module != _environment.GetApplication().Name)
-                    {
-                        return _environment.GetModule(module).GetFileInfo(fileSubPath);
-                    }
-
-                    fileSubPath = _environment.GetApplication().Root + fileSubPath;
-                    return new PhysicalFileInfo(new FileInfo(fileSubPath));
+                    // 当前不是框架本身，则从模块里找到文件
+                    // 否则从应用跟路径找
+                    return module != _environment.GetApplication().Name
+                        ? _environment.GetModule(module).GetFileInfo(fileSubPath)
+                        : new PhysicalFileInfo(new FileInfo(_environment.GetApplication().Root + fileSubPath));
                 }
             }
 
