@@ -18,19 +18,35 @@
     <ModuleNoneExcludes>$(ModuleNoneExcludes);$(AppDesignerFolder)\**\*$(DefaultLanguageSourceExtension)</ModuleNoneExcludes>
     <ModuleNoneExcludes>$(ModuleNoneExcludes);$(AppDesignerFolder)\**\*.resx</ModuleNoneExcludes>
     <ModuleNoneIncludes>$(ModuleNoneIncludes);$(AppDesignerFolder)\**</ModuleNoneIncludes>
+    <FrontendDirectory>$(MSBuildProjectDirectory)\ClientApp\</FrontendDirectory>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="**\*.cshtml" />
     <None Update="@(None)" CopyToPublishDirectory="Never" />
     <EmbeddedResource Update="@(EmbeddedResource)" CopyToPublishDirectory="Never" />
-    <FrontendDirectory Include="$(MSBuildProjectDirectory)\wwwroot" />
   </ItemGroup>
 
   <!-- npm install -->
-  <Target Name="ExecuteModuleGulp" AfterTargets="BeforeBuild" Condition="Exists(@(FrontendDirectory))">
-    <Message Text="构建前端: $(MSBuildProjectName)" Importance="high" />
-    <Exec Command="npm install" ContinueOnError="WarnAndContinue" WorkingDirectory="@(FrontendDirectory)" />
+  <Target Name="ExecuteModuleNPM" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And Exists('$(FrontendDirectory)') And !Exists('$(FrontendDirectory)node_modules') ">
+    <Message Text="初始化 npm: $(MSBuildProjectName)" Importance="high" />
+    <Exec Command="npm install" ContinueOnError="WarnAndContinue" WorkingDirectory="$(FrontendDirectory)" />
+  </Target>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish" Condition=" Exists('$(FrontendDirectory)') ">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    <Message Text="发布构建前端: $(MSBuildProjectName)" Importance="high" />
+    <Exec WorkingDirectory="$(FrontendDirectory)" Command="npm install" />
+    <Exec WorkingDirectory="$(FrontendDirectory)" Command="npm run build" />
+
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(FrontendDirectory)build\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
   </Target>
 
   <Target Name="EmbeddModuleAssets" AfterTargets="AfterResolveReferences">

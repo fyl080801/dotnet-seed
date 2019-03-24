@@ -10,6 +10,9 @@ using System.Text;
 
 namespace Seed.Modules
 {
+    /// <summary>
+    /// 模块中嵌入式静态文件
+    /// </summary>
     public class ModuleProjectStaticFileProvider : IFileProvider
     {
         private static Dictionary<string, string> _paths;
