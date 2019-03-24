@@ -6,11 +6,8 @@
     "**/.hg": true,
     "**/CVS": true,
     "**/.DS_Store": true,
-    "modules/**/*.map": true,
     "**/bin": true,
-    "**/obj": true,
-    // 都用typescript就不用管理js了
-    "modules/**/wwwroot/modules/**/*.js": true
+    "**/obj": true
   },
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }

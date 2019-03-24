@@ -8,6 +8,9 @@ using System.Linq;
 
 namespace Seed.Modules
 {
+    /// <summary>
+    /// 模块嵌入的静态文件
+    /// </summary>
     public class ModuleEmbeddedStaticFileProvider : IFileProvider
     {
         private readonly IHostingEnvironment _environment;

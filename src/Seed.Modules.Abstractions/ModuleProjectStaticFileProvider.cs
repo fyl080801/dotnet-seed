@@ -11,7 +11,7 @@ using System.Text;
 namespace Seed.Modules
 {
     /// <summary>
-    /// 模块中嵌入式静态文件
+    /// 模块项目中的静态文件
     /// </summary>
     public class ModuleProjectStaticFileProvider : IFileProvider
     {
