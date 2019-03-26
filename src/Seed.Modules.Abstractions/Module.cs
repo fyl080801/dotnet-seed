@@ -12,7 +12,12 @@ namespace Seed.Modules
     public class Module
     {
         public const string WebRootPath = "wwwroot";
+
+        public const string ClientAppPath = "ClientApp";
+
         public static string WebRoot = WebRootPath + "/";
+
+        public static string ClientApp = ClientAppPath + "/";
 
         private readonly string _baseNamespace;
         private readonly DateTimeOffset _lastModified;

@@ -40,13 +40,13 @@
     <Exec WorkingDirectory="$(FrontendDirectory)" Command="npm run build" />
 
     <!-- Include the newly-built files in the publish output -->
-    <ItemGroup>
+    <!-- <ItemGroup>
       <DistFiles Include="$(FrontendDirectory)build\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>
-    </ItemGroup>
+    </ItemGroup> -->
   </Target>
 
   <Target Name="EmbeddModuleAssets" AfterTargets="AfterResolveReferences">

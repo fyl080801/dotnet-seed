@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SpaServices.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -12,9 +13,11 @@ using Seed.Environment.Engine;
 using Seed.Environment.Engine.Descriptor.Models;
 using Seed.Environment.Plugins;
 using Seed.Modules.Builder;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Seed.Modules.Extensions
 {
@@ -43,6 +46,27 @@ namespace Seed.Modules.Extensions
             }
 
             return builder;
+        }
+
+        public static IServiceCollection AddSeedSpaStaticFiles(this IServiceCollection services, Action<SpaStaticFilesOptions> configuration = null)
+        {
+            // 实现一个嵌入资源的单页应用provider
+            services.AddSingleton<ISpaStaticFileProvider>(serviceProvider =>
+            {
+                var optionsProvider = serviceProvider.GetService<IOptions<SpaStaticFilesOptions>>();
+                var options = optionsProvider.Value;
+
+                configuration?.Invoke(options);
+
+                if (string.IsNullOrEmpty(options.RootPath))
+                {
+                    throw new InvalidOperationException($"没有 {nameof(SpaStaticFilesOptions.RootPath)} " +
+                        $"被设置在 {nameof(SpaStaticFilesOptions)}.");
+                }
+
+                return new ModuleSpaStaticFileProvider(serviceProvider, options);
+            });
+            return services;
         }
 
         private static void AddDefaultServices(IServiceCollection services)

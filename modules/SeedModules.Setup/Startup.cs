@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.DependencyInjection;
 using Seed.Modules;
+using Seed.Modules.Extensions;
 using SeedModules.Setup.Services;
 using System;
 
@@ -15,9 +16,9 @@ namespace SeedModules.Setup
         {
             // services.AddViewOptions<SetupViewOptionBuilder>();
             services.AddScoped<ISetupService, SetupService>();
-            services.AddSpaStaticFiles(config =>
+            services.AddSeedSpaStaticFiles(config =>
             {
-                config.RootPath = "../../modules/SeedModules.Setup/ClientApp/build";
+                config.RootPath = "build";
             });
         }
 
@@ -30,20 +31,11 @@ namespace SeedModules.Setup
                 defaults: new { controller = "Home", action = "Index" }
             );
 
-            var env = serviceProvider.GetService<IHostingEnvironment>();
-            app.UseSpaStaticFiles();
-            app.UseSpa(config =>
+            app.UseSeedSpa(new SeedSpaOptions()
             {
-                // config.Options.DefaultPageStaticFileOptions = new StaticFileOptions()
-                // {
-                //     RequestPath = "/SeedModules.Setup"
-                // };
-                config.Options.SourcePath = "../../modules/SeedModules.Setup/ClientApp";
-                if (env.IsDevelopment())
-                {
-                    config.UseReactDevelopmentServer(npmScript: "start");
-                }
+                SpaType = "react"
             });
+
         }
     }
 }
