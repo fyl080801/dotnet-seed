@@ -110,26 +110,21 @@ namespace Seed.Modules.Extensions
             {
                 var env = serviceProvider.GetRequiredService<IHostingEnvironment>();
 
-                IFileProvider fileProvider;
+                var fileProviders = new List<IFileProvider>
+                {
+                    new ModuleEmbeddedStaticFileProvider(env)
+                };
+
                 // 开发环境下需要直接读取模块目录下的文件
                 if (env.IsDevelopment())
                 {
-                    var fileProviders = new List<IFileProvider>
-                    {
-                        new ModuleProjectStaticFileProvider(env),
-                        new ModuleEmbeddedStaticFileProvider(env)
-                    };
-                    fileProvider = new CompositeFileProvider(fileProviders);
-                }
-                else
-                {
-                    fileProvider = new ModuleEmbeddedStaticFileProvider(env);
+                    fileProviders.Insert(0, new ModuleProjectStaticFileProvider(env));
                 }
 
                 app.UseStaticFiles(new StaticFileOptions
                 {
                     RequestPath = "",
-                    FileProvider = fileProvider
+                    FileProvider = new CompositeFileProvider(fileProviders)
                 });
             });
         }
