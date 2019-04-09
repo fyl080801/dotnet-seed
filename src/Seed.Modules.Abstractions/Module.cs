@@ -11,12 +11,24 @@ namespace Seed.Modules
 {
     public class Module
     {
+        /// <summary>
+        /// wwwroot
+        /// </summary>
         public const string WebRootPath = "wwwroot";
 
+        /// <summary>
+        /// ClientApp
+        /// </summary>
         public const string ClientAppPath = "ClientApp";
 
+        /// <summary>
+        /// wwwroot/
+        /// </summary>
         public static string WebRoot = WebRootPath + "/";
 
+        /// <summary>
+        /// ClientApp/
+        /// </summary>
         public static string ClientApp = ClientAppPath + "/";
 
         private readonly string _baseNamespace;

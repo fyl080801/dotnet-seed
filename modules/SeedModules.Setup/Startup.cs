@@ -14,6 +14,7 @@ namespace SeedModules.Setup
         {
             // services.AddViewOptions<SetupViewOptionBuilder>();
             services.AddScoped<ISetupService, SetupService>();
+            // services.AddModuleStaticFile("Content");
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)

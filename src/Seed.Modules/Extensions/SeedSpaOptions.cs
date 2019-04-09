@@ -4,6 +4,6 @@ namespace Seed.Modules.Extensions
 {
     public class SeedSpaOptions
     {
-        public string SpaType { get; set; }
+        public SpaTypes SpaType { get; set; }
     }
 }

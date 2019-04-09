@@ -11,7 +11,7 @@ namespace SeedModules.NpmTest1
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddSeedSpaStaticFiles(config =>
+            services.AddSeedSpa(config =>
             {
                 config.RootPath = "build";
             });
@@ -21,7 +21,7 @@ namespace SeedModules.NpmTest1
         {
             app.UseSeedSpa(new SeedSpaOptions
             {
-                SpaType = "react"
+                SpaType = SpaTypes.React
             });
         }
     }

@@ -20,6 +20,7 @@ namespace Seed.Modules
 
         public ModuleProjectStaticFileProvider(IHostingEnvironment environment, string staticPath = null)
         {
+            // 默认用到模块中的 WebRoot 定义
             staticPath = string.IsNullOrEmpty(staticPath) ? Module.WebRoot : staticPath;
 
             if (_paths != null)
@@ -44,9 +45,7 @@ namespace Seed.Modules
                             continue;
                         }
 
-                        // 用到模块中的 WebRoot 定义
                         var contentRoot = Application.ModulesRoot + name.Name + '/' + staticPath;
-
                         var assets = module.Assets.Where(a => a.ModuleAssetPath
                             .StartsWith(contentRoot, StringComparison.Ordinal)).ToArray();
 

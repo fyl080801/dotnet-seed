@@ -48,7 +48,14 @@ namespace Seed.Modules.Extensions
             return builder;
         }
 
-        public static IServiceCollection AddSeedSpaStaticFiles(this IServiceCollection services, Action<SpaStaticFilesOptions> configuration = null)
+        public static IServiceCollection AddModuleStaticFile(this IServiceCollection services, string path)
+        {
+            var callerName = Assembly.GetCallingAssembly().GetName().Name;
+            services.AddSingleton<ISeedFileProvider>(sp => new ModuleInnerFileProvider(sp.GetService<IHostingEnvironment>(), callerName, path));
+            return services;
+        }
+
+        public static IServiceCollection AddSeedSpa(this IServiceCollection services, Action<SpaStaticFilesOptions> configuration = null)
         {
             // 实现一个嵌入资源的单页应用provider
             services.AddSingleton<ISpaStaticFileProvider>(serviceProvider =>
@@ -110,10 +117,13 @@ namespace Seed.Modules.Extensions
             {
                 var env = serviceProvider.GetRequiredService<IHostingEnvironment>();
 
+                var seedProviders = serviceProvider.GetServices<ISeedFileProvider>();
                 var fileProviders = new List<IFileProvider>
                 {
                     new ModuleEmbeddedStaticFileProvider(env)
-                };
+                }
+                .Concat(seedProviders)
+                .ToList();
 
                 // 开发环境下需要直接读取模块目录下的文件
                 if (env.IsDevelopment())

@@ -31,7 +31,7 @@ namespace Seed.Modules.Extensions
         {
             var env = app.ApplicationServices.GetService<IHostingEnvironment>();
             var callerName = Assembly.GetCallingAssembly().GetName().Name;
-            options = options ?? new SeedSpaOptions { SpaType = "react" };
+            options = options ?? new SeedSpaOptions { SpaType = SpaTypes.React };
 
             app.UseSpa(config =>
             {
@@ -41,7 +41,7 @@ namespace Seed.Modules.Extensions
                 {
                     config.Options.SourcePath = $"../../modules/{callerName}/ClientApp";
 
-                    if (options.SpaType == "react")
+                    if (options.SpaType == SpaTypes.React)
                     {
                         config.UseReactDevelopmentServer("start");
                     }

@@ -9,8 +9,12 @@ namespace Seed.Modules
 {
     public class ModuleSpaStaticFileProvider : ISpaStaticFileProvider
     {
+        static readonly object locker = new object();
+
         private readonly IHostingEnvironment _environment;
         private readonly SpaStaticFilesOptions _options;
+
+        private IFileProvider _provider;
 
         public ModuleSpaStaticFileProvider(IServiceProvider serviceProvider, SpaStaticFilesOptions options)
         {
@@ -22,22 +26,31 @@ namespace Seed.Modules
         {
             get
             {
-                if (_environment.IsDevelopment())
+                if (_provider == null)
                 {
-                    var fileProviders = new List<IFileProvider>
+                    lock (locker)
                     {
-                        new ModuleProjectStaticFileProvider(_environment, Module.ClientApp),
-                        new ModuleEmbeddedStaticFileProvider(_environment,  Module.ClientApp)
-                    };
-                    return new CompositeFileProvider(fileProviders);
+                        if (_provider == null)
+                        {
+                            var fileProviders = new List<IFileProvider>();
+
+                            if (_environment.IsDevelopment())
+                            {
+                                fileProviders.Add(new ModuleProjectStaticFileProvider(_environment, Module.ClientApp));
+                                fileProviders.Add(new ModuleEmbeddedStaticFileProvider(_environment, Module.ClientApp));
+                            }
+                            else
+                            {
+                                fileProviders.Add(new ModuleEmbeddedStaticFileProvider(
+                                    _environment,
+                                    Module.ClientApp + (string.IsNullOrEmpty(_options.RootPath) ? "" : _options.RootPath + "/")));
+                            }
+
+                            _provider = new CompositeFileProvider(fileProviders);
+                        }
+                    }
                 }
-                else
-                {
-                    return new ModuleEmbeddedStaticFileProvider(
-                        _environment,
-                        Module.ClientApp + (string.IsNullOrEmpty(_options.RootPath) ? "" : _options.RootPath + "/")
-                    );
-                }
+                return _provider;
             }
         }
     }
