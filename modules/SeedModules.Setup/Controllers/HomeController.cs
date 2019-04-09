@@ -5,12 +5,14 @@ namespace SeedModules.Setup.Controllers
 {
     public class HomeController : Controller
     {
-        readonly IDbContext _context;
+        // 不要在未初始化的时候用IDbContext，这时候数据库实例还不存在
 
-        public HomeController(IDbContext context)
-        {
-            _context = context;
-        }
+        // readonly IDbContext _context;
+
+        // public HomeController(IDbContext context)
+        // {
+        //     _context = context;
+        // }
 
         public IActionResult Index()
         {
