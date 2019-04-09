@@ -51,7 +51,21 @@ namespace Seed.Modules.Extensions
         public static IServiceCollection AddModuleStaticFile(this IServiceCollection services, string path)
         {
             var callerName = Assembly.GetCallingAssembly().GetName().Name;
-            services.AddSingleton<ISeedFileProvider>(sp => new ModuleInnerFileProvider(sp.GetService<IHostingEnvironment>(), callerName, path));
+            services.AddSingleton<ISeedFileProvider>(sp => new ModuleInnerStaticFileProvider(sp.GetService<IHostingEnvironment>(), callerName, path));
+            return services;
+        }
+
+        public static IServiceCollection AddModuleStaticFile(this IServiceCollection services, Func<IServiceProvider, IHostingEnvironment, string> pathFactory)
+        {
+            var callerName = Assembly.GetCallingAssembly().GetName().Name;
+
+            services.AddSingleton<ISeedFileProvider>(sp =>
+            {
+                var env = sp.GetService<IHostingEnvironment>();
+                var path = pathFactory(sp, env);
+                return new ModuleInnerStaticFileProvider(env, callerName, path);
+            });
+
             return services;
         }
 
