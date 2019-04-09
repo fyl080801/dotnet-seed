@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Reflection;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.AspNetCore.SpaServices.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace Seed.Modules.Extensions
 {
@@ -32,24 +30,20 @@ namespace Seed.Modules.Extensions
         public static IApplicationBuilder UseSeedSpa(this IApplicationBuilder app, SeedSpaOptions options = null)
         {
             var env = app.ApplicationServices.GetService<IHostingEnvironment>();
-            var currentCaller = Assembly.GetCallingAssembly().GetName().Name;
-            options = options ?? new SeedSpaOptions() { SpaType = "react" };
-
-            // app.UseSpaStaticFiles(new StaticFileOptions()
-            // {
-            //     RequestPath = "/SeedModules.Setup",
-            //     FileProvider = new ModuleSpaStaticFileProvider(app.ApplicationServices, new SpaStaticFilesOptions()).FileProvider
-            // });
+            var callerName = Assembly.GetCallingAssembly().GetName().Name;
+            options = options ?? new SeedSpaOptions { SpaType = "react" };
 
             app.UseSpa(config =>
             {
-                config.Options.SourcePath = $"../../modules/{currentCaller}/ClientApp";
-                config.Options.DefaultPage = $"/{currentCaller}";
+                config.Options.DefaultPage = $"/{callerName}";
+
                 if (env.IsDevelopment())
                 {
+                    config.Options.SourcePath = $"../../modules/{callerName}/ClientApp";
+
                     if (options.SpaType == "react")
                     {
-                        config.UseReactDevelopmentServer(npmScript: "start");
+                        config.UseReactDevelopmentServer("start");
                     }
                 }
             });

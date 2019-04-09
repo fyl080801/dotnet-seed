@@ -16,8 +16,4 @@
     <ProjectReference Include="..\..\targets\Seed.Module.Targets\Seed.Module.Targets.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
-  </ItemGroup>
-
 </Project>

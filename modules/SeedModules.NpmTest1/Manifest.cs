@@ -1,12 +1,12 @@
 ﻿using Seed.Modules.Manifest;
 
 [assembly: Module(
-    Name = "系统安装",
+    Name = "npm-test1",
     Author = "",
     Website = "",
     Version = "1.0.0",
     Description = "",
     // Dependencies = new[] { },
     ManageDisallowed = true,
-    Category = "基础模块"
+    Category = "测试"
 )]

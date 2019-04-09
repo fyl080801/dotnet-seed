@@ -18,5 +18,6 @@
     <ProjectReference Include="..\..\modules\SeedModules.Security\SeedModules.Security.csproj" />
     <ProjectReference Include="..\..\modules\SeedModules.Setup\SeedModules.Setup.csproj" PrivateAssets="none" />
     <ProjectReference Include="..\Seed.Application.Targets\Seed.Application.Targets.csproj" PrivateAssets="none" />
+    <ProjectReference Include="..\..\modules\SeedModules.NpmTest1\SeedModules.NpmTest1.csproj" />
   </ItemGroup>
 </Project>
