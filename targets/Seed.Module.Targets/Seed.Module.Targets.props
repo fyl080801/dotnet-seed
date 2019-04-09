@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <None Include="$(ModuleNoneIncludes)" Exclude="$(ModuleNoneExcludes)" />
+    <!--排除不需要嵌入的文件-->
     <EmbeddedResource Include="**\*" Exclude="$(ModuleDefaultAssetExcludes);$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
     <RazorGenerate Include="@(EmbeddedResource->WithMetadataValue('Extension', '.cshtml'))" />
   </ItemGroup>
