@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
-import { Button, Steps, message } from 'antd';
-import './App.css';
+import { Steps, message, Form } from 'antd';
+import { Button } from './components';
+import SiteInfo from './steps/SiteInfo';
+import Database from './steps/Database';
+import Account from './steps/Account';
 
-export default (props: any) => {
+export default () => {
   const [current, setCurrent] = useState(0);
 
   const steps = [
     {
-      title: 'First',
-      content: 'First-content'
+      title: '系统信息',
+      content: SiteInfo
     },
     {
-      title: 'Second',
-      content: 'Second-content'
+      title: '数据库信息',
+      content: Database
     },
     {
-      title: 'Last',
-      content: 'Last-content'
+      title: '初始账号',
+      content: Account
     }
   ];
 
@@ -29,22 +32,26 @@ export default (props: any) => {
   };
 
   return (
-    <div>
+    <div className="container setup">
       <Steps current={current}>
         {steps.map(item => (
           <Steps.Step key={item.title} title={item.title} />
         ))}
       </Steps>
-      <div className="steps-content">{steps[current].content}</div>
+      <div className="steps-content">
+        <Form>{steps[current].content()}</Form>
+      </div>
       <div className="steps-action">
-        {current < steps.length - 1 && <button onClick={() => next()}>Next</button>}
-        {current === steps.length - 1 && (
-          <button onClick={() => message.success('Processing complete!')}>Done</button>
-        )}
         {current > 0 && (
-          <button style={{ marginLeft: 8 }} onClick={() => prev()}>
-            Previous
-          </button>
+          <Button style={{ marginRight: 8 }} onClick={() => prev()}>
+            上一步
+          </Button>
+        )}
+        {current < steps.length - 1 && <Button onClick={() => next()}>下一步</Button>}
+        {current === steps.length - 1 && (
+          <Button buttontype="primary" onClick={() => message.success('Processing complete!')}>
+            完成
+          </Button>
         )}
       </div>
     </div>

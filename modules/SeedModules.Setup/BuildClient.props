@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ClientPath>$(MSBuildProjectDirectory)\ClientApp\</ClientPath>
+    </PropertyGroup>
+
+    <Target Name="BuildSetupClient" AfterTargets="BeforeBuild" Condition=" Exists('$(ClientPath)') ">
+        <Message Text="构建 setup 前端: $(MSBuildProjectName)" Importance="high" />
+        <Exec WorkingDirectory="$(ClientPath)" Command="npm install" />
+        <Exec WorkingDirectory="$(ClientPath)" Command="npm run build" />
+    </Target>
+</Project>
