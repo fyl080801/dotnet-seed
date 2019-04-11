@@ -9,7 +9,7 @@ export default () => {
           <Input />
         </Form.Item>
         <Form.Item label="密码">
-          <Input />
+          <Input type="password" placeholder="输入密码" />
         </Form.Item>
       </Col>
       <Col span={12}>
