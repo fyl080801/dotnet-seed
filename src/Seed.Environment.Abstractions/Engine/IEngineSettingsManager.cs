@@ -4,12 +4,10 @@ namespace Seed.Environment.Engine
 {
     public interface IEngineSettingsManager
     {
-        EngineSettings GetSettings(string name);
+        EngineSettings CreateDefaultSettings();
 
         IEnumerable<EngineSettings> LoadSettings();
 
         void SaveSettings(EngineSettings settings);
-
-        bool TryGetSettings(string name, out EngineSettings settings);
     }
 }

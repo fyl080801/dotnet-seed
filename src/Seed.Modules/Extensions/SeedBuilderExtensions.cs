@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Seed.Environment.Engine;
+using Seed.Environment.Engine.Configuration;
 using Seed.Environment.Engine.Descriptor;
 using Seed.Environment.Engine.Descriptor.Models;
 using Seed.Environment.Engine.Descriptor.Settings;
@@ -12,17 +14,6 @@ namespace Seed.Modules.Extensions
 {
     public static class SeedBuilderExtensions
     {
-        public static SeedBuilder AddDeferredTasks(this SeedBuilder builder)
-        {
-            builder.ConfigureServices(services =>
-            {
-                services.TryAddScoped<IDeferredTaskEngine, DeferredTaskEngine>();
-                services.TryAddScoped<IDeferredTaskState, HttpContextTaskState>();
-            });
-
-            return builder;
-        }
-
         public static SeedBuilder AddGlobalFeatures(this SeedBuilder builder, params string[] featureIds)
         {
             foreach (var featureId in featureIds)
@@ -60,11 +51,12 @@ namespace Seed.Modules.Extensions
         {
             var services = builder.ApplicationServices;
 
-            services.AddSingleton<IEngineSettingsConfigurationProvider, EngineSettingsConfigurationProvider>();
-            services.AddScoped<IEngineDescriptorManager, FileEngineDescriptorManager>();
-            services.AddSingleton<IEngineSettingsManager, EngineSettingsManager>();
+            services.AddSingleton<IEnginesSettingsSources, EnginesSettingsSources>();
+            services.AddSingleton<IEnginesConfigurationSources, EnginesConfigurationSources>();
+            services.AddSingleton<IEngineConfigurationSources, EngineConfigurationSources>();
+            services.AddScoped<IEngineDescriptorManager, ConfiguredFeaturesEngineDescriptorManager>();
             services.AddTransient<IConfigureOptions<EngineOptions>, EngineOptionsSetup>();
-            services.AddScoped<EngineSettingsWithTenants>();
+            services.AddSingleton<IEngineSettingsManager, EngineSettingsManager>();
 
             return builder;
         }
@@ -77,6 +69,13 @@ namespace Seed.Modules.Extensions
             }
 
             builder.ApplicationServices.AddSetFeaturesDescriptor();
+
+            return builder;
+        }
+
+        public static SeedBuilder AddBackgroundService(this SeedBuilder builder)
+        {
+            builder.ApplicationServices.AddSingleton<IHostedService, ModuleBackgroundService>();
 
             return builder;
         }

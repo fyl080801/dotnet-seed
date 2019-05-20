@@ -1,10 +1,12 @@
-﻿using Seed.Project.Models;
+﻿using Seed.Environment.Engine;
+using Seed.Project.Models;
 using System.Collections.Generic;
 
 namespace SeedModules.Setup.Services
 {
     public class SetupContext
     {
+        public EngineSettings EngineSettings { get; set; }
         public string Name { get; set; }
 
         public string AdminUsername { get; set; }

@@ -26,7 +26,7 @@ namespace Seed.Application.All.Targets
                 .AddSetupFeatures("SeedModules.Setup")
                 .AddDataAccess()
                 .AddEngineStorage()
-                .AddBackgroundTasks()
+                .AddBackgroundService()
                 .AddDeferredTasks()
                 .AddCaching();
 

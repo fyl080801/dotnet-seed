@@ -117,6 +117,8 @@ namespace Seed.Modules.Extensions
 
         private static void AddPluginServices(SeedBuilder builder)
         {
+            builder.ApplicationServices.AddSingleton<IModuleNamesProvider, AssemblyAttributeModuleNamesProvider>();
+
             builder.ApplicationServices.AddPluginManagerHost();
 
             builder.ConfigureServices(services =>

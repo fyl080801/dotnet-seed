@@ -6,28 +6,26 @@ namespace Seed.Environment.Engine
 {
     public class SingleEngineSettingsManager : IEngineSettingsManager
     {
-        public EngineSettings GetSettings(string name)
+        public EngineSettings CreateDefaultSettings()
         {
-            return LoadSettings().First();
-        }
-
-        public IEnumerable<EngineSettings> LoadSettings()
-        {
-            yield return new EngineSettings
+            return new EngineSettings()
             {
                 Name = "Default",
                 State = TenantStates.Running
             };
         }
 
-        public void SaveSettings(EngineSettings engineSettings)
+        public IEnumerable<EngineSettings> LoadSettings()
         {
+            yield return new EngineSettings()
+            {
+                Name = "Default",
+                State = TenantStates.Running
+            };
         }
 
-        public bool TryGetSettings(string name, out EngineSettings settings)
+        public void SaveSettings(EngineSettings shellSettings)
         {
-            settings = LoadSettings().First();
-            return true;
         }
     }
 }

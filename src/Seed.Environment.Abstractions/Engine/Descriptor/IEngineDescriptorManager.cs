@@ -8,6 +8,9 @@ namespace Seed.Environment.Engine.Descriptor
     {
         Task<EngineDescriptor> GetEngineDescriptorAsync();
 
-        Task UpdateEngineDescriptorAsync(int priorSerialNumber, IEnumerable<EngineFeature> enabledFeatures, IEnumerable<EngineParameter> parameters);
+        Task UpdateEngineDescriptorAsync(
+            int priorSerialNumber,
+            IEnumerable<EngineFeature> enabledFeatures,
+            IEnumerable<EngineParameter> parameters);
     }
 }

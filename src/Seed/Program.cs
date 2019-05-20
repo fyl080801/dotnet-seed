@@ -15,10 +15,8 @@ namespace Seed
 
         public static IWebHost Build(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args)
-                .UseArgs(args)
+            return WebHost.CreateDefaultBuilder<Startup>(args)
                 .UseNLogWeb()
-                .UseStartup<Startup>()
                 .Build();
         }
     }

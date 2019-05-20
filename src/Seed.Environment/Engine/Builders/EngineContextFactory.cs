@@ -30,13 +30,13 @@ namespace Seed.Environment.Engine.Builders
         {
             if (_logger.IsEnabled(LogLevel.Information))
             {
-                _logger.LogInformation($"为租户 '{settings.Name}' 创建上下文环境");
+                _logger.LogInformation("涓虹鎴峰垱寤轰笂涓嬫枃 '{TenantName}'", settings.Name);
             }
 
             var describedContext = await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
 
             EngineDescriptor currentDescriptor;
-            using (var scope = describedContext.EnterServiceScope())
+            using (var scope = describedContext.ServiceProvider.CreateScope())
             {
                 var engineDescriptorManager = scope.ServiceProvider.GetService<IEngineDescriptorManager>();
                 currentDescriptor = await engineDescriptorManager.GetEngineDescriptorAsync();
@@ -44,6 +44,7 @@ namespace Seed.Environment.Engine.Builders
 
             if (currentDescriptor != null)
             {
+                describedContext.Release();
                 return await CreateDescribedContextAsync(settings, currentDescriptor);
             }
 
@@ -54,20 +55,21 @@ namespace Seed.Environment.Engine.Builders
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
-                _logger.LogDebug("未设置任何运行环境. 创建一个安装环境");
+                _logger.LogDebug("No engine settings available. Creating engine context for setup");
             }
+            var descriptor = MinimumEngineDescriptor();
 
-            return await CreateDescribedContextAsync(settings, MinimumEngineDescriptor());
+            return await CreateDescribedContextAsync(settings, descriptor);
         }
 
-        public async Task<EngineContext> CreateDescribedContextAsync(EngineSettings settings, EngineDescriptor engineDescriptor)
+        public async Task<EngineContext> CreateDescribedContextAsync(EngineSettings settings, EngineDescriptor shellDescriptor)
         {
             if (_logger.IsEnabled(LogLevel.Debug))
             {
-                _logger.LogDebug("Creating described context for tenant '{TenantName}'", settings.Name);
+                _logger.LogDebug("涓虹鎴峰垱寤烘弿杩颁笂涓嬫枃 '{TenantName}'", settings.Name);
             }
 
-            var schema = await _compositionStrategy.ComposeAsync(settings, engineDescriptor);
+            var schema = await _compositionStrategy.ComposeAsync(settings, shellDescriptor);
             var provider = _engineContainerFactory.CreateContainer(settings, schema);
 
             return new EngineContext
@@ -87,6 +89,5 @@ namespace Seed.Environment.Engine.Builders
                 Parameters = new List<EngineParameter>()
             };
         }
-
     }
 }

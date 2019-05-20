@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
 using Seed.Environment.Engine;
 using Seed.Modules.DeferredTasks;
 using Seed.Modules.Extensions;
@@ -20,37 +21,43 @@ namespace Seed.Modules
     public class ModuleTenantContainerMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IEngineHost _host;
+        private readonly IEngineHost _engineHost;
         private readonly IRunningEngineTable _runningEngineTable;
         private readonly ConcurrentDictionary<string, SemaphoreSlim> _semaphores = new ConcurrentDictionary<string, SemaphoreSlim>();
 
         public ModuleTenantContainerMiddleware(
             RequestDelegate next,
-            IEngineHost host,
+            IEngineHost engineHost,
             IRunningEngineTable runningEngineTable)
         {
             _next = next;
-            _host = host;
+            _engineHost = engineHost;
             _runningEngineTable = runningEngineTable;
         }
 
         public async Task Invoke(HttpContext httpContext)
         {
-            _host.Initialize();
+            await _engineHost.InitializeAsync();
 
             var engineSettings = _runningEngineTable.Match(httpContext);
 
             if (engineSettings != null)
             {
-                var engineContext = _host.GetOrCreateEngineContext(engineSettings);
+                if (engineSettings.State == Environment.Engine.Models.TenantStates.Initializing)
+                {
+                    httpContext.Response.Headers.Add(HeaderNames.RetryAfter, "10");
+                    httpContext.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
+                    await httpContext.Response.WriteAsync("The requested tenant is currently initializing.");
+                    return;
+                }
 
                 var hasPendingTasks = false;
-                using (var scope = engineContext.EnterServiceScope())
+
+                var (scope, engineContext) = await _engineHost.GetScopeAndContextAsync(engineSettings);
+
+                using (scope)
                 {
                     httpContext.Features.Set(engineContext);
-                    // 把租户前缀加到 cookie 里
-                    httpContext.Response.Cookies.Append("tenant_prefix", engineSettings.RequestUrlPrefix ?? "");
-                    httpContext.Response.Cookies.Append("tenant_host", engineSettings.RequestUrlHost ?? "");
 
                     if (!engineContext.IsActivated)
                     {
@@ -62,17 +69,14 @@ namespace Seed.Modules
                         {
                             if (!engineContext.IsActivated)
                             {
-                                using (var activatingScope = engineContext.EnterServiceScope())
+                                using (var activatingScope = await _engineHost.GetScopeAsync(engineSettings))
                                 {
-
                                     var tenantEvents = activatingScope.ServiceProvider.GetServices<IModuleTenantEvents>();
 
                                     foreach (var tenantEvent in tenantEvents)
                                     {
                                         await tenantEvent.ActivatingAsync();
                                     }
-
-                                    httpContext.Items["BuildPipeline"] = true;
 
                                     foreach (var tenantEvent in tenantEvents.Reverse())
                                     {
@@ -97,13 +101,14 @@ namespace Seed.Modules
 
                 if (hasPendingTasks)
                 {
-                    engineContext = _host.GetOrCreateEngineContext(engineSettings);
-
-                    using (var scope = engineContext.EnterServiceScope())
+                    using (var pendingScope = await _engineHost.GetScopeAsync(engineSettings))
                     {
-                        var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
-                        var context = new DeferredTaskContext(scope.ServiceProvider);
-                        await deferredTaskEngine.ExecuteTasksAsync(context);
+                        if (pendingScope != null)
+                        {
+                            var deferredTaskEngine = pendingScope.ServiceProvider.GetService<IDeferredTaskEngine>();
+                            var context = new DeferredTaskContext(pendingScope.ServiceProvider);
+                            await deferredTaskEngine.ExecuteTasksAsync(context);
+                        }
                     }
                 }
             }

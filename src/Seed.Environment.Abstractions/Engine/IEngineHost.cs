@@ -1,4 +1,5 @@
-﻿using Seed.Environment.Engine.Builders;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Seed.Environment.Engine.Builders;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,16 +7,24 @@ namespace Seed.Environment.Engine
 {
     public interface IEngineHost
     {
-        void Initialize();
+        Task InitializeAsync();
 
-        EngineContext GetOrCreateEngineContext(EngineSettings settings);
+        Task<EngineContext> GetOrCreateEngineContextAsync(EngineSettings settings);
 
-        void UpdateEngineSettings(EngineSettings settings);
+        Task<IServiceScope> GetScopeAsync(EngineSettings settings);
 
-        void ReloadEngineContext(EngineSettings settings);
+        Task<(IServiceScope Scope, EngineContext EngineContext)> GetScopeAndContextAsync(EngineSettings settings);
+
+        Task UpdateEngineSettingsAsync(EngineSettings settings);
+
+        Task ReloadEngineContextAsync(EngineSettings settings);
 
         Task<EngineContext> CreateEngineContextAsync(EngineSettings settings);
 
         IEnumerable<EngineContext> ListEngineContexts();
+
+        bool TryGetSettings(string name, out EngineSettings settings);
+
+        IEnumerable<EngineSettings> GetAllSettings();
     }
 }

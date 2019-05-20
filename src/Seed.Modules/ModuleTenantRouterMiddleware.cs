@@ -2,27 +2,33 @@
 using Microsoft.AspNetCore.Builder.Internal;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Seed.Environment.Engine.Builders;
 using Seed.Environment.Engine.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Seed.Modules
 {
     public class ModuleTenantRouterMiddleware
     {
+        private readonly IFeatureCollection _features;
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
-        private readonly Dictionary<string, RequestDelegate> _pipelines = new Dictionary<string, RequestDelegate>();
+        private readonly ConcurrentDictionary<string, SemaphoreSlim> _semaphores = new ConcurrentDictionary<string, SemaphoreSlim>();
 
         public ModuleTenantRouterMiddleware(
+            IFeatureCollection features,
             RequestDelegate next,
             ILogger<ModuleTenantRouterMiddleware> logger)
         {
+            _features = features;
             _next = next;
             _logger = logger;
         }
@@ -36,42 +42,41 @@ namespace Seed.Modules
 
             var engineContext = httpContext.Features.Get<EngineContext>();
 
-            if (!string.IsNullOrEmpty(engineContext.Settings.RequestUrlPrefix))
+            if (!String.IsNullOrEmpty(engineContext.Settings.RequestUrlPrefix))
             {
-                httpContext.Request.PathBase += ("/" + engineContext.Settings.RequestUrlPrefix);
-                httpContext.Request.Path = httpContext.Request.Path.ToString().Substring(httpContext.Request.PathBase.Value.Length);
+                PathString prefix = "/" + engineContext.Settings.RequestUrlPrefix;
+                httpContext.Request.PathBase += prefix;
+                httpContext.Request.Path.StartsWithSegments(prefix, StringComparison.OrdinalIgnoreCase, out PathString remainingPath);
+                httpContext.Request.Path = remainingPath;
             }
 
-            var rebuildPipeline = httpContext.Items["BuildPipeline"] != null;
-            if (rebuildPipeline && _pipelines.ContainsKey(engineContext.Settings.Name))
+            if (engineContext.Pipeline == null)
             {
-                _pipelines.Remove(engineContext.Settings.Name);
-            }
+                var semaphore = _semaphores.GetOrAdd(engineContext.Settings.Name, (name) => new SemaphoreSlim(1));
 
-            if (!_pipelines.TryGetValue(engineContext.Settings.Name, out RequestDelegate pipeline))
-            {
-                lock (_pipelines)
+                await semaphore.WaitAsync();
+
+                try
                 {
-                    if (!_pipelines.TryGetValue(engineContext.Settings.Name, out pipeline))
+                    if (engineContext.Pipeline == null)
                     {
-                        pipeline = BuildTenantPipeline(engineContext.ServiceProvider, httpContext.RequestServices);
-
-                        // 如果是有spa，则会导致不断运行webpack
-                        if (engineContext.Settings.State == TenantStates.Running)
-                        {
-                            _pipelines.Add(engineContext.Settings.Name, pipeline);
-                        }
-                        // _pipelines.Add(engineContext.Settings.Name, pipeline);
+                        engineContext.Pipeline = BuildTenantPipeline(engineContext.ServiceProvider, httpContext.RequestServices);
                     }
+                }
+
+                finally
+                {
+                    semaphore.Release();
+                    _semaphores.TryRemove(engineContext.Settings.Name, out semaphore);
                 }
             }
 
-            await pipeline.Invoke(httpContext);
+            await engineContext.Pipeline.Invoke(httpContext);
         }
 
-        public RequestDelegate BuildTenantPipeline(IServiceProvider rootServiceProvider, IServiceProvider scopeServiceProvider)
+        private RequestDelegate BuildTenantPipeline(IServiceProvider rootServiceProvider, IServiceProvider scopeServiceProvider)
         {
-            var appBuilder = new ApplicationBuilder(rootServiceProvider);
+            var appBuilder = new ApplicationBuilder(rootServiceProvider, _features);
 
             var startupFilters = appBuilder.ApplicationServices.GetService<IEnumerable<IStartupFilter>>();
 
@@ -108,7 +113,9 @@ namespace Seed.Modules
 
             tenantRouteBuilder.Configure(routeBuilder);
 
-            appBuilder.UseRouter(routeBuilder.Build());
+            var router = routeBuilder.Build();
+
+            appBuilder.UseRouter(router);
         }
     }
 }

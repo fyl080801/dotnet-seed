@@ -15,26 +15,44 @@ namespace Seed.Environment.Engine.Builders
         private volatile int _refCount = 0;
         private bool _released = false;
         private List<WeakReference<EngineContext>> _dependents;
+        private object _synLock = new object();
 
         public EngineSettings Settings { get; set; }
         public EngineSchema Schema { get; set; }
         public IServiceProvider ServiceProvider { get; set; }
 
         public bool IsActivated { get; set; }
+        public RequestDelegate Pipeline { get; set; }
 
-        public IServiceScope EnterServiceScope()
+        private bool _placeHolder;
+
+        public class PlaceHolder : EngineContext
         {
-            if (_disposed)
+            public PlaceHolder()
             {
-                throw new InvalidOperationException("Can't use EnterServiceScope on a disposed context");
+                _placeHolder = true;
+                _released = true;
+                _disposed = true;
+            }
+        }
+
+        public IServiceScope CreateScope()
+        {
+            if (_placeHolder)
+            {
+                return null;
             }
 
-            if (_released)
+            var scope = new ServiceScopeWrapper(this);
+
+            if (!_released)
             {
-                throw new InvalidOperationException("Can't use EnterServiceScope on a released context");
+                return scope;
             }
 
-            return new ServiceScopeWrapper(this);
+            scope.Dispose();
+
+            return null;
         }
 
         public bool Released => _released;
@@ -48,20 +66,24 @@ namespace Seed.Environment.Engine.Builders
                 return;
             }
 
-            _released = true;
-
-            lock (this)
+            lock (_synLock)
             {
-                if (_dependents == null)
+                if (_released == true)
                 {
                     return;
                 }
 
-                foreach (var dependent in _dependents)
+                _released = true;
+
+                if (_dependents != null)
                 {
-                    if (dependent.TryGetTarget(out var engineContext))
+
+                    foreach (var dependent in _dependents)
                     {
-                        engineContext.Release();
+                        if (dependent.TryGetTarget(out var engineContext))
+                        {
+                            engineContext.Release();
+                        }
                     }
                 }
 
@@ -74,7 +96,18 @@ namespace Seed.Environment.Engine.Builders
 
         public void AddDependentEngine(EngineContext engineContext)
         {
-            lock (this)
+            if (engineContext.Released)
+            {
+                return;
+            }
+
+            if (_released)
+            {
+                engineContext.Release();
+                return;
+            }
+
+            lock (_synLock)
             {
                 if (_dependents == null)
                 {
@@ -89,6 +122,12 @@ namespace Seed.Environment.Engine.Builders
 
         public void Dispose()
         {
+            Close();
+            GC.SuppressFinalize(this);
+        }
+
+        public void Close()
+        {
             if (_disposed)
             {
                 return;
@@ -101,17 +140,15 @@ namespace Seed.Environment.Engine.Builders
             }
 
             IsActivated = false;
-            Settings = null;
             Schema = null;
+            Pipeline = null;
 
             _disposed = true;
-
-            GC.SuppressFinalize(this);
         }
 
         ~EngineContext()
         {
-            Dispose();
+            Close();
         }
 
         internal class ServiceScopeWrapper : IServiceScope
@@ -126,15 +163,16 @@ namespace Seed.Environment.Engine.Builders
                 Interlocked.Increment(ref engineContext._refCount);
 
                 _engineContext = engineContext;
+
+                if (_engineContext.ServiceProvider == null)
+                {
+                    throw new ArgumentNullException(nameof(engineContext.ServiceProvider), $"租户不能获取一个作用域: {engineContext.Settings.Name}");
+                }
+
                 _serviceScope = engineContext.ServiceProvider.CreateScope();
                 ServiceProvider = _serviceScope.ServiceProvider;
 
                 var httpContextAccessor = ServiceProvider.GetRequiredService<IHttpContextAccessor>();
-
-                if (httpContextAccessor.HttpContext == null)
-                {
-                    httpContextAccessor.HttpContext = new DefaultHttpContext();
-                }
 
                 _httpContext = httpContextAccessor.HttpContext;
                 _existingServices = _httpContext.RequestServices;
@@ -145,9 +183,15 @@ namespace Seed.Environment.Engine.Builders
 
             private bool ScopeReleased()
             {
-                var refCount = Interlocked.Decrement(ref _engineContext._refCount);
+                if (_engineContext.Settings.State == Engine.Models.TenantStates.Disabled)
+                {
+                    if (Interlocked.CompareExchange(ref _engineContext._refCount, 1, 1) == 1)
+                    {
+                        _engineContext.Release();
+                    }
+                }
 
-                if (_engineContext._released && refCount == 0)
+                if (_engineContext._released && Interlocked.CompareExchange(ref _engineContext._refCount, 1, 1) == 1)
                 {
                     var tenantEvents = _serviceScope.ServiceProvider.GetServices<IModuleTenantEvents>();
 
@@ -174,18 +218,196 @@ namespace Seed.Environment.Engine.Builders
                 _httpContext.RequestServices = _existingServices;
                 _serviceScope.Dispose();
 
-                GC.SuppressFinalize(this);
-
                 if (disposeEngineContext)
                 {
                     _engineContext.Dispose();
                 }
-            }
 
-            ~ServiceScopeWrapper()
-            {
-                Dispose();
+                Interlocked.Decrement(ref _engineContext._refCount);
             }
         }
     }
+    // {
+    //     private bool _disposed = false;
+    //     private volatile int _refCount = 0;
+    //     private bool _released = false;
+    //     private List<WeakReference<EngineContext>> _dependents;
+
+    //     public EngineSettings Settings { get; set; }
+    //     public EngineSchema Schema { get; set; }
+    //     public IServiceProvider ServiceProvider { get; set; }
+
+    //     public bool IsActivated { get; set; }
+
+    //     public IServiceScope EnterServiceScope()
+    //     {
+    //         if (_disposed)
+    //         {
+    //             throw new InvalidOperationException("Can't use EnterServiceScope on a disposed context");
+    //         }
+
+    //         if (_released)
+    //         {
+    //             throw new InvalidOperationException("Can't use EnterServiceScope on a released context");
+    //         }
+
+    //         return new ServiceScopeWrapper(this);
+    //     }
+
+    //     public bool Released => _released;
+
+    //     public int ActiveScopes => _refCount;
+
+    //     /// <summary>
+    //     /// The HTTP Request delegate built for this shell.
+    //     /// </summary>
+    //     public RequestDelegate Pipeline { get; set; }
+
+    //     public void Release()
+    //     {
+    //         if (_released == true)
+    //         {
+    //             return;
+    //         }
+
+    //         _released = true;
+
+    //         lock (this)
+    //         {
+    //             if (_dependents == null)
+    //             {
+    //                 return;
+    //             }
+
+    //             foreach (var dependent in _dependents)
+    //             {
+    //                 if (dependent.TryGetTarget(out var engineContext))
+    //                 {
+    //                     engineContext.Release();
+    //                 }
+    //             }
+
+    //             if (_refCount == 0)
+    //             {
+    //                 Dispose();
+    //             }
+    //         }
+    //     }
+
+    //     public void AddDependentEngine(EngineContext engineContext)
+    //     {
+    //         lock (this)
+    //         {
+    //             if (_dependents == null)
+    //             {
+    //                 _dependents = new List<WeakReference<EngineContext>>();
+    //             }
+
+    //             _dependents.RemoveAll(x => !x.TryGetTarget(out var engine) || engine.Settings.Name == engineContext.Settings.Name);
+
+    //             _dependents.Add(new WeakReference<EngineContext>(engineContext));
+    //         }
+    //     }
+
+    //     public void Dispose()
+    //     {
+    //         if (_disposed)
+    //         {
+    //             return;
+    //         }
+
+    //         if (ServiceProvider != null)
+    //         {
+    //             (ServiceProvider as IDisposable)?.Dispose();
+    //             ServiceProvider = null;
+    //         }
+
+    //         IsActivated = false;
+    //         Settings = null;
+    //         Schema = null;
+
+    //         _disposed = true;
+
+    //         GC.SuppressFinalize(this);
+    //     }
+
+    //     ~EngineContext()
+    //     {
+    //         Dispose();
+    //     }
+
+    //     internal class ServiceScopeWrapper : IServiceScope
+    //     {
+    //         private readonly EngineContext _engineContext;
+    //         private readonly IServiceScope _serviceScope;
+    //         private readonly IServiceProvider _existingServices;
+    //         private readonly HttpContext _httpContext;
+
+    //         public ServiceScopeWrapper(EngineContext engineContext)
+    //         {
+    //             Interlocked.Increment(ref engineContext._refCount);
+
+    //             _engineContext = engineContext;
+    //             _serviceScope = engineContext.ServiceProvider.CreateScope();
+    //             ServiceProvider = _serviceScope.ServiceProvider;
+
+    //             var httpContextAccessor = ServiceProvider.GetRequiredService<IHttpContextAccessor>();
+
+    //             if (httpContextAccessor.HttpContext == null)
+    //             {
+    //                 httpContextAccessor.HttpContext = new DefaultHttpContext();
+    //             }
+
+    //             _httpContext = httpContextAccessor.HttpContext;
+    //             _existingServices = _httpContext.RequestServices;
+    //             _httpContext.RequestServices = ServiceProvider;
+    //         }
+
+    //         public IServiceProvider ServiceProvider { get; }
+
+    //         private bool ScopeReleased()
+    //         {
+    //             var refCount = Interlocked.Decrement(ref _engineContext._refCount);
+
+    //             if (_engineContext._released && refCount == 0)
+    //             {
+    //                 var tenantEvents = _serviceScope.ServiceProvider.GetServices<IModuleTenantEvents>();
+
+    //                 foreach (var tenantEvent in tenantEvents)
+    //                 {
+    //                     tenantEvent.TerminatingAsync().GetAwaiter().GetResult();
+    //                 }
+
+    //                 foreach (var tenantEvent in tenantEvents.Reverse())
+    //                 {
+    //                     tenantEvent.TerminatedAsync().GetAwaiter().GetResult();
+    //                 }
+
+    //                 return true;
+    //             }
+
+    //             return false;
+    //         }
+
+    //         public void Dispose()
+    //         {
+    //             var disposeEngineContext = ScopeReleased();
+
+    //             _httpContext.RequestServices = _existingServices;
+    //             _serviceScope.Dispose();
+
+    //             GC.SuppressFinalize(this);
+
+    //             if (disposeEngineContext)
+    //             {
+    //                 _engineContext.Dispose();
+    //             }
+    //         }
+
+    //         ~ServiceScopeWrapper()
+    //         {
+    //             Dispose();
+    //         }
+    //  }
+    // }
 }

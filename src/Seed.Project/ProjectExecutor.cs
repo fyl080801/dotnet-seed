@@ -143,8 +143,8 @@ namespace Seed.Project
 
         private async Task ExecuteStepAsync(ProjectExecutionContext projectStep)
         {
-            var engineContext = _host.GetOrCreateEngineContext(_engineSettings);
-            using (var scope = engineContext.EnterServiceScope())
+            var engineContext = await _host.GetOrCreateEngineContextAsync(_engineSettings);
+            using (var scope = engineContext.CreateScope())
             {
                 if (!engineContext.IsActivated)
                 {
@@ -190,8 +190,8 @@ namespace Seed.Project
                 }
             }
 
-            engineContext = _host.GetOrCreateEngineContext(_engineSettings);
-            using (var scope = engineContext.EnterServiceScope())
+            engineContext = await _host.GetOrCreateEngineContextAsync(_engineSettings);
+            using (var scope = engineContext.CreateScope())
             {
                 var deferredTaskEngine = scope.ServiceProvider.GetService<IDeferredTaskEngine>();
 
