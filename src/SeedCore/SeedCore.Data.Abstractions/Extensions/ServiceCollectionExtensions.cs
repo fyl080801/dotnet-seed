@@ -13,7 +13,7 @@ namespace SeedCore.Data.Extensions
                 if (entry.ImplementationInstance != null)
                 {
                     if (entry.ImplementationInstance is DatabaseProvider databaseProvider
-                        && String.Equals(databaseProvider.Name, name, StringComparison.OrdinalIgnoreCase))
+                        && string.Equals(databaseProvider.Name, name, StringComparison.OrdinalIgnoreCase))
                     {
                         services.RemoveAt(i);
                     }

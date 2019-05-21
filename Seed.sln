@@ -9,8 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		README.md = README.md
 		global.json = global.json
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedCore", "SeedCore", "{BD5C3C08-87E3-44FC-A428-46CD6B7610F3}"
@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Setup", "src\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Application", "src\SeedTargets\SeedTargets.Application\SeedTargets.Application.csproj", "{5866C646-DA81-474C-A311-DF759361B7F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Web", "src\SeedTargets\SeedTargets.Web\SeedTargets.Web.csproj", "{66455674-0168-4F02-87E3-B9831432487E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Web", "src\SeedTargets\SeedTargets.Web\SeedTargets.Web.csproj", "{66455674-0168-4F02-87E3-B9831432487E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Module", "src\SeedTargets\SeedTargets.Module\SeedTargets.Module.csproj", "{635C160A-4B31-4B45-8490-3503B145F430}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Module", "src\SeedTargets\SeedTargets.Module\SeedTargets.Module.csproj", "{635C160A-4B31-4B45-8490-3503B145F430}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedBuilds", "SeedBuilds", "{CB1A64B0-0FA9-4B18-A5B7-2AD122B6BD1E}"
 	ProjectSection(SolutionItems) = preProject
@@ -39,19 +39,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedBuilds", "SeedBuilds", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedTargets", "SeedTargets", "{8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed", "src\Seed\Seed.csproj", "{1797AF48-3081-4510-9726-3CC9CDD818D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Seed", "src\Seed\Seed.csproj", "{1797AF48-3081-4510-9726-3CC9CDD818D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore", "src\SeedCore\SeedCore\SeedCore.csproj", "{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore", "src\SeedCore\SeedCore\SeedCore.csproj", "{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Abstractions", "src\SeedCore\SeedCore.Abstractions\SeedCore.Abstractions.csproj", "{5BD7E84C-0078-4C95-BEC6-A47C28C943DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Abstractions", "src\SeedCore\SeedCore.Abstractions\SeedCore.Abstractions.csproj", "{5BD7E84C-0078-4C95-BEC6-A47C28C943DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Data.Abstractions", "src\SeedCore\SeedCore.Data.Abstractions\SeedCore.Data.Abstractions.csproj", "{71DE3F17-1912-4692-805E-17F79543D250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Data.Abstractions", "src\SeedCore\SeedCore.Data.Abstractions\SeedCore.Data.Abstractions.csproj", "{71DE3F17-1912-4692-805E-17F79543D250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Data", "src\SeedCore\SeedCore.Data\SeedCore.Data.csproj", "{8F255904-539F-4A45-AE7F-9760B78479AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Data", "src\SeedCore\SeedCore.Data\SeedCore.Data.csproj", "{8F255904-539F-4A45-AE7F-9760B78479AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Infrastructure.Abstractions", "src\SeedCore\SeedCore.Infrastructure.Abstractions\SeedCore.Infrastructure.Abstractions.csproj", "{DD51643C-D73F-4AB0-8C6B-2288A2169F81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Infrastructure.Abstractions", "src\SeedCore\SeedCore.Infrastructure.Abstractions\SeedCore.Infrastructure.Abstractions.csproj", "{DD51643C-D73F-4AB0-8C6B-2288A2169F81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Infrastructure", "src\SeedCore\SeedCore.Infrastructure\SeedCore.Infrastructure.csproj", "{68CEF535-994A-47CB-B012-DD815CE3DFF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Infrastructure", "src\SeedCore\SeedCore.Infrastructure\SeedCore.Infrastructure.csproj", "{68CEF535-994A-47CB-B012-DD815CE3DFF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Mvc", "src\SeedCore\SeedCore.Mvc\SeedCore.Mvc.csproj", "{829C042B-16F4-4139-8926-F968578E602B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedModules.Recipes", "src\SeedModules\SeedModules.Recipes\SeedModules.Recipes.csproj", "{1A905009-2874-479D-8725-F2B532C3B9CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -103,6 +107,14 @@ Global
 		{68CEF535-994A-47CB-B012-DD815CE3DFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68CEF535-994A-47CB-B012-DD815CE3DFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68CEF535-994A-47CB-B012-DD815CE3DFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{829C042B-16F4-4139-8926-F968578E602B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{829C042B-16F4-4139-8926-F968578E602B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{829C042B-16F4-4139-8926-F968578E602B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{829C042B-16F4-4139-8926-F968578E602B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A905009-2874-479D-8725-F2B532C3B9CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A905009-2874-479D-8725-F2B532C3B9CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A905009-2874-479D-8725-F2B532C3B9CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A905009-2874-479D-8725-F2B532C3B9CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -123,6 +135,8 @@ Global
 		{8F255904-539F-4A45-AE7F-9760B78479AE} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
 		{DD51643C-D73F-4AB0-8C6B-2288A2169F81} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
 		{68CEF535-994A-47CB-B012-DD815CE3DFF7} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
+		{829C042B-16F4-4139-8926-F968578E602B} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
+		{1A905009-2874-479D-8725-F2B532C3B9CC} = {F09AC6F7-710B-4434-BB98-B9600B68FA66}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {103E5205-1588-47A7-8F86-693367C858B2}

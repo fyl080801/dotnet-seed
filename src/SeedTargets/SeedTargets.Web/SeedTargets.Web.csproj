@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SeedCore\SeedCore.Mvc\SeedCore.Mvc.csproj" />
+    <ProjectReference Include="..\..\SeedModules\SeedModules.Recipes\SeedModules.Recipes.csproj" />
     <ProjectReference Include="..\SeedTargets.Application\SeedTargets.Application.csproj" />
     <ProjectReference Include="..\..\SeedModules\SeedModules.Setup\SeedModules.Setup.csproj" />
     <ProjectReference Include="..\..\SeedCore\SeedCore.Infrastructure\SeedCore.Infrastructure.csproj" />

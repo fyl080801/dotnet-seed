@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using SeedCore.Modules;
 using SeedCore.Modules.Builder;
+using System;
+using System.Collections.Generic;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -24,12 +24,6 @@ namespace Microsoft.Extensions.DependencyInjection
             return this;
         }
 
-        /// <summary>
-        /// This method gets called for each tenant. Use this method to add services to the container.
-        /// For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        /// </summary>
-        /// <param name="configure">The action to execute when configuring the services for a tenant.</param>
-        /// <param name="order">The order of the action to execute. Lower values will be executed first.</param>
         public SeedCoreBuilder ConfigureServices(Action<IServiceCollection, IServiceProvider> configure, int order = 0)
         {
             if (!_actions.TryGetValue(order, out var actions))
@@ -45,22 +39,11 @@ namespace Microsoft.Extensions.DependencyInjection
             return this;
         }
 
-        /// <summary>
-        /// This method gets called for each tenant. Use this method to add services to the container.
-        /// For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
-        /// </summary>
-        /// <param name="configure">The action to execute when configuring the services for a tenant.</param>
-        /// <param name="order">The order of the action to execute. Lower values will be executed first.</param>
         public SeedCoreBuilder ConfigureServices(Action<IServiceCollection> configure, int order = 0)
         {
             return ConfigureServices((s, sp) => configure(s), order);
         }
 
-        /// <summary>
-        /// This method gets called for each tenant. Use this method to configure the request's pipeline.
-        /// </summary>
-        /// <param name="configure">The action to execute when configuring the request's pipeling for a tenant.</param>
-        /// <param name="order">The order of the action to execute. Lower values will be executed first.</param>
         public SeedCoreBuilder Configure(Action<IApplicationBuilder, IRouteBuilder, IServiceProvider> configure, int order = 0)
         {
             if (!_actions.TryGetValue(order, out var actions))
@@ -76,21 +59,11 @@ namespace Microsoft.Extensions.DependencyInjection
             return this;
         }
 
-        /// <summary>
-        /// This method gets called for each tenant. Use this method to configure the request's pipeline.
-        /// </summary>
-        /// <param name="configure">The action to execute when configuring the request's pipeling for a tenant.</param>
-        /// <param name="order">The order of the action to execute. Lower values will be executed first.</param>
         public SeedCoreBuilder Configure(Action<IApplicationBuilder, IRouteBuilder> configure, int order = 0)
         {
             return Configure((app, routes, sp) => configure(app, routes), order);
         }
 
-        /// <summary>
-        /// This method gets called for each tenant. Use this method to configure the request's pipeline.
-        /// </summary>
-        /// <param name="configure">The action to execute when configuring the request's pipeling for a tenant.</param>
-        /// <param name="order">The order of the action to execute. Lower values will be executed first.</param>
         public SeedCoreBuilder Configure(Action<IApplicationBuilder> configure, int order = 0)
         {
             return Configure((app, routes, sp) => configure(app), order);

@@ -1,15 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using SeedCore.Shell.Descriptor;
 using SeedCore.Shell.Descriptor.Models;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SeedCore.Infrastructure.Shell
 {
-    /// <summary>
-    /// Implements <see cref="IShellDescriptorManager"/> by providing the list of features store in the database. 
-    /// </summary>
     public class ShellDescriptorManager : IShellDescriptorManager
     {
         public Task<ShellDescriptor> GetShellDescriptorAsync()

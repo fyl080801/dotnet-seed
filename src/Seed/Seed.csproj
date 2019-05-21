@@ -18,4 +18,9 @@
   <ItemGroup>
     <ProjectReference Include="..\SeedTargets\SeedTargets.Web\SeedTargets.Web.csproj" />
   </ItemGroup>
+
+  <!-- Necessary as we reference the Project and not the Package -->
+  <Import Project="..\SeedTargets\SeedTargets.Application\SeedTargets.Application.targets" />
+  <Import Project="..\SeedBuilds\SeedCore.Commons.targets" />
+  
 </Project>

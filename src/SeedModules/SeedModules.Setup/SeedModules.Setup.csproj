@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -8,4 +8,12 @@
     <ProjectReference Include="..\..\SeedTargets\SeedTargets.Module\SeedTargets.Module.csproj" />
     <ProjectReference Include="..\..\SeedCore\SeedCore.Data\SeedCore.Data.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" />
+  </ItemGroup>
+  
 </Project>

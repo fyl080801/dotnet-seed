@@ -15,9 +15,9 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 // .AddCommands()
 
-                // .AddMvc()
+                .AddMvc()
 
-                .AddSetupFeatures("SeedCore.Setup")
+                .AddSetupFeatures("SeedModules.Setup")
 
                 .AddDataAccess()
                 .AddDataStorage()

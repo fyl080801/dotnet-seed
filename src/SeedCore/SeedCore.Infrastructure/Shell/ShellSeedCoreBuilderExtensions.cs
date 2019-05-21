@@ -8,10 +8,6 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ShellSeedCoreBuilderExtensions
     {
-        /// <summary>
-        /// Adds services at the host level to load site settings from the file system
-        /// and tenant level services to store states and descriptors in the database.
-        /// </summary>
         public static SeedCoreBuilder AddDataStorage(this SeedCoreBuilder builder)
         {
             builder.AddSitesFolder()
@@ -26,9 +22,6 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        /// <summary>
-        /// Host services to load site settings from the file system
-        /// </summary>
         public static SeedCoreBuilder AddSitesFolder(this SeedCoreBuilder builder)
         {
             var services = builder.ApplicationServices;

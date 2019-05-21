@@ -5,4 +5,14 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\SeedCore\SeedCore\SeedCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="SeedTargets.Application.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\SeedTargets.Application.targets</PackagePath>
+    </None>
+  </ItemGroup>
+
 </Project>
