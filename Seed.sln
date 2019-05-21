@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		README.md = README.md
+		global.json = global.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedCore", "SeedCore", "{BD5C3C08-87E3-44FC-A428-46CD6B7610F3}"
@@ -18,27 +19,31 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedCore", "SeedCore", "{BD
 		src\SeedCore\Directory.Build.targets = src\SeedCore\Directory.Build.targets
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Abstractions", "src\SeedCore\SeedCore.Abstractions\SeedCore.Abstractions.csproj", "{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore", "src\SeedCore\SeedCore\SeedCore.csproj", "{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedModules", "SeedModules", "{F09AC6F7-710B-4434-BB98-B9600B68FA66}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Setup", "src\SeedModules\SeedModules.Setup\SeedModules.Setup.csproj", "{030D1EF8-616A-4F97-BA1E-3D91003A4390}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C388EE13-BA8C-4770-BFC9-40C91F555EED}"
-	ProjectSection(SolutionItems) = preProject
-		build\Dependencies.AspNetCore.props = build\Dependencies.AspNetCore.props
-		build\Dependencies.props = build\Dependencies.props
-		build\SeedCore.Commons.props = build\SeedCore.Commons.props
-		build\SeedCore.Commons.targets = build\SeedCore.Commons.targets
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "targets", "targets", "{DDC4C90E-5577-46F9-BFB6-34A753A259A8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Application", "src\SeedTargets\SeedTargets.Application\SeedTargets.Application.csproj", "{5866C646-DA81-474C-A311-DF759361B7F1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Web", "src\SeedTargets\SeedTargets.Web\SeedTargets.Web.csproj", "{66455674-0168-4F02-87E3-B9831432487E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Module", "src\SeedTargets\SeedTargets.Module\SeedTargets.Module.csproj", "{635C160A-4B31-4B45-8490-3503B145F430}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedBuilds", "SeedBuilds", "{CB1A64B0-0FA9-4B18-A5B7-2AD122B6BD1E}"
+	ProjectSection(SolutionItems) = preProject
+		src\SeedBuilds\Dependencies.AspNetCore.props = src\SeedBuilds\Dependencies.AspNetCore.props
+		src\SeedBuilds\Dependencies.props = src\SeedBuilds\Dependencies.props
+		src\SeedBuilds\SeedCore.Commons.props = src\SeedBuilds\SeedCore.Commons.props
+		src\SeedBuilds\SeedCore.Commons.targets = src\SeedBuilds\SeedCore.Commons.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedTargets", "SeedTargets", "{8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seed", "src\Seed\Seed.csproj", "{1797AF48-3081-4510-9726-3CC9CDD818D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore", "src\SeedCore\SeedCore\SeedCore.csproj", "{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Abstractions", "src\SeedCore\SeedCore.Abstractions\SeedCore.Abstractions.csproj", "{5BD7E84C-0078-4C95-BEC6-A47C28C943DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,14 +51,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{030D1EF8-616A-4F97-BA1E-3D91003A4390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{030D1EF8-616A-4F97-BA1E-3D91003A4390}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{030D1EF8-616A-4F97-BA1E-3D91003A4390}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,19 +63,38 @@ Global
 		{66455674-0168-4F02-87E3-B9831432487E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66455674-0168-4F02-87E3-B9831432487E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66455674-0168-4F02-87E3-B9831432487E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{635C160A-4B31-4B45-8490-3503B145F430}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{635C160A-4B31-4B45-8490-3503B145F430}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{635C160A-4B31-4B45-8490-3503B145F430}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{635C160A-4B31-4B45-8490-3503B145F430}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1797AF48-3081-4510-9726-3CC9CDD818D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1797AF48-3081-4510-9726-3CC9CDD818D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1797AF48-3081-4510-9726-3CC9CDD818D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1797AF48-3081-4510-9726-3CC9CDD818D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BD7E84C-0078-4C95-BEC6-A47C28C943DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BD7E84C-0078-4C95-BEC6-A47C28C943DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BD7E84C-0078-4C95-BEC6-A47C28C943DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BD7E84C-0078-4C95-BEC6-A47C28C943DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{BD5C3C08-87E3-44FC-A428-46CD6B7610F3} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
-		{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
-		{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
 		{F09AC6F7-710B-4434-BB98-B9600B68FA66} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
 		{030D1EF8-616A-4F97-BA1E-3D91003A4390} = {F09AC6F7-710B-4434-BB98-B9600B68FA66}
-		{DDC4C90E-5577-46F9-BFB6-34A753A259A8} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
-		{5866C646-DA81-474C-A311-DF759361B7F1} = {DDC4C90E-5577-46F9-BFB6-34A753A259A8}
-		{66455674-0168-4F02-87E3-B9831432487E} = {DDC4C90E-5577-46F9-BFB6-34A753A259A8}
+		{5866C646-DA81-474C-A311-DF759361B7F1} = {8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C}
+		{66455674-0168-4F02-87E3-B9831432487E} = {8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C}
+		{635C160A-4B31-4B45-8490-3503B145F430} = {8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C}
+		{CB1A64B0-0FA9-4B18-A5B7-2AD122B6BD1E} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
+		{8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
+		{1797AF48-3081-4510-9726-3CC9CDD818D3} = {41EBA1C8-5F39-461E-8CE0-0351CE1AC9B0}
+		{30CBFEC6-6437-4BF6-A11A-EA8C25BBE0F3} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
+		{5BD7E84C-0078-4C95-BEC6-A47C28C943DE} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {103E5205-1588-47A7-8F86-693367C858B2}

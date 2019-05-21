@@ -1,6 +1,6 @@
 ﻿<Project ToolsVersion="15.0" Sdk="Microsoft.NET.Sdk.Web">
 
-  <Import Project="..\..\build\Dependencies.props" />
+  <Import Project="..\SeedBuilds\Dependencies.props" />
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -15,9 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
-    <Import Project="..\SeedTargets\SeedTargets.Application\SeedTargets.Application.targets" />
-    <Import Project="..\SeedBuilds\SeedCore.Commons.targets" />
-  </ItemGroup> -->
-
+  <ItemGroup>
+    <ProjectReference Include="..\SeedTargets\SeedTargets.Web\SeedTargets.Web.csproj" />
+  </ItemGroup>
 </Project>

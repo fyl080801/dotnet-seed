@@ -5,13 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="SeedTargets.Web.targets" Pack="true">
-      <PackagePath>build\netstandard2.0\SeedTargets.Web.targets</PackagePath>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SeedTargets.Application\SeedTargets.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="SeedTargets.Web.targets" />
+  </ItemGroup>
 </Project>

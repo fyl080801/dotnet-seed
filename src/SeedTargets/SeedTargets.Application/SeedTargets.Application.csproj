@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SeedCore\SeedCore.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="SeedTargets.Application.targets" Pack="true">
-      <PackagePath>build\$(TargetFramework)SeedTargets.Application.targets</PackagePath>
-    </None>
+    <None Remove="SeedTargets.Application.targets" />
   </ItemGroup>
 </Project>
