@@ -1,6 +1,6 @@
 using System;
 
-namespace OrchardCore.Environment.Cache
+namespace SeedCore.Infrastructure.Cache
 {
     public interface ICacheScopeManager
     {

@@ -1,9 +1,9 @@
+using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using SeedCore.Modules;
 using SeedCore.Modules.Builder;
-using System;
-using System.Collections.Generic;
 
 namespace Microsoft.Extensions.DependencyInjection
 {

@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 
 namespace SeedCore.Shell.Configuration
 {

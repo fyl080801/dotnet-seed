@@ -1,13 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Seed.Data.Extensions;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
-namespace Seed.Data
+namespace SeedCore.Data
 {
     [Table("_Document")]
     public class Document

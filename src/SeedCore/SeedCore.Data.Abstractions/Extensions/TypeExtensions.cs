@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Seed.Data.Extensions
+namespace SeedCore.Data.Extensions
 {
     public static class TypeExtensions
     {

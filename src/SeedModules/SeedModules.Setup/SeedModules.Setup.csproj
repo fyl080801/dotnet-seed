@@ -6,5 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\SeedTargets\SeedTargets.Module\SeedTargets.Module.csproj" />
+    <ProjectReference Include="..\..\SeedCore\SeedCore.Data\SeedCore.Data.csproj" />
   </ItemGroup>
 </Project>

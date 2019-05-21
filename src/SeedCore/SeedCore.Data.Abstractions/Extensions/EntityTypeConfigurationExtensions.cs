@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-namespace Seed.Data.Extensions
+namespace SeedCore.Data.Extensions
 {
     public static class EntityTypeConfigurationExtensions
     {

@@ -1,46 +1,35 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design.Internal;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Migrations.Design;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Seed.Environment.Engine;
-using Seed.Environment.Engine.Descriptor.Models;
-using Seed.Environment.Plugins;
-using Seed.Modules.Exceptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using SeedCore.Addon;
+using SeedCore.Modules;
+using SeedCore.Shell;
+using SeedCore.Shell.Descriptor.Models;
 
-namespace Seed.Data.Migrations
+namespace SeedCore.Data.Migrations
 {
     public class DataMigrationManager : IDataMigrationManager
     {
         readonly IStore _store;
         readonly IDataMigrator _dataMigrator;
-        readonly IPluginManager _pluginManager;
-        readonly IEngineStateManager _engineStateManager;
-        readonly EngineSettings _engineSettings;
-        readonly EngineDescriptor _engineDescriptor;
+        readonly IExtensionManager _pluginManager;
+        readonly IShellStateManager _engineStateManager;
+        readonly ShellSettings _engineSettings;
+        readonly ShellDescriptor _engineDescriptor;
         readonly IServiceProvider _serviceProvider;
         readonly ILogger _logger;
 
         public DataMigrationManager(
             IStore store,
             IDataMigrator dataMigrator,
-            IPluginManager pluginManager,
-            IEngineStateManager engineStateManager,
-            EngineSettings engineSettings,
-            EngineDescriptor engineDescriptor,
+            IExtensionManager pluginManager,
+            IShellStateManager engineStateManager,
+            ShellSettings engineSettings,
+            ShellDescriptor engineDescriptor,
             IServiceProvider serviceProvider,
             ILogger<DataMigrationManager> logger)
         {
@@ -89,7 +78,7 @@ namespace Seed.Data.Migrations
             var features = new string[0];
             try
             {
-                var engineState = await _engineStateManager.GetEngineStateAsync();
+                var engineState = await _engineStateManager.GetShellStateAsync();
                 features = engineState.Features.Where(e => e.IsInstalled).Select(e => e.Id).ToArray();
             }
             catch (DbException)
@@ -105,11 +94,11 @@ namespace Seed.Data.Migrations
             var providers = new List<IEntityTypeConfigurationProvider>();
             var providerType = typeof(IEntityTypeConfigurationProvider);
             _pluginManager.GetFeatures(features.ToArray())
-                .Select(e => e.Plugin)
+                .Select(e => e.Extension)
                 .Distinct()
                 .Select(e =>
                 {
-                    return _pluginManager.LoadPluginAsync(e).Result.ExportedTypes
+                    return _pluginManager.LoadExtensionAsync(e).Result.ExportedTypes
                         .Where(pro => providerType.IsAssignableFrom(pro))
                         .Select(pro => ActivatorUtilities.GetServiceOrCreateInstance(_serviceProvider, pro) as IEntityTypeConfigurationProvider)
                         .ToList();

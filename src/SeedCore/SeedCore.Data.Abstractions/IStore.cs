@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Seed.Data
+namespace SeedCore.Data
 {
     /// <summary>
     /// 数据访问层持久化接口

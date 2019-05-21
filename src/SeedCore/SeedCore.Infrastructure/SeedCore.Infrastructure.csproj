@@ -4,4 +4,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SeedCore.Infrastructure.Abstractions\SeedCore.Infrastructure.Abstractions.csproj" />
+    <ProjectReference Include="..\SeedCore\SeedCore.csproj" />
+    <ProjectReference Include="..\SeedCore.Data\SeedCore.Data.csproj" />
+  </ItemGroup>
 </Project>

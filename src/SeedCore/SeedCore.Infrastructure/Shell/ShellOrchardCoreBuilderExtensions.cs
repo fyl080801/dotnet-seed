@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Options;
-using OrchardCore.Environment.Shell;
-using OrchardCore.Environment.Shell.Configuration;
 using OrchardCore.Environment.Shell.Data.Descriptors;
-using OrchardCore.Environment.Shell.Descriptor;
+using SeedCore.Shell;
+using SeedCore.Shell.Configuration;
+using SeedCore.Shell.Descriptor;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Adds services at the host level to load site settings from the file system
         /// and tenant level services to store states and descriptors in the database.
         /// </summary>
-        public static OrchardCoreBuilder AddDataStorage(this OrchardCoreBuilder builder)
+        public static SeedCoreBuilder AddDataStorage(this SeedCoreBuilder builder)
         {
             builder.AddSitesFolder()
                 .ConfigureServices(services =>
@@ -29,7 +29,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Host services to load site settings from the file system
         /// </summary>
-        public static OrchardCoreBuilder AddSitesFolder(this OrchardCoreBuilder builder)
+        public static SeedCoreBuilder AddSitesFolder(this SeedCoreBuilder builder)
         {
             var services = builder.ApplicationServices;
 

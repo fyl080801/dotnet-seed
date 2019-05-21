@@ -1,21 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Seed.Environment.Engine;
-using Seed.Environment.Engine.Models;
-using Seed.Modules;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using SeedCore.Modules;
+using SeedCore.Shell;
+using SeedCore.Shell.Models;
 
-namespace Seed.Data.Migrations
+namespace SeedCore.Data.Migrations
 {
     /// <summary>
     /// Tenant 事件中自动执行数据库迁移
     /// </summary>
-    public class AutoDataMigration : IModuleTenantEvents
+    public class AutoDataMigration : IModularTenantEvents
     {
-        readonly EngineSettings _engineSettings;
+        readonly ShellSettings _engineSettings;
         readonly IServiceProvider _serviceProvider;
 
-        public AutoDataMigration(EngineSettings engineSettings, IServiceProvider serviceProvider)
+        public AutoDataMigration(ShellSettings engineSettings, IServiceProvider serviceProvider)
         {
             _engineSettings = engineSettings;
             _serviceProvider = serviceProvider;
@@ -23,7 +23,7 @@ namespace Seed.Data.Migrations
 
         public Task ActivatedAsync()
         {
-            if (_engineSettings.State != TenantStates.Uninitialized)
+            if (_engineSettings.State != TenantState.Uninitialized)
             {
                 return _serviceProvider.GetService<IDataMigrationManager>().UpdateAllFeaturesAsync();
             }

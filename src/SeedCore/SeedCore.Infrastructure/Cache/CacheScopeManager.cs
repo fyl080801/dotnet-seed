@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OrchardCore.Environment.Cache
+namespace SeedCore.Infrastructure.Cache
 {
     // todo: does this belong in dynamic cache?
     public class CacheScopeManager : ICacheScopeManager

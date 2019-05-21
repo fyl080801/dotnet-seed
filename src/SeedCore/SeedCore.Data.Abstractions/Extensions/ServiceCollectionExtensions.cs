@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Seed.Data.Extensions
+namespace SeedCore.Data.Extensions
 {
     public static class ServiceCollectionExtensions
     {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrchardCore.Environment.Cache.CacheContextProviders
+namespace SeedCore.Infrastructure.Cache.CacheContextProviders
 {
     public class QueryCacheContextProvider : ICacheContextProvider
     {

@@ -1,11 +1,11 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
 
 namespace SeedCore.Shell.Configuration.Internal
 {

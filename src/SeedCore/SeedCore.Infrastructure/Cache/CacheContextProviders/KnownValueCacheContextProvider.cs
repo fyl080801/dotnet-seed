@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OrchardCore.Environment.Cache.CacheContextProviders
+namespace SeedCore.Infrastructure.Cache.CacheContextProviders
 {
     /// <summary>
     /// Adds all context values as they are to the cache entries. This allows for known value variation

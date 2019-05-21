@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Design.Internal;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Seed.Data
+namespace SeedCore.Data
 {
     public class ModuleDbOperationReporter : IOperationReporter
     {

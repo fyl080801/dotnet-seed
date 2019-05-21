@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
 
-namespace OrchardCore.Settings
+namespace SeedCore.Infrastructure.Settings
 {
     /// <summary>
     /// Provides services to manage the sites settings.

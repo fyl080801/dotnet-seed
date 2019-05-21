@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Routing;
-using OrchardCore.Entities;
+using SeedCore.Infrastructure.Entities;
 
-namespace OrchardCore.Settings
+namespace SeedCore.Infrastructure.Settings
 {
-    public interface ISite : IEntity
+    public interface ISite : IJEntity
     {
         string SiteName { get; set; }
         string SiteSalt { get; set; }

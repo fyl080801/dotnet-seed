@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OrchardCore.Environment.Cache
+namespace SeedCore.Infrastructure.Cache
 {
     public class CacheContextManager : ICacheContextManager
     {

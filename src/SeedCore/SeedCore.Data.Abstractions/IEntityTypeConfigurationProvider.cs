@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Seed.Data
+namespace SeedCore.Data
 {
     public interface IEntityTypeConfigurationProvider
     {

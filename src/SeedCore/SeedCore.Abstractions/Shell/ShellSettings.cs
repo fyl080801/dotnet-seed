@@ -45,6 +45,24 @@ namespace SeedCore.Shell
             set => _settings["RequestUrlPrefix"] = value;
         }
 
+        public string DatabaseProvider
+        {
+            get => _settings["DatabaseProvider"];
+            set => _settings["DatabaseProvider"] = value;
+        }
+
+        public string TablePrefix
+        {
+            get => _settings["TablePrefix"];
+            set => _settings[""] = value;
+        }
+
+        public string ConnectionString
+        {
+            get => _settings["ConnectionString"];
+            set => _settings["ConnectionString"] = value;
+        }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public TenantState State
         {

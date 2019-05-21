@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace OrchardCore.Environment.Cache.CacheContextProviders
+namespace SeedCore.Infrastructure.Cache.CacheContextProviders
 {
     public class RolesCacheContextProvider : ICacheContextProvider
     {

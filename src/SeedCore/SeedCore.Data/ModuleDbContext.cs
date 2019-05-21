@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Seed.Environment.Engine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using SeedCore.Shell;
 
-namespace Seed.Data
+namespace SeedCore.Data
 {
     public class ModuleDbContext : DbContext, IDocumentDbContext
     {
         readonly IEnumerable<object> _entityConfigurations;
-        readonly EngineSettings _settings;
+        readonly ShellSettings _settings;
 
         public DbContext Context => this;
 
@@ -18,7 +18,7 @@ namespace Seed.Data
 
         public ModuleDbContext(
             DbContextOptions options,
-            EngineSettings settings,
+            ShellSettings settings,
             params object[] entityConfigurations)
             : base(options)
         {

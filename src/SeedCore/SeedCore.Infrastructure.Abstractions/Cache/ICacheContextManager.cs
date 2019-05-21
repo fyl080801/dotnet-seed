@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace OrchardCore.Environment.Cache
+namespace SeedCore.Infrastructure.Cache
 {
     public interface ICacheContextManager
     {

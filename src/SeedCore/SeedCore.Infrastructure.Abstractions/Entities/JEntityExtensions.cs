@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
 
-namespace SeedCore.Data.Extensions
+namespace SeedCore.Infrastructure.Entities
 {
     public static class JEntityExtensions
     {

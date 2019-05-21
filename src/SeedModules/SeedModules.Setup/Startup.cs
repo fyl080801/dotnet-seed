@@ -1,5 +1,4 @@
-﻿using System;
-using SeedCore.Modules;
+﻿using SeedCore.Modules;
 
 namespace SeedModules.Setup
 {

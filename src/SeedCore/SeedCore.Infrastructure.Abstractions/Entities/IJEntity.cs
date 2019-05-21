@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace SeedCore.Data
+namespace SeedCore.Infrastructure.Entities
 {
     public interface IJEntity
     {

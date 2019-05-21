@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Migrations.Design;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Seed.Data.Migrations
+namespace SeedCore.Data.Migrations
 {
     public class DataMigrator : IDataMigrator
     {

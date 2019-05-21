@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Seed.Data.Migrations
+namespace SeedCore.Data.Migrations
 {
     public interface IDataMigrator
     {

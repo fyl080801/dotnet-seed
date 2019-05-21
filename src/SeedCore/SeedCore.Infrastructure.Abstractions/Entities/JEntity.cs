@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json.Linq;
 
-namespace SeedCore.Data
+namespace SeedCore.Infrastructure.Entities
 {
     public class JEntity : IJEntity
     {

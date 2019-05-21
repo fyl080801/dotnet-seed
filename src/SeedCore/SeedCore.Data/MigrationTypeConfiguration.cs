@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Seed.Data
+namespace SeedCore.Data
 {
     public class MigrationTypeConfiguration : IEntityTypeConfiguration<MigrationRecord>
     {

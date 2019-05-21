@@ -1,17 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Seed.Data.Migrations;
-using Seed.Environment.Engine;
-using System;
-using System.Threading.Tasks;
+using SeedCore.Data.Migrations;
+using SeedCore.Shell;
 
-namespace Seed.Data
+namespace SeedCore.Data
 {
     public class Store : IStore
     {
-        readonly EngineSettings _settings;
+        readonly ShellSettings _settings;
         readonly IServiceProvider _serviceProvider;
 
         DbContextOptionsBuilder _cachedOptionsBuilder;
@@ -19,7 +19,7 @@ namespace Seed.Data
         public Store(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
-            _settings = serviceProvider.GetService<EngineSettings>();
+            _settings = serviceProvider.GetService<ShellSettings>();
         }
 
         public IDbContext CreateDbContext(params object[] typeConfigs)
