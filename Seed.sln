@@ -12,19 +12,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{BD5C3C08-87E3-44FC-A428-46CD6B7610F3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedCore", "SeedCore", "{BD5C3C08-87E3-44FC-A428-46CD6B7610F3}"
 	ProjectSection(SolutionItems) = preProject
-		src\core\Directory.Build.props = src\core\Directory.Build.props
-		src\core\Directory.Build.targets = src\core\Directory.Build.targets
+		src\SeedCore\Directory.Build.props = src\SeedCore\Directory.Build.props
+		src\SeedCore\Directory.Build.targets = src\SeedCore\Directory.Build.targets
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Abstractions", "src\core\SeedCore.Abstractions\SeedCore.Abstractions.csproj", "{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Abstractions", "src\SeedCore\SeedCore.Abstractions\SeedCore.Abstractions.csproj", "{451F43F4-F53D-43EE-BCAF-F6463B7C7CB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore", "src\core\SeedCore\SeedCore.csproj", "{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore", "src\SeedCore\SeedCore\SeedCore.csproj", "{81375F7D-7156-4DFB-800C-A9E9E5B0E1EE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modules", "modules", "{F09AC6F7-710B-4434-BB98-B9600B68FA66}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SeedModules", "SeedModules", "{F09AC6F7-710B-4434-BB98-B9600B68FA66}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Setup", "src\modules\SeedModules.Setup\SeedModules.Setup.csproj", "{030D1EF8-616A-4F97-BA1E-3D91003A4390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Setup", "src\SeedModules\SeedModules.Setup\SeedModules.Setup.csproj", "{030D1EF8-616A-4F97-BA1E-3D91003A4390}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C388EE13-BA8C-4770-BFC9-40C91F555EED}"
 	ProjectSection(SolutionItems) = preProject
@@ -36,9 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{C388EE13
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "targets", "targets", "{DDC4C90E-5577-46F9-BFB6-34A753A259A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Application", "src\targets\SeedTargets.Application\SeedTargets.Application.csproj", "{5866C646-DA81-474C-A311-DF759361B7F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Application", "src\SeedTargets\SeedTargets.Application\SeedTargets.Application.csproj", "{5866C646-DA81-474C-A311-DF759361B7F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Web", "src\targets\SeedTargets.Web\SeedTargets.Web.csproj", "{66455674-0168-4F02-87E3-B9831432487E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Web", "src\SeedTargets\SeedTargets.Web\SeedTargets.Web.csproj", "{66455674-0168-4F02-87E3-B9831432487E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

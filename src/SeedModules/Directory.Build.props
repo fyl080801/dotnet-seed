@@ -1,0 +1,10 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Project="..\SeedBuilds\SeedCore.Commons.props" />
+  <Import Project="..\SeedTargets\SeedTargets.Module\SeedTargets.Module.props" />
+
+  <PropertyGroup>
+    <DebugType>embedded</DebugType>
+    <EmbedAllSources>true</EmbedAllSources>
+  </PropertyGroup>
+</Project>

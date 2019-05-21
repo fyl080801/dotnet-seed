@@ -15,9 +15,9 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Import Project="..\targets\SeedTargets.Application\SeedTargets.Application.targets" />
-    <Import Project="..\..\build\SeedCore.Commons.targets" />
-  </ItemGroup>
+  <!-- <ItemGroup>
+    <Import Project="..\SeedTargets\SeedTargets.Application\SeedTargets.Application.targets" />
+    <Import Project="..\SeedBuilds\SeedCore.Commons.targets" />
+  </ItemGroup> -->
 
 </Project>
