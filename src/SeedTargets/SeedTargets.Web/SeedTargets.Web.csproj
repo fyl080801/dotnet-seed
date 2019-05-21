@@ -8,7 +8,4 @@
     <ProjectReference Include="..\SeedTargets.Application\SeedTargets.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="SeedTargets.Web.targets" />
-  </ItemGroup>
 </Project>

@@ -5,7 +5,4 @@
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="SeedTargets.Application.targets" />
-  </ItemGroup>
 </Project>

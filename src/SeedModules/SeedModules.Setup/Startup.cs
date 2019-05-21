@@ -1,10 +1,9 @@
 ﻿using System;
+using SeedCore.Modules;
+
 namespace SeedModules.Setup
 {
-    public class Startup
+    public class Startup : StartupBase
     {
-        public Startup()
-        {
-        }
     }
 }

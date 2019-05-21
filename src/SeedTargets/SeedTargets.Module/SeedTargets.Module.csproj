@@ -7,8 +7,6 @@
 
   <!-- Add the SeedCore.Module.props file in the package -->
   <ItemGroup>
-    <None Remove="Package.Build.props" />
-    <None Remove="SeedTargets.Module.props" />
-    <None Remove="SeedTargets.Module.targets" />
+    <ProjectReference Include="..\..\SeedCore\SeedCore.Abstractions\SeedCore.Abstractions.csproj" />
   </ItemGroup>
 </Project>
