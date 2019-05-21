@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using SeedCore.Shell.Descriptor;
 using SeedCore.Shell.Descriptor.Models;
 
-namespace OrchardCore.Environment.Shell.Data.Descriptors
+namespace SeedCore.Infrastructure.Shell
 {
     /// <summary>
     /// Implements <see cref="IShellDescriptorManager"/> by providing the list of features store in the database. 

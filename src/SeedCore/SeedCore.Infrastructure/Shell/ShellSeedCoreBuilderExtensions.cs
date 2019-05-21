@@ -1,12 +1,12 @@
 using Microsoft.Extensions.Options;
-using OrchardCore.Environment.Shell.Data.Descriptors;
+using SeedCore.Infrastructure.Shell;
 using SeedCore.Shell;
 using SeedCore.Shell.Configuration;
 using SeedCore.Shell.Descriptor;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    public static class ShellOrchardCoreBuilderExtensions
+    public static class ShellSeedCoreBuilderExtensions
     {
         /// <summary>
         /// Adds services at the host level to load site settings from the file system
