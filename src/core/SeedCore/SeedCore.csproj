@@ -3,4 +3,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <RootNamespace>SeedCore</RootNamespace>
     </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\SeedCore.Abstractions\SeedCore.Abstractions.csproj" />
+    </ItemGroup>
 </Project>

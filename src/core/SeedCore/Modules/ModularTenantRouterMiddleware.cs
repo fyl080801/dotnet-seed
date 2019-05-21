@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Builder.Internal;
 using Microsoft.AspNetCore.Hosting;
@@ -11,14 +5,16 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SeedCore.Hosting.ShellBuilders;
+using SeedCore.Shell.Builders;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SeedCore.Modules
 {
-    /// <summary>
-    /// Handles a request by forwarding it to the tenant specific <see cref="IRouter"/> instance.
-    /// It also initializes the middlewares for the requested tenant on the first request.
-    /// </summary>
     public class ModularTenantRouterMiddleware
     {
         private readonly IFeatureCollection _features;

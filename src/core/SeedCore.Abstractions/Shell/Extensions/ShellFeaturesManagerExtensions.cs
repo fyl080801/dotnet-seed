@@ -1,6 +1,6 @@
+using SeedCore.Addon.Features;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SeedCore.Extensions.Features;
 
 namespace SeedCore.Shell
 {

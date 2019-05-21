@@ -1,6 +1,6 @@
+using Microsoft.Extensions.FileProviders;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Extensions.FileProviders;
 
 namespace SeedCore.Modules.FileProviders
 {

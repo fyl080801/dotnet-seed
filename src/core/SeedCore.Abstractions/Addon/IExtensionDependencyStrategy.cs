@@ -1,4 +1,4 @@
-﻿using SeedCore.Environment.Extensions.Features;
+﻿using SeedCore.Addon.Features;
 
 namespace SeedCore.Addon
 {

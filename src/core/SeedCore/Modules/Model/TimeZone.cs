@@ -1,6 +1,6 @@
-using NodaTime;
 
-namespace SeedCore.Modules
+
+namespace SeedCore.Modules.Model
 {
     public class TimeZone : ITimeZone
     {

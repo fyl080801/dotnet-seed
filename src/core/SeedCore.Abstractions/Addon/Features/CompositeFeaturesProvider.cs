@@ -1,7 +1,7 @@
+using SeedCore.Addon.Manifests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SeedCore.Modules;
 
 namespace SeedCore.Addon.Features
 {
@@ -22,12 +22,10 @@ namespace SeedCore.Addon.Features
             _featuresProviders = featuresProviders.ToArray();
         }
 
-        public IEnumerable<IFeatureInfo> GetFeatures(
-            IExtensionInfo extensionInfo,
-            IManifestInfo manifestInfo)
+        public IEnumerable<IFeatureInfo> GetFeatures(IExtensionInfo extensionInfo, IManifestInfo manifestInfo)
         {
             List<IFeatureInfo> featureInfos =
-                new List<IFeatureInfo>();
+               new List<IFeatureInfo>();
 
             foreach (var provider in _featuresProviders)
             {

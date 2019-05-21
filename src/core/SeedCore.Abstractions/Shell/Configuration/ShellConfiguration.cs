@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using SeedCore.Shell.Configuration.Internal;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SeedCore.Shell.Configuration
 {

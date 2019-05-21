@@ -1,3 +1,5 @@
+using SeedCore.Addon.Features;
+using SeedCore.Addon.Manifests;
 using System.Collections.Generic;
 using System.Linq;
 

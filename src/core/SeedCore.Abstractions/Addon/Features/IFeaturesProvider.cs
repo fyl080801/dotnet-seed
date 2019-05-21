@@ -1,3 +1,4 @@
+using SeedCore.Addon.Manifests;
 using System.Collections.Generic;
 
 namespace SeedCore.Addon.Features

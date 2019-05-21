@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -14,24 +11,23 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using SeedCore;
-using SeedCore.Environment.Extensions;
-using SeedCore.Environment.Shell;
-using SeedCore.Environment.Shell.Configuration;
-using SeedCore.Environment.Shell.Descriptor.Models;
+using SeedCore.Addon;
 using SeedCore.Localization;
 using SeedCore.Modules;
+using SeedCore.Modules.Services;
+using SeedCore.Shell;
+using SeedCore.Shell.Configuration;
+using SeedCore.Shell.Descriptor.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        /// <summary>
-        /// Adds SeedCore services to the host service collection.
-        /// </summary>
         public static SeedCoreBuilder AddSeedCore(this IServiceCollection services)
         {
-            // If an instance of SeedCoreBuilder exists reuse it,
-            // so we can call AddSeedCore several times.
             var builder = services
                 .LastOrDefault(d => d.ServiceType == typeof(SeedCoreBuilder))?
                 .ImplementationInstance as SeedCoreBuilder;
@@ -81,7 +77,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IPoweredByMiddlewareOptions, PoweredByMiddlewareOptions>();
             services.AddTransient<IModularTenantRouteBuilder, ModularTenantRouteBuilder>();
 
-            services.AddScoped<IOrchardHelper, DefaultOrchardHelper>();
+            services.AddScoped<ISeedHelper, DefaultSeedHelper>();
         }
 
         private static void AddShellServices(IServiceCollection services)

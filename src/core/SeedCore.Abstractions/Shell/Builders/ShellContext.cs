@@ -1,13 +1,11 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using SeedCore.Modules;
+using SeedCore.Shell.Builders.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using SeedCore.Environment.Shell;
-using SeedCore.Environment.Shell.Builders.Models;
-using SeedCore.Environment.Shell.Models;
-using SeedCore.Modules;
 
 namespace SeedCore.Shell.Builders
 {

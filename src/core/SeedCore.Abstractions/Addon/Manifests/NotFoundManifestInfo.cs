@@ -1,7 +1,7 @@
+using SeedCore.Modules.Manifest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SeedCore.Modules.Manifest;
 
 namespace SeedCore.Addon.Manifests
 {

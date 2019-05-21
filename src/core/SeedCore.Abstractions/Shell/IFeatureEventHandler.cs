@@ -1,4 +1,5 @@
-using SeedCore.Extensions.Features;
+using SeedCore.Addon.Features;
+
 namespace SeedCore.Shell
 {
     public interface IFeatureEventHandler

@@ -1,5 +1,7 @@
-using System.IO;
+using SeedCore.Addon.Features;
+using SeedCore.Addon.Manifests;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace SeedCore.Addon

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using SeedCore.Shell.Builders.Models;
+using SeedCore.Shell.Descriptor.Models;
+using System.Threading.Tasks;
 
 namespace SeedCore.Shell.Builders
 {

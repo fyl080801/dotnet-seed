@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using NodaTime;
 
-namespace SeedCore.Modules
+namespace SeedCore.Modules.Services
 {
     public class LocalClock : ILocalClock
     {

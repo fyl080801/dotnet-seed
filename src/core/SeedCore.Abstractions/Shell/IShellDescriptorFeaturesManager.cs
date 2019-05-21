@@ -1,7 +1,7 @@
+using SeedCore.Addon.Features;
+using SeedCore.Shell.Descriptor.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SeedCore.Extensions.Features;
-using SeedCore.Shell.Descriptor.Models;
 
 namespace SeedCore.Shell
 {

@@ -1,17 +1,12 @@
 using System;
 using System.Linq;
-using NodaTime;
-using NodaTime.TimeZones;
 
-namespace SeedCore.Modules
+namespace SeedCore.Modules.Services
 {
     public class Clock : IClock
     {
         private static Instant CurrentInstant => SystemClock.Instance.GetCurrentInstant();
 
-        /// <summary>
-        /// Returns a Datetime Kind.Utc that is "Now"
-        /// </summary>
         /// <inheritdoc />
         public DateTime UtcNow => CurrentInstant.ToDateTimeUtc();
 

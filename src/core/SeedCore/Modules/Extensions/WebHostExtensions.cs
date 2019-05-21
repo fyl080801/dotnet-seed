@@ -1,17 +1,13 @@
-﻿using System;
-using System.Threading;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading;
 
 namespace SeedCore.Modules
 {
     public static class WebHostExtensions
     {
-        /// <summary>
-        /// Runs a web application and block the calling thread until host shutdown.
-        /// </summary>
-        /// <param name="host">The <see cref="IWebHost"/> to run.</param>
         public static void Run(this IWebHost host, Action<IServiceProvider> action)
         {
             using (var cts = new CancellationTokenSource())
@@ -20,11 +16,6 @@ namespace SeedCore.Modules
             }
         }
 
-        /// <summary>
-        /// Runs a web application and block the calling thread until token is triggered or shutdown is triggered.
-        /// </summary>
-        /// <param name="host">The <see cref="IWebHost"/> to run.</param>
-        /// <param name="token">The token to trigger shutdown.</param>
         public static void Run(this IWebHost host, Action<IServiceProvider> action, CancellationToken token)
         {
             host.Run(action, token, shutdownMessage: null);

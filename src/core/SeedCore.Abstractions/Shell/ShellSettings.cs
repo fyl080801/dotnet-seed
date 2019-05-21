@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using SeedCore.Environment.Shell.Configuration;
-using SeedCore.Environment.Shell.Models;
+using SeedCore.Shell.Configuration;
+using SeedCore.Shell.Models;
 
 namespace SeedCore.Shell
 {

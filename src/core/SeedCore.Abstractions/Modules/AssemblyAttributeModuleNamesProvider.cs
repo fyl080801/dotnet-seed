@@ -1,8 +1,8 @@
+using Microsoft.AspNetCore.Hosting;
+using SeedCore.Modules.Manifest;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Microsoft.AspNetCore.Hosting;
-using SeedCore.Modules.Manifest;
 
 namespace SeedCore.Modules
 {

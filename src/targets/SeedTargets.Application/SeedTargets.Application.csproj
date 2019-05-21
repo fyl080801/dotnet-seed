@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../core/SeedCore/SeedCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="SeedTargets.Application.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)SeedTargets.Application.targets</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

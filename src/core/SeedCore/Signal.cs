@@ -2,11 +2,8 @@
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace SeedCore.Environment.Cache
+namespace SeedCore
 {
-    /// <summary>
-    /// This component is a singleton and holds all the existing signal token for a tenant.
-    /// </summary>
     public class Signal : ISignal
     {
         private readonly ConcurrentDictionary<string, ChangeTokenInfo> _changeTokens;

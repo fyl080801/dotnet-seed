@@ -1,5 +1,4 @@
 ﻿using System;
-using SeedCore.Environment.Extensions.Features;
 
 namespace SeedCore.Addon.Features
 {

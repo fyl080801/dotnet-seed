@@ -1,4 +1,4 @@
-﻿using SeedCore.Environment.Shell.Models;
+﻿using SeedCore.Shell.Models;
 
 namespace SeedCore.Shell
 {

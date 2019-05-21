@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using SeedCore.Shell.State;
+﻿using SeedCore.Shell.State;
+using System.Threading.Tasks;
 
 namespace SeedCore.Shell
 {

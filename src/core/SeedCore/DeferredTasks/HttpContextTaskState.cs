@@ -5,10 +5,6 @@ using Microsoft.AspNetCore.Http;
 
 namespace SeedCore.DeferredTasks
 {
-    /// <summary>
-    /// Maintains a list of tasks by using the active <see cref="HttpContext.Items"/> property
-    /// as storage.
-    /// </summary>
     public class HttpContextTaskState : IDeferredTaskState
     {
         private readonly static object Key = typeof(HttpContextTaskState);

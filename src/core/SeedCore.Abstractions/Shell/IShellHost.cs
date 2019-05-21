@@ -1,7 +1,7 @@
+using Microsoft.Extensions.DependencyInjection;
+using SeedCore.Shell.Builders;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using SeedCore.Hosting.ShellBuilders;
 
 namespace SeedCore.Shell
 {

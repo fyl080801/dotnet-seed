@@ -1,7 +1,6 @@
-﻿using System;
+﻿using SeedCore.Shell.Descriptor.Models;
+using System;
 using System.Collections.Generic;
-using SeedCore.Environment.Shell.Descriptor.Models;
-using SeedCore.Environment.Extensions.Features;
 
 namespace SeedCore.Shell.Builders.Models
 {

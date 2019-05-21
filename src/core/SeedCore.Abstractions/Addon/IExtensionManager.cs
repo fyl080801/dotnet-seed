@@ -1,7 +1,7 @@
-using SeedCore.Environment.Extensions.Features;
-using SeedCore.Environment.Extensions.Loaders;
-using System.Threading.Tasks;
+using SeedCore.Addon.Features;
+using SeedCore.Addon.Loaders;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SeedCore.Addon
 {

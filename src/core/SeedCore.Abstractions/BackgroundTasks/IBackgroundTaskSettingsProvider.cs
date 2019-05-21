@@ -1,6 +1,5 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Primitives;
+using System.Threading.Tasks;
 
 namespace SeedCore.BackgroundTasks
 {

@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -11,9 +5,15 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using SeedCore.BackgroundTasks;
-using SeedCore.Environment.Shell;
-using SeedCore.Environment.Shell.Models;
-using SeedCore.Hosting.ShellBuilders;
+using SeedCore.Shell;
+using SeedCore.Shell.Builders;
+using SeedCore.Shell.Models;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SeedCore.Modules
 {
