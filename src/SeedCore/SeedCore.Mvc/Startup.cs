@@ -21,7 +21,7 @@ namespace SeedCore.Mvc
         readonly static IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions());
         readonly IServiceProvider _serviceProvider;
 
-        public override int Order => -100;
+        public override int Order => -200;
 
         public Startup(IServiceProvider serviceProvider)
         {
@@ -41,7 +41,8 @@ namespace SeedCore.Mvc
             builder.SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             services.AddModularRazorPages();
-            // AddModularFrameworkParts(_serviceProvider, builder.PartManager);
+
+            AddModularFrameworkParts(_serviceProvider, builder.PartManager);
 
             builder.AddViewLocalization();
             builder.AddDataAnnotationsLocalization();
@@ -52,6 +53,13 @@ namespace SeedCore.Mvc
             services.AddSingleton<IViewCompilationMemoryCacheProvider>(new RazorViewCompilationMemoryCacheProvider());
 
             AddMvcModuleCoreServices(services);
+        }
+
+        private void AddModularFrameworkParts(IServiceProvider services, ApplicationPartManager manager)
+        {
+            var httpContextAccessor = services.GetRequiredService<IHttpContextAccessor>();
+            // manager.ApplicationParts.Insert(0, new ShellFeatureApplicationPart(httpContextAccessor));
+            manager.FeatureProviders.Add(new ShellViewFeatureProvider(httpContextAccessor));
         }
 
         internal static void AddMvcModuleCoreServices(IServiceCollection services)
