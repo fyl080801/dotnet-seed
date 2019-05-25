@@ -4,22 +4,21 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TieredCompilation>true</TieredCompilation>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SeedTargets\SeedTargets.Web\SeedTargets.Web.csproj" />
+    <ProjectReference Include="..\SeedTargets\SeedTargets.Saas\SeedTargets.Saas.csproj" />
   </ItemGroup>
 
   <!-- Necessary as we reference the Project and not the Package -->
+  <Import Project="..\SeedTargets\SeedTargets.Saas\SeedTargets.Saas.targets" />
   <Import Project="..\SeedTargets\SeedTargets.Application\SeedTargets.Application.targets" />
   <Import Project="..\SeedBuilds\SeedCore.Commons.targets" />
   

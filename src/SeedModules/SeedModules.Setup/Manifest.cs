@@ -1,7 +1,7 @@
 ﻿using SeedCore.Modules.Manifest;
 
 [assembly: Module(
-    Name = "SeedModules.Setup",
+    Name = "Setup",
     Author = "fyl080801",
     Website = "https://www.fyl080801.top",
     Version = "0.0.1",

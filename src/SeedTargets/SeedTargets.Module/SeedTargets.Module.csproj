@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -6,6 +6,18 @@
   </PropertyGroup>
 
   <!-- Add the SeedCore.Module.props file in the package -->
+  <ItemGroup>
+    <None Include="SeedTargets.Module.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\SeedTargets.Module.props</PackagePath>
+    </None>
+    <None Include="SeedTargets.Module.targets" Pack="true">
+      <PackagePath>build\$(TargetFramework)\SeedTargets.Module.targets</PackagePath>
+    </None>
+    <None Include="Package.Build.props" Pack="true">
+      <PackagePath>build\$(TargetFramework)\Package.Build.props</PackagePath>
+    </None>
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\..\SeedCore\SeedCore.Abstractions\SeedCore.Abstractions.csproj" />
   </ItemGroup>

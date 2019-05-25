@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SeedCore.Setup;
 using SeedCore.Shell;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,18 @@ namespace SeedModules.Setup.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        readonly ISetupService _setupService;
+
+        public HomeController(ISetupService setupService)
         {
-            return Content("aaa");
+            _setupService = setupService;
+        }
+
+        public ActionResult Index(string token)
+        {
+            var x = _setupService.ToString();
+            Console.WriteLine(x);
+            return Content("aaaa");
         }
     }
 }

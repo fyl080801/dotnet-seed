@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using SeedCore.Modules;
+using System;
 
 namespace SeedModules.Setup
 {
@@ -10,6 +10,7 @@ namespace SeedModules.Setup
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddSetup();
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
