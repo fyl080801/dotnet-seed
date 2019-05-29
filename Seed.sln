@@ -55,13 +55,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Mvc", "src\SeedCor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedModules.Recipes", "src\SeedModules\SeedModules.Recipes\SeedModules.Recipes.csproj", "{1A905009-2874-479D-8725-F2B532C3B9CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Setup.Abstractions", "src\SeedCore\SeedCore.Setup.Abstractions\SeedCore.Setup.Abstractions.csproj", "{45483478-1A3D-4B59-9129-1D5C4DA78E37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Setup.Abstractions", "src\SeedCore\SeedCore.Setup.Abstractions\SeedCore.Setup.Abstractions.csproj", "{45483478-1A3D-4B59-9129-1D5C4DA78E37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Setup", "src\SeedCore\SeedCore.Setup\SeedCore.Setup.csproj", "{D8CADF06-3F31-4A69-8DEF-B1858A48776C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedCore.Setup", "src\SeedCore\SeedCore.Setup\SeedCore.Setup.csproj", "{D8CADF06-3F31-4A69-8DEF-B1858A48776C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Mvc", "src\SeedTargets\SeedTargets.Mvc\SeedTargets.Mvc.csproj", "{477043BC-F76D-4013-B12E-BBA6CA6515EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Mvc", "src\SeedTargets\SeedTargets.Mvc\SeedTargets.Mvc.csproj", "{477043BC-F76D-4013-B12E-BBA6CA6515EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedTargets.Saas", "src\SeedTargets\SeedTargets.Saas\SeedTargets.Saas.csproj", "{528B53FE-CD7E-4187-AB80-17C6A5654BB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeedTargets.Saas", "src\SeedTargets\SeedTargets.Saas\SeedTargets.Saas.csproj", "{528B53FE-CD7E-4187-AB80-17C6A5654BB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Recipes.Abstractions", "src\SeedCore\SeedCore.Recipes.Abstractions\SeedCore.Recipes.Abstractions.csproj", "{FDDC1B66-4CF8-421E-A27E-93AF291E3BB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeedCore.Recipes", "src\SeedCore\SeedCore.Recipes\SeedCore.Recipes.csproj", "{41EC3A7B-CD4B-4168-8C7E-E198FC4E63C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +137,14 @@ Global
 		{528B53FE-CD7E-4187-AB80-17C6A5654BB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{528B53FE-CD7E-4187-AB80-17C6A5654BB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{528B53FE-CD7E-4187-AB80-17C6A5654BB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDDC1B66-4CF8-421E-A27E-93AF291E3BB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDDC1B66-4CF8-421E-A27E-93AF291E3BB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDDC1B66-4CF8-421E-A27E-93AF291E3BB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDDC1B66-4CF8-421E-A27E-93AF291E3BB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41EC3A7B-CD4B-4168-8C7E-E198FC4E63C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41EC3A7B-CD4B-4168-8C7E-E198FC4E63C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41EC3A7B-CD4B-4168-8C7E-E198FC4E63C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41EC3A7B-CD4B-4168-8C7E-E198FC4E63C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +170,8 @@ Global
 		{D8CADF06-3F31-4A69-8DEF-B1858A48776C} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
 		{477043BC-F76D-4013-B12E-BBA6CA6515EF} = {8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C}
 		{528B53FE-CD7E-4187-AB80-17C6A5654BB1} = {8F6E79AC-EBF0-47B2-8E86-418BDCE3F68C}
+		{FDDC1B66-4CF8-421E-A27E-93AF291E3BB7} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
+		{41EC3A7B-CD4B-4168-8C7E-E198FC4E63C2} = {BD5C3C08-87E3-44FC-A428-46CD6B7610F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {103E5205-1588-47A7-8F86-693367C858B2}

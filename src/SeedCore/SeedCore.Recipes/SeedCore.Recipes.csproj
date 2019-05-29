@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.FileSystemGlobbing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SeedCore.Infrastructure.Abstractions\SeedCore.Infrastructure.Abstractions.csproj" />
+    <ProjectReference Include="..\SeedCore.Recipes.Abstractions\SeedCore.Recipes.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

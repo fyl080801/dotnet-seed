@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -21,6 +18,9 @@ using SeedCore.Modules.Services;
 using SeedCore.Shell;
 using SeedCore.Shell.Configuration;
 using SeedCore.Shell.Descriptor.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
