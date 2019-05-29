@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Security\wnj544vd.4hv~" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SeedCore.Data.Abstractions\SeedCore.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\SeedCore.Infrastructure\SeedCore.Infrastructure.csproj" />
+    <ProjectReference Include="..\SeedCore.MemberShip.Abstractions\SeedCore.MemberShip.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

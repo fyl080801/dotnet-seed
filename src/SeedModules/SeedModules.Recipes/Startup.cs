@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using SeedCore.Modules;
 using SeedModules.Recipes.RecipeSteps;
+using System;
 
 namespace SeedModules.Recipes
 {
@@ -11,6 +14,11 @@ namespace SeedModules.Recipes
             services.AddRecipes();
 
             services.AddRecipeExecutionStep<RecipesStep>();
+        }
+
+        public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
+        {
+
         }
     }
 }

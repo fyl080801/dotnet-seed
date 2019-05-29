@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SeedCore\SeedCore.MemberShip.Abstractions\SeedCore.MemberShip.Abstractions.csproj" />
+    <ProjectReference Include="..\..\SeedCore\SeedCore.Recipes.Abstractions\SeedCore.Recipes.Abstractions.csproj" />
+    <ProjectReference Include="..\..\SeedTargets\SeedTargets.Module\SeedTargets.Module.csproj" />
+  </ItemGroup>
+
+</Project>

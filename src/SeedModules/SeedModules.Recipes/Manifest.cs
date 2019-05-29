@@ -6,9 +6,9 @@
     Website = "",
     Version = "1.0.0",
     Description = "",
-    //Dependencies = new[]
-    //{
-    //    "SeedCore.Features"
-    //},
+    Dependencies = new[]
+    {
+        "SeedModules.Features"
+    },
     Category = "基础功能"
 )]

@@ -1,6 +1,6 @@
+using Microsoft.Extensions.Primitives;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.Primitives;
 
 namespace System.IO
 {
@@ -10,9 +10,6 @@ namespace System.IO
         private const string CurrentDirectoryToken = ".";
         private const string ParentDirectoryToken = "..";
      
-        /// <summary>
-        /// Combines two path parts
-        /// </summary>
         public static string Combine(string path, string other = null)
         {
             if (String.IsNullOrWhiteSpace(other))
@@ -43,9 +40,6 @@ namespace System.IO
             return result;
         }
 
-        /// <summary>
-        /// Combines multiple path parts
-        /// </summary>
         public static string Combine(string path, params string[] others)
         {
             string result = path;
@@ -58,9 +52,6 @@ namespace System.IO
             return result;
         }
 
-        /// <summary>
-        /// Resolves relative segments in a path
-        /// </summary>
         public static string ResolvePath(string path)
         {
             var pathSegment = new StringSegment(path);

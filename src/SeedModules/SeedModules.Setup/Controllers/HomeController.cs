@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SeedCore.Setup;
-using SeedCore.Shell;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SeedModules.Setup.Controllers
 {
@@ -16,10 +12,8 @@ namespace SeedModules.Setup.Controllers
             _setupService = setupService;
         }
 
-        public ActionResult Index(string token)
+        public ActionResult Index()
         {
-            var x = _setupService.ToString();
-            Console.WriteLine(x);
             return Content("aaaa");
         }
     }
