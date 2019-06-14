@@ -9,7 +9,7 @@
         <LangVersion>latest</LangVersion>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <DebugType>portable</DebugType>
-        <NetStandardImplicitPackageVersion>2.0.0-*</NetStandardImplicitPackageVersion>
+        <!--<NetStandardImplicitPackageVersion>2.0.0-*</NetStandardImplicitPackageVersion>-->
         <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
         <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
         <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
