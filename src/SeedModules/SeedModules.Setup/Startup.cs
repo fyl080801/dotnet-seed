@@ -16,6 +16,11 @@ namespace SeedModules.Setup
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddSetup();
+
+            // services.AddSpaStaticFiles(configuration =>
+            // {
+            //     configuration.RootPath = "../SeedModules/SeedModules.Setup/wwwroot/ClientApp/build";
+            // });
         }
 
         public override void Configure(IApplicationBuilder app, IRouteBuilder routes, IServiceProvider serviceProvider)
@@ -27,12 +32,15 @@ namespace SeedModules.Setup
                 defaults: new { controller = "Home", action = "Index" }
             );
 
+            // app.UseSpaStaticFiles(new StaticFileOptions() { });
+
             app.UseSpa(spa =>
             {
+                // react开发服务只能从相对路径加载
+                spa.Options.SourcePath = "../SeedModules/SeedModules.Setup/wwwroot/ClientApp";
+
                 if (serviceProvider.GetService<IHostingEnvironment>().IsDevelopment())
                 {
-                    // react开发服务只能从相对路径加载
-                    spa.Options.SourcePath = "../SeedModules/SeedModules.Setup/wwwroot/ClientApp";
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });

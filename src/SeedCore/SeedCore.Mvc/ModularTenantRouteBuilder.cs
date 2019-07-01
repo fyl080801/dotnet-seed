@@ -28,7 +28,7 @@ namespace SeedCore.Mvc
 
             builder.Routes.Add(new Route(
                 builder.DefaultHandler,
-                "Default",
+                "default",
                 "{area:exists}/{controller}/{action}/{id?}",
                 null,
                 null,
