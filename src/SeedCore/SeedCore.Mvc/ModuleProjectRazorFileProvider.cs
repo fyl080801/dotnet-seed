@@ -10,6 +10,9 @@ using System.Linq;
 
 namespace SeedCore.Mvc
 {
+    /// <summary>
+    /// 用于开发环境下定位 Razor 视图
+    /// </summary>
     public class ModuleProjectRazorFileProvider : IFileProvider
     {
         private static IList<IFileProvider> _pageFileProviders;
@@ -32,18 +35,17 @@ namespace SeedCore.Mvc
                     _pageFileProviders = new List<IFileProvider>();
                     var roots = new Dictionary<string, string>();
 
-                    // Resolve all module projects roots.
                     foreach (var module in application.Modules)
                     {
-                        // If the module and the application assemblies are not at the same location,
-                        // this means that the module is referenced as a package, not as a project in dev.
+                        // 如果模块和应用的程序集不在一个目录
+                        // 通过包引用进来的
                         if (module.Assembly == null || Path.GetDirectoryName(module.Assembly.Location)
                             != Path.GetDirectoryName(application.Assembly.Location))
                         {
                             continue;
                         }
 
-                        // Get module assets which are razor files.
+                        // 获得模块 asset 中的视图
                         var assets = module.Assets.Where(a => a.ModuleAssetPath
                             .EndsWith(".cshtml", StringComparison.Ordinal));
 
