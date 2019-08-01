@@ -33,20 +33,20 @@ namespace SeedModules.Setup
                 defaults: new { controller = "Home", action = "Index" }
             );
 
-            app.MapWhen((context) =>
-                {
-                    return context.Request.Path.StartsWithSegments("/spa");
-                }, appbuilder =>
-                {
-                    appbuilder.UseSeedSpa(spa =>
-                            {
-                                spa.Options.SourcePath = "../SeedModules/SeedModules.Setup/wwwroot/ClientApp";
-                                if (serviceProvider.GetService<IHostingEnvironment>().IsDevelopment())
-                                {
-                                    spa.UseSeedSpaDevelopmentServer(npmScript: "start");
-                                }
-                            });
-                });
+            // app.MapWhen((context) =>
+            //     {
+            //         return context.Request.Path.StartsWithSegments("/spa");
+            //     }, appbuilder =>
+            //     {
+            //         appbuilder.UseSeedSpa(spa =>
+            //                 {
+            //                     spa.Options.SourcePath = "../SeedModules/SeedModules.Setup/wwwroot/ClientApp";
+            //                     if (serviceProvider.GetService<IHostingEnvironment>().IsDevelopment())
+            //                     {
+            //                         spa.UseSeedSpaDevelopmentServer(npmScript: "start");
+            //                     }
+            //                 });
+            //     });
 
 
 

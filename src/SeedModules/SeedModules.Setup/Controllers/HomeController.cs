@@ -12,9 +12,9 @@ namespace SeedModules.Setup.Controllers
             _setupService = setupService;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            return Content("aaaa");
+            return this.Spa(null);
         }
     }
 }
