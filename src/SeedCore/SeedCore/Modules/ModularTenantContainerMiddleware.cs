@@ -12,7 +12,7 @@ using SeedCore.Shell.Models;
 namespace SeedCore.Modules
 {
     /// <summary>
-    /// This middleware replaces the default service provider by the one for the current tenant
+    /// 为当前租户替换services作用域
     /// </summary>
     public class ModularTenantContainerMiddleware
     {
@@ -33,19 +33,19 @@ namespace SeedCore.Modules
 
         public async Task Invoke(HttpContext httpContext)
         {
-            // Ensure all ShellContext are loaded and available.
+            // 先确定上下文是否已经初始化
             await _shellHost.InitializeAsync();
 
             var shellSettings = _runningShellTable.Match(httpContext);
 
-            // We only serve the next request if the tenant has been resolved.
+            // 如果租户已经初始化，只处理下一个有效的租户
             if (shellSettings != null)
             {
                 if (shellSettings.State == TenantState.Initializing)
                 {
                     httpContext.Response.Headers.Add(HeaderNames.RetryAfter, "10");
                     httpContext.Response.StatusCode = StatusCodes.Status503ServiceUnavailable;
-                    await httpContext.Response.WriteAsync("The requested tenant is currently initializing.");
+                    await httpContext.Response.WriteAsync("租户请求当前正初始化");
                     return;
                 }
 
@@ -67,7 +67,7 @@ namespace SeedCore.Modules
 
                         try
                         {
-                            // The tenant gets activated here
+                            // 租户是激活的
                             if (!shellContext.IsActivated)
                             {
                                 using (var activatingScope = await _shellHost.GetScopeAsync(shellSettings))
@@ -100,7 +100,7 @@ namespace SeedCore.Modules
                     hasPendingTasks = deferredTaskEngine?.HasPendingTasks ?? false;
                 }
 
-                // Create a new scope only if there are pending tasks
+                // 只要有待处理的进程，就创建一个新的作用域
                 if (hasPendingTasks)
                 {
                     using (var pendingScope = await _shellHost.GetScopeAsync(shellSettings))

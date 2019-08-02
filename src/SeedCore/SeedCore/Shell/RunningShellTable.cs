@@ -63,7 +63,7 @@ namespace SeedCore.Shell
             _lock.EnterReadLock();
             try
             {
-                // Specific match?
+                // 匹配特殊的shell信息
                 if(TryMatchInternal(host, appRelativePath, fallbackToDefault, out ShellSettings result))
                 {
                     return result;
@@ -77,13 +77,13 @@ namespace SeedCore.Shell
                     return result;
                 }
 
-                // Check if the Default tenant is a catch-all
+                // 默认
                 if (fallbackToDefault && DefaultIsCatchAll())
                 {
                     return _default;
                 }
 
-                // Search for another catch-all 
+                // 无匹配 
                 if (fallbackToDefault && TryMatchInternal("", "/", fallbackToDefault, out result))
                 {
                     return result;

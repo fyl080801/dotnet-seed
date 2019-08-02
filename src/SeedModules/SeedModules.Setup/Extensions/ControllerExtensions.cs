@@ -18,8 +18,6 @@ namespace SeedModules.Setup
             var serviceProvider = controller.HttpContext.RequestServices;
             var env = serviceProvider.GetService<IHostingEnvironment>();
             var shellSettings = serviceProvider.GetService<ShellSettings>();
-            // context.HttpContext.Response.Headers.Add("TenantName", shellSettings.Name);
-            // context.HttpContext.Response.Headers.Add("RequestUrlPrefix", shellSettings.RequestUrlPrefix);
 
             /** 
             需要解决的问题：
@@ -32,23 +30,19 @@ namespace SeedModules.Setup
 
             options里是否只写spa名称，在startup里注册spa服务?
 
-            - 需要的信息写到头信息里得了
              */
 
             if (env.IsDevelopment())
             {
-                // return SpaRedirect(controller, "http://invoice-uc.jdcloud.com:8080");
-                return controller.Redirect("http://invoice-uc.jdcloud.com:8080" + "");
+                return controller.Redirect($"http://localhost:3000/?tenant_name={shellSettings.Name}&url_prefix={shellSettings.RequestUrlPrefix}");
             }
             else
             {
+                /**
+                - 需要的信息写到头信息里得了
+                 */
                 return controller.View();
             }
-        }
-
-        public static IActionResult SpaRedirect(this Controller controller, string url)
-        {
-            return new SpaRedirectResult(url, true, true);
         }
     }
 }
